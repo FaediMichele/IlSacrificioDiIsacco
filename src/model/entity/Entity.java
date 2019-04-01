@@ -1,6 +1,7 @@
 package model.entity;
 
 import java.util.Optional;
+import model.component.Component;
 
 /**
  * The main interface for all the entities such as enemies, items and the player itself.
@@ -10,13 +11,13 @@ public interface Entity {
      * Attaches a {@link Component} to the Entity to describe its behavior.
      * @param c {@link Component} to attach to the Entity
      */
-    void attach(Object c);
+    void attach(Component c);
 
     /**
      * Detaches a {@link Component} from the Entity.
      * @param c {@link Component} to detach from the Entity
      */
-    void detach(Object c);
+    void detach(Component c);
 
     /**
      * Register the listener on the EventBus for the event objects.
@@ -38,32 +39,33 @@ public interface Entity {
 
     /**
      * Updates the Entity and all of its {@link Component}.
+     * @param deltaTime time passed from last update
      */
-    void update();
+    void update(double deltaTime);
 
     /**
      * Checks if the Entity has a certain kind of {@link Component}. 
      * @param c {@link Component} to search
      * @return true if the entity has the {@link Component} else false
      */
-    boolean has(Class<? extends Object> c);
+    boolean has(Class<? extends Component> c);
 
     /**
      * Gets the certain kind of {@link Component} from Entity. 
      * @param c {@link Component} to search
      * @return the {@link Component}
      */
-    Optional<Object> get(Class<? extends Object> c);
+    Optional<Component> get(Class<? extends Component> c);
 
     /**
      * Gets the current {@link PositionComponent} of the Entity.
      * @return the {@link PositionComponent} of the Entity
      */
-    Object getPosition();
+    Component getPosition();
 
     /**
      * Gets the {@link CollisionComponent} of the Entity.
      * @return the {@link CollisionComponent}
      */
-    Object getCollision();
+    Component getCollision();
 }

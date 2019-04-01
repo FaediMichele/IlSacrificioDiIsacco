@@ -3,6 +3,7 @@ package model.entity;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import model.component.Component;
 
 import com.google.common.eventbus.EventBus;
 
@@ -12,16 +13,17 @@ import com.google.common.eventbus.EventBus;
  */
 public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
-    private final Map<Class<? extends Object>, Object> componentsMap = new LinkedHashMap<>();
-    private final Object entityPosition;
-    private final Object entityCollision;
+    private final Map<Class<? extends Component>, Component> componentsMap = new LinkedHashMap<>();
+    private final Component entityPosition;
+    private final Component entityCollision;
 
     /**
      * Initialize the {@link PositionComponent} and the {@link CollisionComponent}.
      * @param entityPosition {@link PositionComponent}
      * @param entityCollision {@link CollisionComponent}
      */
-    public AbstractEntity(final Object entityPosition, final Object entityCollision) {
+    public AbstractEntity(final Component entityPosition, final Component entityCollision) {
+        super();
         this.entityPosition = entityPosition;
         this.entityCollision = entityCollision;
     }
@@ -29,7 +31,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public void attach(final Object c) {
+    public void attach(final Component c) {
         this.componentsMap.put(c.getClass(), c);
     }
 
@@ -37,7 +39,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public void detach(final Object c) {
+    public void detach(final Component c) {
         this.componentsMap.remove(c.getClass());
     }
 
@@ -69,15 +71,15 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public void update() {
-        //TODO
+    public void update(final double deltaTime) {
+        this.componentsMap.forEach((k, v) -> v.update(deltaTime));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean has(final Class<? extends Object> c) {
+    public boolean has(final Class<? extends Component> c) {
         return this.componentsMap.containsKey(c);
     }
 
@@ -85,7 +87,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Object> get(final Class<? extends Object> c) {
+    public Optional<Component> get(final Class<? extends Component> c) {
         if (has(c)) {
             return Optional.of(this.componentsMap.get(c));
         } else {
@@ -97,7 +99,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public Object getPosition() {
+    public Component getPosition() {
         return this.entityPosition;
     }
 
@@ -105,7 +107,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public Object getCollision() {
+    public Component getCollision() {
         return this.entityCollision;
     }
 
