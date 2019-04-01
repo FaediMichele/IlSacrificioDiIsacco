@@ -4,7 +4,6 @@ import model.Entity;
 
 /**
  * This represent a single part that composes an Entity.
- * @author asialucchi.
  *
  */
 
