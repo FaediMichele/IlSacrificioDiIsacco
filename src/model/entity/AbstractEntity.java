@@ -1,8 +1,11 @@
 package model.entity;
 
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
@@ -91,7 +94,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public Optional<Component> get(final Class<? extends Component> c) {
+  public Optional<Component> getComponent(final Class<? extends Component> c) {
       if (has(c)) {
           return Optional.of(this.componentsMap.get(c));
       } else {
@@ -99,6 +102,13 @@ public abstract class AbstractEntity implements Entity {
       }
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Set<Component> getComponents() {
+    return new HashSet<Component>(this.componentsMap.values());
+  }
   /**
    * {@inheritDoc}
    */

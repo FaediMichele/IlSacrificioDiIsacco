@@ -1,6 +1,8 @@
 package model.entity;
 
 import java.util.Optional;
+import java.util.Set;
+
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
@@ -57,7 +59,13 @@ public interface Entity {
    * @param c {@link Component} to search
    * @return the {@link Component}
    */
-  Optional<Component> get(Class<? extends Component> c);
+  Optional<Component> getComponent(Class<? extends Component> c);
+
+  /**
+   * Return the Set of all {@link Component}.
+   * @return the {@link Set}
+   */
+  Set<Component> getComponents();
 
   /**
    * Gets the current {@link PositionComponent} of the Entity.
