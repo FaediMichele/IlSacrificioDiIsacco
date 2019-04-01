@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import model.component.Component;
+import model.entity.events.Event;
+import model.entity.events.EventListener;
 
 import com.google.common.eventbus.EventBus;
 
@@ -26,6 +28,8 @@ public abstract class AbstractEntity implements Entity {
       super();
       this.entityPosition = entityPosition;
       this.entityCollision = entityCollision;
+      this.componentsMap.put(Component.class, entityPosition);
+      this.componentsMap.put(Component.class, entityCollision);
   }
   /**
    * {@inheritDoc}
@@ -47,7 +51,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void register(final Object eventListener) {
+  public void register(final EventListener eventListener) {
       this.eventBus.register(eventListener);
   }
 
@@ -55,7 +59,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void unregister(final Object eventListener) {
+  public void unregister(final EventListener eventListener) {
       this.eventBus.unregister(eventListener);
   }
 
@@ -63,7 +67,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void post(final Object event) {
+  public void post(final Event event) {
       this.eventBus.post(event);
   }
 

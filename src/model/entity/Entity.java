@@ -2,6 +2,8 @@ package model.entity;
 
 import java.util.Optional;
 import model.component.Component;
+import model.entity.events.Event;
+import model.entity.events.EventListener;
 
 /**
  * The main interface for all the entities such as enemies, items and the player itself.
@@ -23,19 +25,19 @@ public interface Entity {
    * Register the listener on the EventBus for the event objects.
    * @param eventListener the listener
    */
-  void register(Object eventListener);
+  void register(EventListener eventListener);
 
   /**
    * Unregister the listener on the EventBus.
    * @param eventListener the listener
    */
-  void unregister(Object eventListener);
+  void unregister(EventListener eventListener);
 
   /**
    * Trigger the event.
    * @param event the event
    */
-  void post(Object event);
+  void post(Event event);
 
   /**
    * Updates the Entity and all of its {@link Component}.
