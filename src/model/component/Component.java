@@ -1,6 +1,6 @@
 package model.component;
 
-import model.Entity;
+import model.entity.Entity;
 
 /**
  * This represent a single part that composes an Entity.

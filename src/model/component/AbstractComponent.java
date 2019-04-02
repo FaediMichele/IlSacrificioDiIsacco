@@ -1,6 +1,6 @@
 package model.component;
 
-import model.Entity;
+import model.entity.Entity;
 
 /**
  * Generic fields and methods neeeded by each component.
