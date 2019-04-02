@@ -42,7 +42,7 @@ public abstract class AbstractComponent implements Component {
       }
       entity = e;
     }
-    
+
     @Override
     public void init() {
         /*TO DO*/

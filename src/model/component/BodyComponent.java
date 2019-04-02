@@ -22,6 +22,7 @@ public class BodyComponent extends AbstractComponent {
      * @param width of the entity
      */
     public BodyComponent(final double x, final double y, final double z, final double height, final double width) {
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
