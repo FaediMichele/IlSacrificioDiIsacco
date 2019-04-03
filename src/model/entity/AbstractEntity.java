@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import model.component.BodyComponent;
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
@@ -19,7 +20,7 @@ import com.google.common.eventbus.EventBus;
 public abstract class AbstractEntity implements Entity {
   private final EventBus eventBus = new EventBus();
   private final Map<Class<? extends Component>, Component> componentsMap = new LinkedHashMap<>();
-  private final Component entityBody;
+  private final BodyComponent entityBody;
   private final Component entityCollision;
 
   /**
@@ -27,7 +28,7 @@ public abstract class AbstractEntity implements Entity {
    * @param entityBody {@link BodyComponent}
    * @param entityCollision {@link CollisionComponent}
    */
-  public AbstractEntity(final Component entityBody, final Component entityCollision) {
+  public AbstractEntity(final BodyComponent entityBody, final Component entityCollision) {
       super();
       this.entityBody = entityBody;
       this.entityCollision = entityCollision;
@@ -115,7 +116,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public Component getBody() {
+  public BodyComponent getBody() {
       return this.entityBody;
   }
 

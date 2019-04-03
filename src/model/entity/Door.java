@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.component.BodyComponent;
 import model.component.Component;
 
 /**
@@ -11,7 +12,7 @@ public class Door extends AbstractStaticEntity {
    * @param entityBody the entity Body
    * @param entityCollision the collision component
    */
-  public Door(final Component entityBody, final Component entityCollision) {
+  public Door(final BodyComponent entityBody, final Component entityCollision) {
     super(entityBody, entityCollision);
   }
 }

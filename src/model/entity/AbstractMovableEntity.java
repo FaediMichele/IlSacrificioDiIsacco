@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.component.BodyComponent;
 import model.component.Component;
 
 /**
@@ -13,7 +14,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
    * @param entityBody the Body
    * @param entityCollision the collision
    */
-  public AbstractMovableEntity(final Component entityBody, final Component entityCollision) {
+  public AbstractMovableEntity(final BodyComponent entityBody, final Component entityCollision) {
     super(entityBody, entityCollision);
   }
 
