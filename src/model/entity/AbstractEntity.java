@@ -19,26 +19,27 @@ import com.google.common.eventbus.EventBus;
 public abstract class AbstractEntity implements Entity {
   private final EventBus eventBus = new EventBus();
   private final Map<Class<? extends Component>, Component> componentsMap = new LinkedHashMap<>();
-  private final Component entityPosition;
+  private final Component entityBody;
   private final Component entityCollision;
 
   /**
-   * Initialize the {@link PositionComponent} and the {@link CollisionComponent}.
-   * @param entityPosition {@link PositionComponent}
+   * Initialize the {@link BodyComponent} and the {@link CollisionComponent}.
+   * @param entityBody {@link BodyComponent}
    * @param entityCollision {@link CollisionComponent}
    */
-  public AbstractEntity(final Component entityPosition, final Component entityCollision) {
+  public AbstractEntity(final Component entityBody, final Component entityCollision) {
       super();
-      this.entityPosition = entityPosition;
+      this.entityBody = entityBody;
       this.entityCollision = entityCollision;
-      this.componentsMap.put(Component.class, entityPosition);
+      this.componentsMap.put(Component.class, entityBody);
       this.componentsMap.put(Component.class, entityCollision);
   }
+
   /**
    * {@inheritDoc}
    */
   @Override
-  public void attach(final Component c) {
+  public void attachComponent(final Component c) {
       this.componentsMap.put(c.getClass(), c);
   }
 
@@ -46,7 +47,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void detach(final Component c) {
+  public void detachComponent(final Component c) {
       this.componentsMap.remove(c.getClass());
   }
 
@@ -54,7 +55,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void register(final EventListener<? extends Event> eventListener) {
+  public void registerListener(final EventListener<? extends Event> eventListener) {
       this.eventBus.register(eventListener);
   }
 
@@ -62,7 +63,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void unregister(final EventListener<? extends Event> eventListener) {
+  public void unregisterListener(final EventListener<? extends Event> eventListener) {
       this.eventBus.unregister(eventListener);
   }
 
@@ -70,7 +71,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void post(final Event event) {
+  public void postEvent(final Event event) {
       this.eventBus.post(event);
   }
 
@@ -86,7 +87,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public boolean has(final Class<? extends Component> c) {
+  public boolean hasComponent(final Class<? extends Component> c) {
       return this.componentsMap.containsKey(c);
   }
 
@@ -95,7 +96,7 @@ public abstract class AbstractEntity implements Entity {
    */
   @Override
   public Optional<? extends Component> getComponent(final Class<? extends Component> c) {
-      if (has(c)) {
+      if (hasComponent(c)) {
           return Optional.of(c.cast(this.componentsMap.get(c)));
       } else {
           return Optional.empty();
@@ -109,12 +110,13 @@ public abstract class AbstractEntity implements Entity {
   public Set<Component> getComponents() {
     return new HashSet<Component>(this.componentsMap.values());
   }
+
   /**
    * {@inheritDoc}
    */
   @Override
-  public Component getPosition() {
-      return this.entityPosition;
+  public Component getBody() {
+      return this.entityBody;
   }
 
   /**
@@ -125,4 +127,11 @@ public abstract class AbstractEntity implements Entity {
       return this.entityCollision;
   }
 
+  /**
+   * @return the name of the class
+   */
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName();
+  }
 }

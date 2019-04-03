@@ -15,31 +15,31 @@ public interface Entity {
    * Attaches a {@link Component} to the Entity to describe its behavior.
    * @param c {@link Component} to attach to the Entity
    */
-  void attach(Component c);
+  void attachComponent(Component c);
 
   /**
    * Detaches a {@link Component} from the Entity.
    * @param c {@link Component} to detach from the Entity
    */
-  void detach(Component c);
+  void detachComponent(Component c);
 
   /**
    * Register the listener on the EventBus for the event objects.
    * @param eventListener the listener
    */
-  void register(EventListener<? extends Event> eventListener);
+  void registerListener(EventListener<? extends Event> eventListener);
 
   /**
    * Unregister the listener on the EventBus.
    * @param eventListener the listener
    */
-  void unregister(EventListener<? extends Event> eventListener);
+  void unregisterListener(EventListener<? extends Event> eventListener);
 
   /**
    * Trigger the event.
    * @param event the event
    */
-  void post(Event event);
+  void postEvent(Event event);
 
   /**
    * Updates the Entity and all of its {@link Component}.
@@ -52,7 +52,7 @@ public interface Entity {
    * @param c {@link Component} to search
    * @return true if the entity has the {@link Component} else false
    */
-  boolean has(Class<? extends Component> c);
+  boolean hasComponent(Class<? extends Component> c);
 
   /**
    * Gets the certain kind of {@link Component} from Entity. 
@@ -68,10 +68,10 @@ public interface Entity {
   Set<Component> getComponents();
 
   /**
-   * Gets the current {@link PositionComponent} of the Entity.
-   * @return the {@link PositionComponent} of the Entity
+   * Gets the current {@link BodyComponent} of the Entity.
+   * @return the {@link BodyComponent} of the Entity
    */
-  Component getPosition();
+  Component getBody();
 
   /**
    * Gets the {@link CollisionComponent} of the Entity.

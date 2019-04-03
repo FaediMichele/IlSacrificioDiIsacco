@@ -8,19 +8,10 @@ import model.component.Component;
 public class Tear extends AbstractMovableEntity {
 
   /**
-   * {@inheritDoc}.
-   * @param entityPosition the position
+   * @param entityBody the Body
    * @param entityCollision the collision component
    */
-  public Tear(final Component entityPosition, final Component entityCollision) {
-    super(entityPosition, entityCollision);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String toString() {
-    return "Tear";
+  public Tear(final Component entityBody, final Component entityCollision) {
+    super(entityBody, entityCollision);
   }
 }

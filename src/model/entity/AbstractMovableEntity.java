@@ -10,11 +10,11 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
 
   /**
    * 
-   * @param entityPosition the position
+   * @param entityBody the Body
    * @param entityCollision the collision
    */
-  public AbstractMovableEntity(final Component entityPosition, final Component entityCollision) {
-    super(entityPosition, entityCollision);
+  public AbstractMovableEntity(final Component entityBody, final Component entityCollision) {
+    super(entityBody, entityCollision);
   }
 
 }

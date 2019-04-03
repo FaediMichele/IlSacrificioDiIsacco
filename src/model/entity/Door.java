@@ -6,20 +6,12 @@ import model.component.Component;
  * Implements the doors.
  */
 public class Door extends AbstractStaticEntity {
-  /**
-   * 
-   * @param entityPosition the entity position
-   * @param entityCollision the collision component
-   */
-  public Door(final Component entityPosition, final Component entityCollision) {
-    super(entityPosition, entityCollision);
-  }
 
   /**
-   * {@inheritDoc}
+   * @param entityBody the entity Body
+   * @param entityCollision the collision component
    */
-  @Override
-  public String toString() {
-    return "Door";
+  public Door(final Component entityBody, final Component entityCollision) {
+    super(entityBody, entityCollision);
   }
 }

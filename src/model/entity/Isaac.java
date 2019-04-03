@@ -8,19 +8,10 @@ import model.component.Component;
 public class Isaac extends AbstractMovableEntity {
 
   /**
-   * 
-   * @param entityPosition the entity position
+   * @param entityBody the entity Body
    * @param entityCollision the collision component
    */
-  public Isaac(final Component entityPosition, final Component entityCollision) {
-    super(entityPosition, entityCollision);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String toString() {
-    return "Isaac";
+  public Isaac(final Component entityBody, final Component entityCollision) {
+    super(entityBody, entityCollision);
   }
 }

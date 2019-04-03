@@ -10,11 +10,11 @@ public class AbstractStaticEntity extends AbstractEntity {
 
   /**
    * 
-   * @param entityPosition the position
+   * @param entityBody the Body
    * @param entityCollision the collision
    */
-  public AbstractStaticEntity(final Component entityPosition, final Component entityCollision) {
-    super(entityPosition, entityCollision);
+  public AbstractStaticEntity(final Component entityBody, final Component entityCollision) {
+    super(entityBody, entityCollision);
     // TODO Auto-generated constructor stub
   }
 
