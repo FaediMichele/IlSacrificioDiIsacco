@@ -27,13 +27,13 @@ public interface Entity {
    * Register the listener on the EventBus for the event objects.
    * @param eventListener the listener
    */
-  void register(EventListener eventListener);
+  void register(EventListener<? extends Event> eventListener);
 
   /**
    * Unregister the listener on the EventBus.
    * @param eventListener the listener
    */
-  void unregister(EventListener eventListener);
+  void unregister(EventListener<? extends Event> eventListener);
 
   /**
    * Trigger the event.

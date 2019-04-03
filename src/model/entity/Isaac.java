@@ -5,7 +5,7 @@ import model.component.Component;
 /**
  * Implements Isaac.
  */
-public class Isaac extends AbstractEntity {
+public class Isaac extends AbstractMovableEntity {
 
   /**
    * 

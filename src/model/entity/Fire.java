@@ -5,7 +5,7 @@ import model.component.Component;
 /**
  * Implements the fires.
  */
-public class Fire extends AbstractEntity {
+public class Fire extends AbstractStaticEntity {
 
   /**
    * 

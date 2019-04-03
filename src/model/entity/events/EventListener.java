@@ -1,15 +1,13 @@
 package model.entity.events;
 
-import com.google.common.eventbus.Subscribe;
-
 /**
  * Base interface for all the listeners.
+ * @param <E> the generic type for all the events
  */
-public interface EventListener {
+public interface EventListener<E extends Event> {
   /**
-   * Base function for all the events.
+   * Base function for all the events listener.
    * @param event the event
    */
-  @Subscribe
-  void listenEvent(Event event);
+  void listenEvent(E event);
 }

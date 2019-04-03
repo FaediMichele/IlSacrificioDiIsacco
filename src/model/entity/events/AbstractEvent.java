@@ -36,5 +36,4 @@ public abstract class AbstractEvent implements Event {
   public Class<? extends Component> getSourceComponent() {
     return this.sourceComponent;
   }
-
 }

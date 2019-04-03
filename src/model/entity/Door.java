@@ -5,7 +5,7 @@ import model.component.Component;
 /**
  * Implements the doors.
  */
-public class Door extends AbstractEntity {
+public class Door extends AbstractStaticEntity {
   /**
    * 
    * @param entityPosition the entity position

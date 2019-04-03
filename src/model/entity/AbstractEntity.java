@@ -54,7 +54,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void register(final EventListener eventListener) {
+  public void register(final EventListener<? extends Event> eventListener) {
       this.eventBus.register(eventListener);
   }
 
@@ -62,7 +62,7 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public void unregister(final EventListener eventListener) {
+  public void unregister(final EventListener<? extends Event> eventListener) {
       this.eventBus.unregister(eventListener);
   }
 
