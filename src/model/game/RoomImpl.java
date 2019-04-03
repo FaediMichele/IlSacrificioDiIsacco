@@ -39,9 +39,9 @@ public class RoomImpl implements Room {
   @Override
   public void updateEntity(final Double deltaTime) {
     entity.forEach(e -> e.update(deltaTime));
-    /* Wait till the merge
-    if (entity.stream().filter(e -> e.has(LifeComponent.class)).
-        filter(e -> e.get(LifeComponent.class).isAlive()).count() == 0) {
+    /* Wait for the life component
+    if (entity.stream().filter(e -> e.hasComponent(LifeComponent.class)).
+        filter(e -> e.getComponent(LifeComponent.class).isAlive()).count() == 0) {
       entity.add(new Bomb());
       isComplete = true;
     }

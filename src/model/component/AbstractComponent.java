@@ -4,7 +4,6 @@ import model.entity.Entity;
 
 /**
  * Generic fields and methods neeeded by each component.
- * @author asialucchi
  *
  */
 

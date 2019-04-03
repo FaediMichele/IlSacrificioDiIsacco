@@ -2,7 +2,6 @@ package model.component;
 
 /**
  * Component that contains the informations about the body of the entity, that is its dimension and the position.
- * @author asialucchi
  *
  */
 
