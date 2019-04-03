@@ -94,9 +94,9 @@ public abstract class AbstractEntity implements Entity {
    * {@inheritDoc}
    */
   @Override
-  public Optional<Component> getComponent(final Class<? extends Component> c) {
+  public Optional<? extends Component> getComponent(final Class<? extends Component> c) {
       if (has(c)) {
-          return Optional.of(this.componentsMap.get(c));
+          return Optional.of(c.cast(this.componentsMap.get(c)));
       } else {
           return Optional.empty();
       }

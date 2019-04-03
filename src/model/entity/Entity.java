@@ -59,7 +59,7 @@ public interface Entity {
    * @param c {@link Component} to search
    * @return the {@link Component}
    */
-  Optional<Component> getComponent(Class<? extends Component> c);
+  Optional<? extends Component> getComponent(Class<? extends Component> c);
 
   /**
    * Return the Set of all {@link Component}.
