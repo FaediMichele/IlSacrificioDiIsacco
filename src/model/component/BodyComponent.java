@@ -2,7 +2,6 @@ package model.component;
 
 /**
  * Component that contains the informations about the body of the entity, that is its dimension and the position.
- * @author asialucchi
  *
  */
 
@@ -12,6 +11,7 @@ public class BodyComponent extends AbstractComponent {
     private double z;
     private double height;
     private double width;
+    private int weight;
 
     /**
      * Initialize the parameters.
@@ -20,14 +20,16 @@ public class BodyComponent extends AbstractComponent {
      * @param z position on the x axis
      * @param height of the entity
      * @param width of the entity
+     * @param weight of the entity
      */
-    public BodyComponent(final double x, final double y, final double z, final double height, final double width) {
+    public BodyComponent(final double x, final double y, final double z, final double height, final double width, final int weight) {
         super();
         this.x = x;
         this.y = y;
         this.z = z;
         this.height = height;
         this.width = width;
+        this.weight = weight;
     }
 
     /**
@@ -92,4 +94,29 @@ public class BodyComponent extends AbstractComponent {
         this.width = this.width * widthFactor;
     }
 
+    /**
+     * 
+     * @return weight
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * 
+     * @param deltaWeight increase or decrease of the weight
+     */
+    public void changeWeight(final int deltaWeight) {
+        this.weight = this.weight + deltaWeight;
+    }
+
+    @Override
+    public void update(final Double deltaTime) {
+        //?
+    }
+
+    @Override
+    public void init() {
+        //?
+    }
 }

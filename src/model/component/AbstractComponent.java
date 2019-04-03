@@ -4,7 +4,6 @@ import model.entity.Entity;
 
 /**
  * Generic fields and methods neeeded by each component.
- * @author asialucchi
  *
  */
 
@@ -23,11 +22,6 @@ public abstract class AbstractComponent implements Component {
     }
 
     @Override
-    public void update(final Double deltaTime) {
-        /*TO DO*/
-    }
-
-    @Override
     public final Entity getEntity() {
       return entity;
     }
@@ -41,11 +35,6 @@ public abstract class AbstractComponent implements Component {
         throw new IllegalStateException();
       }
       entity = e;
-    }
-
-    @Override
-    public void init() {
-        /*TO DO*/
     }
 
     @Override
