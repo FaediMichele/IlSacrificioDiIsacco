@@ -1,81 +1,62 @@
 package model.entity;
 
-import java.util.Optional;
-import java.util.Set;
-
 import model.component.Component;
-import model.entity.events.Event;
-import model.entity.events.EventListener;
 
 /**
- * The main interface for all the entities such as enemies, items and the player itself.
+ * This is the interface for all entity (monster, player, rock, ...).
+ * 
+ * <p>See also {@link EntityImpl}
+ * See also {@link Component}
+ *
  */
 public interface Entity {
-  /**
-   * Attaches a {@link Component} to the Entity to describe its behavior.
-   * @param c {@link Component} to attach to the Entity
-   */
-  void attachComponent(Component c);
 
   /**
-   * Detaches a {@link Component} from the Entity.
-   * @param c {@link Component} to detach from the Entity
+   * Add a component to the entity. Adding behavior.
+   * @param c the component to add.
    */
-  void detachComponent(Component c);
+  void attach(Component c);
 
   /**
-   * Register the listener on the EventBus for the event objects.
-   * @param eventListener the listener
+   * Remove a component from the entity. Remove behavior.
+   * @param c the component type to remove.
    */
-  void registerListener(EventListener<? extends Event> eventListener);
+  void detach(Class<? extends Component> c);
 
   /**
-   * Unregister the listener on the EventBus.
-   * @param eventListener the listener
+   * Know if the entity have a component type already attached.
+   * @param c the component type to search.
+   * @return true if the entity have the component.
    */
-  void unregisterListener(EventListener<? extends Event> eventListener);
+  boolean has(Class<? extends Component> c);
 
   /**
-   * Trigger the event.
-   * @param event the event
+   * Get the component from a component's type.
+   * @param c the component to get.
+   * @return return a {@link Component}.
    */
-  void postEvent(Event event);
+  Component get(Class<? extends Component> c);
 
   /**
-   * Updates the Entity and all of its {@link Component}.
-   * @param deltaTime time passed from last update
+   * Run all entity that needs to work frame to frame.
+   * @param deltaTime difference in milliseconds from the last call.
    */
-  void update(double deltaTime);
+  void update(Double deltaTime);
 
   /**
-   * Checks if the Entity has a certain kind of {@link Component}. 
-   * @param c {@link Component} to search
-   * @return true if the entity has the {@link Component} else false
+   * Initialize all components currently attached.
    */
-  boolean hasComponent(Class<? extends Component> c);
+  void init();
 
   /**
-   * Gets the certain kind of {@link Component} from Entity. 
-   * @param c {@link Component} to search
-   * @return the {@link Component}
-   */
-  Optional<? extends Component> getComponent(Class<? extends Component> c);
-
-  /**
-   * Return the Set of all {@link Component}.
-   * @return the {@link Set}
-   */
-  Set<Component> getComponents();
-
-  /**
-   * Gets the current {@link BodyComponent} of the Entity.
-   * @return the {@link BodyComponent} of the Entity
+   * Get the body of this entity.
+   * @return the {@link BodyComponent}.
    */
   Component getBody();
 
   /**
-   * Gets the {@link CollisionComponent} of the Entity.
-   * @return the {@link CollisionComponent}
+   * Get the collision handler of this entity.
+   * @return the {@link CollisionComponent}.
    */
   Component getCollision();
 }
