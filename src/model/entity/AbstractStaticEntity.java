@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.component.BodyComponent;
 import model.component.Component;
 
 /**
@@ -13,7 +14,7 @@ public class AbstractStaticEntity extends AbstractEntity {
    * @param entityBody the Body
    * @param entityCollision the collision
    */
-  public AbstractStaticEntity(final Component entityBody, final Component entityCollision) {
+  public AbstractStaticEntity(final BodyComponent entityBody, final Component entityCollision) {
     super(entityBody, entityCollision);
     // TODO Auto-generated constructor stub
   }

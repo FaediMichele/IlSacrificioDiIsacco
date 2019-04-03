@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.component.BodyComponent;
 import model.component.Component;
 
 /**
@@ -11,7 +12,7 @@ public class Isaac extends AbstractMovableEntity {
    * @param entityBody the entity Body
    * @param entityCollision the collision component
    */
-  public Isaac(final Component entityBody, final Component entityCollision) {
+  public Isaac(final BodyComponent entityBody, final Component entityCollision) {
     super(entityBody, entityCollision);
   }
 }
