@@ -4,17 +4,15 @@ import model.component.BodyComponent;
 import model.component.Component;
 
 /**
- * Base class for all the movable entities. See also {@link AbstractEntity}.
+ * Implements Player.
  */
-public abstract class AbstractMovableEntity extends AbstractEntity {
+public class Player extends AbstractMovableEntity {
 
     /**
-     * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */
-    public AbstractMovableEntity(final BodyComponent entityBody, final Component entityCollision) {
+    public Player(final BodyComponent entityBody, final Component entityCollision) {
         super(entityBody, entityCollision);
     }
-
 }
