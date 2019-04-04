@@ -8,11 +8,11 @@ import model.component.Component;
  */
 public class Door extends AbstractStaticEntity {
 
-  /**
-   * @param entityBody the entity Body
-   * @param entityCollision the collision component
-   */
-  public Door(final BodyComponent entityBody, final Component entityCollision) {
-    super(entityBody, entityCollision);
-  }
+    /**
+     * @param entityBody      the {@link BodyComponent}
+     * @param entityCollision the {@link CollisionComponent}
+     */
+    public Door(final BodyComponent entityBody, final Component entityCollision) {
+        super(entityBody, entityCollision);
+    }
 }

@@ -8,11 +8,11 @@ import model.component.Component;
  */
 public class Fire extends AbstractStaticEntity {
 
-  /**
-   * @param entityBody the entity Body
-   * @param entityCollision the collision component
-   */
-  public Fire(final BodyComponent entityBody, final Component entityCollision) {
-    super(entityBody, entityCollision);
-  }
+    /**
+     * @param entityBody      the {@link BodyComponent}
+     * @param entityCollision the {@link CollisionComponent}
+     */
+    public Fire(final BodyComponent entityBody, final Component entityCollision) {
+        super(entityBody, entityCollision);
+    }
 }

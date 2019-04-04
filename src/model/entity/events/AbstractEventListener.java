@@ -4,22 +4,23 @@ import com.google.common.eventbus.Subscribe;
 
 /**
  * The base class for all the first kind of events.
+ * 
  * @param <E> the kind of event
  */
 public abstract class AbstractEventListener<E extends AbstractEvent> implements EventListener<E> {
 
-  /**
-   * Base builder.
-   */
-  public AbstractEventListener() {
-    // TODO Auto-generated constructor stub
-  }
+    /**
+     * Base builder.
+     */
+    public AbstractEventListener() {
+        // TODO Auto-generated constructor stub
+    }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Subscribe
-  public void listenEvent(final E event) {
-    //TODO
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Subscribe
+    public void listenEvent(final E event) {
+        // TODO
+    }
 }
