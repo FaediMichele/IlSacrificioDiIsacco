@@ -7,6 +7,7 @@ package model.component;
 
 public class MoveComponent extends AbstractComponent {
 
+    private static final int NOMOVE = 0;
     private double deltaSpeed;
     private double xMove;
     private double yMove;
@@ -70,7 +71,7 @@ public class MoveComponent extends AbstractComponent {
 
     @Override
     public final void init() {
-        this.move(0, 0, 0);
+        this.move(NOMOVE, NOMOVE, NOMOVE);
     }
 
 }
