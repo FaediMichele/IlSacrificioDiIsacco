@@ -3,7 +3,7 @@ package model.component;
 import model.entity.Entity;
 
 /**
- * Generic fields and methods neeeded by each component.
+ * Generic fields and methods needed by each component.
  *
  */
 
@@ -40,6 +40,14 @@ public abstract class AbstractComponent implements Component {
     @Override
     public final void dispose() {
       active = false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final Double deltaTime) {
+
     }
 
 }

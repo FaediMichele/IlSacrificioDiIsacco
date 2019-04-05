@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  *
  */
 
-public class HealthComponent {
+public class HealthComponent extends AbstractComponent {
 
     private int maxHearts;
     private List<Heart> hearts;
@@ -57,6 +57,12 @@ public class HealthComponent {
               hearts.remove(lastHeart);
           }
        }
+    }
+
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
     }
 
 }

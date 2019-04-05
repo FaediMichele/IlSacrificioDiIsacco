@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import model.component.HealthComponent;
+import model.entity.Door;
 import model.entity.Entity;
 
 /**
@@ -12,16 +14,15 @@ import model.entity.Entity;
  */
 public class RoomImpl implements Room {
 
-  private final ArrayList<Entity> entity = new ArrayList<>();
-  private final ArrayList<Entity> door = new ArrayList<>();
-  private boolean isActive = false;
+  private final ArrayList<? extends Entity> entity = new ArrayList<>();
+  private final ArrayList<? extends Door> door = new ArrayList<>();
   private boolean isComplete = false;
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public Set<Entity> getEntity() {
+  public Set<? extends Entity> getEntity() {
     return new LinkedHashSet<Entity>(entity);
   }
 
@@ -29,8 +30,8 @@ public class RoomImpl implements Room {
    * {@inheritDoc}
    */
   @Override
-  public Set<Entity> getDoor() {
-    return new LinkedHashSet<Entity>(door);
+  public Set<? extends Door> getDoor() {
+    return new LinkedHashSet<Door>(door);
   }
 
   /**
@@ -39,29 +40,12 @@ public class RoomImpl implements Room {
   @Override
   public void updateEntity(final Double deltaTime) {
     entity.forEach(e -> e.update(deltaTime));
-    /* Wait for the life component
-    if (entity.stream().filter(e -> e.hasComponent(LifeComponent.class)).
-        filter(e -> e.getComponent(LifeComponent.class).isAlive()).count() == 0) {
-      entity.add(new Bomb());
+    if (entity.stream().filter(e -> e.hasComponent(HealthComponent.class)).
+        filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get())
+                .isAlive()).count() == 0) {
+      //entity.add(new Bomb());
       isComplete = true;
     }
-    */
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean isActive() {
-    return isActive;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setActive(final boolean state) {
-    isActive = state;
   }
 
   /**
