@@ -32,4 +32,10 @@ public interface Room {
    * @return true if the room is completed.
    */
   boolean isComplete();
+
+  /**
+   * Get the index of the room.
+   * @return the index of the room.
+   */
+  int getIndex();
 }

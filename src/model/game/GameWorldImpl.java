@@ -13,6 +13,7 @@ public class GameWorldImpl implements GameWorld {
 
     private final Player player;
     private final List<Floor> floors;
+    private int activeFloor = 0;
 
     /**
      * @param player {@link Player}
@@ -43,7 +44,7 @@ public class GameWorldImpl implements GameWorld {
      */
     @Override
     public Floor getActiveFloor() {
-        return this.floors.stream().filter(f -> f.isActive()).findFirst().get();
+        return this.floors.get(activeFloor);
     }
 
 }

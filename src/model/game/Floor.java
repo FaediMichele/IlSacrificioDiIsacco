@@ -16,6 +16,12 @@ public interface Floor {
   Room getActiveRoom();
 
   /**
+   * Change the position to the room.
+   * @param index the index of the room to go
+   */
+  void changeRoom(Integer index);
+
+  /**
    * Get all the room that the floor have.
    * @return Set of all the room
    */
@@ -32,4 +38,5 @@ public interface Floor {
    * @param deltaTime time passed from the last call.
    */
   void update(Double deltaTime);
+
 }
