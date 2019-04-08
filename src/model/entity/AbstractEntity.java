@@ -32,8 +32,6 @@ public abstract class AbstractEntity implements Entity {
         super();
         this.entityBody = entityBody;
         this.entityCollision = entityCollision;
-        this.componentsMap.put(Component.class, entityBody);
-        this.componentsMap.put(Component.class, entityCollision);
     }
 
     /**
@@ -140,13 +138,13 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
-    	if(obj == null) {
-    		return false;
-    	} else {
-    		final Entity e = Entity.class.cast(obj);
-        	return e.getComponents().equals(this.getComponents());
-    	}	
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+              return false;
+        } else {
+                final Entity e = Entity.class.cast(obj);
+                return e.getComponents().equals(this.getComponents());
+        }
     }
 
     /**
@@ -154,6 +152,6 @@ public abstract class AbstractEntity implements Entity {
      */
     @Override
     public int hashCode() {
-    	return super.hashCode();
+        return super.hashCode();
     }
 }
