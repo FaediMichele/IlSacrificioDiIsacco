@@ -135,4 +135,25 @@ public abstract class AbstractEntity implements Entity {
     public String toString() {
         return this.getClass().getSimpleName();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj == null) {
+    		return false;
+    	} else {
+    		final Entity e = Entity.class.cast(obj);
+        	return e.getComponents().equals(this.getComponents());
+    	}	
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+    	return super.hashCode();
+    }
 }
