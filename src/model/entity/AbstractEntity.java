@@ -40,6 +40,7 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public void attachComponent(final Component c) {
         this.componentsMap.put(c.getClass(), c);
+        c.setEntity(this);
     }
 
     /**
@@ -143,7 +144,9 @@ public abstract class AbstractEntity implements Entity {
               return false;
         } else {
                 final Entity e = Entity.class.cast(obj);
-                return e.getComponents().equals(this.getComponents());
+                boolean ok = e.getComponents().containsAll(e.getComponents()) 
+                        && e.getComponents().size() == this.getComponents().size();
+                return ok;
         }
     }
 

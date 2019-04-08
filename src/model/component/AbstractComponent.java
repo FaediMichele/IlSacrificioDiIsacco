@@ -26,11 +26,8 @@ public abstract class AbstractComponent implements Component {
       return entity;
     }
 
-    /**
-     * Sets the entity this component has to be attached to. It can be changed only by the component itself.
-     * @param e {@link Entity}
-     */
-    protected void setEntity(final Entity e) {
+    @Override
+    public final void setEntity(final Entity e) {
       if (entity != null) {
         throw new IllegalStateException();
       }
@@ -49,5 +46,4 @@ public abstract class AbstractComponent implements Component {
     public void update(final Double deltaTime) {
 
     }
-
 }

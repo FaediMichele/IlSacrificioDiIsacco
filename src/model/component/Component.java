@@ -33,6 +33,12 @@ public interface Component {
     Entity getEntity();
 
     /**
+     * Sets the entity this component has to be attached to.
+     * @param e {@link Entity}
+     */
+    void setEntity(Entity e);
+
+    /**
      * Initialize the component.
      */
     void init();

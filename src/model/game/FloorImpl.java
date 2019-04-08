@@ -2,6 +2,7 @@ package model.game;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
@@ -98,16 +99,16 @@ public class FloorImpl implements Floor {
     private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos) {
         ArrayList<Door> doors = new ArrayList<>();
         if (roomExist(m, pos.getX(), pos.getY() - 1)) { //NORD
-            doors.add(new Door(NORD, new DoorComponent(m.get(pos.getX(), pos.getY() - 1))));
+            doors.add(new Door(NORD, new DoorComponent(index, m.get(pos.getX(), pos.getY() - 1))));
         }
         if (roomExist(m, pos.getX() + 1, pos.getY())) { //EAST
-            doors.add(new Door(EAST, new DoorComponent(m.get(pos.getX() + 1, pos.getY()))));
+            doors.add(new Door(EAST, new DoorComponent(index, m.get(pos.getX() + 1, pos.getY()))));
         }
         if (roomExist(m, pos.getX(), pos.getY() + 1)) { //SUD
-            doors.add(new Door(SUD, new DoorComponent(m.get(pos.getX(), pos.getY() + 1))));
+            doors.add(new Door(SUD, new DoorComponent(index, m.get(pos.getX(), pos.getY() + 1))));
         }
         if (roomExist(m, pos.getX() - 1, pos.getY())) { //OVEST
-            doors.add(new Door(OVEST, new DoorComponent(m.get(pos.getX() - 1, pos.getY()))));
+            doors.add(new Door(OVEST, new DoorComponent(index, m.get(pos.getX() - 1, pos.getY()))));
         }
         return new RoomImpl(index, doors);
     }
@@ -197,14 +198,15 @@ public class FloorImpl implements Floor {
      */
     @Override
     public void update(final Double deltaTime) {
-        int nextRoom = -1;
+        Optional<Integer> nextRoom;
         rooms.get(activeRoomIndex).updateEntity(deltaTime);
-        /*rooms.get(activeRoomIndex).getDoor().stream()
+        nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
                 .filter(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).playerPassed())
-                .forEach(e -> nextRoom = ((DoorComponent) e.getComponent(DoorComponent.class).get()).getDestination());
-                */
-        if (nextRoom != -1) {
-            activeRoomIndex = nextRoom;
+                .map(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).getDestination())
+                .findFirst();
+
+        if (nextRoom.isPresent()) {
+            activeRoomIndex = nextRoom.get();
         }
     }
 }
