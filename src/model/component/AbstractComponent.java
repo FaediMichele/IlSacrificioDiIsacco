@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.Optional;
+
 import model.entity.Entity;
 
 /**
@@ -10,6 +12,8 @@ import model.entity.Entity;
 public abstract class AbstractComponent implements Component {
     private boolean active;
     private Entity entity;
+    private Optional<Component> componentReplaced;
+
 
     @Override
     public final boolean isActive() {
