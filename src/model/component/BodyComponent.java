@@ -6,6 +6,10 @@ package model.component;
  */
 
 public class BodyComponent extends AbstractComponent {
+
+    private static final double DEFAULT_POSITION_VALUE = 0;
+    private static final double DEFAULT_SCALABLE_VALUE = 1;
+    private static final int DEFAULT_WEIGHT_VALUE = 1;
     private double x;
     private double y;
     private double z;
@@ -30,6 +34,19 @@ public class BodyComponent extends AbstractComponent {
         this.height = height;
         this.width = width;
         this.weight = weight;
+    }
+
+    /**
+     * Default BodyComponent constructor.
+     */
+    public BodyComponent() {
+        super();
+        this.x = DEFAULT_POSITION_VALUE;
+        this.y = DEFAULT_POSITION_VALUE;
+        this.z = DEFAULT_POSITION_VALUE;
+        this.width = DEFAULT_SCALABLE_VALUE;
+        this.height = DEFAULT_SCALABLE_VALUE;
+        this.weight = DEFAULT_WEIGHT_VALUE;
     }
 
     /**

@@ -7,6 +7,7 @@ package model.component;
  */
 public class SimpleHeart implements Heart {
 
+    private static final double DEFAULT_VALUE = 1;
     private double value;
 
     /**
@@ -15,6 +16,12 @@ public class SimpleHeart implements Heart {
      */
     public SimpleHeart(final double value) {
         this.value = value;
+    }
+    /**
+     * Default SimpleHeart constructor.
+     */
+    public SimpleHeart() {
+        this.value = DEFAULT_VALUE;
     }
 
     @Override

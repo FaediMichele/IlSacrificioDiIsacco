@@ -11,6 +11,9 @@ import java.util.stream.Stream;
 
 public class HealthComponent extends AbstractComponent {
 
+    private static final int DEFAULT_MAX_HEARTS = 9;
+    private static final int DEFAULT_HEARTS_NUMBER = 3;
+    private static final Heart DEFAULT_HEART_KIND = new SimpleHeart();
     private int maxHearts;
     private List<Heart> hearts;
 
@@ -18,11 +21,21 @@ public class HealthComponent extends AbstractComponent {
      * 
      * @param maxHearts max number of hearts
      * @param heartsNumber initial number of hearts
-     * @param defaultHeart kind of heart that has to be added at the list to initialize it
+     * @param heartKind kind of heart that has to be added at the list to initialize it
      */
-    public HealthComponent(final int maxHearts, final int heartsNumber, final Heart defaultHeart) {
+    public HealthComponent(final int maxHearts, final int heartsNumber, final Heart heartKind) {
+        super();
         this.maxHearts = maxHearts;
-        hearts = Stream.iterate(0, i -> i + 1).limit(heartsNumber).map(i -> defaultHeart).collect(Collectors.toList());
+        hearts = Stream.iterate(0, i -> i + 1).limit(heartsNumber).map(i -> heartKind).collect(Collectors.toList());
+    }
+
+    /**
+     * Default HealthComponent constructor.
+     */
+    public HealthComponent() {
+        super();
+        this.maxHearts = DEFAULT_MAX_HEARTS;
+        hearts = Stream.iterate(0, i -> i + 1).limit(DEFAULT_HEARTS_NUMBER).map(i -> DEFAULT_HEART_KIND).collect(Collectors.toList());
     }
 
     /**

@@ -8,6 +8,9 @@ package model.component;
 public class MoveComponent extends AbstractComponent {
 
     private static final int NOMOVE = 0;
+    private static final double DEFAULT_SPEED = 1;
+    private static final double DEFAULT_MAX_SPEED = 10;
+    private static final double DEFAULT_FRICTION = 0.001;
     private double deltaSpeed;
     private double xMove;
     private double yMove;
@@ -22,9 +25,22 @@ public class MoveComponent extends AbstractComponent {
       * @param friction friction force against the movement
       */
     public MoveComponent(final double deltaSpeed, final double maxSpeed, final double friction) {
+        super();
         this.deltaSpeed = deltaSpeed;
         this.maxSpeed = maxSpeed;
         this.friction = friction;
+        init();
+    }
+
+    /**
+     * Default MoveComponent constructor.
+     */
+    public MoveComponent() {
+        super();
+        this.deltaSpeed = DEFAULT_SPEED;
+        this.maxSpeed = DEFAULT_MAX_SPEED;
+        this.friction = DEFAULT_FRICTION;
+        init();
     }
     /**
      * Getter for deltaSpeed.
@@ -38,6 +54,9 @@ public class MoveComponent extends AbstractComponent {
      * @param deltaSpeed is the speed in space/ms
      */
     public void changeSpeed(final double deltaSpeed) {
+        if (deltaSpeed > maxSpeed) {
+            throw new IllegalArgumentException();
+        }
         this.deltaSpeed = deltaSpeed;
     }
 
