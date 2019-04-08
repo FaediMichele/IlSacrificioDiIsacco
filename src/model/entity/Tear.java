@@ -2,6 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.Component;
+import model.component.MoveComponent;
 
 /**
  * The entity for the tears, they are the main damage dealing entity.

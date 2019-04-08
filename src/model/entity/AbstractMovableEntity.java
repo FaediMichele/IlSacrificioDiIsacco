@@ -2,6 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.Component;
+import model.component.MoveComponent;
 
 /**
  * Base class for all the movable entities. See also {@link AbstractEntity}.
@@ -15,6 +16,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      */
     public AbstractMovableEntity(final BodyComponent entityBody, final Component entityCollision) {
         super(entityBody, entityCollision);
+        attachComponent(new MoveComponent());
     }
 
 }

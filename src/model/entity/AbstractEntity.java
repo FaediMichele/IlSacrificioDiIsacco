@@ -8,6 +8,7 @@ import java.util.Set;
 
 import model.component.BodyComponent;
 import model.component.Component;
+import model.component.HealthComponent;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 
@@ -23,6 +24,16 @@ public abstract class AbstractEntity implements Entity {
     private final Component entityCollision;
 
     /**
+     * Base builder to initialize {@link BodyComponent} and {@link CollisionComponent}.
+     */
+    public AbstractEntity() {
+        this.entityBody = new BodyComponent();
+        //this.entityCollision = new CollisionComponent();
+        attachComponent(this.entityBody);
+        //attachComponent(this.entityCollision);
+    }
+
+    /**
      * Initialize the {@link BodyComponent} and the {@link CollisionComponent}.
      * 
      * @param entityBody      {@link BodyComponent}
@@ -32,6 +43,8 @@ public abstract class AbstractEntity implements Entity {
         super();
         this.entityBody = entityBody;
         this.entityCollision = entityCollision;
+        attachComponent(entityBody);
+        attachComponent(entityCollision);
     }
 
     /**
