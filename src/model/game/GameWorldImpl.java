@@ -13,7 +13,7 @@ public class GameWorldImpl implements GameWorld {
 
     private final Player player;
     private final List<Floor> floors;
-    private final int activeFloor = 0;
+    private int activeFloor = 0;
 
     /**
      * @param player {@link Player}
@@ -23,28 +23,25 @@ public class GameWorldImpl implements GameWorld {
         this.player = player;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Player getPlayer() {
+    public final Player getPlayer() {
         return this.player;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    public List<Floor> getFloors() {
+    public final List<Floor> getFloors() {
         return new LinkedList<>(this.floors);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Floor getActiveFloor() {
+    public final Floor getActiveFloor() {
         return this.floors.get(activeFloor);
+    }
+
+    @Override
+    public final void setActiveFloor(final Integer activeFloor) {
+        this.activeFloor = activeFloor;
     }
 
 }

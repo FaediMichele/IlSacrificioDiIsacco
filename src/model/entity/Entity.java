@@ -53,7 +53,7 @@ public interface Entity {
      * 
      * @param deltaTime time passed from last update
      */
-    void update(double deltaTime);
+    void update(Double deltaTime);
 
     /**
      * Checks if the Entity has a certain kind of {@link Component}.

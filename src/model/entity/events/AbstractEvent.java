@@ -22,19 +22,13 @@ public abstract class AbstractEvent implements Event {
         this.sourceComponent = Objects.requireNonNull(sourceComponent);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Entity getSourceEntity() {
+    public final Entity getSourceEntity() {
         return this.sourceEntity;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Class<? extends Component> getSourceComponent() {
+    public final Class<? extends Component> getSourceComponent() {
         return this.sourceComponent;
     }
 }

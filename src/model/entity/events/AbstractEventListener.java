@@ -16,11 +16,9 @@ public abstract class AbstractEventListener<E extends AbstractEvent> implements 
         // TODO Auto-generated constructor stub
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     @Subscribe
-    public void listenEvent(final E event) {
+    public final void listenEvent(final E event) {
         // TODO
     }
 }

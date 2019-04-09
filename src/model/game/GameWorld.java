@@ -28,4 +28,11 @@ public interface GameWorld {
      * @return the active floor
      */
     Floor getActiveFloor();
+
+    /**
+     * Sets the active {@link Floor}.
+     * 
+     * @param activeFloor the active floor index
+     */
+    void setActiveFloor(Integer activeFloor);
 }

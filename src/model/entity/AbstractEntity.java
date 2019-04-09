@@ -45,68 +45,44 @@ public abstract class AbstractEntity implements Entity {
         //this.componentsMap.put(this.entityCollision.getClass(), this.entityCollision);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void attachComponent(final Component c) {
+    public final void attachComponent(final Component c) {
         this.componentsMap.put(c.getClass(), c);
         c.setEntity(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void detachComponent(final Component c) {
+    public final void detachComponent(final Component c) {
         this.componentsMap.remove(c.getClass());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void registerListener(final EventListener<? extends Event> eventListener) {
+    public final void registerListener(final EventListener<? extends Event> eventListener) {
         this.eventBus.register(eventListener);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void unregisterListener(final EventListener<? extends Event> eventListener) {
+    public final void unregisterListener(final EventListener<? extends Event> eventListener) {
         this.eventBus.unregister(eventListener);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void postEvent(final Event event) {
+    public final void postEvent(final Event event) {
         this.eventBus.post(event);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void update(final double deltaTime) {
+    public final void update(final Double deltaTime) {
         this.componentsMap.forEach((k, v) -> v.update(deltaTime));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public boolean hasComponent(final Class<? extends Component> c) {
+    public final boolean hasComponent(final Class<? extends Component> c) {
         return this.componentsMap.containsKey(c);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Optional<? extends Component> getComponent(final Class<? extends Component> c) {
+    public final Optional<? extends Component> getComponent(final Class<? extends Component> c) {
         if (hasComponent(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
@@ -114,43 +90,28 @@ public abstract class AbstractEntity implements Entity {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Set<Component> getComponents() {
+    public final Set<Component> getComponents() {
         return new HashSet<Component>(this.componentsMap.values());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public BodyComponent getBody() {
+    public final BodyComponent getBody() {
         return this.entityBody;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Component getCollision() {
+    public final Component getCollision() {
         return this.entityCollision;
     }
 
-    /**
-     * @return the name of the class
-     */
     @Override
-    public String toString() {
+    public final String toString() {
         return this.getClass().getSimpleName();
     }
 
-    /**
-     * Checks if the two entities are the same or not.
-     */
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         } else {
@@ -160,11 +121,8 @@ public abstract class AbstractEntity implements Entity {
         }
     }
 
-    /**
-     * Calculate the hash code.
-     */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return super.hashCode();
     }
 }
