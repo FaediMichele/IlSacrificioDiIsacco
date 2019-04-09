@@ -9,6 +9,13 @@ import model.component.Component;
 public class Fire extends AbstractStaticEntity {
 
     /**
+     * Basic constructor.
+     */
+    public Fire() {
+        this(new BodyComponent(), null);
+    }
+
+    /**
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */

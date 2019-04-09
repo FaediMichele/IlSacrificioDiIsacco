@@ -2,12 +2,18 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.Component;
-import model.component.MoveComponent;
 
 /**
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
+
+    /**
+     * Basic constructor.
+     */
+    public Tear() {
+        this(new BodyComponent(), null);
+    }
 
     /**
      * @param entityBody      the {@link BodyComponent}

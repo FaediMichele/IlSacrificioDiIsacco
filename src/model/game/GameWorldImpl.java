@@ -13,7 +13,7 @@ public class GameWorldImpl implements GameWorld {
 
     private final Player player;
     private final List<Floor> floors;
-    private int activeFloor = 0;
+    private final int activeFloor = 0;
 
     /**
      * @param player {@link Player}

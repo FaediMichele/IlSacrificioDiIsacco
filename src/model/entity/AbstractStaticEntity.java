@@ -10,6 +10,13 @@ import model.component.Component;
 public class AbstractStaticEntity extends AbstractEntity {
 
     /**
+     * Basic constructor.
+     */
+    public AbstractStaticEntity() {
+        this(new BodyComponent(), null);
+    }
+
+    /**
      * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}

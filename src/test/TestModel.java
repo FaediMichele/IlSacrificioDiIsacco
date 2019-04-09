@@ -1,5 +1,4 @@
-package model.game;
-
+package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -12,12 +11,25 @@ import java.util.LinkedHashSet;
 
 import model.component.DoorComponent;
 import model.entity.Door;
+import model.entity.Entity;
+import model.entity.Player;
+import model.game.Floor;
+import model.game.FloorImpl;
+import model.game.Room;
+import model.game.RoomImpl;
 /**
  * Test in JUnit for the package model.game.
  *
  */
-public class Test {
+public class TestModel {
 
+    /**
+     * Test for {@link Entity}.
+     */
+    @org.junit.Test
+    public void testEntity() {
+        //TODO
+    }
     /**
      * Test for the map.
      */

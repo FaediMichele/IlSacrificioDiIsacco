@@ -9,6 +9,12 @@ import model.component.DoorComponent;
  */
 public class Door extends AbstractStaticEntity {
 
+    /**
+     * Basic constructor.
+     */
+    public Door() {
+        this(new BodyComponent(), null);
+    }
 
     /**
      * 

@@ -3,12 +3,18 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.Component;
 import model.component.HealthComponent;
-import model.component.MoveComponent;
 
 /**
  * Implements Player.
  */
 public class Player extends AbstractMovableEntity {
+
+    /**
+     * Basic constructor.
+     */
+    public Player() {
+        this(new BodyComponent(), null);
+    }
 
     /**
      * @param entityBody      the {@link BodyComponent}

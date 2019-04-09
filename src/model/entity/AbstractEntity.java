@@ -8,7 +8,6 @@ import java.util.Set;
 
 import model.component.BodyComponent;
 import model.component.Component;
-import model.component.HealthComponent;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 
@@ -24,13 +23,11 @@ public abstract class AbstractEntity implements Entity {
     private final Component entityCollision;
 
     /**
-     * Base builder to initialize {@link BodyComponent} and {@link CollisionComponent}.
+     * Base builder to initialize {@link BodyComponent} and
+     * {@link CollisionComponent}.
      */
     public AbstractEntity() {
-        this.entityBody = new BodyComponent();
-        //this.entityCollision = new CollisionComponent();
-        attachComponent(this.entityBody);
-        //attachComponent(this.entityCollision);
+        this(new BodyComponent(), null);
     }
 
     /**
@@ -40,11 +37,12 @@ public abstract class AbstractEntity implements Entity {
      * @param entityCollision {@link CollisionComponent}
      */
     public AbstractEntity(final BodyComponent entityBody, final Component entityCollision) {
-        super();
         this.entityBody = entityBody;
+        this.entityBody.setEntity(this);
+        this.componentsMap.put(this.entityBody.getClass(), this.entityBody);
         this.entityCollision = entityCollision;
-        attachComponent(entityBody);
-        attachComponent(entityCollision);
+        //this.entityCollision.setEntity(this);
+        //this.componentsMap.put(this.entityCollision.getClass(), this.entityCollision);
     }
 
     /**
@@ -149,22 +147,21 @@ public abstract class AbstractEntity implements Entity {
     }
 
     /**
-     * {@inheritDoc}
+     * Checks if the two entities are the same or not.
      */
     @Override
     public boolean equals(final Object obj) {
         if (obj == null) {
-              return false;
+            return false;
         } else {
-                final Entity e = Entity.class.cast(obj);
-                boolean ok = e.getComponents().containsAll(e.getComponents()) 
-                        && e.getComponents().size() == this.getComponents().size();
-                return ok;
+            final Entity e = Entity.class.cast(obj);
+            return e.getComponents().containsAll(e.getComponents())
+                    && e.getComponents().size() == this.getComponents().size();
         }
     }
 
     /**
-     * {@inheritDoc}
+     * Calculate the hash code.
      */
     @Override
     public int hashCode() {

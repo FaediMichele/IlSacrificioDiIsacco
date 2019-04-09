@@ -10,6 +10,13 @@ import model.component.MoveComponent;
 public abstract class AbstractMovableEntity extends AbstractEntity {
 
     /**
+     * Basic constructor.
+     */
+    public AbstractMovableEntity() {
+        this(new BodyComponent(), null);
+    }
+
+    /**
      * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
