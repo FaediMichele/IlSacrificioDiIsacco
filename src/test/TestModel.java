@@ -35,8 +35,8 @@ public class TestModel {
         Entity p = new Player();
         Entity p2 = new Player();
         Entity f = new Fire();
-        p2.attachComponent(new BodyComponent(1, 1, 0, 1, 1, 2));
-        p.attachComponent(new BodyComponent(1, 1, 0, 1, 1, 2));
+        p2.attachComponent(new BodyComponent(p2, 1.0, 1, 0, 1, 1, 2));
+        p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
         assertEquals(p.hasComponent(BodyComponent.class), true);
         assertEquals(p.hasComponent(HealthComponent.class), true);
         assertEquals(p.hasComponent(DoorComponent.class), false);
@@ -50,7 +50,7 @@ public class TestModel {
      * Test for {@link Fire}.
      */
     @org.junit.Test
-    public void testEntity() {
+    public void testEntitym() {
         Fire f1 = new Fire(), f2 = new Fire();
         f1.attachComponent(new BodyComponent(f1));
         f2.attachComponent(new BodyComponent(f2));
