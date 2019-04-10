@@ -131,9 +131,4 @@ public class BodyComponent extends AbstractComponent {
     public void update(final Double deltaTime) {
         //?
     }
-
-    @Override
-    public void init() {
-        //?
-    }
 }
