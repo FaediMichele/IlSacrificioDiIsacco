@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import model.component.BodyComponent;
+import model.component.CollisionComponent;
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
@@ -20,14 +21,14 @@ public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap = new LinkedHashMap<>();
     private final BodyComponent entityBody;
-    private final Component entityCollision;
+    private final CollisionComponent entityCollision;
 
     /**
      * Base builder to initialize {@link BodyComponent} and
      * {@link CollisionComponent}.
      */
     public AbstractEntity() {
-        this(new BodyComponent(), null);
+        this(new BodyComponent(), new CollisionComponent());
     }
 
     /**
@@ -36,13 +37,14 @@ public abstract class AbstractEntity implements Entity {
      * @param entityBody      {@link BodyComponent}
      * @param entityCollision {@link CollisionComponent}
      */
-    public AbstractEntity(final BodyComponent entityBody, final Component entityCollision) {
+    public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this.entityBody = entityBody;
         this.entityBody.setEntity(this);
         this.componentsMap.put(this.entityBody.getClass(), this.entityBody);
+
         this.entityCollision = entityCollision;
-        //this.entityCollision.setEntity(this);
-        //this.componentsMap.put(this.entityCollision.getClass(), this.entityCollision);
+        this.entityCollision.setEntity(this);
+        this.componentsMap.put(this.entityCollision.getClass(), this.entityCollision);
     }
 
     @Override
@@ -101,7 +103,7 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final Component getCollision() {
+    public final CollisionComponent getCollision() {
         return this.entityCollision;
     }
 
@@ -116,8 +118,7 @@ public abstract class AbstractEntity implements Entity {
             return false;
         } else {
             final Entity e = Entity.class.cast(obj);
-            return e.getComponents().containsAll(e.getComponents())
-                    && e.getComponents().size() == this.getComponents().size();
+            return e.getComponents().equals(this.getComponents());
         }
     }
 
