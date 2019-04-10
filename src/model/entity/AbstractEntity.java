@@ -1,7 +1,7 @@
 package model.entity;
 
-import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -12,7 +12,6 @@ import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 
-import com.google.common.collect.Sets;
 import com.google.common.eventbus.EventBus;
 
 /**
@@ -86,7 +85,7 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final Set<Component> getComponents() {
-        return new HashSet<Component>(this.componentsMap.values());
+        return new LinkedHashSet<Component>(this.componentsMap.values());
     }
 
     @Override

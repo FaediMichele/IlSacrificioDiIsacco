@@ -9,8 +9,13 @@ public class MentalityComponent extends AbstractComponent {
 
     private Mentality actualMentality;
 
-    MentalityComponent(final Entity entity) {
+    /**
+     * 
+     * @param entity the entity
+     */
+    public MentalityComponent(final Entity entity, final Mentality m) {
         super(entity);
+        this.actualMentality = m;
     }
     /**
      * 
