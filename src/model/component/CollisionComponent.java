@@ -3,7 +3,7 @@ package model.component;
 import com.google.common.eventbus.EventBus;
 
 /**
- * This class manages the collision of this entity with the others;
+ * This class manages the collision of this entity with the others.
  *
  */
 
