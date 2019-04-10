@@ -21,7 +21,7 @@ public class CollisionComponent extends AbstractComponent {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         return super.equals(obj);
     }
 
@@ -29,7 +29,7 @@ public class CollisionComponent extends AbstractComponent {
      * {@inheritDoc}
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return super.hashCode();
     }
 

@@ -16,7 +16,6 @@ public class CollisionEvent extends AbstractEvent {
      */
     public CollisionEvent(final Entity sourceEntity, final Class<? extends Component> sourceComponent) {
         super(sourceEntity, sourceComponent);
-        // TODO Auto-generated constructor stub
     }
 
 }

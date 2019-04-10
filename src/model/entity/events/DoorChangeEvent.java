@@ -10,14 +10,13 @@ import model.entity.Entity;
 public class DoorChangeEvent extends AbstractEvent {
 
     /**
-     * .asd .
+     * The {@link Event} for door changing.
      * 
-     * @param sourceEntity asd
-     * @param sourceComponent asd
+     * @param sourceEntity the {@link Entity}
+     * @param sourceComponent the type of {@link Component}
      */
     public DoorChangeEvent(final Entity sourceEntity, final Class<? extends Component> sourceComponent) {
         super(sourceEntity, sourceComponent);
-        // TODO Auto-generated constructor stub
     }
 
 }

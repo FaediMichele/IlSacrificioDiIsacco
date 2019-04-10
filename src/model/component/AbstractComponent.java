@@ -11,7 +11,7 @@ import model.entity.Entity;
 public abstract class AbstractComponent implements Component {
     private boolean active;
     private Entity entity;
-    private Optional<Component> componentReplaced;
+    private final Optional<Component> componentReplaced;
 
 
     AbstractComponent(final Entity entity) {
@@ -98,7 +98,7 @@ public abstract class AbstractComponent implements Component {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        AbstractComponent other = (AbstractComponent) obj;
+        final AbstractComponent other = (AbstractComponent) obj;
         if (active != other.active) {
             return false;
         }
