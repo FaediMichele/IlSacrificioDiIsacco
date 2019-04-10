@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import model.entity.Entity;
+
 /**
  * This component controls the health of the entity.
  *
@@ -22,18 +24,20 @@ public class HealthComponent extends AbstractComponent {
      * @param maxHearts max number of hearts
      * @param heartsNumber initial number of hearts
      * @param heartKind kind of heart that has to be added at the list to initialize it
+     * @param e entity for this component
      */
-    public HealthComponent(final int maxHearts, final int heartsNumber, final Heart heartKind) {
-        super();
+    public HealthComponent(final Entity e, final int maxHearts, final int heartsNumber, final Heart heartKind) {
+        super(e);
         this.maxHearts = maxHearts;
         hearts = Stream.iterate(0, i -> i + 1).limit(heartsNumber).map(i -> heartKind).collect(Collectors.toList());
     }
 
     /**
      * Default HealthComponent constructor.
+     * @param e entity for this component
      */
-    public HealthComponent() {
-        super();
+    public HealthComponent(final Entity e) {
+        super(e);
         this.maxHearts = DEFAULT_MAX_HEARTS;
         hearts = Stream.iterate(0, i -> i + 1).limit(DEFAULT_HEARTS_NUMBER).map(i -> DEFAULT_HEART_KIND).collect(Collectors.toList());
     }

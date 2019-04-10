@@ -1,5 +1,7 @@
 package model.component;
 
+import model.entity.Entity;
+
 /**
  * Component that manages the movement of the entity and its speed.
  *
@@ -23,24 +25,26 @@ public class MoveComponent extends AbstractComponent {
       * @param deltaSpeed is the actual speed
       * @param maxSpeed is the max speed that can be reached
       * @param friction friction force against the movement
+      * @param e entity for this component
       */
-    public MoveComponent(final double deltaSpeed, final double maxSpeed, final double friction) {
-        super();
+    public MoveComponent(final Entity e, final double deltaSpeed, final double maxSpeed, final double friction) {
+        super(e);
         this.deltaSpeed = deltaSpeed;
         this.maxSpeed = maxSpeed;
         this.friction = friction;
-        init();
+        this.move(NOMOVE, NOMOVE, NOMOVE);
     }
 
     /**
      * Default MoveComponent constructor.
+     * @param e entity for this component
      */
-    public MoveComponent() {
-        super();
+    public MoveComponent(final Entity e) {
+        super(e);
         this.deltaSpeed = DEFAULT_SPEED;
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.friction = DEFAULT_FRICTION;
-        init();
+        this.move(NOMOVE, NOMOVE, NOMOVE);
     }
     /**
      * Getter for deltaSpeed.
@@ -85,11 +89,6 @@ public class MoveComponent extends AbstractComponent {
     public final void update(final Double deltaTime) {
         double spaceEachMove = calculateSpace(deltaTime);
         this.getEntity().getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-        this.init();
-    }
-
-    @Override
-    public final void init() {
         this.move(NOMOVE, NOMOVE, NOMOVE);
     }
 

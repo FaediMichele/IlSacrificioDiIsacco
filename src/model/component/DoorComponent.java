@@ -3,7 +3,9 @@ package model.component;
 import java.util.Objects;
 
 import model.entity.Entity;
+
 import model.entity.events.DoorChangeEvent;
+import model.entity.events.Event;
 
 /**
  * This component is used by the doors.
@@ -21,10 +23,12 @@ public class DoorComponent extends AbstractComponent {
      * @param destinationIndex index of the room
      * @param e Entity that possess the component
      */
-    public DoorComponent(final Integer location, final Integer destinationIndex, final Entity e) {
+    public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
         super(e);
         this.location = location;
         this.destination = destinationIndex;
+        Event changed = new DoorChangeEvent(e, this.getClass());
+        e.postEvent(changed);
     }
 
     /**
