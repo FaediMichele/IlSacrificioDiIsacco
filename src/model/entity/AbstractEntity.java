@@ -19,8 +19,25 @@ import com.google.common.eventbus.EventBus;
  */
 public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
-    private final Map<Class<? extends Component>, Component> componentsMap = new LinkedHashMap<>();
+    private final Map<Class<? extends Component>, Component> componentsMap;
 
+    /**
+     * .
+     */
+    public AbstractEntity() {
+        this.componentsMap = new LinkedHashMap<>();
+    }
+
+    /**
+     * 
+     * @param entityBody a
+     * @param entityCollision s
+     */
+    public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+        this();
+        attachComponent(entityBody);
+        attachComponent(entityCollision);
+    }
     @Override
     public final void attachComponent(final Component c) {
         this.componentsMap.put(c.getClass(), c);
@@ -69,7 +86,6 @@ public abstract class AbstractEntity implements Entity {
     public final Set<Component> getComponents() {
         return new HashSet<Component>(this.componentsMap.values());
     }
-
 
     @Override
     public final String toString() {

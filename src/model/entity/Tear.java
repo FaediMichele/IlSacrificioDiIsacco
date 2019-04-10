@@ -9,13 +9,6 @@ import model.component.CollisionComponent;
 public class Tear extends AbstractMovableEntity {
 
     /**
-     * Basic constructor.
-     */
-    public Tear() {
-        this(new BodyComponent(this), new CollisionComponent(this));
-    }
-
-    /**
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */

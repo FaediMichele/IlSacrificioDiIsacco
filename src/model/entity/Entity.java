@@ -3,8 +3,6 @@ package model.entity;
 import java.util.Optional;
 import java.util.Set;
 
-import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;

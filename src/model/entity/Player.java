@@ -10,13 +10,6 @@ import model.component.HealthComponent;
 public class Player extends AbstractMovableEntity {
 
     /**
-     * Basic constructor.
-     */
-    public Player() {
-        this(new BodyComponent(this), new CollisionComponent(this));
-    }
-
-    /**
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */

@@ -9,13 +9,6 @@ import model.component.CollisionComponent;
 public class Rock extends AbstractStaticEntity {
 
     /**
-     * Basic constructor.
-     */
-    public Rock() {
-        this(new BodyComponent(this), new CollisionComponent(this));
-    }
-
-    /**
      * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
