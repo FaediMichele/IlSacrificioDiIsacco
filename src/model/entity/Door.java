@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.component.BodyComponent;
+import model.component.CollisionComponent;
 import model.component.Component;
 import model.component.DoorComponent;
 
@@ -13,7 +14,7 @@ public class Door extends AbstractStaticEntity {
      * Basic constructor.
      */
     public Door() {
-        this(new BodyComponent(), null);
+        this(new BodyComponent(), new CollisionComponent());
     }
 
     /**
@@ -21,7 +22,7 @@ public class Door extends AbstractStaticEntity {
      * @param entityBody the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */
-    public Door(final BodyComponent entityBody, final Component entityCollision) {
+    public Door(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         super(entityBody, entityCollision);
         attachComponent(new DoorComponent(0, 1));
     }
@@ -39,7 +40,7 @@ public class Door extends AbstractStaticEntity {
     private static BodyComponent generateBody(final int position) {
         return new BodyComponent(0, 0, 0, 1, 1, 1);
     }
-    private static Component generateCollision() {
-        return generateBody(0);
+    private static CollisionComponent generateCollision() {
+        return new CollisionComponent();
     }
 }

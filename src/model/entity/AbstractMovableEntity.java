@@ -1,7 +1,7 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.Component;
+import model.component.CollisionComponent;
 import model.component.MoveComponent;
 
 /**
@@ -13,7 +13,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      * Basic constructor.
      */
     public AbstractMovableEntity() {
-        this(new BodyComponent(), null);
+        this(new BodyComponent(), new CollisionComponent());
     }
 
     /**
@@ -21,7 +21,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */
-    public AbstractMovableEntity(final BodyComponent entityBody, final Component entityCollision) {
+    public AbstractMovableEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         super(entityBody, entityCollision);
         attachComponent(new MoveComponent());
     }
