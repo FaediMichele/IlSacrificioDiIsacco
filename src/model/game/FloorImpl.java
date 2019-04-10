@@ -2,6 +2,7 @@ package model.game;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -25,22 +26,22 @@ public class FloorImpl implements Floor {
     private static final int SUD = 2;
     private static final int OVEST = 3;
 
-    private final ArrayList<Room> rooms;
-    private int activeRoomIndex = 0;
+    private final List<Room> rooms;
+    private int activeRoomIndex;
 
     /**
      * Generate a random floor with random room and random enemy.
      */
     public FloorImpl() {
         rooms = new ArrayList<>();
-        generateRooms();
+        activeRoomIndex = 0;
     }
 
     /**
      * Create a floor with specific rooms.
      * @param rooms rooms to use for this floor
      */
-    public FloorImpl(final ArrayList<Room> rooms) {
+    public FloorImpl(final List<Room> rooms) {
         this.rooms = new ArrayList<>(rooms);
     }
 
@@ -76,11 +77,11 @@ public class FloorImpl implements Floor {
      */
     @Override
     public void generateRooms() {
-        if (rooms.size() != 0) {
+        if (!rooms.isEmpty()) {
             throw new IllegalStateException("Floor already created");
         }
-        Matrix<Integer> m = new Matrix<>(MAXROOM, MAXROOM);
-        ArrayList<Pair<Integer, Integer>> roomIndexs = new ArrayList<>();
+        final Matrix<Integer> m = new Matrix<>(MAXROOM, MAXROOM);
+        final List<Pair<Integer, Integer>> roomIndexs = new ArrayList<>();
         generateMap(m, roomIndexs);
 
         for (int index = 0; index < roomIndexs.size(); index++) {
@@ -90,14 +91,14 @@ public class FloorImpl implements Floor {
     }
 
     /**
-     * Generate an empty room based on index and adjacent room. 
-     * @param index the index of the room
+     * Generate an empty room based on activeRoomIndex and adjacent room. 
+     * @param activeRoomIndex the activeRoomIndex of the room
      * @param m Matrix of adjacent room
      * @param pos the position on the matrix of the room to initialize
      * @return the room
      */
     private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos) {
-        ArrayList<Door> doors = new ArrayList<>();
+        final List<Door> doors = new ArrayList<>();
         if (roomExist(m, pos.getX(), pos.getY() - 1)) { //NORD
             doors.add(new Door(NORD, m.get(pos.getX(), pos.getY() - 1)));
         }
@@ -118,10 +119,10 @@ public class FloorImpl implements Floor {
      * @param m {@link Matrix} where to save the room ( used for nearby rooms)
      * @param roomIndexs {@link ArrayList} of positions of each room in increasing order
      */
-    private void generateMap(final Matrix<Integer> m,  final ArrayList<Pair<Integer, Integer>> roomIndexs) {
-        Pair<Integer, Integer> pos = new Pair<>(MAXROOM / 2, MAXROOM / 2);
-        Random rnd = new Random();
-        int nRoom = rnd.nextInt(MAXROOM);
+    private void generateMap(final Matrix<Integer> m,  final List<Pair<Integer, Integer>> roomIndexs) {
+        final Pair<Integer, Integer> pos = new Pair<>(MAXROOM / 2, MAXROOM / 2);
+        final Random rnd = new Random();
+        final int nRoom = rnd.nextInt(MAXROOM);
 
         for (int index = 0; index < nRoom; index++) {
             int direction = rnd.nextInt(OVEST);
@@ -190,7 +191,6 @@ public class FloorImpl implements Floor {
         default:
             throw new IllegalArgumentException();
         }
-        return;
     }
 
     /**

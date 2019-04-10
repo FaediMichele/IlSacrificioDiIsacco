@@ -31,7 +31,7 @@ public interface Room {
    * If this room has been completed ( the player kill all the enemy).
    * @return true if the room is completed.
    */
-  boolean isComplete();
+  boolean completed();
 
   /**
    * Get the index of the room.

@@ -2,6 +2,7 @@ package model.game;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import model.component.HealthComponent;
@@ -14,9 +15,9 @@ import model.entity.Entity;
  */
 public class RoomImpl implements Room {
 
-    private final ArrayList<Entity> entity = new ArrayList<>();
-    private final ArrayList<? extends Door> doors;
-    private boolean isComplete = false;
+    private final List<Entity> entity;
+    private final List<? extends Door> doors;
+    private boolean isComplete;
     private final int index;
 
     /**
@@ -25,9 +26,11 @@ public class RoomImpl implements Room {
      * @param door the door of this room
      * @param entity the entity of this room
      */
-    public RoomImpl(final int index, final ArrayList<Door> door, final ArrayList<? extends Entity> entity) {
+    public RoomImpl(final int index, final List<Door> door, final List<Entity> entity) {
         this.index = index;
         this.doors = door;
+        isComplete = false;
+        this.entity = entity; 
     }
 
     /**
@@ -35,9 +38,10 @@ public class RoomImpl implements Room {
      * @param index the index of the room
      * @param doors the door of this room
      */
-    public RoomImpl(final int index, final ArrayList<Door> doors) {
+    public RoomImpl(final int index, final List<Door> doors) {
         this.index = index;
         this.doors = doors;
+        entity = new ArrayList<>();
     }
     /**
      * {@inheritDoc}
@@ -73,7 +77,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public boolean isComplete() {
+    public boolean completed() {
         return isComplete;
     }
 
