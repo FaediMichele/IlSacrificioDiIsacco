@@ -9,6 +9,13 @@ import model.component.CollisionComponent;
 public class Wall extends AbstractStaticEntity {
 
     /**
+     * Empty constructor.
+     */
+    public Wall() {
+        super();
+    }
+
+    /**
      * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
