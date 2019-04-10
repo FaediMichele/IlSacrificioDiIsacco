@@ -20,6 +20,7 @@ public class Tear extends AbstractMovableEntity {
      * @param entityCollision the {@link CollisionComponent}
      */
     public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
+        this();
+        setDefaultComponents(entityBody, entityCollision);
     }
 }

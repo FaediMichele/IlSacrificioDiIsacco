@@ -21,8 +21,8 @@ public class Rock extends AbstractStaticEntity {
      * @param entityCollision the {@link CollisionComponent}
      */
     public Rock(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
-        // TODO Auto-generated constructor stub
+        this();
+        setDefaultComponents(entityBody, entityCollision);
     }
 
 }

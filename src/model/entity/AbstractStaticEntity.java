@@ -15,10 +15,14 @@ public class AbstractStaticEntity extends AbstractEntity {
      * @param entityCollision the {@link CollisionComponent}
      */
     public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
+        this();
+        setDefaultComponents(entityBody, entityCollision);
         // TODO Auto-generated constructor stub
     }
-    
+
+    /**
+     * Default constructor for static entities.
+     */
     public AbstractStaticEntity() {
         super();
     }

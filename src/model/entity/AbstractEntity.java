@@ -12,6 +12,7 @@ import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 
+import com.google.common.collect.Sets;
 import com.google.common.eventbus.EventBus;
 
 /**
@@ -26,6 +27,7 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
+        setDefaultComponents(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**
@@ -35,8 +37,7 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        attachComponent(entityBody);
-        attachComponent(entityCollision);
+        setDefaultComponents(entityBody, entityCollision);
     }
 
     @Override
@@ -106,5 +107,15 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public final int hashCode() {
         return super.hashCode();
+    }
+
+    /**
+     * Sets the default components.
+     * @param entityBody the body
+     * @param entityCollision the collision
+     */
+    protected final void setDefaultComponents(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+        attachComponent(entityBody);
+        attachComponent(entityCollision);
     }
 }

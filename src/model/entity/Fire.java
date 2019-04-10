@@ -14,6 +14,7 @@ public class Fire extends AbstractStaticEntity {
      */
     public Fire() {
         super();
+        attachComponent(new FireComponent(this));
     }
 
     /**
@@ -21,7 +22,7 @@ public class Fire extends AbstractStaticEntity {
      * @param entityCollision the {@link CollisionComponent}
      */
     public Fire(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
-        attachComponent(new FireComponent(this));
+        this();
+        setDefaultComponents(entityBody, entityCollision);
     }
 }
