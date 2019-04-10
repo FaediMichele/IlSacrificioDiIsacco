@@ -3,6 +3,8 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.Component;
 import model.component.DoorComponent;
+import model.component.Mentality;
+import model.component.MentalityComponent;
 import model.entity.events.EventListener;
 import model.entity.events.DoorChangeEvent;
 import util.Lambda;
@@ -27,6 +29,7 @@ public class Door extends AbstractStaticEntity {
         super();
         attachComponent(generateBody(location));
         attachComponent(new DoorComponent(this, location, destinationIndex));
+        attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
     }
 
     /**

@@ -3,6 +3,8 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.FireComponent;
+import model.component.Mentality;
+import model.component.MentalityComponent;
 
 /**
  * Implements the fires.
@@ -15,6 +17,7 @@ public class Fire extends AbstractStaticEntity {
     public Fire() {
         super();
         attachComponent(new FireComponent(this));
+        attachComponent(new MentalityComponent(this, Mentality.EVIL));
     }
 
     /**

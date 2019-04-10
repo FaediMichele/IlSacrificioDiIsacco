@@ -50,7 +50,7 @@ public class TestModel {
      * Test for {@link Fire}.
      */
     @org.junit.Test
-    public void testEntitym() {
+    public void testFire() {
         Fire f1 = new Fire(), f2 = new Fire();
         f1.attachComponent(new BodyComponent(f1));
         f2.attachComponent(new BodyComponent(f2));
