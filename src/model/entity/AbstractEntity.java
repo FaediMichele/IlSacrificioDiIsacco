@@ -22,7 +22,7 @@ public abstract class AbstractEntity implements Entity {
     private final Map<Class<? extends Component>, Component> componentsMap;
 
     /**
-     * .
+     * .Basic constructor.
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();

@@ -36,7 +36,7 @@ public class FireComponent extends AbstractComponent {
      * Sets the remaining life of the fire after taking damage.
      * @param lifeLost the life lost
      */
-    public void changeLife(final Integer lifeLost) {
+    private void changeLife(final Integer lifeLost) {
         this.lifeLeft = (lifeLost > this.lifeLeft) ? 0 : this.lifeLeft - lifeLost;
     }
 
