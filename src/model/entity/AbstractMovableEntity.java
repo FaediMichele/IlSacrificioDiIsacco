@@ -18,5 +18,11 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
         super(entityBody, entityCollision);
         attachComponent(new MoveComponent(this));
     }
-
+    
+    /**
+     * Create a empty 
+     */
+    public AbstractMovableEntity() {
+        super();
+    }
 }
