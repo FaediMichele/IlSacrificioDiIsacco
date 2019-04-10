@@ -51,7 +51,9 @@ public class TestModel {
      */
     @org.junit.Test
     public void testEntity() {
-        Fire f = new Fire(new BodyComponent(e));
+        Fire f1 = new Fire(), f2 = new Fire();
+        f1.attachComponent(new BodyComponent(f1));
+        f2.attachComponent(new BodyComponent(f2));
     }
     /**
      * Test for the map.

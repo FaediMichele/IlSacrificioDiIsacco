@@ -1,5 +1,6 @@
 package model.entity;
 
+
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.MoveComponent;
@@ -15,14 +16,15 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      * @param entityCollision the {@link CollisionComponent}
      */
     public AbstractMovableEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
-        attachComponent(new MoveComponent(this));
+        this();
+        setDefaultComponents(entityBody, entityCollision);
     }
-    
+
     /**
-     * Create a empty 
+     * Default constructor for movable entities.
      */
     public AbstractMovableEntity() {
         super();
+        attachComponent(new MoveComponent(this));
     }
 }

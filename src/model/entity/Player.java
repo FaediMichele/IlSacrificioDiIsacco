@@ -15,6 +15,8 @@ public class Player extends AbstractMovableEntity {
      */
     public Player() {
         super();
+        attachComponent(new HealthComponent(this));
+        attachComponent(new InventoryComponent(this));
     }
 
     /**
@@ -22,8 +24,7 @@ public class Player extends AbstractMovableEntity {
      * @param entityCollision the {@link CollisionComponent}
      */
     public Player(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
-        attachComponent(new HealthComponent(this));
-        attachComponent(new InventoryComponent(this));
+        this();
+        setDefaultComponents(entityBody, entityCollision);
     }
 }
