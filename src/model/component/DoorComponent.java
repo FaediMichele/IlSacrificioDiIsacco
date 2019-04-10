@@ -3,9 +3,10 @@ package model.component;
 import java.util.Objects;
 
 import model.entity.Entity;
-
+import model.entity.events.CollisionEvent;
 import model.entity.events.DoorChangeEvent;
 import model.entity.events.Event;
+import model.entity.events.EventListener;
 
 /**
  * This component is used by the doors.
@@ -27,8 +28,9 @@ public class DoorComponent extends AbstractComponent {
         super(e);
         this.location = location;
         this.destination = destinationIndex;
-        Event changed = new DoorChangeEvent(e, this.getClass());
-        e.postEvent(changed);
+        e.registerListener(new EventListener<CollisionEvent>(() -> {
+
+        }));
     }
 
     /**
