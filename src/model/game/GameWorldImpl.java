@@ -13,7 +13,7 @@ public class GameWorldImpl implements GameWorld {
 
     private final Player player;
     private final List<Floor> floors;
-    private int activeFloor = 0;
+    private int activeFloor;
 
     /**
      * @param player {@link Player}
@@ -21,6 +21,7 @@ public class GameWorldImpl implements GameWorld {
     public GameWorldImpl(final Player player) {
         this.floors = new LinkedList<>();
         this.player = player;
+        activeFloor = 0;
     }
 
     @Override

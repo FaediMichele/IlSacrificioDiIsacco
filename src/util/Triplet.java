@@ -67,7 +67,7 @@ public class Triplet<X, Y, Z> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Triplet<Object, Object, Object> other = (Triplet<Object, Object, Object>) obj;
+        final Triplet<Object, Object, Object> other = (Triplet<Object, Object, Object>) obj;
         return Objects.equals(v1, other.v1) && Objects.equals(v2, other.v2)
             && Objects.equals(v3, other.v3);
     }
