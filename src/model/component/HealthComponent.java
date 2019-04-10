@@ -72,10 +72,4 @@ public class HealthComponent extends AbstractComponent {
        }
     }
 
-    @Override
-    public void init() {
-        // TODO Auto-generated method stub
-
-    }
-
 }

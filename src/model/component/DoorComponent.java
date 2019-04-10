@@ -2,8 +2,10 @@ package model.component;
 
 import java.util.Objects;
 
+import model.entity.Entity;
 import model.entity.events.DoorChangeEvent;
 import model.entity.events.DoorChangeListener;
+import model.entity.events.Event;
 import model.entity.events.EventListener;
 
 /**
@@ -15,7 +17,6 @@ public class DoorComponent extends AbstractComponent {
     private final Integer destination;
     private final Integer location;
     private boolean playerPassed = false;
-    private EventListener<DoorChangeEvent> e = new DoorChangeListener();
 
     /**
      * Create a door component with a destination room index.
@@ -25,7 +26,9 @@ public class DoorComponent extends AbstractComponent {
     public DoorComponent(final Integer location, final Integer destinationIndex) {
         this.location = location;
         this.destination = destinationIndex;
-        this.
+        Entity e;
+        Event changed = new DoorChangeEvent(e, this.getClass());
+        e.postEvent(changed);
     }
 
     @Override

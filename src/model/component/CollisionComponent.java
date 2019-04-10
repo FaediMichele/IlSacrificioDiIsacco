@@ -1,7 +1,5 @@
 package model.component;
 
-import com.google.common.eventbus.EventBus;
-
 /**
  * This class manages the collision of this entity with the others.
  *
@@ -9,17 +7,11 @@ import com.google.common.eventbus.EventBus;
 
 public class CollisionComponent extends AbstractComponent {
 
-    private EventBus bus = new EventBus();
     /**
-     * 
+     * Default CollisionComponent constructor.
      */
     public CollisionComponent() {
         super();
-    }
-
-    @Override
-    public void init() {
-        // TODO Auto-generated method stub
     }
 
 }

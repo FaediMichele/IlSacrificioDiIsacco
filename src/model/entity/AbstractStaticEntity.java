@@ -1,7 +1,7 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.Component;
+import model.component.CollisionComponent;
 
 /**
  * Base class for all the static entities such as rocks and doors. See also
@@ -13,7 +13,7 @@ public class AbstractStaticEntity extends AbstractEntity {
      * Basic constructor.
      */
     public AbstractStaticEntity() {
-        this(new BodyComponent(), null);
+        this(new BodyComponent(), new CollisionComponent());
     }
 
     /**
@@ -21,7 +21,7 @@ public class AbstractStaticEntity extends AbstractEntity {
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */
-    public AbstractStaticEntity(final BodyComponent entityBody, final Component entityCollision) {
+    public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         super(entityBody, entityCollision);
         // TODO Auto-generated constructor stub
     }
