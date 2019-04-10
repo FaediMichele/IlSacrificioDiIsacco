@@ -30,7 +30,7 @@ public class Door extends AbstractStaticEntity {
             final Integer location, final Integer destinationIndex) {
         super(entityBody, entityCollision);
 
-        attachComponent(new DoorComponent(location, destinationIndex, this));
+        attachComponent(new DoorComponent(this, location, destinationIndex));
     }
 
     /**
