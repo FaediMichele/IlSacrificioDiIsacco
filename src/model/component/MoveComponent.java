@@ -80,7 +80,7 @@ public class MoveComponent extends AbstractComponent {
      * @return the real speed space/ms, considering the friction force 
      */
     private double calculateSpace(final Double deltaTime) {
-        double acceleration = -friction / this.getEntity().getBody().getWeight();
+        double acceleration = -friction / getBody().getWeight();
         double space = this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
         return space;
     }
@@ -88,8 +88,12 @@ public class MoveComponent extends AbstractComponent {
     @Override
     public final void update(final Double deltaTime) {
         double spaceEachMove = calculateSpace(deltaTime);
-        this.getEntity().getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
+        getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
         this.move(NOMOVE, NOMOVE, NOMOVE);
+    }
+
+    private BodyComponent getBody() {
+        return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
     }
 
 }
