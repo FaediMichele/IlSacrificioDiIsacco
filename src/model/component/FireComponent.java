@@ -1,6 +1,8 @@
 package model.component;
 
 import model.entity.Entity;
+import model.entity.events.EventListener;
+import model.entity.events.FireHittedEvent;
 
 /**
  * Implements the data for the fires.
@@ -16,7 +18,18 @@ public class FireComponent extends AbstractComponent {
      */
     public FireComponent(final Entity entity) {
         super(entity);
-        this.lifeLeft = MAX_LIFE; 
+        this.lifeLeft = MAX_LIFE;
+        this.getEntity().registerListener(new EventListener<FireHittedEvent>(() -> {
+            changeLife(1);
+        }));
+    }
+
+    /**
+     * 
+     * @return the life left
+     */
+    public Integer getLife() {
+        return this.lifeLeft;
     }
 
     /**
@@ -25,5 +38,18 @@ public class FireComponent extends AbstractComponent {
      */
     public void changeLife(final Integer lifeLost) {
         this.lifeLeft = (lifeLost > this.lifeLeft) ? 0 : this.lifeLeft - lifeLost;
+    }
+
+
+    @Override
+    public final boolean equals(final Object component) {
+        boolean equals = super.equals(component);
+        equals = equals && ((FireComponent) component).getLife().equals(this.getLife());
+        return equals;
+    }
+
+    @Override
+    public final int hashCode() {
+        return super.hashCode();
     }
 }

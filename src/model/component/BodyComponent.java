@@ -4,7 +4,6 @@ import model.entity.Entity;
 
 /**
  * Component that contains the informations about the body of the entity, that is its dimension and the position.
- *
  */
 
 public class BodyComponent extends AbstractComponent {
@@ -83,7 +82,7 @@ public class BodyComponent extends AbstractComponent {
      * @param deltaY movement on the y axis
      * @param deltaZ movement on the z axis
      */
-    public void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
+    protected void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
         this.x = this.x + deltaX;
         this.y = this.y + deltaY;
         this.z = this.z + deltaZ;
@@ -110,7 +109,7 @@ public class BodyComponent extends AbstractComponent {
      * @param heightFactor multiply factor of the height
      * @param widthFactor multiply factor of the width
      */
-    public void scaleDimension(final double heightFactor, final double widthFactor) {
+    protected void scaleDimension(final double heightFactor, final double widthFactor) {
         this.height = this.height * heightFactor;
         this.width = this.width * widthFactor;
     }
@@ -129,10 +128,5 @@ public class BodyComponent extends AbstractComponent {
      */
     public void changeWeight(final int deltaWeight) {
         this.weight = this.weight + deltaWeight;
-    }
-
-    @Override
-    public void update(final Double deltaTime) {
-        //?
     }
 }

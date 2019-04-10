@@ -38,6 +38,7 @@ public abstract class AbstractEntity implements Entity {
         attachComponent(entityBody);
         attachComponent(entityCollision);
     }
+
     @Override
     public final void attachComponent(final Component c) {
         this.componentsMap.put(c.getClass(), c);

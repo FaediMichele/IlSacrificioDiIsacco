@@ -1,15 +1,31 @@
 package model.entity.events;
 
+import com.google.common.eventbus.Subscribe;
+
+import util.Lambda;
+
 /**
- * Base interface for all the listeners.
+ * The base class for all the first kind of events.
  * 
- * @param <E> the generic type for all the events
+ * @param <E> the kind of event
  */
-public interface EventListener<E extends Event> {
+public class EventListener<E extends Event> {
+
+    private final Lambda l;
     /**
-     * Base function for all the events listener.
-     * 
+     * Base builder.
+     * @param l the lambda function
+     */
+    public EventListener(final Lambda l) {
+        this.l = l;
+    }
+
+    /**
+     * The method that runs when the {@link Event} is triggered.
      * @param event the event
      */
-    void listenEvent(E event);
+    @Subscribe
+    public final void listenEvent(final E event) {
+        l.action();
+    }
 }
