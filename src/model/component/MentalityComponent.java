@@ -10,8 +10,9 @@ public class MentalityComponent extends AbstractComponent {
     private Mentality actualMentality;
 
     /**
-     * 
+     * Create a new {@link MentalityComponent} with mentality set.
      * @param entity the entity
+     * @param m the default mentality
      */
     public MentalityComponent(final Entity entity, final Mentality m) {
         super(entity);

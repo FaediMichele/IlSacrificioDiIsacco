@@ -9,7 +9,7 @@ import model.entity.Entity;
  * 
  */
 
-public class InventoryComponent extends AbstractComponent{
+public class InventoryComponent extends AbstractComponent {
 
     private final List<CollectibleThing> things;
     /**

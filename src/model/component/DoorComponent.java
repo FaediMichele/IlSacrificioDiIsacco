@@ -5,7 +5,6 @@ import java.util.Objects;
 import model.entity.Entity;
 import model.entity.events.CollisionEvent;
 import model.entity.events.DoorChangeEvent;
-import model.entity.events.Event;
 import model.entity.events.EventListener;
 
 /**

@@ -5,9 +5,6 @@ import model.component.Component;
 import model.component.DoorComponent;
 import model.component.Mentality;
 import model.component.MentalityComponent;
-import model.entity.events.EventListener;
-import model.entity.events.DoorChangeEvent;
-import util.Lambda;
 
 /**
  * Create a door.

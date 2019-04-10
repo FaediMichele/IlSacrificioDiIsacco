@@ -3,9 +3,18 @@ package model.entity.events;
 import model.component.Component;
 import model.entity.Entity;
 
-public class CollisionEvent extends AbstractEvent{
-    
-    public CollisionEvent(Entity sourceEntity, Class<? extends Component> sourceComponent) {
+/**
+ * TODO comment.
+ *
+ */
+public class CollisionEvent extends AbstractEvent {
+
+    /**
+     * Create a new event for collision.
+     * @param sourceEntity the entity that cause this event
+     * @param sourceComponent the component that cause this event
+     */
+    public CollisionEvent(final Entity sourceEntity, final Class<? extends Component> sourceComponent) {
         super(sourceEntity, sourceComponent);
         // TODO Auto-generated constructor stub
     }
