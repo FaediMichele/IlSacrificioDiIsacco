@@ -14,6 +14,7 @@ public abstract class AbstractComponent implements Component {
     private Entity entity;
     private Optional<Component> componentReplaced;
 
+
     AbstractComponent(final Entity entity) {
         this.entity = entity;
     }
