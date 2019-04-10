@@ -4,6 +4,9 @@ import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.Component;
 import model.component.DoorComponent;
+import model.entity.events.EventListener;
+import model.entity.events.DoorChangeEvent;
+import util.Lambda;
 
 /**
  * Implements the doors.
