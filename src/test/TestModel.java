@@ -54,7 +54,9 @@ public class TestModel {
     @org.junit.Test
     public void testFire() {
         Fire f1 = new Fire(), f2 = new Fire();
+        assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1));
         f1.postEvent(new FireHittedEvent(f1, FireComponent.class));
+        assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1)));
         assertTrue(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife() == 3);
         assertTrue(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife() == 4);
         f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
