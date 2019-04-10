@@ -5,9 +5,7 @@ import java.util.Objects;
 import model.entity.Entity;
 
 import model.entity.events.DoorChangeEvent;
-import model.entity.events.DoorChangeListener;
 import model.entity.events.Event;
-import model.entity.events.EventListener;
 
 /**
  * This component is used by the doors.
@@ -23,7 +21,7 @@ public class DoorComponent extends AbstractComponent {
      * Create a door component with a destination room index.
      * @param location The {@link Room} where the player is
      * @param destinationIndex index of the room
-     * @param e entity for this component
+     * @param e Entity that possess the component
      */
     public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
         super(e);
@@ -68,6 +66,13 @@ public class DoorComponent extends AbstractComponent {
         DoorComponent other = (DoorComponent) obj;
         return Objects.equals(destination, other.destination) && Objects.equals(location, other.location)
                 && playerPassed == other.playerPassed;
+    }
+
+    /**
+     * Post the event for the player that has passed.
+     */
+    private void postPlayerPassed() {
+        getEntity().postEvent(new DoorChangeEvent(getEntity(), this.getClass()));
     }
 
 }

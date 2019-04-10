@@ -11,20 +11,26 @@ import model.component.DoorComponent;
 public class Door extends AbstractStaticEntity {
 
     /**
-     * Basic constructor.
+     * Create a new door based on the direction and destination.
+     * @param location the direction of the door in the room (0= North; 1= East; 2= South; 3= West)
+     * @param destinationIndex the room that this door conducts
      */
-    public Door() {
-        this(new BodyComponent(), new CollisionComponent());
+    public Door(final Integer location, final Integer destinationIndex) {
+        this(new BodyComponent(), new CollisionComponent(), location, destinationIndex);
     }
 
     /**
-     * 
-     * @param entityBody the {@link BodyComponent}
-     * @param entityCollision the {@link CollisionComponent}
+     * Create a door based on the body, collision, direction, destination.
+     * @param entityBody The body of the door
+     * @param entityCollision the collision of the door
+     * @param location the direction of the door in the room (0= North; 1= East; 2= South; 3= West)
+     * @param destinationIndex the room that this door conducts
      */
-    public Door(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    public Door(final BodyComponent entityBody, final CollisionComponent entityCollision,
+            final Integer location, final Integer destinationIndex) {
         super(entityBody, entityCollision);
-        attachComponent(new DoorComponent(0,  1));
+
+        attachComponent(new DoorComponent(location, destinationIndex, this));
     }
 
     /**
@@ -35,6 +41,10 @@ public class Door extends AbstractStaticEntity {
     public Door(final int position, final DoorComponent door) {
         this(generateBody(position), generateCollision());
         attachComponent(door);
+    }
+
+    private Door(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+        super(entityBody, entityCollision);
     }
 
     private static BodyComponent generateBody(final int position) {
