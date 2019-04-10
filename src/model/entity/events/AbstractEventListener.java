@@ -18,7 +18,7 @@ public abstract class AbstractEventListener<E extends AbstractEvent> implements 
 
     @Override
     @Subscribe
-    public final void listenEvent(final E event) {
+    public void listenEvent(final E event) {
         // TODO
     }
 }

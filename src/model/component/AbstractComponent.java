@@ -14,7 +14,6 @@ public abstract class AbstractComponent implements Component {
     private Entity entity;
     private Optional<Component> componentReplaced;
 
-
     @Override
     public final boolean isActive() {
       return active;
