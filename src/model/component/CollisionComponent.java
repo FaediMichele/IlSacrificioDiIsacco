@@ -18,12 +18,10 @@ public class CollisionComponent extends AbstractComponent {
         super(e);
     }
 
-
     @Override
     public final int hashCode() {
         return super.hashCode();
     }
-
 
     @Override
     public final boolean equals(final Object obj) {
@@ -38,9 +36,4 @@ public class CollisionComponent extends AbstractComponent {
         }
         return true;
     }
-
-
-
-
-
 }
