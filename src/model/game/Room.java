@@ -38,4 +38,10 @@ public interface Room {
    * @return the index of the room.
    */
   int getIndex();
+
+  /**
+   * Add an {@link Entity} to the room.
+   * @param e the {@link Entity}
+   */
+  void insertEntity(Entity e);
 }

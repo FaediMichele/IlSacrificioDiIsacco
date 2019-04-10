@@ -14,7 +14,7 @@ import model.entity.Entity;
  */
 public class RoomImpl implements Room {
 
-    private final ArrayList<? extends Entity> entity = new ArrayList<>();
+    private final ArrayList<Entity> entity = new ArrayList<>();
     private final ArrayList<? extends Door> doors;
     private boolean isComplete = false;
     private final int index;
@@ -85,4 +85,10 @@ public class RoomImpl implements Room {
         return index;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public void insertEntity(final Entity e) {
+        entity.add(e);
+    }
 }

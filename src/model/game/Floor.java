@@ -38,5 +38,4 @@ public interface Floor {
    * @param deltaTime time passed from the last call.
    */
   void update(Double deltaTime);
-
 }
