@@ -4,8 +4,8 @@ import java.util.Objects;
 
 import model.entity.Entity;
 import model.entity.events.CollisionEvent;
+import model.entity.events.CollisionListener;
 import model.entity.events.DoorChangeEvent;
-import model.entity.events.EventListener;
 
 /**
  * This component is used by the doors.
@@ -28,7 +28,7 @@ public class DoorComponent extends AbstractComponent {
         this.hasPlayerPassed = false;
         this.location = location;
         this.destination = destinationIndex;
-        e.registerListener(new EventListener<CollisionEvent>((c) -> {
+        e.registerListener(new CollisionListener((c) -> {
                 final CollisionEvent coll = (CollisionEvent) c;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
                     postPlayerPassed();

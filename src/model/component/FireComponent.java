@@ -1,9 +1,9 @@
 package model.component;
 
 import model.entity.Entity;
-import model.entity.events.EventListener;
-import model.entity.events.FireHittedEvent;
+import model.entity.events.FireHittedListener;
 import model.entity.events.FireOutEvent;
+import model.entity.events.FireOutListener;
 
 /**
  * Implements the data for the fires.
@@ -24,16 +24,24 @@ public class FireComponent extends AbstractComponent {
         super(entity);
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
-        this.getEntity().registerListener(new EventListener<FireHittedEvent>((event) -> {
+        this.getEntity().registerListener(new FireHittedListener((event) -> {
             changeLife(1);
 
             if (this.lifeLeft == 0) {
-                this.getEntity().postEvent(new FireOutEvent(event.getSourceEntity(), event.getSourceComponent(), this.fireType));
+                this.getEntity().postEvent(
+                        new FireOutEvent(event.getSourceEntity(), event.getSourceComponent(), this.fireType));
             }
         }));
 
-        this.getEntity().registerListener(new EventListener<FireOutEvent>((event) -> {
-            //TODO
+        this.getEntity().registerListener(new FireOutListener((event) -> {
+            final FireType type = event.getFireType();
+            if (type == FireType.RED) {
+                System.out.println("RED");
+            } else if (type == FireType.BLUE) {
+                System.out.println("BLUE");
+            } else {
+                System.out.println("Other");
+            }
         }));
     }
 
@@ -43,6 +51,13 @@ public class FireComponent extends AbstractComponent {
      */
     public Integer getLife() {
         return this.lifeLeft;
+    }
+
+    /**
+     * @return the fireType
+     */
+    public FireType getFireType() {
+        return fireType;
     }
 
     /**
@@ -56,8 +71,14 @@ public class FireComponent extends AbstractComponent {
 
     @Override
     public final boolean equals(final Object component) {
+        if (!(component instanceof FireComponent)) {
+            return false;
+        }
+
         boolean equals = super.equals(component);
-        equals = equals && ((FireComponent) component).getLife().equals(this.getLife());
+        final FireComponent other = (FireComponent) component;
+        equals = equals && other.getLife().equals(this.getLife());
+        equals = equals && other.getFireType() == this.getFireType();
         return equals;
     }
 

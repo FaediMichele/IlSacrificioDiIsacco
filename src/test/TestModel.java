@@ -12,15 +12,23 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.eventbus.EventBus;
+
 import model.component.BodyComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
+import model.component.FireType;
 import model.component.HealthComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Player;
+import model.entity.events.Event;
+import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
+import model.entity.events.FireHittedListener;
+import model.entity.events.FireOutEvent;
+import model.entity.events.FireOutListener;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -38,7 +46,7 @@ public class TestModel {
     public void testEntity() {
         final Entity p = new Player();
         final Entity p2 = new Player();
-        final Entity f = new Fire();
+        final Entity f = new Fire(FireType.RED);
         p2.attachComponent(new BodyComponent(p2, 1.0, 1, 0, 1, 1, 2));
         p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
         assertTrue(p.hasComponent(BodyComponent.class));
@@ -55,17 +63,35 @@ public class TestModel {
      */
     @Test
     public void testFire() {
-        final Fire f1 = new Fire();
-        final Fire f2 = new Fire();
-        assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1));
+        final Fire f1 = new Fire(FireType.RED);
+        final Fire f2 = new Fire(FireType.BLUE);
+        assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1, FireType.RED));
         f1.postEvent(new FireHittedEvent(f1, FireComponent.class));
-        assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1)));
+        assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1, FireType.RED)));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(3));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(4));
         f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
         f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(3));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(2));
+    }
+
+    /**
+     * Test for events.
+     */
+    @Test
+    public void testEvent() {
+        EventBus b = new EventBus();
+        EventListener<FireHittedEvent> fhl =  new FireHittedListener(i -> {
+            System.out.println("Fire hitted");
+        });
+        b.register(fhl);
+        b.register(new FireOutListener(i -> {
+            System.out.println("Fire out");
+        }));
+        Event e = new FireHittedEvent(new Fire(FireType.RED), FireComponent.class);
+        b.post(e);
+        b.post(new FireOutEvent(new Fire(FireType.RED), FireComponent.class, FireType.RED));
     }
     /**
      * Test for the map.

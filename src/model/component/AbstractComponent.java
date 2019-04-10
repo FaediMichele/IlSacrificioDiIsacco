@@ -113,7 +113,7 @@ public abstract class AbstractComponent implements Component {
             if (other.entity != null) {
                 return false;
             }
-        } else if (!entity.equals(other.entity)) {
+        } else if (this.entity.hashCode() != other.entity.hashCode()) {
             return false;
         }
         return true;
