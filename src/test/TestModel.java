@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.junit.Test;
+
 import model.component.BodyComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
@@ -32,7 +34,7 @@ public class TestModel {
     /**
      * Test for {@link Entity}.
      */
-    @org.junit.Test
+    @Test
     public void testEntity() {
         final Entity p = new Player();
         final Entity p2 = new Player();
@@ -51,7 +53,7 @@ public class TestModel {
     /**
      * Test for {@link Fire}.
      */
-    @org.junit.Test
+    @Test
     public void testFire() {
         final Fire f1 = new Fire();
         final Fire f2 = new Fire();
@@ -68,7 +70,7 @@ public class TestModel {
     /**
      * Test for the map.
      */
-    @org.junit.Test
+    @Test
     public void testMap() {
         boolean ok = false;
         ArrayList<Door> doors = new ArrayList<Door>();
