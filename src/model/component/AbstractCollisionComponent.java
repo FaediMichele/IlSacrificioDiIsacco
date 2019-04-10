@@ -1,5 +1,7 @@
 package model.component;
 
+
+
 import model.entity.Entity;
 import model.entity.events.CollisionListener;
 
@@ -12,7 +14,7 @@ public abstract class AbstractCollisionComponent extends AbstractComponent {
     AbstractCollisionComponent(final Entity entity) {
         super(entity);
         entity.registerListener(new CollisionListener((event) -> {
-            //switch (event.getSourceEntity().getComponents().stream().filter(c->c.getClass().equals(obj))) {
+            //switch (event.getSourceEntity().getComponents().stream().filter(c->c IsInstanceOf (MentalityComponent))){
             //}
         }));
     }
