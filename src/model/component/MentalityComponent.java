@@ -32,7 +32,7 @@ public class MentalityComponent extends AbstractComponent {
      * 
      * @return actualMentality of the entity.
      */
-    protected Mentality getMentality() {
+    public Mentality getMentality() {
         return this.actualMentality;
     }
 }
