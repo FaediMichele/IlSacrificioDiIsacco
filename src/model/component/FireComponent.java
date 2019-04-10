@@ -19,7 +19,7 @@ public class FireComponent extends AbstractComponent {
     public FireComponent(final Entity entity) {
         super(entity);
         this.lifeLeft = MAX_LIFE;
-        this.getEntity().registerListener(new EventListener<FireHittedEvent>(() -> {
+        this.getEntity().registerListener(new EventListener<FireHittedEvent>((event) -> {
             changeLife(1);
         }));
     }

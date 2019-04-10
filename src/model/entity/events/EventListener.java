@@ -11,12 +11,12 @@ import util.Lambda;
  */
 public class EventListener<E extends Event> {
 
-    private final Lambda l;
+    private final Lambda<E> l;
     /**
      * Base builder.
      * @param l the lambda function
      */
-    public EventListener(final Lambda l) {
+    public EventListener(final Lambda<E> l) {
         this.l = l;
     }
 
@@ -26,6 +26,6 @@ public class EventListener<E extends Event> {
      */
     @Subscribe
     public final void listenEvent(final E event) {
-        l.action();
+        l.action(event);
     }
 }
