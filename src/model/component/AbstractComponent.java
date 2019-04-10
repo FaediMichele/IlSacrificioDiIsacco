@@ -74,7 +74,7 @@ public abstract class AbstractComponent implements Component {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the hash code of the {@link Component}.
      */
     @Override
     public int hashCode() {
@@ -89,7 +89,7 @@ public abstract class AbstractComponent implements Component {
     }
 
     /**
-     * {@inheritDoc}
+     * Checks if two {@link Component} are equals.
      */
     @Override
     public boolean equals(final Object obj) {
