@@ -29,7 +29,6 @@ public class GameWorldImpl implements GameWorld {
         return this.player;
     }
 
-
     @Override
     public final List<Floor> getFloors() {
         return new LinkedList<>(this.floors);

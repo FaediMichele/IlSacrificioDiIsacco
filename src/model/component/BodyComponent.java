@@ -3,7 +3,8 @@ package model.component;
 import model.entity.Entity;
 
 /**
- * Component that contains the informations about the body of the entity, that is its dimension and the position.
+ * Component that contains the informations about the body of the entity, that
+ * is its dimension and the position.
  */
 
 public class BodyComponent extends AbstractComponent {
@@ -20,15 +21,17 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Initialize the parameters.
-     * @param x position on the x axis
-     * @param y position on the y axis
-     * @param z position on the x axis
+     * 
+     * @param x      position on the x axis
+     * @param y      position on the y axis
+     * @param z      position on the x axis
      * @param height of the entity
-     * @param width of the entity
+     * @param width  of the entity
      * @param weight of the entity
-     * @param e entity for this component
+     * @param e      entity for this component
      */
-    public BodyComponent(final Entity e, final double x, final double y, final double z, final double height, final double width, final int weight) {
+    public BodyComponent(final Entity e, final double x, final double y, final double z, final double height,
+            final double width, final int weight) {
         super(e);
         this.x = x;
         this.y = y;
@@ -40,6 +43,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Default BodyComponent constructor.
+     * 
      * @param e entity for this component
      */
     public BodyComponent(final Entity e) {
@@ -54,6 +58,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * X getter.
+     * 
      * @return x
      */
     public double getX() {
@@ -62,6 +67,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Y getter.
+     * 
      * @return y
      */
     public double getY() {
@@ -70,6 +76,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Z getter.
+     * 
      * @return z
      */
     public double getZ() {
@@ -78,6 +85,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Changes the position of the entity.
+     * 
      * @param deltaX movement on the x axis
      * @param deltaY movement on the y axis
      * @param deltaZ movement on the z axis
@@ -90,6 +98,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Height getter.
+     * 
      * @return height
      */
     public double getHeight() {
@@ -98,6 +107,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Width getter.
+     * 
      * @return width
      */
     public double getWidth() {
@@ -106,8 +116,9 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Scale the dimension of the entity (ex. doubles it).
+     * 
      * @param heightFactor multiply factor of the height
-     * @param widthFactor multiply factor of the width
+     * @param widthFactor  multiply factor of the width
      */
     protected void scaleDimension(final double heightFactor, final double widthFactor) {
         this.height = this.height * heightFactor;

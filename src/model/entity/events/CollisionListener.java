@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import util.Lambda;
 
 /**
- *      .
+ * .
  */
 public class CollisionListener extends AbstractEventListener<CollisionEvent> {
     /**

@@ -7,9 +7,9 @@ import model.component.Mentality;
 import model.component.MentalityComponent;
 
 /**
- * Create a door.
- * The doors have a position based on the location (North, East, ...).
- * The doors have a component called DoorComponent that contains the 
+ * Create a door. The doors have a position based on the location 
+ * (North, East, ...). 
+ * The doors have a component called DoorComponent that contains the
  */
 public class Door extends AbstractStaticEntity {
     private static final int DEFAULTZ = 0;
@@ -19,7 +19,9 @@ public class Door extends AbstractStaticEntity {
 
     /**
      * Create a door based on the direction, destination.
-     * @param location the direction of the door in the room (0= North; 1= East; 2= South; 3= West)
+     * 
+     * @param location         the direction of the door in the room (0= North; 1=
+     *                         East; 2= South; 3= West)
      * @param destinationIndex the room that this door conducts
      */
     public Door(final Integer location, final Integer destinationIndex) {
@@ -31,6 +33,7 @@ public class Door extends AbstractStaticEntity {
 
     /**
      * Generate a body for the door.
+     * 
      * @param location
      * @return
      */
@@ -48,6 +51,5 @@ public class Door extends AbstractStaticEntity {
             throw new IllegalArgumentException();
         }
     }
-
 
 }

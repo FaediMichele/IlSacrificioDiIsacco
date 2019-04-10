@@ -13,51 +13,56 @@ public abstract class AbstractComponent implements Component {
     private Entity entity;
     private final Optional<Component> componentReplaced;
 
-
     AbstractComponent(final Entity entity) {
         this.entity = entity;
         this.componentReplaced = Optional.empty();
     }
+
     /**
-     * Check if the component is active, this has to be done before each update call.
+     * Check if the component is active, this has to be done before each update
+     * call.
+     * 
      * @return {@link Boolean}.
      */
     protected final boolean isActive() {
-      return active;
+        return active;
     }
 
     /**
-     * Enable or disable a component by setting a variable. 
+     * Enable or disable a component by setting a variable.
+     * 
      * @param state {@link Boolean}.
      */
     protected final void setState(final boolean state) {
-      active = state;
+        active = state;
     }
 
     /**
      * Get the entity this component is attached to.
+     * 
      * @return {@link Entity}.
      */
     protected final Entity getEntity() {
-      return entity;
+        return entity;
     }
 
     /**
      * Sets the entity this component has to be attached to.
+     * 
      * @param e {@link Entity}
      */
     protected final void setEntity(final Entity e) {
-      if (entity != null) {
-        throw new IllegalStateException();
-      }
-      entity = e;
+        if (entity != null) {
+            throw new IllegalStateException();
+        }
+        entity = e;
     }
 
     /**
      * Release all resources used by this component.
      */
     protected final void dispose() {
-      active = false;
+        active = false;
     }
 
     /**
@@ -82,7 +87,6 @@ public abstract class AbstractComponent implements Component {
         result = prime * result + ((entity == null) ? 0 : entity.hashCode());
         return result;
     }
-
 
     /**
      * {@inheritDoc}

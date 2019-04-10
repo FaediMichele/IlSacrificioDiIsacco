@@ -8,6 +8,7 @@ package util;
 public interface Lambda<E> {
     /**
      * What to do.
+     * 
      * @param event the parameter.
      */
     void action(E event);

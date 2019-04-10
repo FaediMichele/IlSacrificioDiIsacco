@@ -5,8 +5,7 @@ package model.component;
  */
 public enum FireType {
     /**
-     * Red: burns everybody.
-     * Blue: when out drops a heart.
+     * Red: burns everybody. Blue: when out drops a heart.
      */
     RED, BLUE
 }

@@ -12,6 +12,7 @@ public class Pair<X, Y> {
 
     /**
      * Create a new Pair.
+     * 
      * @param x key
      * @param y value
      */
@@ -22,27 +23,34 @@ public class Pair<X, Y> {
 
     /**
      * Getter of the X.
+     * 
      * @return the X
      */
     public X getX() {
         return x1;
     }
-     /**
+
+    /**
      * Setter of the X.
+     * 
      * @param x the X to set
      */
     public void setX(final X x) {
         this.x1 = x;
     }
-     /**
+
+    /**
      * Getter of the Y.
+     * 
      * @return the Y
      */
     public Y getY() {
         return y1;
     }
-     /**
+
+    /**
      * Setter of the Y.
+     * 
      * @param y the Y to set
      */
     public void setY(final Y y) {

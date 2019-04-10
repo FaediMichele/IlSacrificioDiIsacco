@@ -11,13 +11,15 @@ public class MentalityComponent extends AbstractComponent {
 
     /**
      * Create a new {@link MentalityComponent} with mentality set.
+     * 
      * @param entity the entity
-     * @param m the default mentality
+     * @param m      the default mentality
      */
     public MentalityComponent(final Entity entity, final Mentality m) {
         super(entity);
         this.actualMentality = m;
     }
+
     /**
      * 
      * @param m new mentality of the entity;
@@ -25,6 +27,7 @@ public class MentalityComponent extends AbstractComponent {
     protected void setMentality(final Mentality m) {
         this.actualMentality = m;
     }
+
     /**
      * 
      * @return actualMentality of the entity.

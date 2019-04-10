@@ -19,9 +19,10 @@ public class DoorComponent extends AbstractComponent {
 
     /**
      * Create a door component with a destination room index.
-     * @param location The {@link Room} where the player is
+     * 
+     * @param location         The {@link Room} where the player is
      * @param destinationIndex index of the room
-     * @param e Entity that possess the component
+     * @param e                Entity that possess the component
      */
     public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
         super(e);
@@ -29,15 +30,17 @@ public class DoorComponent extends AbstractComponent {
         this.location = location;
         this.destination = destinationIndex;
         e.registerListener(new CollisionListener((c) -> {
-                final CollisionEvent coll = (CollisionEvent) c;
-                if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
-                    postPlayerPassed();
-                }
+            final CollisionEvent coll = (CollisionEvent) c;
+            if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+                postPlayerPassed();
+            }
         }));
     }
 
     /**
-     * Verify if the player touched the door and is ready to change the {@link Room}.
+     * Verify if the player touched the door and is ready to change the
+     * {@link Room}.
+     * 
      * @return if the door is triggered
      */
     public boolean playerPassed() {
@@ -46,6 +49,7 @@ public class DoorComponent extends AbstractComponent {
 
     /**
      * Get the {@link Room} that this door conducts.
+     * 
      * @return the {@link Room} index
      */
     public Integer getDestination() {

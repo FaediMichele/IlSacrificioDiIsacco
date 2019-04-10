@@ -8,6 +8,7 @@ package model.entity.events;
 public interface EventListener<E> {
     /**
      * The method that runs when the {@link Event} is triggered.
+     * 
      * @param event the event
      */
     void listenEvent(E event);

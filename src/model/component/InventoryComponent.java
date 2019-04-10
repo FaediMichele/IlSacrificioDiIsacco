@@ -12,8 +12,10 @@ import model.entity.Entity;
 public class InventoryComponent extends AbstractComponent {
 
     private final List<CollectibleThing> things;
+
     /**
      * Default InventoryComponent constructor.
+     * 
      * @param e entity of this constructor
      */
     public InventoryComponent(final Entity e) {

@@ -33,6 +33,7 @@ import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
 import model.game.RoomImpl;
+
 /**
  * Test in JUnit for the package model.game.
  *
@@ -55,7 +56,8 @@ public class TestModel {
         assertEquals(p, p2);
         assertFalse(p.equals(f));
         System.out.println(BodyComponent.class.cast(p.getComponent(BodyComponent.class).get()).getX());
-        //assertEquals(p.getComponent(BodyComponent.class).get(), Optional.of(new BodyComponent(1, 1, 0, 1, 1, 2)));
+        // assertEquals(p.getComponent(BodyComponent.class).get(), Optional.of(new
+        // BodyComponent(1, 1, 0, 1, 1, 2)));
     }
 
     /**
@@ -68,12 +70,16 @@ public class TestModel {
         assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1, FireType.RED));
         f1.postEvent(new FireHittedEvent(f1, FireComponent.class));
         assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1, FireType.RED)));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(3));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(4));
+        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
+                Integer.valueOf(3));
+        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
+                Integer.valueOf(4));
         f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
         f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(3));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()), Integer.valueOf(2));
+        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
+                Integer.valueOf(3));
+        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
+                Integer.valueOf(2));
     }
 
     /**
@@ -82,7 +88,7 @@ public class TestModel {
     @Test
     public void testEvent() {
         EventBus b = new EventBus();
-        EventListener<FireHittedEvent> fhl =  new FireHittedListener(i -> {
+        EventListener<FireHittedEvent> fhl = new FireHittedListener(i -> {
             System.out.println("Fire hitted");
         });
         b.register(fhl);
@@ -93,6 +99,7 @@ public class TestModel {
         b.post(e);
         b.post(new FireOutEvent(new Fire(FireType.RED), FireComponent.class, FireType.RED));
     }
+
     /**
      * Test for the map.
      */
@@ -130,8 +137,7 @@ public class TestModel {
         }
         assertTrue(ok);
 
-        assertEquals(floor.getActiveRoom().getDoor(), new LinkedHashSet<Door>(Arrays.asList(
-                new Door(1, 0))));
+        assertEquals(floor.getActiveRoom().getDoor(), new LinkedHashSet<Door>(Arrays.asList(new Door(1, 0))));
 
         try {
             floor.changeRoom(2);
@@ -142,7 +148,6 @@ public class TestModel {
         }
         assertTrue(ok);
 
-        assertEquals(floor.getActiveRoom().getDoor(), new LinkedHashSet<Door>(Arrays.asList(
-                new Door(2, 0))));
+        assertEquals(floor.getActiveRoom().getDoor(), new LinkedHashSet<Door>(Arrays.asList(new Door(2, 0))));
     }
 }

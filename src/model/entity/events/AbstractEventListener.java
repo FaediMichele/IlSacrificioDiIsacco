@@ -10,8 +10,10 @@ import util.Lambda;
 public abstract class AbstractEventListener<E extends Event> implements EventListener<E> {
 
     private final Lambda<E> l;
+
     /**
      * Base builder.
+     * 
      * @param l the lambda function
      */
     public AbstractEventListener(final Lambda<E> l) {

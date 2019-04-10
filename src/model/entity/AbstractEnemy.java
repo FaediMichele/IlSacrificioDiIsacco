@@ -12,7 +12,7 @@ public abstract class AbstractEnemy extends AbstractMovableEntity {
 
     /**
      * 
-     * @param entityBody the {@link BodyComponent}
+     * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */
     public AbstractEnemy(final BodyComponent entityBody, final CollisionComponent entityCollision) {

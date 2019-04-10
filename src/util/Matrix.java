@@ -14,11 +14,11 @@ public class Matrix<T> {
     private int lastX = -1;
     private int lastY = -1;
 
-
     /**
      * Create a new mat with default value.
-     * @param dimX size of Row
-     * @param dimY size of Column
+     * 
+     * @param dimX         size of Row
+     * @param dimY         size of Column
      * @param defaultValue Default value to store in the mat
      */
     public Matrix(final int dimX, final int dimY, final T defaultValue) {
@@ -36,6 +36,7 @@ public class Matrix<T> {
 
     /**
      * Create a new empty mat.
+     * 
      * @param dimX size of Row
      * @param dimY size of Column
      */
@@ -52,6 +53,7 @@ public class Matrix<T> {
 
     /**
      * Get an element to a position.
+     * 
      * @param posX Row index
      * @param posY Columns index
      * @return <T> element
@@ -65,8 +67,9 @@ public class Matrix<T> {
 
     /**
      * Set an element to a position.
-     * @param posX Row index
-     * @param posY Column index
+     * 
+     * @param posX    Row index
+     * @param posY    Column index
      * @param element element to set
      */
     public void set(final int posX, final int posY, final T element) {
@@ -76,9 +79,9 @@ public class Matrix<T> {
         mat[posX][posY] = element;
     }
 
-
     /**
      * Get the last element setted or getted.
+     * 
      * @return the last element used
      */
     @SuppressWarnings("unchecked")
@@ -91,6 +94,7 @@ public class Matrix<T> {
 
     /**
      * Get the dimension of the row.
+     * 
      * @return the dimension of the row
      */
     public int getWidth() {
@@ -99,6 +103,7 @@ public class Matrix<T> {
 
     /**
      * Get the dimension of the column.
+     * 
      * @return the dimension of the column.
      */
     public int getHeight() {

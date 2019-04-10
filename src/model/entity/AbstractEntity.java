@@ -31,7 +31,7 @@ public abstract class AbstractEntity implements Entity {
 
     /**
      * 
-     * @param entityBody a
+     * @param entityBody      a
      * @param entityCollision s
      */
     public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
@@ -110,10 +110,12 @@ public abstract class AbstractEntity implements Entity {
 
     /**
      * Sets the default components.
-     * @param entityBody the body
+     * 
+     * @param entityBody      the body
      * @param entityCollision the collision
      */
-    protected final void setDefaultComponents(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    protected final void setDefaultComponents(final BodyComponent entityBody,
+            final CollisionComponent entityCollision) {
         attachComponent(entityBody);
         attachComponent(entityCollision);
     }

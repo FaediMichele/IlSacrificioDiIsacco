@@ -16,6 +16,7 @@ public class Triplet<X, Y, Z> {
 
     /**
      * Create a tuple of three elements.
+     * 
      * @param x element 1
      * @param y element 2
      * @param z element 3
@@ -28,6 +29,7 @@ public class Triplet<X, Y, Z> {
 
     /**
      * Get The first value.
+     * 
      * @return the first value
      */
     public X getV1() {
@@ -36,6 +38,7 @@ public class Triplet<X, Y, Z> {
 
     /**
      * Get the second value.
+     * 
      * @return the second value
      */
     public Y getV2() {
@@ -44,6 +47,7 @@ public class Triplet<X, Y, Z> {
 
     /**
      * Get the third value.
+     * 
      * @return the third value
      */
     public Z getV3() {
@@ -68,7 +72,6 @@ public class Triplet<X, Y, Z> {
             return false;
         }
         final Triplet<Object, Object, Object> other = (Triplet<Object, Object, Object>) obj;
-        return Objects.equals(v1, other.v1) && Objects.equals(v2, other.v2)
-            && Objects.equals(v3, other.v3);
+        return Objects.equals(v1, other.v1) && Objects.equals(v2, other.v2) && Objects.equals(v3, other.v3);
     }
 }

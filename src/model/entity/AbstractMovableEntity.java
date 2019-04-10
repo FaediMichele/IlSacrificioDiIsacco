@@ -1,6 +1,5 @@
 package model.entity;
 
-
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.MoveComponent;

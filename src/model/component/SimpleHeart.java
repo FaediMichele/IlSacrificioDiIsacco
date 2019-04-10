@@ -12,11 +12,13 @@ public class SimpleHeart implements Heart {
 
     /**
      * Simple heart constructor.
+     * 
      * @param value total value of the heart
      */
     public SimpleHeart(final double value) {
         this.value = value;
     }
+
     /**
      * Default SimpleHeart constructor.
      */

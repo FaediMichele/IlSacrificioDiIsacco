@@ -21,12 +21,12 @@ public class MoveComponent extends AbstractComponent {
     private final double friction;
 
     /**
-      * 
-      * @param deltaSpeed is the actual speed
-      * @param maxSpeed is the max speed that can be reached
-      * @param friction friction force against the movement
-      * @param e entity for this component
-      */
+     * 
+     * @param deltaSpeed is the actual speed
+     * @param maxSpeed   is the max speed that can be reached
+     * @param friction   friction force against the movement
+     * @param e          entity for this component
+     */
     public MoveComponent(final Entity e, final double deltaSpeed, final double maxSpeed, final double friction) {
         super(e);
         this.deltaSpeed = deltaSpeed;
@@ -37,6 +37,7 @@ public class MoveComponent extends AbstractComponent {
 
     /**
      * Default MoveComponent constructor.
+     * 
      * @param e entity for this component
      */
     public MoveComponent(final Entity e) {
@@ -46,13 +47,16 @@ public class MoveComponent extends AbstractComponent {
         this.friction = DEFAULT_FRICTION;
         this.move(NOMOVE, NOMOVE, NOMOVE);
     }
+
     /**
      * Getter for deltaSpeed.
+     * 
      * @return deltaSpeed
      */
     public double getSpeed() {
         return this.deltaSpeed;
     }
+
     /**
      * 
      * @param deltaSpeed is the speed in space/ms
@@ -77,10 +81,12 @@ public class MoveComponent extends AbstractComponent {
 
     /**
      * space = v0*t +1/2*a*t^2.
-     * @return the real speed space/ms, considering the friction force 
+     * 
+     * @return the real speed space/ms, considering the friction force
      */
     private double calculateSpace(final Double deltaTime) {
-        final double acceleration = -friction / ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getWeight();
+        final double acceleration = -friction
+                / ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getWeight();
         return this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
     }
 

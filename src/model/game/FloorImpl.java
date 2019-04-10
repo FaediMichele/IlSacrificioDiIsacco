@@ -15,7 +15,8 @@ import util.Pair;
 /**
  * Implementation of Floor.
  * 
- * <p>See also {@link Room}
+ * <p>
+ * See also {@link Room}
  *
  */
 public class FloorImpl implements Floor {
@@ -39,6 +40,7 @@ public class FloorImpl implements Floor {
 
     /**
      * Create a floor with specific rooms.
+     * 
      * @param rooms rooms to use for this floor
      */
     public FloorImpl(final List<Room> rooms) {
@@ -91,24 +93,25 @@ public class FloorImpl implements Floor {
     }
 
     /**
-     * Generate an empty room based on activeRoomIndex and adjacent room. 
+     * Generate an empty room based on activeRoomIndex and adjacent room.
+     * 
      * @param activeRoomIndex the activeRoomIndex of the room
-     * @param m Matrix of adjacent room
-     * @param pos the position on the matrix of the room to initialize
+     * @param m               Matrix of adjacent room
+     * @param pos             the position on the matrix of the room to initialize
      * @return the room
      */
     private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos) {
         final List<Door> doors = new ArrayList<>();
-        if (roomExist(m, pos.getX(), pos.getY() - 1)) { //NORD
+        if (roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
             doors.add(new Door(NORD, m.get(pos.getX(), pos.getY() - 1)));
         }
-        if (roomExist(m, pos.getX() + 1, pos.getY())) { //EAST
+        if (roomExist(m, pos.getX() + 1, pos.getY())) { // EAST
             doors.add(new Door(EAST, m.get(pos.getX() + 1, pos.getY())));
         }
-        if (roomExist(m, pos.getX(), pos.getY() + 1)) { //SUD
+        if (roomExist(m, pos.getX(), pos.getY() + 1)) { // SUD
             doors.add(new Door(SUD, m.get(pos.getX(), pos.getY() + 1)));
         }
-        if (roomExist(m, pos.getX() - 1, pos.getY())) { //OVEST
+        if (roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
             doors.add(new Door(OVEST, m.get(pos.getX() - 1, pos.getY())));
         }
         return new RoomImpl(index, doors);
@@ -116,10 +119,13 @@ public class FloorImpl implements Floor {
 
     /**
      * Generate the map.
-     * @param m {@link Matrix} where to save the room ( used for nearby rooms)
-     * @param roomIndexs {@link ArrayList} of positions of each room in increasing order
+     * 
+     * @param m          {@link Matrix} where to save the room ( used for nearby
+     *                   rooms)
+     * @param roomIndexs {@link ArrayList} of positions of each room in increasing
+     *                   order
      */
-    private void generateMap(final Matrix<Integer> m,  final List<Pair<Integer, Integer>> roomIndexs) {
+    private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
         final Pair<Integer, Integer> pos = new Pair<>(MAXROOM / 2, MAXROOM / 2);
         final Random rnd = new Random();
         final int nRoom = rnd.nextInt(MAXROOM);
@@ -143,35 +149,36 @@ public class FloorImpl implements Floor {
 
     /**
      * Says if the next room can be in the direction.
-     * @param m the matrix
-     * @param posX the actual X
-     * @param posY the actual Y
+     * 
+     * @param m         the matrix
+     * @param posX      the actual X
+     * @param posY      the actual Y
      * @param direction the direction to verify (0= Nord; 1= East; 2= Sud; 3= Ovest)
      * @return if the next room can be in the direction
      */
     private boolean canGoDirection(final Matrix<?> m, final Pair<Integer, Integer> pos, final int direction) {
         switch (direction) {
         case NORD:
-            return pos.getY() > 0 && m.get(pos.getX(),  pos.getY() - 1) == null;
+            return pos.getY() > 0 && m.get(pos.getX(), pos.getY() - 1) == null;
         case EAST:
             return pos.getX() < m.getWidth() - 1 && m.get(pos.getX() + 1, pos.getY()) == null;
         case SUD:
-            return pos.getY() < m.getWidth() - 1 && m.get(pos.getX(),  pos.getY() + 1) == null;
+            return pos.getY() < m.getWidth() - 1 && m.get(pos.getX(), pos.getY() + 1) == null;
         case OVEST:
-            return pos.getX() > 0 && m.get(pos.getX() - 1,  pos.getY()) == null;
+            return pos.getX() > 0 && m.get(pos.getX() - 1, pos.getY()) == null;
         default:
             throw new IllegalArgumentException();
         }
     }
 
     private boolean roomExist(final Matrix<Integer> m, final int posX, final int posY) {
-        return posX >= 0 && posX < m.getWidth() && posY >= 0 && posY < m.getHeight()
-                && m.get(posX, posY) != null;
+        return posX >= 0 && posX < m.getWidth() && posY >= 0 && posY < m.getHeight() && m.get(posX, posY) != null;
     }
 
     /**
      * Update the position based on the direction.
-     * @param pos the current position
+     * 
+     * @param pos       the current position
      * @param direction the direction (0= Nord; 1= Est; 2= Sud; 3= Ovest)
      */
     private void updatePosition(final Pair<Integer, Integer> pos, final int direction) {
@@ -202,8 +209,7 @@ public class FloorImpl implements Floor {
         rooms.get(activeRoomIndex).updateEntity(deltaTime);
         nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
                 .filter(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).playerPassed())
-                .map(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).getDestination())
-                .findFirst();
+                .map(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).getDestination()).findFirst();
 
         if (nextRoom.isPresent()) {
             activeRoomIndex = nextRoom.get();
