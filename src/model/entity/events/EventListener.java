@@ -25,7 +25,7 @@ public class EventListener<E extends Event> {
      * @param event the event
      */
     @Subscribe
-    public final void listenEvent(final E event) {
+    private void listenEvent(final E event) {
         l.action(event);
     }
 }

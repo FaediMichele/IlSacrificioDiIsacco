@@ -12,11 +12,13 @@ import java.util.LinkedHashSet;
 
 import model.component.BodyComponent;
 import model.component.DoorComponent;
+import model.component.FireComponent;
 import model.component.HealthComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Player;
+import model.entity.events.FireHittedEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -35,8 +37,8 @@ public class TestModel {
         Entity p = new Player();
         Entity p2 = new Player();
         Entity f = new Fire();
-        p2.attachComponent(new BodyComponent(1, 1, 0, 1, 1, 2));
-        p.attachComponent(new BodyComponent(1, 1, 0, 1, 1, 2));
+        p2.attachComponent(new BodyComponent(p2, 1, 1, 0, 1, 1, 2));
+        p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
         assertEquals(p.hasComponent(BodyComponent.class), true);
         assertEquals(p.hasComponent(HealthComponent.class), true);
         assertEquals(p.hasComponent(DoorComponent.class), false);
@@ -52,8 +54,13 @@ public class TestModel {
     @org.junit.Test
     public void testFire() {
         Fire f1 = new Fire(), f2 = new Fire();
-        f1.attachComponent(new BodyComponent(f1));
-        f2.attachComponent(new BodyComponent(f2));
+        f1.postEvent(new FireHittedEvent(f1, FireComponent.class));
+        assertTrue(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife() == 3);
+        assertTrue(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife() == 4);
+        f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
+        f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
+        assertTrue(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife() == 3);
+        assertTrue(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife() == 2);
     }
     /**
      * Test for the map.
