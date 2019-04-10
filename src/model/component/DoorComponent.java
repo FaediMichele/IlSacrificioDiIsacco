@@ -31,7 +31,7 @@ public class DoorComponent extends AbstractComponent {
         e.registerListener(new EventListener<CollisionEvent>((c) -> {
                 CollisionEvent coll = (CollisionEvent) c;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
-                    getEntity().postEvent(new DoorChangeEvent(getEntity(), this.getClass()));
+                    postPlayerPassed();
                 }
         }));
     }
