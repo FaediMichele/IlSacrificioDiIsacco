@@ -4,7 +4,6 @@ import model.entity.Entity;
 
 /**
  * Component that contains the informations about the body of the entity, that is its dimension and the position.
- *
  */
 
 public class BodyComponent extends AbstractComponent {
