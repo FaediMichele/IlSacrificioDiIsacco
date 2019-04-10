@@ -16,8 +16,8 @@ public class HealthComponent extends AbstractComponent {
     private static final int DEFAULT_MAX_HEARTS = 9;
     private static final int DEFAULT_HEARTS_NUMBER = 3;
     private static final Heart DEFAULT_HEART_KIND = new SimpleHeart();
-    private int maxHearts;
-    private List<Heart> hearts;
+    private final int maxHearts;
+    private final List<Heart> hearts;
 
     /**
      * 
@@ -102,7 +102,7 @@ public class HealthComponent extends AbstractComponent {
         if (!(obj instanceof HealthComponent)) {
             return false;
         }
-        HealthComponent other = (HealthComponent) obj;
+        final HealthComponent other = (HealthComponent) obj;
         if (hearts == null) {
             if (other.hearts != null) {
                 return false;
@@ -110,10 +110,7 @@ public class HealthComponent extends AbstractComponent {
         } else if (!hearts.equals(other.hearts)) {
             return false;
         }
-        if (maxHearts != other.maxHearts) {
-            return false;
-        }
-        return true;
+        return maxHearts != other.maxHearts;
     }
 
 }

@@ -15,7 +15,7 @@ public class DoorComponent extends AbstractComponent {
 
     private final Integer destination;
     private final Integer location;
-    private boolean playerPassed = false;
+    private final boolean hasPlayerPassed;
 
     /**
      * Create a door component with a destination room index.
@@ -25,10 +25,11 @@ public class DoorComponent extends AbstractComponent {
      */
     public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
         super(e);
+        this.hasPlayerPassed = false;
         this.location = location;
         this.destination = destinationIndex;
         e.registerListener(new EventListener<CollisionEvent>((c) -> {
-                CollisionEvent coll = (CollisionEvent) c;
+                final CollisionEvent coll = (CollisionEvent) c;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
                     postPlayerPassed();
                 }
@@ -40,7 +41,7 @@ public class DoorComponent extends AbstractComponent {
      * @return if the door is triggered
      */
     public boolean playerPassed() {
-        return playerPassed;
+        return this.hasPlayerPassed;
     }
 
     /**
@@ -48,12 +49,12 @@ public class DoorComponent extends AbstractComponent {
      * @return the {@link Room} index
      */
     public Integer getDestination() {
-        return destination;
+        return this.destination;
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(destination, location, playerPassed);
+        return Objects.hash(destination, location, this.hasPlayerPassed);
     }
 
     @Override
@@ -67,9 +68,9 @@ public class DoorComponent extends AbstractComponent {
         if (!(obj instanceof DoorComponent)) {
             return false;
         }
-        DoorComponent other = (DoorComponent) obj;
+        final DoorComponent other = (DoorComponent) obj;
         return Objects.equals(destination, other.destination) && Objects.equals(location, other.location)
-                && playerPassed == other.playerPassed;
+                && this.hasPlayerPassed == other.hasPlayerPassed;
     }
 
     /**
