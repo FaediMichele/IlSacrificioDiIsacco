@@ -45,6 +45,14 @@ public class TestModel {
         System.out.println(BodyComponent.class.cast(p.getComponent(BodyComponent.class).get()).getX());
         //assertEquals(p.getComponent(BodyComponent.class).get(), Optional.of(new BodyComponent(1, 1, 0, 1, 1, 2)));
     }
+
+    /**
+     * Test for {@link Fire}.
+     */
+    @org.junit.Test
+    public void testEntity() {
+        Fire f = new Fire(new BodyComponent(e));
+    }
     /**
      * Test for the map.
      */
