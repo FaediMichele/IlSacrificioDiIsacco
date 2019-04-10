@@ -13,7 +13,7 @@ public class Player extends AbstractMovableEntity {
      * Basic constructor.
      */
     public Player() {
-        this(new BodyComponent(), new CollisionComponent());
+        this(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**
@@ -22,6 +22,6 @@ public class Player extends AbstractMovableEntity {
      */
     public Player(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         super(entityBody, entityCollision);
-        attachComponent(new HealthComponent());
+        attachComponent(new HealthComponent(this));
     }
 }

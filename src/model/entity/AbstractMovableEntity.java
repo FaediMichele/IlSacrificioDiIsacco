@@ -13,7 +13,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      * Basic constructor.
      */
     public AbstractMovableEntity() {
-        this(new BodyComponent(), new CollisionComponent());
+        this(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**
@@ -23,7 +23,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      */
     public AbstractMovableEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         super(entityBody, entityCollision);
-        attachComponent(new MoveComponent());
+        attachComponent(new MoveComponent(this));
     }
 
 }

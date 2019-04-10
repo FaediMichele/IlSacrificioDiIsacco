@@ -24,7 +24,7 @@ public class Door extends AbstractStaticEntity {
      */
     public Door(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         super(entityBody, entityCollision);
-        attachComponent(new DoorComponent(0, 1));
+        attachComponent(new DoorComponent(0,  1));
     }
 
     /**

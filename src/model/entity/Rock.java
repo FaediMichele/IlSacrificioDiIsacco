@@ -12,7 +12,7 @@ public class Rock extends AbstractStaticEntity {
      * Basic constructor.
      */
     public Rock() {
-        this(new BodyComponent(), new CollisionComponent());
+        this(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**

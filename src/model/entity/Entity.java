@@ -79,17 +79,4 @@ public interface Entity {
      */
     Set<Component> getComponents();
 
-    /**
-     * Gets the current {@link BodyComponent} of the Entity.
-     * 
-     * @return the {@link BodyComponent} of the Entity
-     */
-    BodyComponent getBody();
-
-    /**
-     * Gets the {@link CollisionComponent} of the Entity.
-     * 
-     * @return the {@link CollisionComponent}
-     */
-    CollisionComponent getCollision();
 }

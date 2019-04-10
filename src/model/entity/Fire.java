@@ -12,7 +12,7 @@ public class Fire extends AbstractStaticEntity {
      * Basic constructor.
      */
     public Fire() {
-        this(new BodyComponent(), new CollisionComponent());
+        this(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**

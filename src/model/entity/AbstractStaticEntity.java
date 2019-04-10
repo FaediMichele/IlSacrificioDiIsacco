@@ -13,7 +13,7 @@ public class AbstractStaticEntity extends AbstractEntity {
      * Basic constructor.
      */
     public AbstractStaticEntity() {
-        this(new BodyComponent(), new CollisionComponent());
+        this(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**

@@ -12,7 +12,7 @@ public class Tear extends AbstractMovableEntity {
      * Basic constructor.
      */
     public Tear() {
-        this(new BodyComponent(), new CollisionComponent());
+        this(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**

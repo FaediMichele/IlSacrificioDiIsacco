@@ -20,37 +20,10 @@ import com.google.common.eventbus.EventBus;
 public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap = new LinkedHashMap<>();
-    private final BodyComponent entityBody;
-    private final CollisionComponent entityCollision;
-
-    /**
-     * Base builder to initialize {@link BodyComponent} and
-     * {@link CollisionComponent}.
-     */
-    public AbstractEntity() {
-        this(new BodyComponent(), new CollisionComponent());
-    }
-
-    /**
-     * Initialize the {@link BodyComponent} and the {@link CollisionComponent}.
-     * 
-     * @param entityBody      {@link BodyComponent}
-     * @param entityCollision {@link CollisionComponent}
-     */
-    public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        this.entityBody = entityBody;
-        this.entityBody.setEntity(this);
-        this.componentsMap.put(this.entityBody.getClass(), this.entityBody);
-
-        this.entityCollision = entityCollision;
-        this.entityCollision.setEntity(this);
-        this.componentsMap.put(this.entityCollision.getClass(), this.entityCollision);
-    }
 
     @Override
     public final void attachComponent(final Component c) {
         this.componentsMap.put(c.getClass(), c);
-        c.setEntity(this);
     }
 
     @Override
@@ -97,15 +70,6 @@ public abstract class AbstractEntity implements Entity {
         return new HashSet<Component>(this.componentsMap.values());
     }
 
-    @Override
-    public final BodyComponent getBody() {
-        return this.entityBody;
-    }
-
-    @Override
-    public final CollisionComponent getCollision() {
-        return this.entityCollision;
-    }
 
     @Override
     public final String toString() {
