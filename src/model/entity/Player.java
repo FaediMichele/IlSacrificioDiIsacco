@@ -11,6 +11,13 @@ import model.component.InventoryComponent;
 public class Player extends AbstractMovableEntity {
 
     /**
+     * Empty constructor.
+     */
+    public Player() {
+        super();
+    }
+
+    /**
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      */
