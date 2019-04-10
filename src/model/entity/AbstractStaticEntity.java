@@ -18,5 +18,8 @@ public class AbstractStaticEntity extends AbstractEntity {
         super(entityBody, entityCollision);
         // TODO Auto-generated constructor stub
     }
-
+    
+    public AbstractStaticEntity() {
+        super();
+    }
 }

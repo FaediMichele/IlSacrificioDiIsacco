@@ -1,7 +1,6 @@
 package model.component;
 
 import java.util.Optional;
-
 import model.entity.Entity;
 
 /**
@@ -17,6 +16,7 @@ public abstract class AbstractComponent implements Component {
 
     AbstractComponent(final Entity entity) {
         this.entity = entity;
+        this.componentReplaced = Optional.empty();
     }
     /**
      * Check if the component is active, this has to be done before each update call.
@@ -72,7 +72,50 @@ public abstract class AbstractComponent implements Component {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(final Object component) {
-        return false;
+    public int hashCode() {
+        final int prime = 31;
+        final int second = 1231;
+        final int third = 1237;
+        int result = 1;
+        result = prime * result + (active ? second : third);
+        result = prime * result + (!(componentReplaced.isPresent()) ? 0 : componentReplaced.get().hashCode());
+        result = prime * result + ((entity == null) ? 0 : entity.hashCode());
+        return result;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        AbstractComponent other = (AbstractComponent) obj;
+        if (active != other.active) {
+            return false;
+        }
+        if (componentReplaced == null) {
+            if (other.componentReplaced != null) {
+                return false;
+            }
+        } else if (!componentReplaced.equals(other.componentReplaced)) {
+            return false;
+        }
+        if (entity == null) {
+            if (other.entity != null) {
+                return false;
+            }
+        } else if (!entity.equals(other.entity)) {
+            return false;
+        }
+        return true;
     }
 }
