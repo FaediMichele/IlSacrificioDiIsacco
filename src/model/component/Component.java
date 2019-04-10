@@ -12,13 +12,13 @@ public interface Component {
      * Check if the component is active, this has to be done before each update call.
      * @return {@link Boolean}.
      */
-    boolean isActive();
+    boolean isActive();// protected
 
     /**
      * Enable or disable a component by setting a variable. 
      * @param state {@link Boolean}.
      */
-    void setState(boolean state);
+    void setState(boolean state);// protected
 
     /**
      * Update the component changing its statistics, must be done once a frame.
@@ -30,21 +30,23 @@ public interface Component {
      * Get the entity this component is attached to.
      * @return {@link Entity}.
      */
-    Entity getEntity();
+    Entity getEntity();// protected
 
     /**
      * Sets the entity this component has to be attached to.
      * @param e {@link Entity}
      */
-    void setEntity(Entity e);
+    void setEntity(Entity e);// protected
 
     /**
      * Initialize the component.
      */
-    void init();
+    void init();// protected
 
     /**
      * Release all resources used by this component.
      */
-    void dispose();
+    void dispose();// protected
+    @Override
+    boolean equals(Object component);
 }
