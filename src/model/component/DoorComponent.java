@@ -2,6 +2,8 @@ package model.component;
 
 import java.util.Objects;
 
+import model.entity.Entity;
+
 /**
  * This component is used by the doors.
  *
@@ -16,15 +18,12 @@ public class DoorComponent extends AbstractComponent {
      * Create a door component with a destination room index.
      * @param location The {@link Room} where the player is
      * @param destinationIndex index of the room
+     * @param e entity for this component
      */
-    public DoorComponent(final Integer location, final Integer destinationIndex) {
+    public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
+        super(e);
         this.location = location;
         this.destination = destinationIndex;
-    }
-
-    @Override
-    public void init() {
-        // TODO register the event when the player touch the entity
     }
 
     /**

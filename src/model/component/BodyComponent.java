@@ -1,5 +1,7 @@
 package model.component;
 
+import model.entity.Entity;
+
 /**
  * Component that contains the informations about the body of the entity, that is its dimension and the position.
  *
@@ -25,9 +27,10 @@ public class BodyComponent extends AbstractComponent {
      * @param height of the entity
      * @param width of the entity
      * @param weight of the entity
+     * @param e entity for this component
      */
-    public BodyComponent(final double x, final double y, final double z, final double height, final double width, final int weight) {
-        super();
+    public BodyComponent(final Entity e, final double x, final double y, final double z, final double height, final double width, final int weight) {
+        super(e);
         this.x = x;
         this.y = y;
         this.z = z;
@@ -38,9 +41,10 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * Default BodyComponent constructor.
+     * @param e entity for this component
      */
-    public BodyComponent() {
-        super();
+    public BodyComponent(final Entity e) {
+        super(e);
         this.x = DEFAULT_POSITION_VALUE;
         this.y = DEFAULT_POSITION_VALUE;
         this.z = DEFAULT_POSITION_VALUE;
