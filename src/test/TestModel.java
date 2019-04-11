@@ -4,18 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.junit.Test;
-
-import com.google.common.base.Optional;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-
 import model.component.BodyComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
@@ -25,12 +20,8 @@ import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Player;
-import model.entity.events.Event;
 import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
-import model.entity.events.FireHittedListener;
-import model.entity.events.FireOutEvent;
-import model.entity.events.FireOutListener;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -38,8 +29,9 @@ import model.game.RoomImpl;
 
 /**
  * Test in JUnit for the package model.game.
- *
+ * 
  */
+@SuppressWarnings("all")
 public class TestModel {
 
     /**
