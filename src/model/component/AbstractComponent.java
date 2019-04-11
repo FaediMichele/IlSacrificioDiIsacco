@@ -121,10 +121,7 @@ public abstract class AbstractComponent implements Component {
             return false;
         }
         if (entity == null) {
-            if (other.entity != null) {
-                return false;
-            }
-            return true;
+            return other.entity == null;
         }
 
         // Gets the instance of the Component in the entity and the runtime classes for
