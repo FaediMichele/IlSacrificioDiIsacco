@@ -63,6 +63,7 @@ public class TestModel {
         assertEquals(d1, d2);
         assertFalse(p.equals(d1));
         assertEquals(p.getComponent(BodyComponent.class).get(), new BodyComponent(p, 1, 1, 0, 1, 1, 2));
+        assertTrue(p.getComponent(BodyComponent.class).get().equals(new BodyComponent(p2, 1, 1, 0, 1, 1, 2)));
     }
 
     /**

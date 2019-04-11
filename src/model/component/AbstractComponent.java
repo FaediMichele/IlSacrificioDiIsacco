@@ -108,21 +108,39 @@ public abstract class AbstractComponent implements Component {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Component other = (Component) obj;
-        /*
-         * if (active != other.active) { return false; } if (componentReplaced == null)
-         * { if (other.componentReplaced != null) { return false; } } else if
-         * (!componentReplaced.equals(other.componentReplaced)) { return false; } if
-         * (entity == null) { if (other.entity != null) { return false; } } else if
-         * (this.entity.hashCode() != other.entity.hashCode()) { return false; }
-         */
-        final Component entityComponent = this.entity.getComponent(other.getClass()).get();
+        final AbstractComponent other = (AbstractComponent) obj;
+
+        if (active != other.active) {
+            return false;
+        }
+        if (componentReplaced == null) {
+            if (other.componentReplaced != null) {
+                return false;
+            }
+        } else if (!componentReplaced.equals(other.componentReplaced)) {
+            return false;
+        }
+        if (entity == null) {
+            if (other.entity != null) {
+                return false;
+            }
+            return true;
+        }
+
+        // Gets the instance of the Component in the entity and the runtime classes for
+        // both Components
+        final Component entityComponent = this;
         final Class<? extends Object> cObj = obj.getClass();
         final Class<? extends Component> cEntityComponent = entityComponent.getClass();
+
+        // By using Stream and Reflection it gets the list of private fields of the two
+        // Components
         final List<Field> fieldsObj = Stream.of(cObj.getDeclaredFields())
                 .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
         final List<Field> fieldsEntityComponent = Stream.of(cEntityComponent.getDeclaredFields())
                 .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
+
+        // Via Stream and Reflection it gets the list of the private field values
         final List<Object> fieldsObjValues = fieldsObj.stream().flatMap(f -> {
             try {
                 f.setAccessible(true);
@@ -145,6 +163,8 @@ public abstract class AbstractComponent implements Component {
             }
             return null;
         }).collect(Collectors.toList());
+
+        // True if they have the same Fields and the same values
         return fieldsObj.equals(fieldsEntityComponent) && fieldsObjValues.equals(fieldsEntityComponentValues);
     }
 }

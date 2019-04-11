@@ -55,7 +55,6 @@ public class FireComponent extends AbstractComponent {
                 } else {
                     System.out.println("Other");
                 }
-
             }
         };
 

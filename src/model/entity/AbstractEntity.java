@@ -1,12 +1,10 @@
 package model.entity;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
