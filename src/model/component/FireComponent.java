@@ -1,7 +1,6 @@
 package model.component;
 
 import com.google.common.eventbus.Subscribe;
-
 import model.entity.Entity;
 import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
@@ -27,7 +26,7 @@ public class FireComponent extends AbstractComponent {
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
 
-        final EventListener<FireHittedEvent> fireHittedListener = new EventListener<FireHittedEvent>() {
+        getEntity().registerListener(new EventListener<FireHittedEvent>() {
 
             @Override
             @Subscribe
@@ -40,9 +39,9 @@ public class FireComponent extends AbstractComponent {
                 }
 
             }
-        };
+        });
 
-        final EventListener<FireOutEvent> fireOutListener = new EventListener<FireOutEvent>() {
+        getEntity().registerListener(new EventListener<FireOutEvent>() {
 
             @Override
             @Subscribe
@@ -56,10 +55,7 @@ public class FireComponent extends AbstractComponent {
                     System.out.println("Other");
                 }
             }
-        };
-
-        getEntity().registerListener(fireHittedListener);
-        getEntity().registerListener(fireOutListener);
+        });
     }
 
     /**
