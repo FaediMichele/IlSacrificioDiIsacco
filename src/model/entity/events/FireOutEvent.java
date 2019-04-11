@@ -1,6 +1,5 @@
 package model.entity.events;
 
-import model.component.Component;
 import model.component.FireType;
 import model.entity.Entity;
 
@@ -13,13 +12,11 @@ public class FireOutEvent extends AbstractEvent {
 
     /**
      * 
-     * @param sourceEntity    the {@link Entity}
-     * @param sourceComponent the type of {@link Component}
-     * @param fireType        the {@link FireType}
+     * @param sourceEntity the {@link Entity}
+     * @param fireType     the {@link FireType}
      */
-    public FireOutEvent(final Entity sourceEntity, final Class<? extends Component> sourceComponent,
-            final FireType fireType) {
-        super(sourceEntity, sourceComponent);
+    public FireOutEvent(final Entity sourceEntity, final FireType fireType) {
+        super(sourceEntity);
         this.fireType = fireType;
     }
 

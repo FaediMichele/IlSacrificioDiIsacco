@@ -74,14 +74,14 @@ public class TestModel {
         final Fire f1 = new Fire(FireType.RED);
         final Fire f2 = new Fire(FireType.BLUE);
         assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1, FireType.RED));
-        f1.postEvent(new FireHittedEvent(f1, FireComponent.class));
+        f1.postEvent(new FireHittedEvent(f1));
         assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1, FireType.RED)));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
                 Integer.valueOf(3));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
                 Integer.valueOf(4));
-        f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
-        f2.postEvent(new FireHittedEvent(f2, FireComponent.class));
+        f2.postEvent(new FireHittedEvent(f2));
+        f2.postEvent(new FireHittedEvent(f2));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
                 Integer.valueOf(3));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),

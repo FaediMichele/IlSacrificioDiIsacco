@@ -1,7 +1,5 @@
 package model.component;
 
-import java.util.Objects;
-
 import model.entity.Entity;
 import model.entity.events.CollisionEvent;
 import model.entity.events.CollisionListener;
@@ -56,32 +54,20 @@ public class DoorComponent extends AbstractComponent {
         return this.destination;
     }
 
-    @Override
-    public final int hashCode() {
-        return Objects.hash(destination, location, this.hasPlayerPassed);
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof DoorComponent)) {
-            return false;
-        }
-        final DoorComponent other = (DoorComponent) obj;
-        return Objects.equals(destination, other.destination) && Objects.equals(location, other.location)
-                && this.hasPlayerPassed == other.hasPlayerPassed;
-    }
-
     /**
      * Post the event for the player that has passed.
      */
     private void postPlayerPassed() {
-        getEntity().postEvent(new DoorChangeEvent(getEntity(), this.getClass()));
+        getEntity().postEvent(new DoorChangeEvent(getEntity()));
+    }
+
+    /**
+     * Get the room where the door is.
+     * 
+     * @return the location
+     */
+    public Integer getLocation() {
+        return location;
     }
 
 }

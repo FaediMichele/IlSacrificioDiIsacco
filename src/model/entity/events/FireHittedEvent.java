@@ -1,6 +1,5 @@
 package model.entity.events;
 
-import model.component.Component;
 import model.entity.Entity;
 
 /**
@@ -10,11 +9,10 @@ public class FireHittedEvent extends AbstractEvent {
 
     /**
      * 
-     * @param sourceEntity    the source entity
-     * @param sourceComponent the source component
+     * @param sourceEntity the source entity
      */
-    public FireHittedEvent(final Entity sourceEntity, final Class<? extends Component> sourceComponent) {
-        super(sourceEntity, sourceComponent);
+    public FireHittedEvent(final Entity sourceEntity) {
+        super(sourceEntity);
     }
 
 }

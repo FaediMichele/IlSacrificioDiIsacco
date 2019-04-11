@@ -34,8 +34,7 @@ public class FireComponent extends AbstractComponent {
                 changeLife(1);
 
                 if (getLife() == 0) {
-                    getEntity().postEvent(
-                            new FireOutEvent(event.getSourceEntity(), event.getSourceComponent(), getFireType()));
+                    getEntity().postEvent(new FireOutEvent(event.getSourceEntity(), getFireType()));
                 }
 
             }

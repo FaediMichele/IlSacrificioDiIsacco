@@ -1,6 +1,5 @@
 package model.entity.events;
 
-import model.component.Component;
 import model.entity.Entity;
 import java.util.Objects;
 
@@ -9,26 +8,18 @@ import java.util.Objects;
  */
 public abstract class AbstractEvent implements Event {
     private final Entity sourceEntity;
-    private final Class<? extends Component> sourceComponent;
 
     /**
      * Initialize the sources.
      * 
-     * @param sourceEntity    the source entity
-     * @param sourceComponent the type of source component
+     * @param sourceEntity the source entity
      */
-    public AbstractEvent(final Entity sourceEntity, final Class<? extends Component> sourceComponent) {
+    public AbstractEvent(final Entity sourceEntity) {
         this.sourceEntity = Objects.requireNonNull(sourceEntity);
-        this.sourceComponent = Objects.requireNonNull(sourceComponent);
     }
 
     @Override
     public final Entity getSourceEntity() {
         return this.sourceEntity;
-    }
-
-    @Override
-    public final Class<? extends Component> getSourceComponent() {
-        return this.sourceComponent;
     }
 }
