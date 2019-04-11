@@ -121,30 +121,33 @@ public abstract class AbstractComponent implements Component {
             return false;
         }
         if (entity == null) {
-            if (other.entity != null) {
-                return false;
-            }
-            return true;
+            return other.entity != null;
         }
 
-        // Gets the instance of the Component in the entity and the runtime classes for
-        // both Components
-        final Component entityComponent = this;
-        final Class<? extends Object> cObj = obj.getClass();
+        // True if they have the same Fields and the same values
+        return getValuesFields(other).equals(getValuesFields(this));
+    }
+
+    /**
+     * Gets the list of field values for a certain Component.
+     * 
+     * @param entityComponent the {@Component}
+     * @return the list of field values
+     */
+    private List<Object> getValuesFields(final Component entityComponent) {
+        // Gets the runtime classes for the Component
         final Class<? extends Component> cEntityComponent = entityComponent.getClass();
 
-        // By using Stream and Reflection it gets the list of private fields of the two
-        // Components
-        final List<Field> fieldsObj = Stream.of(cObj.getDeclaredFields())
-                .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
+        // By using Stream and Reflection it gets the list of private fields of the
+        // Component
         final List<Field> fieldsEntityComponent = Stream.of(cEntityComponent.getDeclaredFields())
                 .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
 
         // Via Stream and Reflection it gets the list of the private field values
-        final List<Object> fieldsObjValues = fieldsObj.stream().flatMap(f -> {
+        return fieldsEntityComponent.stream().flatMap(f -> {
             try {
                 f.setAccessible(true);
-                Stream<Object> s = Stream.of(f.get(obj));
+                final Stream<Object> s = Stream.of(f.get(entityComponent));
                 f.setAccessible(false);
                 return s;
             } catch (IllegalArgumentException | IllegalAccessException e) {
@@ -152,19 +155,5 @@ public abstract class AbstractComponent implements Component {
             }
             return null;
         }).collect(Collectors.toList());
-        final List<Object> fieldsEntityComponentValues = fieldsEntityComponent.stream().flatMap(f -> {
-            try {
-                f.setAccessible(true);
-                Stream<Object> s = Stream.of(f.get(entityComponent));
-                f.setAccessible(false);
-                return s;
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList());
-
-        // True if they have the same Fields and the same values
-        return fieldsObj.equals(fieldsEntityComponent) && fieldsObjValues.equals(fieldsEntityComponentValues);
     }
 }
