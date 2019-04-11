@@ -26,8 +26,14 @@ public class SimpleHeart implements Heart {
         this.value = DEFAULT_VALUE;
     }
 
+    /**
+     * {@inheritDoc} 
+     * 
+     * If we want to extend this class we must prevent life from
+     * taking negative values.
+     */
     @Override
-    public final double getDamaged(final double damageValue) {
+    public double getDamaged(final double damageValue) {
         if (damageValue < value) {
             value = value - damageValue;
             return 0;
@@ -37,8 +43,11 @@ public class SimpleHeart implements Heart {
         }
     }
 
+    /**
+     * {@inheritDoc} 
+     */
     @Override
-    public final double getValue() {
+    public double getValue() {
         return value;
     }
 }
