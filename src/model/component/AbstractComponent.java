@@ -90,7 +90,6 @@ public abstract class AbstractComponent implements Component {
      */
     protected final void dispose() {
         //active = false;
-
         //(new LinkedList<>(this.eventListeners)).forEach(el -> unregisterListener(el));
     }
 
