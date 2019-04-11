@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import model.entity.Entity;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
@@ -33,7 +32,7 @@ public abstract class AbstractComponent implements Component {
      * 
      * @param eventListener the {@link EventListener}
      */
-    public void registerListener(final EventListener<? extends Event> eventListener) {
+    protected void registerListener(final EventListener<? extends Event> eventListener) {
         getEntity().registerListener(eventListener);
         this.eventListeners.add(eventListener);
     }
@@ -42,9 +41,8 @@ public abstract class AbstractComponent implements Component {
      * 
      * @param eventListener the {@link EventListener}
      */
-    public void unregisterListener(final EventListener<? extends Event> eventListener) {
+    protected void unregisterListener(final EventListener<? extends Event> eventListener) {
         getEntity().unregisterListener(eventListener);
-        this.eventListeners.remove(eventListener);
     }
 
     /**

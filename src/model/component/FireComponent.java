@@ -27,7 +27,6 @@ public class FireComponent extends AbstractComponent {
         this.fireType = fireType;
 
         registerListener(new EventListener<FireHittedEvent>() {
-
             @Override
             @Subscribe
             public void listenEvent(final FireHittedEvent event) {
@@ -41,7 +40,6 @@ public class FireComponent extends AbstractComponent {
         });
 
         registerListener(new EventListener<FireOutEvent>() {
-
             @Override
             @Subscribe
             public void listenEvent(final FireOutEvent event) {
