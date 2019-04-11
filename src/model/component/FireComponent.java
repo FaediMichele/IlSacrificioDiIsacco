@@ -1,9 +1,11 @@
 package model.component;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
-import model.entity.events.FireHittedListener;
+import model.entity.events.EventListener;
+import model.entity.events.FireHittedEvent;
 import model.entity.events.FireOutEvent;
-import model.entity.events.FireOutListener;
 
 /**
  * Implements the data for the fires.
@@ -24,25 +26,41 @@ public class FireComponent extends AbstractComponent {
         super(entity);
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
-        this.getEntity().registerListener(new FireHittedListener((event) -> {
-            changeLife(1);
 
-            if (this.lifeLeft == 0) {
-                this.getEntity().postEvent(
-                        new FireOutEvent(event.getSourceEntity(), event.getSourceComponent(), this.fireType));
-            }
-        }));
+        final EventListener<FireHittedEvent> fireHittedListener = new EventListener<FireHittedEvent>() {
 
-        this.getEntity().registerListener(new FireOutListener((event) -> {
-            final FireType type = event.getFireType();
-            if (type == FireType.RED) {
-                System.out.println("RED");
-            } else if (type == FireType.BLUE) {
-                System.out.println("BLUE");
-            } else {
-                System.out.println("Other");
+            @Override
+            @Subscribe
+            public void listenEvent(final FireHittedEvent event) {
+                changeLife(1);
+
+                if (getLife() == 0) {
+                    getEntity().postEvent(
+                            new FireOutEvent(event.getSourceEntity(), event.getSourceComponent(), getFireType()));
+                }
+
             }
-        }));
+        };
+
+        final EventListener<FireOutEvent> fireOutListener = new EventListener<FireOutEvent>() {
+
+            @Override
+            @Subscribe
+            public void listenEvent(final FireOutEvent event) {
+                final FireType type = event.getFireType();
+                if (type == FireType.RED) {
+                    System.out.println("RED");
+                } else if (type == FireType.BLUE) {
+                    System.out.println("BLUE");
+                } else {
+                    System.out.println("Other");
+                }
+
+            }
+        };
+
+        getEntity().registerListener(fireHittedListener);
+        getEntity().registerListener(fireOutListener);
     }
 
     /**
