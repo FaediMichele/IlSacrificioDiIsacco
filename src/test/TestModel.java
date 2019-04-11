@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -49,16 +50,19 @@ public class TestModel {
         final Entity p = new Player();
         final Entity p2 = new Player();
         final Entity f = new Fire(FireType.RED);
-        p2.attachComponent(new BodyComponent(p2, 1.0, 1, 0, 1, 1, 2));
+        final Entity d1 = new Door(0, 0);
+        final Entity d2 = new Door(0, 0);
+        p2.attachComponent(new BodyComponent(p2, 1, 1, 0, 1, 1, 2));
         p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
         assertTrue(p.hasComponent(BodyComponent.class));
         assertTrue(p.hasComponent(HealthComponent.class));
         assertFalse(p.hasComponent(DoorComponent.class));
         assertEquals(p, p2);
+        assertTrue(p.equals(p2));
         assertFalse(p.equals(f));
-        System.out.println(BodyComponent.class.cast(p.getComponent(BodyComponent.class).get()).getX());
-        // assertEquals(p.getComponent(BodyComponent.class).get(), Optional.of(new
-        // BodyComponent(1, 1, 0, 1, 1, 2)));
+        assertEquals(d1, d2);
+        assertFalse(p.equals(d1));
+        assertEquals(p.getComponent(BodyComponent.class).get(), new BodyComponent(p, 1, 1, 0, 1, 1, 2));
     }
 
     /**

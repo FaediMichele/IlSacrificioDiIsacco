@@ -2,6 +2,8 @@ package model.entity;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -84,8 +86,8 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final Set<Component> getComponents() {
-        return new LinkedHashSet<Component>(this.componentsMap.values());
+    public final List<Component> getComponents() {
+        return new LinkedList<Component>(this.componentsMap.values());
     }
 
     @Override

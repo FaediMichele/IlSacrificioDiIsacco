@@ -1,7 +1,7 @@
 package model.entity;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import model.component.Component;
 import model.entity.events.Event;
@@ -75,6 +75,6 @@ public interface Entity {
      * 
      * @return the {@link Set}
      */
-    Set<Component> getComponents();
+    List<Component> getComponents();
 
 }

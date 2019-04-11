@@ -1,6 +1,12 @@
 package model.component;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import model.entity.Entity;
 
 /**
@@ -102,24 +108,43 @@ public abstract class AbstractComponent implements Component {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AbstractComponent other = (AbstractComponent) obj;
-        if (active != other.active) {
-            return false;
-        }
-        if (componentReplaced == null) {
-            if (other.componentReplaced != null) {
-                return false;
+        final Component other = (Component) obj;
+        /*
+         * if (active != other.active) { return false; } if (componentReplaced == null)
+         * { if (other.componentReplaced != null) { return false; } } else if
+         * (!componentReplaced.equals(other.componentReplaced)) { return false; } if
+         * (entity == null) { if (other.entity != null) { return false; } } else if
+         * (this.entity.hashCode() != other.entity.hashCode()) { return false; }
+         */
+        final Component entityComponent = this.entity.getComponent(other.getClass()).get();
+        final Class<? extends Object> cObj = obj.getClass();
+        final Class<? extends Component> cEntityComponent = entityComponent.getClass();
+        final List<Field> fieldsObj = Stream.of(cObj.getDeclaredFields())
+                .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
+        final List<Field> fieldsEntityComponent = Stream.of(cEntityComponent.getDeclaredFields())
+                .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
+        final List<Object> fieldsObjValues = fieldsObj.stream().flatMap(f -> {
+            try {
+                f.setAccessible(true);
+                Stream<Object> s = Stream.of(f.get(obj));
+                f.setAccessible(false);
+                return s;
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
             }
-        } else if (!componentReplaced.equals(other.componentReplaced)) {
-            return false;
-        }
-        if (entity == null) {
-            if (other.entity != null) {
-                return false;
+            return null;
+        }).collect(Collectors.toList());
+        final List<Object> fieldsEntityComponentValues = fieldsEntityComponent.stream().flatMap(f -> {
+            try {
+                f.setAccessible(true);
+                Stream<Object> s = Stream.of(f.get(entityComponent));
+                f.setAccessible(false);
+                return s;
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
             }
-        } else if (this.entity.hashCode() != other.entity.hashCode()) {
-            return false;
-        }
-        return true;
+            return null;
+        }).collect(Collectors.toList());
+        return fieldsObj.equals(fieldsEntityComponent) && fieldsObjValues.equals(fieldsEntityComponentValues);
     }
 }

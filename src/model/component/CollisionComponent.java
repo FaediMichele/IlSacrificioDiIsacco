@@ -17,23 +17,4 @@ public class CollisionComponent extends AbstractComponent {
     public CollisionComponent(final Entity e) {
         super(e);
     }
-
-    @Override
-    public final int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof CollisionComponent)) {
-            return false;
-        }
-        return true;
-    }
 }

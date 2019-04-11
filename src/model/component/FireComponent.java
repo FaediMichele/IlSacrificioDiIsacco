@@ -87,21 +87,4 @@ public class FireComponent extends AbstractComponent {
         this.lifeLeft = (lifeLost > this.lifeLeft) ? 0 : this.lifeLeft - lifeLost;
     }
 
-    @Override
-    public final boolean equals(final Object component) {
-        if (!(component instanceof FireComponent)) {
-            return false;
-        }
-
-        boolean equals = super.equals(component);
-        final FireComponent other = (FireComponent) component;
-        equals = equals && other.getLife().equals(this.getLife());
-        equals = equals && other.getFireType() == this.getFireType();
-        return equals;
-    }
-
-    @Override
-    public final int hashCode() {
-        return super.hashCode();
-    }
 }

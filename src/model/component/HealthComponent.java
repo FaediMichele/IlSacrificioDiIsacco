@@ -81,42 +81,4 @@ public class HealthComponent extends AbstractComponent {
             }
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((hearts == null) ? 0 : hearts.hashCode());
-        result = prime * result + maxHearts;
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof HealthComponent)) {
-            return false;
-        }
-        final HealthComponent other = (HealthComponent) obj;
-        if (hearts == null) {
-            if (other.hearts != null) {
-                return false;
-            }
-        } else if (!hearts.equals(other.hearts)) {
-            return false;
-        }
-        return maxHearts != other.maxHearts;
-    }
-
 }
