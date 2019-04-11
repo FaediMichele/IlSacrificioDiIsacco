@@ -121,7 +121,7 @@ public abstract class AbstractComponent implements Component {
             return false;
         }
         if (entity == null) {
-            return other.entity != null;
+            return other.entity == null;
         }
 
         // True if they have the same Fields and the same values
