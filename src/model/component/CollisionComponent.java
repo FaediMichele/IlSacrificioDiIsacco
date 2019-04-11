@@ -31,9 +31,7 @@ public class CollisionComponent extends AbstractComponent {
         if (!super.equals(obj)) {
             return false;
         }
-        if (!(obj instanceof CollisionComponent)) {
-            return false;
-        }
-        return true;
+
+        return obj instanceof CollisionComponent; 
     }
 }
