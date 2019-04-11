@@ -26,7 +26,7 @@ public class FireComponent extends AbstractComponent {
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
 
-        getEntity().registerListener(new EventListener<FireHittedEvent>() {
+        registerListener(new EventListener<FireHittedEvent>() {
 
             @Override
             @Subscribe
@@ -41,7 +41,7 @@ public class FireComponent extends AbstractComponent {
             }
         });
 
-        getEntity().registerListener(new EventListener<FireOutEvent>() {
+        registerListener(new EventListener<FireOutEvent>() {
 
             @Override
             @Subscribe
@@ -81,5 +81,4 @@ public class FireComponent extends AbstractComponent {
     private void changeLife(final Integer lifeLost) {
         this.lifeLeft = (lifeLost > this.lifeLeft) ? 0 : this.lifeLeft - lifeLost;
     }
-
 }

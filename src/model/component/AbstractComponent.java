@@ -2,12 +2,15 @@ package model.component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import model.entity.Entity;
+import model.entity.events.Event;
+import model.entity.events.EventListener;
 
 /**
  * Generic fields and methods needed by each component.
@@ -18,10 +21,30 @@ public abstract class AbstractComponent implements Component {
     private boolean active;
     private Entity entity;
     private final Optional<Component> componentReplaced;
+    private final List<EventListener<? extends Event>> eventListeners;
 
     AbstractComponent(final Entity entity) {
         this.entity = entity;
         this.componentReplaced = Optional.empty();
+        this.eventListeners = new LinkedList<EventListener<? extends Event>>();
+    }
+
+    /**
+     * 
+     * @param eventListener the {@link EventListener}
+     */
+    public void registerListener(final EventListener<? extends Event> eventListener) {
+        getEntity().registerListener(eventListener);
+        this.eventListeners.add(eventListener);
+    }
+
+    /**
+     * 
+     * @param eventListener the {@link EventListener}
+     */
+    public void unregisterListener(final EventListener<? extends Event> eventListener) {
+        getEntity().unregisterListener(eventListener);
+        this.eventListeners.remove(eventListener);
     }
 
     /**
@@ -68,7 +91,9 @@ public abstract class AbstractComponent implements Component {
      * Release all resources used by this component.
      */
     protected final void dispose() {
-        active = false;
+        //active = false;
+
+        //(new LinkedList<>(this.eventListeners)).forEach(el -> unregisterListener(el));
     }
 
     /**
@@ -141,7 +166,9 @@ public abstract class AbstractComponent implements Component {
         // By using Stream and Reflection it gets the list of private fields of the
         // Component
         final List<Field> fieldsEntityComponent = Stream.of(cEntityComponent.getDeclaredFields())
-                .filter(f -> Modifier.isPrivate(f.getModifiers())).collect(Collectors.toList());
+                .filter(f -> Modifier.isPrivate(f.getModifiers()))
+                .filter(f -> !f.getAnnotatedType().getType().getTypeName().contains("EventListener"))
+                .collect(Collectors.toList());
 
         // Via Stream and Reflection it gets the list of the private field values
         return fieldsEntityComponent.stream().flatMap(f -> {

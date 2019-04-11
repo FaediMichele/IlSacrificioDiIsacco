@@ -86,6 +86,7 @@ public class TestModel {
                 Integer.valueOf(3));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
                 Integer.valueOf(2));
+        //((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
     }
 
     /**
