@@ -1,6 +1,10 @@
 package model.component;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
+import model.entity.events.EventListener;
+import model.entity.events.MoveEvent;
 
 /**
  * Component that manages the movement of the entity and its speed.
@@ -46,6 +50,15 @@ public class MoveComponent extends AbstractComponent {
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.friction = DEFAULT_FRICTION;
         this.move(NOMOVE, NOMOVE, NOMOVE);
+        registerListener(new EventListener<MoveEvent>() {
+
+            @Override
+            @Subscribe
+            public void listenEvent(final MoveEvent event) {
+                move(event.getxMove(), event.getyMove(), event.getzMove());
+//need a fix for the relation to move and speed
+            }
+        });
     }
 
     /**
@@ -53,7 +66,7 @@ public class MoveComponent extends AbstractComponent {
      * 
      * @return deltaSpeed
      */
-    public double getSpeed() {
+    protected double getSpeed() {
         return this.deltaSpeed;
     }
 
@@ -61,7 +74,7 @@ public class MoveComponent extends AbstractComponent {
      * 
      * @param deltaSpeed is the speed in space/ms
      */
-    public void changeSpeed(final double deltaSpeed) {
+    protected void changeSpeed(final double deltaSpeed) {
         if (deltaSpeed > maxSpeed) {
             throw new IllegalArgumentException();
         }
@@ -73,7 +86,7 @@ public class MoveComponent extends AbstractComponent {
      * @param y move made on the y axis
      * @param z move made on the z axis
      */
-    public void move(final int x, final int y, final int z) {
+    private void move(final double x, final double y, final double z) {
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
