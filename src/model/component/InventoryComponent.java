@@ -6,12 +6,12 @@ import java.util.List;
 import model.entity.Entity;
 
 /**
- * 
+ * Keeps track of all the objects (which are entity themselves) that my entity owns.
  */
 
 public class InventoryComponent extends AbstractComponent {
 
-    private final List<CollectibleThing> things;
+    private final List<Entity> things;
 
     /**
      * Default InventoryComponent constructor.
@@ -24,18 +24,21 @@ public class InventoryComponent extends AbstractComponent {
     }
 
     /**
-     * 
+     * The entity will disappear from the screen deactivating its body component.
      * @param thing to add
      */
-    public void addThing(final CollectibleThing thing) {
+    public void addThing(final Entity thing) {
+        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
         this.things.add(thing);
     }
 
     /**
      * 
-     * @param thing to remove
+     * 
      */
-    public void releaseThing(final CollectibleThing thing) {
-        this.things.remove(thing);
+    public void releaseThing() {
+        /*
+         * TO DO
+         */
     }
 }
