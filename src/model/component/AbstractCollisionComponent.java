@@ -30,7 +30,7 @@ public abstract class AbstractCollisionComponent extends AbstractComponent {
                 Mentality myMentality = Mentality.NEUTRAL;
                 Mentality oposedMentality = Mentality.NEUTRAL;
                 if (event.getSourceEntity().hasComponent(MentalityComponent.class)) {
-                    oposedMentality = ((MentalityComponent) getEntity().getComponent(MentalityComponent.class).get())
+                    myMentality = ((MentalityComponent) getEntity().getComponent(MentalityComponent.class).get())
                             .getMentality();
                 }
                 if (event.getSourceEntity().hasComponent(MentalityComponent.class)) {
