@@ -20,14 +20,14 @@ public class DoorComponent extends AbstractComponent {
      * 
      * @param location         The {@link Room} where the player is
      * @param destinationIndex index of the room
-     * @param e                Entity that possess the component
+     * @param entity                Entity that possess the component
      */
-    public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
-        super(e);
+    public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+        super(entity);
         this.hasPlayerPassed = false;
         this.location = location;
         this.destination = destinationIndex;
-        e.registerListener(new CollisionListener((c) -> {
+        entity.registerListener(new CollisionListener((c) -> {
             final CollisionEvent coll = (CollisionEvent) c;
             if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
                 postPlayerPassed();

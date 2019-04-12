@@ -25,10 +25,10 @@ public class MoveComponent extends AbstractComponent {
      * @param deltaSpeed is the actual speed
      * @param maxSpeed   is the max speed that can be reached
      * @param friction   friction force against the movement
-     * @param e          entity for this component
+     * @param entity     {@link Entity} for this component
      */
-    public MoveComponent(final Entity e, final double deltaSpeed, final double maxSpeed, final double friction) {
-        super(e);
+    public MoveComponent(final Entity entity, final double deltaSpeed, final double maxSpeed, final double friction) {
+        super(entity);
         this.deltaSpeed = deltaSpeed;
         this.maxSpeed = maxSpeed;
         this.friction = friction;
@@ -38,10 +38,10 @@ public class MoveComponent extends AbstractComponent {
     /**
      * Default MoveComponent constructor.
      * 
-     * @param e entity for this component
+     * @param entity {@link Entity} for this component
      */
-    public MoveComponent(final Entity e) {
-        super(e);
+    public MoveComponent(final Entity entity) {
+        super(entity);
         this.deltaSpeed = DEFAULT_SPEED;
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.friction = DEFAULT_FRICTION;

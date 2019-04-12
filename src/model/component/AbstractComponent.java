@@ -41,7 +41,6 @@ public abstract class AbstractComponent implements Component {
             throw new IllegalArgumentException(
                     "You cannot replace a component with another component that does not belong to the same entity"); 
             }
-        //to finish
     }
 
     /**

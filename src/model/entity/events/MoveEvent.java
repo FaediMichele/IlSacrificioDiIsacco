@@ -5,6 +5,7 @@ import model.entity.Entity;
 /**
  * Event that triggers the movement of the entity.
  */
+@SuppressWarnings("unused")
 public class MoveEvent extends AbstractEvent {
 
     private double xMove;

@@ -16,10 +16,10 @@ public class InventoryComponent extends AbstractComponent {
     /**
      * Default InventoryComponent constructor.
      * 
-     * @param e entity of this constructor
+     * @param entity {@link Entity} of this constructor
      */
-    public InventoryComponent(final Entity e) {
-        super(e);
+    public InventoryComponent(final Entity entity) {
+        super(entity);
         things = new ArrayList<>();
     }
 
