@@ -5,7 +5,6 @@ import model.entity.Entity;
 /**
  * Event that triggers the movement of the entity.
  */
-@SuppressWarnings("unused")
 public class MoveEvent extends AbstractEvent {
 
     private double xMove;
@@ -26,4 +25,27 @@ public class MoveEvent extends AbstractEvent {
         this.zMove = zMove;
     }
 
+    /**
+     * 
+     * @return xMove is the component of movement along the x-axis
+     */
+    public double getxMove() {
+        return this.xMove;
+    }
+
+    /**
+     * 
+     * @return yMove is the component of movement along the y-axis
+     */
+    public double getyMove() {
+        return this.yMove;
+    }
+
+    /**
+     * 
+     * @return zMove is the component of movement along the z-axis
+     */
+    public double getzMove() {
+        return this.zMove;
+    }
 }
