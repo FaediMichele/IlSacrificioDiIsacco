@@ -1,5 +1,7 @@
 package model.component;
 
+import model.entity.Entity;
+
 /**
  * This represent a single part that composes an Entity.
  *
@@ -14,6 +16,10 @@ public interface Component {
      */
     void update(Double deltaTime);
 
-    @Override
-    boolean equals(Object component);
+    /**
+     * Get the entity this component is attached to.
+     * 
+     * @return {@link Entity}.
+     */
+     Entity getEntity();
 }

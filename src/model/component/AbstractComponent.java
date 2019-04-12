@@ -19,13 +19,29 @@ import model.entity.events.EventListener;
 public abstract class AbstractComponent implements Component {
     private boolean active;
     private Entity entity;
-    private final Optional<Component> componentReplaced;
+    private Optional<Component> componentReplaced;
     private final List<EventListener<? extends Event>> eventListeners;
 
     AbstractComponent(final Entity entity) {
         this.entity = entity;
         this.componentReplaced = Optional.empty();
         this.eventListeners = new LinkedList<EventListener<? extends Event>>();
+    }
+
+    /**
+     * 
+     * @param component is the {@link Component} which will be replaced by this new
+     *                  component
+     */
+    AbstractComponent(final Entity entity, final Component component) {
+        this(entity);
+        if (component.getEntity() == entity) {
+            this.componentReplaced = Optional.of(component);
+        } else {
+            throw new IllegalArgumentException(
+                    "You cannot replace a component with another component that does not belong to the same entity"); 
+            }
+        //to finish
     }
 
     /**
@@ -69,7 +85,7 @@ public abstract class AbstractComponent implements Component {
      * 
      * @return {@link Entity}.
      */
-    protected final Entity getEntity() {
+    public final Entity getEntity() {
         return entity;
     }
 
@@ -89,8 +105,9 @@ public abstract class AbstractComponent implements Component {
      * Release all resources used by this component.
      */
     protected final void dispose() {
-        //active = false;
-        //(new LinkedList<>(this.eventListeners)).forEach(el -> unregisterListener(el));
+        // active = false;
+        // (new LinkedList<>(this.eventListeners)).forEach(el ->
+        // unregisterListener(el));
     }
 
     /**
