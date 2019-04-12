@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
+import model.entity.events.DamageEvent;
+import model.entity.events.EventListener;
 
 /**
  * This component controls the health of the entity.
@@ -25,12 +29,23 @@ public class HealthComponent extends AbstractComponent {
      * @param heartsNumber initial number of hearts
      * @param heartKind    kind of heart that has to be added at the list to
      *                     initialize it
-     * @param entity            entity for this component
+     * @param entity       entity for this component
      */
     public HealthComponent(final Entity entity, final int maxHearts, final int heartsNumber, final Heart heartKind) {
         super(entity);
         this.maxHearts = maxHearts;
         hearts = Stream.iterate(0, i -> i + 1).limit(heartsNumber).map(i -> heartKind).collect(Collectors.toList());
+        this.registerListener(new EventListener<DamageEvent>() {
+
+            @Override
+            @Subscribe
+            public void listenEvent(final DamageEvent event) {
+                getDamaged(event.getSourceEntity().getComponent(DamageComponent.class).isPresent()
+                        ? ((DamageComponent) event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamege()
+                        : 0);
+            }
+
+        });
     }
 
     /**
@@ -58,7 +73,7 @@ public class HealthComponent extends AbstractComponent {
      * 
      * @param h the heart
      */
-    public void addHeart(final Heart h) {
+    protected void addHeart(final Heart h) {
         if (hearts.size() != maxHearts) {
             hearts.add(h);
         }
@@ -70,7 +85,7 @@ public class HealthComponent extends AbstractComponent {
      * 
      * @param totalDamageValue the value of damage
      */
-    public void getDamaged(final double totalDamageValue) {
+    private void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
         Heart lastHeart;
         while (isAlive() && actualDamageValue != 0) {
