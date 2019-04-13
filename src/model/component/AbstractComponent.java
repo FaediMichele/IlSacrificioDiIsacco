@@ -13,10 +13,9 @@ import model.entity.events.EventListener;
 
 /**
  * Generic fields and methods needed by each component.
- *
+ * @param <C> is the type of component you are creating
  */
-
-public abstract class AbstractComponent implements Component {
+public abstract class AbstractComponent<C extends Component> implements Component {
     private boolean active;
     private Entity entity;
     private Optional<Component> componentReplaced;
@@ -33,7 +32,7 @@ public abstract class AbstractComponent implements Component {
      * @param component is the {@link Component} which will be replaced by this new
      *                  component
      */
-    AbstractComponent(final Entity entity, final Component component) {
+    AbstractComponent(final Entity entity, final C component) {
         this(entity);
         if (component.getEntity() == entity) {
             this.componentReplaced = Optional.of(component);
@@ -146,7 +145,8 @@ public abstract class AbstractComponent implements Component {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AbstractComponent other = (AbstractComponent) obj;
+        @SuppressWarnings("unchecked")
+        final AbstractComponent<AbstractComponent<Component>> other = (AbstractComponent<AbstractComponent<Component>>) obj;
 
         if (active != other.active) {
             return false;

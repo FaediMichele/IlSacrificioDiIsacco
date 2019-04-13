@@ -5,7 +5,7 @@ import model.entity.Entity;
 /**
  * Component that contains the informations about the mentality of the entity.
  */
-public class MentalityComponent extends AbstractComponent {
+public class MentalityComponent extends AbstractComponent<MentalityComponent> {
 
     private Mentality actualMentality;
 

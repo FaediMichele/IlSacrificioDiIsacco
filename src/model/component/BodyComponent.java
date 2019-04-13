@@ -7,7 +7,7 @@ import model.entity.Entity;
  * is its dimension and the position.
  */
 
-public class BodyComponent extends AbstractComponent {
+public class BodyComponent extends AbstractComponent<BodyComponent> {
 
     private static final double DEFAULT_POSITION_VALUE = 0;
     private static final double DEFAULT_SCALABLE_VALUE = 1;

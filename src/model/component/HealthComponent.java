@@ -15,7 +15,7 @@ import model.entity.events.EventListener;
  *
  */
 
-public class HealthComponent extends AbstractComponent {
+public class HealthComponent extends AbstractComponent<HealthComponent> {
 
     private static final int DEFAULT_MAX_HEARTS = 9;
     private static final int DEFAULT_HEARTS_NUMBER = 3;
@@ -78,7 +78,6 @@ public class HealthComponent extends AbstractComponent {
             hearts.add(h);
         }
     }
-
     /**
      * The health is damaged, it could loose part of an heart or multiple hearts
      * based on the damageValue.

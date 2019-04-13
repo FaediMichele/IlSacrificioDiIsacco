@@ -9,7 +9,7 @@ import model.entity.events.FireOutEvent;
 /**
  * Implements the data for the fires.
  */
-public class FireComponent extends AbstractComponent {
+public class FireComponent extends AbstractComponent<FireComponent> {
 
     private static final int MAX_LIFE = 4;
     private int lifeLeft;

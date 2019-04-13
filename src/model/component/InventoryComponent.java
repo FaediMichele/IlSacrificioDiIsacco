@@ -9,7 +9,7 @@ import model.entity.Entity;
  * Keeps track of all the objects (which are entity themselves) that my entity owns.
  */
 
-public class InventoryComponent extends AbstractComponent {
+public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     private final List<Entity> things;
 

@@ -7,7 +7,7 @@ import model.entity.Entity;
  *
  */
 
-public class CollisionComponent extends AbstractComponent {
+public class CollisionComponent extends AbstractComponent<CollisionComponent> {
 
     /**
      * Default CollisionComponent constructor.

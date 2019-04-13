@@ -8,7 +8,7 @@ import model.entity.Entity;
  * This component is used by the doors.
  *
  */
-public class DoorComponent extends AbstractComponent {
+public class DoorComponent extends AbstractComponent<DoorComponent> {
 
     private final Integer destination;
     private final Integer location;
