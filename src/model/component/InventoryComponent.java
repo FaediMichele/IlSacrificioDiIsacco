@@ -1,6 +1,7 @@
 package model.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import model.entity.Entity;
@@ -20,16 +21,34 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     public InventoryComponent(final Entity entity) {
         super(entity);
-        things = new ArrayList<>();
+        this.things = new ArrayList<>();
     }
+    /**
+     * 
+     * @param entity to which the component belongs
+     * @param component to be replaced with the new one that is being generated
+     */
+    public InventoryComponent(final Entity entity, final InventoryComponent component) {
+        super(entity, component);
+        this.things = component.getThings();
+    }
+
 
     /**
      * The entity will disappear from the screen deactivating its body component.
      * @param thing to add
      */
-    public void addThing(final Entity thing) {
-        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
-        this.things.add(thing);
+//    private void addThing(final Entity thing) {
+//        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
+//        this.things.add(thing);
+//    }
+
+    /**
+     * 
+     * @return the list of things that have been collected
+     */
+    protected List<Entity> getThings() {
+        return Collections.unmodifiableList(this.things);
     }
 
     /**

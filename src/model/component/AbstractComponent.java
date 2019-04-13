@@ -40,6 +40,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
             throw new IllegalArgumentException(
                     "You cannot replace a component with another component that does not belong to the same entity"); 
             }
+//need a fix because doesn't unregister listener in the c
     }
 
     /**
@@ -83,7 +84,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * 
      * @return {@link Entity}.
      */
-    public final Entity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 
