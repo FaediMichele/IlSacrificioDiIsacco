@@ -12,12 +12,12 @@ public class MoveEvent extends AbstractEvent {
     private double zMove;
 
     /**
- * 
- * @param sourceEntity the entity source
- * @param xMove the move on the x axis
- * @param yMove the move on the y axis
- * @param zMove the move on the z axis
- */
+    * 
+    * @param sourceEntity the source entity
+    * @param xMove the move on the x axis
+    * @param yMove the move on the y axis
+    * @param zMove the move on the z axis
+    */
     public MoveEvent(final Entity sourceEntity, final double xMove, final double yMove, final double zMove) {
         super(sourceEntity);
         this.xMove = xMove;
