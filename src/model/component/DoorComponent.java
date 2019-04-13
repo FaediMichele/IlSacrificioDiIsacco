@@ -1,9 +1,8 @@
 package model.component;
 
 import model.entity.Entity;
-import model.entity.events.CollisionEvent;
-import model.entity.events.CollisionListener;
-import model.entity.events.DoorChangeEvent;
+//import model.entity.events.CollisionEvent;
+//import model.entity.events.DoorChangeEvent;
 
 /**
  * This component is used by the doors.
@@ -20,19 +19,19 @@ public class DoorComponent extends AbstractComponent {
      * 
      * @param location         The {@link Room} where the player is
      * @param destinationIndex index of the room
-     * @param e                Entity that possess the component
+     * @param entity                Entity that possess the component
      */
-    public DoorComponent(final Entity e, final Integer location, final Integer destinationIndex) {
-        super(e);
+    public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+        super(entity);
         this.hasPlayerPassed = false;
         this.location = location;
         this.destination = destinationIndex;
-        e.registerListener(new CollisionListener((c) -> {
-            final CollisionEvent coll = (CollisionEvent) c;
-            if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
-                postPlayerPassed();
-            }
-        }));
+//        entity.registerListener(new CollisionListener((c) -> {
+//            final CollisionEvent coll = (CollisionEvent) c;
+//            if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+//                postPlayerPassed();
+//            }
+//        }));
     }
 
     /**
@@ -57,9 +56,9 @@ public class DoorComponent extends AbstractComponent {
     /**
      * Post the event for the player that has passed.
      */
-    private void postPlayerPassed() {
-        getEntity().postEvent(new DoorChangeEvent(getEntity()));
-    }
+//    private void postPlayerPassed() {
+//        getEntity().postEvent(new DoorChangeEvent(getEntity()));
+//    }
 
     /**
      * Get the room where the door is.

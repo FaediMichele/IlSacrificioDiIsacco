@@ -12,9 +12,9 @@ public class CollisionComponent extends AbstractComponent {
     /**
      * Default CollisionComponent constructor.
      * 
-     * @param e entity for this component
+     * @param entity entity for this component
      */
-    public CollisionComponent(final Entity e) {
-        super(e);
+    public CollisionComponent(final Entity entity) {
+        super(entity);
     }
 }
