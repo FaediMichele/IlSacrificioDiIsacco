@@ -50,8 +50,8 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.friction = DEFAULT_FRICTION;
         this.move(NOMOVE, NOMOVE, NOMOVE);
-        registerListener(new EventListener<MoveEvent>() {
 
+        registerListener(new EventListener<MoveEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final MoveEvent event) {

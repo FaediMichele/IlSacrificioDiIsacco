@@ -10,9 +10,9 @@ public interface Heart {
 
     /**
      * 
-     * @return the actual value of the heart
+     * @return the value of the last heart
      */
-    double getValue();
+    double getlastHeartValue();
 
     /**
      * The way the heart is damaged could change in different kind of hearts.
@@ -22,4 +22,21 @@ public interface Heart {
      *         if there is still some damageValue to process by other hearts
      */
     double getDamaged(double damageValue);
+
+    /**
+     * 
+     * @return max number of hearts of this kind.
+     */
+    double getMaxHeartsOfThisKind();
+
+    /**
+     * 
+     * @return numbers of hearts of this kind.
+     */
+    double getNumberOfHearts();
+
+    /**
+     * @param newHeart makes two heart of the same kind collapse
+     */
+     void addHeart(Heart newHeart);
 }
