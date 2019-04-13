@@ -27,6 +27,9 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
+            /**
+             * damage management
+             */
                 Mentality myMentality = Mentality.NEUTRAL;
                 Mentality oposedMentality = Mentality.NEUTRAL;
                 if (event.getSourceEntity().hasComponent(MentalityComponent.class)) {
@@ -44,10 +47,15 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                     getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
                 }
 
+                /**
+                 * management collect an object
+                 */
                 if (event.getSourceEntity().hasComponent(PickUpComponent.class)) {
                     if (((PickUpComponent) event.getSourceEntity().getComponent(PickUpComponent.class).get()).isCollectible()) {
                         getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
                     }
+                } else if (getEntity().hasComponent(PickUpComponent.class)) {
+                    getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
                 }
             }
         });
