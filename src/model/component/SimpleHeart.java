@@ -50,13 +50,13 @@ public class SimpleHeart implements Heart {
     public double getDamaged(final double damageValue) {
         double actualDamageValue = damageValue;
         while (actualDamageValue > 0) {
-            if (actualDamageValue < lastHeartValue) {
-                lastHeartValue = lastHeartValue - actualDamageValue;
+            if (actualDamageValue < this.lastHeartValue) {
+                this.lastHeartValue = this.lastHeartValue - actualDamageValue;
                 return 0;
             } 
-            actualDamageValue = actualDamageValue - lastHeartValue;
-            numberOfHearts--;
-            if (numberOfHearts == 0) {
+            actualDamageValue = actualDamageValue - this.lastHeartValue;
+            this.numberOfHearts--;
+            if (this.numberOfHearts == 0) {
                 return actualDamageValue;
             }
         }
@@ -68,7 +68,7 @@ public class SimpleHeart implements Heart {
      */
     @Override
     public double getlastHeartValue() {
-        return lastHeartValue;
+        return this.lastHeartValue;
     }
 
     /**
@@ -76,7 +76,7 @@ public class SimpleHeart implements Heart {
     */
     @Override
     public double getMaxHeartsOfThisKind() {
-        return maxHeartsOfThisKind;
+        return this.maxHeartsOfThisKind;
     }
 
     /**
@@ -92,10 +92,11 @@ public class SimpleHeart implements Heart {
      */
     @Override
     public void addHeart(final Heart newHeart) {
-        if (this.numberOfHearts < this.maxHeartsOfThisKind && newHeart.getNumberOfHearts() <= maxHeartsOfThisKind - numberOfHearts) {
-            numberOfHearts = numberOfHearts + newHeart.getNumberOfHearts();
+        if (this.numberOfHearts < this.maxHeartsOfThisKind 
+                && newHeart.getNumberOfHearts() <= this.maxHeartsOfThisKind - this.numberOfHearts) {
+            this.numberOfHearts = this.numberOfHearts + newHeart.getNumberOfHearts();
         } else {
-            numberOfHearts = maxHeartsOfThisKind;
+            numberOfHearts = this.maxHeartsOfThisKind;
         }
 
         if (this.lastHeartValue + newHeart.getlastHeartValue() >= this.maxValue) {

@@ -47,7 +47,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      */
     public HealthComponent(final Entity entity) {
         super(entity);
-        hearts = new ArrayList<>();
+        this.hearts = new ArrayList<>();
         this.hearts.add(DEFAULT_HEART_KIND);
     }
 
@@ -56,7 +56,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @return the state of the entity: death or alive
      */
     public boolean isAlive() {
-        return !hearts.isEmpty();
+        return !this.hearts.isEmpty();
     }
 
     /**
@@ -65,10 +65,10 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @param h the heart
      */
     protected void addHeart(final Heart h) {
-        if (hearts.stream().filter(i -> i.getClass().equals(h.getClass())).count() == 0) {
-            hearts.add(h);
+        if (this.hearts.stream().filter(i -> i.getClass().equals(h.getClass())).count() == 0) {
+            this.hearts.add(h);
         } else {
-            hearts.stream().filter(i -> i.getClass().equals(h.getClass())).findAny().get().addHeart(h);
+            this.hearts.stream().filter(i -> i.getClass().equals(h.getClass())).findAny().get().addHeart(h);
         }
     }
     /**
@@ -80,11 +80,11 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     private void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
         Heart lastHeart;
-        while (isAlive() && actualDamageValue != 0) {
-            lastHeart = hearts.get(hearts.size());
+        while (this.isAlive() && actualDamageValue != 0) {
+            lastHeart = this.hearts.get(hearts.size());
             actualDamageValue = lastHeart.getDamaged(actualDamageValue);
             if (lastHeart.getNumberOfHearts() == 0) {
-                hearts.remove(lastHeart);
+                this.hearts.remove(lastHeart);
             }
         }
     }

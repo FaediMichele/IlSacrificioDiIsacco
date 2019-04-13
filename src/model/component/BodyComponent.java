@@ -62,7 +62,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return x
      */
     public double getX() {
-        return x;
+        return this.x;
     }
 
     /**
@@ -71,7 +71,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return y
      */
     public double getY() {
-        return y;
+        return this.y;
     }
 
     /**
@@ -80,7 +80,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return z
      */
     public double getZ() {
-        return z;
+        return this.z;
     }
 
     /**
@@ -102,7 +102,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return height
      */
     public double getHeight() {
-        return height;
+        return this.height;
     }
 
     /**
@@ -111,7 +111,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return width
      */
     public double getWidth() {
-        return width;
+        return this.width;
     }
 
     /**
@@ -130,7 +130,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return weight
      */
     public int getWeight() {
-        return weight;
+        return this.weight;
     }
 
     /**

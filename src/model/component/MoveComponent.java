@@ -74,7 +74,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param deltaSpeed is the speed in space/ms
      */
     protected void changeSpeed(final double deltaSpeed) {
-        if (deltaSpeed > maxSpeed) {
+        if (deltaSpeed > this.maxSpeed) {
             throw new IllegalArgumentException();
         }
         this.deltaSpeed = deltaSpeed;
@@ -97,15 +97,14 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @return the real speed space/ms, considering the friction force
      */
     private double calculateSpace(final Double deltaTime) {
-        final double acceleration = -friction
-                / ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getWeight();
+        final double acceleration = -this.friction / this.getBody().getWeight();
         return this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
     }
 
     @Override
     public final void update(final Double deltaTime) {
         final double spaceEachMove = calculateSpace(deltaTime);
-        getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
+        this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
         this.move(NOMOVE, NOMOVE, NOMOVE);
     }
 
