@@ -14,7 +14,7 @@ import model.entity.events.EventListener;
  *
  */
 
-public class HealthComponent extends AbstractComponent {
+public class HealthComponent extends AbstractComponent<HealthComponent> {
 
     private static final Heart DEFAULT_HEART_KIND = new SimpleHeart();
     private final List<Heart> hearts;
@@ -71,7 +71,6 @@ public class HealthComponent extends AbstractComponent {
             hearts.stream().filter(i -> i.getClass().equals(h.getClass())).findAny().get().addHeart(h);
         }
     }
-
     /**
      * The health is damaged, it could loose part of an heart or multiple hearts
      * based on the damageValue.

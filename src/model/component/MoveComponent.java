@@ -11,7 +11,7 @@ import model.entity.events.MoveEvent;
  *
  */
 
-public class MoveComponent extends AbstractComponent {
+public class MoveComponent extends AbstractComponent<MoveComponent> {
 
     private static final int NOMOVE = 0;
     private static final double DEFAULT_SPEED = 1;

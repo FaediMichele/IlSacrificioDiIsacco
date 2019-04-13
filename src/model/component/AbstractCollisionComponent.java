@@ -10,7 +10,7 @@ import model.entity.events.EventListener;
  * This class manages the collision of this entity with the others.
  *
  */
-public abstract class AbstractCollisionComponent extends AbstractComponent {
+public abstract class AbstractCollisionComponent extends AbstractComponent<AbstractCollisionComponent> {
 
    /**
      * 
