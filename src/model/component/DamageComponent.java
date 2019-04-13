@@ -19,7 +19,7 @@ public class DamageComponent extends AbstractComponent {
  * 
  * @return the value of the damage that the entity inflicts at this time
  */
-    protected double getDamege() {
+    protected double getDamage() {
         return this.damage;
     }
 
