@@ -1,12 +1,19 @@
 package model.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
+import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
+import model.entity.events.EventListener;
+import model.entity.events.PickUpEvent;
 
 /**
- * Keeps track of all the objects (which are entity themselves) that my entity owns.
+ * Keeps track of all the objects (which are entity themselves) that my entity
+ * owns.
  */
 
 public class InventoryComponent extends AbstractComponent<InventoryComponent> {
@@ -20,16 +27,52 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     public InventoryComponent(final Entity entity) {
         super(entity);
-        things = new ArrayList<>();
+        this.things = new ArrayList<>();
+        this.registListener();
+    }
+
+    /**
+     * 
+     * @param entity    to which the component belongs
+     * @param component to be replaced with the new one that is being generated
+     */
+    public InventoryComponent(final Entity entity, final InventoryComponent component) {
+        super(entity, component);
+        this.things = component.getThings();
+        this.registListener();
+    }
+
+    private void registListener() {
+        registerListener(new EventListener<PickUpEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final PickUpEvent event) {
+                PickUpComponent aux = (PickUpComponent) event.getSourceEntity().getComponent(PickUpComponent.class).get();
+                aux.setEntityThatCollectedMe(Optional.of(getEntity()));
+                addThing(event.getSourceEntity());
+                if (aux.needInitialized()) {
+                    aux.init();
+                }
+            }
+        });
     }
 
     /**
      * The entity will disappear from the screen deactivating its body component.
+     * 
      * @param thing to add
      */
-    public void addThing(final Entity thing) {
+    private void addThing(final Entity thing) {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
         this.things.add(thing);
+    }
+
+    /**
+     * 
+     * @return the list of things that have been collected
+     */
+    protected List<Entity> getThings() {
+        return Collections.unmodifiableList(this.things);
     }
 
     /**
