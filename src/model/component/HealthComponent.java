@@ -65,10 +65,10 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @param h the heart
      */
     protected void addHeart(final Heart h) {
-        if (this.hearts.stream().filter(i -> i.getClass().equals(h.getClass())).count() == 0) {
-            this.hearts.add(h);
-        } else {
+        if (this.hearts.stream().anyMatch(i -> i.getClass().equals(h.getClass()))) {
             this.hearts.stream().filter(i -> i.getClass().equals(h.getClass())).findAny().get().addHeart(h);
+        } else {
+            this.hearts.add(h);
         }
     }
     /**

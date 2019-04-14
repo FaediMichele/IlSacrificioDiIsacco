@@ -20,12 +20,13 @@ public class SimpleHeart implements Heart {
      * Simple heart constructor.
      * 
      * @param lastHeartvalue value of the lastHeart, the only one that could me less than full.
+     * @param numberOfHearts the actual number of hearts of this kind
      * @param maxHeartsOfThisKind the max number of the hearts
      * @param maxValue max value that the lastHeart can reach.
      */
-    public SimpleHeart(final double lastHeartvalue, final double maxHeartsOfThisKind, final double maxValue) {
+    public SimpleHeart(final double lastHeartvalue, final double numberOfHearts, final double maxHeartsOfThisKind, final double maxValue) {
         this.maxValue = maxValue;
-        this.numberOfHearts = DEFAULT_NUMBER_OF_HEARTS;
+        this.numberOfHearts = numberOfHearts;
         this.maxHeartsOfThisKind = maxHeartsOfThisKind;
         this.lastHeartValue = lastHeartvalue;
     }

@@ -51,6 +51,7 @@ public abstract class PickUpComponent extends AbstractComponent<PickUpComponent>
      * @param entityThatCollectedMe memorizes the entity that collected the object.
      */
     protected void setEntityThatCollectedMe(final Optional<Entity> entityThatCollectedMe) {
+        // non sarebbe meglio usare final Entity entityThatCollectedMe e poi aggiungerla come Optional.of(entityThatCollectedMe)?
         this.entityThatCollectedMe = entityThatCollectedMe;
     }
 

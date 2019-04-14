@@ -97,6 +97,18 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     }
 
     /**
+     * Sets a new position for the entity.
+     * 
+     * @param newX the new position on the x axis
+     * @param newY the new position on the y axis
+     * @param newZ the new position on the z axis
+     */
+    protected void setPosition(final double newX, final double newY, final double newZ) {
+        this.x = newX;
+        this.y = newY;
+        this.z = newZ;
+    }
+    /**
      * Height getter.
      * 
      * @return height

@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import com.google.common.eventbus.Subscribe;
 
+//import model.entity.Bomb;
 import model.entity.Entity;
 import model.entity.events.EventListener;
 import model.entity.events.PickUpEvent;
+import model.entity.events.ReleaseBombEvent;
 
 /**
  * Keeps track of all the objects (which are entity themselves) that my entity
@@ -55,6 +57,23 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                 }
             }
         });
+
+        registerListener(new EventListener<ReleaseBombEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final ReleaseBombEvent event) {
+                /* waiting till the bomb is created to uncomment this
+                 * if (things.stream().anyMatch(i -> i.getClass().equals(Bomb.class))) {
+                    Bomb bombToRelease = (Bomb) things.stream().filter(i -> i.getClass().equals(Bomb.class)).findAny().get();
+                    BodyComponent bombBody = (BodyComponent) bombToRelease.getCommponent(BodyComponent.class).get();
+                    BodyComponent myBody = (BodyComponent) this.getEntity().getCommponent(BodyComponent.class).get();
+                    bombBody.setState(true);
+                    bombBody.setPosition(myBody.getX(), myBody.getY(), myBody.getZ());
+                    poi lo aggiungeremo alla lista di entità da far apparire;
+                }
+                */
+            }
+        });
     }
 
     /**
@@ -73,15 +92,5 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     protected List<Entity> getThings() {
         return Collections.unmodifiableList(this.things);
-    }
-
-    /**
-     * 
-     * 
-     */
-    public void releaseThing() {
-        /*
-         * TO DO
-         */
     }
 }
