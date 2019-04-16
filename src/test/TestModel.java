@@ -130,8 +130,8 @@ public class TestModel {
         final List<Door> doorsTmp = new ArrayList<Door>();
         doorsTmp.add(new Door(0, 1));
         doorsTmp.add(new Door(0, 2));
-        final LinkedHashSet<Door> tmp = new LinkedHashSet<Door>(doorsTmp);
-        assertEquals(r1.getDoor(), tmp);
+
+        assertTrue(r1.getDoor().containsAll(doorsTmp) && r1.getDoor().size() == doorsTmp.size());
 
         doors = new ArrayList<Door>();
         doors.add(new Door(1, 0));

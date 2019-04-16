@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.Objects;
+
 import model.entity.Entity;
 //import model.entity.events.CollisionEvent;
 //import model.entity.events.DoorChangeEvent;
@@ -69,4 +71,29 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
         return location;
     }
 
+    @Override
+    public final int hashCode() {
+        return Objects.hash(destination, hasPlayerPassed, location);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DoorComponent other = (DoorComponent) obj;
+        return destination.equals(other.destination) && hasPlayerPassed == other.hasPlayerPassed
+                && location.equals(other.location);
+    }
+
+    @Override
+    public final String toString() {
+        return destination + " " + location + " " + hasPlayerPassed;
+    }
 }

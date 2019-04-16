@@ -128,7 +128,6 @@ public abstract class AbstractComponent<C extends Component> implements Componen
         int result = 1;
         result = prime * result + (active ? second : third);
         result = prime * result + (!(componentReplaced.isPresent()) ? 0 : componentReplaced.get().hashCode());
-        result = prime * result + ((entity == null) ? 0 : entity.hashCode());
         return result;
     }
 

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import model.component.BodyComponent;
@@ -90,25 +91,16 @@ public abstract class AbstractEntity implements Entity {
         return new LinkedList<Component>(this.componentsMap.values());
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final String toString() {
+    public String toString() {
         return this.getClass().getSimpleName();
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        } else {
-            final Entity e = Entity.class.cast(obj);
-            return e.getComponents().equals(this.getComponents());
-        }
-    }
 
-    @Override
-    public final int hashCode() {
-        return super.hashCode();
-    }
 
     /**
      * Sets the default components.
@@ -130,5 +122,26 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public final void changeRoom(final Room r) {
         room = r;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(componentsMap, eventBus);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        } else {
+            final Entity e = Entity.class.cast(obj);
+            return e.getComponents().equals(this.getComponents());
+        }
     }
 }
