@@ -94,7 +94,16 @@ public class RoomImpl implements Room {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void insertEntity(final Entity e) {
         entity.add(e);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteEntity(final Entity e) {
+        entity.remove(e);
     }
 }

@@ -11,6 +11,7 @@ import model.component.CollisionComponent;
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
+import model.game.Room;
 
 import com.google.common.eventbus.EventBus;
 
@@ -20,6 +21,7 @@ import com.google.common.eventbus.EventBus;
 public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap;
+    private Room room;
 
     /**
      * .Basic constructor.
@@ -118,5 +120,15 @@ public abstract class AbstractEntity implements Entity {
             final CollisionComponent entityCollision) {
         attachComponent(entityBody);
         attachComponent(entityCollision);
+    }
+
+    @Override
+    public final Room getRoom() {
+        return room;
+    }
+
+    @Override
+    public final void changeRoom(final Room r) {
+        room = r;
     }
 }

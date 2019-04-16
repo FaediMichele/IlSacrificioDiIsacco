@@ -49,7 +49,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                PickUpComponent aux = (PickUpComponent) event.getSourceEntity().getComponent(PickUpComponent.class).get();
+                final PickUpComponent aux = (PickUpComponent) event.getSourceEntity().getComponent(PickUpComponent.class).get();
                 aux.setEntityThatCollectedMe(Optional.of(getEntity()));
                 addThing(event.getSourceEntity());
                 if (aux.needInitialized()) {

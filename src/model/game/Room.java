@@ -32,7 +32,7 @@ public interface Room {
     void updateEntity(Double deltaTime);
 
     /**
-     * If this room has been completed ( the player kill all the enemy).
+     * If this room has been completed (the player killed all the enemy).
      * 
      * @return true if the room is completed.
      */
@@ -51,4 +51,10 @@ public interface Room {
      * @param e the {@link Entity}
      */
     void insertEntity(Entity e);
+
+    /**
+     * Delete the {@link Entity} to the room.
+     * @param e the {@link Entity} to delete
+     */
+    void deleteEntity(Entity e);
 }

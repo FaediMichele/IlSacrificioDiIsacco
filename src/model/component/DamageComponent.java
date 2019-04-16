@@ -9,7 +9,7 @@ import model.entity.Entity;
  */
 public class DamageComponent extends AbstractComponent<DamageComponent> {
 
-    private double damage;
+    private final double damage;
 
     DamageComponent(final Entity entity, final double damage) {
         super(entity);

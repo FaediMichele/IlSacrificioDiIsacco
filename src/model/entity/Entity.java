@@ -6,6 +6,7 @@ import java.util.Optional;
 import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
+import model.game.Room;
 
 /**
  * The main interface for all the entities such as enemies, items and the player
@@ -77,4 +78,15 @@ public interface Entity {
      */
     List<Component> getComponents();
 
+    /**
+     * Get the room  where this entity is.
+     * @return the room.
+     */
+    Room getRoom();
+
+    /**
+     * Change the room where this entity is.
+     * @param r the new room
+     */
+    void changeRoom(Room r);
 }

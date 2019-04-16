@@ -7,9 +7,9 @@ import model.entity.Entity;
  */
 public class MoveEvent extends AbstractEvent {
 
-    private double xMove;
-    private double yMove;
-    private double zMove;
+    private final double xMove;
+    private final double yMove;
+    private final double zMove;
 
     /**
     * 
