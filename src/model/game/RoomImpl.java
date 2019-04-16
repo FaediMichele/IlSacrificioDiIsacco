@@ -19,6 +19,7 @@ public class RoomImpl implements Room {
     private final List<? extends Door> doors;
     private boolean isComplete;
     private final int index;
+    private Floor floor;
 
     /**
      * Create a room with door and entity.
@@ -108,5 +109,18 @@ public class RoomImpl implements Room {
     public void deleteEntity(final Entity e) {
         entity.remove(e);
         e.changeRoom(null);
+    }
+
+    @Override
+    public final Floor getFloor() {
+        return floor;
+    }
+
+    @Override
+    public final void setFloor(final Floor f) {
+        if (floor != null) {
+            throw new IllegalStateException("The room cannot change the floor");
+        }
+        floor = f;
     }
 }

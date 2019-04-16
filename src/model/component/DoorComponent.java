@@ -2,9 +2,12 @@ package model.component;
 
 import java.util.Objects;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
-//import model.entity.events.CollisionEvent;
-//import model.entity.events.DoorChangeEvent;
+import model.entity.events.CollisionEvent;
+import model.entity.events.DoorChangeEvent;
+import model.entity.events.EventListener;
 
 /**
  * This component is used by the doors.
@@ -28,12 +31,18 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
         this.hasPlayerPassed = false;
         this.location = location;
         this.destination = destinationIndex;
-//        entity.registerListener(new CollisionListener((c) -> {
-//            final CollisionEvent coll = (CollisionEvent) c;
-//            if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
-//                postPlayerPassed();
-//            }
-//        }));
+        entity.registerListener(new EventListener<CollisionEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final CollisionEvent event) {
+                final CollisionEvent coll = (CollisionEvent) event;
+                if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+                    coll.getSourceEntity().getRoom().getFloor()
+                    .changeEntityRoom(coll.getSourceEntity(), location, destination);
+                    postPlayerPassed();
+                }
+            }
+        });
     }
 
     /**
@@ -58,9 +67,9 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
     /**
      * Post the event for the player that has passed.
      */
-//    private void postPlayerPassed() {
-//        getEntity().postEvent(new DoorChangeEvent(getEntity()));
-//    }
+    private void postPlayerPassed() {
+        getEntity().postEvent(new DoorChangeEvent(getEntity()));
+    }
 
     /**
      * Get the room where the door is.

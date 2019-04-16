@@ -129,7 +129,7 @@ public abstract class AbstractEntity implements Entity {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(componentsMap, eventBus);
+        return Objects.hash(componentsMap);
     }
 
     /**
@@ -141,7 +141,8 @@ public abstract class AbstractEntity implements Entity {
             return false;
         } else {
             final Entity e = Entity.class.cast(obj);
-            return e.getComponents().equals(this.getComponents());
+            return e.getComponents().containsAll(this.getComponents()) 
+                    && e.getComponents().size() == this.getComponents().size();
         }
     }
 }

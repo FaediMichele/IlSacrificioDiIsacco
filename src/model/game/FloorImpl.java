@@ -9,6 +9,7 @@ import java.util.Set;
 
 import model.component.DoorComponent;
 import model.entity.Door;
+import model.entity.Entity;
 import util.Matrix;
 import util.Pair;
 
@@ -45,6 +46,7 @@ public class FloorImpl implements Floor {
      */
     public FloorImpl(final List<Room> rooms) {
         this.rooms = new ArrayList<>(rooms);
+        rooms.forEach(r -> r.setFloor(this));
     }
 
     /**
@@ -114,7 +116,9 @@ public class FloorImpl implements Floor {
         if (roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
             doors.add(new Door(OVEST, m.get(pos.getX() - 1, pos.getY())));
         }
-        return new RoomImpl(index, doors);
+        final Room r = new RoomImpl(index, doors);
+        r.setFloor(this);
+        return r;
     }
 
     /**
@@ -214,5 +218,11 @@ public class FloorImpl implements Floor {
         if (nextRoom.isPresent()) {
             activeRoomIndex = nextRoom.get();
         }
+    }
+
+    @Override
+    public final void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
+        rooms.get(location).deleteEntity(e);
+        rooms.get(destination).insertEntity(e);
     }
 }

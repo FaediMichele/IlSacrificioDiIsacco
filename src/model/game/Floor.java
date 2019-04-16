@@ -2,6 +2,8 @@ package model.game;
 
 import java.util.Set;
 
+import model.entity.Entity;
+
 /**
  * Interface for the floor.
  * 
@@ -43,4 +45,12 @@ public interface Floor {
      * @param deltaTime time passed from the last call.
      */
     void update(Double deltaTime);
+
+    /**
+     * Change the position of an entity to another room.
+     * @param e the entity to change the position.
+     * @param location the room where the entity is.
+     * @param destination the room to position the entity.
+     */
+    void changeEntityRoom(Entity e, Integer location, Integer destination);
 }

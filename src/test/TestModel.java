@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
 import org.junit.Test;
 import com.google.common.eventbus.EventBus;
@@ -20,6 +19,7 @@ import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Player;
+import model.entity.Rock;
 import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
 import model.game.Floor;
@@ -118,53 +118,59 @@ public class TestModel {
     }
 
     /**
-     * Test for the map.
+     * Test for the floor.
      */
     @Test
-    public void testMap() {
-        boolean ok = false;
-        ArrayList<Door> doors = new ArrayList<Door>();
-        doors.add(new Door(0, 1));
-        doors.add(new Door(0, 2));
-        final Room r1 = new RoomImpl(0, doors);
-        final List<Door> doorsTmp = new ArrayList<Door>();
-        doorsTmp.add(new Door(0, 1));
-        doorsTmp.add(new Door(0, 2));
+    public void testFloor() {
+        final List<Room> rooms = new ArrayList<>();
+        boolean ok;
+        rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(
+                new Door(0, 1),
+                new Door(1, 2)))));
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(
+                new Door(2, 0),
+                new Door(1, 2)))));
+        rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(
+                new Door(3, 0),
+                new Door(1, 1)))));
+        final Floor f = new FloorImpl(rooms);
 
-        assertTrue(r1.getDoor().containsAll(doorsTmp) && r1.getDoor().size() == doorsTmp.size());
-
-        doors = new ArrayList<Door>();
-        doors.add(new Door(1, 0));
-        final Room r2 = new RoomImpl(1, doors);
-
-        doors = new ArrayList<Door>();
-        doors.add(new Door(2, 0));
-        final Room r3 = new RoomImpl(2, doors);
-
-        final Floor floor = new FloorImpl(new ArrayList<Room>(Arrays.asList(r1, r2, r3)));
-
-        assertThrows(IllegalArgumentException.class, () -> floor.changeRoom(-1));
+        assertEquals(Integer.valueOf(f.getActiveRoom().getIndex()), Integer.valueOf(0));
+        assertThrows(IllegalArgumentException.class, () -> f.changeRoom(-1));
 
         try {
-            floor.changeRoom(1);
+            f.changeRoom(1);
         } catch (Exception e) {
             ok = false;
         } finally {
             ok = true;
         }
         assertTrue(ok);
+        rooms.forEach(r -> assertEquals(r.getFloor(), f));
+        assertEquals(f.getActiveRoom(), rooms.get(1));
+        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(
+                new Door(2, 0),
+                new Door(1, 2))));
+        assertThrows(IllegalStateException.class, () -> rooms.get(0).setFloor(new FloorImpl()));
+    }
 
-        assertEquals(floor.getActiveRoom().getDoor(), new LinkedHashSet<Door>(Arrays.asList(new Door(1, 0))));
+    /**
+     * Test for the room that contains entity.
+     */
+    @Test
+    public void testRoom() {
+        final List<Entity> e = new ArrayList<>();
+        e.add(new Rock());
+        e.add(new Fire(FireType.RED));
+        final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
+        e.forEach(entity -> assertEquals(entity.getRoom(), r));
 
-        try {
-            floor.changeRoom(2);
-        } catch (Exception e) {
-            ok = false;
-        } finally {
-            ok = true;
-        }
-        assertTrue(ok);
-
-        assertEquals(floor.getActiveRoom().getDoor(), new LinkedHashSet<Door>(Arrays.asList(new Door(2, 0))));
+        final List<Entity> e1 = new ArrayList<>();
+        e1.add(new Rock());
+        e1.add(new Fire(FireType.RED));
+        assertTrue(r.getEntity().containsAll(e1));
+        r.updateEntity(0.0);
+        r.updateEntity(0.0);
+        assertTrue(r.getEntity().containsAll(e1));
     }
 }

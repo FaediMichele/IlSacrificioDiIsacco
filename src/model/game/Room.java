@@ -57,4 +57,17 @@ public interface Room {
      * @param e the {@link Entity} to delete
      */
     void deleteEntity(Entity e);
+
+    /**
+     * Get the {@link Floor} that contains the room.
+     * @return the {@link Floor} where the room is.
+     */
+    Floor getFloor();
+
+
+    /**
+     * Set the {@link Floor} that contains the room.
+     * @param f the {@link Floor} where the room is
+     */
+    void setFloor(Floor f);
 }
