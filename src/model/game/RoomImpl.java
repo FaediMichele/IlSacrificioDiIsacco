@@ -32,6 +32,7 @@ public class RoomImpl implements Room {
         this.doors = door;
         isComplete = false;
         this.entity = entity;
+        this.entity.forEach(e -> e.changeRoom(this));
     }
 
     /**
@@ -97,6 +98,7 @@ public class RoomImpl implements Room {
     @Override
     public void insertEntity(final Entity e) {
         entity.add(e);
+        e.changeRoom(this);
     }
 
     /**
@@ -105,5 +107,6 @@ public class RoomImpl implements Room {
     @Override
     public void deleteEntity(final Entity e) {
         entity.remove(e);
+        e.changeRoom(null);
     }
 }
