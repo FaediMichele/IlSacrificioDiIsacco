@@ -13,10 +13,27 @@ import model.entity.events.MoveEvent;
 
 public class MoveComponent extends AbstractComponent<MoveComponent> {
 
-    private static final int NOMOVE = 0;
-    private static final double DEFAULT_SPEED = 1;
-    private static final double DEFAULT_MAX_SPEED = 10;
-    private static final double DEFAULT_FRICTION = 0.001;
+    /**
+     * Value of the entities that does not need to move.
+     */
+    public static final int NOMOVE = 0;
+
+    /**
+     * Default value for speed: 1.
+     */
+    public static final double DEFAULT_SPEED = 1;
+
+    /**
+     * Default maximum value for speed: 10.
+     */
+    public static final double DEFAULT_MAX_SPEED = 10;
+
+    /**
+     * Default value for friction: 0.001.
+     */
+    public static final double DEFAULT_FRICTION = 0.001;
+
+    private static final double MINIMIZE_SPACE_DELTA = 0.0001;
     private double deltaSpeed;
     private double xMove;
     private double yMove;
@@ -36,7 +53,15 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.deltaSpeed = deltaSpeed;
         this.maxSpeed = maxSpeed;
         this.friction = friction;
-        this.move(NOMOVE, NOMOVE, NOMOVE);
+        this.initMove();
+
+        registerListener(new EventListener<MoveEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final MoveEvent event) {
+                move(event.getxMove(), event.getyMove(), event.getzMove());
+            }
+        });
     }
 
     /**
@@ -49,7 +74,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.deltaSpeed = DEFAULT_SPEED;
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.friction = DEFAULT_FRICTION;
-        this.move(NOMOVE, NOMOVE, NOMOVE);
+        this.initMove();
 
         registerListener(new EventListener<MoveEvent>() {
             @Override
@@ -65,7 +90,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * 
      * @return deltaSpeed
      */
-    protected double getSpeed() {
+    public double getSpeed() {
         return this.deltaSpeed;
     }
 
@@ -85,10 +110,50 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param y move made on the y axis
      * @param z move made on the z axis
      */
-    private void move(final double x, final double y, final double z) {
+    public void move(final double x, final double y, final double z) {
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
+    }
+
+    /**
+     * Initialize the movement to 0 as the entity has just been created or has just been moved.
+     */
+    private void initMove() {
+        this.xMove = NOMOVE;
+        this.yMove = NOMOVE;
+        this.zMove = NOMOVE;
+    }
+    /**
+     * Getter for xMove.
+     * @return xMove
+     */
+    public double getxMove() {
+        return xMove;
+    }
+
+    /**
+     * Getter for yMove.
+     * @return yMove
+     */
+    public double getyMove() {
+        return yMove;
+    }
+
+    /**
+     * Getter for zMove.
+     * @return zMove
+     */
+    public double getzMove() {
+        return zMove;
+    }
+
+    /**
+     * Getter for maxSpeed.
+     * @return maxSped
+     */
+    public double getMaxSpeed() {
+        return maxSpeed;
     }
 
     /**
@@ -103,9 +168,9 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
 
     @Override
     public final void update(final Double deltaTime) {
-        final double spaceEachMove = calculateSpace(deltaTime);
+        final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
         this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-        this.move(NOMOVE, NOMOVE, NOMOVE);
+        this.initMove();
     }
 
     private BodyComponent getBody() {

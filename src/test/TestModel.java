@@ -15,6 +15,7 @@ import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
+import model.component.MoveComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
@@ -172,5 +173,27 @@ public class TestModel {
         r.updateEntity(0.0);
         r.updateEntity(0.0);
         assertTrue(r.getEntity().containsAll(e1));
+    }
+
+    /**
+     * Test for {@link Entity}.
+     */
+    @Test
+    public void testMoveComponent() {
+        final double randomTime = 10;
+        final Entity p = new Player();
+        p.attachComponent(new BodyComponent(p));
+        p.attachComponent(new MoveComponent(p));
+        ((MoveComponent) p.getComponent(MoveComponent.class).get()).move(2, 0, 1);
+        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getxMove(), 2);
+        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
+        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), 1);
+        ((MoveComponent) p.getComponent(MoveComponent.class).get()).update(randomTime);
+        //assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getX(), 0.00199);
+        //assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getY(), 0);
+        //assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getZ(), 0.000995);
+        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getxMove(), MoveComponent.NOMOVE);
+        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
+        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), MoveComponent.NOMOVE);
     }
 }
