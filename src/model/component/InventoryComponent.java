@@ -11,7 +11,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.events.EventListener;
 import model.entity.events.PickUpEvent;
-import model.entity.events.ReleaseBombEvent;
+import model.entity.events.ReleaseEvent;
 
 /**
  * Keeps track of all the objects (which are entity themselves) that my entity
@@ -49,7 +49,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final PickUpComponent aux = (PickUpComponent) event.getSourceEntity().getComponent(PickUpComponent.class).get();
+                final CollectibleComponent aux = (CollectibleComponent) event.getSourceEntity().getComponent(CollectibleComponent.class).get();
                 aux.setEntityThatCollectedMe(Optional.of(getEntity()));
                 addThing(event.getSourceEntity());
                 if (aux.needInitialized()) {
@@ -58,10 +58,10 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             }
         });
 
-        registerListener(new EventListener<ReleaseBombEvent>() {
+        registerListener(new EventListener<ReleaseEvent>() {
             @Override
             @Subscribe
-            public void listenEvent(final ReleaseBombEvent event) {
+            public void listenEvent(final ReleaseEvent event) {
                 /* waiting till the bomb is created to uncomment this
                  * if (things.stream().anyMatch(i -> i.getClass().equals(Bomb.class))) {
                     Bomb bombToRelease = (Bomb) things.stream().filter(i -> i.getClass().equals(Bomb.class)).findAny().get();
