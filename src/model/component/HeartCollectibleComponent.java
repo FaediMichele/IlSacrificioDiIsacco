@@ -37,7 +37,7 @@ public class HeartCollectibleComponent extends CollectibleComponent {
      */
     @Override
     protected void init() {
-        HealthComponent h = ((HealthComponent) super.getEntityThatCollectedMe().get().getComponent(HealthComponent.class).get());
+        //HealthComponent h = ((HealthComponent) super.getEntityThatCollectedMe().get().getComponent(HealthComponent.class).get());
         //h.addHeart(...); waiting for heart entity to be created
     }
 
