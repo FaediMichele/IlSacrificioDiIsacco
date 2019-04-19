@@ -63,11 +63,14 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final ReleaseEvent event) {
-                final CollectibleComponent aux = (CollectibleComponent) event.getReleasedEntity().getComponent(CollectibleComponent.class).get();
-                if (aux.usable()) {
-                    aux.use();
+                if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
+                    final Entity thingToRelease = things.stream().filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findAny().get();
+                    final CollectibleComponent aux = (CollectibleComponent) thingToRelease.getComponent(CollectibleComponent.class).get();
+                    if (aux.usable()) {
+                        aux.use();
+                    }
+                    removeThing(thingToRelease);
                 }
-                removeThing(event.getReleasedEntity());
             }
         });
     }
@@ -95,8 +98,8 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing
      * @return number of things of some kind (Es. number of bombs, number of keys)
      */
-    private int thingsOfThisKind(final Entity thing) {
-        return (int) this.things.stream().filter(i -> i.getClass().equals(thing.getClass())).count();
+    private int thingsOfThisKind(final Class<? extends Entity> thingClass) {
+        return (int) this.things.stream().filter(i -> i.getClass().equals(thingClass)).count();
     }
 
     /**

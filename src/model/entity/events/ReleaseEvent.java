@@ -7,23 +7,23 @@ import model.entity.Entity;
  */
 public class ReleaseEvent extends AbstractEvent {
 
-    private final Entity releasedEntity;
+    private final Class<? extends Entity> releasedEntityClass;
     /**
      * Initialize the event.
      * @param sourceEntity entity that releases the object
-     * @param releasedEntity entity that is released into the room
+     * @param releasedEntityClass the class of entity that is released into the room
      */
-    public ReleaseEvent(final Entity sourceEntity, final Entity releasedEntity) {
+    public ReleaseEvent(final Entity sourceEntity, final Class<? extends Entity> releasedEntityClass) {
         super(sourceEntity);
-        this.releasedEntity = releasedEntity;
+        this.releasedEntityClass = releasedEntityClass;
     }
 
     /**
      * getter for released entity.
      * @return released entity
      */
-    public Entity getReleasedEntity() {
-        return releasedEntity;
+    public Class<? extends Entity> getReleasedEntityClass() {
+        return releasedEntityClass;
     }
 
 }
