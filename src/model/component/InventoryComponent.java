@@ -1,13 +1,11 @@
 package model.component;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.common.eventbus.Subscribe;
 
-//import model.entity.Bomb;
 import model.entity.Entity;
 import model.entity.events.EventListener;
 import model.entity.events.PickUpEvent;
@@ -20,7 +18,7 @@ import model.entity.events.ReleaseEvent;
 
 public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
-    private final List<Entity> things;
+    private final Set<Entity> things;
 
     /**
      * Default InventoryComponent constructor.
@@ -29,7 +27,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     public InventoryComponent(final Entity entity) {
         super(entity);
-        this.things = new ArrayList<>();
+        this.things = new HashSet<>();
         this.registListener();
     }
 
@@ -50,10 +48,13 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
                 final CollectibleComponent aux = (CollectibleComponent) event.getSourceEntity().getComponent(CollectibleComponent.class).get();
-                aux.setEntityThatCollectedMe(Optional.of(getEntity()));
+                aux.setEntityThatCollectedMe(getEntity());
                 addThing(event.getSourceEntity());
                 if (aux.needInitialized()) {
                     aux.init();
+                }
+                if (aux.isCollectible()) {
+                    addThing(aux.getEntity());
                 }
             }
         });
@@ -62,16 +63,11 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final ReleaseEvent event) {
-                /* waiting till the bomb is created to uncomment this
-                 * if (things.stream().anyMatch(i -> i.getClass().equals(Bomb.class))) {
-                    Bomb bombToRelease = (Bomb) things.stream().filter(i -> i.getClass().equals(Bomb.class)).findAny().get();
-                    BodyComponent bombBody = (BodyComponent) bombToRelease.getCommponent(BodyComponent.class).get();
-                    BodyComponent myBody = (BodyComponent) this.getEntity().getCommponent(BodyComponent.class).get();
-                    bombBody.setState(true);
-                    bombBody.setPosition(myBody.getX(), myBody.getY(), myBody.getZ());
-                    poi lo aggiungeremo alla lista di entità da far apparire;
+                final CollectibleComponent aux = (CollectibleComponent) event.getReleasedEntity().getComponent(CollectibleComponent.class).get();
+                if (aux.usable()) {
+                    aux.use();
                 }
-                */
+                removeThing(event.getReleasedEntity());
             }
         });
     }
@@ -83,14 +79,31 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     private void addThing(final Entity thing) {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
-        this.things.add(thing);
+        things.add(thing);
+    }
+
+    /**
+     * The thing that has to be removed from the list because it has been used.
+     * @param thing to remove
+     */
+    private void removeThing(final Entity thing) {
+        things.remove(thing);
+    }
+
+    /**
+     * 
+     * @param thing
+     * @return number of things of some kind (Es. number of bombs, number of keys)
+     */
+    private int thingsOfThisKind(final Entity thing) {
+        return (int) this.things.stream().filter(i -> i.getClass().equals(thing.getClass())).count();
     }
 
     /**
      * 
      * @return the list of things that have been collected
      */
-    protected List<Entity> getThings() {
-        return Collections.unmodifiableList(this.things);
+    protected Set<Entity> getThings() {
+        return Collections.unmodifiableSet(this.things);
     }
 }

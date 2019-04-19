@@ -15,9 +15,9 @@ public abstract class CollectibleComponent extends AbstractComponent<Collectible
     private boolean collectible;
     private Optional<Entity> entityThatCollectedMe;
 
-    CollectibleComponent(final Entity entity, final boolean collectible) {
+    CollectibleComponent(final Entity entity) {
         super(entity);
-        this.collectible = collectible;
+        this.collectible = false;
         this.entityThatCollectedMe = Optional.empty();
     }
 
@@ -50,9 +50,8 @@ public abstract class CollectibleComponent extends AbstractComponent<Collectible
      * 
      * @param entityThatCollectedMe memorizes the entity that collected the object.
      */
-    protected void setEntityThatCollectedMe(final Optional<Entity> entityThatCollectedMe) {
-        // non sarebbe meglio usare final Entity entityThatCollectedMe e poi aggiungerla come Optional.of(entityThatCollectedMe)?
-        this.entityThatCollectedMe = entityThatCollectedMe;
+    protected void setEntityThatCollectedMe(final Entity entityThatCollectedMe) {
+        this.entityThatCollectedMe = Optional.of(entityThatCollectedMe);
     }
 
     /**
