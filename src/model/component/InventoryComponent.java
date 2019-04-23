@@ -49,13 +49,13 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             public void listenEvent(final PickUpEvent event) {
                 final CollectibleComponent aux = (CollectibleComponent) event.getSourceEntity().getComponent(CollectibleComponent.class).get();
                 aux.setEntityThatCollectedMe(getEntity());
-                addThing(event.getSourceEntity());
                 if (aux.needInitialized()) {
                     aux.init();
                 }
                 if (aux.isCollectible()) {
                     addThing(aux.getEntity());
                 }
+                getEntity().getRoom().deleteEntity(aux.getEntity());
             }
         });
 
@@ -69,7 +69,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                     if (aux.usable()) {
                         aux.use();
                     }
-                    removeThing(thingToRelease);
+                    releaseThing(thingToRelease, event.getSourceEntity());
                 }
             }
         });
@@ -89,7 +89,13 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * The thing that has to be removed from the list because it has been used.
      * @param thing to remove
      */
-    private void removeThing(final Entity thing) {
+    private void releaseThing(final Entity thing, final Entity releaser) {
+        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(true);
+        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setPosition(
+                ((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getX(),
+                ((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getY(),
+                ((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getZ());
+        releaser.getRoom().insertEntity(thing);
         things.remove(thing);
     }
 
