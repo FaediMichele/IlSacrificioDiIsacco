@@ -33,7 +33,6 @@ public class BombCollectibleComponent extends CollectibleComponent {
      */
     @Override
     protected void use() {
-        ((BodyComponent) super.getEntity().getComponent(BodyComponent.class).get()).setState(true);
         //waiting for response on how the bomb acts
     }
 
