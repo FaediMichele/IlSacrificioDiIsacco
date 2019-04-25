@@ -1,5 +1,6 @@
 package model.component;
 
+//import model.entity.BombTriggered;
 import model.entity.Entity;
 
 /**
@@ -33,11 +34,12 @@ public class BombCollectibleComponent extends CollectibleComponent {
      */
     @Override
     protected void use() {
-        //waiting for response on how the bomb acts
+        //getEntity().getRoom().insertEntity(new BombTriggered(entityBody, entityCollision, entityExplosion, timeBeforeExplodes, explosionTime));
     }
 
     @Override
     protected void init() {
+    //to perfect
     }
 
 }
