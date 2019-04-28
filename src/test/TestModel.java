@@ -181,8 +181,9 @@ public class TestModel {
     @Test
     public void testMoveComponent() {
         final double randomTime = 10;
-        final double calculatedXMove = 0.00199;
-        final double calculatedYMove = 0.000995;
+        final Double calculatedXMove = 0.00199;
+        final Double calculatedYMove = 0.0;
+        final Double calculatedZMove = 0.000995;
         final Entity p = new Player();
         p.attachComponent(new BodyComponent(p));
         p.attachComponent(new MoveComponent(p));
@@ -191,9 +192,9 @@ public class TestModel {
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), 1);
         ((MoveComponent) p.getComponent(MoveComponent.class).get()).update(randomTime);
-        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getX(), calculatedXMove);
-        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getY(), 0);
-        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getZ(), calculatedYMove);
+        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getPosition().getV1(), calculatedXMove);
+        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getPosition().getV2(), calculatedYMove);
+        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getPosition().getV3(), calculatedZMove);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getxMove(), MoveComponent.NOMOVE);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), MoveComponent.NOMOVE);
