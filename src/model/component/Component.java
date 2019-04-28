@@ -22,4 +22,15 @@ public interface Component {
      * @return {@link Entity}.
      */
      Entity getEntity();
+
+     /**
+      * Unregister all event listener of this component.
+      */
+     void unregisterAllListener();
+
+     /**
+      * Register all event listener of this component.
+      */
+     void registerAllListener();
+
 }

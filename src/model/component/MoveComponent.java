@@ -110,7 +110,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param y move made on the y axis
      * @param z move made on the z axis
      */
-    public void move(final double x, final double y, final double z) {
+    private void move(final double x, final double y, final double z) {
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;

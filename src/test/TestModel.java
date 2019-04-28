@@ -23,6 +23,7 @@ import model.entity.Player;
 import model.entity.Rock;
 import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
+import model.entity.events.MoveEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -187,7 +188,8 @@ public class TestModel {
         final Entity p = new Player();
         p.attachComponent(new BodyComponent(p));
         p.attachComponent(new MoveComponent(p));
-        ((MoveComponent) p.getComponent(MoveComponent.class).get()).move(2, 0, 1);
+        p.postEvent(new MoveEvent(p, 2, 0, 1));
+        //((MoveComponent) p.getComponent(MoveComponent.class).get()).move(2, 0, 1);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getxMove(), 2);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
         assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), 1);

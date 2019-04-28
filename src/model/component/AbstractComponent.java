@@ -40,7 +40,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
             throw new IllegalArgumentException(
                     "You cannot replace a component with another component that does not belong to the same entity"); 
             }
-//need a fix because doesn't unregister listener in the c
+        component.unregisterAllListener();
     }
 
     /**
@@ -53,11 +53,18 @@ public abstract class AbstractComponent<C extends Component> implements Componen
     }
 
     /**
-     * 
-     * @param eventListener the {@link EventListener}
+     * Register all event listener of this component.
      */
-    protected void unregisterListener(final EventListener<? extends Event> eventListener) {
-        getEntity().unregisterListener(eventListener);
+    public void registerAllListener() {
+        this.eventListeners.forEach(eLis -> getEntity().registerListener(eLis));
+    }
+
+
+    /**
+     * Unregister all event listener of this component.
+     */
+    public void unregisterAllListener() {
+        this.eventListeners.forEach(eLis -> getEntity().unregisterListener(eLis));
     }
 
     /**
