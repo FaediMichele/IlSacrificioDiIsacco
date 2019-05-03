@@ -18,7 +18,7 @@ import model.entity.events.EventListener;
 public abstract class AbstractComponent<C extends Component> implements Component {
     private boolean active;
     private Entity entity;
-    private Optional<Component> componentReplaced;
+    private Optional<C> componentReplaced;
     private final List<EventListener<? extends Event>> eventListeners;
 
     AbstractComponent(final Entity entity) {
@@ -152,8 +152,8 @@ public abstract class AbstractComponent<C extends Component> implements Componen
         if (getClass() != obj.getClass()) {
             return false;
         }
-        @SuppressWarnings("unchecked")
-        final AbstractComponent<AbstractComponent<Component>> other = (AbstractComponent<AbstractComponent<Component>>) obj;
+
+        final AbstractComponent<?> other = (AbstractComponent<?>) obj;
 
         if (active != other.active) {
             return false;
