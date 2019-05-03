@@ -86,11 +86,11 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * 
      * @param totalDamageValue the value of damage
      */
-    private void getDamaged(final double totalDamageValue) {
+    public void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
         Heart lastHeart;
         while (this.isAlive() && actualDamageValue != 0) {
-            lastHeart = this.hearts.get(hearts.size());
+            lastHeart = this.hearts.get(hearts.size() - 1);
             actualDamageValue = lastHeart.getDamaged(actualDamageValue);
             if (lastHeart.getNumberOfHearts() == 0) {
                 this.hearts.remove(lastHeart);

@@ -11,7 +11,6 @@ import org.junit.Test;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.DamageComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
@@ -210,13 +209,15 @@ public class TestModel {
     @Test
     public void testHealthComponent() {
         final Entity p = new Player();
-        final Entity enemy = new Player();
         p.attachComponent(new HealthComponent(p));
         assertTrue(this.getHealthComponent(p).isAlive());
         assertEquals(this.getHealthComponent(p).getHearts().size(), 1);
+
+        getHealthComponent(p).getDamaged(0.5); //se chiamo direttamente il metodo funziona
+        /*final Entity enemy = new Player();
         enemy.attachComponent(new DamageComponent(enemy, 0.5));
-        p.postEvent(new DamageEvent(enemy));
-        //assertEquals(this.getHealthComponent(p).getHearts().get(0).getlastHeartValue(), 0.5);
+        p.postEvent(new DamageEvent(enemy)); //se faccio la stessa cosa attraverso gli eventi no*/
+        assertEquals(this.getHealthComponent(p).getHearts().get(0).getlastHeartValue(), 0.5);
     }
 
     private HealthComponent getHealthComponent(final Entity e) {

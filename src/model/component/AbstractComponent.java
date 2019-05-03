@@ -25,6 +25,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
         this.entity = entity;
         this.componentReplaced = Optional.empty();
         this.eventListeners = new LinkedList<EventListener<? extends Event>>();
+        active = true;
     }
 
     /**
@@ -41,6 +42,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
                     "You cannot replace a component with another component that does not belong to the same entity"); 
             }
         component.unregisterAllListener();
+        active = true;
     }
 
     /**
@@ -73,7 +75,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * 
      * @return {@link Boolean}.
      */
-    protected final boolean isActive() {
+    public final boolean isActive() {
         return active;
     }
 
@@ -82,7 +84,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * 
      * @param state {@link Boolean}.
      */
-    protected final void setState(final boolean state) {
+    public final void setState(final boolean state) {
         active = state;
     }
 
