@@ -1,6 +1,7 @@
 package model.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
@@ -57,6 +58,14 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      */
     public boolean isAlive() {
         return !this.hearts.isEmpty();
+    }
+
+    /**
+     * 
+     * @return the list of hearts
+     */
+    public List<Heart> getHearts() {
+        return Collections.unmodifiableList(this.hearts);
     }
 
     /**

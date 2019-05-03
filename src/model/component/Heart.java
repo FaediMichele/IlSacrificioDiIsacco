@@ -15,6 +15,12 @@ public interface Heart {
     double getlastHeartValue();
 
     /**
+     * 
+     * @return the max value an heart can have
+     */
+    double getMaxValue();
+
+    /**
      * The way the heart is damaged could change in different kind of hearts.
      * 
      * @param damageValue totals damageValue of the Health

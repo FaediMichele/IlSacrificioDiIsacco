@@ -11,6 +11,8 @@ import org.junit.Test;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import model.component.BodyComponent;
+import model.component.CollisionComponent;
+import model.component.DamageComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
@@ -21,6 +23,7 @@ import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Player;
 import model.entity.Rock;
+import model.entity.events.DamageEvent;
 import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
 import model.entity.events.MoveEvent;
@@ -177,7 +180,7 @@ public class TestModel {
     }
 
     /**
-     * Test for {@link Entity}.
+     * Test for {@link MoveComponent}.
      */
     @Test
     public void testMoveComponent() {
@@ -189,16 +192,42 @@ public class TestModel {
         p.attachComponent(new BodyComponent(p));
         p.attachComponent(new MoveComponent(p));
         p.postEvent(new MoveEvent(p, 2, 0, 1));
-        //((MoveComponent) p.getComponent(MoveComponent.class).get()).move(2, 0, 1);
-        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getxMove(), 2);
-        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
-        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), 1);
-        ((MoveComponent) p.getComponent(MoveComponent.class).get()).update(randomTime);
-        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getPosition().getV1(), calculatedXMove);
-        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getPosition().getV2(), calculatedYMove);
-        assertEquals(((BodyComponent) p.getComponent(BodyComponent.class).get()).getPosition().getV3(), calculatedZMove);
-        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getxMove(), MoveComponent.NOMOVE);
-        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getyMove(), MoveComponent.NOMOVE);
-        assertEquals(((MoveComponent) p.getComponent(MoveComponent.class).get()).getzMove(), MoveComponent.NOMOVE);
+        assertEquals(getMoveComponent(p).getxMove(), 2);
+        assertEquals(getMoveComponent(p).getyMove(), MoveComponent.NOMOVE);
+        assertEquals(getMoveComponent(p).getzMove(), 1);
+        getMoveComponent(p).update(randomTime);
+        assertEquals(getBodyComponent(p).getPosition().getV1(), calculatedXMove);
+        assertEquals(getBodyComponent(p).getPosition().getV2(), calculatedYMove);
+        assertEquals(getBodyComponent(p).getPosition().getV3(), calculatedZMove);
+        assertEquals(getMoveComponent(p).getxMove(), MoveComponent.NOMOVE);
+        assertEquals(getMoveComponent(p).getyMove(), MoveComponent.NOMOVE);
+        assertEquals(getMoveComponent(p).getzMove(), MoveComponent.NOMOVE);
+    }
+
+    /**
+     * Test for {@link HealthComponent}.
+     */
+    @Test
+    public void testHealthComponent() {
+        final Entity p = new Player();
+        final Entity enemy = new Player();
+        p.attachComponent(new HealthComponent(p));
+        assertTrue(this.getHealthComponent(p).isAlive());
+        assertEquals(this.getHealthComponent(p).getHearts().size(), 1);
+        enemy.attachComponent(new DamageComponent(enemy, 0.5));
+        p.postEvent(new DamageEvent(enemy));
+        //assertEquals(this.getHealthComponent(p).getHearts().get(0).getlastHeartValue(), 0.5);
+    }
+
+    private HealthComponent getHealthComponent(final Entity e) {
+        return (HealthComponent) e.getComponent(HealthComponent.class).get();
+    }
+
+    private MoveComponent getMoveComponent(final Entity e) {
+        return (MoveComponent) e.getComponent(MoveComponent.class).get();
+    }
+
+    private BodyComponent getBodyComponent(final Entity e) {
+        return (BodyComponent) e.getComponent(BodyComponent.class).get();
     }
 }
