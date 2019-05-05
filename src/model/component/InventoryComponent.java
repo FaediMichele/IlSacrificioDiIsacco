@@ -2,6 +2,7 @@ package model.component;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.eventbus.Subscribe;
@@ -64,12 +65,15 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Subscribe
             public void listenEvent(final ReleaseEvent event) {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
-                    final Entity thingToRelease = things.stream().filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findAny().get();
-                    final CollectibleComponent aux = (CollectibleComponent) thingToRelease.getComponent(CollectibleComponent.class).get();
+                    final Optional<Entity> thingToRelease = things.stream().filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findAny();
+                    if (!thingToRelease.isPresent()) {
+                        throw new IllegalArgumentException();
+                    }
+                    final CollectibleComponent aux = (CollectibleComponent) thingToRelease.get().getComponent(CollectibleComponent.class).get();
+                    releaseThing(thingToRelease.get(), event.getSourceEntity());
                     if (aux.usable()) {
                         aux.use();
                     }
-                    releaseThing(thingToRelease, event.getSourceEntity());
                 }
             }
         });
