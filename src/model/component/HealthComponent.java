@@ -69,6 +69,14 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     }
 
     /**
+     * 
+     * @return the life left to this entity
+     */
+    public double getLife() {
+        return this.hearts.stream().map(x -> x.getNumberOfHearts()).reduce(0.0, (x, y) -> x + y);
+    }
+
+    /**
      * Adds an heart to the list (probably the entity captured it).
      * 
      * @param h the heart

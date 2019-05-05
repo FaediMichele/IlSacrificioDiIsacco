@@ -42,6 +42,8 @@ public abstract class AbstractComponent<C extends Component> implements Componen
                     "You cannot replace a component with another component that does not belong to the same entity"); 
             }
         component.unregisterAllListener();
+        component.disableComponent();
+        entity.detachComponent(component);
         active = true;
     }
 
@@ -61,6 +63,19 @@ public abstract class AbstractComponent<C extends Component> implements Componen
         this.eventListeners.forEach(eLis -> getEntity().registerListener(eLis));
     }
 
+    /**
+     * disability this component.
+     */
+    public void disableComponent() {
+        this.active = false;
+    }
+
+    /**
+     * Rehabilitate this component.
+     */
+    public void rehabilitateComponent() {
+        this.active = true;
+    }
 
     /**
      * Unregister all event listener of this component.

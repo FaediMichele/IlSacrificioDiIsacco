@@ -8,11 +8,11 @@ package model.component;
 
 public interface Heart {
 
-    /**
-     * 
-     * @return the value of the last heart
-     */
-    double getlastHeartValue();
+//    /**
+//     * 
+//     * @return the value of the last heart
+//     */
+//    double getlastHeartValue();
 
     /**
      * 

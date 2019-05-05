@@ -16,6 +16,8 @@ import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
+import model.component.Mentality;
+import model.component.MentalityComponent;
 import model.component.MoveComponent;
 import model.entity.Door;
 import model.entity.Entity;
@@ -208,16 +210,24 @@ public class TestModel {
      */
     @Test
     public void testHealthComponent() {
-        final Entity p = new Player();
-        p.attachComponent(new HealthComponent(p));
-        assertTrue(this.getHealthComponent(p).isAlive());
-        assertEquals(this.getHealthComponent(p).getHearts().size(), 1);
+        final double defaultHearts = 3.3;
+        final Entity goodEntity = new Player();
+        goodEntity.attachComponent(new HealthComponent(goodEntity));
+        assertTrue(this.getHealthComponent(goodEntity).isAlive());
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts);
 
-        getHealthComponent(p).getDamaged(0.5); //se chiamo direttamente il metodo funziona
-        /*final Entity enemy = new Player();
-        enemy.attachComponent(new DamageComponent(enemy, 0.5));
-        p.postEvent(new DamageEvent(enemy)); //se faccio la stessa cosa attraverso gli eventi no*/
-        assertEquals(this.getHealthComponent(p).getHearts().get(0).getlastHeartValue(), 0.5);
+//        getHealthComponent(goodEntity).getDamaged(0.5); //se chiamo direttamente il metodo funziona
+//        /*final Entity enemy = new Player();
+//        enemy.attachComponent(new DamageComponent(enemy, 0.5));
+//        p.postEvent(new DamageEvent(enemy)); //se faccio la stessa cosa attraverso gli eventi no*/
+//        assertEquals(this.getHealthComponent(goodEntity).getHearts().get(0).getlastHeartValue(), 0.5);
+
+        final Entity testEntity = new Player();
+        final double damage = 0.4;
+        testEntity.attachComponent(new DamageComponent(testEntity, damage));
+        testEntity.attachComponent(new MentalityComponent(testEntity, Mentality.EVIL));
+        goodEntity.postEvent(new DamageEvent(testEntity)); 
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts);
     }
 
     private HealthComponent getHealthComponent(final Entity e) {

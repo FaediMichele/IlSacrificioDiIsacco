@@ -7,12 +7,12 @@ package model.component;
  */
 public class SimpleHeart implements Heart {
 
-    private static final double DEFAULT_VALUE = 1;
+//  private static final double DEFAULT_VALUE = 1;
     private static final double MAX_VALUE = 1;
     private static final double MAX_HEARTS_OF_THIS_KIND = 5;
-    private static final double DEFAULT_NUMBER_OF_HEARTS = 3;
+    private static final double DEFAULT_NUMBER_OF_HEARTS = 3.3;
     private double numberOfHearts;
-    private double lastHeartValue;
+//  private double lastHeartValue;
 
     /**
      * Simple heart constructor.
@@ -22,7 +22,7 @@ public class SimpleHeart implements Heart {
     */
     public SimpleHeart(final double lastHeartvalue, final double numberOfHearts) {
         this.numberOfHearts = numberOfHearts;
-        this.lastHeartValue = lastHeartvalue;
+//      this.lastHeartValue = lastHeartvalue;
     }
 
     /**
@@ -30,7 +30,7 @@ public class SimpleHeart implements Heart {
      */
     public SimpleHeart() {
         this.numberOfHearts = DEFAULT_NUMBER_OF_HEARTS;
-        this.lastHeartValue = DEFAULT_VALUE;
+//      this.lastHeartValue = DEFAULT_VALUE;
     }
 
     /**
@@ -41,29 +41,35 @@ public class SimpleHeart implements Heart {
      */
     @Override
     public double getDamaged(final double damageValue) {
-        double actualDamageValue = damageValue;
-        while (actualDamageValue > 0) {
-            if (actualDamageValue < this.lastHeartValue) {
-                this.lastHeartValue = this.lastHeartValue - actualDamageValue;
-                return 0;
-            } 
-            actualDamageValue = actualDamageValue - this.lastHeartValue;
-            this.lastHeartValue = MAX_VALUE;
-            this.numberOfHearts--;
-            if (this.numberOfHearts == 0) {
-                return actualDamageValue;
-            }
+//        double actualDamageValue = damageValue;
+//        while (actualDamageValue > 0) {
+//            if (actualDamageValue < this.lastHeartValue) {
+//                this.lastHeartValue = this.lastHeartValue - actualDamageValue;
+//                return 0;
+//            } 
+//            actualDamageValue = actualDamageValue - this.lastHeartValue;
+//            this.lastHeartValue = MAX_VALUE;
+//            this.numberOfHearts--;
+//            if (this.numberOfHearts == 0) {
+//                return actualDamageValue;
+//            }
+//        }
+//        return 0;
+        if (damageValue > this.numberOfHearts) {
+            this.numberOfHearts = 0;
+            return (damageValue - numberOfHearts);
         }
+        this.numberOfHearts -= damageValue; 
         return 0;
     }
 
     /**
      * {@inheritDoc} 
      */
-    @Override
-    public double getlastHeartValue() {
-        return this.lastHeartValue;
-    }
+//    @Override
+//    public double getlastHeartValue() {
+//        return this.lastHeartValue;
+//    }
 
     /**
      * {@inheritDoc}
@@ -101,10 +107,10 @@ public class SimpleHeart implements Heart {
             numberOfHearts = MAX_HEARTS_OF_THIS_KIND;
         }
 
-        if (this.lastHeartValue + newHeart.getlastHeartValue() <= MAX_HEARTS_OF_THIS_KIND) {
-            this.lastHeartValue = this.lastHeartValue + newHeart.getlastHeartValue();
-        } else {
-            this.addHeart(new SimpleHeart(this.lastHeartValue + newHeart.getlastHeartValue() - MAX_VALUE, 1));
-        }
+//        if (this.lastHeartValue + newHeart.getlastHeartValue() <= MAX_HEARTS_OF_THIS_KIND) {
+//            this.lastHeartValue = this.lastHeartValue + newHeart.getlastHeartValue();
+//        } else {
+//            this.addHeart(new SimpleHeart(this.lastHeartValue + newHeart.getlastHeartValue() - MAX_VALUE, 1));
+//        }
     }
 }

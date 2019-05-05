@@ -13,19 +13,31 @@ public class MentalityComponent extends AbstractComponent<MentalityComponent> {
      * Create a new {@link MentalityComponent} with mentality set.
      * 
      * @param entity the entity
-     * @param m      the default mentality
+     * @param mentality the default mentality
      */
-    public MentalityComponent(final Entity entity, final Mentality m) {
+    public MentalityComponent(final Entity entity, final Mentality mentality) {
         super(entity);
-        this.actualMentality = m;
+        this.actualMentality = mentality;
+    }
+
+    /**
+     * Create a new {@link Mentality Component} replacing the old mentality.
+     * 
+     * @param entity the entity
+     * @param mentalityToReplace is the mentality to be replaced
+     * @param mentality the default mentality
+     */
+    public MentalityComponent(final Entity entity, final MentalityComponent mentalityToReplace, final Mentality mentality) {
+        super(entity, mentalityToReplace);
+        this.actualMentality = mentality;
     }
 
     /**
      * 
-     * @param m new mentality of the entity;
+     * @param mentality new mentality of the entity;
      */
-    protected void setMentality(final Mentality m) {
-        this.actualMentality = m;
+    protected void setMentality(final Mentality mentality) {
+        this.actualMentality = mentality;
     }
 
     /**

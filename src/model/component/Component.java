@@ -24,6 +24,16 @@ public interface Component {
      Entity getEntity();
 
      /**
+      * disability this component.
+      */
+     void disableComponent();
+
+     /**
+      * Rehabilitate this component.
+      */
+     void rehabilitateComponent();
+
+     /**
       * Unregister all event listener of this component.
       */
      void unregisterAllListener();
