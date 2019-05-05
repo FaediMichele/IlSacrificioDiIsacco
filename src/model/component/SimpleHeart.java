@@ -10,7 +10,7 @@ public class SimpleHeart implements Heart {
 //  private static final double DEFAULT_VALUE = 1;
     private static final double MAX_VALUE = 1;
     private static final double MAX_HEARTS_OF_THIS_KIND = 5;
-    private static final double DEFAULT_NUMBER_OF_HEARTS = 3.3;
+    private static final double DEFAULT_NUMBER_OF_HEARTS = 3;
     private double numberOfHearts;
 //  private double lastHeartValue;
 

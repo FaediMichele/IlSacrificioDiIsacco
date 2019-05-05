@@ -28,14 +28,19 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     public HealthComponent(final Entity entity, final List<Heart> hearts) {
         super(entity);
         this.hearts = hearts;
-        this.registerListener(new EventListener<DamageEvent>() {
+        this.registListener();
 
+    }
+
+    private void registListener() {
+        registerListener(new EventListener<DamageEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final DamageEvent event) {
                 getDamaged(event.getSourceEntity().getComponent(DamageComponent.class).isPresent()
                         ? ((DamageComponent) event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamage()
                         : 0);
+                System.out.println("hello_listenEvent");
             }
 
         });
@@ -50,6 +55,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         super(entity);
         this.hearts = new ArrayList<>();
         this.hearts.add(DEFAULT_HEART_KIND);
+        this.registListener();
     }
 
     /**
