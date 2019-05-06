@@ -48,15 +48,18 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) event.getSourceEntity().getComponent(AbstractCollectibleComponent.class).get();
-                aux.setEntityThatCollectedMe(getEntity());
-                if (aux.needInitialized()) {
-                    aux.init();
+                final Optional<Component> oc = event.getSourceEntity().getComponents().stream().filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class)).findFirst();
+                if (oc.isPresent()) {
+                    final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) oc.get();
+                    aux.setEntityThatCollectedMe(getEntity());
+                    if (aux.needInitialized()) {
+                        aux.init();
+                    }
+                    if (aux.isCollectible()) {
+                        addThing(aux.getEntity());
+                    }
+                    getEntity().getRoom().deleteEntity(aux.getEntity());
                 }
-                if (aux.isCollectible()) {
-                    addThing(aux.getEntity());
-                }
-                getEntity().getRoom().deleteEntity(aux.getEntity());
             }
         });
 

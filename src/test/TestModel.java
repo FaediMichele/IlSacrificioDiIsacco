@@ -16,8 +16,6 @@ import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
 import model.component.MoveComponent;
 import model.entity.Door;
 import model.entity.Entity;

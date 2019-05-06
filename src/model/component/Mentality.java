@@ -8,6 +8,6 @@ public enum Mentality {
     /**
      * Kinds of mentality.
      */
-    GOOD, EVIL, PSYCHO, NEUTRAL, COLLECTIBLE;
+    GOOD, EVIL, PSYCHO, NEUTRAL;
 
 }
