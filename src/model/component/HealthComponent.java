@@ -1,8 +1,9 @@
 package model.component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -18,18 +19,25 @@ import model.entity.events.EventListener;
 public class HealthComponent extends AbstractComponent<HealthComponent> {
 
     private static final Heart DEFAULT_HEART_KIND = new SimpleHeart();
-    private final List<Heart> hearts;
+    private static final int DEFAULT_HEART_NUMBER = 3;
+    private static final int MAX_HEARTS = 12;
+    private List<Heart> hearts;
 
     /**
-     * 
-     * @param hearts    list of hearts
+     * @param heartNumber number of hearts of this kind
+     * @param heartKind kind of heart
      * @param entity    entity for this component
      */
-    public HealthComponent(final Entity entity, final List<Heart> hearts) {
+    public HealthComponent(final Entity entity, final Heart heartKind, final int heartNumber) {
         super(entity);
-        this.hearts = hearts;
+        int realHeartNumber;
+        if (heartNumber > MAX_HEARTS) {
+            realHeartNumber = MAX_HEARTS;
+        } else {
+            realHeartNumber = heartNumber;
+        }
+        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> heartKind).collect(Collectors.toList());
         this.registListener();
-
     }
 
     private void registListener() {
@@ -40,7 +48,6 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
                 getDamaged(event.getSourceEntity().getComponent(DamageComponent.class).isPresent()
                         ? ((DamageComponent) event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamage()
                         : 0);
-                System.out.println("hello_listenEvent");
             }
 
         });
@@ -52,10 +59,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @param entity entity for this component
      */
     public HealthComponent(final Entity entity) {
-        super(entity);
-        this.hearts = new ArrayList<>();
-        this.hearts.add(DEFAULT_HEART_KIND);
-        this.registListener();
+        this(entity, DEFAULT_HEART_KIND, DEFAULT_HEART_NUMBER);
     }
 
     /**
@@ -79,7 +83,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @return the life left to this entity
      */
     public double getLife() {
-        return this.hearts.stream().map(x -> x.getNumberOfHearts()).reduce(0.0, (x, y) -> x + y);
+        return hearts.size() + getLastHeart().getValue();
     }
 
     /**
@@ -88,10 +92,8 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @param h the heart
      */
     protected void addHeart(final Heart h) {
-        if (this.hearts.stream().anyMatch(i -> i.getClass().equals(h.getClass()))) {
-            this.hearts.stream().filter(i -> i.getClass().equals(h.getClass())).findAny().get().addHeart(h);
-        } else {
-            this.hearts.add(h);
+        if (hearts.size() == MAX_HEARTS) {
+            hearts.add(h);
         }
     }
     /**
@@ -102,13 +104,14 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      */
     public void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
-        Heart lastHeart;
-        while (this.isAlive() && actualDamageValue != 0) {
-            lastHeart = this.hearts.get(hearts.size() - 1);
-            actualDamageValue = lastHeart.getDamaged(actualDamageValue);
-            if (lastHeart.getNumberOfHearts() == 0) {
-                this.hearts.remove(lastHeart);
+        while (isAlive() && actualDamageValue != 0) {
+            actualDamageValue = getLastHeart().getDamaged(actualDamageValue);
+            if (getLastHeart().getValue() == 0) {
+                hearts.remove(getLastHeart());
             }
         }
+    }
+    private Heart getLastHeart() {
+        return hearts.get(hearts.size() - 1);
     }
 }

@@ -7,13 +7,6 @@ package model.component;
  */
 
 public interface Heart {
-
-//    /**
-//     * 
-//     * @return the value of the last heart
-//     */
-//    double getlastHeartValue();
-
     /**
      * 
      * @return the max value an heart can have
@@ -23,7 +16,7 @@ public interface Heart {
     /**
      * The way the heart is damaged could change in different kind of hearts.
      * 
-     * @param damageValue totals damageValue of the Health
+     * @param damageValue total damageValue of the Health
      * @return 0 if this heart consumed all the damageValue, a double greater than 0
      *         if there is still some damageValue to process by other hearts
      */
@@ -31,18 +24,7 @@ public interface Heart {
 
     /**
      * 
-     * @return max number of hearts of this kind.
+     * @return actual value of the heart.
      */
-    double getMaxHeartsOfThisKind();
-
-    /**
-     * 
-     * @return numbers of hearts of this kind.
-     */
-    double getNumberOfHearts();
-
-    /**
-     * @param newHeart makes two heart of the same kind collapse
-     */
-     void addHeart(Heart newHeart);
+    double getValue();
 }
