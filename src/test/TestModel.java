@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import model.component.BodyComponent;
 import model.component.DamageComponent;
 import model.component.DoorComponent;
@@ -23,7 +21,6 @@ import model.entity.Fire;
 import model.entity.Player;
 import model.entity.Rock;
 import model.entity.events.DamageEvent;
-import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
 import model.entity.events.MoveEvent;
 import model.game.Floor;
@@ -38,7 +35,7 @@ import model.game.RoomImpl;
 @SuppressWarnings("all")
 public class TestModel {
 
-    /**
+     /**
      * Test for {@link Entity}.
      */
     @Test
@@ -153,7 +150,7 @@ public class TestModel {
         final Double calculatedZMove = 0.000995;
         final Entity p = new Player();
         p.attachComponent(new BodyComponent(p));
-        p.attachComponent(new MoveComponent(p));
+        //p.attachComponent(new MoveComponent(p));
         p.postEvent(new MoveEvent(p, 2, 0, 1));
         System.out.println(getMoveComponent(p).getxMove());
         assertEquals(getMoveComponent(p).getxMove(), 2);
@@ -171,22 +168,27 @@ public class TestModel {
     /**
      * Test for {@link HealthComponent}.
      */
-  /*  @Test
+    @Test
     public void testHealthComponent() {
         final double defaultHearts = 3;
-        final double damage = 1;
         final Entity goodEntity = new Player();
         goodEntity.attachComponent(new HealthComponent(goodEntity));
         assertTrue(this.getHealthComponent(goodEntity).isAlive());
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts);
 
-        final Entity testEntity = new Player();
-        testEntity.attachComponent(new DamageComponent(testEntity, damage));
-        assertTrue(testEntity.hasComponent(DamageComponent.class));
-        goodEntity.postEvent(new DamageEvent(testEntity)); 
-        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - damage);
+        final Entity firstEnemy = new Player();
+        final double firstDamage = 0.4;
+        firstEnemy.attachComponent(new DamageComponent(firstEnemy, firstDamage));
+        goodEntity.postEvent(new DamageEvent(firstEnemy)); 
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - firstDamage);
+
+        final Entity secondEnemy = new Player();
+        final double secondDamage = 1.5;
+        secondEnemy.attachComponent(new DamageComponent(secondEnemy, secondDamage));
+        goodEntity.postEvent(new DamageEvent(secondEnemy)); 
+        assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 2);
     }
-    */
+
 
     private HealthComponent getHealthComponent(final Entity e) {
         return (HealthComponent) e.getComponent(HealthComponent.class).get();

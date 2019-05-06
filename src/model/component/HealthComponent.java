@@ -1,9 +1,10 @@
 package model.component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+//import java.util.stream.Collectors;
+//import java.util.stream.Stream;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -18,7 +19,7 @@ import model.entity.events.EventListener;
 
 public class HealthComponent extends AbstractComponent<HealthComponent> {
 
-    private static final Heart DEFAULT_HEART_KIND = new SimpleHeart();
+    private static final Class<? extends Heart> DEFAULT_HEART_KIND = SimpleHeart.class;
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
     private List<Heart> hearts;
@@ -28,7 +29,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @param heartKind kind of heart
      * @param entity    entity for this component
      */
-    public HealthComponent(final Entity entity, final Heart heartKind, final int heartNumber) {
+    public HealthComponent(final Entity entity, final Class<? extends Heart> heartKind, final int heartNumber) {
         super(entity);
         int realHeartNumber;
         if (heartNumber > MAX_HEARTS) {
@@ -36,7 +37,17 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         } else {
             realHeartNumber = heartNumber;
         }
-        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> heartKind).collect(Collectors.toList());
+        hearts = new ArrayList<>();
+        for (int i = 0; i < realHeartNumber; i++) {
+            try {
+                hearts.add(heartKind.newInstance());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        //this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> DEFAULT_HEART_KIND).collect(Collectors.toList());
         this.registListener();
     }
 
@@ -83,7 +94,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @return the life left to this entity
      */
     public double getLife() {
-        return hearts.size() + getLastHeart().getValue();
+        return hearts.size() - 1 + getLastHeart().getValue();
     }
 
     /**
@@ -102,7 +113,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * 
      * @param totalDamageValue the value of damage
      */
-    public void getDamaged(final double totalDamageValue) {
+    protected void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
         while (isAlive() && actualDamageValue != 0) {
             actualDamageValue = getLastHeart().getDamaged(actualDamageValue);
@@ -111,6 +122,16 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
             }
         }
     }
+
+    /**
+     * 
+     * @return the number of Hearts.
+     */
+
+    public int getNumberOfHearts() {
+        return hearts.size();
+    }
+
     private Heart getLastHeart() {
         return hearts.get(hearts.size() - 1);
     }

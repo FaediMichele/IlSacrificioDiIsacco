@@ -39,8 +39,9 @@ public class SimpleHeart implements Heart {
             value = value - damageValue;
             return 0;
         } else {
+            double tempValue = value;
             value = 0;
-            return damageValue - getValue();
+            return damageValue - tempValue;
         }
     }
 
