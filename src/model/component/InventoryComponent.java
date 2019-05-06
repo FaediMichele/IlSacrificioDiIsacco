@@ -69,10 +69,14 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                     if (!thingToRelease.isPresent()) {
                         throw new IllegalArgumentException();
                     }
-                    final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) thingToRelease.get().getComponent(AbstractCollectibleComponent.class).get();
-                    releaseThing(thingToRelease.get(), event.getSourceEntity());
-                    if (aux.usable()) {
-                        aux.use();
+
+                    final Optional<Component> oc = thingToRelease.get().getComponents().stream().filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class)).findFirst();
+                    if (oc.isPresent()) {
+                        final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) oc.get();
+                        releaseThing(thingToRelease.get(), event.getSourceEntity());
+                        if (aux.usable()) {
+                            aux.use();
+                        }
                     }
                 }
             }
