@@ -7,7 +7,11 @@ import model.entity.Entity;
  */
 public class HeartCollectibleComponent extends AbstractCollectibleComponent {
 
-    HeartCollectibleComponent(final Entity entity) {
+    /**
+     * 
+     * @param entity {@link Entity}
+     */
+    public HeartCollectibleComponent(final Entity entity) {
         super(entity);
         setCollectible(false);
     }

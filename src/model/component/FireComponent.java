@@ -2,6 +2,7 @@ package model.component;
 
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
+import model.entity.Heart;
 import model.entity.events.EventListener;
 import model.entity.events.FireHittedEvent;
 import model.entity.events.FireOutEvent;
@@ -44,13 +45,16 @@ public class FireComponent extends AbstractComponent<FireComponent> {
             @Subscribe
             public void listenEvent(final FireOutEvent event) {
                 final FireType type = event.getFireType();
-                if (type == FireType.RED) {
-                    System.out.println("RED");
-                } else if (type == FireType.BLUE) {
+                if (type == FireType.BLUE) {
+                    final Heart h = new Heart();
+                    final BodyComponent fireBody = (BodyComponent) event.getSourceEntity().getComponent(BodyComponent.class).get();
+                    final BodyComponent newBody = BodyComponent.class.cast(h.getComponent(BodyComponent.class).get());
+                    newBody.setPosition(fireBody.getPosition());
+                    h.attachComponent(newBody);
+                    event.getSourceEntity().getRoom().insertEntity(h);
                     System.out.println("BLUE");
-                } else {
-                    System.out.println("Other");
                 }
+                event.getSourceEntity().getRoom().deleteEntity(event.getSourceEntity());
             }
         });
     }
