@@ -86,42 +86,6 @@ public class TestModel {
     }
 
     /**
-     * Test for events.
-     */
-    @Test
-    public void testEvent() {
-        EventBus b = new EventBus();
-        /*EventListener<FireHittedEvent> fhl = new FireHittedListener(i -> {
-            System.out.println("Fire hitted");
-        });
-        b.register(fhl);
-        b.register(new FireOutListener(i -> {
-            System.out.println("Fire out");
-        }));
-        Event e = new FireHittedEvent(new Fire(FireType.RED), FireComponent.class);
-        b.post(e);
-        b.post(new FireOutEvent(new Fire(FireType.RED), FireComponent.class, FireType.RED));
-        */
-        EventListener<Integer> elI = new EventListener<Integer>() {
-            @Override
-            @Subscribe
-            public void listenEvent(final Integer event) {
-                System.out.println("INT");
-            }
-        };
-        EventListener<Double> elD = new EventListener<Double>() {
-            @Override
-            @Subscribe
-            public void listenEvent(final Double event) {
-                System.out.println("DOUBLE");
-            }
-        };
-        b.register(elI);
-        b.register(elD);
-        b.post(1);
-    }
-
-    /**
      * Test for the floor.
      */
     @Test
