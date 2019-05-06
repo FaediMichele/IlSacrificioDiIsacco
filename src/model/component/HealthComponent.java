@@ -37,6 +37,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         } else {
             realHeartNumber = heartNumber;
         }
+
         hearts = new ArrayList<>();
         for (int i = 0; i < realHeartNumber; i++) {
             try {
@@ -47,7 +48,6 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
                 e.printStackTrace();
             }
         }
-        //this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> DEFAULT_HEART_KIND).collect(Collectors.toList());
         this.registListener();
     }
 
@@ -60,7 +60,6 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
                         ? ((DamageComponent) event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamage()
                         : 0);
             }
-
         });
     }
 

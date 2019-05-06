@@ -172,7 +172,7 @@ public class TestModel {
     public void testHealthComponent() {
         final double defaultHearts = 3;
         final Entity goodEntity = new Player();
-        goodEntity.attachComponent(new HealthComponent(goodEntity));
+        //goodEntity.attachComponent(new HealthComponent(goodEntity));
         assertTrue(this.getHealthComponent(goodEntity).isAlive());
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts);
 
@@ -184,9 +184,11 @@ public class TestModel {
 
         final Entity secondEnemy = new Player();
         final double secondDamage = 1.5;
+        final double finalLife = 1.1;
         secondEnemy.attachComponent(new DamageComponent(secondEnemy, secondDamage));
         goodEntity.postEvent(new DamageEvent(secondEnemy)); 
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 2);
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), finalLife);
     }
 
 
