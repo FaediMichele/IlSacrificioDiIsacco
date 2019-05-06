@@ -8,8 +8,23 @@ import model.entity.Entity;
  */
 public class BombCollectibleComponent extends AbstractCollectibleComponent {
 
-    BombCollectibleComponent(final Entity entity) {
+    private final double explosionScale;
+    private final int timeBeforeExplodes;
+    private final int explosionTime;
+
+    /**
+     * 
+     * @param explosionScale it is the extension of the bomb when it explodes.
+     * @param timeBeforeExplodes is time before it explodes in milliseconds.
+     * @param explosionTime is duration of the explosion in milliseconds.
+     * 
+     * {@inheritDoc}.
+     */
+    public BombCollectibleComponent(final Entity entity, final double explosionScale, final int timeBeforeExplodes, final int explosionTime) {
         super(entity);
+        this.explosionScale = explosionScale;
+        this.timeBeforeExplodes = timeBeforeExplodes;
+        this.explosionTime = explosionTime;
         setCollectible(true);
     }
 
@@ -34,7 +49,25 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
      */
     @Override
     protected void use() {
-        //getEntity().getRoom().insertEntity(new BombTriggered(entityBody, entityCollision, entityExplosion, timeBeforeExplodes, explosionTime));
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(timeBeforeExplodes);
+                    ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale, explosionScale);
+                    /* qui la collisione con le altre entità fa danno e il suo sprite si modifica*/
+                    Thread.sleep(explosionTime);
+                    deleteThisEntity();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    private void deleteThisEntity() {
+        getEntity().getRoom().deleteEntity(this.getEntity());
     }
 
     @Override
