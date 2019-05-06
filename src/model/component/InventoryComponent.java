@@ -19,6 +19,7 @@ import model.entity.events.ReleaseEvent;
 
 public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
+    private static final int MAX_NUMBER_FOR_EACH_ITEM = 99;
     private final Set<Entity> things;
 
     /**
@@ -92,8 +93,10 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing to add
      */
     private void addThing(final Entity thing) {
-        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
-        things.add(thing);
+        if (things.stream().filter(i -> i.getClass().equals(thing.getClass())).count() < MAX_NUMBER_FOR_EACH_ITEM) {
+            ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
+            things.add(thing);
+        }
     }
 
     /**

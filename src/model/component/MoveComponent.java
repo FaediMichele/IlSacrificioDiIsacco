@@ -81,6 +81,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
             @Subscribe
             public void listenEvent(final MoveEvent event) {
                 move(event.getxMove(), event.getyMove(), event.getzMove());
+                System.out.println(getxMove());
             }
         });
     }
