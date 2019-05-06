@@ -6,7 +6,7 @@ import model.entity.Entity;
  * Collectible Component of the key entity: how the key have to act when it's collected.
  * It the key case, it just has to be "present" so the main point of the code is setting the collectible boolean to true.
  */
-public class KeyCollectibleComponent extends CollectibleComponent {
+public class KeyCollectibleComponent extends AbstractCollectibleComponent {
 
     KeyCollectibleComponent(final Entity entity) {
         super(entity);

@@ -221,7 +221,7 @@ public class TestModel {
         testEntity.attachComponent(new DamageComponent(testEntity, damage));
         assertTrue(testEntity.hasComponent(DamageComponent.class));
         goodEntity.postEvent(new DamageEvent(testEntity)); 
-        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - damage - damage);
+        //assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - damage - damage);
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - damage);
 
 //        getHealthComponent(goodEntity).getDamaged(0.5); //se chiamo direttamente il metodo funziona

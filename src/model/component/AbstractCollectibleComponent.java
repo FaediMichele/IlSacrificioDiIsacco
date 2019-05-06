@@ -10,12 +10,12 @@ import model.entity.Entity;
  * collected.
  *
  */
-public abstract class CollectibleComponent extends AbstractComponent<CollectibleComponent> {
+public abstract class AbstractCollectibleComponent extends AbstractComponent<AbstractCollectibleComponent> {
 
     private boolean collectible;
     private Optional<Entity> entityThatCollectedMe;
 
-    CollectibleComponent(final Entity entity) {
+    AbstractCollectibleComponent(final Entity entity) {
         super(entity);
         this.collectible = false;
         this.entityThatCollectedMe = Optional.empty();

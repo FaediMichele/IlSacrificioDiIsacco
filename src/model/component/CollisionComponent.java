@@ -50,11 +50,11 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                 /**
                  * management collect an object
                  */
-                if (event.getSourceEntity().hasComponent(CollectibleComponent.class)) {
-                    if (((CollectibleComponent) event.getSourceEntity().getComponent(CollectibleComponent.class).get()).isCollectible()) {
+                if (event.getSourceEntity().hasComponent(AbstractCollectibleComponent.class)) {
+                    if (((AbstractCollectibleComponent) event.getSourceEntity().getComponent(AbstractCollectibleComponent.class).get()).isCollectible()) {
                         getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
                     }
-                } else if (getEntity().hasComponent(CollectibleComponent.class)) {
+                } else if (getEntity().hasComponent(AbstractCollectibleComponent.class)) {
                     getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
                 }
             }

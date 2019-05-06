@@ -5,7 +5,7 @@ import model.entity.Entity;
 /**
  * Collectible Component of the heart entity: how the heart have to act when it's collected.
  */
-public class HeartCollectibleComponent extends CollectibleComponent {
+public class HeartCollectibleComponent extends AbstractCollectibleComponent {
 
     HeartCollectibleComponent(final Entity entity) {
         super(entity);

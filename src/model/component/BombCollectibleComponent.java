@@ -6,7 +6,7 @@ import model.entity.Entity;
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's collected.
  */
-public class BombCollectibleComponent extends CollectibleComponent {
+public class BombCollectibleComponent extends AbstractCollectibleComponent {
 
     BombCollectibleComponent(final Entity entity) {
         super(entity);

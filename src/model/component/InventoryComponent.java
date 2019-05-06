@@ -48,7 +48,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final CollectibleComponent aux = (CollectibleComponent) event.getSourceEntity().getComponent(CollectibleComponent.class).get();
+                final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) event.getSourceEntity().getComponent(AbstractCollectibleComponent.class).get();
                 aux.setEntityThatCollectedMe(getEntity());
                 if (aux.needInitialized()) {
                     aux.init();
@@ -69,7 +69,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                     if (!thingToRelease.isPresent()) {
                         throw new IllegalArgumentException();
                     }
-                    final CollectibleComponent aux = (CollectibleComponent) thingToRelease.get().getComponent(CollectibleComponent.class).get();
+                    final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) thingToRelease.get().getComponent(AbstractCollectibleComponent.class).get();
                     releaseThing(thingToRelease.get(), event.getSourceEntity());
                     if (aux.usable()) {
                         aux.use();
