@@ -1,59 +1,92 @@
 package model.entity;
+
+import java.util.List;
+import java.util.Optional;
+
 import model.component.Component;
+import model.entity.events.Event;
+import model.entity.events.EventListener;
+import model.game.Room;
 
 /**
- * This is the interface for all entity (monster, player, rock, ...).
- * 
- * <p>See also {@link EntityImpl}
- * See also {@link Component}
+ * The main interface for all the entities such as enemies, items and the player
+ * itself.
  */
 public interface Entity {
+    /**
+     * Attaches a {@link Component} to the Entity to describe its behavior.
+     * 
+     * @param c {@link Component} to attach to the Entity
+     */
+    void attachComponent(Component c);
 
-  /**
-   * Add a component to the entity. Adding behavior.
-   * @param c the component to add.
-   */
-  void attach(Component c);
-  /**
-   * Remove a component from the entity. Remove behavior.
-   * @param c the component type to remove.
-   */
-  void detach(Class<? extends Component> c);
+    /**
+     * Detaches a {@link Component} from the Entity.
+     * 
+     * @param c {@link Component} to detach from the Entity
+     */
+    void detachComponent(Component c);
 
-  /**
-   * Know if the entity have a component type already attached.
-   * @param c the component type to search.
-   * @return true if the entity have the component.
-   */
-  boolean has(Class<? extends Component> c);
+    /**
+     * Register the listener on the EventBus for the event objects.
+     * 
+     * @param eventListener the listener
+     */
+    void registerListener(EventListener<? extends Event> eventListener);
 
-  /**
-   * Get the component from a component's type.
-   * @param c the component to get.
-   * @return return a {@link Component}.
-   */
-  Component get(Class<? extends Component> c);
+    /**
+     * Unregister the listener on the EventBus.
+     * 
+     * @param eventListener the listener
+     */
+    void unregisterListener(EventListener<? extends Event> eventListener);
 
-  /**
-   * Run all entity that needs to work frame to frame.
-   * @param deltaTime difference in milliseconds from the last call.
-   */
-  void update(Double deltaTime);
+    /**
+     * Trigger the event.
+     * 
+     * @param event the event
+     */
+    void postEvent(Event event);
 
-  /**
-   * Initialize all components currently attached.
-   */
-  void init();
+    /**
+     * Updates the Entity and all of its {@link Component}.
+     * 
+     * @param deltaTime time passed from last update
+     */
+    void update(Double deltaTime);
 
-  /**
-   * Get the body of this entity.
-   * @return the {@link BodyComponent}.
-   */
-  Component getBody();
+    /**
+     * Checks if the Entity has a certain kind of {@link Component}.
+     * 
+     * @param c {@link Component} to search
+     * @return true if the entity has the {@link Component} else false
+     */
+    boolean hasComponent(Class<? extends Component> c);
 
-  /**
-   * Get the collision handler of this entity.
-   * @return the {@link CollisionComponent}.
-   */
-  Component getCollision();
+    /**
+     * Gets the certain kind of {@link Component} from Entity.
+     * 
+     * @param c {@link Component} to search
+     * @return the {@link Component}
+     */
+    Optional<? extends Component> getComponent(Class<? extends Component> c);
+
+    /**
+     * Return the Set of all {@link Component}.
+     * 
+     * @return the {@link Set}
+     */
+    List<Component> getComponents();
+
+    /**
+     * Get the room  where this entity is.
+     * @return the room.
+     */
+    Room getRoom();
+
+    /**
+     * Change the room where this entity is.
+     * @param r the new room
+     */
+    void changeRoom(Room r);
 }

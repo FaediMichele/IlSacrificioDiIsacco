@@ -3,44 +3,44 @@ package model.component;
 import model.entity.Entity;
 
 /**
- * This class represent a behavior for an Entity.
- * 
- * <p>See also {@link Entity}
+ * This represent a single part that composes an Entity.
+ *
  */
+
 public interface Component {
 
-  /**
-   * A component disabled shouldn't use the update call.
-   * @return {@link Boolean}.
-   */
-  boolean isActive();
+    /**
+     * Update the component changing its statistics, must be done once a frame.
+     * 
+     * @param deltaTime time elapsed since the last call, in milliseconds.
+     */
+    void update(Double deltaTime);
 
-  /**
-   * Enable or disable a component. This does not prevent the component from the update.
-   * @param b {@link Boolean}.
-   */
-  void setState(boolean b);
+    /**
+     * Get the entity this component is attached to.
+     * 
+     * @return {@link Entity}.
+     */
+     Entity getEntity();
 
-  /**
-   * Update this component. Should be called each frame.
-   * @param deltaTime time in milliseconds that has passed from the last call.
-   */
-  void update(Double deltaTime);
+     /**
+      * disability this component.
+      */
+     void disableComponent();
 
+     /**
+      * Rehabilitate this component.
+      */
+     void rehabilitateComponent();
 
-  /**
-   * Get the entity from this component is attached.
-   * @return {@link Entity}.
-   */
-  Entity getEntity();
+     /**
+      * Unregister all event listener of this component.
+      */
+     void unregisterAllListener();
 
-  /**
-   * Initialize this component after all components has been attached. 
-   */
-  void init();
+     /**
+      * Register all event listener of this component.
+      */
+     void registerAllListener();
 
-  /**
-   * Release all resources used for this component.
-   */
-  void dispose();
 }
