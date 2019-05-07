@@ -48,6 +48,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
                 e.printStackTrace();
             }
         }
+
         this.registListener();
     }
 
@@ -93,7 +94,10 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @return the life left to this entity
      */
     public double getLife() {
-        return hearts.size() - 1 + getLastHeart().getValue();
+        if (this.isAlive()) {
+            return hearts.size() - 1 + getLastHeart().getValue();
+        }
+        return 0;
     }
 
     /**

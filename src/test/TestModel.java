@@ -181,14 +181,30 @@ public class TestModel {
         firstEnemy.attachComponent(new DamageComponent(firstEnemy, firstDamage));
         goodEntity.postEvent(new DamageEvent(firstEnemy)); 
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - firstDamage);
+        assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 3);
 
         final Entity secondEnemy = new Player();
         final double secondDamage = 1.5;
-        final double finalLife = 1.1;
         secondEnemy.attachComponent(new DamageComponent(secondEnemy, secondDamage));
         goodEntity.postEvent(new DamageEvent(secondEnemy)); 
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 2);
-        assertEquals(this.getHealthComponent(goodEntity).getLife(), finalLife);
+        assertTrue(this.getHealthComponent(goodEntity).isAlive());
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - firstDamage - secondDamage);
+
+        final Entity thirdEnemy = new Player();
+        final double thirdDamage = 0.1;
+        thirdEnemy.attachComponent(new DamageComponent(thirdEnemy, thirdDamage));
+        goodEntity.postEvent(new DamageEvent(thirdEnemy)); 
+        assertTrue(this.getHealthComponent(goodEntity).isAlive());
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), 1);
+        assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 1);
+
+        final Entity fourthEnemy = new Player();
+        final double fourthDamage = 1.0;
+        fourthEnemy.attachComponent(new DamageComponent(fourthEnemy, fourthDamage));
+        goodEntity.postEvent(new DamageEvent(fourthEnemy)); 
+        assertFalse(this.getHealthComponent(goodEntity).isAlive());
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), 0);
     }
 
 
