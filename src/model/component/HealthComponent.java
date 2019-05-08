@@ -53,9 +53,13 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
             @Override
             @Subscribe
             public void listenEvent(final DamageEvent event) {
+                if (event.getDamageValue().isPresent()) {
+                    getDamaged(event.getDamageValue().get());
+                } else {
                 getDamaged(event.getSourceEntity().getComponent(DamageComponent.class).isPresent()
                         ? ((DamageComponent) event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamage()
                         : 0);
+                }
             }
         });
     }

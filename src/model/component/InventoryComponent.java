@@ -90,7 +90,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     /**
      * The entity will disappear from the screen deactivating its body component.
      * 
-     * @param thing to add
+     * @param thing thing to add
      */
     private void addThing(final Entity thing) {
         if (things.stream().filter(i -> i.getClass().equals(thing.getClass())).count() < MAX_NUMBER_FOR_EACH_ITEM) {
