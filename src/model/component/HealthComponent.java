@@ -3,11 +3,7 @@ package model.component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-//import java.util.stream.Collectors;
-//import java.util.stream.Stream;
-
 import com.google.common.eventbus.Subscribe;
-
 import model.entity.Entity;
 import model.entity.events.DamageEvent;
 import model.entity.events.EventListener;
