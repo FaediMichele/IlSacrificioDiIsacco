@@ -1,6 +1,5 @@
 package view.node;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class CircleListJavafx extends Group implements CircleList {
     private final double dScale;
     private Duration d;
     private int selectedNode;
-    private final LinkedList<MyNode> elements = new LinkedList<>();
+    private final List<MyNode> elements = new LinkedList<>();
 
     /**
      * Create a new {@link CircleListJavafx} with dimension and scaleMultiplier.
@@ -77,7 +76,7 @@ public class CircleListJavafx extends Group implements CircleList {
             elements.get(i).changeAngle(calculateAngle(elements.size(), i));
         }
         selectedNode = (selectedNode + 1) % elements.size();
-        elements.addLast(elements.removeFirst());
+        ((LinkedList<MyNode>) elements).addLast(((LinkedList<MyNode>) elements).removeFirst());
     }
 
     /**
@@ -89,7 +88,7 @@ public class CircleListJavafx extends Group implements CircleList {
             elements.get(i).changeAngle(calculateAngle(elements.size(), i));
         }
         selectedNode = (selectedNode - 1) % elements.size();
-        elements.addFirst(elements.removeFirst());
+        ((LinkedList<MyNode>) elements).addFirst(((LinkedList<MyNode>) elements).removeLast());
     }
 
     /**
