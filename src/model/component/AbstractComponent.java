@@ -122,6 +122,13 @@ public abstract class AbstractComponent<C extends Component> implements Componen
     }
 
     /**
+     * @return the componentReplaced
+     */
+    public Optional<C> getComponentReplaced() {
+        return componentReplaced;
+    }
+
+    /**
      * Release all resources used by this component.
      */
     protected final void dispose() {
