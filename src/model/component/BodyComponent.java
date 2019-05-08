@@ -1,6 +1,7 @@
 package model.component;
 
 import model.entity.Entity;
+import util.NotEquals;
 import util.Triplet;
 
 /**
@@ -10,6 +11,7 @@ import util.Triplet;
 
 public class BodyComponent extends AbstractComponent<BodyComponent> {
 
+    @NotEquals
     private static final Triplet<Double, Double, Double> DEFAULT_POSITION_VALUE = new Triplet<>(0.0, 0.0, 0.0);
     private static final double DEFAULT_SCALABLE_VALUE = 1;
     private static final int DEFAULT_WEIGHT_VALUE = 1;

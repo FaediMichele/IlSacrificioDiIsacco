@@ -53,26 +53,6 @@ public class Door extends AbstractStaticEntity {
     }
 
     @Override
-    public final int hashCode() {
-        return getComponent(DoorComponent.class).hashCode();
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Door other = (Door) obj;
-        return this.getComponent(DoorComponent.class).equals(other.getComponent(DoorComponent.class));
-    }
-
-    @Override
     public final String toString() {
         return this.getComponent(DoorComponent.class).get().toString();
     }

@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import model.component.BodyComponent;
@@ -13,6 +12,7 @@ import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 import model.game.Room;
+import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
 
@@ -129,24 +129,18 @@ public abstract class AbstractEntity implements Entity {
     }
 
     /**
-     * {@inheritDoc}
+     * HashCode for Entity.
      */
     @Override
-    public int hashCode() {
-        return Objects.hash(componentsMap);
+    public final int hashCode() {
+        return StaticMethodsUtils.hashCode(this);
     }
 
     /**
-     * {@inheritDoc}
+     * Equals for Entity.
      */
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        } else {
-            final Entity e = Entity.class.cast(obj);
-            return e.getComponents().containsAll(this.getComponents()) 
-                    && e.getComponents().size() == this.getComponents().size();
-        }
+    public final boolean equals(final Object obj) {
+        return StaticMethodsUtils.equals(this, obj);
     }
 }
