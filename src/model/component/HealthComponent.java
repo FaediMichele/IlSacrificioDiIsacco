@@ -19,6 +19,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     private static final Class<? extends Heart> DEFAULT_HEART_KIND = SimpleHeart.class;
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
+
     @NotEquals
     private List<Heart> hearts;
 

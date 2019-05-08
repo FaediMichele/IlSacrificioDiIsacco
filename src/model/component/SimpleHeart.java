@@ -60,7 +60,7 @@ public class SimpleHeart implements Heart {
     protected void setValue(final double value) {
         this.value = value;
     }
-    
+
     /**
      * {@inheritDoc} 
      */
