@@ -1,7 +1,7 @@
 package controller;
 
 /**
- *
+ * The interface for the MainController.
  */
 public interface MainController {
     /**
