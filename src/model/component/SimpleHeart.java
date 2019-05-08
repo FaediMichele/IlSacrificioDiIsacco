@@ -17,6 +17,7 @@ public class SimpleHeart extends AbstractHart {
      * @param value total value of the heart
      */
     public SimpleHeart(final double value) {
+        super();
         this.value = value;
     }
 
@@ -24,6 +25,7 @@ public class SimpleHeart extends AbstractHart {
      * Default SimpleHeart constructor.
      */
     public SimpleHeart() {
+        super();
         this.value = DEFAULT_VALUE;
     }
 

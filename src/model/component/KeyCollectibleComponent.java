@@ -1,8 +1,8 @@
 package model.component;
 
 import model.entity.Entity;
-import java.util.List;
-import model.entity.Door;
+//import java.util.List;
+//import model.entity.Door;
 
 /**
  * Collectible Component of the key entity: how the key have to act when it's collected.
@@ -10,16 +10,16 @@ import model.entity.Door;
  */
 public class KeyCollectibleComponent extends AbstractCollectibleComponent {
 
-    private final List<Door> doors;
+    //private final List<Door> doors;
 
     /**
      * 
      * @param entity source Entity
      * @param doors  list of doors this key allows the player to go through
      */
-    KeyCollectibleComponent(final Entity entity, final List<Door> doors) {
+    KeyCollectibleComponent(final Entity entity) { /*final List<Door> doors*/
         super(entity);
-        this.doors = doors;
+        //this.doors = doors;
         setCollectible(true);
     }
 
