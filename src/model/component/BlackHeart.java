@@ -30,7 +30,7 @@ public class BlackHeart extends SimpleHeart {
     public static class Builder {
         private static final double DEFAULT_ENEMY_DAMAGE = 0.3;
         private static final double DEFAULT_HEART_VALUE = 1;
-        private HealthComponent h;
+        private final HealthComponent h;
         private double enemyDamage = DEFAULT_ENEMY_DAMAGE;
         private double heartValue = DEFAULT_HEART_VALUE;
 

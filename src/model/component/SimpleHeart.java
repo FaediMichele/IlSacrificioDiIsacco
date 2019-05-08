@@ -5,7 +5,7 @@ package model.component;
  * The simplest kind of heart.
  *
  */
-public class SimpleHeart implements Heart {
+public class SimpleHeart extends AbstractHart {
 
     private static final double DEFAULT_VALUE = 1;
     private static final double MAX_VALUE = 1;
