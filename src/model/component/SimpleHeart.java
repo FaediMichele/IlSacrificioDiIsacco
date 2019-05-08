@@ -54,6 +54,14 @@ public class SimpleHeart implements Heart {
     }
 
     /**
+     * 
+     * @param value new value of the heart
+     */
+    protected void setValue(final double value) {
+        this.value = value;
+    }
+    
+    /**
      * {@inheritDoc} 
      */
     @Override

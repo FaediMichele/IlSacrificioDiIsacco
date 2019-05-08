@@ -7,13 +7,25 @@ import model.entity.Entity;
  */
 public class HeartCollectibleComponent extends AbstractCollectibleComponent {
 
+    private static final Class<? extends Heart> DEFAULT_HEART_KIND = SimpleHeart.class;
+    private final Class<? extends Heart> heartKind;
     /**
      * 
      * @param entity {@link Entity}
      */
     public HeartCollectibleComponent(final Entity entity) {
+        this (entity, DEFAULT_HEART_KIND);
+    }
+
+    /**
+     * 
+     * @param entity    heart entity {@link Entity}
+     * @param heartKind kind of this heart
+     */
+    public HeartCollectibleComponent(final Entity entity, final Class<? extends Heart> heartKind) {
         super(entity);
         setCollectible(false);
+        this.heartKind = heartKind;
     }
 
     /**
@@ -41,8 +53,12 @@ public class HeartCollectibleComponent extends AbstractCollectibleComponent {
      */
     @Override
     protected void init() {
-        //HealthComponent h = ((HealthComponent) super.getEntityThatCollectedMe().get().getComponent(HealthComponent.class).get());
-        //h.addHeart(...); waiting for heart entity to be created
+        HealthComponent h = ((HealthComponent) super.getEntityThatCollectedMe().get().getComponent(HealthComponent.class).get());
+        try {
+            h.addHeart(this.heartKind.newInstance());
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 }

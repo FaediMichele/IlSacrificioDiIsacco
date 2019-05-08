@@ -1,5 +1,7 @@
 package model.entity.events;
 
+import java.util.Optional;
+
 import model.entity.Entity;
 
 /**
@@ -7,6 +9,8 @@ import model.entity.Entity;
  * 
  */
 public class DamageEvent extends AbstractEvent {
+
+    private Optional<Double> damageValue = Optional.empty();
 
     /**
      * 
@@ -16,4 +20,21 @@ public class DamageEvent extends AbstractEvent {
         super(sourceEntity);
     }
 
+    /**
+     * 
+     * @param sourceEntity  the {@link Entity} that inflicts damage
+     * @param damageValue   value of the Damage
+     */
+    public DamageEvent(final Entity sourceEntity, final double damageValue) {
+        super(sourceEntity);
+        this.damageValue = Optional.of(damageValue);
+    }
+
+    /**
+     * 
+     * @return the damageValue
+     */
+    public Optional<Double> getDamageValue() {
+        return damageValue;
+    }
 }
