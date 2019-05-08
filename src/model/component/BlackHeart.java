@@ -82,7 +82,7 @@ public class BlackHeart extends SimpleHeart {
            super.setValue(super.getValue() - damageValue);
             return 0;
         } else {
-            double tempValue = super.getValue();
+            final double tempValue = super.getValue();
             super.setValue(0);
             h.getEntity().getRoom().getEntity().stream()
                 .filter(i -> i.hasComponent(MentalityComponent.class))

@@ -53,7 +53,7 @@ public class HeartCollectibleComponent extends AbstractCollectibleComponent {
      */
     @Override
     protected void init() {
-        HealthComponent h = ((HealthComponent) super.getEntityThatCollectedMe().get().getComponent(HealthComponent.class).get());
+        final HealthComponent h = ((HealthComponent) super.getEntityThatCollectedMe().get().getComponent(HealthComponent.class).get());
         try {
             h.addHeart(this.heartKind.newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
