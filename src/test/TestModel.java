@@ -150,9 +150,8 @@ public class TestModel {
         final Double calculatedZMove = 0.000995;
         final Entity p = new Player();
         p.attachComponent(new BodyComponent(p));
-        //p.attachComponent(new MoveComponent(p));
+        p.attachComponent(new MoveComponent(p));
         p.postEvent(new MoveEvent(p, 2, 0, 1));
-        System.out.println(getMoveComponent(p).getxMove());
         assertEquals(getMoveComponent(p).getxMove(), 2);
         assertEquals(getMoveComponent(p).getyMove(), MoveComponent.NOMOVE);
         assertEquals(getMoveComponent(p).getzMove(), 1);
@@ -172,7 +171,7 @@ public class TestModel {
     public void testHealthComponent() {
         final double defaultHearts = 3;
         final Entity goodEntity = new Player();
-        //goodEntity.attachComponent(new HealthComponent(goodEntity));
+        goodEntity.attachComponent(new HealthComponent(goodEntity));
         assertTrue(this.getHealthComponent(goodEntity).isAlive());
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts);
 

@@ -45,7 +45,7 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public final void attachComponent(final Component c) {
         if (hasComponent(c.getClass())) {
-            detachComponent(c);
+            detachComponent(getComponent(c.getClass()).get());
         }
         this.componentsMap.put(c.getClass(), c);
     }

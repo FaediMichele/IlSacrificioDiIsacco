@@ -81,7 +81,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
             @Subscribe
             public void listenEvent(final MoveEvent event) {
                 move(event.getxMove(), event.getyMove(), event.getzMove());
-                System.out.println(getxMove());
             }
         });
     }
@@ -112,9 +111,11 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param z move made on the z axis
      */
     private void move(final double x, final double y, final double z) {
+        System.out.println(xMove + " " + yMove + " " + zMove);
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
+        System.out.println(xMove + " " + yMove + " " + zMove);
     }
 
     /**
@@ -130,7 +131,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @return xMove
      */
     public double getxMove() {
-        return xMove;
+        return this.xMove;
     }
 
     /**
@@ -138,7 +139,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @return yMove
      */
     public double getyMove() {
-        return yMove;
+        return this.yMove;
     }
 
     /**
@@ -146,7 +147,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @return zMove
      */
     public double getzMove() {
-        return zMove;
+        return this.zMove;
     }
 
     /**
