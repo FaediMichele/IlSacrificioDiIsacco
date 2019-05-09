@@ -5,7 +5,7 @@ package model.component;
  * The simplest kind of heart.
  *
  */
-public class SimpleHeart implements Heart {
+public class SimpleHeart extends AbstractHart {
 
     private static final double DEFAULT_VALUE = 1;
     private static final double MAX_VALUE = 1;
@@ -17,6 +17,7 @@ public class SimpleHeart implements Heart {
      * @param value total value of the heart
      */
     public SimpleHeart(final double value) {
+        super();
         this.value = value;
     }
 
@@ -24,6 +25,7 @@ public class SimpleHeart implements Heart {
      * Default SimpleHeart constructor.
      */
     public SimpleHeart() {
+        super();
         this.value = DEFAULT_VALUE;
     }
 
@@ -39,7 +41,7 @@ public class SimpleHeart implements Heart {
             value = value - damageValue;
             return 0;
         } else {
-            double tempValue = value;
+            final double tempValue = value;
             value = 0;
             return damageValue - tempValue;
         }
