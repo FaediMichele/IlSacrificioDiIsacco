@@ -6,10 +6,14 @@ import java.util.Optional;
 import model.entity.Entity;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
+import util.EqualsForGetters;
+import util.NotEquals;
+import util.NotHashCode;
 import util.StaticMethodsUtils;
 
 /**
  * Generic fields and methods needed by each component.
+ * 
  * @param <C> is the type of component you are creating
  */
 public abstract class AbstractComponent<C extends Component> implements Component {
@@ -36,8 +40,8 @@ public abstract class AbstractComponent<C extends Component> implements Componen
             this.componentReplaced = Optional.of(component);
         } else {
             throw new IllegalArgumentException(
-                    "You cannot replace a component with another component that does not belong to the same entity"); 
-            }
+                    "You cannot replace a component with another component that does not belong to the same entity");
+        }
         component.unregisterAllListener();
         component.disableComponent();
         entity.detachComponent(component);
@@ -87,6 +91,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * 
      * @return {@link Boolean}.
      */
+    @EqualsForGetters
     public final boolean isActive() {
         return active;
     }
@@ -124,6 +129,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
     /**
      * @return the componentReplaced
      */
+    @EqualsForGetters
     public Optional<C> getComponentReplaced() {
         return componentReplaced;
     }

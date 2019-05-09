@@ -12,6 +12,8 @@ import model.component.Component;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 import model.game.Room;
+import util.EqualsForGetters;
+import util.NotEquals;
 import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
@@ -91,6 +93,7 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
+    @EqualsForGetters
     public final List<Component> getComponents() {
         return new LinkedList<Component>(this.componentsMap.values());
     }
