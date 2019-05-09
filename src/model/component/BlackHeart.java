@@ -1,5 +1,6 @@
 package model.component;
 
+import model.entity.Entity;
 import model.entity.events.DamageEvent;
 
 /**
@@ -9,19 +10,19 @@ import model.entity.events.DamageEvent;
 
 public class BlackHeart extends SimpleHeart {
 
-    private final HealthComponent h;
+    private final Entity myEntity;
     private final double enemyDamage;
 
     /**
      * 
-     * @param h                 HealthComponent is needed when you create a black heart;
+     * @param myEntity          entity is needed when you create a black heart;
      * @param enemyDamage       value of the damage to the enemies
      * @param heartValue        value of the heart
      */
-    protected BlackHeart(final HealthComponent h, final double enemyDamage, final double heartValue) {
+    protected BlackHeart(final Entity myEntity, final double enemyDamage, final double heartValue) {
         super(heartValue);
         this.enemyDamage = enemyDamage;
-        this.h = h;
+        this.myEntity = myEntity;
     }
 
     /**
@@ -30,18 +31,18 @@ public class BlackHeart extends SimpleHeart {
     public static class Builder {
         private static final double DEFAULT_ENEMY_DAMAGE = 0.3;
         private static final double DEFAULT_HEART_VALUE = 1;
-        private final HealthComponent h;
+        private final Entity e;
         @SuppressWarnings("all")
         private double enemyDamage = DEFAULT_ENEMY_DAMAGE;
         @SuppressWarnings("all")
         private double heartValue = DEFAULT_HEART_VALUE;
 
         /**
-         * The HealthComponent must be initialized.
-         * @param h     healthComponent
+         * The Entity must be initialized.
+         * @param e     Entity
          */
-        public Builder(final HealthComponent h) {
-            this.h = h;
+        public Builder(final Entity e) {
+            this.e = e;
         }
 
         /**
@@ -68,10 +69,10 @@ public class BlackHeart extends SimpleHeart {
          * @return      actual blackHeart
          */
         public BlackHeart build() {
-            if (this.h == null) {
+            if (this.e == null) {
                 throw new IllegalStateException();
             }
-            return new BlackHeart(this.h, this.enemyDamage, this.heartValue);
+            return new BlackHeart(this.e, this.enemyDamage, this.heartValue);
         }
     }
 
@@ -85,11 +86,11 @@ public class BlackHeart extends SimpleHeart {
             return 0;
         } else {
             final double tempValue = super.getValue();
-            super.setValue(0);
-            h.getEntity().getRoom().getEntity().stream()
+            this.myEntity.getRoom().getEntity().stream()
                 .filter(i -> i.hasComponent(MentalityComponent.class))
                 .filter(i -> ((MentalityComponent) i.getComponent(MentalityComponent.class).get()).getMentality().equals(Mentality.EVIL))
-                .forEach(i -> i.postEvent(new DamageEvent(h.getEntity(), enemyDamage)));
+                .forEach(i -> i.postEvent(new DamageEvent(this.myEntity, enemyDamage)));
+            super.setValue(0);
             return damageValue - tempValue;
         }
     }

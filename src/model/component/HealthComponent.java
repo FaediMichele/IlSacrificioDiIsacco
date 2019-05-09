@@ -1,8 +1,12 @@
 package model.component;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.events.DamageEvent;
@@ -16,7 +20,6 @@ import util.NotEquals;
 
 public class HealthComponent extends AbstractComponent<HealthComponent> {
 
-    private static final Class<? extends Heart> DEFAULT_HEART_KIND = SimpleHeart.class;
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
 
@@ -24,29 +27,17 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     private List<Heart> hearts;
 
     /**
-     * @param heartNumber number of hearts of this kind
-     * @param heartKind kind of heart
+     * @param defaultHearts number of hearts of this kind
      * @param entity    entity for this component
      */
-    public HealthComponent(final Entity entity, final Class<? extends Heart> heartKind, final int heartNumber) {
+    public HealthComponent(final Entity entity, final int defaultHearts) {
         super(entity);
-        int realHeartNumber;
-        if (heartNumber > MAX_HEARTS) {
-            realHeartNumber = MAX_HEARTS;
-        } else {
-            realHeartNumber = heartNumber;
-        }
-
-        hearts = new ArrayList<>();
+        int realHeartNumber = Math.min(defaultHearts, MAX_HEARTS);
+        hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart()).collect(Collectors.toList());
+        /*hearts = new ArrayList<>();
         for (int i = 0; i < realHeartNumber; i++) {
-            try {
-                hearts.add(heartKind.newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+                hearts.add(new SimpleHeart());
+        }*/
 
         this.registListener();
     }
@@ -73,7 +64,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * @param entity entity for this component
      */
     public HealthComponent(final Entity entity) {
-        this(entity, DEFAULT_HEART_KIND, DEFAULT_HEART_NUMBER);
+        this(entity, DEFAULT_HEART_NUMBER);
     }
 
     /**
@@ -108,8 +99,8 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * 
      * @param h the heart
      */
-    protected void addHeart(final Heart h) {
-        if (hearts.size() == MAX_HEARTS) {
+    public void addHeart(final Heart h) {
+        if (hearts.size() < MAX_HEARTS) {
             hearts.add(h);
         }
     }

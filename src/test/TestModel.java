@@ -8,13 +8,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
+
+import model.component.BlackHeart;
 import model.component.BodyComponent;
 import model.component.DamageComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
+import model.component.Mentality;
+import model.component.MentalityComponent;
 import model.component.MoveComponent;
+import model.component.SimpleHeart;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
@@ -206,6 +211,40 @@ public class TestModel {
         assertEquals(this.getHealthComponent(goodEntity).getLife(), 0);
     }
 
+    /**
+     * Test for {@link BlackHeart}.
+     */
+    @Test
+    public void testBlackHeart() {
+        final int defaultHearts = 3;
+        final int newHearts = 2;
+        final Entity goodEntity = new Player();
+        goodEntity.attachComponent(new HealthComponent(goodEntity, defaultHearts));
+        this.getHealthComponent(goodEntity).addHeart(new SimpleHeart());
+        this.getHealthComponent(goodEntity).addHeart(new BlackHeart.Builder(goodEntity).build());
+        assertTrue(this.getHealthComponent(goodEntity).isAlive());
+        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts + newHearts);
+
+        final Entity enemy = new Player();
+        final double damage = 0.7;
+        final double finalEnemyLife = 2.7;
+        enemy.attachComponent(new DamageComponent(enemy, damage));
+        enemy.attachComponent(new HealthComponent(enemy));
+        enemy.attachComponent(new MentalityComponent(enemy, Mentality.EVIL));
+        goodEntity.postEvent(new DamageEvent(enemy)); 
+        assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
+        assertEquals(this.getHealthComponent(enemy).getLife(), 3);
+
+        final List<Entity> entities = new ArrayList<>();
+        entities.add(goodEntity);
+        entities.add(enemy);
+        final Room r = new RoomImpl(0, null, entities);
+        goodEntity.postEvent(new DamageEvent(enemy));
+        assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
+        assertEquals(this.getHealthComponent(enemy).getLife(), finalEnemyLife);
+        assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), defaultHearts + newHearts - 1);
+
+    }
 
     private HealthComponent getHealthComponent(final Entity e) {
         return (HealthComponent) e.getComponent(HealthComponent.class).get();

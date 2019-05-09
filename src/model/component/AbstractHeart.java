@@ -6,7 +6,7 @@ import util.StaticMethodsUtils;
  * This class models the abstract heart.
  *
  */
-public abstract class AbstractHart implements Heart {
+public abstract class AbstractHeart implements Heart {
 
     /**
      * this method will generate a hash code for this object.

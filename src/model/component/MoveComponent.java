@@ -115,7 +115,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
-        System.out.println(xMove + " " + yMove + " " + zMove);
     }
 
     /**
