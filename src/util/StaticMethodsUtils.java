@@ -39,11 +39,11 @@ public final class StaticMethodsUtils {
 
         Class<?> classObj1 = obj1.getClass();
         Class<?> classObj2 = obj2.getClass();
-        List<Field> fieldsListObj1 = Stream.of(classObj1.getDeclaredFields())
+        final List<Field> fieldsListObj1 = Stream.of(classObj1.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(NotEquals.class)).collect(Collectors.toList());
-        List<Field> fieldsListObj2 = Stream.of(classObj2.getDeclaredFields())
+        final List<Field> fieldsListObj2 = Stream.of(classObj2.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(NotEquals.class)).collect(Collectors.toList());
-        List<Object> fieldsValueObj1 = fieldsListObj1.stream().flatMap(f -> {
+        final List<Object> fieldsValueObj1 = fieldsListObj1.stream().flatMap(f -> {
             try {
                 f.setAccessible(true);
                 final Stream<Object> s = Stream.of(f.get(obj1));
@@ -54,7 +54,7 @@ public final class StaticMethodsUtils {
             }
             return null;
         }).collect(Collectors.toList());
-        List<Object> fieldsValueObj2 = fieldsListObj2.stream().flatMap(f -> {
+        final List<Object> fieldsValueObj2 = fieldsListObj2.stream().flatMap(f -> {
             try {
                 f.setAccessible(true);
                 final Stream<Object> s = Stream.of(f.get(obj2));

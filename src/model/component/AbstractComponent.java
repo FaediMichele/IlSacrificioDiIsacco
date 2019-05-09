@@ -7,8 +7,6 @@ import model.entity.Entity;
 import model.entity.events.Event;
 import model.entity.events.EventListener;
 import util.EqualsForGetters;
-import util.NotEquals;
-import util.NotHashCode;
 import util.StaticMethodsUtils;
 
 /**
