@@ -1,7 +1,10 @@
 package model.entity;
 
 import model.component.BodyComponent;
+import model.component.BombCollectibleComponent;
 import model.component.CollisionComponent;
+import model.component.Mentality;
+import model.component.MentalityComponent;
 
 /**
  * 
@@ -15,6 +18,8 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb() {
         super();
+        attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
+        attachComponent(new BombCollectibleComponent(this, 1, 1, 1));
     }
 
     /**
