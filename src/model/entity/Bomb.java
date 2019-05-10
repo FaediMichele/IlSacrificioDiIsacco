@@ -11,11 +11,19 @@ import model.component.CollisionComponent;
 public class Bomb extends AbstractEntity {
 
     /**
+     * Default constructor.
+     */
+    public Bomb() {
+        super();
+    }
+
+    /**
      * @param entityBody Body of the entity
      * @param entityCollision Collision component of the entity
      */
     public Bomb(final BodyComponent entityBody, final CollisionComponent entityCollision) {
-        super(entityBody, entityCollision);
+        this();
+        setDefaultComponents(entityBody, entityCollision);
     }
 
 }
