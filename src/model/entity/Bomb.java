@@ -18,8 +18,8 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb() {
         super();
-        attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
-        attachComponent(new BombCollectibleComponent(this, 1, 1, 1));
+        attachComponent(new MentalityComponent(this, Mentality.PSYCHO));
+        attachComponent(new BombCollectibleComponent(this, 3, 1000, 100));
     }
 
     /**
