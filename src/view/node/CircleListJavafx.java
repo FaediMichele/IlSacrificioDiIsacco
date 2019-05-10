@@ -16,12 +16,10 @@ import javafx.util.Duration;
  * It have a width and height (ellipse). 
  */
 public class CircleListJavafx extends Group implements CircleList {
-    private double height;
-    private double width;
     private final double dScale;
-    private double x;
-    private double y;
     private Duration d;
+    private double width;
+    private double height;
     private final List<MyNode> elements = new LinkedList<>();
 
     /**
@@ -32,9 +30,9 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     public CircleListJavafx(final double width, final double height, final double scaleMultiplier) {
         super();
-        this.height = height;
-        this.width = width;
         this.dScale = scaleMultiplier;
+        setWidth(width);
+        setHeight(height);
     }
 
     /**
@@ -43,14 +41,7 @@ public class CircleListJavafx extends Group implements CircleList {
     @Override
     public void setWidth(final double width) {
         this.width = width;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public double getWidth() {
-        return this.width;
+        updateNode(); 
     }
 
     /**
@@ -59,6 +50,15 @@ public class CircleListJavafx extends Group implements CircleList {
     @Override
     public void setHeight(final double height) {
         this.height = height;
+        updateNode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getWidth() {
+        return width;
     }
 
     /**
@@ -66,7 +66,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public double getHeight() {
-        return this.height;
+        return height;
     }
 
     /**
@@ -74,7 +74,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void setMarginLeft(final double posX) {
-        this.x = posX;
+        this.setLayoutX(posX);
         updateNode();
     }
 
@@ -83,7 +83,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void setMarginTop(final double posY) {
-        this.y = posY;
+        this.setLayoutY(posY);
         updateNode();
     }
 
@@ -92,7 +92,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public double getMarginLeft() {
-        return this.x;
+        return this.getLayoutX();
     }
 
     /**
@@ -100,19 +100,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public double getMarginTop() {
-        return this.y;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addTo(final Object o) {
-        Objects.requireNonNull(o);
-        if (!(o instanceof Group)) {
-            throw new IllegalArgumentException("Parameter must be a Group");
-        }
-        ((Group) o).getChildren().add(this);
+        return this.getLayoutY();
     }
 
     /**
@@ -126,6 +114,7 @@ public class CircleListJavafx extends Group implements CircleList {
         }
         this.getChildren().add((Node) o);
         elements.add(new MyNode((Node) o, this.calculateAngle(elements.size() + 1, elements.size()), this));
+        //setPreferredSize();
         updateNode();
     }
 
@@ -143,6 +132,7 @@ public class CircleListJavafx extends Group implements CircleList {
             this.getChildren().add((Node) o[i]);
             elements.add(new MyNode((Node) o[i], this.calculateAngle(elements.size() + 1, elements.size()), this));
         }
+        //setPreferredSize();
         updateNode();
     }
 
@@ -190,9 +180,33 @@ public class CircleListJavafx extends Group implements CircleList {
 
     private void updateNode() {
         for (int i = 0; i < elements.size(); i++) {
+            elements.get(i).node.toBack();
             elements.get(i).changeAngle(calculateAngle(elements.size(), i));
         }
     }
+    /*
+    private void setPreferredSize() {
+        Node maxWidth = getChildren().get(0);
+        Node maxHeight = getChildren().get(0);
+
+        for (int i = 1; i < this.getChildren().size(); i++) {
+            final Node n = getChildren().get(i);
+            if (n.getBoundsInLocal().getWidth() > maxWidth.getBoundsInLocal().getWidth()) {
+                maxWidth = n;
+            }
+            if (n.getBoundsInLocal().getHeight() > maxWidth.getBoundsInLocal().getHeight()) {
+                maxHeight = n;
+            }
+        }
+        System.out.println(this.getWidth() + " "+ maxWidth.getBoundsInLocal().getWidth());
+        if (this.getWidth() < maxWidth.getBoundsInLocal().getWidth()) {
+            this.setWidth(maxWidth.getBoundsInLocal().getWidth());
+        }
+        if (this.getHeight() < maxHeight.getBoundsInLocal().getHeight()) {
+            this.setHeight(maxHeight.getBoundsInLocal().getHeight());
+        }
+    }
+    */
 
     /**
      * This class is used to make a circle effect. Rectangle have position and scale based on their angle in the circle.
@@ -222,11 +236,11 @@ public class CircleListJavafx extends Group implements CircleList {
         }
 
         private int getX() {
-            return (int) Math.round(upper.x - Math.sin(Math.toRadians(angle)) * upper.width + node.getBoundsInLocal().getWidth() / 2);
+            return (int) Math.round(upper.getLayoutX() - Math.sin(Math.toRadians(angle)) * upper.getWidth() + node.getBoundsInLocal().getWidth() / 2);
         }
 
         private int getY() {
-            return (int) Math.round(upper.y + Math.cos(Math.toRadians(angle)) * upper.height - node.getBoundsInLocal().getHeight() / 2);
+            return (int) Math.round(upper.getLayoutY() + Math.cos(Math.toRadians(angle)) * upper.getHeight() - node.getBoundsInLocal().getHeight() / 2);
         }
 
         private double getScale() {
@@ -249,6 +263,4 @@ public class CircleListJavafx extends Group implements CircleList {
             tt.play();
         }
     }
-
-
 }

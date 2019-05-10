@@ -61,12 +61,6 @@ public interface CircleList {
     void addElement(Object o);
 
     /**
-     * Add the list in the interface.
-     * @param o the source where add the list.
-     */
-    void addTo(Object o);
-
-    /**
      * Add a list of element to the list.
      * @param o the list of element to add <p> See also {@link #addElement}.
      */

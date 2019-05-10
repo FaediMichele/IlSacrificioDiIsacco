@@ -20,14 +20,12 @@ import view.node.CircleListJavafx;
  * This class is used for develop learning of animation in javaFX.
  */
 public class TestAnimation extends Application {
-    private static final double COLOR_MULTIPLIER = 0.010;
     private static final double INITIAL_PROPORTION = 0.4;
-    private static final int NUMBER_RECTANGLE = 7;
+    private static final float NUMBER_RECTANGLE = 70f;
     private static final double WIDTH_PROP = 0.1;
     private static final double HEIGHT_PROP = 0.1;
-    private GridPane grid;
-    private final CircleList list = new CircleListJavafx(160, 80, 0.98);
-    private final CircleListJavafx list1 = new CircleListJavafx(160, 80, 0.5);
+    private final CircleList list = new CircleListJavafx(160, 80, 0.9);
+    private final CircleListJavafx list1 = new CircleListJavafx(16, 8, 0.5);
     private double maxX;
     private double maxY;
 
@@ -51,19 +49,18 @@ public class TestAnimation extends Application {
 
         final Scene s = new Scene(g, maxX * INITIAL_PROPORTION * 2, maxY * INITIAL_PROPORTION * 2);
         stage.setScene(s);
-        this.grid = new GridPane();
+        final GridPane grid = new GridPane();
         g.getChildren().add(grid);
-        list.addTo(g);
+        grid.getChildren().add((CircleListJavafx) list);
         list.setDuration(Duration.millis(1000));
         list1.setDuration(Duration.millis(1000));
+        list.addElement(list1);
         list.setMarginTop(maxY * INITIAL_PROPORTION / 2);
         list.setMarginLeft(maxX * INITIAL_PROPORTION / 2);
 
-        list1.setLayoutY(maxY * INITIAL_PROPORTION * 3 / 4);
-        list1.setLayoutX(maxX * INITIAL_PROPORTION * 3 / 4);
+        //list1.setLayoutY(maxY * INITIAL_PROPORTION / 2);
+        //list1.setLayoutX(maxX * INITIAL_PROPORTION / 2);
         addRectangles();
-        addCircle();
-        addCircle();
         addCircle();
 
         s.setOnKeyPressed(e -> {
@@ -88,7 +85,8 @@ public class TestAnimation extends Application {
                 list1.setHeight(list1.getHeight() + 10 / 2);
             }
             if (e.getCode() == KeyCode.F) {
-                ((Circle) list.getElement()).setFill(Color.RED);
+                ((Rectangle) list.getElement()).setFill(Color.RED);
+                ((Circle) list1.getElement()).setFill(Color.RED);
             }
         });
         stage.show();
@@ -97,18 +95,16 @@ public class TestAnimation extends Application {
     private void addRectangles() {
         for (int i = 0; i < NUMBER_RECTANGLE; i++) {
             final Rectangle n = new Rectangle(maxX * INITIAL_PROPORTION * WIDTH_PROP, maxY * INITIAL_PROPORTION * HEIGHT_PROP);
-            n.setFill(new Color(i * COLOR_MULTIPLIER, i * COLOR_MULTIPLIER, i * COLOR_MULTIPLIER, 1.0));
-            list1.addElement(n);
-            grid.getChildren().add(n);
+            n.setFill(new Color(i / NUMBER_RECTANGLE, i / NUMBER_RECTANGLE, i / NUMBER_RECTANGLE, 1.0));
+            list.addElement(n);
         }
     }
 
     private void addCircle() {
         for (int i = 0; i < NUMBER_RECTANGLE; i++) {
-            final Circle n = new Circle(maxX * INITIAL_PROPORTION * WIDTH_PROP, maxY * INITIAL_PROPORTION * HEIGHT_PROP, 15);
-            n.setFill(new Color(i * COLOR_MULTIPLIER, i * COLOR_MULTIPLIER, i * COLOR_MULTIPLIER, 1.0));
-            list.addElement(n);
-            grid.getChildren().add(n);
+            final Circle n = new Circle(maxX * INITIAL_PROPORTION * WIDTH_PROP, maxY * INITIAL_PROPORTION * HEIGHT_PROP, 3);
+            n.setFill(new Color(i / NUMBER_RECTANGLE, i / NUMBER_RECTANGLE, i / NUMBER_RECTANGLE, 1.0));
+            list1.addElement(n);
         }
     }
 }
