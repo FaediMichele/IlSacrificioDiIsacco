@@ -51,7 +51,7 @@ public class TestAnimation extends Application {
         stage.setScene(s);
         final GridPane grid = new GridPane();
         g.getChildren().add(grid);
-        grid.getChildren().add((CircleListJavafx) list);
+        g.getChildren().add((CircleListJavafx) list);
         list.setDuration(Duration.millis(1000));
         list1.setDuration(Duration.millis(1000));
         list.addElement(list1);
@@ -74,15 +74,19 @@ public class TestAnimation extends Application {
             }
             if (e.getCode() == KeyCode.LEFT) {
                 list.setMarginLeft(list.getMarginLeft() - 10 / 2);
-                list1.setMarginLeft(list1.getMarginLeft() - 10 / 2);
+                //list1.setMarginLeft(list1.getMarginLeft() - 10 / 2);
             }
             if (e.getCode() == KeyCode.RIGHT) {
                 list.setMarginLeft(list.getMarginLeft() + 10 / 2);
-                list1.setMarginLeft(list1.getMarginLeft() + 10 / 2);
+                //list1.setMarginLeft(list1.getMarginLeft() + 10 / 2);
             }
             if (e.getCode() == KeyCode.UP) {
                 list.setHeight(list.getHeight() + 10 / 2);
                 list1.setHeight(list1.getHeight() + 10 / 2);
+            }
+            if (e.getCode() == KeyCode.DOWN) {
+                list.setWidth(list.getWidth() + 10 / 2);
+                list1.setWidth(list1.getWidth() + 10 / 2);
             }
             if (e.getCode() == KeyCode.F) {
                 ((Rectangle) list.getElement()).setFill(Color.RED);

@@ -74,6 +74,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void setMarginLeft(final double posX) {
+        System.out.println(getLayoutX() + " " + posX);
         this.setLayoutX(posX);
         updateNode();
     }
@@ -180,33 +181,13 @@ public class CircleListJavafx extends Group implements CircleList {
 
     private void updateNode() {
         for (int i = 0; i < elements.size(); i++) {
-            elements.get(i).node.toBack();
+            if (i <= elements.size() / 2) {
+                elements.get(i).node.toBack();
+                elements.get(elements.size() - i - 1).node.toBack();
+            }
             elements.get(i).changeAngle(calculateAngle(elements.size(), i));
         }
     }
-    /*
-    private void setPreferredSize() {
-        Node maxWidth = getChildren().get(0);
-        Node maxHeight = getChildren().get(0);
-
-        for (int i = 1; i < this.getChildren().size(); i++) {
-            final Node n = getChildren().get(i);
-            if (n.getBoundsInLocal().getWidth() > maxWidth.getBoundsInLocal().getWidth()) {
-                maxWidth = n;
-            }
-            if (n.getBoundsInLocal().getHeight() > maxWidth.getBoundsInLocal().getHeight()) {
-                maxHeight = n;
-            }
-        }
-        System.out.println(this.getWidth() + " "+ maxWidth.getBoundsInLocal().getWidth());
-        if (this.getWidth() < maxWidth.getBoundsInLocal().getWidth()) {
-            this.setWidth(maxWidth.getBoundsInLocal().getWidth());
-        }
-        if (this.getHeight() < maxHeight.getBoundsInLocal().getHeight()) {
-            this.setHeight(maxHeight.getBoundsInLocal().getHeight());
-        }
-    }
-    */
 
     /**
      * This class is used to make a circle effect. Rectangle have position and scale based on their angle in the circle.
