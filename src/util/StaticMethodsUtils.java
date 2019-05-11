@@ -39,10 +39,18 @@ public final class StaticMethodsUtils {
 
         Class<?> classObj1 = obj1.getClass();
         Class<?> classObj2 = obj2.getClass();
+
+        /*
+         * It gets all the list of fields of the class of obj1 and obj2 that are needed
+         * for equals(so those without the @NotEquals annotation)
+         */
         final List<Field> fieldsListObj1 = Stream.of(classObj1.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(NotEquals.class)).collect(Collectors.toList());
         final List<Field> fieldsListObj2 = Stream.of(classObj2.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(NotEquals.class)).collect(Collectors.toList());
+        /*
+         * It gets all the values of the fields of obj1 and obj2
+         */
         final List<Object> fieldsValueObj1 = fieldsListObj1.stream().flatMap(f -> {
             try {
                 f.setAccessible(true);
@@ -67,13 +75,24 @@ public final class StaticMethodsUtils {
         }).collect(Collectors.toList());
 
         boolean eq = fieldsValueObj1.equals(fieldsValueObj2);
+
+        /**
+         * It continues checking on all super classes and takes the getter methods
+         * (=those that begins with either get or is and have the @EqualsForGetters
+         * annotation) then it takes their return values and checks if their are the
+         * same for both obj1 and obj2
+         */
         while (!(classObj1.getSuperclass() == Object.class || classObj2.getSuperclass() == Object.class)) {
             classObj1 = classObj1.getSuperclass();
             classObj2 = classObj2.getSuperclass();
             final List<Method> methodsListObj1 = Stream.of(classObj1.getDeclaredMethods())
-                    .filter(m -> m.isAnnotationPresent(EqualsForGetters.class) && (m.getName().substring(0, 3).equals("get") || m.getName().substring(0, 3).equals("is"))).collect(Collectors.toList());
+                    .filter(m -> m.isAnnotationPresent(EqualsForGetters.class)
+                            && (m.getName().substring(0, 3).equals("get") || m.getName().substring(0, 3).equals("is")))
+                    .collect(Collectors.toList());
             final List<Method> methodsListObj2 = Stream.of(classObj2.getDeclaredMethods())
-                    .filter(m -> m.isAnnotationPresent(EqualsForGetters.class) && (m.getName().substring(0, 3).equals("get") || m.getName().substring(0, 3).equals("is"))).collect(Collectors.toList());
+                    .filter(m -> m.isAnnotationPresent(EqualsForGetters.class)
+                            && (m.getName().substring(0, 3).equals("get") || m.getName().substring(0, 3).equals("is")))
+                    .collect(Collectors.toList());
             final List<Object> getterValuesObj1 = methodsListObj1.stream().flatMap(m -> {
                 try {
                     return Stream.of(m.invoke(obj1));
