@@ -85,4 +85,11 @@ public abstract class AbstractCollectibleComponent extends AbstractComponent<Abs
      */
     protected abstract void init();
 
+
+    /**
+     * It is the function that is called when the entity tries to be collected.
+     * @param entity is the entity that tries to collect the object.
+     */
+    protected abstract void init(Entity entity);
+
 }

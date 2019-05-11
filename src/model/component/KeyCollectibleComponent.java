@@ -53,4 +53,12 @@ public class KeyCollectibleComponent extends AbstractCollectibleComponent {
     protected void init() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void init(final Entity entity) {
+        // TODO Auto-generated method stub
+    }
+
 }

@@ -61,4 +61,12 @@ public class HeartCollectibleComponent extends AbstractCollectibleComponent {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void init(final Entity entity) {
+        // TODO Auto-generated method stub
+    }
+
 }

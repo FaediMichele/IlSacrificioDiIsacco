@@ -30,7 +30,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public InventoryComponent(final Entity entity) {
         super(entity);
         this.things = new HashSet<>();
-        this.registListener();
+        this.registrListeners();
     }
 
     /**
@@ -41,25 +41,28 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public InventoryComponent(final Entity entity, final InventoryComponent component) {
         super(entity, component);
         this.things = component.getThings();
-        this.registListener();
+        this.registrListeners();
     }
 
-    private void registListener() {
+    private void registrListeners() {
         registerListener(new EventListener<PickUpEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final Optional<Component> oc = event.getSourceEntity().getComponents().stream().filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class)).findFirst();
+                final Optional<Component> oc = event.getSourceEntity().getComponents().stream()
+                        .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class))
+                        .findFirst();
                 if (oc.isPresent()) {
-                    final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) oc.get();
-                    aux.setEntityThatCollectedMe(getEntity());
-                    if (aux.needInitialized()) {
-                        aux.init();
+                    final AbstractCollectibleComponent absCollComp = (AbstractCollectibleComponent) oc.get();
+                    absCollComp.setEntityThatCollectedMe(getEntity());
+
+                    if (absCollComp.needInitialized()) {
+                        absCollComp.init();
                     }
-                    if (aux.isCollectible()) {
-                        addThing(aux.getEntity());
+                    if (absCollComp.isCollectible()) {
+                        addThing(absCollComp.getEntity());
                     }
-                    getEntity().getRoom().deleteEntity(aux.getEntity());
+                    getEntity().getRoom().deleteEntity(absCollComp.getEntity());
                 }
             }
         });
@@ -69,12 +72,15 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Subscribe
             public void listenEvent(final ReleaseEvent event) {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
-                    final Optional<Entity> thingToRelease = things.stream().filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findAny();
+                    final Optional<Entity> thingToRelease = things.stream()
+                            .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findAny();
                     if (!thingToRelease.isPresent()) {
                         throw new IllegalArgumentException();
                     }
 
-                    final Optional<Component> oc = thingToRelease.get().getComponents().stream().filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class)).findFirst();
+                    final Optional<Component> oc = thingToRelease.get().getComponents().stream()
+                            .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class))
+                            .findFirst();
                     if (oc.isPresent()) {
                         final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) oc.get();
                         releaseThing(thingToRelease.get(), event.getSourceEntity());
@@ -91,22 +97,26 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * The entity will disappear from the screen deactivating its body component.
      * 
      * @param thing thing to add
+     * @return true if the entity has been collected correctly or false if it was not possible to collect the entity
      */
-    private void addThing(final Entity thing) {
+    protected boolean addThing(final Entity thing) {
         if (things.stream().filter(i -> i.getClass().equals(thing.getClass())).count() < MAX_NUMBER_FOR_EACH_ITEM) {
             ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
             things.add(thing);
+            return true;
         }
+        return false;
     }
 
     /**
      * The thing that has to be removed from the list because it has been used.
+     * 
      * @param thing to remove
      */
     private void releaseThing(final Entity thing, final Entity releaser) {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(true);
-        ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setPosition(
-                ((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getPosition());
+        ((BodyComponent) thing.getComponent(BodyComponent.class).get())
+                .setPosition(((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getPosition());
         releaser.getRoom().insertEntity(thing);
         things.remove(thing);
     }

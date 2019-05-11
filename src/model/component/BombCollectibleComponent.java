@@ -75,4 +75,12 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
     //to perfect
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void init(final Entity entity) {
+        // TODO Auto-generated method stub
+    }
+
 }
