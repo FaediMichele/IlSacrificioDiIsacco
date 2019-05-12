@@ -139,6 +139,15 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     }
 
     /**
+     * Scale the dimension of the entity (ex. doubles it).
+     * 
+     * @param factor multiply factor of the height and width.
+     */
+    protected void scaleDimension(final double factor) {
+        scaleDimension(factor, factor);
+    }
+
+    /**
      * 
      * @return weight
      */

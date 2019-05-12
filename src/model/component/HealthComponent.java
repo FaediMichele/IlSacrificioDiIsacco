@@ -93,11 +93,14 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      * Adds an heart to the list (probably the entity captured it).
      * 
      * @param h the heart
+     * @return true if the operation was successful false otherwise.
      */
-    public void addHeart(final Heart h) {
+    public boolean addHeart(final Heart h) {
         if (hearts.size() < MAX_HEARTS) {
             hearts.add(h);
+            return true;
         }
+        return false;
     }
     /**
      * The health is damaged, it could loose part of an heart or multiple hearts

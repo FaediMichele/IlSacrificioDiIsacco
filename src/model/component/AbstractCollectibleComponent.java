@@ -1,8 +1,6 @@
 package model.component;
 
-import java.util.Optional;
 import model.entity.Entity;
-
 
 /**
  * 
@@ -13,12 +11,10 @@ import model.entity.Entity;
 public abstract class AbstractCollectibleComponent extends AbstractComponent<AbstractCollectibleComponent> {
 
     private boolean collectible;
-    private Optional<Entity> entityThatCollectedMe;
 
     AbstractCollectibleComponent(final Entity entity) {
         super(entity);
         this.collectible = false;
-        this.entityThatCollectedMe = Optional.empty();
     }
 
     /**
@@ -29,13 +25,7 @@ public abstract class AbstractCollectibleComponent extends AbstractComponent<Abs
         return this.collectible;
     }
 
-    /**
-     * 
-     * @return {@link Optional} of {@link Entity} that collect this entity.
-     */
-    protected Optional<Entity> getEntityThatCollectedMe() {
-        return entityThatCollectedMe;
-    }
+
 
     /**
      * 
@@ -46,48 +36,33 @@ public abstract class AbstractCollectibleComponent extends AbstractComponent<Abs
         this.collectible = collectible;
     }
 
-    /**
-     * 
-     * @param entityThatCollectedMe memorizes the entity that collected the object.
-     */
-    protected void setEntityThatCollectedMe(final Entity entityThatCollectedMe) {
-        this.entityThatCollectedMe = Optional.of(entityThatCollectedMe);
-    }
 
     /**
-     * @return the entity that collected this entity
+     * This method removes the entity from the room, it may be useful to call this
+     * function when an object has been successfully collected.
      */
-    protected Optional<Entity> getEntityCollectedMe() {
-        return this.entityThatCollectedMe;
+    protected void deleteThisEntity() {
+        getEntity().getRoom().deleteEntity(this.getEntity());
     }
 
-    /**
-     * 
-     * @return true if it is an object that can be used false otherwise
-     */
-    protected abstract boolean usable();
 
     /**
      * 
      * @return true if a newly picked object must be initialized false otherwise
      */
-    protected abstract boolean needInitialized();
+//    protected abstract boolean needInitialized();
 
-    /**
-     * Consumes the actions of the subject, for example if you want to trigger a
-     * bomb this bomb will consume the bombs that were collected in the inventory.
-     */
-    protected abstract void use();
+
 
     /**
      * If the object must be initialized once the object has been collected from the
      * ground, this function must be called.
      */
-    protected abstract void init();
-
+//    protected abstract void init();
 
     /**
      * It is the function that is called when the entity tries to be collected.
+     * 
      * @param entity is the entity that tries to collect the object.
      */
     protected abstract void init(Entity entity);

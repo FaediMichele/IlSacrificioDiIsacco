@@ -6,7 +6,7 @@ import model.entity.Entity;
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's collected.
  */
-public class BombCollectibleComponent extends AbstractCollectibleComponent {
+public class BombCollectibleComponent extends AbstractCollectibleCollectableComponent {
 
     private final double explosionScale;
     private final int timeBeforeExplodes;
@@ -32,22 +32,6 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
      * {@inheritDoc}
      */
     @Override
-    protected boolean usable() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean needInitialized() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     protected void use() {
 
         new Thread() {
@@ -55,7 +39,7 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
             public void run() {
                 try {
                     Thread.sleep(timeBeforeExplodes);
-                    ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale, explosionScale);
+                    ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale);
                     /* qui la collisione con le altre entità fa danno e il suo sprite si modifica*/
                     Thread.sleep(explosionTime);
                     deleteThisEntity();
@@ -65,22 +49,4 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
             }
         }.start();
     }
-
-    private void deleteThisEntity() {
-        getEntity().getRoom().deleteEntity(this.getEntity());
-    }
-
-    @Override
-    protected void init() {
-    //to perfect
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void init(final Entity entity) {
-        // TODO Auto-generated method stub
-    }
-
 }

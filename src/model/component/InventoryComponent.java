@@ -54,15 +54,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                         .findFirst();
                 if (oc.isPresent()) {
                     final AbstractCollectibleComponent absCollComp = (AbstractCollectibleComponent) oc.get();
-                    absCollComp.setEntityThatCollectedMe(getEntity());
-
-                    if (absCollComp.needInitialized()) {
-                        absCollComp.init();
-                    }
-                    if (absCollComp.isCollectible()) {
-                        addThing(absCollComp.getEntity());
-                    }
-                    getEntity().getRoom().deleteEntity(absCollComp.getEntity());
+                    absCollComp.init(getEntity());
                 }
             }
         });
@@ -82,11 +74,11 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                             .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class))
                             .findFirst();
                     if (oc.isPresent()) {
-                        final AbstractCollectibleComponent aux = (AbstractCollectibleComponent) oc.get();
+                        final AbstractCollectibleCollectableComponent aux = (AbstractCollectibleCollectableComponent) oc.get();
                         releaseThing(thingToRelease.get(), event.getSourceEntity());
-                        if (aux.usable()) {
+//                        if (aux.usable()) {
                             aux.use();
-                        }
+//                        }
                     }
                 }
             }
