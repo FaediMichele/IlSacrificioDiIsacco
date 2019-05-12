@@ -65,20 +65,20 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             public void listenEvent(final ReleaseEvent event) {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
                     final Optional<Entity> thingToRelease = things.stream()
-                            .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findAny();
+                                                                  .filter(i -> i.getClass().equals(event.getReleasedEntityClass()))
+                                                                  .findAny();
                     if (!thingToRelease.isPresent()) {
                         throw new IllegalArgumentException();
                     }
 
-                    final Optional<Component> oc = thingToRelease.get().getComponents().stream()
-                            .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class))
-                            .findFirst();
+                    final Optional<Component> oc = thingToRelease.get().getComponents()
+                                                       .stream()
+                                                       .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleCollectableComponent.class))
+                                                       .findFirst();
                     if (oc.isPresent()) {
-                        final AbstractCollectibleCollectableComponent aux = (AbstractCollectibleCollectableComponent) oc.get();
+                        final AbstractCollectibleCollectableComponent absCollCollComp = (AbstractCollectibleCollectableComponent) oc.get();
                         releaseThing(thingToRelease.get(), event.getSourceEntity());
-//                        if (aux.usable()) {
-                            aux.use();
-//                        }
+                        absCollCollComp.use();
                     }
                 }
             }

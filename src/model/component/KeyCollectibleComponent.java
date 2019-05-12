@@ -1,42 +1,40 @@
 package model.component;
 
 import model.entity.Entity;
-//import java.util.List;
-//import model.entity.Door;
+import model.entity.Door;
 
 /**
  * Collectible Component of the key entity: how the key have to act when it's collected.
  * It the key case, it just has to be "present" so the main point of the code is setting the collectible boolean to true.
  */
-public class KeyCollectibleComponent extends AbstractCollectibleCollectableComponent {
+public class KeyCollectibleComponent extends AbstractCollectibleComponent {
 
-    //private final List<Door> doors;
+    private final Door door;
 
     /**
      * 
      * @param entity source Entity
-     * @param doors  list of doors this key allows the player to go through
+     * @param doors  door this key allows the player to go through
      */
-    KeyCollectibleComponent(final Entity entity) { /*final List<Door> doors*/
+    KeyCollectibleComponent(final Entity entity, final Door door) {
         super(entity);
-        //this.doors = doors;
-        setCollectible(true);
+        this.door = door;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void use() {
-    }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     protected void init(final Entity entity) {
-        // TODO Auto-generated method stub
+        if (entity.hasComponent(KeychainComponent.class)) {
+            if (((KeychainComponent) entity.getComponent(KeychainComponent.class).get()).addKey(this.door)) {
+                deleteThisEntity();
+            }
+        } else {
+            final KeychainComponent keychainComponent = new KeychainComponent(entity);
+            keychainComponent.addKey(this.door);
+            entity.attachComponent(keychainComponent);
+            deleteThisEntity();
+        }
     }
-
 }

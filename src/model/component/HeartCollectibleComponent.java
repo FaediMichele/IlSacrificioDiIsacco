@@ -26,7 +26,6 @@ public class HeartCollectibleComponent extends AbstractCollectibleComponent {
      */
     public HeartCollectibleComponent(final Entity entity, final Class<? extends Heart> heartKind) {
         super(entity);
-        setCollectible(false);
         this.heartKind = heartKind;
     }
 

@@ -25,7 +25,6 @@ public class BombCollectibleComponent extends AbstractCollectibleCollectableComp
         this.explosionScale = explosionScale;
         this.timeBeforeExplodes = timeBeforeExplodes;
         this.explosionTime = explosionTime;
-        setCollectible(true);
     }
 
     /**
