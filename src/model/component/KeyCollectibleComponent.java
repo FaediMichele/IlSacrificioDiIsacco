@@ -4,8 +4,9 @@ import model.entity.Entity;
 import model.entity.Door;
 
 /**
- * Collectible Component of the key entity: how the key have to act when it's collected.
- * It the key case, it just has to be "present" so the main point of the code is setting the collectible boolean to true.
+ * Collectible Component of the key entity: how the key have to act when it's
+ * collected. It the key case, it just has to be "present" so the main point of
+ * the code is setting the collectible boolean to true.
  */
 public class KeyCollectibleComponent extends AbstractCollectibleComponent {
 
@@ -28,7 +29,7 @@ public class KeyCollectibleComponent extends AbstractCollectibleComponent {
     protected void init(final Entity entity) {
         if (entity.hasComponent(KeychainComponent.class)) {
             if (((KeychainComponent) entity.getComponent(KeychainComponent.class).get()).addKey(this.door)) {
-            	this.deleteThisEntity();
+                this.deleteThisEntity();
             }
         } else {
             final KeychainComponent keychainComponent = new KeychainComponent(entity);

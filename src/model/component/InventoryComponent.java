@@ -45,7 +45,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     }
 
     private void registrListeners() {
-    	this.registerListener(new EventListener<PickUpEvent>() {
+        this.registerListener(new EventListener<PickUpEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
@@ -59,7 +59,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             }
         });
 
-    	this.registerListener(new EventListener<ReleaseEvent>() {
+        this.registerListener(new EventListener<ReleaseEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final ReleaseEvent event) {

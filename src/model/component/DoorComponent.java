@@ -66,7 +66,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * Post the event for the player that has passed.
      */
     private void postPlayerPassed() {
-    	this.getEntity().postEvent(new DoorChangeEvent(getEntity()));
+        this.getEntity().postEvent(new DoorChangeEvent(getEntity()));
     }
 
     /**

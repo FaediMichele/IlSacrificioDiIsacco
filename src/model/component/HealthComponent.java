@@ -38,7 +38,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     }
 
     private void registListener() {
-    	this.registerListener(new EventListener<DamageEvent>() {
+        this.registerListener(new EventListener<DamageEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final DamageEvent event) {
@@ -97,7 +97,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      */
     public boolean addHeart(final Heart h) {
         if (this.hearts.size() < MAX_HEARTS) {
-        	this.hearts.add(h);
+            this.hearts.add(h);
             return true;
         }
         return false;
@@ -113,7 +113,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         while (this.isAlive() && actualDamageValue != 0) {
             actualDamageValue = this.getLastHeart().getDamaged(actualDamageValue);
             if (this.getLastHeart().getValue() == 0) {
-            	this.hearts.remove(this.getLastHeart());
+                this.hearts.remove(this.getLastHeart());
             }
         }
     }

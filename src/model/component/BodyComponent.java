@@ -24,12 +24,12 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * Initialize the parameters.
      * 
      * @param position of the entity
-     * @param height of the entity
-     * @param width  of the entity
-     * @param weight of the entity
-     * @param entity      entity for this component
+     * @param height   of the entity
+     * @param width    of the entity
+     * @param weight   of the entity
+     * @param entity   entity for this component
      */
-    public BodyComponent(final Entity entity, final Triplet<Double, Double, Double> position, final double height, 
+    public BodyComponent(final Entity entity, final Triplet<Double, Double, Double> position, final double height,
             final double width, final int weight) {
         super(entity);
         this.position = position;
@@ -41,15 +41,15 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     /**
      * Initialize the parameters.
      * 
-     * @param x position on the x axis
-     * @param y position on the y axis
-     * @param z position on the z axis
+     * @param x      position on the x axis
+     * @param y      position on the y axis
+     * @param z      position on the z axis
      * @param height of the entity
      * @param width  of the entity
      * @param weight of the entity
-     * @param entity      entity for this component
+     * @param entity entity for this component
      */
-    public BodyComponent(final Entity entity, final double x, final double y, final double z, final double height, 
+    public BodyComponent(final Entity entity, final double x, final double y, final double z, final double height,
             final double width, final int weight) {
         super(entity);
         this.position = new Triplet<Double, Double, Double>(x, y, z);
@@ -73,11 +73,13 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
 
     /**
      * Position getter.
+     * 
      * @return position
      */
     public Triplet<Double, Double, Double> getPosition() {
         return this.position;
     }
+
     /**
      * Changes the position of the entity.
      * 
@@ -86,8 +88,8 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param deltaZ movement on the z axis
      */
     protected void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
-        this.position = new Triplet<Double, Double, Double>(this.position.getV1() + deltaX, this.position.getV2() + deltaY,
-                this.position.getV3() + deltaZ);
+        this.position = new Triplet<Double, Double, Double>(this.position.getV1() + deltaX,
+                this.position.getV2() + deltaY, this.position.getV3() + deltaZ);
     }
 
     /**
@@ -109,6 +111,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     protected void setPosition(final Triplet<Double, Double, Double> newPosition) {
         this.position = newPosition;
     }
+
     /**
      * Height getter.
      * 
@@ -144,7 +147,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param factor multiply factor of the height and width.
      */
     protected void scaleDimension(final double factor) {
-    	this.scaleDimension(factor, factor);
+        this.scaleDimension(factor, factor);
     }
 
     /**

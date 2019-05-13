@@ -30,15 +30,15 @@ public class SimpleHeart extends AbstractHeart {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      * 
-     * If we want to extend this class we must prevent life from
-     * taking negative values.
+     * If we want to extend this class we must prevent life from taking negative
+     * values.
      */
     @Override
     public double getDamaged(final double damageValue) {
         if (damageValue < this.value) {
-        	this.value -= damageValue;
+            this.value -= damageValue;
             return 0;
         } else {
             final double tempValue = this.value;
@@ -48,7 +48,7 @@ public class SimpleHeart extends AbstractHeart {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public double getValue() {
@@ -64,7 +64,7 @@ public class SimpleHeart extends AbstractHeart {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public double getMaxValue() {

@@ -19,7 +19,7 @@ public abstract class AbstractCollectibleComponent extends AbstractComponent<Abs
      * function when an object has been successfully collected.
      */
     protected void deleteThisEntity() {
-    	this.getEntity().getRoom().deleteEntity(this.getEntity());
+        this.getEntity().getRoom().deleteEntity(this.getEntity());
     }
 
 

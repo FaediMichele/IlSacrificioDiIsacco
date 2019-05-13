@@ -89,7 +89,7 @@ public class FloorImpl implements Floor {
         generateMap(m, roomIndexs);
 
         for (int index = 0; index < roomIndexs.size(); index++) {
-        	this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index)));
+            this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index)));
         }
 
     }
@@ -144,7 +144,7 @@ public class FloorImpl implements Floor {
             if (directionCounted == OVEST) { // No other direction is possible
                 index = nRoom;
             } else {
-            	this.updatePosition(pos, direction);
+                this.updatePosition(pos, direction);
                 m.set(pos.getX(), pos.getY(), index + 1);
                 roomIndexs.add(new Pair<Integer, Integer>(pos.getX(), pos.getY()));
             }
@@ -222,7 +222,7 @@ public class FloorImpl implements Floor {
 
     @Override
     public final void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
-    	this.rooms.get(location).deleteEntity(e);
-    	this.rooms.get(destination).insertEntity(e);
+        this.rooms.get(location).deleteEntity(e);
+        this.rooms.get(destination).insertEntity(e);
     }
 }

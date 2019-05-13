@@ -54,24 +54,24 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                     getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
                 }
 
-                /**
-                 * handles the collision with the door
-                 */
-                if (event.getSourceEntity().hasComponent(DoorComponent.class)) {
-                    /**
-                     * la porta è chiusa?
-                     */
-
-                    /**
-                     * ho la chiave
-                     */
-                    if (getEntity().hasComponent(KeychainComponent.class)) {
-                        if (((KeychainComponent) getEntity().getComponent(KeychainComponent.class).get())
-                                .getKey()
-                                .contains(event.getSourceEntity())) {
-                        }
-                    }
-                }
+//                /**
+//                 * handles the collision with the door
+//                 */
+//                if (event.getSourceEntity().hasComponent(DoorComponent.class)) {
+//                    /**
+//                     * la porta è chiusa?
+//                     */
+//
+//                    /**
+//                     * ho la chiave
+//                     */
+//                    if (getEntity().hasComponent(KeychainComponent.class)) {
+//                        if (((KeychainComponent) getEntity().getComponent(KeychainComponent.class).get())
+//                                .getKey()
+//                                .contains(event.getSourceEntity())) {
+//                        }
+//                    }
+//                }
             }
         });
     }

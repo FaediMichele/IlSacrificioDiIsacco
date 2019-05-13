@@ -51,7 +51,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * @param eventListener the {@link EventListener}
      */
     protected void registerListener(final EventListener<? extends Event> eventListener) {
-    	this.getEntity().registerListener(eventListener);
+        this.getEntity().registerListener(eventListener);
         this.eventListeners.add(eventListener);
     }
 
@@ -100,7 +100,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * @param state {@link Boolean}.
      */
     public final void setState(final boolean state) {
-    	this.active = state;
+        this.active = state;
     }
 
     /**

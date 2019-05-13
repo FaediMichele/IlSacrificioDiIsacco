@@ -69,11 +69,11 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
-    	this.entity.forEach(e -> e.update(deltaTime));
+        this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 0) {
             // entity.add(new Bomb());
-        	this.isComplete = true;
+            this.isComplete = true;
         }
     }
 
@@ -98,7 +98,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void insertEntity(final Entity e) {
-    	this.entity.add(e);
+        this.entity.add(e);
         e.changeRoom(this);
     }
 
@@ -107,7 +107,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void deleteEntity(final Entity e) {
-    	this.entity.remove(e);
+        this.entity.remove(e);
         e.changeRoom(null);
     }
 
