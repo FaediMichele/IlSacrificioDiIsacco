@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 
@@ -238,12 +239,11 @@ public class TestModel {
         final List<Entity> entities = new ArrayList<>();
         entities.add(goodEntity);
         entities.add(enemy);
-        final Room r = new RoomImpl(0, null, entities);
+        new RoomImpl(0, new LinkedList<Door>(), entities);
         goodEntity.postEvent(new DamageEvent(enemy));
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), finalEnemyLife);
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), defaultHearts + newHearts - 1);
-
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
