@@ -66,7 +66,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * Post the event for the player that has passed.
      */
     private void postPlayerPassed() {
-        getEntity().postEvent(new DoorChangeEvent(getEntity()));
+    	this.getEntity().postEvent(new DoorChangeEvent(getEntity()));
     }
 
     /**
@@ -75,11 +75,11 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * @return the location
      */
     public Integer getLocation() {
-        return location;
+        return this.location;
     }
 
     @Override
     public final String toString() {
-        return destination + " " + location + " " + hasPlayerPassed;
+        return this.destination + " " + this.location + " " + this.hasPlayerPassed;
     }
 }

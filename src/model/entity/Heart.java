@@ -16,7 +16,7 @@ public class Heart extends AbstractStaticEntity {
      */
     public Heart(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
     /**
@@ -24,7 +24,7 @@ public class Heart extends AbstractStaticEntity {
      */
     public Heart() {
         super();
-        attachComponent(new HeartCollectibleComponent(this));
+        this.attachComponent(new HeartCollectibleComponent(this));
     }
 
 }

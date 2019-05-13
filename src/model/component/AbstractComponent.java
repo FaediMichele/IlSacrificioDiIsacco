@@ -24,7 +24,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
         this.entity = entity;
         this.componentReplaced = Optional.empty();
         this.eventListeners = new LinkedList<EventListener<? extends Event>>();
-        active = true;
+        this.active = true;
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
         component.unregisterAllListener();
         component.disableComponent();
         entity.detachComponent(component);
-        active = true;
+        this.active = true;
     }
 
     /**
@@ -51,7 +51,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * @param eventListener the {@link EventListener}
      */
     protected void registerListener(final EventListener<? extends Event> eventListener) {
-        getEntity().registerListener(eventListener);
+    	this.getEntity().registerListener(eventListener);
         this.eventListeners.add(eventListener);
     }
 
@@ -59,7 +59,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * Register all event listener of this component.
      */
     public void registerAllListener() {
-        this.eventListeners.forEach(eLis -> getEntity().registerListener(eLis));
+        this.eventListeners.forEach(eLis -> this.getEntity().registerListener(eLis));
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * Unregister all event listener of this component.
      */
     public void unregisterAllListener() {
-        this.eventListeners.forEach(eLis -> getEntity().unregisterListener(eLis));
+        this.eventListeners.forEach(eLis -> this.getEntity().unregisterListener(eLis));
     }
 
     /**
@@ -91,7 +91,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      */
     @EqualsForGetters
     public final boolean isActive() {
-        return active;
+        return this.active;
     }
 
     /**
@@ -100,7 +100,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * @param state {@link Boolean}.
      */
     public final void setState(final boolean state) {
-        active = state;
+    	this.active = state;
     }
 
     /**
@@ -109,7 +109,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * @return {@link Entity}.
      */
     public Entity getEntity() {
-        return entity;
+        return this.entity;
     }
 
     /**
@@ -118,10 +118,10 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      * @param e {@link Entity}
      */
     protected final void setEntity(final Entity e) {
-        if (entity != null) {
+        if (this.entity != null) {
             throw new IllegalStateException();
         }
-        entity = e;
+        this.entity = e;
     }
 
     /**
@@ -129,7 +129,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
      */
     @EqualsForGetters
     public Optional<C> getComponentReplaced() {
-        return componentReplaced;
+        return this.componentReplaced;
     }
 
     /**

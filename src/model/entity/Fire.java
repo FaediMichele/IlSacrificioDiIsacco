@@ -19,8 +19,8 @@ public class Fire extends AbstractStaticEntity {
      */
     public Fire(final FireType fireType) {
         super();
-        attachComponent(new FireComponent(this, fireType));
-        attachComponent(new MentalityComponent(this, Mentality.EVIL));
+        this.attachComponent(new FireComponent(this, fireType));
+        this.attachComponent(new MentalityComponent(this, Mentality.EVIL));
     }
 
     /**
@@ -30,6 +30,6 @@ public class Fire extends AbstractStaticEntity {
      */
     public Fire(final BodyComponent entityBody, final CollisionComponent entityCollision, final FireType fireType) {
         this(fireType);
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 }

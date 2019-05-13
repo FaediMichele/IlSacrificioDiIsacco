@@ -61,7 +61,7 @@ public interface Entity {
      * @param c {@link Component} to search
      * @return true if the entity has the {@link Component} else false
      */
-    boolean hasComponent(Class<? extends Component> c);
+    boolean hasComponent(Class<?> c);
 
     /**
      * Gets the certain kind of {@link Component} from Entity.

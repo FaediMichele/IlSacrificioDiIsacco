@@ -17,9 +17,9 @@ public class Player extends AbstractMovableEntity {
      */
     public Player() {
         super();
-        attachComponent(new HealthComponent(this));
-        attachComponent(new InventoryComponent(this));
-        attachComponent(new MentalityComponent(this, Mentality.GOOD));
+        this.attachComponent(new HealthComponent(this));
+        this.attachComponent(new InventoryComponent(this));
+        this.attachComponent(new MentalityComponent(this, Mentality.GOOD));
     }
 
     /**
@@ -28,6 +28,6 @@ public class Player extends AbstractMovableEntity {
      */
     public Player(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 }

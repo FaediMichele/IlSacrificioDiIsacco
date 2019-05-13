@@ -37,12 +37,12 @@ public class SimpleHeart extends AbstractHeart {
      */
     @Override
     public double getDamaged(final double damageValue) {
-        if (damageValue < value) {
-            value = value - damageValue;
+        if (damageValue < this.value) {
+        	this.value -= damageValue;
             return 0;
         } else {
-            final double tempValue = value;
-            value = 0;
+            final double tempValue = this.value;
+            this.value = 0;
             return damageValue - tempValue;
         }
     }
@@ -52,7 +52,7 @@ public class SimpleHeart extends AbstractHeart {
      */
     @Override
     public double getValue() {
-        return value;
+        return this.value;
     }
 
     /**

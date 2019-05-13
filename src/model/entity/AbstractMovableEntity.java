@@ -16,7 +16,7 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      */
     public AbstractMovableEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
     /**
@@ -24,6 +24,6 @@ public abstract class AbstractMovableEntity extends AbstractEntity {
      */
     public AbstractMovableEntity() {
         super();
-        attachComponent(new MoveComponent(this));
+        this.attachComponent(new MoveComponent(this));
     }
 }

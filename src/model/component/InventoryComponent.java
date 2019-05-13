@@ -45,7 +45,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     }
 
     private void registrListeners() {
-        registerListener(new EventListener<PickUpEvent>() {
+    	this.registerListener(new EventListener<PickUpEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
@@ -59,7 +59,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             }
         });
 
-        registerListener(new EventListener<ReleaseEvent>() {
+    	this.registerListener(new EventListener<ReleaseEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final ReleaseEvent event) {
@@ -92,9 +92,9 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @return true if the entity has been collected correctly or false if it was not possible to collect the entity
      */
     protected boolean addThing(final Entity thing) {
-        if (things.stream().filter(i -> i.getClass().equals(thing.getClass())).count() < MAX_NUMBER_FOR_EACH_ITEM) {
+        if (this.things.stream().filter(i -> i.getClass().equals(thing.getClass())).count() < MAX_NUMBER_FOR_EACH_ITEM) {
             ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
-            things.add(thing);
+            this.things.add(thing);
             return true;
         }
         return false;
@@ -110,7 +110,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
                 .setPosition(((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getPosition());
         releaser.getRoom().insertEntity(thing);
-        things.remove(thing);
+        this.things.remove(thing);
     }
 
     /**

@@ -17,7 +17,7 @@ public abstract class AbstractEnemy extends AbstractMovableEntity {
      */
     public AbstractEnemy(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
     /**
@@ -25,7 +25,7 @@ public abstract class AbstractEnemy extends AbstractMovableEntity {
      */
     public AbstractEnemy() {
         super();
-        attachComponent(new MentalityComponent(this, Mentality.EVIL));
+        this.attachComponent(new MentalityComponent(this, Mentality.EVIL));
     }
 
 }

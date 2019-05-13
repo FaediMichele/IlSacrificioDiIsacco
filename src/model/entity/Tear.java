@@ -21,6 +21,6 @@ public class Tear extends AbstractMovableEntity {
      */
     public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 }

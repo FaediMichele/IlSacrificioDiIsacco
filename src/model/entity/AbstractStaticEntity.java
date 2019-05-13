@@ -16,8 +16,7 @@ public class AbstractStaticEntity extends AbstractEntity {
      */
     public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
-        // TODO Auto-generated constructor stub
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
     /**

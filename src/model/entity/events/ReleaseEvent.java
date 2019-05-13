@@ -23,7 +23,7 @@ public class ReleaseEvent extends AbstractEvent {
      * @return released entity
      */
     public Class<? extends Entity> getReleasedEntityClass() {
-        return releasedEntityClass;
+        return this.releasedEntityClass;
     }
 
 }

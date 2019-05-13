@@ -27,7 +27,7 @@ public class FireComponent extends AbstractComponent<FireComponent> {
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
 
-        registerListener(new EventListener<FireHittedEvent>() {
+        this.registerListener(new EventListener<FireHittedEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final FireHittedEvent event) {
@@ -40,7 +40,7 @@ public class FireComponent extends AbstractComponent<FireComponent> {
             }
         });
 
-        registerListener(new EventListener<FireOutEvent>() {
+        this.registerListener(new EventListener<FireOutEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final FireOutEvent event) {
@@ -71,7 +71,7 @@ public class FireComponent extends AbstractComponent<FireComponent> {
      * @return the fireType
      */
     public FireType getFireType() {
-        return fireType;
+        return this.fireType;
     }
 
     /**

@@ -15,7 +15,7 @@ public class Rock extends AbstractStaticEntity {
      */
     public Rock() {
         super();
-        attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
+        this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
     }
 
     /**
@@ -25,7 +25,7 @@ public class Rock extends AbstractStaticEntity {
      */
     public Rock(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
 }

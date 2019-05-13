@@ -18,7 +18,7 @@ public class KeychainComponent extends AbstractComponent<KeychainComponent> {
 
     KeychainComponent(final Entity entity) {
         super(entity);
-        doors = new HashSet<Door>();
+        this.doors = new HashSet<Door>();
 
     }
  

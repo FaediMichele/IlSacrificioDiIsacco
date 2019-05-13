@@ -144,7 +144,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param factor multiply factor of the height and width.
      */
     protected void scaleDimension(final double factor) {
-        scaleDimension(factor, factor);
+    	this.scaleDimension(factor, factor);
     }
 
     /**

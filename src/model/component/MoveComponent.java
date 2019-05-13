@@ -55,7 +55,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.friction = friction;
         this.initMove();
 
-        registerListener(new EventListener<MoveEvent>() {
+        this.registerListener(new EventListener<MoveEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final MoveEvent event) {
@@ -76,7 +76,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.friction = DEFAULT_FRICTION;
         this.initMove();
 
-        registerListener(new EventListener<MoveEvent>() {
+        this.registerListener(new EventListener<MoveEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final MoveEvent event) {
@@ -154,7 +154,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @return maxSped
      */
     public double getMaxSpeed() {
-        return maxSpeed;
+        return this.maxSpeed;
     }
 
     /**

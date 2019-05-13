@@ -28,13 +28,13 @@ public class KeyCollectibleComponent extends AbstractCollectibleComponent {
     protected void init(final Entity entity) {
         if (entity.hasComponent(KeychainComponent.class)) {
             if (((KeychainComponent) entity.getComponent(KeychainComponent.class).get()).addKey(this.door)) {
-                deleteThisEntity();
+            	this.deleteThisEntity();
             }
         } else {
             final KeychainComponent keychainComponent = new KeychainComponent(entity);
             keychainComponent.addKey(this.door);
             entity.attachComponent(keychainComponent);
-            deleteThisEntity();
+            this.deleteThisEntity();
         }
     }
 }

@@ -18,8 +18,8 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb() {
         super();
-        attachComponent(new MentalityComponent(this, Mentality.PSYCHO));
-        attachComponent(new BombCollectibleComponent(this, 3, 1000, 100));
+        this.attachComponent(new MentalityComponent(this, Mentality.PSYCHO));
+        this.attachComponent(new BombCollectibleComponent(this, 3, 1000, 100));
     }
 
     /**
@@ -28,7 +28,7 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
 }

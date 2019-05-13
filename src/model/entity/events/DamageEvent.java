@@ -35,6 +35,6 @@ public class DamageEvent extends AbstractEvent {
      * @return the damageValue
      */
     public Optional<Double> getDamageValue() {
-        return damageValue;
+        return this.damageValue;
     }
 }

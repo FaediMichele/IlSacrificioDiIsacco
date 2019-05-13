@@ -38,7 +38,7 @@ public abstract class AbstractCollectibleCollectableComponent extends AbstractCo
      * @return {@link Optional} of {@link Entity} that collect this entity.
      */
     protected Optional<Entity> getEntityThatCollectedMe() {
-        return entityThatCollectedMe;
+        return this.entityThatCollectedMe;
     }
 
     /**
