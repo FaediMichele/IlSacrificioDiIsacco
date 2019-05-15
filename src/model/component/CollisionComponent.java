@@ -31,19 +31,17 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                  * damage management
                  */
                 Mentality myMentality = Mentality.NEUTRAL;
-                Mentality oposedMentality = Mentality.NEUTRAL;
+                Mentality oppositeMentality = Mentality.NEUTRAL;
                 if (event.getSourceEntity().hasComponent(MentalityComponent.class)) {
-                    myMentality = ((MentalityComponent) getEntity().getComponent(MentalityComponent.class).get())
-                            .getMentality();
-                }
-                if (event.getSourceEntity().hasComponent(MentalityComponent.class)) {
-                    oposedMentality = ((MentalityComponent) event.getSourceEntity()
+                    myMentality =       ((MentalityComponent) getEntity()
+                            .getComponent(MentalityComponent.class).get()).getMentality();
+                    oppositeMentality =  ((MentalityComponent) event.getSourceEntity()
                             .getComponent(MentalityComponent.class).get()).getMentality();
                 }
 
-                if ((myMentality.equals(Mentality.EVIL) && oposedMentality.equals(Mentality.GOOD))
-                        || (myMentality.equals(Mentality.GOOD) && oposedMentality.equals(Mentality.EVIL))
-                        || (oposedMentality.equals(Mentality.PSYCHO) && !myMentality.equals(Mentality.NEUTRAL))) {
+                if ((myMentality.equals(Mentality.EVIL) && oppositeMentality.equals(Mentality.GOOD))
+                        || (myMentality.equals(Mentality.GOOD) && oppositeMentality.equals(Mentality.EVIL))
+                        || (oppositeMentality.equals(Mentality.PSYCHO) && !myMentality.equals(Mentality.NEUTRAL))) {
                     getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
                 }
 
