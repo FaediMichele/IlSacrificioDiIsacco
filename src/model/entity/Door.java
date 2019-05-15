@@ -27,7 +27,7 @@ public class Door extends AbstractStaticEntity {
     public Door(final Integer location, final Integer destinationIndex) {
         super();
         this.attachComponent(generateBody(location));
-        this.attachComponent(new DoorComponent(this, location, destinationIndex));
+        this.attachComponent(new DoorComponent(this, location, destinationIndex, true));
         this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
     }
 

@@ -16,14 +16,15 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
     private final Integer destination;
     private final Integer location;
     private final boolean hasPlayerPassed;
-    private boolean locked;
+    private final boolean locked;
 
     /**
      * Create a door component with a destination room index.
      * 
-     * @param location         The {@link Room} where the player is
+     * @param location The {@link Room} where the player is
      * @param destinationIndex index of the room
-     * @param entity                Entity that possess the component
+     * @param entity Entity that possess the component
+     * @param locked says if the door is locked
      */
     public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex, final boolean locked) {
         super(entity);
@@ -37,9 +38,9 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
-                    if(locked && coll.getSourceEntity().hasComponent(KeychainComponent.class)) {
+                    if (locked && coll.getSourceEntity().hasComponent(KeychainComponent.class)) {
                            // ((KeychainComponent) coll.getSourceEntity().getComponent(KeychainComponent.class).get()).
-                        
+                        System.out.println("TODO" + locked);
                     }
                     coll.getSourceEntity().getRoom().getFloor()
                     .changeEntityRoom(coll.getSourceEntity(), location, destination);
@@ -56,6 +57,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * @return if the door is triggered
      */
     public boolean playerPassed() {
+        System.out.println("TODO" + locked);
         return this.hasPlayerPassed;
     }
 
