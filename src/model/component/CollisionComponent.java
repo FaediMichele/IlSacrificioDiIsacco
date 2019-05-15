@@ -1,5 +1,7 @@
 package model.component;
 
+import java.awt.RenderingHints.Key;
+
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
@@ -52,10 +54,10 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                     getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
                 }
 
-//                /**
-//                 * handles the collision with the door
-//                 */
-//                if (event.getSourceEntity().hasComponent(DoorComponent.class)) {
+                /**
+                 * handles the collision with a locked component
+                 */
+//                if (event.getSourceEntity().hasComponent(LockComponent.class)) {
 //                    /**
 //                     * la porta è chiusa?
 //                     */
@@ -63,7 +65,8 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
 //                    /**
 //                     * ho la chiave
 //                     */
-//                    if (getEntity().hasComponent(KeychainComponent.class)) {
+//                    if (getEntity().hasComponent(InventoryComponent.class) &&
+//                            ((InventoryComponent)getEntity().getComponent(InventoryComponent.class).get()).thingsOfThisKind(Key.class))  {
 //                        if (((KeychainComponent) getEntity().getComponent(KeychainComponent.class).get())
 //                                .getKey()
 //                                .contains(event.getSourceEntity())) {

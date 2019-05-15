@@ -115,10 +115,10 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     /**
      * 
-     * @param thing
+     * @param thingClass 
      * @return number of things of some kind (Es. number of bombs, number of keys)
      */
-    private int thingsOfThisKind(final Class<? extends Entity> thingClass) {
+    protected int thingsOfThisKind(final Class<? extends Entity> thingClass) {
         return (int) this.things.stream().filter(i -> i.getClass().equals(thingClass)).count();
     }
 
