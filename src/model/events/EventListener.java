@@ -1,4 +1,4 @@
-package model.entity.events;
+package model.events;
 
 /**
  * The interfaces for all the first kind of event listeners.

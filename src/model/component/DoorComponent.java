@@ -3,9 +3,9 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
-import model.entity.events.CollisionEvent;
-import model.entity.events.DoorChangeEvent;
-import model.entity.events.EventListener;
+import model.events.CollisionEvent;
+import model.events.DoorChangeEvent;
+import model.events.EventListener;
 
 /**
  * This component is used by the doors.

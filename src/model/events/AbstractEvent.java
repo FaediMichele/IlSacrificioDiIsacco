@@ -1,4 +1,4 @@
-package model.entity.events;
+package model.events;
 
 import model.entity.Entity;
 import java.util.Objects;

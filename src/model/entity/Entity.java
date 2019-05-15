@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import model.component.Component;
-import model.entity.events.Event;
-import model.entity.events.EventListener;
+import model.events.Event;
+import model.events.EventListener;
 import model.game.Room;
 
 /**

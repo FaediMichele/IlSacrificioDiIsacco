@@ -1,7 +1,7 @@
 package model.component;
 
 import model.entity.Entity;
-import model.entity.events.DamageEvent;
+import model.events.DamageEvent;
 
 /**
  * When a black heart value reaches 0, it damages all the enemy in the room.

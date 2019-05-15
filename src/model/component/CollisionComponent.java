@@ -3,10 +3,10 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
-import model.entity.events.CollisionEvent;
-import model.entity.events.DamageEvent;
-import model.entity.events.EventListener;
-import model.entity.events.PickUpEvent;
+import model.events.CollisionEvent;
+import model.events.DamageEvent;
+import model.events.EventListener;
+import model.events.PickUpEvent;
 
 /**
  * This class manages the collision of this entity with the others.

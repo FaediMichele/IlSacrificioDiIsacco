@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import model.entity.Entity;
-import model.entity.events.Event;
-import model.entity.events.EventListener;
+import model.events.Event;
+import model.events.EventListener;
 import util.EqualsForGetters;
 import util.StaticMethodsUtils;
 

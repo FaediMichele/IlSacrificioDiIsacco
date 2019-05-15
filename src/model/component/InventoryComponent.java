@@ -8,9 +8,9 @@ import java.util.Set;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
-import model.entity.events.EventListener;
-import model.entity.events.PickUpEvent;
-import model.entity.events.ReleaseEvent;
+import model.events.EventListener;
+import model.events.PickUpEvent;
+import model.events.ReleaseEvent;
 
 /**
  * Keeps track of all the objects (which are entity themselves) that my entity

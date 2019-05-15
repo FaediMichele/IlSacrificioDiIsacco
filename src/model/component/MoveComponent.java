@@ -3,8 +3,8 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
-import model.entity.events.EventListener;
-import model.entity.events.MoveEvent;
+import model.events.EventListener;
+import model.events.MoveEvent;
 
 /**
  * Component that manages the movement of the entity and its speed.

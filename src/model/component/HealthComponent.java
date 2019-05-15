@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
-import model.entity.events.DamageEvent;
-import model.entity.events.EventListener;
+import model.events.DamageEvent;
+import model.events.EventListener;
 
 /**
  * This component controls the health of the entity.
