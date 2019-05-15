@@ -92,7 +92,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @return true if the entity has been collected correctly or false if it was not possible to collect the entity
      */
     protected boolean addThing(final Entity thing) {
-        if (this.things.stream().filter(i -> i.getClass().equals(thing.getClass())).count() < MAX_NUMBER_FOR_EACH_ITEM) {
+        if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
             ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
             this.things.add(thing);
             return true;
