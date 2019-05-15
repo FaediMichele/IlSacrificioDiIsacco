@@ -16,6 +16,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
     private final Integer destination;
     private final Integer location;
     private final boolean hasPlayerPassed;
+    private boolean locked;
 
     /**
      * Create a door component with a destination room index.
@@ -24,17 +25,22 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * @param destinationIndex index of the room
      * @param entity                Entity that possess the component
      */
-    public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+    public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex, final boolean locked) {
         super(entity);
         this.hasPlayerPassed = false;
         this.location = location;
         this.destination = destinationIndex;
+        this.locked = locked;
         entity.registerListener(new EventListener<CollisionEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+                    if(locked && coll.getSourceEntity().hasComponent(KeychainComponent.class)) {
+                           // ((KeychainComponent) coll.getSourceEntity().getComponent(KeychainComponent.class).get()).
+                        
+                    }
                     coll.getSourceEntity().getRoom().getFloor()
                     .changeEntityRoom(coll.getSourceEntity(), location, destination);
                     postPlayerPassed();

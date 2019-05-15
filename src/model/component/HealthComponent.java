@@ -27,7 +27,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      */
     public HealthComponent(final Entity entity, final int defaultHearts) {
         super(entity);
-        int realHeartNumber = Math.min(defaultHearts, MAX_HEARTS);
+        final int realHeartNumber = Math.min(defaultHearts, MAX_HEARTS);
         this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart()).collect(Collectors.toList());
         /*hearts = new ArrayList<>();
         for (int i = 0; i < realHeartNumber; i++) {
