@@ -75,7 +75,6 @@ public class CircleListJavafx extends Group implements CircleList {
     @Override
     public void setMarginLeft(final double posX) {
         this.setLayoutX(posX);
-        updateNode();
     }
 
     /**
@@ -84,7 +83,6 @@ public class CircleListJavafx extends Group implements CircleList {
     @Override
     public void setMarginTop(final double posY) {
         this.setLayoutY(posY);
-        updateNode();
     }
 
     /**
