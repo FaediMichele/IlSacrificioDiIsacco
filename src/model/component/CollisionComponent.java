@@ -1,7 +1,4 @@
 package model.component;
-
-import java.awt.RenderingHints.Key;
-
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;

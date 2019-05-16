@@ -49,9 +49,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final Optional<Component> oc = event.getSourceEntity().getComponents().stream()
-                        .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleComponent.class))
-                        .findFirst();
+                final Optional<? extends Component> oc =  event.getSourceEntity().getComponent(AbstractCollectibleComponent.class);
                 if (oc.isPresent()) {
                     final AbstractCollectibleComponent absCollComp = (AbstractCollectibleComponent) oc.get();
                     absCollComp.init(getEntity());
@@ -126,7 +124,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * 
      * @return the list of things that have been collected
      */
-    protected Set<Entity> getThings() {
+    public Set<Entity> getThings() {
         return Collections.unmodifiableSet(this.things);
     }
 }

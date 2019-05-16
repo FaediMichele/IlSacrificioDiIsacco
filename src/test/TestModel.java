@@ -10,13 +10,17 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 
+import model.component.AbstractCollectibleComponent;
 import model.component.BlackHeart;
 import model.component.BodyComponent;
+import model.component.BombCollectibleComponent;
+import model.component.CollisionComponent;
 import model.component.DamageComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
+import model.component.InventoryComponent;
 import model.component.Mentality;
 import model.component.MentalityComponent;
 import model.component.MoveComponent;
@@ -26,6 +30,7 @@ import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Player;
 import model.entity.Rock;
+import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.FireHittedEvent;
 import model.events.MoveEvent;
@@ -38,10 +43,9 @@ import model.game.RoomImpl;
  * Test in JUnit for the package model.game.
  * 
  */
-@SuppressWarnings("all")
 public class TestModel {
 
-     /**
+    /**
      * Test for {@link Entity}.
      */
     @Test
@@ -85,7 +89,7 @@ public class TestModel {
                 Integer.valueOf(3));
         assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
                 Integer.valueOf(2));
-        //((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
+        // ((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
     }
 
     /**
@@ -95,15 +99,9 @@ public class TestModel {
     public void testFloor() {
         final List<Room> rooms = new ArrayList<>();
         boolean ok;
-        rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(
-                new Door(0, 1),
-                new Door(1, 2)))));
-        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(
-                new Door(2, 0),
-                new Door(1, 2)))));
-        rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(
-                new Door(3, 0),
-                new Door(1, 1)))));
+        rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(new Door(0, 1), new Door(1, 2)))));
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0), new Door(1, 2)))));
+        rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(new Door(3, 0), new Door(1, 1)))));
         final Floor f = new FloorImpl(rooms);
 
         assertEquals(Integer.valueOf(f.getActiveRoom().getIndex()), Integer.valueOf(0));
@@ -119,9 +117,7 @@ public class TestModel {
         assertTrue(ok);
         rooms.forEach(r -> assertEquals(r.getFloor(), f));
         assertEquals(f.getActiveRoom(), rooms.get(1));
-        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(
-                new Door(2, 0),
-                new Door(1, 2))));
+        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(new Door(2, 0), new Door(1, 2))));
         assertThrows(IllegalStateException.class, () -> rooms.get(0).setFloor(new FloorImpl()));
     }
 
@@ -184,14 +180,14 @@ public class TestModel {
         final Entity firstEnemy = new Player();
         final double firstDamage = 0.4;
         firstEnemy.attachComponent(new DamageComponent(firstEnemy, firstDamage));
-        goodEntity.postEvent(new DamageEvent(firstEnemy)); 
+        goodEntity.postEvent(new DamageEvent(firstEnemy));
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - firstDamage);
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 3);
 
         final Entity secondEnemy = new Player();
         final double secondDamage = 1.5;
         secondEnemy.attachComponent(new DamageComponent(secondEnemy, secondDamage));
-        goodEntity.postEvent(new DamageEvent(secondEnemy)); 
+        goodEntity.postEvent(new DamageEvent(secondEnemy));
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 2);
         assertTrue(this.getHealthComponent(goodEntity).isAlive());
         assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts - firstDamage - secondDamage);
@@ -199,7 +195,7 @@ public class TestModel {
         final Entity thirdEnemy = new Player();
         final double thirdDamage = 0.1;
         thirdEnemy.attachComponent(new DamageComponent(thirdEnemy, thirdDamage));
-        goodEntity.postEvent(new DamageEvent(thirdEnemy)); 
+        goodEntity.postEvent(new DamageEvent(thirdEnemy));
         assertTrue(this.getHealthComponent(goodEntity).isAlive());
         assertEquals(this.getHealthComponent(goodEntity).getLife(), 1);
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), 1);
@@ -207,7 +203,7 @@ public class TestModel {
         final Entity fourthEnemy = new Player();
         final double fourthDamage = 1.0;
         fourthEnemy.attachComponent(new DamageComponent(fourthEnemy, fourthDamage));
-        goodEntity.postEvent(new DamageEvent(fourthEnemy)); 
+        goodEntity.postEvent(new DamageEvent(fourthEnemy));
         assertFalse(this.getHealthComponent(goodEntity).isAlive());
         assertEquals(this.getHealthComponent(goodEntity).getLife(), 0);
     }
@@ -232,7 +228,7 @@ public class TestModel {
         enemy.attachComponent(new DamageComponent(enemy, damage));
         enemy.attachComponent(new HealthComponent(enemy));
         enemy.attachComponent(new MentalityComponent(enemy, Mentality.EVIL));
-        goodEntity.postEvent(new DamageEvent(enemy)); 
+        goodEntity.postEvent(new DamageEvent(enemy));
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), 3);
 
@@ -244,6 +240,42 @@ public class TestModel {
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), finalEnemyLife);
         assertEquals(this.getHealthComponent(goodEntity).getNumberOfHearts(), defaultHearts + newHearts - 1);
+    }
+
+    /**
+     * Test for {@link CollisionComponent}.
+     */
+    @Test
+    public void testCollisionComponent() {
+        final Player playerA = new Player();
+        final Player playerB = new Player();
+        final double damage = 0.2;
+        final double settingBombTest = 0.5;
+        final int numberOfThing = 1;
+        double life;
+
+        playerA.attachComponent(new CollisionComponent(playerA))
+                .attachComponent(new MentalityComponent(playerA, Mentality.GOOD))
+                .attachComponent(new HealthComponent(playerA))
+                .attachComponent(new InventoryComponent(playerA));
+        playerB.attachComponent(new MentalityComponent(playerB, Mentality.EVIL))
+                .attachComponent(new DamageComponent(playerB, damage));
+        life = ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife();
+        playerA.postEvent(new CollisionEvent(playerB));
+        assertEquals(life - damage, ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife());
+
+        playerB.attachComponent(new MentalityComponent(playerB, Mentality.GOOD));
+        playerA.postEvent(new CollisionEvent(playerB));
+        assertEquals(life - damage, ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife());
+
+        playerB.attachComponent(
+                new BombCollectibleComponent(playerB, settingBombTest, (int) settingBombTest, (int) settingBombTest));
+        Room room = new RoomImpl(2, null);
+        room.insertEntity(playerB);
+        playerA.postEvent(new CollisionEvent(playerB));
+        assertEquals(true, playerB.hasComponent(AbstractCollectibleComponent.class));
+        assertEquals(numberOfThing, ((InventoryComponent) playerA.getComponent(InventoryComponent.class).get()).getThings().size());
+
     }
 
     private HealthComponent getHealthComponent(final Entity e) {

@@ -17,8 +17,9 @@ public interface Entity {
      * Attaches a {@link Component} to the Entity to describe its behavior.
      * 
      * @param c {@link Component} to attach to the Entity
+     * @return this Entity.
      */
-    void attachComponent(Component c);
+    Entity attachComponent(Component c);
 
     /**
      * Detaches a {@link Component} from the Entity.
@@ -61,7 +62,7 @@ public interface Entity {
      * @param c {@link Component} to search
      * @return true if the entity has the {@link Component} else false
      */
-    boolean hasComponent(Class<?> c);
+    boolean hasComponent(Class<? extends Component> c);
 
     /**
      * Gets the certain kind of {@link Component} from Entity.

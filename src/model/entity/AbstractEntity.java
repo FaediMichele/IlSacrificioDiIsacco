@@ -44,11 +44,12 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final void attachComponent(final Component c) {
+    public final Entity attachComponent(final Component c) {
         if (this.hasComponent(c.getClass())) {
             detachComponent(getComponent(c.getClass()).get());
         }
         this.componentsMap.put(c.getClass(), c);
+        return this;
     }
 
     @Override
@@ -78,13 +79,13 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final boolean hasComponent(final Class<?> c) {
-        return this.componentsMap.containsKey(c);
+    public final boolean hasComponent(final Class<? extends Component> c) {
+        return this.getComponent(c).isPresent();
     }
 
     @Override
     public final Optional<? extends Component> getComponent(final Class<? extends Component> c) {
-        if (this.hasComponent(c)) {
+        if (this.componentsMap.containsKey(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
             return this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
