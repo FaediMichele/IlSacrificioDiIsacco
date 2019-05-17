@@ -64,7 +64,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
                     final Optional<Entity> thingToRelease = things.stream()
                                                                   .filter(i -> i.getClass().equals(event.getReleasedEntityClass()))
-                                                                  .findAny();
+                                                                  .findFirst();
                     if (!thingToRelease.isPresent()) {
                         throw new IllegalArgumentException();
                     }
@@ -99,15 +99,22 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     }
 
     /**
-     * The thing that has to be removed from the list because it has been used.
-     * 
-     * @param thing to remove
+     * The thing that has to be removed from the list and appear in the room.
+     * @param thing to release
      */
     private void releaseThing(final Entity thing, final Entity releaser) {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(true);
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
                 .setPosition(((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getPosition());
         releaser.getRoom().insertEntity(thing);
+        this.things.remove(thing);
+    }
+
+    /**
+     * The thing that has to be consumed (removed from the list).
+     * @param thing to remove
+     */
+    protected void consumeThing(final Entity thing) {
         this.things.remove(thing);
     }
 
