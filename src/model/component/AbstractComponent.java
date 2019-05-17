@@ -2,6 +2,7 @@ package model.component;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import model.entity.Entity;
 import model.events.Event;
@@ -21,6 +22,7 @@ public abstract class AbstractComponent<C extends Component> implements Componen
     private final List<EventListener<? extends Event>> eventListeners;
 
     AbstractComponent(final Entity entity) {
+        Objects.requireNonNull(entity);
         this.entity = entity;
         this.componentReplaced = Optional.empty();
         this.eventListeners = new LinkedList<EventListener<? extends Event>>();

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import model.component.BodyComponent;
@@ -40,6 +41,8 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
+        Objects.requireNonNull(entityBody);
+        Objects.requireNonNull(entityCollision);
         this.setDefaultComponents(entityBody, entityCollision);
     }
 

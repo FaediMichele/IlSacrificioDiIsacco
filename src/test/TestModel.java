@@ -43,6 +43,7 @@ import model.game.RoomImpl;
  * Test in JUnit for the package model.game.
  * 
  */
+@SuppressWarnings("all")
 public class TestModel {
 
     /**

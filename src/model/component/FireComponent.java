@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.Objects;
+
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Heart;
@@ -24,6 +26,7 @@ public class FireComponent extends AbstractComponent<FireComponent> {
      */
     public FireComponent(final Entity entity, final FireType fireType) {
         super(entity);
+        Objects.requireNonNull(fireType);
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
 
