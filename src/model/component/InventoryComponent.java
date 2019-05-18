@@ -1,9 +1,9 @@
 package model.component;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -20,7 +20,7 @@ import model.events.ReleaseEvent;
 public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     private static final int MAX_NUMBER_FOR_EACH_ITEM = 99;
-    private final Set<Entity> things;
+    private final List<Entity> things;
 
     /**
      * Default InventoryComponent constructor.
@@ -29,7 +29,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     public InventoryComponent(final Entity entity) {
         super(entity);
-        this.things = new HashSet<>();
+        this.things = new ArrayList<Entity>();
         this.registrListeners();
     }
 
@@ -130,7 +130,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * 
      * @return the list of things that have been collected
      */
-    public Set<Entity> getThings() {
-        return Collections.unmodifiableSet(this.things);
+    public List<Entity> getThings() {
+        return Collections.unmodifiableList(this.things);
     }
 }

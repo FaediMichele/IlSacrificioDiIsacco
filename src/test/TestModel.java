@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
-
 import model.component.AbstractPickupableComponent;
 import model.component.BlackHeart;
 import model.component.BodyComponent;
@@ -297,15 +296,15 @@ public class TestModel {
         assertEquals(room.getEntity().size(), 2);
         p.postEvent(new CollisionEvent(b2));
         assertEquals(true, b2.hasComponent(AbstractPickupableComponent.class));
-        //assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        //assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
         assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
         assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b));
       //quando inserisce b2, sembra che le metta insieme, infatti risulta 1 solo oggetto ma in reltà ci sono sia b che b2
 
         p.postEvent(new ReleaseEvent(p, b.getClass()));
-        assertEquals(0, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        //assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
+        //assertEquals(0, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
         assertEquals(room.getEntity().size(), 2);
         assertTrue(room.getEntity().contains(b));
         assertTrue(room.getEntity().contains(b2));
