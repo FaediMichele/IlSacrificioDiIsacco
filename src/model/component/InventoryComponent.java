@@ -49,9 +49,9 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final Optional<? extends Component> oc =  event.getSourceEntity().getComponent(AbstractCollectibleComponent.class);
+                final Optional<? extends Component> oc =  event.getSourceEntity().getComponent(AbstractPickupableComponent.class);
                 if (oc.isPresent()) {
-                    final AbstractCollectibleComponent absCollComp = (AbstractCollectibleComponent) oc.get();
+                    final AbstractPickupableComponent absCollComp = (AbstractPickupableComponent) oc.get();
                     absCollComp.init(getEntity());
                 }
             }
@@ -71,11 +71,10 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
                     final Optional<Component> oc = thingToRelease.get().getComponents()
                                                        .stream()
-                                                       .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectibleCollectableComponent.class))
+                                                       .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
                                                        .findFirst();
                     if (oc.isPresent()) {
-                        final AbstractCollectibleCollectableComponent absCollCollComp = (AbstractCollectibleCollectableComponent) oc.get();
-                        releaseThing(thingToRelease.get(), event.getSourceEntity());
+                        final AbstractCollectableComponent absCollCollComp = (AbstractCollectableComponent) oc.get();
                         absCollCollComp.use();
                     }
                 }
@@ -102,11 +101,11 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * The thing that has to be removed from the list and appear in the room.
      * @param thing to release
      */
-    private void releaseThing(final Entity thing, final Entity releaser) {
+    protected void releaseThing(final Entity thing) {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(true);
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
-                .setPosition(((BodyComponent) releaser.getComponent(BodyComponent.class).get()).getPosition());
-        releaser.getRoom().insertEntity(thing);
+                .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
+        this.getEntity().getRoom().insertEntity(thing);
         this.things.remove(thing);
     }
 

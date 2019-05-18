@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 
-import model.component.AbstractCollectibleComponent;
+import model.component.AbstractPickupableComponent;
 import model.component.BlackHeart;
 import model.component.BodyComponent;
 import model.component.BombCollectibleComponent;
@@ -25,6 +25,7 @@ import model.component.Mentality;
 import model.component.MentalityComponent;
 import model.component.MoveComponent;
 import model.component.SimpleHeart;
+import model.entity.Bomb;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
@@ -34,6 +35,7 @@ import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.FireHittedEvent;
 import model.events.MoveEvent;
+import model.events.ReleaseEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -252,13 +254,9 @@ public class TestModel {
         final Player playerB = new Player();
         final double damage = 0.2;
         final double settingBombTest = 0.5;
-        final int numberOfThing = 1;
+        final int numberOfThings = 1;
         double life;
 
-        playerA.attachComponent(new CollisionComponent(playerA))
-                .attachComponent(new MentalityComponent(playerA, Mentality.GOOD))
-                .attachComponent(new HealthComponent(playerA))
-                .attachComponent(new InventoryComponent(playerA));
         playerB.attachComponent(new MentalityComponent(playerB, Mentality.EVIL))
                 .attachComponent(new DamageComponent(playerB, damage));
         life = ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife();
@@ -274,9 +272,37 @@ public class TestModel {
         Room room = new RoomImpl(2, null);
         room.insertEntity(playerB);
         playerA.postEvent(new CollisionEvent(playerB));
-        assertEquals(true, playerB.hasComponent(AbstractCollectibleComponent.class));
-        assertEquals(numberOfThing, ((InventoryComponent) playerA.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertEquals(true, playerB.hasComponent(AbstractPickupableComponent.class));
+        assertEquals(numberOfThings, ((InventoryComponent) playerA.getComponent(InventoryComponent.class).get()).getThings().size());
+    }
 
+    /**
+     * Test for {@link InventoryComponent}.
+     */
+    @Test
+    public void testInventoryComponent() {
+        final Player p = new Player();
+        final Bomb b = new Bomb();
+        final Bomb b2 = new Bomb();
+
+        Room room = new RoomImpl(2, null);
+        room.insertEntity(p);
+        room.insertEntity(b);
+        assertEquals(room.getEntity().size(), 2);
+        p.postEvent(new CollisionEvent(b));
+        assertEquals(true, b.hasComponent(BombCollectibleComponent.class));
+        assertEquals(b.getClass(), ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().stream().findFirst().get().getClass());
+        assertEquals(room.getEntity().size(), 1);
+
+        room.insertEntity(b2);
+        assertEquals(room.getEntity().size(), 2);
+        assertEquals(true, b2.hasComponent(BombCollectibleComponent.class));
+        p.postEvent(new CollisionEvent(b2));
+        //assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+
+        p.postEvent(new ReleaseEvent(p, b.getClass()));
+        assertEquals(0, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertEquals(room.getEntity().size(), 2);
     }
 
     private HealthComponent getHealthComponent(final Entity e) {

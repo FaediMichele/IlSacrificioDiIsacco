@@ -8,9 +8,9 @@ import model.entity.Entity;
  * collected.
  *
  */
-public abstract class AbstractCollectibleComponent extends AbstractComponent<AbstractCollectibleComponent> {
+public abstract class AbstractPickupableComponent extends AbstractComponent<AbstractPickupableComponent> {
 
-    AbstractCollectibleComponent(final Entity entity) {
+    AbstractPickupableComponent(final Entity entity) {
         super(entity);
     }
 

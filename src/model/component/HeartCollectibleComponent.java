@@ -6,7 +6,7 @@ import model.entity.Entity;
  * Collectible Component of the heart entity: how the heart have to act when
  * it's collected.
  */
-public class HeartCollectibleComponent extends AbstractCollectibleComponent {
+public class HeartCollectibleComponent extends AbstractPickupableComponent {
 
     private static final Class<? extends Heart> DEFAULT_HEART_KIND = SimpleHeart.class;
     private final Class<? extends Heart> heartKind;

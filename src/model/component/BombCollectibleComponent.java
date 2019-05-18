@@ -6,7 +6,7 @@ import model.entity.Entity;
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's collected.
  */
-public class BombCollectibleComponent extends AbstractCollectibleCollectableComponent {
+public class BombCollectibleComponent extends AbstractCollectableComponent {
 
     private final double explosionScale;
     private final int timeBeforeExplodes;
@@ -32,6 +32,8 @@ public class BombCollectibleComponent extends AbstractCollectibleCollectableComp
      */
     @Override
     protected void use() {
+        ((InventoryComponent) this.getEntityThatCollectedMe().get()
+                .getComponent((InventoryComponent.class)).get()).releaseThing(this.getEntity());
 
         new Thread() {
             @Override
@@ -39,7 +41,7 @@ public class BombCollectibleComponent extends AbstractCollectibleCollectableComp
                 try {
                     Thread.sleep(timeBeforeExplodes);
                     ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale);
-                    /* qui la collisione con le altre entità fa danno e il suo sprite si modifica*/
+                    /* qui la collisione con le altre entità fa danno e il suo sprite si modifica, ci sarà un'evento da postare per modificare lo sprite?*/
                     Thread.sleep(explosionTime);
                     deleteThisEntity();
                 } catch (InterruptedException e) {
