@@ -290,19 +290,28 @@ public class TestModel {
         room.insertEntity(b);
         assertEquals(room.getEntity().size(), 2);
         p.postEvent(new CollisionEvent(b));
-        assertEquals(true, b.hasComponent(BombCollectibleComponent.class));
-        assertEquals(b.getClass(), ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().stream().findFirst().get().getClass());
-        assertEquals(room.getEntity().size(), 1);
+        assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b));
 
         room.insertEntity(b2);
         assertEquals(room.getEntity().size(), 2);
-        assertEquals(true, b2.hasComponent(BombCollectibleComponent.class));
         p.postEvent(new CollisionEvent(b2));
+        assertEquals(true, b2.hasComponent(AbstractPickupableComponent.class));
         //assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
+        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b));
+      //quando inserisce b2, sembra che le metta insieme, infatti risulta 1 solo oggetto ma in reltà ci sono sia b che b2
 
         p.postEvent(new ReleaseEvent(p, b.getClass()));
         assertEquals(0, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
+        //assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
         assertEquals(room.getEntity().size(), 2);
+        assertTrue(room.getEntity().contains(b));
+        assertTrue(room.getEntity().contains(b2));
+        //quando rilascio b anche b2 scompare dall'inventario, infatti abbiamo 0 oggetti e b2 non c'è, mentre nella stanza dice
+        //che abbiamo 2 oggetti, mentre ci sono p, b e b2!!! Insomma, per il programma b e b2 sono lo STESSO OGGETTO!
+
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
