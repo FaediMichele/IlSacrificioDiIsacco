@@ -19,7 +19,7 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb() {
         super();
-        this.attachComponent(new MentalityComponent(this, Mentality.PSYCHO));
+        this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
         this.attachComponent(new BombCollectibleComponent(this, 3, 1000, 100));
         this.attachComponent(new DamageComponent(this, 0.5));
     }

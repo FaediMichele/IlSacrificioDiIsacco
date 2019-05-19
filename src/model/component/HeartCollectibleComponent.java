@@ -30,18 +30,30 @@ public class HeartCollectibleComponent extends AbstractPickupableComponent {
     }
 
     /**
+     * @return heartKind
+     */
+    public Class<? extends Heart> getHeartKind() {
+        return heartKind;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     protected void init(final Entity entity) {
         final HealthComponent healthComponent = ((HealthComponent) entity
                 .getComponent(HealthComponent.class).get());
-        try {
-            if (healthComponent.addHeart(this.heartKind.newInstance())) {
-                deleteThisEntity();
+
+        if (heartKind.equals(BlackHeart.class)) {
+            healthComponent.addHeart(new BlackHeart.Builder(entity).build());
+        } else {
+            try {
+                if (healthComponent.addHeart(this.heartKind.newInstance())) {
+                    deleteThisEntity();
+                }
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
             }
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
         }
     }
 

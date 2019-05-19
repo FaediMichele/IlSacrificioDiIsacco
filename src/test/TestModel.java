@@ -19,6 +19,7 @@ import model.component.DoorComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
+import model.component.HeartCollectibleComponent;
 import model.component.InventoryComponent;
 import model.component.Mentality;
 import model.component.MentalityComponent;
@@ -28,6 +29,7 @@ import model.entity.Bomb;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
+import model.entity.Heart;
 import model.entity.Player;
 import model.entity.Rock;
 import model.events.CollisionEvent;
@@ -272,7 +274,7 @@ public class TestModel {
         room.insertEntity(playerB);
         playerA.postEvent(new CollisionEvent(playerB));
         assertEquals(true, playerB.hasComponent(AbstractPickupableComponent.class));
-        assertEquals(numberOfThings, ((InventoryComponent) playerA.getComponent(InventoryComponent.class).get()).getThings().size());
+        assertEquals(numberOfThings, getInventoryComponent(playerA).getThings().size());
     }
 
     /**
@@ -282,16 +284,16 @@ public class TestModel {
     public void testInventoryComponent() {
         final Player p = new Player();
         final Bomb b = new Bomb();
-        final Bomb b2 = new Bomb();
 
         Room room = new RoomImpl(2, null);
         room.insertEntity(p);
         room.insertEntity(b);
         assertEquals(room.getEntity().size(), 2);
         p.postEvent(new CollisionEvent(b));
-        assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b));
+        assertEquals(1, getInventoryComponent(p).getThings().size());
+        assertTrue(getInventoryComponent(p).getThings().contains(b));
 
+        final Bomb b2 = new Bomb();
         room.insertEntity(b2);
         p.postEvent(new CollisionEvent(b2));
         assertEquals(true, b2.hasComponent(AbstractPickupableComponent.class));
@@ -304,6 +306,19 @@ public class TestModel {
         assertEquals(room.getEntity().size(), 2);
         assertTrue(room.getEntity().contains(b));
         assertEquals(getBodyComponent(p).getPosition(), getBodyComponent(b).getPosition());
+
+        final Heart h = new Heart();
+        room.insertEntity(h);
+        assertEquals(getHealthComponent(p).getHearts().size(), 3);
+        p.postEvent(new CollisionEvent(h));
+        assertEquals(getHealthComponent(p).getHearts().size(), 4);
+
+        final Heart h2 = new Heart();
+        h2.attachComponent(new HeartCollectibleComponent(h2, BlackHeart.class));
+        room.insertEntity(h2);
+        p.postEvent(new CollisionEvent(h2));
+        assertTrue(getHealthComponent(p).getHearts().stream().anyMatch(i -> i.getClass()
+                .equals(((HeartCollectibleComponent) h2.getComponent(HeartCollectibleComponent.class).get()).getHeartKind())));
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
@@ -316,5 +331,9 @@ public class TestModel {
 
     private BodyComponent getBodyComponent(final Entity e) {
         return (BodyComponent) e.getComponent(BodyComponent.class).get();
+    }
+
+    private InventoryComponent getInventoryComponent(final Entity e) {
+        return (InventoryComponent) e.getComponent(InventoryComponent.class).get();
     }
 }
