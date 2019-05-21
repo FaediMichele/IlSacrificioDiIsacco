@@ -13,7 +13,6 @@ import model.component.AbstractPickupableComponent;
 import model.component.BlackHeart;
 import model.component.BodyComponent;
 import model.component.BombCollectibleComponent;
-import model.component.CollisionComponent;
 import model.component.DamageComponent;
 import model.component.DoorComponent;
 import model.component.FireComponent;

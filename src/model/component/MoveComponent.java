@@ -11,7 +11,7 @@ import model.events.MoveEvent;
  *
  */
 
-public class MoveComponent extends AbstractComponent<MoveComponent> implements Cloneable {
+public class MoveComponent extends AbstractComponent<MoveComponent> {
 
     /**
      * Value of the entities that does not need to move.

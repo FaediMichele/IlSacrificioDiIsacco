@@ -40,7 +40,7 @@ public class Tear extends AbstractMovableEntity {
     private MoveComponent getMoveComponent(final Entity e) {
         return ((MoveComponent) e.getComponent(MoveComponent.class).get());
     }
-    
+
     private BodyComponent getBodyComponent(final Entity e) {
         return ((BodyComponent) e.getComponent(BodyComponent.class).get());
     }

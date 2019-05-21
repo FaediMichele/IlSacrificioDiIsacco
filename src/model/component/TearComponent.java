@@ -5,7 +5,7 @@ import model.entity.Entity;
 /**
  *
  */
-public class TearComponent extends AbstractComponent<TearComponent>{
+public class TearComponent extends AbstractComponent<TearComponent> {
 
     private final Directions direction;
     /**
