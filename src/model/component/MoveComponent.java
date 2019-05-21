@@ -11,7 +11,7 @@ import model.events.MoveEvent;
  *
  */
 
-public class MoveComponent extends AbstractComponent<MoveComponent> {
+public class MoveComponent extends AbstractComponent<MoveComponent> implements Cloneable {
 
     /**
      * Value of the entities that does not need to move.
@@ -95,6 +95,13 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     /**
+     * @return friction
+     */
+    public double getFriction() {
+        return friction;
+    }
+
+    /**
      * 
      * @param deltaSpeed is the speed in space/ms
      */
@@ -110,7 +117,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param y move made on the y axis
      * @param z move made on the z axis
      */
-    private void move(final double x, final double y, final double z) {
+    protected void move(final double x, final double y, final double z) {
         System.out.println(xMove + " " + yMove + " " + zMove);
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
@@ -177,5 +184,4 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     private BodyComponent getBody() {
         return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
     }
-
 }

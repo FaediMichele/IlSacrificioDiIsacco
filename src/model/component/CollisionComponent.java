@@ -2,6 +2,7 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
+import model.entity.Tear;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.EventListener;
@@ -70,6 +71,13 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
 //                        }
 //                    }
 //                }
+
+                /**
+                 * handles the disappearing of the tear after a collision
+                 */
+                if (getEntity().getClass().equals(Tear.class)) {
+                    getEntity().getRoom().deleteEntity(getEntity());
+                }
             }
         });
     }

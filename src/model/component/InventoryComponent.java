@@ -30,7 +30,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public InventoryComponent(final Entity entity) {
         super(entity);
         this.things = new ArrayList<Entity>();
-        this.registrListeners();
+        this.registerListeners();
     }
 
     /**
@@ -41,10 +41,10 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public InventoryComponent(final Entity entity, final InventoryComponent component) {
         super(entity, component);
         this.things = component.getThings();
-        this.registrListeners();
+        this.registerListeners();
     }
 
-    private void registrListeners() {
+    private void registerListeners() {
         this.registerListener(new EventListener<PickUpEvent>() {
             @Override
             @Subscribe
