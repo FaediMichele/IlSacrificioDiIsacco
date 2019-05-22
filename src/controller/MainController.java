@@ -40,4 +40,18 @@ public interface MainController {
      * @return the {@link Controller}
      */
     Controller getActiveController();
+
+    /**
+     * Attach a {@link Controller}.
+     * 
+     * @param c the {@link Controller}
+     */
+    void attachController(Controller c);
+
+    /**
+     * Detach a {@link Controller}.
+     * 
+     * @param c the {@link Controller}
+     */
+    void detachController(Class<? extends Controller> c);
 }
