@@ -21,10 +21,10 @@ import view.node.CircleListJavafx;
  */
 public class TestAnimation extends Application {
     private static final double INITIAL_PROPORTION = 0.4;
-    private static final float NUMBER_RECTANGLE = 70f;
+    private static final float NUMBER_RECTANGLE = 10f;
     private static final double WIDTH_PROP = 0.1;
     private static final double HEIGHT_PROP = 0.1;
-    private final CircleList list = new CircleListJavafx(160, 80, 0.9);
+    private final CircleList list = new CircleListJavafx(160, 80, 0.7);
     private final CircleListJavafx list1 = new CircleListJavafx(16, 8, 0.5);
     private double maxX;
     private double maxY;
@@ -99,7 +99,7 @@ public class TestAnimation extends Application {
     private void addRectangles() {
         for (int i = 0; i < NUMBER_RECTANGLE; i++) {
             final Rectangle n = new Rectangle(maxX * INITIAL_PROPORTION * WIDTH_PROP, maxY * INITIAL_PROPORTION * HEIGHT_PROP);
-            n.setFill(new Color(i / NUMBER_RECTANGLE, i / NUMBER_RECTANGLE, i / NUMBER_RECTANGLE, 1.0));
+            n.setFill(new Color(i / NUMBER_RECTANGLE, 1 - i / NUMBER_RECTANGLE, 1 - i / NUMBER_RECTANGLE, 1.0));
             list.addElement(n);
         }
     }
