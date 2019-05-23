@@ -7,7 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Key;
 import model.events.CollisionEvent;
-import model.events.ReleaseEvent;
+import model.events.UseThingEvent;
 import model.events.DoorChangeEvent;
 import model.events.EventListener;
 
@@ -43,7 +43,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
                     final InventoryComponent ic = (InventoryComponent) coll.getSourceEntity().getComponent(InventoryComponent.class).get();
                     if (lc != null && lc.isLocked() && ic != null) {
                         if (ic.thingsOfThisKind(Key.class) > 0) {
-                            coll.getSourceEntity().postEvent(ReleaseEvent(coll.getSourceEntity(), Key.class));
+                            coll.getSourceEntity().postEvent(new UseThingEvent(coll.getSourceEntity(), Key.class));
                             lc.unlock();
                         } else {
                             return;

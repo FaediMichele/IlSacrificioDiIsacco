@@ -35,7 +35,7 @@ import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.FireHittedEvent;
 import model.events.MoveEvent;
-import model.events.ReleaseEvent;
+import model.events.UseThingEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -299,7 +299,7 @@ public class TestModel {
         assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
         assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
 
-        p.postEvent(new ReleaseEvent(p, b.getClass()));
+        p.postEvent(new UseThingEvent(p, b.getClass()));
         assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
         assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
         assertEquals(room.getEntity().size(), 2);

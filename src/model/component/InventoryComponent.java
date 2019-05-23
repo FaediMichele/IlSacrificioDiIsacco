@@ -10,7 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.EventListener;
 import model.events.PickUpEvent;
-import model.events.ReleaseEvent;
+import model.events.UseThingEvent;
 
 /**
  * Keeps track of all the objects (which are entity themselves) that my entity
@@ -57,10 +57,10 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             }
         });
 
-        this.registerListener(new EventListener<ReleaseEvent>() {
+        this.registerListener(new EventListener<UseThingEvent>() {
             @Override
             @Subscribe
-            public void listenEvent(final ReleaseEvent event) {
+            public void listenEvent(final UseThingEvent event) {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
                     final Optional<Entity> thingToRelease = things.stream()
                                                                   .filter(i -> i.getClass().equals(event.getReleasedEntityClass()))
