@@ -259,13 +259,13 @@ public class TestModel {
 
         playerB.attachComponent(new MentalityComponent(playerB, Mentality.EVIL))
                 .attachComponent(new DamageComponent(playerB, damage));
-        life = ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife();
+        life = getHealthComponent(playerA).getLife();
         playerA.postEvent(new CollisionEvent(playerB));
-        assertEquals(life - damage, ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife());
+        assertEquals(life - damage, getHealthComponent(playerA).getLife());
 
         playerB.attachComponent(new MentalityComponent(playerB, Mentality.GOOD));
         playerA.postEvent(new CollisionEvent(playerB));
-        assertEquals(life - damage, ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife());
+        assertEquals(life - damage, getHealthComponent(playerA).getLife());
 
         playerB.attachComponent(
                 new BombCollectibleComponent(playerB, settingBombTest, (int) settingBombTest, (int) settingBombTest));
@@ -296,12 +296,12 @@ public class TestModel {
         room.insertEntity(b2);
         p.postEvent(new CollisionEvent(b2));
         assertEquals(true, b2.hasComponent(AbstractPickupableComponent.class));
-        assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
+        assertEquals(2, getInventoryComponent(p).getThings().size());
+        assertTrue(getInventoryComponent(p).getThings().contains(b2));
 
         p.postEvent(new UseThingEvent(p, b.getClass()));
-        assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
+        assertEquals(1, getInventoryComponent(p).getThings().size());
+        assertTrue(getInventoryComponent(p).getThings().contains(b2));
         assertEquals(room.getEntity().size(), 2);
         assertTrue(room.getEntity().contains(b));
         assertEquals(getBodyComponent(p).getPosition(), getBodyComponent(b).getPosition());
@@ -318,6 +318,8 @@ public class TestModel {
         p.postEvent(new CollisionEvent(h2));
         assertTrue(getHealthComponent(p).getHearts().stream().anyMatch(i -> i.getClass()
                 .equals(((HeartCollectibleComponent) h2.getComponent(HeartCollectibleComponent.class).get()).getHeartKind())));
+
+        // TO-DO: pick up and use also a key
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
