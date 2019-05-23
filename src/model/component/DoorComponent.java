@@ -1,9 +1,13 @@
 package model.component;
 
+
+
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
+import model.entity.Key;
 import model.events.CollisionEvent;
+import model.events.ReleaseEvent;
 import model.events.DoorChangeEvent;
 import model.events.EventListener;
 
@@ -36,11 +40,11 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
                     final LockComponent lc = (LockComponent) getEntity().getComponent(LockComponent.class).get(); 
-                    final KeychainComponent kc = (KeychainComponent) coll.getSourceEntity().getComponent(KeychainComponent.class).get();
-                    if (lc != null && lc.isLocked() && kc != null) {
-                        if (kc.getNumKey() > 0) {
+                    final InventoryComponent ic = (InventoryComponent) coll.getSourceEntity().getComponent(InventoryComponent.class).get();
+                    if (lc != null && lc.isLocked() && ic != null) {
+                        if (ic.thingsOfThisKind(Key.class) > 0) {
+                            coll.getSourceEntity().postEvent(ReleaseEvent(coll.getSourceEntity(), Key.class));
                             lc.unlock();
-                            kc.removeKey();
                         } else {
                             return;
                         }
