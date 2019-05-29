@@ -26,9 +26,9 @@ public class Door extends AbstractStaticEntity {
      */
     public Door(final Integer location, final Integer destinationIndex) {
         super();
-        attachComponent(generateBody(location));
-        attachComponent(new DoorComponent(this, location, destinationIndex));
-        attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
+        this.attachComponent(generateBody(location));
+        this.attachComponent(new DoorComponent(this, location, destinationIndex));
+        this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
     }
 
     /**
@@ -50,26 +50,6 @@ public class Door extends AbstractStaticEntity {
         default:
             throw new IllegalArgumentException();
         }
-    }
-
-    @Override
-    public final int hashCode() {
-        return getComponent(DoorComponent.class).hashCode();
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Door other = (Door) obj;
-        return this.getComponent(DoorComponent.class).equals(other.getComponent(DoorComponent.class));
     }
 
     @Override

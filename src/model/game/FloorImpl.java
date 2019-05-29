@@ -35,8 +35,8 @@ public class FloorImpl implements Floor {
      * Generate a random floor with random room and random enemy.
      */
     public FloorImpl() {
-        rooms = new ArrayList<>();
-        activeRoomIndex = 0;
+        this.rooms = new ArrayList<>();
+        this.activeRoomIndex = 0;
     }
 
     /**
@@ -46,7 +46,7 @@ public class FloorImpl implements Floor {
      */
     public FloorImpl(final List<Room> rooms) {
         this.rooms = new ArrayList<>(rooms);
-        rooms.forEach(r -> r.setFloor(this));
+        this.rooms.forEach(r -> r.setFloor(this));
     }
 
     /**
@@ -54,7 +54,7 @@ public class FloorImpl implements Floor {
      */
     @Override
     public Room getActiveRoom() {
-        return rooms.get(activeRoomIndex);
+        return this.rooms.get(this.activeRoomIndex);
     }
 
     /**
@@ -62,10 +62,10 @@ public class FloorImpl implements Floor {
      */
     @Override
     public void changeRoom(final Integer index) {
-        if (rooms.stream().filter(r -> r.getIndex() == index).count() != 1) {
+        if (this.rooms.stream().filter(r -> r.getIndex() == index).count() != 1) {
             throw new IllegalArgumentException("Room not found");
         }
-        activeRoomIndex = index;
+        this.activeRoomIndex = index;
     }
 
     /**
@@ -73,7 +73,7 @@ public class FloorImpl implements Floor {
      */
     @Override
     public Set<Room> getRooms() {
-        return new LinkedHashSet<>(rooms);
+        return new LinkedHashSet<>(this.rooms);
     }
 
     /**
@@ -81,7 +81,7 @@ public class FloorImpl implements Floor {
      */
     @Override
     public void generateRooms() {
-        if (!rooms.isEmpty()) {
+        if (!this.rooms.isEmpty()) {
             throw new IllegalStateException("Floor already created");
         }
         final Matrix<Integer> m = new Matrix<>(MAXROOM, MAXROOM);
@@ -89,7 +89,7 @@ public class FloorImpl implements Floor {
         generateMap(m, roomIndexs);
 
         for (int index = 0; index < roomIndexs.size(); index++) {
-            rooms.add(createEmptyRoom(index, m, roomIndexs.get(index)));
+            this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index)));
         }
 
     }
@@ -104,16 +104,16 @@ public class FloorImpl implements Floor {
      */
     private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos) {
         final List<Door> doors = new ArrayList<>();
-        if (roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
+        if (this.roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
             doors.add(new Door(NORD, m.get(pos.getX(), pos.getY() - 1)));
         }
-        if (roomExist(m, pos.getX() + 1, pos.getY())) { // EAST
+        if (this.roomExist(m, pos.getX() + 1, pos.getY())) { // EAST
             doors.add(new Door(EAST, m.get(pos.getX() + 1, pos.getY())));
         }
-        if (roomExist(m, pos.getX(), pos.getY() + 1)) { // SUD
+        if (this.roomExist(m, pos.getX(), pos.getY() + 1)) { // SUD
             doors.add(new Door(SUD, m.get(pos.getX(), pos.getY() + 1)));
         }
-        if (roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
+        if (this.roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
             doors.add(new Door(OVEST, m.get(pos.getX() - 1, pos.getY())));
         }
         final Room r = new RoomImpl(index, doors);
@@ -144,7 +144,7 @@ public class FloorImpl implements Floor {
             if (directionCounted == OVEST) { // No other direction is possible
                 index = nRoom;
             } else {
-                updatePosition(pos, direction);
+                this.updatePosition(pos, direction);
                 m.set(pos.getX(), pos.getY(), index + 1);
                 roomIndexs.add(new Pair<Integer, Integer>(pos.getX(), pos.getY()));
             }
@@ -210,7 +210,7 @@ public class FloorImpl implements Floor {
     @Override
     public void update(final Double deltaTime) {
         Optional<Integer> nextRoom;
-        rooms.get(activeRoomIndex).updateEntity(deltaTime);
+        this.rooms.get(activeRoomIndex).updateEntity(deltaTime);
         nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
                 .filter(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).playerPassed())
                 .map(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).getDestination()).findFirst();
@@ -222,7 +222,7 @@ public class FloorImpl implements Floor {
 
     @Override
     public final void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
-        rooms.get(location).deleteEntity(e);
-        rooms.get(destination).insertEntity(e);
+        this.rooms.get(location).deleteEntity(e);
+        this.rooms.get(destination).insertEntity(e);
     }
 }

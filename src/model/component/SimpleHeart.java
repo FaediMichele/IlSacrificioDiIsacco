@@ -5,7 +5,7 @@ package model.component;
  * The simplest kind of heart.
  *
  */
-public class SimpleHeart implements Heart {
+public class SimpleHeart extends AbstractHeart {
 
     private static final double DEFAULT_VALUE = 1;
     private static final double MAX_VALUE = 1;
@@ -17,6 +17,7 @@ public class SimpleHeart implements Heart {
      * @param value total value of the heart
      */
     public SimpleHeart(final double value) {
+        super();
         this.value = value;
     }
 
@@ -24,37 +25,46 @@ public class SimpleHeart implements Heart {
      * Default SimpleHeart constructor.
      */
     public SimpleHeart() {
+        super();
         this.value = DEFAULT_VALUE;
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      * 
-     * If we want to extend this class we must prevent life from
-     * taking negative values.
+     * If we want to extend this class we must prevent life from taking negative
+     * values.
      */
     @Override
     public double getDamaged(final double damageValue) {
-        if (damageValue < value) {
-            value = value - damageValue;
+        final double tempValue = this.value;
+        if (damageValue < this.value) {
+            this.value -= damageValue;
             return 0;
         } else {
-            double tempValue = value;
-            value = 0;
+            this.value = 0;
             return damageValue - tempValue;
         }
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public double getValue() {
-        return value;
+        return this.value;
     }
 
     /**
-     * {@inheritDoc} 
+     * 
+     * @param value new value of the heart
+     */
+    protected void setValue(final double value) {
+        this.value = value;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public double getMaxValue() {

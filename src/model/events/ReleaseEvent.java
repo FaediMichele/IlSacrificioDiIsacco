@@ -1,4 +1,4 @@
-package model.entity.events;
+package model.events;
 
 import model.entity.Entity;
 
@@ -23,7 +23,7 @@ public class ReleaseEvent extends AbstractEvent {
      * @return released entity
      */
     public Class<? extends Entity> getReleasedEntityClass() {
-        return releasedEntityClass;
+        return this.releasedEntityClass;
     }
 
 }

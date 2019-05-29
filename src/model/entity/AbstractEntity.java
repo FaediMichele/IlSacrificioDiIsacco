@@ -10,9 +10,11 @@ import java.util.Optional;
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.Component;
-import model.entity.events.Event;
-import model.entity.events.EventListener;
+import model.events.Event;
+import model.events.EventListener;
 import model.game.Room;
+import util.EqualsForGetters;
+import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
 
@@ -29,7 +31,7 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
-        setDefaultComponents(new BodyComponent(this), new CollisionComponent(this));
+        this.setDefaultComponents(new BodyComponent(this), new CollisionComponent(this));
     }
 
     /**
@@ -39,15 +41,18 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
-        setDefaultComponents(entityBody, entityCollision);
+        Objects.requireNonNull(entityBody);
+        Objects.requireNonNull(entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision);
     }
 
     @Override
-    public final void attachComponent(final Component c) {
-        if (hasComponent(c.getClass())) {
-            detachComponent(c);
+    public final Entity attachComponent(final Component c) {
+        if (this.hasComponent(c.getClass())) {
+            detachComponent(getComponent(c.getClass()).get());
         }
         this.componentsMap.put(c.getClass(), c);
+        return this;
     }
 
     @Override
@@ -78,23 +83,23 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final boolean hasComponent(final Class<? extends Component> c) {
-        return this.componentsMap.containsKey(c);
+        return this.getComponent(c).isPresent();
     }
 
     @Override
     public final Optional<? extends Component> getComponent(final Class<? extends Component> c) {
-        if (hasComponent(c)) {
+        if (this.componentsMap.containsKey(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
-            return Optional.empty();
+            return this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
         }
     }
 
     @Override
+    @EqualsForGetters
     public final List<Component> getComponents() {
         return new LinkedList<Component>(this.componentsMap.values());
     }
-
 
     /**
      * {@inheritDoc}
@@ -104,8 +109,6 @@ public abstract class AbstractEntity implements Entity {
         return this.getClass().getSimpleName();
     }
 
-
-
     /**
      * Sets the default components.
      * 
@@ -114,39 +117,33 @@ public abstract class AbstractEntity implements Entity {
      */
     protected final void setDefaultComponents(final BodyComponent entityBody,
             final CollisionComponent entityCollision) {
-        attachComponent(entityBody);
-        attachComponent(entityCollision);
+        this.attachComponent(entityBody);
+        this.attachComponent(entityCollision);
     }
 
     @Override
     public final Room getRoom() {
-        return room;
+        return this.room;
     }
 
     @Override
     public final void changeRoom(final Room r) {
-        room = r;
+        this.room = r;
     }
 
     /**
-     * {@inheritDoc}
+     * HashCode for Entity.
      */
     @Override
-    public int hashCode() {
-        return Objects.hash(componentsMap);
+    public final int hashCode() {
+        return StaticMethodsUtils.hashCode(this);
     }
 
     /**
-     * {@inheritDoc}
+     * Equals for Entity.
      */
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        } else {
-            final Entity e = Entity.class.cast(obj);
-            return e.getComponents().containsAll(this.getComponents()) 
-                    && e.getComponents().size() == this.getComponents().size();
-        }
+    public final boolean equals(final Object obj) {
+        return StaticMethodsUtils.equals(this, obj);
     }
 }

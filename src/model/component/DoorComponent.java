@@ -1,13 +1,11 @@
 package model.component;
 
-import java.util.Objects;
-
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
-import model.entity.events.CollisionEvent;
-import model.entity.events.DoorChangeEvent;
-import model.entity.events.EventListener;
+import model.events.CollisionEvent;
+import model.events.DoorChangeEvent;
+import model.events.EventListener;
 
 /**
  * This component is used by the doors.
@@ -17,14 +15,14 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
 
     private final Integer destination;
     private final Integer location;
-    private final boolean hasPlayerPassed;
+    private boolean hasPlayerPassed;
 
     /**
      * Create a door component with a destination room index.
      * 
-     * @param location         The {@link Room} where the player is
+     * @param location The {@link Room} where the player is
      * @param destinationIndex index of the room
-     * @param entity                Entity that possess the component
+     * @param entity Entity that possess the component
      */
     public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
         super(entity);
@@ -37,6 +35,18 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+                    final LockComponent lc = (LockComponent) getEntity().getComponent(LockComponent.class).get(); 
+                    final KeychainComponent kc = (KeychainComponent) coll.getSourceEntity().getComponent(KeychainComponent.class).get();
+                    if (lc != null && lc.isLocked() && kc != null) {
+                        if (kc.getNumKey() > 0) {
+                            lc.unlock();
+                            kc.removeKey();
+                        } else {
+                            return;
+                        }
+                    } else if (lc != null) {
+                        return;
+                    }
                     coll.getSourceEntity().getRoom().getFloor()
                     .changeEntityRoom(coll.getSourceEntity(), location, destination);
                     postPlayerPassed();
@@ -68,7 +78,8 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * Post the event for the player that has passed.
      */
     private void postPlayerPassed() {
-        getEntity().postEvent(new DoorChangeEvent(getEntity()));
+        this.getEntity().postEvent(new DoorChangeEvent(getEntity()));
+        this.hasPlayerPassed = false;
     }
 
     /**
@@ -76,33 +87,12 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * 
      * @return the location
      */
-    public Integer getLocation() {
-        return location;
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(destination, hasPlayerPassed, location);
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final DoorComponent other = (DoorComponent) obj;
-        return destination.equals(other.destination) && hasPlayerPassed == other.hasPlayerPassed
-                && location.equals(other.location);
+    protected Integer getLocation() {
+        return this.location;
     }
 
     @Override
     public final String toString() {
-        return destination + " " + location + " " + hasPlayerPassed;
+        return this.destination + " " + this.location + " " + this.hasPlayerPassed;
     }
 }

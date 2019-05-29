@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import model.component.Component;
-import model.entity.events.Event;
-import model.entity.events.EventListener;
+import model.events.Event;
+import model.events.EventListener;
 import model.game.Room;
 
 /**
@@ -17,8 +17,9 @@ public interface Entity {
      * Attaches a {@link Component} to the Entity to describe its behavior.
      * 
      * @param c {@link Component} to attach to the Entity
+     * @return this Entity.
      */
-    void attachComponent(Component c);
+    Entity attachComponent(Component c);
 
     /**
      * Detaches a {@link Component} from the Entity.

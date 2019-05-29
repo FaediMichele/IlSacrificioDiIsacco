@@ -6,7 +6,7 @@ import model.entity.Entity;
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's collected.
  */
-public class BombCollectibleComponent extends AbstractCollectibleComponent {
+public class BombCollectibleComponent extends AbstractCollectableComponent {
 
     private final double explosionScale;
     private final int timeBeforeExplodes;
@@ -25,23 +25,6 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
         this.explosionScale = explosionScale;
         this.timeBeforeExplodes = timeBeforeExplodes;
         this.explosionTime = explosionTime;
-        setCollectible(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean usable() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean needInitialized() {
-        return false;
     }
 
     /**
@@ -49,14 +32,19 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
      */
     @Override
     protected void use() {
+        ((InventoryComponent) this.getEntityThatCollectedMe().get()
+                .getComponent((InventoryComponent.class)).get()).releaseThing(this.getEntity());
+
+        ((MentalityComponent) this.getEntity().getComponent(MentalityComponent.class).get())
+            .setMentality(Mentality.PSYCHO);
 
         new Thread() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(timeBeforeExplodes);
-                    ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale, explosionScale);
-                    /* qui la collisione con le altre entità fa danno e il suo sprite si modifica*/
+                    ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale);
+                    /* qui la collisione con le altre entità fa danno e il suo sprite si modifica, ci sarà un'evento da postare per modificare lo sprite?*/
                     Thread.sleep(explosionTime);
                     deleteThisEntity();
                 } catch (InterruptedException e) {
@@ -65,14 +53,4 @@ public class BombCollectibleComponent extends AbstractCollectibleComponent {
             }
         }.start();
     }
-
-    private void deleteThisEntity() {
-        getEntity().getRoom().deleteEntity(this.getEntity());
-    }
-
-    @Override
-    protected void init() {
-    //to perfect
-    }
-
 }

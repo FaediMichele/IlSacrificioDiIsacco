@@ -21,7 +21,7 @@ public class GameWorldImpl implements GameWorld {
     public GameWorldImpl(final Player player) {
         this.floors = new LinkedList<>();
         this.player = player;
-        activeFloor = 0;
+        this.activeFloor = 0;
     }
 
     @Override

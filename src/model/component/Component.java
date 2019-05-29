@@ -42,5 +42,4 @@ public interface Component {
       * Register all event listener of this component.
       */
      void registerAllListener();
-
 }

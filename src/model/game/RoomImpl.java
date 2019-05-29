@@ -31,7 +31,7 @@ public class RoomImpl implements Room {
     public RoomImpl(final int index, final List<Door> door, final List<Entity> entity) {
         this.index = index;
         this.doors = door;
-        isComplete = false;
+        this.isComplete = false;
         this.entity = entity;
         this.entity.forEach(e -> e.changeRoom(this));
     }
@@ -45,7 +45,7 @@ public class RoomImpl implements Room {
     public RoomImpl(final int index, final List<Door> doors) {
         this.index = index;
         this.doors = doors;
-        entity = new ArrayList<>();
+        this.entity = new ArrayList<>();
     }
 
     /**
@@ -53,7 +53,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Set<? extends Entity> getEntity() {
-        return new LinkedHashSet<Entity>(entity);
+        return new LinkedHashSet<Entity>(this.entity);
     }
 
     /**
@@ -61,7 +61,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Set<? extends Door> getDoor() {
-        return new LinkedHashSet<Door>(doors);
+        return new LinkedHashSet<Door>(this.doors);
     }
 
     /**
@@ -69,11 +69,11 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
-        entity.forEach(e -> e.update(deltaTime));
-        if (entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
+        this.entity.forEach(e -> e.update(deltaTime));
+        if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 0) {
             // entity.add(new Bomb());
-            isComplete = true;
+            this.isComplete = true;
         }
     }
 
@@ -82,7 +82,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public boolean completed() {
-        return isComplete;
+        return this.isComplete;
     }
 
     /**
@@ -90,7 +90,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public int getIndex() {
-        return index;
+        return this.index;
     }
 
     /**
@@ -98,7 +98,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void insertEntity(final Entity e) {
-        entity.add(e);
+        this.entity.add(e);
         e.changeRoom(this);
     }
 
@@ -107,20 +107,20 @@ public class RoomImpl implements Room {
      */
     @Override
     public void deleteEntity(final Entity e) {
-        entity.remove(e);
+        this.entity.remove(e);
         e.changeRoom(null);
     }
 
     @Override
     public final Floor getFloor() {
-        return floor;
+        return this.floor;
     }
 
     @Override
     public final void setFloor(final Floor f) {
-        if (floor != null) {
+        if (this.floor != null) {
             throw new IllegalStateException("The room cannot change the floor");
         }
-        floor = f;
+        this.floor = f;
     }
 }
