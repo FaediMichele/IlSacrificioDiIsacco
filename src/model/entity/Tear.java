@@ -2,7 +2,6 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
-import model.component.Directions;
 import model.component.Mentality;
 import model.component.MentalityComponent;
 import model.component.MoveComponent;
@@ -16,13 +15,13 @@ public class Tear extends AbstractMovableEntity {
     /**
      * Default constructor.
      * 
-     * @param direction           the tear is moving
+     * @param angle           the angle of the tear when it's shot
      * @param entityThatShootedMe shooter entity
      */
-    public Tear(final Directions direction, final Entity entityThatShootedMe) {
+    public Tear(final int angle, final Entity entityThatShootedMe) {
         super();
         this.attachComponent(new MentalityComponent(this, Mentality.GOOD));
-        this.attachComponent(new TearComponent(this, direction));
+        this.attachComponent(new TearComponent(this, angle));
         this.attachComponent(new MoveComponent(this, getMoveComponent(entityThatShootedMe).getSpeed(),
                 getMoveComponent(entityThatShootedMe).getMaxSpeed(),
                 getMoveComponent(entityThatShootedMe).getFriction()));

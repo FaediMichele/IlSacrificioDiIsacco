@@ -1,6 +1,5 @@
 package model.events;
 
-import model.component.Directions;
 import model.entity.Entity;
 
 /**
@@ -9,22 +8,22 @@ import model.entity.Entity;
 
 public class TearShotEvent extends AbstractEvent {
 
-    private final Directions direction;
+    private final int angle;
 
     /**
      * @param sourceEntity entity that shots the tear
-     * @param direction the direction of the tear
+     * @param angle of the tear direction when it's shot
      */
-    public TearShotEvent(final Entity sourceEntity, final Directions direction) {
+    public TearShotEvent(final Entity sourceEntity, final int angle) {
         super(sourceEntity);
-        this.direction = direction;
+        this.angle = angle;
     }
 
     /**
      * @return direction
      */
-    public Directions getDirection() {
-        return direction;
+    public int getAngle() {
+        return this.angle;
     }
 
 }

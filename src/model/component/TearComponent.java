@@ -7,51 +7,36 @@ import model.entity.Entity;
  */
 public class TearComponent extends AbstractComponent<TearComponent> {
 
-    private final Directions direction;
+    private final int angle;
     /**
      * @param entity this entity
      */
     public TearComponent(final Entity entity) {
-        this(entity, Directions.UP);
+        this(entity, 0);
     }
 
     /**
      * @param entity this entity
-     * @param direction to move to 
+     * @param angle direction angle of the tear
      */
-    public TearComponent(final Entity entity, final Directions direction) {
+    public TearComponent(final Entity entity, final int angle) {
         super(entity);
-        this.direction = direction;
+        this.angle = angle;
     }
 
     /**
      * 
      * @return direction
      */
-    public Directions getDirection() {
-        return direction;
+    public int getAngle() {
+        return this.angle;
     }
 
     /**
      * update method makes the tear move in the right direction.
      */
     public void move() {
-        switch (direction) {
-        case UP:
-            this.getMoveComponent(this.getEntity()).move(1, 0, 0);
-            break;
-        case DOWN:
-            this.getMoveComponent(this.getEntity()).move(-1, 0, 0);
-            break;
-        case RIGHT:
-            this.getMoveComponent(this.getEntity()).move(0, +1, 0);
-            break;
-        case LEFT:
-            this.getMoveComponent(this.getEntity()).move(0, -1, 0);
-            break;
-        default:
-            break;
-        }
+        this.getMoveComponent(this.getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
     }
 
     private MoveComponent getMoveComponent(final Entity e) {

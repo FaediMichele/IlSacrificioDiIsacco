@@ -27,7 +27,7 @@ public class SimpleTearWeapon extends AbstractComponent<SimpleTearWeapon> {
         this.registerListener(new EventListener<TearShotEvent>() {
             @Override
             public void listenEvent(final TearShotEvent event) {
-                final Tear t = new Tear(event.getDirection(), event.getSourceEntity());
+                final Tear t = new Tear(event.getAngle(), event.getSourceEntity());
                 getEntity().getRoom().insertEntity(t);
                 while (getEntity().getRoom().getEntity().contains(t)) {
                     ((TearComponent) t.getComponent(TearComponent.class).get()).move();
