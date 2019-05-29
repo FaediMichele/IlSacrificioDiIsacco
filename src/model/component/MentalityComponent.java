@@ -3,7 +3,7 @@ package model.component;
 import model.entity.Entity;
 
 /**
- * Component that contains the informations about the mentality of the entity.
+ * This component manages the entity from who can receive damage.
  */
 public class MentalityComponent extends AbstractComponent<MentalityComponent> {
 
