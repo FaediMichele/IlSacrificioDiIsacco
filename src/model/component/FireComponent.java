@@ -1,11 +1,13 @@
 package model.component;
 
+import java.util.Objects;
+
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Heart;
-import model.entity.events.EventListener;
-import model.entity.events.FireHittedEvent;
-import model.entity.events.FireOutEvent;
+import model.events.EventListener;
+import model.events.FireHittedEvent;
+import model.events.FireOutEvent;
 
 /**
  * Implements the data for the fires.
@@ -24,6 +26,7 @@ public class FireComponent extends AbstractComponent<FireComponent> {
      */
     public FireComponent(final Entity entity, final FireType fireType) {
         super(entity);
+        Objects.requireNonNull(fireType);
         this.lifeLeft = MAX_LIFE;
         this.fireType = fireType;
 

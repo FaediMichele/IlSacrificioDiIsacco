@@ -1,10 +1,5 @@
 package model.component;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import model.entity.Door;
 import model.entity.Entity;
 
 /**
@@ -14,41 +9,39 @@ import model.entity.Entity;
  */
 public class KeychainComponent extends AbstractComponent<KeychainComponent> {
 
-    private Set<Door> doors;
+    private int numKey;
 
     KeychainComponent(final Entity entity) {
         super(entity);
-        this.doors = new HashSet<Door>();
-
     }
  
     KeychainComponent(final Entity entity, final KeychainComponent component) {
         super(entity, component);
     }
+
     /**
-     * 
-     * @param door is the door that can open the key that wants to be added.
-     * @return returns false if it cannot add the key returns true if it can add the key.
+     * Add a key to the inventory.
      */
-    protected boolean addKey(final Door door) {
-        this.doors.add(door);
-        return true;
+    protected void addKey() {
+        numKey++;
     }
 
     /**
-     * @param door the door you want to query
-     * @return true if it contains the key that opens the false door otherwise.
+     * Get the key possessed.
+     * @return the number of the key
      */
-    public boolean containsKey(final Door door) {
-        return this.doors.contains(door);
+    protected int getNumKey() {
+        return numKey;
     }
 
     /**
-     * 
-     * @return the doors he can open.
+     * Remove a key from the key's inventory.
      */
-    protected Set<Door> getKey() {
-        return Collections.unmodifiableSet(this.doors);
+    protected void removeKey() {
+        if (numKey == 0) {
+            throw new IllegalStateException("to remove a key you must have a key");
+        }
+        numKey--;
     }
 
 }

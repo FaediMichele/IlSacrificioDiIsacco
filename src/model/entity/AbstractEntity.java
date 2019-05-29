@@ -4,13 +4,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.Component;
-import model.entity.events.Event;
-import model.entity.events.EventListener;
+import model.events.Event;
+import model.events.EventListener;
 import model.game.Room;
 import util.EqualsForGetters;
 import util.StaticMethodsUtils;
@@ -40,15 +41,18 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
         this();
+        Objects.requireNonNull(entityBody);
+        Objects.requireNonNull(entityCollision);
         this.setDefaultComponents(entityBody, entityCollision);
     }
 
     @Override
-    public final void attachComponent(final Component c) {
+    public final Entity attachComponent(final Component c) {
         if (this.hasComponent(c.getClass())) {
             detachComponent(getComponent(c.getClass()).get());
         }
         this.componentsMap.put(c.getClass(), c);
+        return this;
     }
 
     @Override
@@ -78,13 +82,13 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final boolean hasComponent(final Class<?> c) {
-        return this.componentsMap.containsKey(c);
+    public final boolean hasComponent(final Class<? extends Component> c) {
+        return this.getComponent(c).isPresent();
     }
 
     @Override
     public final Optional<? extends Component> getComponent(final Class<? extends Component> c) {
-        if (this.hasComponent(c)) {
+        if (this.componentsMap.containsKey(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
             return this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();

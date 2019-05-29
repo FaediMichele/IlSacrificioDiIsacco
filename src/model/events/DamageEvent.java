@@ -1,4 +1,4 @@
-package model.entity.events;
+package model.events;
 
 import java.util.Optional;
 

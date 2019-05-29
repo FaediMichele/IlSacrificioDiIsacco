@@ -37,11 +37,11 @@ public class SimpleHeart extends AbstractHeart {
      */
     @Override
     public double getDamaged(final double damageValue) {
+        final double tempValue = this.value;
         if (damageValue < this.value) {
             this.value -= damageValue;
             return 0;
         } else {
-            final double tempValue = this.value;
             this.value = 0;
             return damageValue - tempValue;
         }

@@ -10,11 +10,11 @@ import model.entity.Entity;
  * collected and kept in the inventory.
  *
  */
-public abstract class AbstractCollectibleCollectableComponent extends AbstractCollectibleComponent {
+public abstract class AbstractCollectableComponent extends AbstractPickupableComponent {
 
     private Optional<Entity> entityThatCollectedMe;
 
-    AbstractCollectibleCollectableComponent(final Entity entity) {
+    AbstractCollectableComponent(final Entity entity) {
         super(entity);
     }
 

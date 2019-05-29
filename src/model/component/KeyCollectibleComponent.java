@@ -1,6 +1,8 @@
 package model.component;
 
 import model.entity.Entity;
+
+
 import model.entity.Door;
 
 /**
@@ -8,9 +10,7 @@ import model.entity.Door;
  * collected. It the key case, it just has to be "present" so the main point of
  * the code is setting the collectible boolean to true.
  */
-public class KeyCollectibleComponent extends AbstractCollectibleComponent {
-
-    private final Door door;
+public class KeyCollectibleComponent extends AbstractCollectableComponent {
 
     /**
      * 
@@ -19,23 +19,14 @@ public class KeyCollectibleComponent extends AbstractCollectibleComponent {
      */
     KeyCollectibleComponent(final Entity entity, final Door door) {
         super(entity);
-        this.door = door;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void init(final Entity entity) {
-        if (entity.hasComponent(KeychainComponent.class)) {
-            if (((KeychainComponent) entity.getComponent(KeychainComponent.class).get()).addKey(this.door)) {
-                this.deleteThisEntity();
-            }
-        } else {
-            final KeychainComponent keychainComponent = new KeychainComponent(entity);
-            keychainComponent.addKey(this.door);
-            entity.attachComponent(keychainComponent);
-            this.deleteThisEntity();
-        }
+    protected void use() {
+        ((InventoryComponent) this.getEntityThatCollectedMe().get()
+                .getComponent((InventoryComponent.class)).get()).consumeThing(this.getEntity());
     }
 }
