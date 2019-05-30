@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,21 @@ public class AnimatedViewJavafx implements AnimatedView {
     private ImageView img;
     private List<Image> frames;
     private int index;
+
+    /**
+     * Create a empty {@link AnimatedViewJavafx}.
+     */
+    public AnimatedViewJavafx() {
+        super();
+    }
+
+    /**
+     * Create a {@link AnimatedViewJavafx} with a {@link ImageView}.
+     * @param img the {@link ImageView} to use.
+     */
+    public AnimatedViewJavafx(final ImageView img) {
+        this.img = Objects.requireNonNull(img);
+    }
 
     /**
      * Set a ImageView to animate.
@@ -45,7 +61,7 @@ public class AnimatedViewJavafx implements AnimatedView {
             this.frames = new ArrayList<Image>();
         }
         for (int i = 0; i < frames.length; i++) {
-            this.frames.set(i, (Image) frames[i]);
+            this.frames.add((Image) frames[i]);
         }
         if (img.getImage() == null) {
             img.setImage(this.frames.get(0));
@@ -57,7 +73,8 @@ public class AnimatedViewJavafx implements AnimatedView {
      */
     @Override
     public void next() {
-        index = (index + 1) % frames.size() != 0 ? index + 1 : 0;
+        index = ++index % frames.size();
+        //System.out.println(frames.get(index).isError() ? frames.get(index).getException().: " ");
         img.setImage(frames.get(index));
     }
 }
