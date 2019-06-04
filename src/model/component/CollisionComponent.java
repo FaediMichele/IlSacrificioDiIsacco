@@ -1,4 +1,5 @@
 package model.component;
+
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
@@ -30,20 +31,28 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                 /**
                  * damage management
                  */
-//                Mentality myMentality = Mentality.NEUTRAL;
-//                Mentality oppositeMentality = Mentality.NEUTRAL;
-//                if (event.getSourceEntity().hasComponent(AbstractMentalityComponent.class)) {
-//                    myMentality =       ((AbstractMentalityComponent) getEntity()
-//                            .getComponent(AbstractMentalityComponent.class).get()).getMentality();
-//                    oppositeMentality =  ((AbstractMentalityComponent) event.getSourceEntity()
-//                            .getComponent(AbstractMentalityComponent.class).get()).getMentality();
-//                }
-//
-//                if ((myMentality.equals(Mentality.EVIL) && oppositeMentality.equals(Mentality.GOOD))
-//                        || (myMentality.equals(Mentality.GOOD) && oppositeMentality.equals(Mentality.EVIL))
-//                        || (oppositeMentality.equals(Mentality.PSYCHO) && !myMentality.equals(Mentality.NEUTRAL))) {
-//                    getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
-//                }
+                AbstractMentalityComponent sourceMentaliy;
+                AbstractMentalityComponent myMentality;
+
+                if (event.getSourceEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
+                    sourceMentaliy = (AbstractMentalityComponent) event.getSourceEntity()
+                            .getComponent(AbstractMentalityComponent.class).get();
+                } else {
+                    sourceMentaliy = new NeutralMentalityComponent(event.getSourceEntity());
+                }
+
+                if (getEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
+                    myMentality = (AbstractMentalityComponent) event.getSourceEntity()
+                            .getComponent(AbstractMentalityComponent.class).get();
+                } else {
+                    myMentality = new NeutralMentalityComponent(event.getSourceEntity());
+                }
+
+                if (sourceMentaliy.isDamageableByMe(myMentality.getClass())) {
+                    if (myMentality.canHurtMe(sourceMentaliy.getClass())) {
+                        getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
+                    }
+                }
 
                 /**
                  * management collect an object
@@ -81,4 +90,5 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
             }
         });
     }
+
 }

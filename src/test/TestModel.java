@@ -23,6 +23,7 @@ import model.component.InventoryComponent;
 import model.component.Mentality;
 import model.component.AbstractMentalityComponent;
 import model.component.MoveComponent;
+import model.component.PlayerMentalityComponent;
 import model.component.SimpleHeart;
 import model.entity.Bomb;
 import model.entity.Door;
@@ -322,6 +323,22 @@ public class TestModel {
         // TO-DO: pick up and use also a key
     }
 
+    /**
+     * Test for {@link InventoryComponent}.
+     */
+    @Test
+    public void testMentalityComponent() {
+        Player p = new Player();
+        AbstractMentalityComponent m = (AbstractMentalityComponent) p.getComponent(AbstractMentalityComponent.class).get();
+        assertEquals(PlayerMentalityComponent.class, m.getClass());
+        System.out.println(m.getClass());
+    }
+    
+    
+    
+    
+    
+    
     private HealthComponent getHealthComponent(final Entity e) {
         return (HealthComponent) e.getComponent(HealthComponent.class).get();
     }
