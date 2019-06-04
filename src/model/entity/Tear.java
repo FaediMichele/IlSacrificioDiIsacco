@@ -2,9 +2,8 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
 import model.component.MoveComponent;
+import model.component.PlayerMentalityComponent;
 import model.component.TearComponent;
 
 /**
@@ -20,7 +19,7 @@ public class Tear extends AbstractMovableEntity {
      */
     public Tear(final int angle, final Entity entityThatShootedMe) {
         super();
-        this.attachComponent(new MentalityComponent(this, Mentality.GOOD));
+        this.attachComponent(new PlayerMentalityComponent(this));
         this.attachComponent(new TearComponent(this, angle));
         this.attachComponent(new MoveComponent(this, getMoveComponent(entityThatShootedMe).getSpeed(),
                 getMoveComponent(entityThatShootedMe).getMaxSpeed(),

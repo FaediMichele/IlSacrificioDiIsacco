@@ -3,8 +3,7 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.Component;
 import model.component.DoorComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.NeutralMentalityComponent;
 
 /**
  * Create a door. The doors have a position based on the location 
@@ -28,7 +27,7 @@ public class Door extends AbstractStaticEntity {
         super();
         this.attachComponent(generateBody(location));
         this.attachComponent(new DoorComponent(this, location, destinationIndex));
-        this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
+        this.attachComponent(new NeutralMentalityComponent(this));
     }
 
     /**

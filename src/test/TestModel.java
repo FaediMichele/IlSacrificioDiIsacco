@@ -21,7 +21,7 @@ import model.component.HealthComponent;
 import model.component.HeartCollectibleComponent;
 import model.component.InventoryComponent;
 import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.AbstractMentalityComponent;
 import model.component.MoveComponent;
 import model.component.SimpleHeart;
 import model.entity.Bomb;
@@ -230,7 +230,7 @@ public class TestModel {
         final double finalEnemyLife = 2.7;
         enemy.attachComponent(new DamageComponent(enemy, damage));
         enemy.attachComponent(new HealthComponent(enemy));
-        enemy.attachComponent(new MentalityComponent(enemy, Mentality.EVIL));
+        enemy.attachComponent(new AbstractMentalityComponent(enemy, Mentality.EVIL));
         goodEntity.postEvent(new DamageEvent(enemy));
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), 3);
@@ -257,13 +257,13 @@ public class TestModel {
         final int numberOfThings = 1;
         double life;
 
-        playerB.attachComponent(new MentalityComponent(playerB, Mentality.EVIL))
+        playerB.attachComponent(new AbstractMentalityComponent(playerB, Mentality.EVIL))
                 .attachComponent(new DamageComponent(playerB, damage));
         life = getHealthComponent(playerA).getLife();
         playerA.postEvent(new CollisionEvent(playerB));
         assertEquals(life - damage, getHealthComponent(playerA).getLife());
 
-        playerB.attachComponent(new MentalityComponent(playerB, Mentality.GOOD));
+        playerB.attachComponent(new AbstractMentalityComponent(playerB, Mentality.GOOD));
         playerA.postEvent(new CollisionEvent(playerB));
         assertEquals(life - damage, getHealthComponent(playerA).getLife());
 

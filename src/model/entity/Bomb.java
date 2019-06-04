@@ -4,8 +4,7 @@ import model.component.BodyComponent;
 import model.component.BombCollectibleComponent;
 import model.component.CollisionComponent;
 import model.component.DamageComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.PsychoMentalityComponent;
 
 /**
  * 
@@ -19,13 +18,13 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb() {
         super();
-        this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
+        this.attachComponent(new PsychoMentalityComponent(this));
         this.attachComponent(new BombCollectibleComponent(this, 3, 1000, 100));
         this.attachComponent(new DamageComponent(this, 0.5));
     }
 
     /**
-     * @param entityBody Body of the entity
+     * @param entityBody      Body of the entity
      * @param entityCollision Collision component of the entity
      */
     public Bomb(final BodyComponent entityBody, final CollisionComponent entityCollision) {

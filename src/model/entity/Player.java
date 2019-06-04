@@ -4,8 +4,7 @@ import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.HealthComponent;
 import model.component.InventoryComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.PlayerMentalityComponent;
 
 /**
  * Implements Player.
@@ -19,7 +18,7 @@ public class Player extends AbstractMovableEntity {
         super();
         this.attachComponent(new HealthComponent(this));
         this.attachComponent(new InventoryComponent(this));
-        this.attachComponent(new MentalityComponent(this, Mentality.GOOD));
+        this.attachComponent(new PlayerMentalityComponent(this));
     }
 
     /**

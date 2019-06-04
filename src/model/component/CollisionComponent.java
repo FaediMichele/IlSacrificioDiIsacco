@@ -32,11 +32,11 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                  */
                 Mentality myMentality = Mentality.NEUTRAL;
                 Mentality oppositeMentality = Mentality.NEUTRAL;
-                if (event.getSourceEntity().hasComponent(MentalityComponent.class)) {
-                    myMentality =       ((MentalityComponent) getEntity()
-                            .getComponent(MentalityComponent.class).get()).getMentality();
-                    oppositeMentality =  ((MentalityComponent) event.getSourceEntity()
-                            .getComponent(MentalityComponent.class).get()).getMentality();
+                if (event.getSourceEntity().hasComponent(AbstractMentalityComponent.class)) {
+                    myMentality =       ((AbstractMentalityComponent) getEntity()
+                            .getComponent(AbstractMentalityComponent.class).get()).getMentality();
+                    oppositeMentality =  ((AbstractMentalityComponent) event.getSourceEntity()
+                            .getComponent(AbstractMentalityComponent.class).get()).getMentality();
                 }
 
                 if ((myMentality.equals(Mentality.EVIL) && oppositeMentality.equals(Mentality.GOOD))

@@ -4,8 +4,7 @@ import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.FireComponent;
 import model.component.FireType;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.PsychoMentalityComponent;
 
 /**
  * Implements the fires.
@@ -20,7 +19,7 @@ public class Fire extends AbstractStaticEntity {
     public Fire(final FireType fireType) {
         super();
         this.attachComponent(new FireComponent(this, fireType));
-        this.attachComponent(new MentalityComponent(this, Mentality.EVIL));
+        this.attachComponent(new PsychoMentalityComponent(this));
     }
 
     /**

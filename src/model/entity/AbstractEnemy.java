@@ -2,8 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.EnemyMentalityComponent;
 
 /**
  * Base class for all enemies.
@@ -25,7 +24,7 @@ public abstract class AbstractEnemy extends AbstractMovableEntity {
      */
     public AbstractEnemy() {
         super();
-        this.attachComponent(new MentalityComponent(this, Mentality.EVIL));
+        this.attachComponent(new EnemyMentalityComponent(this));
     }
 
 }
