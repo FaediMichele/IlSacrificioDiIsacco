@@ -25,6 +25,8 @@ public class PsychoMentalityComponent extends AbstractMentalityComponent {
 
     private static Set<Class<? extends AbstractMentalityComponent>> generateCannotHurtMeSet() {
         final Set<Class<? extends AbstractMentalityComponent>> cannotHurtMe = new HashSet<>();
+        cannotHurtMe.add(NeutralMentalityComponent.class);
+        cannotHurtMe.add(EnemyMentalityComponent.class);
         return cannotHurtMe;
     }
 
