@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Objects;
+
 /**
  * Tuple of two values.
  *
@@ -55,6 +57,27 @@ public class Pair<X, Y> {
      */
     public void setY(final Y y) {
         this.y1 = y;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(x1, y1);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        @SuppressWarnings("unchecked")
+        final Pair<X, Y> other = (Pair<X, Y>) obj;
+        return Objects.equals(x1, other.x1) && Objects.equals(y1, other.y1);
     }
 
 }
