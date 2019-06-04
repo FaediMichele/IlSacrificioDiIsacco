@@ -88,7 +88,7 @@ public class BlackHeart extends SimpleHeart {
             final double tempValue = super.getValue();
             this.myEntity.getRoom().getEntity().stream()
                 .filter(i -> i.hasComponent(AbstractMentalityComponent.class))
-                .filter(i -> ((AbstractMentalityComponent) i.getComponent(AbstractMentalityComponent.class).get()).getMentality().equals(Mentality.EVIL))
+                .filter(i -> i.getComponent(EnemyMentalityComponent.class).isPresent())
                 .forEach(i -> i.postEvent(new DamageEvent(this.myEntity, enemyDamage)));
             super.setValue(0);
             return damageValue - tempValue;

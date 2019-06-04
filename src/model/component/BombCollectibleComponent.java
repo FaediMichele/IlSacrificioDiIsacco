@@ -35,8 +35,7 @@ public class BombCollectibleComponent extends AbstractCollectableComponent {
         ((InventoryComponent) this.getEntityThatCollectedMe().get()
                 .getComponent((InventoryComponent.class)).get()).releaseThing(this.getEntity());
 
-        ((AbstractMentalityComponent) this.getEntity().getComponent(AbstractMentalityComponent.class).get())
-            .setMentality(Mentality.PSYCHO);
+        this.getEntity().attachComponent(new PsychoMentalityComponent(this.getEntity()));
 
         new Thread() {
             @Override
