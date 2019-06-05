@@ -1,6 +1,6 @@
 package view.node;
 
-import util.Pair;
+import javafx.util.Pair;
 
 /**
  * This interface is used for the selected items from a list. 
@@ -17,6 +17,11 @@ public interface SelectList {
      * Go to the previous item.
      */
     void previous();
+
+    /**
+     * Got to the initial item.
+     */
+    void initial();
 
     /**
      * Get the selected item. 

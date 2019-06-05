@@ -1,22 +1,21 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Select the {@link SubMenu}.
  */
-public class SubMenuSelection {
-    private final List<SubMenu> menus = new ArrayList<SubMenu>();
-    private int index;
+public abstract class SubMenuSelection {
+    private final Map<Class<? extends SubMenu>, SubMenu> menus = new LinkedHashMap<Class<? extends SubMenu>, SubMenu>();
+    private SubMenu selected;
 
     /**
      * Get the selected {@link SubMenu}.
      * @return the selected {@link SubMenu}.
      */
     public SubMenu get() {
-        return menus.get(index);
+        return selected;
     }
 
     /**
@@ -24,7 +23,9 @@ public class SubMenuSelection {
      * @param menus the {@link SubMenu} to add.
      */
     public void add(final SubMenu... menus) {
-        this.menus.addAll(Arrays.asList(menus));
+        for (int i = 0; i < menus.length; i++) {
+            this.menus.put(menus[i].getClass(), menus[i]);
+        }
     }
 
     /**
@@ -32,19 +33,27 @@ public class SubMenuSelection {
      * @param s the {@link SubMenu} to verify if is used.
      * @return true or false.
      */
-    public boolean contains(final SubMenu s) {
-        return menus.contains(s);
+    public boolean contains(final Class<? extends SubMenu> s) {
+        return menus.containsKey(s);
     }
 
     /**
      * Change the selected {@link SubMenu}.
      * @param s the {@link SubMenu} to select.
      */
-    public void select(final SubMenu s) {
-        if (menus.contains(s)) {
-            index = menus.indexOf(s);
+    public void select(final Class<? extends SubMenu> s) {
+        if (menus.containsKey(s)) {
+            selected.reset();
+            selected = menus.get(s);
         } else {
             throw new IllegalArgumentException("SubMenu not found");
         }
     }
+
+    /**
+     * Method called when the sub menu is changed. 
+     * @param start the previous sub menu.
+     * @param end the next sub menu.
+     */
+    public abstract void goTo(SubMenu start, SubMenu end);
 }

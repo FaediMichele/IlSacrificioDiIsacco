@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import view.MenuController;
 
 /**
@@ -23,17 +22,18 @@ public class Launcher extends Application {
      */
     @Override
     public void start(final Stage stage) throws Exception {
-        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        final double maxX = primaryScreenBounds.getMaxX();
-        final double maxY = primaryScreenBounds.getMaxY();
+        final Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        final double maxX = screenBounds.getMaxX() / 3;
+        final double maxY = screenBounds.getMaxY() / 3;
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         final Parent root = loader.load();
-        ((MenuController) loader.getController()).start();
+
         final Scene scene = new Scene(root, maxX, maxY);
         stage.setTitle(WINDOW_NAME);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        ((MenuController) loader.getController()).start(scene);
         stage.show();
     }
 

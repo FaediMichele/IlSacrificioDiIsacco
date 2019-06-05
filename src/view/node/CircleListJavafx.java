@@ -172,6 +172,22 @@ public class CircleListJavafx extends Group implements CircleList {
         return elements.get(0).node;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getElement(final int index) {
+        return elements.get(index);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int size() {
+        return elements.size();
+    }
+
     private float calculateAngle(final int numberNode, final int nodeIndex) {
         return (nodeIndex * 360 / numberNode) % 360;
     }

@@ -2,10 +2,11 @@ package view.node;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
-import util.Pair;
+import javafx.util.Pair;
 
 /**
  * Javafx node that pass the node in a list.
@@ -32,7 +33,7 @@ public class SelectListJavafx extends Group implements SelectList {
      */
     @Override
     public void next() {
-        selectedNode = selectedNode < elements.size() ? selectedNode + 1 : 0;
+        selectedNode = selectedNode < elements.size() - 1 ? selectedNode + 1 : 0;
         updateSelector();
     }
 
@@ -41,7 +42,16 @@ public class SelectListJavafx extends Group implements SelectList {
      */
     @Override
     public void previous() {
-        selectedNode = selectedNode > 0 ? elements.size() - 1 : selectedNode - 1;
+        selectedNode = selectedNode > 0 ? selectedNode - 1 : elements.size() - 1;
+        updateSelector();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initial() {
+        selectedNode = 0;
         updateSelector();
     }
 
@@ -64,7 +74,7 @@ public class SelectListJavafx extends Group implements SelectList {
             }
         }
         for (int i = 0; i < items.length; i++) {
-            elements.add((Node) elements.get(i));
+            elements.add((Node) items[i]);
         }
     }
 
@@ -73,6 +83,7 @@ public class SelectListJavafx extends Group implements SelectList {
      */
     @Override
     public void setSelector(final Object selector) {
+        Objects.requireNonNull(selector);
         if (!(selector instanceof Node)) {
             throw new IllegalArgumentException("Selecter must be a Javafx node");
         }
@@ -86,12 +97,17 @@ public class SelectListJavafx extends Group implements SelectList {
     @Override
     public void setDistance(final Pair<Double, Double> distance) {
         this.distance = distance;
-        updateSelector();
+        if (selector != null) {
+            updateSelector();
+        }
     }
 
     private void updateSelector() {
         final Node n = (Node) get();
-        selector.setLayoutX(n.getLayoutX() + distance.getX());
-        selector.setLayoutY(n.getLayoutY() + distance.getY());
+        n.getLayoutX();
+        distance.getKey();
+        selector.setLayoutX(n.getLayoutX() + distance.getKey());
+        selector.setLayoutY(n.getLayoutY() + distance.getValue());
     }
+
 }

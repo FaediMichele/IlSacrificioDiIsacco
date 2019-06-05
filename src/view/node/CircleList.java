@@ -87,4 +87,17 @@ public interface CircleList {
      * @return the selected element.
      */
     Object getElement();
+
+    /**
+     * Get a element with index.
+     * @param index the index of the node to get. If the circle is rotated also the index change.
+     * @return the element with the index.
+     */
+    Object getElement(int index);
+
+    /**
+     * Get the size of the circle.
+     * @return the size.
+     */
+    int size();
 }

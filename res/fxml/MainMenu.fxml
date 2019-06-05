@@ -3,15 +3,20 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.stage.Screen?>
+<?import java.lang.Double?>
 
 
-<Pane fx:id="pnMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx"  xmlns:fx="http://javafx.com/fxml" 
-		fx:controller="view.MenuController" >
+<Pane fx:id="pnMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.height}" xmlns="http://javafx.com/javafx"  xmlns:fx="http://javafx.com/fxml" 
+		fx:controller="view.MenuController" style="-fx-background-color: #F8E59A;" >
+		<fx:define>
+			<Screen fx:factory="getPrimary" fx:id="screen" />
+		</fx:define>
    <children>
-      <Pane fx:id="pnEnter" prefHeight="400.0" prefWidth="600.0">
+      <Pane fx:id="pnEnter" prefHeight="400" prefWidth="600">
          <children>
-            <ImageView fx:id="imgNameOfGame" fitHeight="139.0" fitWidth="403.0" layoutX="99.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPressStart" fitHeight="195.0" fitWidth="218.0" layoutX="191.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgNameOfGame" fitHeight="44.0" fitWidth="317.0" layoutX="142" layoutY="51" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPressStart" fitHeight="206" fitWidth="224.0" layoutX="188" layoutY="128" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
       <Pane fx:id="pnRun" layoutX="600.0" layoutY="400.0" prefHeight="400.0" prefWidth="600.0">
@@ -26,9 +31,9 @@
       </Pane>
       <Pane fx:id="pnGame" layoutY="400.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <ImageView fx:id="imgNewRun" fitHeight="53.0" fitWidth="200.0" layoutX="187.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" rotate="-5.0" />
-            <ImageView fx:id="imgSelector" fitHeight="40.0" fitWidth="40.0" layoutX="147.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" rotate="-5.0" />
-            <ImageView fx:id="imgOptions" fitHeight="53.0" fitWidth="200.0" layoutX="200.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" rotate="-5.0" />
+            <ImageView fx:id="imgNewRun" fitHeight="55" fitWidth="180" layoutX="210" layoutY="100" pickOnBounds="true" preserveRatio="true" rotate="-5.0" />
+            <ImageView fx:id="imgSelector" fitHeight="40.0" fitWidth="40.0" layoutX="142.0" layoutY="212" pickOnBounds="true" preserveRatio="true" rotate="-5.0" />
+            <ImageView fx:id="imgOptions" fitHeight="53.0" fitWidth="200.0" layoutX="210" layoutY="250" pickOnBounds="true" preserveRatio="true" rotate="-5.0" />
          </children>
       </Pane>
    </children>
