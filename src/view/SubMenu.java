@@ -36,40 +36,12 @@ public abstract class SubMenu {
     }
 
     /**
-     * Go up.
-
+     * Pass the {@link Command} clicked.
+     * @param c the {@link Command} to manage.
      */
-    public void up() {
+    public void input(final Command c) {
     }
 
-    /**
-     * Go down.
-     */
-    public void down() {
-    }
-
-    /**
-     * Go left.
-     */
-    public void left() {
-    }
-
-    /**
-     * Go right.
-     */
-    public void right() {
-    }
-
-    /**
-     * Esc.
-     */
-    public void esc() {
-    }
-    /**
-     * Enter.
-     */
-    public void enter() {
-    }
     /**
      * When the SubMenu is selected.
      */

@@ -1,4 +1,4 @@
-package view;
+package view.javafx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import view.AnimatedView;
+import view.TimedViews;
 
 /**
  * A JavaFx implementation of {@link TimedViews}.

@@ -1,6 +1,7 @@
-package view.node;
+package view.javafx;
 
 import javafx.util.Duration;
+import view.node.TranslationPages;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -69,6 +70,9 @@ public class TranslationPageJavafx implements TranslationPages {
     public void goTo(final Object page) {
         if (!mapPane.containsKey((Pane) page)) {
             throw new IllegalArgumentException("page not found");
+        }
+        if (selected != null) {
+            mapPane.values().forEach(tt -> tt.stop());
         }
         selected = (Pane) page;
         mapPane.values().forEach(tt -> {

@@ -1,4 +1,4 @@
-package view.node;
+package view.javafx;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +9,7 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.util.Duration;
+import view.node.CircleList;
 
 /**
  * JavaFx node that circle through elements with an animation.
@@ -21,6 +22,7 @@ public class CircleListJavafx extends Group implements CircleList {
     private double width;
     private double height;
     private final List<MyNode> elements = new LinkedList<>();
+    private int index;
 
     /**
      * Create a new {@link CircleListJavafx} with dimension and scaleMultiplier.
@@ -30,6 +32,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     public CircleListJavafx(final double width, final double height, final double scaleMultiplier) {
         super();
+        index = 0;
         this.dScale = scaleMultiplier;
         setWidth(width);
         setHeight(height);
@@ -139,6 +142,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void rotateLeft() {
+        index = index - 1 >= 0 ? index - 1 : elements.size();
         ((LinkedList<MyNode>) elements).addLast(((LinkedList<MyNode>) elements).removeFirst());
         updateNode();
     }
@@ -148,8 +152,27 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void rotateRight() {
+        index = (index + 1) % elements.size();
         ((LinkedList<MyNode>) elements).addFirst(((LinkedList<MyNode>) elements).removeLast());
         updateNode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void reset() {
+        if (index > elements.size() / 2) {
+            while (index != 0) {
+                rotateRight();
+            }
+            rotateLeft();
+        } else {
+            while (index != 0) {
+                rotateLeft();
+            }
+            rotateRight();
+        }
     }
 
     /**
@@ -177,7 +200,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public Object getElement(final int index) {
-        return elements.get(index);
+        return elements.get(index).node;
     }
 
     /**
@@ -230,11 +253,11 @@ public class CircleListJavafx extends Group implements CircleList {
         }
 
         private int getX() {
-            return (int) Math.round(upper.getLayoutX() - Math.sin(Math.toRadians(angle)) * upper.getWidth() + node.getBoundsInLocal().getWidth() / 2);
+            return (int) Math.round(upper.getLayoutX() - Math.sin(Math.toRadians(angle)) * upper.getWidth());
         }
 
         private int getY() {
-            return (int) Math.round(upper.getLayoutY() + Math.cos(Math.toRadians(angle)) * upper.getHeight() - node.getBoundsInLocal().getHeight() / 2);
+            return (int) Math.round(upper.getLayoutY() + Math.cos(Math.toRadians(angle)) * upper.getHeight());
         }
 
         private double getScale() {
@@ -257,4 +280,5 @@ public class CircleListJavafx extends Group implements CircleList {
             tt.play();
         }
     }
+
 }

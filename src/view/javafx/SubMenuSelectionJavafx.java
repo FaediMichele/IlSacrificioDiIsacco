@@ -1,8 +1,9 @@
 package view.javafx;
 
+import java.util.Objects;
+
 import view.SubMenu;
 import view.SubMenuSelection;
-import view.node.TranslationPageJavafx;
 import view.node.TranslationPages;
 
 /**
@@ -26,7 +27,8 @@ public class SubMenuSelectionJavafx extends SubMenuSelection {
      */
     @Override
     public void goTo(final SubMenu start, final SubMenu end) {
-        if (!tp.contains(start.getMain())) {
+        Objects.requireNonNull(end);
+        if (start != null && !tp.contains(start.getMain())) {
             tp.addPage(start.getMain());
         }
         if (!tp.contains(end.getMain())) {

@@ -1,18 +1,23 @@
 package view.javafx;
 
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.node.SelectList;
-import view.node.SelectListJavafx;
 
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).
  */
 public class SubMenuGame extends SubMenu {
 
+    private static final String NEWRUN = "/menuImgs/newRun.png";
+    private static final String OPTION = "/menuImgs/options.png";
+    private static final String ARROW = "/menuImgs/selector.png";
     private final SelectList sl = new SelectListJavafx();
     private final ImageView newRun;
     private final ImageView option;
@@ -33,27 +38,53 @@ public class SubMenuGame extends SubMenu {
         sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight()));
         sl.setSelector(imgSelector);
         imgSelector.boundsInParentProperty().addListener(b -> {
-            sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight()));
+            Platform.runLater(() -> sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight())));
         });
+
+        newRun.setImage(new Image(NEWRUN));
+        option.setImage(new Image(OPTION));
+        imgSelector.setImage(new Image(ARROW));
     }
 
     @Override
-    public final void up() {
+    public final void input(final Command c) {
+        switch (c) {
+        case ARROW_UP:
+            up();
+            break;
+        case ARROW_DOWN:
+            down();
+            break;
+        case ENTER:
+            enter();
+            break;
+        case EXIT:
+            exit();
+            break;
+         default:
+        }
+    }
+
+    private void up() {
         sl.previous();
     }
 
-    @Override
-    public final void down() {
+    private void down() {
         sl.next();
     }
 
-    @Override
-    public final void enter() {
+    private void enter() {
         if (sl.get().equals(newRun) && getSelector().contains(SubMenuRun.class)) {
             getSelector().select(SubMenuRun.class);
         }
         if (sl.get().equals(option) && getSelector().contains(SubMenuOption.class)) {
             getSelector().select(SubMenuOption.class);
+        }
+    }
+
+    private void exit() {
+        if (getSelector().contains(SubMenuEnter.class)) {
+            getSelector().select(SubMenuEnter.class);
         }
     }
 

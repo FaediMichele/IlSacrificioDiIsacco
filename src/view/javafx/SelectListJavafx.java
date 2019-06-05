@@ -1,4 +1,4 @@
-package view.node;
+package view.javafx;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Objects;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.util.Pair;
+import view.node.SelectList;
 
 /**
  * Javafx node that pass the node in a list.

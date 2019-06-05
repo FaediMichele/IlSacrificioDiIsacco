@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import view.MenuController;
+import view.javafx.MenuControllerJavafx;
 
 /**
  * Controller for the main menu.
@@ -33,7 +33,7 @@ public class Launcher extends Application {
         stage.setTitle(WINDOW_NAME);
         stage.setScene(scene);
         //stage.initStyle(StageStyle.UNDECORATED);
-        ((MenuController) loader.getController()).start(scene);
+        ((MenuControllerJavafx) loader.getController()).start(scene);
         stage.show();
     }
 

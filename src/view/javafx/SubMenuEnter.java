@@ -4,11 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import view.AnimatedView;
-import view.AnimatedViewJavafx;
+import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.TimedViews;
-import view.TimedViewsJavafx;
 
 /**
  * This class is the sub menu for the entering in the game.
@@ -53,8 +52,9 @@ public class SubMenuEnter extends SubMenu {
     }
 
     @Override
-    public final void enter() {
-        if (getSelector().contains(SubMenuGame.class)) {
+    public final void input(final Command c) {
+        super.input(c);
+        if (c == Command.ENTER && getSelector().contains(SubMenuGame.class)) {
             getSelector().select(SubMenuGame.class);
         }
     }

@@ -77,6 +77,11 @@ public interface CircleList {
     void rotateRight();
 
     /**
+     * Got to the initial state (to the first node).
+     */
+    void reset();
+
+    /**
      * Set a duration for the animation.
      * @param d generic parameter, all implementation should use their own.
      */

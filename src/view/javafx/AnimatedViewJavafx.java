@@ -1,4 +1,4 @@
-package view;
+package view.javafx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import view.AnimatedView;
 
 /**
  * A JavaFx implementation of {@link AnimatedView}.

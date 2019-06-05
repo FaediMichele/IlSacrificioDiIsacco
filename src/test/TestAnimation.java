@@ -13,8 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import view.javafx.CircleListJavafx;
 import view.node.CircleList;
-import view.node.CircleListJavafx;
 
 /**
  * This class is used for develop learning of animation in javaFX.

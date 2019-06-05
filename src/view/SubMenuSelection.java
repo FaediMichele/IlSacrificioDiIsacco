@@ -50,6 +50,7 @@ public abstract class SubMenuSelection {
                 selected.reset();
             }
             final SubMenu sm = menus.get(s);
+            sm.select();
             goTo(selected, sm);
             selected = sm;
         } else {
