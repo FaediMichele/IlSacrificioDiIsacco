@@ -16,7 +16,7 @@
       <Pane fx:id="pnEnter" prefHeight="400" prefWidth="600">
          <children>
             <ImageView fx:id="imgNameOfGame" fitHeight="44.0" fitWidth="317.0" layoutX="142" layoutY="51" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPressStart" fitHeight="206" fitWidth="224.0" layoutX="188" layoutY="128" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgIsaac" fitHeight="206" fitWidth="224.0" layoutX="188" layoutY="128" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
       <Pane fx:id="pnRun" layoutX="600.0" layoutY="400.0" prefHeight="400.0" prefWidth="600.0">

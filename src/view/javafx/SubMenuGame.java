@@ -19,8 +19,8 @@ public class SubMenuGame extends SubMenu {
 
     /**
      * Create the save menu.
-     * @param pnMain the {@link Pane} that contains the other @param.
      * @param selector the {@link SubMenuSelection}.
+     * @param pnMain the {@link Pane} that contains the other @param.
      * @param newRun the newRun {@link ImageView}.
      * @param option the option {@link ImageView}.
      * @param imgSelector the arrow {@link ImageView}.

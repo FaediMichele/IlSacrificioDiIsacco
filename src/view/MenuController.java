@@ -1,8 +1,5 @@
 package view;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -14,35 +11,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
-import view.node.SelectList;
-import view.node.SelectListJavafx;
-import view.node.TranslationPageJavafx;
-import view.node.TranslationPages;
+import view.javafx.SubMenuEnter;
+import view.javafx.SubMenuGame;
+import view.javafx.SubMenuSelectionJavafx;
 
 /**
  * This is the class that handle the main menu of javafx.
  *
  */
 public class MenuController {
-    private static final String NAMEOFGAME = "/menuImgs/nameOfGame-";
-    private static final String PRESSSTART = "/menuImgs/pressStart-";
-    private static final String SELECTOR = "/menuImgs/selector.png";
-    private static final String NEWRUN = "/menuImgs/newRun.png";
-    private static final String OPTIONS = "/menuImgs/options.png";
-    private static final String FORMAT = ".png";
-    private static final long FRAMETIME_DEFAULT = 300;
-    private static final long FRAMETIME_NAMEOFGAME = 150;
-
-    private final TimedViews timeDefault = new TimedViewsJavafx();
-    private final TimedViews timeNameOfGame = new TimedViewsJavafx();
-
-    private final TranslationPages tp = new TranslationPageJavafx(500);
-    private final SelectList sl = new SelectListJavafx();
-
-    private final Map<Pair<Pane, KeyCode>, Pane> nextPaneOnKey = new LinkedHashMap<>();
+    private final SubMenuSelection menu = new SubMenuSelectionJavafx(500);
 
     @FXML private ImageView imgNameOfGame;
-    @FXML private ImageView imgPressStart;
+    @FXML private ImageView imgIsaac;
     @FXML private Pane pnMain;
     @FXML private Pane pnEnter;
     @FXML private Pane pnRun;
@@ -66,21 +47,8 @@ public class MenuController {
                 pnMain.requestFocus();
             }
         });
-        setTimedViews();
-        imgNewRun.setImage(new Image(NEWRUN));
-        nextPaneOnKey.put(new Pair<>(pnEnter, KeyCode.ENTER), pnGame);
-        nextPaneOnKey.put(new Pair<>(pnRun, KeyCode.ESCAPE), pnGame);
-        nextPaneOnKey.put(new Pair<>(pnGame, KeyCode.ESCAPE), pnEnter);
         pnMain.setOnKeyPressed(k -> {
-            if (nextPaneOnKey.containsKey(new Pair<Pane, KeyCode>((Pane) tp.getSelected(), k.getCode()))) {
-                tp.goTo(nextPaneOnKey.get(new Pair<Pane, KeyCode>((Pane) tp.getSelected(), k.getCode())));
-            }
-            if (tp.getSelected().equals(pnGame) && k.getCode().equals(KeyCode.DOWN)) {
-                sl.next();
-            }
-            if (tp.getSelected().equals(pnGame) && k.getCode().equals(KeyCode.UP)) {
-                sl.previous();
-            }
+            menu.get().enter();
         });
         Platform.runLater(() -> pnMain.widthProperty().addListener((obs, oldVal, newVal) -> {
             updateSize(pnMain, new Rectangle2D(0d, 0d, (double) oldVal,
@@ -90,37 +58,10 @@ public class MenuController {
             updateSize(pnMain, new Rectangle2D(0d, 0d, pnMain.getWidth(),
                     (double) oldVal), new Rectangle2D(0d, 0d, pnMain.getWidth(), (double) newVal));
         }));
-        imgSelector.setImage(new Image(SELECTOR));
-        imgOptions.setImage(new Image(OPTIONS));
-        sl.addItems(imgNewRun, imgOptions);
-        sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight()));
-        sl.setSelector(imgSelector);
-
-        tp.addPage(pnEnter, pnRun, pnGame);
-        tp.goTo(pnEnter);
         pnMain.requestFocus();
-    }
 
-    private void setTimedViews() {
-        final AnimatedView nameOfGame = new AnimatedViewJavafx(imgNameOfGame);
-        final AnimatedView pressStart = new AnimatedViewJavafx(imgPressStart);
-
-        setFrames(nameOfGame, NAMEOFGAME);
-        setFrames(pressStart, PRESSSTART);
-        timeDefault.add(pressStart);
-        timeDefault.setMilliseconds(FRAMETIME_DEFAULT);
-        timeNameOfGame.add(nameOfGame);
-        timeNameOfGame.setMilliseconds(FRAMETIME_NAMEOFGAME);
-        timeDefault.start();
-        timeNameOfGame.start();
-    }
-
-    private void setFrames(final AnimatedView av, final String initialName) {
-        int index = 0;
-        while (getClass().getResource(initialName + index + FORMAT) != null) {
-            av.setFrames(new Image(initialName + index + FORMAT));
-            index++;
-        }
+        menu.add(new SubMenuEnter(menu, pnEnter, imgNameOfGame, imgIsaac));
+        menu.add(new SubMenuGame(menu, pnGame, imgNewRun, imgOptions, imgSelector));
     }
 
     private void updateSize(final Parent p, final Rectangle2D oldValue, final Rectangle2D newValue) {

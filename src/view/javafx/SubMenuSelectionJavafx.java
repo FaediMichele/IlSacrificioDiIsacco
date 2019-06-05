@@ -32,7 +32,7 @@ public class SubMenuSelectionJavafx extends SubMenuSelection {
         if (!tp.contains(end.getMain())) {
             tp.addPage(end.getMain());
         }
-        tp.goTo(end);
+        tp.goTo(end.getMain());
     }
 
 }

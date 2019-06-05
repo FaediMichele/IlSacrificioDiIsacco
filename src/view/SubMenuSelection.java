@@ -26,6 +26,9 @@ public abstract class SubMenuSelection {
         for (int i = 0; i < menus.length; i++) {
             this.menus.put(menus[i].getClass(), menus[i]);
         }
+        if (selected == null && menus.length > 0) {
+            selected = menus[0];
+        }
     }
 
     /**
@@ -43,8 +46,12 @@ public abstract class SubMenuSelection {
      */
     public void select(final Class<? extends SubMenu> s) {
         if (menus.containsKey(s)) {
-            selected.reset();
-            selected = menus.get(s);
+            if (selected != null) {
+                selected.reset();
+            }
+            final SubMenu sm = menus.get(s);
+            goTo(selected, sm);
+            selected = sm;
         } else {
             throw new IllegalArgumentException("SubMenu not found");
         }
