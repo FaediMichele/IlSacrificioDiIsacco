@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Screen?>
 <?import java.lang.Double?>
@@ -13,19 +14,23 @@
 <Pane fx:id="pnMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
 prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}"
 		 xmlns="http://javafx.com/javafx"  xmlns:fx="http://javafx.com/fxml" fx:controller="view.javafx.MenuControllerJavafx"
-		 style="-fx-background-color: #F5E1A4;" >
+		 style="-fx-background-color: #CFCDC9;" >
 		<fx:define>
 			<Screen fx:factory="getPrimary" fx:id="screen" />
 		</fx:define>
    <children>
-   <ImageView fx:id="imgDamage" fitHeight="400" fitWidth="600" layoutX="0" layoutY="0" pickOnBounds="true" preserveRatio="true" >
-	            <image>
-	      			<Image url="/menuImgs/menuShadow.png" />
-	   			</image>
-   			</ImageView>
-            <ImageView fx:id="imgName" layoutX="240.0" layoutY="300.0" fitHeight="35.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" />
+   	  <Pane fx:id="pnShadow" prefHeight="400" prefWidth="600">
+         <children>
+		  	<ImageView id="imgShadow" layoutX="0" layoutY="0" fitHeight="400" fitWidth="600"  pickOnBounds="true" preserveRatio="false" >
+		  		<image>
+  					<Image url="/menuImgs/menuShadow.png" />
+				</image>
+			</ImageView>
+         </children>
+      </Pane>
       <Pane fx:id="pnEnter" prefHeight="400" prefWidth="600">
          <children>
+         
             <ImageView fx:id="imgNameOfGame" fitHeight="44.0" fitWidth="317.0" layoutX="142" layoutY="51" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="imgIsaac" fitHeight="206" fitWidth="224.0" layoutX="188" layoutY="128" pickOnBounds="true" preserveRatio="true" />
          </children>

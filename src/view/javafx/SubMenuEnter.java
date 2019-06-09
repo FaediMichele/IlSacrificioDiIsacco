@@ -8,47 +8,48 @@ import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.TimedViews;
+import view.node.RotatingNode;
 
 /**
  * This class is the sub menu for the entering in the game.
  */
 public class SubMenuEnter extends SubMenu {
-    private static final String NAMEOFGAME = "/menuImgs/nameOfGame-";
+    private static final String NAMEOFGAME = "/menuImgs/nameOfGame.png";
     private static final String ISAAC = "/menuImgs/isaac-";
     private static final String FORMAT = ".png";
     private static final long FRAMETIME_ISAAC = 300;
-    private static final long FRAMETIME_NAMEOFGAME = 150;
+    private static final long FRAMETIME_NAMEOFGAME = 1500;
+    private static final double ANGLE_NAMEOFGAME = 1;
 
-    private final TimedViews timeNameOfGame = new TimedViewsJavafx();
     private final TimedViews timeIsaac = new TimedViewsJavafx();
-
+    private final RotatingNode nameOfGameAnimated = new RotatingNodeJavafx();
 
     /**
      * Create the entering menu.
      * @param selector the selector.
      * @param pnMain the {@link Pane} that contains the other @param.
      * @param nameOfGame the {@link ImageView} for the name of the game.
-     * @param isaac the {@link ImageView} for crying isaac.
+     * @param isaac the {@link ImageView} for crying Isaac.
      */
     public SubMenuEnter(final SubMenuSelection selector, final Pane pnMain, final ImageView nameOfGame, final ImageView isaac) {
         super(selector, pnMain);
-        final AnimatedView nameOfGameAnimated = new AnimatedViewJavafx(nameOfGame);
-        final AnimatedView isaacAnimated = new AnimatedViewJavafx(isaac);
 
-        setFrames(nameOfGameAnimated, NAMEOFGAME, FORMAT);
+        final AnimatedView isaacAnimated = new AnimatedViewJavafx(isaac);
+        nameOfGame.setImage(new Image(NAMEOFGAME));
         setFrames(isaacAnimated, ISAAC, FORMAT);
         timeIsaac.add(isaacAnimated);
         timeIsaac.setMilliseconds(FRAMETIME_ISAAC);
-        timeNameOfGame.add(nameOfGameAnimated);
-        timeNameOfGame.setMilliseconds(FRAMETIME_NAMEOFGAME);
+        nameOfGameAnimated.setNode(nameOfGame);
+        nameOfGameAnimated.setMilliseconds(FRAMETIME_NAMEOFGAME);
+        nameOfGameAnimated.setMaxAngle(ANGLE_NAMEOFGAME);
         timeIsaac.start();
-        timeNameOfGame.start();
+        nameOfGameAnimated.start();
     }
 
     @Override
     public final void select() {
         timeIsaac.start();
-        timeNameOfGame.start();
+        nameOfGameAnimated.start();
     }
 
     @Override
@@ -62,7 +63,7 @@ public class SubMenuEnter extends SubMenu {
     @Override
     public final void reset() {
         timeIsaac.stop();
-        timeNameOfGame.stop();
+        nameOfGameAnimated.stop();
     }
 
     /**

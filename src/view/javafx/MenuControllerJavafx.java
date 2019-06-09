@@ -30,13 +30,13 @@ public class MenuControllerJavafx {
 
     //CircleList. Height is calculated to have the same height and width even with the resize of the window.
     private static final int CL_WIDTH = 150;
-    private static final double CL_SCALE = 0.5;
+    private static final double CL_SCALE = 1;
     private static final long CL_TIME = 300;
     private static final int CL_X = 125;
     private static final int CL_Y = 25;
     // Character image
-    private static final double CR_WIDTH = 80;
-    private static final double CR_HEIGHT = 80;
+    private static final double CR_WIDTH = 40;
+    private static final double CR_HEIGHT = 40;
 
 
     private final SubMenuSelection menu = new SubMenuSelectionJavafx(500);
