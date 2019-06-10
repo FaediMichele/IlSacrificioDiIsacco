@@ -3,28 +3,32 @@ package view.javafx;
 import javafx.util.Duration;
 import view.node.TranslationPages;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.animation.TranslateTransition;
-import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 /**
  * The implementation for JavaFx of {@link TranslationPages}.
  */
 public class TranslationPageJavafx implements TranslationPages {
-    private final Map<Pane, TranslateTransition> mapPane;
-    private double time;
+    private final List<Pane> panes;
     private Pane selected;
+    private final TranslateTransition tt; 
+    private final Scene s; 
 
     /**
      * Create a TranslationPageJavafx with the time for the animation.
+     * @param main the main pane that contains all the node that will slide.
+     * @param s the scene of the application.
      * @param milliseconds the time for the animation.
      */
-    public TranslationPageJavafx(final long milliseconds) {
-        time = milliseconds;
-        mapPane = new LinkedHashMap<>();
+    public TranslationPageJavafx(final Pane main, final Scene s, final long milliseconds) {
+        panes = new ArrayList<Pane>();
+        tt = new TranslateTransition(Duration.millis(milliseconds), main);
+        this.s = s;
     }
 
     /**
@@ -39,8 +43,7 @@ public class TranslationPageJavafx implements TranslationPages {
             }
         }
         for (int i = 0; i < pages.length; i++) {
-            final TranslateTransition tt = new TranslateTransition(Duration.millis(time), (Node) pages[i]);
-            mapPane.put((Pane) pages[i], tt);
+            panes.add((Pane) pages[i]);
         }
     }
 
@@ -49,7 +52,7 @@ public class TranslationPageJavafx implements TranslationPages {
      */
     @Override
     public boolean contains(final Object page) {
-        return mapPane.containsKey(page);
+        return panes.contains(page);
     }
 
     /**
@@ -58,8 +61,7 @@ public class TranslationPageJavafx implements TranslationPages {
      */
     @Override
     public void setMilliseconds(final long ms) {
-        time = ms;
-        mapPane.values().forEach(tt -> tt.setDuration(Duration.millis(time)));
+        tt.setDuration(Duration.millis(ms));
     }
 
     /**
@@ -68,18 +70,16 @@ public class TranslationPageJavafx implements TranslationPages {
      */
     @Override
     public void goTo(final Object page) {
-        if (!mapPane.containsKey((Pane) page)) {
+        if (!panes.contains((Pane) page)) {
             throw new IllegalArgumentException("page not found");
         }
         if (selected != null) {
-            mapPane.values().forEach(tt -> tt.stop());
+            tt.stop();
         }
         selected = (Pane) page;
-        mapPane.values().forEach(tt -> {
-            tt.setToX(-selected.getLayoutX());
-            tt.setToY(-selected.getLayoutY());
-            tt.play();
-        });
+        tt.setToX(s.getWidth() / 2 - selected.getWidth() / 2 - selected.getLayoutX());
+        tt.setToY(s.getHeight() / 2 - selected.getHeight() / 2 - selected.getLayoutY());
+        tt.playFromStart();
     }
 
     /**
@@ -89,5 +89,21 @@ public class TranslationPageJavafx implements TranslationPages {
     @Override
     public Object getSelected() {
         return selected;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void jumpTo(final Object page) {
+        if (!panes.contains((Pane) page)) {
+            throw new IllegalArgumentException("page not found" + ((Pane) page).getId());
+        }
+        if (selected != null) {
+            tt.stop();
+        }
+        selected = (Pane) page;
+        tt.getNode().setTranslateX(s.getWidth() / 2 - selected.getWidth() / 2 - selected.getLayoutX());
+        tt.getNode().setTranslateY(s.getHeight() / 2 - selected.getHeight() / 2 - selected.getLayoutY());
     }
 }

@@ -5,13 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.util.Duration;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,28 +23,33 @@ import view.node.CircleList;
  *
  */
 public class MenuControllerJavafx {
+    private static final int DEFAULT_X = 640;
+    private static final int DEFAULT_Y = 344;
+    private static final int TIME_SUBMENU = 250;
 
     //CircleList. Height is calculated to have the same height and width even with the resize of the window.
     private static final int CL_WIDTH = 150;
-    private static final double CL_SCALE = 1;
+    private static final double CL_SCALE = 0.5;
     private static final long CL_TIME = 300;
-    private static final int CL_X = 125;
-    private static final int CL_Y = 25;
+    private static final int CL_X = 135;
+    private static final int CL_Y = 50;
     // Character image
     private static final double CR_WIDTH = 40;
     private static final double CR_HEIGHT = 40;
 
 
-    private final SubMenuSelection menu = new SubMenuSelectionJavafx(500);
+    private SubMenuSelection menu;
     private final ConfigurationManager manager = new ConfigurationManagerJavafx("/config.ini");
 
     @FXML private ImageView imgNameOfGame;
     @FXML private ImageView imgIsaac;
     @FXML private Pane pnMain;
+    @FXML private Pane pnShadow;
     @FXML private Pane pnEnter;
     @FXML private Pane pnRun;
     @FXML private Pane pnGame;
     @FXML private ImageView imgNewRun;
+    @FXML private ImageView imgBackgroundEnter;
 
     @FXML private ImageView imgOptions;
     @FXML private ImageView imgSelector;
@@ -61,6 +62,8 @@ public class MenuControllerJavafx {
     @FXML private ImageView imgHeart;
     @FXML private ImageView imgSpeed;
     @FXML private ImageView imgDamage;
+    @FXML private ImageView imgShadow;
+    @FXML private ImageView imgShadow1;
 
 
     /**
@@ -68,6 +71,10 @@ public class MenuControllerJavafx {
      * @param s the scene. It is used for the input.
      */
     public void start(final Scene s) {
+        menu = new SubMenuSelectionJavafx(pnMain, s, TIME_SUBMENU);
+        initShadow(s);
+        //s.widthProperty().addListener(b -> System.out.println(s.getWidth() + " " + pnShadow.getWidth() + " " + pnShadow.getBoundsInParent().getWidth()));
+        //s.heightProperty().addListener((b) -> pnShadow.setPrefHeight(s.getHeight()));
         pnMain.focusedProperty().addListener(b -> {
             if (pnMain.isFocusTraversable()) {
                 pnMain.requestFocus();
@@ -84,26 +91,36 @@ public class MenuControllerJavafx {
         list.setMarginLeft(CL_X);
         list.setMarginTop(CL_Y);
         pnRun.getChildren().add((Node) list);
-        Platform.runLater(() -> pnMain.widthProperty().addListener((obs, oldVal, newVal) -> {
-            updateSize(pnMain, new Rectangle2D(0d, 0d, (double) oldVal,
-                    pnMain.getHeight()), new Rectangle2D(0d, 0d, (double) newVal, pnMain.getHeight()));
 
-            // Set the correct position for the sub menu.
-            menu.goTo(menu.get(), menu.get());
-        }));
-        Platform.runLater(() -> pnMain.heightProperty().addListener((obs, oldVal, newVal) -> {
-            updateSize(pnMain, new Rectangle2D(0d, 0d, pnMain.getWidth(),
-                    (double) oldVal), new Rectangle2D(0d, 0d, pnMain.getWidth(), (double) newVal));
-
-            // Set the correct position for the sub menu.
-            menu.goTo(menu.get(), menu.get());
-        }));
-        pnMain.requestFocus();
-
-        menu.add(new SubMenuEnter(menu, pnEnter, imgNameOfGame, imgIsaac));
+        menu.add(new SubMenuEnter(menu, pnEnter, imgNameOfGame, imgIsaac, imgBackgroundEnter));
         menu.add(new SubMenuGame(menu, pnGame, imgNewRun, imgOptions, imgSelector));
         menu.add(new SubMenuRun(menu, pnRun, prgLife, prgDamage, prgSpeed, imgName, imgRandom,
                 imgHeart, imgSpeed, imgDamage, list, getCharacterMap()));
+
+        pnMain.getChildrenUnmodifiable().stream().filter(n -> (n instanceof Pane)).filter(n -> !n.equals(pnShadow))
+            .map(n -> (Pane) n).forEach(p -> setBind(p, s));
+        s.widthProperty().addListener((obs, oldVal, newVal) -> {
+            pnMain.getChildrenUnmodifiable().stream().filter(n -> (n instanceof Pane)).filter(n -> !n.equals(pnShadow))
+            .map(n -> (Pane) n).forEach(p -> updateBind(p, s));
+            menu.jumpTo(menu.get());
+        });
+        s.heightProperty().addListener((obs, oldVal, newVal) -> {
+            pnMain.getChildrenUnmodifiable().stream().filter(n -> (n instanceof Pane)).filter(n -> !n.equals(pnShadow))
+            .map(n -> (Pane) n).forEach(p -> updateBind(p, s));
+            menu.jumpTo(menu.get());
+        });
+        pnMain.requestFocus();
+    }
+
+    private void initShadow(final Scene s) {
+        pnShadow.translateXProperty().bind(pnMain.translateXProperty().multiply(-1));
+        pnShadow.translateYProperty().bind(pnMain.translateYProperty().multiply(-1));
+        pnShadow.prefWidthProperty().bind(s.widthProperty());
+        pnShadow.prefHeightProperty().bind(s.heightProperty());
+        imgShadow.fitWidthProperty().bind(pnShadow.widthProperty());
+        imgShadow1.fitWidthProperty().bind(pnShadow.widthProperty());
+        imgShadow.fitHeightProperty().bind(pnShadow.heightProperty());
+        imgShadow1.fitHeightProperty().bind(pnShadow.heightProperty());
     }
 
     private List<Pair<ImageView, CharacterInfo>> getCharacterMap() {
@@ -127,34 +144,21 @@ public class MenuControllerJavafx {
         return base;
     }
 
-    private void updateSize(final Parent p, final Rectangle2D oldValue, final Rectangle2D newValue) {
-        p.getChildrenUnmodifiable().forEach(n -> {
-            if (n instanceof Parent) {
-                updateSize((Parent) n, oldValue, newValue);
-            }
-            n.setLayoutX(n.getLayoutX() * newValue.getWidth()
-                    / oldValue.getWidth());
-            n.setLayoutY(n.getLayoutY() * newValue.getHeight()
-                    / oldValue.getHeight());
-            if (n instanceof Control) {
-                final Control c = (Control) n;
-                c.setPrefWidth(c.getPrefWidth() * newValue.getWidth()
-                        / oldValue.getWidth());
-                c.setPrefHeight(c.getPrefHeight() * newValue.getHeight()
-                        / oldValue.getHeight());
-            } else if (n instanceof ImageView) {
-                final ImageView c = (ImageView) n;
-                c.setFitWidth(c.getFitWidth() * newValue.getWidth()
-                        / oldValue.getWidth());
-                c.setFitHeight(c.getFitHeight() * newValue.getHeight()
-                        / oldValue.getHeight());
-            } else if (n instanceof CircleList) {
-                final CircleList list = (CircleList) n;
-                list.setWidth(list.getWidth() * newValue.getWidth()
-                        / oldValue.getWidth());
-                list.setHeight(list.getHeight() * newValue.getHeight()
-                        / oldValue.getHeight());
-            }
-        });
+    private void updateBind(final Pane p, final Scene s) {
+        if (pnMain.getWidth() / DEFAULT_X > pnMain.getHeight() / DEFAULT_Y) {
+            p.scaleXProperty().bind(s.heightProperty().divide(DEFAULT_Y));
+        } else {
+            p.scaleXProperty().bind(s.widthProperty().divide(DEFAULT_X));
+        }
+    }
+
+    private void setBind(final Pane p, final Scene s) {
+        // make a challenge: try to discover how it work :-)
+        p.layoutXProperty().bind(s.widthProperty().divide(2).subtract(p.widthProperty().divide(2)).
+                add(s.widthProperty().divide(DEFAULT_X).multiply(p.getLayoutX())));
+        p.layoutYProperty().bind(s.heightProperty().divide(2).subtract(p.heightProperty().divide(2)).
+                add(s.heightProperty().divide(DEFAULT_Y).multiply(p.getLayoutY())));
+        p.scaleYProperty().bind(p.scaleXProperty());
     }
 }
+

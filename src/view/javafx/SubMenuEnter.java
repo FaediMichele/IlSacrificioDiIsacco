@@ -14,10 +14,11 @@ import view.node.RotatingNode;
  * This class is the sub menu for the entering in the game.
  */
 public class SubMenuEnter extends SubMenu {
-    private static final String NAMEOFGAME = "/menuImgs/nameOfGame.png";
+    private static final String BACKGROUND = "/menuImgs/backgroundEnter.png";
+    private static final String NAMEOFGAME = "/menuImgs/titleMenu.png";
     private static final String ISAAC = "/menuImgs/isaac-";
     private static final String FORMAT = ".png";
-    private static final long FRAMETIME_ISAAC = 300;
+    private static final long FRAMETIME_ISAAC = 250;
     private static final long FRAMETIME_NAMEOFGAME = 1500;
     private static final double ANGLE_NAMEOFGAME = 1;
 
@@ -30,10 +31,11 @@ public class SubMenuEnter extends SubMenu {
      * @param pnMain the {@link Pane} that contains the other @param.
      * @param nameOfGame the {@link ImageView} for the name of the game.
      * @param isaac the {@link ImageView} for crying Isaac.
+     * @param background the image in the background.
      */
-    public SubMenuEnter(final SubMenuSelection selector, final Pane pnMain, final ImageView nameOfGame, final ImageView isaac) {
+    public SubMenuEnter(final SubMenuSelection selector, final Pane pnMain, final ImageView nameOfGame, final ImageView isaac, final ImageView background) {
         super(selector, pnMain);
-
+        background.setImage(new Image(BACKGROUND));
         final AnimatedView isaacAnimated = new AnimatedViewJavafx(isaac);
         nameOfGame.setImage(new Image(NAMEOFGAME));
         setFrames(isaacAnimated, ISAAC, FORMAT);

@@ -64,4 +64,10 @@ public abstract class SubMenuSelection {
      * @param end the next sub menu.
      */
     public abstract void goTo(SubMenu start, SubMenu end);
+
+    /**
+     * Jump to the destination sub menu immediately.
+     * @param dest the destination.
+     */
+    public abstract void jumpTo(SubMenu dest);
 }

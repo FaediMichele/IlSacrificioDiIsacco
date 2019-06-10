@@ -2,6 +2,8 @@ package view.javafx;
 
 import java.util.Objects;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.node.TranslationPages;
@@ -15,11 +17,13 @@ public class SubMenuSelectionJavafx extends SubMenuSelection {
 
     /**
      * Create the {@link SubMenuSelectionJavafx}. 
+     * @param main the main pane that contains all sub menu node.
+     * @param s the scene of the application.
      * @param ms the time for the animation.
      */
-    public SubMenuSelectionJavafx(final long ms) {
+    public SubMenuSelectionJavafx(final Pane main, final Scene s, final long ms) {
         super();
-        tp = new TranslationPageJavafx(ms);
+        tp = new TranslationPageJavafx(main, s, ms);
     }
 
     /**
@@ -35,6 +39,18 @@ public class SubMenuSelectionJavafx extends SubMenuSelection {
             tp.addPage(end.getMain());
         }
         tp.goTo(end.getMain());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void jumpTo(final SubMenu dest) {
+        Objects.requireNonNull(dest);
+        if (!tp.contains(dest.getMain())) {
+            tp.addPage(dest.getMain());
+        }
+        tp.jumpTo(dest.getMain());
     }
 
 }

@@ -31,6 +31,12 @@ public interface TranslationPages {
     void goTo(Object page);
 
     /**
+     * Move the page without animation. 
+     * @param page the page of destination.
+     */
+    void jumpTo(Object page);
+
+    /**
      * Get the selected page.
      * @return the selected page.
      */
