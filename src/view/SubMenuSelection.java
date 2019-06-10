@@ -1,7 +1,9 @@
 package view;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Select the {@link SubMenu}.
@@ -16,6 +18,14 @@ public abstract class SubMenuSelection {
      */
     public SubMenu get() {
         return selected;
+    }
+
+    /**
+     * Get a set representing the sub menu contained.
+     * @return a {@link LinkedHashSet}.
+     */
+    public Set<SubMenu> asSet() {
+        return new LinkedHashSet<SubMenu>(menus.values());
     }
 
     /**
