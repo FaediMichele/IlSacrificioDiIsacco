@@ -75,16 +75,16 @@ public class SubMenuGame extends SubMenu {
 
     private void enter() {
         if (sl.get().equals(newRun) && getSelector().contains(SubMenuRun.class)) {
-            getSelector().select(SubMenuRun.class);
+            getSelector().selectSubMenu(SubMenuRun.class);
         }
         if (sl.get().equals(option) && getSelector().contains(SubMenuOption.class)) {
-            getSelector().select(SubMenuOption.class);
+            getSelector().selectSubMenu(SubMenuOption.class);
         }
     }
 
     private void exit() {
         if (getSelector().contains(SubMenuEnter.class)) {
-            getSelector().select(SubMenuEnter.class);
+            getSelector().selectSubMenu(SubMenuEnter.class);
         }
     }
 

@@ -54,7 +54,7 @@ public abstract class SubMenuSelection {
      * Change the selected {@link SubMenu}.
      * @param s the {@link SubMenu} to select.
      */
-    public void select(final Class<? extends SubMenu> s) {
+    public void selectSubMenu(final Class<? extends SubMenu> s) {
         if (menus.containsKey(s)) {
             if (selected != null) {
                 selected.reset();
@@ -80,4 +80,12 @@ public abstract class SubMenuSelection {
      * @param dest the destination.
      */
     public abstract void jumpTo(SubMenu dest);
+
+    /**
+     * Method called when the menu is changed.
+     * It's invoked for both menu selection.
+     * @param previous the previous menu selected. May be this subMenu.
+     * @param dest the menu selected. May be this subMenu.
+     */
+    public abstract void selectMenu(SubMenuSelection previous, SubMenuSelection dest);
 }

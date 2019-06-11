@@ -122,7 +122,7 @@ public class SubMenuRun extends SubMenu {
 
     private void exit() {
         if (getSelector().contains(SubMenuGame.class)) {
-            getSelector().select(SubMenuGame.class);
+            getSelector().selectSubMenu(SubMenuGame.class);
         }
     }
     private void update(final CharacterInfo c) {

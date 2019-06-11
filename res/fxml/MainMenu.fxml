@@ -21,100 +21,102 @@
 		<Screen fx:factory="getPrimary" fx:id="screen" />
 	</fx:define>
 	<children>
-		<ImageView id="imgBackGround" layoutX="0" layoutY="0"
-			fitHeight="${screen.visualBounds.height * 10}"
-			fitWidth="${screen.visualBounds.width * 10}" pickOnBounds="true"
-			preserveRatio="false">
-			<image>
-				<Image url="/menuImgs/background.png" />
-			</image>
-		</ImageView>
-		<Pane fx:id="pnEnter" prefHeight="344" prefWidth="640">
+		<Pane fx:id="pnMainMenu" prefHeight="344" prefWidth="640">
 			<children>
-				<ImageView fx:id="imgBackgroundEnter" fitHeight="344"
-					fitWidth="640" layoutX="0" layoutY="0" pickOnBounds="true"
-					preserveRatio="false" />
-				<ImageView fx:id="imgIsaac" fitHeight="160" fitWidth="174"
-					layoutX="230" layoutY="128" pickOnBounds="true"
-					preserveRatio="true" />
-				<ImageView fx:id="imgNameOfGame" fitHeight="92"
-					fitWidth="456" layoutX="72" layoutY="51" pickOnBounds="true"
-					preserveRatio="true" />
-			</children>
-		</Pane>
-		<Pane fx:id="pnRun" layoutX="640" layoutY="344" prefHeight="344"
-			prefWidth="640">
-			<children>
-				<ProgressBar fx:id="prgLife" layoutX="135.0"
-					layoutY="272.0" prefHeight="18.0" prefWidth="88.0" progress="0.0" />
-				<ProgressBar fx:id="prgSpeed" layoutX="260.0"
-					layoutY="272.0" prefHeight="18.0" prefWidth="88.0" progress="0.0" />
-				<ProgressBar fx:id="prgDamage" layoutX="387.0"
-					layoutY="272.0" prefHeight="18.0" prefWidth="88.0" progress="0.0" />
-				<ImageView fx:id="imgRandom" fitHeight="80" fitWidth="80"
-					layoutX="250" layoutY="160" pickOnBounds="true"
-					preserveRatio="true" />
-				<ImageView fx:id="imgHeart" fitHeight="18.0"
-					fitWidth="18.0" layoutX="117.0" layoutY="272.0" pickOnBounds="true"
-					preserveRatio="true">
-					<image>
-						<Image url="/menuImgs/heartSprite.png" />
-					</image>
-				</ImageView>
-				<ImageView fx:id="imgSpeed" fitHeight="18.0"
-					fitWidth="18.0" layoutX="242.0" layoutY="272.0" pickOnBounds="true"
-					preserveRatio="true">
-					<image>
-						<Image url="/menuImgs/speedSprite.png" />
-					</image>
-				</ImageView>
-				<ImageView fx:id="imgDamage" fitHeight="18.0"
-					fitWidth="18.0" layoutX="369.0" layoutY="272.0" pickOnBounds="true"
-					preserveRatio="true">
-					<image>
-						<Image url="/menuImgs/damageSprite.png" />
-					</image>
-				</ImageView>
-				<ImageView fx:id="imgName" layoutX="240.0" layoutY="300.0"
-					fitHeight="35.0" fitWidth="280.0" pickOnBounds="true"
-					preserveRatio="true" />
-			</children>
-		</Pane>
-		<Pane fx:id="pnGame" layoutY="344" layoutX="0" prefHeight="344"
-			prefWidth="640">
-			<children>
-				<ImageView fx:id="imgNewRun" fitHeight="55" fitWidth="180"
-					layoutX="210" layoutY="100" pickOnBounds="true"
-					preserveRatio="true" rotate="-5.0" />
-				<ImageView fx:id="imgSelector" fitHeight="40.0"
-					fitWidth="40.0" layoutX="142.0" layoutY="212" pickOnBounds="true"
-					preserveRatio="true" rotate="-5.0" />
-				<ImageView fx:id="imgOptions" fitHeight="53.0"
-					fitWidth="200.0" layoutX="210" layoutY="250" pickOnBounds="true"
-					preserveRatio="true" rotate="-5.0" />
-			</children>
-		</Pane>
-		<Pane fx:id="pnShadow" prefWidth="${screen.visualBounds.width}" prefHeight="${screen.visualBounds.height}">
-			<children>
-				<ImageView fx:id="imgShadow" layoutX="0" layoutY="0"
-					fitHeight="${screen.prefHeight}" fitWidth="${screen.prefWidth}" pickOnBounds="true"
+				<ImageView id="imgBackGround" layoutX="0" layoutY="0"
+					fitHeight="${screen.visualBounds.height * 10}"
+					fitWidth="${screen.visualBounds.width * 10}" pickOnBounds="true"
 					preserveRatio="false">
 					<image>
-						<Image url="/menuImgs/shadowLeftMenu.png" />
+						<Image url="/menuImgs/background.png" />
 					</image>
 				</ImageView>
-				<ImageView fx:id="imgShadow1" layoutX="0" layoutY="0"
-					fitHeight="${screen.prefHeight}" fitWidth="${screen.prefWidth}" pickOnBounds="true"
-					preserveRatio="false">
-					<image>
-						<Image url="/menuImgs/shadowCorner.png" />
-					</image>
-				</ImageView>
+				<Pane fx:id="pnEnter" prefHeight="344" prefWidth="640">
+					<children>
+						<ImageView fx:id="imgBackgroundEnter" fitHeight="344"
+							fitWidth="640" layoutX="0" layoutY="0" pickOnBounds="true"
+							preserveRatio="false" />
+						<ImageView fx:id="imgIsaac" fitHeight="160"
+							fitWidth="174" layoutX="230" layoutY="128" pickOnBounds="true"
+							preserveRatio="true" />
+						<ImageView fx:id="imgNameOfGame" fitHeight="92"
+							fitWidth="456" layoutX="72" layoutY="51" pickOnBounds="true"
+							preserveRatio="true" />
+					</children>
+				</Pane>
+				<Pane fx:id="pnRun" layoutX="640" layoutY="344"
+					prefHeight="344" prefWidth="640">
+					<children>
+						<ProgressBar fx:id="prgLife" layoutX="135.0"
+							layoutY="272.0" prefHeight="18.0" prefWidth="88.0" progress="0.0" />
+						<ProgressBar fx:id="prgSpeed" layoutX="260.0"
+							layoutY="272.0" prefHeight="18.0" prefWidth="88.0" progress="0.0" />
+						<ProgressBar fx:id="prgDamage" layoutX="387.0"
+							layoutY="272.0" prefHeight="18.0" prefWidth="88.0" progress="0.0" />
+						<ImageView fx:id="imgRandom" fitHeight="80"
+							fitWidth="80" layoutX="250" layoutY="160" pickOnBounds="true"
+							preserveRatio="true" />
+						<ImageView fx:id="imgHeart" fitHeight="18.0"
+							fitWidth="18.0" layoutX="117.0" layoutY="272.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="/menuImgs/heartSprite.png" />
+							</image>
+						</ImageView>
+						<ImageView fx:id="imgSpeed" fitHeight="18.0"
+							fitWidth="18.0" layoutX="242.0" layoutY="272.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="/menuImgs/speedSprite.png" />
+							</image>
+						</ImageView>
+						<ImageView fx:id="imgDamage" fitHeight="18.0"
+							fitWidth="18.0" layoutX="369.0" layoutY="272.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="/menuImgs/damageSprite.png" />
+							</image>
+						</ImageView>
+						<ImageView fx:id="imgName" layoutX="240.0"
+							layoutY="300.0" fitHeight="35.0" fitWidth="280.0"
+							pickOnBounds="true" preserveRatio="true" />
+					</children>
+				</Pane>
+				<Pane fx:id="pnGame" layoutY="344" layoutX="0" prefHeight="344"
+					prefWidth="640">
+					<children>
+						<ImageView fx:id="imgNewRun" fitHeight="55"
+							fitWidth="180" layoutX="210" layoutY="100" pickOnBounds="true"
+							preserveRatio="true" rotate="-5.0" />
+						<ImageView fx:id="imgSelector" fitHeight="40.0"
+							fitWidth="40.0" layoutX="142.0" layoutY="212" pickOnBounds="true"
+							preserveRatio="true" rotate="-5.0" />
+						<ImageView fx:id="imgOptions" fitHeight="53.0"
+							fitWidth="200.0" layoutX="210" layoutY="250" pickOnBounds="true"
+							preserveRatio="true" rotate="-5.0" />
+					</children>
+				</Pane>
+				<Pane fx:id="pnShadow" prefWidth="${screen.visualBounds.width}"
+					prefHeight="${screen.visualBounds.height}">
+					<children>
+						<ImageView fx:id="imgShadow" layoutX="0" layoutY="0"
+							fitHeight="${screen.prefHeight}" fitWidth="${screen.prefWidth}"
+							pickOnBounds="true" preserveRatio="false">
+							<image>
+								<Image url="/menuImgs/shadowLeftMenu.png" />
+							</image>
+						</ImageView>
+						<ImageView fx:id="imgShadow1" layoutX="0" layoutY="0"
+							fitHeight="${screen.prefHeight}" fitWidth="${screen.prefWidth}"
+							pickOnBounds="true" preserveRatio="false">
+							<image>
+								<Image url="/menuImgs/shadowCorner.png" />
+							</image>
+						</ImageView>
+					</children>
+				</Pane>
 			</children>
 		</Pane>
-
-
-
 	</children>
 </Pane>
 
