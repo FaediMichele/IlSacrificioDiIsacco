@@ -2,6 +2,7 @@ package model.component;
 
 //import model.entity.BombTriggered;
 import model.entity.Entity;
+import util.Pair;
 
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's collected.
@@ -43,7 +44,7 @@ public class BombCollectibleComponent extends AbstractCollectableComponent {
                 try {
                     Thread.sleep(timeBeforeExplodes);
                     ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale);
-                    /* qui la collisione con le altre entità fa danno e il suo sprite si modifica, ci sarà un'evento da postare per modificare lo sprite?*/
+                    getEntity().getStatusComponent().setStatus(new Pair<>(1, "explode"));
                     Thread.sleep(explosionTime);
                     deleteThisEntity();
                 } catch (InterruptedException e) {

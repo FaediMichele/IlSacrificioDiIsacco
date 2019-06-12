@@ -11,6 +11,7 @@ import model.entity.Entity;
 import model.events.EventListener;
 import model.events.PickUpEvent;
 import model.events.UseThingEvent;
+import util.Pair;
 
 /**
  * Keeps track of all the objects (which are entity themselves) that my entity
@@ -92,6 +93,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
         if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
             //((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
             this.things.add(thing);
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "pick up"));
             return true;
         }
         return false;
@@ -106,6 +108,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
                 .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);
+        this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "appear"));
         this.things.remove(thing);
     }
 

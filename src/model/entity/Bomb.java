@@ -5,6 +5,7 @@ import model.component.BombCollectibleComponent;
 import model.component.CollisionComponent;
 import model.component.DamageComponent;
 import model.component.PsychoMentalityComponent;
+import model.component.StatusComponent;
 
 /**
  * 
@@ -26,10 +27,11 @@ public class Bomb extends AbstractEntity {
     /**
      * @param entityBody      Body of the entity
      * @param entityCollision Collision component of the entity
+     * @param entityStatus    the {@link StatusComponent}
      */
-    public Bomb(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    public Bomb(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
         this();
-        this.setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 
 }

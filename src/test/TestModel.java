@@ -15,12 +15,12 @@ import model.component.BodyComponent;
 import model.component.BombCollectibleComponent;
 import model.component.DamageComponent;
 import model.component.DoorComponent;
+import model.component.EnemyMentalityComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
 import model.component.HeartCollectibleComponent;
 import model.component.InventoryComponent;
-import model.component.Mentality;
 import model.component.AbstractMentalityComponent;
 import model.component.MoveComponent;
 import model.component.PlayerMentalityComponent;
@@ -231,7 +231,7 @@ public class TestModel {
         final double finalEnemyLife = 2.7;
         enemy.attachComponent(new DamageComponent(enemy, damage));
         enemy.attachComponent(new HealthComponent(enemy));
-        enemy.attachComponent(new AbstractMentalityComponent(enemy, Mentality.EVIL));
+        enemy.attachComponent(new EnemyMentalityComponent(enemy));
         goodEntity.postEvent(new DamageEvent(enemy));
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), 3);
@@ -333,12 +333,8 @@ public class TestModel {
         assertEquals(PlayerMentalityComponent.class, m.getClass());
         System.out.println(m.getClass());
     }
-    
-    
-    
-    
-    
-    
+
+
     private HealthComponent getHealthComponent(final Entity e) {
         return (HealthComponent) e.getComponent(HealthComponent.class).get();
     }

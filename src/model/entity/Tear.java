@@ -4,6 +4,7 @@ import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.MoveComponent;
 import model.component.PlayerMentalityComponent;
+import model.component.StatusComponent;
 import model.component.TearComponent;
 
 /**
@@ -33,10 +34,11 @@ public class Tear extends AbstractMovableEntity {
     /**
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
+     * @param entityStatus    the {@link StatusComponent}
      */
-    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
         super();
-        this.setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 
     private MoveComponent getMoveComponent(final Entity e) {

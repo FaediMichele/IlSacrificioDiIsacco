@@ -9,6 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.DamageEvent;
 import model.events.EventListener;
+import util.Pair;
 
 /**
  * This component controls the health of the entity.
@@ -29,11 +30,6 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         super(entity);
         final int realHeartNumber = Math.min(defaultHearts, MAX_HEARTS);
         this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart()).collect(Collectors.toList());
-        /*hearts = new ArrayList<>();
-        for (int i = 0; i < realHeartNumber; i++) {
-                hearts.add(new SimpleHeart());
-        }*/
-
         this.registListener();
     }
 
@@ -115,6 +111,9 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
             if (this.getLastHeart().getValue() == 0) {
                 this.hearts.remove(this.getLastHeart());
             }
+        }
+        if (!this.isAlive()) {
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "dead"));
         }
     }
 

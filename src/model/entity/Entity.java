@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import model.component.Component;
+import model.component.StatusComponent;
 import model.events.Event;
 import model.events.EventListener;
 import model.game.Room;
@@ -90,4 +91,10 @@ public interface Entity {
      * @param r the new room
      */
     void changeRoom(Room r);
+
+    /**
+     * @return the statusComponent of the entity, 
+     * this utility is useful because all entities need to log their status very often
+     */
+    StatusComponent getStatusComponent();
 }

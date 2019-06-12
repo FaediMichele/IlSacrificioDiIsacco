@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.EventListener;
 import model.events.MoveEvent;
+import util.Pair;
 
 /**
  * Component that manages the movement of the entity and its speed.
@@ -125,6 +126,13 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     /**
+     * Check if there has been a new movement.
+     */
+    private boolean checkMove() {
+        return xMove != 0 || yMove != 0 || zMove != 0;
+    }
+
+    /**
      * Initialize the movement to 0 as the entity has just been created or has just been moved.
      */
     private void initMove() {
@@ -176,9 +184,12 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
 
     @Override
     public final void update(final Double deltaTime) {
-        final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
-        this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-        this.initMove();
+        if (this.checkMove()) {
+            final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
+            this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move"));
+            this.initMove();
+        }
     }
 
     private BodyComponent getBody() {

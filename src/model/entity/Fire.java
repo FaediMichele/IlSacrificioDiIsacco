@@ -5,6 +5,7 @@ import model.component.CollisionComponent;
 import model.component.FireComponent;
 import model.component.FireType;
 import model.component.PsychoMentalityComponent;
+import model.component.StatusComponent;
 
 /**
  * Implements the fires.
@@ -26,9 +27,10 @@ public class Fire extends AbstractStaticEntity {
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      * @param fireType        the {@link FireType}
+     * @param entityStatus    the {@link StatusComponent}
      */
-    public Fire(final BodyComponent entityBody, final CollisionComponent entityCollision, final FireType fireType) {
+    public Fire(final BodyComponent entityBody, final CollisionComponent entityCollision, final FireType fireType, final StatusComponent entityStatus) {
         this(fireType);
-        this.setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 }
