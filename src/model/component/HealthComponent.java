@@ -114,6 +114,8 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         }
         if (!this.isAlive()) {
             this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "dead"));
+        } else {
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "suffer"));
         }
     }
 
