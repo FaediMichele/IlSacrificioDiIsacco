@@ -8,18 +8,18 @@ import util.Pair;
 
 /**
  * 
- * It is the component that generates tears when Isacco attacks.
+ * This is the component that generates tears when Isacco attacks.
  *
  */
 
-public class SimpleTearWeapon extends AbstractComponent<SimpleTearWeapon> {
+public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
 
-    SimpleTearWeapon(final Entity entity) {
+    TearWeaponComponent(final Entity entity) {
         super(entity);
         registerListeners();
     }
 
-    SimpleTearWeapon(final Entity entity, final SimpleTearWeapon component) {
+    TearWeaponComponent(final Entity entity, final TearWeaponComponent component) {
         super(entity, component);
         registerListeners();
     }
@@ -31,14 +31,6 @@ public class SimpleTearWeapon extends AbstractComponent<SimpleTearWeapon> {
                 final Tear t = new Tear(event.getAngle(), event.getSourceEntity());
                 getEntity().getRoom().insertEntity(t);
                 t.getStatusComponent().setStatus(new Pair<>(1, "appear"));
-                while (getEntity().getRoom().getEntity().contains(t)) {
-                    ((TearAIComponent) t.getComponent(TearAIComponent.class).get()).move();
-                    try {
-                        Thread.sleep((long) (((MoveComponent) t.getComponent(MoveComponent.class).get()).getSpeed() * 100));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         });
     }

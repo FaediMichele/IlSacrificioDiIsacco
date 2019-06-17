@@ -32,14 +32,14 @@ public class TearAIComponent extends AbstractComponent<TearAIComponent> {
         return this.angle;
     }
 
+    private MoveComponent getMoveComponent(final Entity e) {
+        return ((MoveComponent) e.getComponent(MoveComponent.class).get());
+    }
+
     /**
      * update method makes the tear move in the right direction.
      */
-    public void move() {
+    public void update() {
         this.getMoveComponent(this.getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
-    }
-
-    private MoveComponent getMoveComponent(final Entity e) {
-        return ((MoveComponent) e.getComponent(MoveComponent.class).get());
     }
 }
