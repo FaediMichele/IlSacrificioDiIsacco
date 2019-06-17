@@ -187,12 +187,25 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         if (this.checkMove()) {
             final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
             this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move"));
+            postLogs();
             this.initMove();
         }
     }
 
     private BodyComponent getBody() {
         return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
+    }
+
+    private void postLogs() {
+        if (xMove > 0) {
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move up"));
+        } else if (xMove < 0) {
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move down"));
+        }
+        if (yMove > 0) {
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move right"));
+        } else if (yMove < 0) {
+            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move left"));
+        }
     }
 }
