@@ -5,13 +5,13 @@ import model.entity.Entity;
 /**
  *
  */
-public class TearComponent extends AbstractComponent<TearComponent> {
+public class TearAIComponent extends AbstractComponent<TearAIComponent> {
 
     private final int angle;
     /**
      * @param entity this entity
      */
-    public TearComponent(final Entity entity) {
+    public TearAIComponent(final Entity entity) {
         this(entity, 0);
     }
 
@@ -19,7 +19,7 @@ public class TearComponent extends AbstractComponent<TearComponent> {
      * @param entity this entity
      * @param angle direction angle of the tear
      */
-    public TearComponent(final Entity entity, final int angle) {
+    public TearAIComponent(final Entity entity, final int angle) {
         super(entity);
         this.angle = angle;
     }

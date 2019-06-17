@@ -2,7 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.Component;
-import model.component.DoorComponent;
+import model.component.DoorAIComponent;
 import model.component.NeutralMentalityComponent;
 
 /**
@@ -26,7 +26,7 @@ public class Door extends AbstractStaticEntity {
     public Door(final Integer location, final Integer destinationIndex) {
         super();
         this.attachComponent(generateBody(location));
-        this.attachComponent(new DoorComponent(this, location, destinationIndex));
+        this.attachComponent(new DoorAIComponent(this, location, destinationIndex));
         this.attachComponent(new NeutralMentalityComponent(this));
     }
 
@@ -53,6 +53,6 @@ public class Door extends AbstractStaticEntity {
 
     @Override
     public final String toString() {
-        return this.getComponent(DoorComponent.class).get().toString();
+        return this.getComponent(DoorAIComponent.class).get().toString();
     }
 }

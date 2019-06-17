@@ -32,7 +32,7 @@ public class SimpleTearWeapon extends AbstractComponent<SimpleTearWeapon> {
                 getEntity().getRoom().insertEntity(t);
                 t.getStatusComponent().setStatus(new Pair<>(1, "appear"));
                 while (getEntity().getRoom().getEntity().contains(t)) {
-                    ((TearComponent) t.getComponent(TearComponent.class).get()).move();
+                    ((TearAIComponent) t.getComponent(TearAIComponent.class).get()).move();
                     try {
                         Thread.sleep((long) (((MoveComponent) t.getComponent(MoveComponent.class).get()).getSpeed() * 100));
                     } catch (InterruptedException e) {

@@ -15,7 +15,7 @@ import model.events.EventListener;
  * This component is used by the doors.
  *
  */
-public class DoorComponent extends AbstractComponent<DoorComponent> {
+public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
 
     private final Integer destination;
     private final Integer location;
@@ -28,7 +28,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * @param destinationIndex index of the room
      * @param entity Entity that possess the component
      */
-    public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+    public DoorAIComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
         super(entity);
         this.hasPlayerPassed = false;
         this.location = location;

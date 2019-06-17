@@ -14,9 +14,9 @@ import model.component.BlackHeart;
 import model.component.BodyComponent;
 import model.component.BombCollectibleComponent;
 import model.component.DamageComponent;
-import model.component.DoorComponent;
+import model.component.DoorAIComponent;
 import model.component.EnemyMentalityComponent;
-import model.component.FireComponent;
+import model.component.FireAIComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
 import model.component.HeartCollectibleComponent;
@@ -63,7 +63,7 @@ public class TestModel {
         p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
         assertTrue(p.hasComponent(BodyComponent.class));
         assertTrue(p.hasComponent(HealthComponent.class));
-        assertFalse(p.hasComponent(DoorComponent.class));
+        assertFalse(p.hasComponent(DoorAIComponent.class));
         assertEquals(p, p2);
         assertTrue(p.equals(p2));
         assertFalse(p.equals(f));
@@ -80,18 +80,18 @@ public class TestModel {
     public void testFire() {
         final Fire f1 = new Fire(FireType.RED);
         final Fire f2 = new Fire(FireType.BLUE);
-        assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1, FireType.RED));
+        assertEquals(f1.getComponent(FireAIComponent.class).get(), new FireAIComponent(f1, FireType.RED));
         f1.postEvent(new FireHittedEvent(f1));
-        assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1, FireType.RED)));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
+        assertFalse(f1.getComponent(FireAIComponent.class).get().equals(new FireAIComponent(f1, FireType.RED)));
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f1.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(3));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f2.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(4));
         f2.postEvent(new FireHittedEvent(f2));
         f2.postEvent(new FireHittedEvent(f2));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f1.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(3));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f2.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(2));
         // ((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
     }

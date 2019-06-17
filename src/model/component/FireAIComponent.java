@@ -12,7 +12,7 @@ import model.events.FireOutEvent;
 /**
  * Implements the data for the fires.
  */
-public class FireComponent extends AbstractComponent<FireComponent> {
+public class FireAIComponent extends AbstractComponent<FireAIComponent> {
 
     private static final int MAX_LIFE = 4;
     private int lifeLeft;
@@ -24,7 +24,7 @@ public class FireComponent extends AbstractComponent<FireComponent> {
      * @param entity   the source entity
      * @param fireType the {@link FireType}
      */
-    public FireComponent(final Entity entity, final FireType fireType) {
+    public FireAIComponent(final Entity entity, final FireType fireType) {
         super(entity);
         Objects.requireNonNull(fireType);
         this.lifeLeft = MAX_LIFE;
