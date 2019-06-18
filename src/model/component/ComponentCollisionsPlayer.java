@@ -5,31 +5,66 @@ import java.util.List;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
+import model.entity.Tear;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.EventListener;
 import model.events.PickUpEvent;
 
 /**
- * This class manages the collision of this entity with the others.
+ * Collision component of the player.
  *
  */
-
-public class CollisionComponent extends AbstractComponent<CollisionComponent> {
+public class ComponentCollisionsPlayer extends CollisionComponent {
 
     /**
      * Default CollisionComponent constructor.
      * 
      * @param entity entity for this component
      */
-    public CollisionComponent(final Entity entity) {
+    public ComponentCollisionsPlayer(final Entity entity) {
         super(entity);
         this.registerListener(new EventListener<CollisionEvent>() {
 
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
-                handleCollision(event);
+                /**
+                 * damage management
+                 */
+                collisionManagement(event);
+
+                /**
+                 * management collect an object
+                 */
+
+
+                /**
+                 * handles the collision with a locked component
+                 */
+//                if (event.getSourceEntity().hasComponent(LockComponent.class)) {
+//                    /**
+//                     * la porta è chiusa?
+//                     */
+//
+//                    /**
+//                     * ho la chiave
+//                     */
+//                    if (getEntity().hasComponent(InventoryComponent.class) &&
+//                            ((InventoryComponent)getEntity().getComponent(InventoryComponent.class).get()).thingsOfThisKind(Key.class))  {
+//                        if (((KeychainComponent) getEntity().getComponent(KeychainComponent.class).get())
+//                                .getKey()
+//                                .contains(event.getSourceEntity())) {
+//                        }
+//                    }
+//                }
+
+                /**
+                 * handles the disappearing of the tear after a collision
+                 */
+                if (getEntity().getClass().equals(Tear.class)) {
+                    getEntity().getRoom().deleteEntity(getEntity());
+                }
             }
         });
     }
@@ -40,19 +75,17 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
      * @param entity         the {@link Entity}
      * @param eventListeners the {@link EventListener}
      */
-    public CollisionComponent(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
-        super(entity);
-        eventListeners.forEach(e -> this.registerListener(e));
+    public ComponentCollisionsPlayer(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
+        super(entity, eventListeners);
     }
 
     /**
-     * 
-     * @param event is the collision event
+     * {@inheritDoc}
      */
+    @Override
     protected void handleCollision(final CollisionEvent event) {
-
+        super.handleCollision(event);
     }
-
     /**
      * Method which is called when a collision occurs, this method must ONLY handle
      * the damage.
@@ -96,5 +129,4 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
             getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
         }
     }
-
 }

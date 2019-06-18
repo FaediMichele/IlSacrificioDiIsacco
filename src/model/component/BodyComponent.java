@@ -16,6 +16,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     private static final double DEFAULT_SCALABLE_VALUE = 1;
     private static final int DEFAULT_WEIGHT_VALUE = 1;
     private Triplet<Double, Double, Double> position;
+    private Triplet<Double, Double, Double> positionPrevious;
     private double height;
     private double width;
     private int weight;
@@ -33,6 +34,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
             final double width, final int weight) {
         super(entity);
         this.position = position;
+        this.positionPrevious = position;
         this.height = height;
         this.width = width;
         this.weight = weight;
@@ -88,6 +90,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param deltaZ movement on the z axis
      */
     protected void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
+        this.positionPrevious = this.position;
         this.position = new Triplet<Double, Double, Double>(this.position.getV1() + deltaX,
                 this.position.getV2() + deltaY, this.position.getV3() + deltaZ);
     }
@@ -164,5 +167,12 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      */
     public void changeWeight(final int deltaWeight) {
         this.weight = this.weight + deltaWeight;
+    }
+    /**
+     * 
+     * @return the position to the previous frame.
+     */
+    protected Triplet<Double, Double, Double> getPositionPrevious() {
+        return this.positionPrevious;
     }
 }

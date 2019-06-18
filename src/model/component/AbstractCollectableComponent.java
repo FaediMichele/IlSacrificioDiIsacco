@@ -3,7 +3,6 @@ package model.component;
 import java.util.Optional;
 
 import model.entity.Entity;
-import util.Pair;
 
 /**
  * 

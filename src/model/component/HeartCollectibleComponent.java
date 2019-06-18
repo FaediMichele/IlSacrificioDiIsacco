@@ -1,7 +1,6 @@
 package model.component;
 
 import model.entity.Entity;
-import util.Pair;
 
 /**
  * Collectible Component of the heart entity: how the heart have to act when
