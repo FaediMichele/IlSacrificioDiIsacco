@@ -50,7 +50,8 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final Optional<? extends Component> oc =  event.getSourceEntity().getComponent(AbstractPickupableComponent.class);
+                final Optional<? extends Component> oc = event.getSourceEntity()
+                        .getComponent(AbstractPickupableComponent.class);
                 if (oc.isPresent()) {
                     final AbstractPickupableComponent absCollComp = (AbstractPickupableComponent) oc.get();
                     absCollComp.init(getEntity());
@@ -64,34 +65,33 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             public void listenEvent(final UseThingEvent event) {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
                     final Optional<Entity> thingToRelease = things.stream()
-                                                                  .filter(i -> i.getClass().equals(event.getReleasedEntityClass()))
-                                                                  .findFirst();
-                    if (!thingToRelease.isPresent()) {
-                        throw new IllegalArgumentException();
-                    }
-
-                    final Optional<Component> oc = thingToRelease.get().getComponents()
-                                                       .stream()
-                                                       .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
-                                                       .findFirst();
-                    if (oc.isPresent()) {
-                        final AbstractCollectableComponent absCollCollComp = (AbstractCollectableComponent) oc.get();
-                        absCollCollComp.use();
-                    }
+                            .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findFirst();
+//                    if (!thingToRelease.isPresent()) {
+//                        throw new IllegalArgumentException();
+//                    }
+                    ((AbstractCollectableComponent) thingToRelease.get().getComponents()
+                            .stream()
+                            .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
+                            .findFirst()
+                            .get())
+                    .use();
                 }
             }
         });
+
     }
 
     /**
      * The entity will disappear from the screen deactivating its body component.
      * 
      * @param thing thing to add
-     * @return true if the entity has been collected correctly or false if it was not possible to collect the entity
+     * @return true if the entity has been collected correctly or false if it was
+     *         not possible to collect the entity
      */
     protected boolean addThing(final Entity thing) {
         if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
-            //((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(false);
+            // ((BodyComponent)
+            // thing.getComponent(BodyComponent.class).get()).setState(false);
             this.things.add(thing);
             this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "pick up"));
             return true;
@@ -101,10 +101,12 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     /**
      * The thing that has to be removed from the list and appear in the room.
+     * 
      * @param thing to release
      */
     protected void releaseThing(final Entity thing) {
-        //((BodyComponent) thing.getComponent(BodyComponent.class).get()).setState(true);
+        // ((BodyComponent)
+        // thing.getComponent(BodyComponent.class).get()).setState(true);
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
                 .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);
@@ -114,6 +116,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     /**
      * The thing that has to be consumed (removed from the list).
+     * 
      * @param thing to remove
      */
     protected void consumeThing(final Entity thing) {
@@ -122,7 +125,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     /**
      * 
-     * @param thingClass 
+     * @param thingClass it is the object of which we want to know the collected quantities
      * @return number of things of some kind (Es. number of bombs, number of keys)
      */
     protected int thingsOfThisKind(final Class<? extends Entity> thingClass) {

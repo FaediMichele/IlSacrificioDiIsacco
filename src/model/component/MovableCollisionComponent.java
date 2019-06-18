@@ -2,12 +2,8 @@ package model.component;
 
 import java.util.List;
 
-import com.google.common.eventbus.Subscribe;
-
 import model.entity.Entity;
-import model.entity.Tear;
 import model.events.CollisionEvent;
-import model.events.DamageEvent;
 import model.events.EventListener;
 import util.Pair;
 import util.Triplet;
