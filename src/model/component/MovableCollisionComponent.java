@@ -9,36 +9,25 @@ import model.entity.Tear;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.EventListener;
-import model.events.PickUpEvent;
 
 /**
- * Collision component of the player.
+ * 
+ * This is the component of the collisions of all the entities that move.
  *
  */
-public class ComponentCollisionsPlayer extends MovableCollisionComponent {
-
+public class MovableCollisionComponent extends CollisionComponent {
     /**
      * Default CollisionComponent constructor.
      * 
      * @param entity entity for this component
      */
-    public ComponentCollisionsPlayer(final Entity entity) {
+    public MovableCollisionComponent(final Entity entity) {
         super(entity);
         this.registerListener(new EventListener<CollisionEvent>() {
 
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
-                /**
-                 * damage management
-                 */
-                collisionManagement(event);
-
-                /**
-                 * management collect an object
-                 */
-
-
                 /**
                  * handles the collision with a locked component
                  */
@@ -75,7 +64,7 @@ public class ComponentCollisionsPlayer extends MovableCollisionComponent {
      * @param entity         the {@link Entity}
      * @param eventListeners the {@link EventListener}
      */
-    public ComponentCollisionsPlayer(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
+    public MovableCollisionComponent(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
         super(entity, eventListeners);
     }
 
@@ -85,15 +74,16 @@ public class ComponentCollisionsPlayer extends MovableCollisionComponent {
     @Override
     protected void handleCollision(final CollisionEvent event) {
         super.handleCollision(event);
-        this.collectibleManagement(event);
+        this.damageManagement(event);
     }
+
     /**
      * Method which is called when a collision occurs, this method must ONLY handle
      * the damage.
      * 
      * @param event is the collision event
      */
-    protected void collisionManagement(final CollisionEvent event) {
+    protected void damageManagement(final CollisionEvent event) {
         AbstractMentalityComponent sourceMentaliy;
         AbstractMentalityComponent myMentality;
 
@@ -119,15 +109,5 @@ public class ComponentCollisionsPlayer extends MovableCollisionComponent {
 
     }
 
-    /**
-     * This method is called when the entity collides with entities and must manage
-     * ONLY if this entity must be collected or not.
-     * 
-     * @param event is the collision event
-     */
-    protected void collectibleManagement(final CollisionEvent event) {
-        if (event.getSourceEntity().hasComponent(AbstractPickupableComponent.class)) {
-            getEntity().postEvent(new PickUpEvent(event.getSourceEntity()));
-        }
-    }
+
 }
