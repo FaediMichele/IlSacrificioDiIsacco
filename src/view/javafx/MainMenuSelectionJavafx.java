@@ -28,6 +28,9 @@ import view.node.TranslationPages;
 public class MainMenuSelectionJavafx extends SubMenuSelection {
     private static final int DEFAULT_X = 640;
     private static final int DEFAULT_Y = 344;
+    private static final String SHADOWPANE = "pnShadow";
+    private static final String RUNPANE = "pnRun";
+
     // Character image
     private static final double CR_WIDTH = 40;
     private static final double CR_HEIGHT = 40;
@@ -51,10 +54,10 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         tp = new TranslationPageJavafx(main, s, msPage);
         fd = new FadeTransition(Duration.millis(msMenu), main);
         this.manager = manager;
-        init(main, s);
+        init(s);
     }
 
-    private void init(final Pane main, final Scene s) {
+    private void init(final Scene s) {
         initShadow(s);
         setImageView(null, (ImageView) getByName(s, "imgRandom"));
 
@@ -63,7 +66,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
                 (ImageView) getByName(s, "imgIsaac"), (ImageView) getByName(s, "imgBackgroundEnter")));
         add(new SubMenuGame(this, (Pane) getByName(s, "pnGame"), (ImageView) getByName(s, "imgNewRun"),
                 (ImageView) getByName(s, "imgOptions"), (ImageView) getByName(s, "imgSelector")));
-        add(new SubMenuRun(this, (Pane) getByName(s, "pnRun"), (ProgressBar) getByName(s, "prgLife"),
+        add(new SubMenuRun(this, (Pane) getByName(s, RUNPANE), (ProgressBar) getByName(s, "prgLife"),
                 (ProgressBar) getByName(s, "prgDamage"), (ProgressBar) getByName(s, "prgSpeed"),
                 (ImageView) getByName(s, "imgName"), (ImageView) getByName(s, "imgRandom"),
                 (ImageView) getByName(s, "imgHeart"), (ImageView) getByName(s, "imgSpeed"),
@@ -71,6 +74,9 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
 
         // initialize the layout (x, y) of the pane in the menu.
         asSet().stream().map(sm -> (Pane) sm.getMain()).forEach(p -> setBind(p, s));
+        this.bindDown((Pane) getByName(s, "pnEnter"), (Pane) getByName(s, "pnGame"));
+        this.bindDown((Pane) getByName(s, "pnEnter"), (Pane) getByName(s, RUNPANE));
+        this.bindRight((Pane) getByName(s, "pnGame"), (Pane) getByName(s, RUNPANE));
 
         // When the window change the size all pane must be resize as well.
         s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -88,14 +94,14 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
      * @param s
      */
     private void initShadow(final Scene s) {
-        getByName(s, "pnShadow").translateXProperty().bind(pnMain.translateXProperty().multiply(-1));
-        getByName(s, "pnShadow").translateYProperty().bind(pnMain.translateYProperty().multiply(-1));
-        ((Pane) getByName(s, "pnShadow")).prefWidthProperty().bind(s.widthProperty());
-        ((Pane) getByName(s, "pnShadow")).prefHeightProperty().bind(s.heightProperty());
-        ((ImageView) getByName(s, "imgShadow")).fitWidthProperty().bind(((Pane) getByName(s, "pnShadow")).widthProperty());
-        ((ImageView) getByName(s, "imgShadow1")).fitWidthProperty().bind(((Pane) getByName(s, "pnShadow")).widthProperty());
-        ((ImageView) getByName(s, "imgShadow")).fitHeightProperty().bind(((Pane) getByName(s, "pnShadow")).heightProperty());
-        ((ImageView) getByName(s, "imgShadow1")).fitHeightProperty().bind(((Pane) getByName(s, "pnShadow")).heightProperty());
+        getByName(s, SHADOWPANE).translateXProperty().bind(pnMain.translateXProperty().multiply(-1));
+        getByName(s, SHADOWPANE).translateYProperty().bind(pnMain.translateYProperty().multiply(-1));
+        ((Pane) getByName(s, SHADOWPANE)).prefWidthProperty().bind(s.widthProperty());
+        ((Pane) getByName(s, SHADOWPANE)).prefHeightProperty().bind(s.heightProperty());
+        ((ImageView) getByName(s, "imgShadow")).fitWidthProperty().bind(((Pane) getByName(s, SHADOWPANE)).widthProperty());
+        ((ImageView) getByName(s, "imgShadow1")).fitWidthProperty().bind(((Pane) getByName(s, SHADOWPANE)).widthProperty());
+        ((ImageView) getByName(s, "imgShadow")).fitHeightProperty().bind(((Pane) getByName(s, SHADOWPANE)).heightProperty());
+        ((ImageView) getByName(s, "imgShadow1")).fitHeightProperty().bind(((Pane) getByName(s, SHADOWPANE)).heightProperty());
     }
 
     /**
@@ -107,7 +113,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         final List<Pair<ImageView, CharacterInfo>> ret = new ArrayList<>(cfs.size());
         cfs.forEach(ci -> {
             final ImageView imgv = setImageView((Image) ci.getImage(), new ImageView());
-            ((Pane) getByName(s, "pnRun")).getChildren().add(imgv);
+            ((Pane) getByName(s, RUNPANE)).getChildren().add(imgv);
             ret.add(new Pair<ImageView, CharacterInfo>(imgv, ci));
         });
         return ret;
@@ -155,7 +161,12 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
                 add(s.heightProperty().divide(DEFAULT_Y).multiply(p.getLayoutY())));
         p.scaleYProperty().bind(p.scaleXProperty());
     }
-
+    private void bindDown(final Pane from, final Pane dest) {
+        dest.layoutYProperty().bind(from.layoutYProperty().add(from.heightProperty().multiply(from.scaleYProperty())));
+    }
+    private void bindRight(final Pane from, final Pane dest) {
+        dest.layoutXProperty().bind(from.layoutXProperty().add(from.widthProperty().multiply(from.scaleXProperty())));
+    }
     private Node getByName(final Scene s, final String name) {
         return s.lookup("#" + name);
     }
