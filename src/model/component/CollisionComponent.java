@@ -48,6 +48,7 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
 
     /**
      * 
+     * @param event is the collision event
      */
     public void handleCollision(final CollisionEvent event) {
 
