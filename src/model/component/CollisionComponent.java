@@ -30,7 +30,7 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
-                handleCollision();
+                handleCollision(event);
             }
         });
     }
@@ -49,9 +49,10 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
     /**
      * 
      */
-    public void handleCollision() {
-        
+    public void handleCollision(final CollisionEvent event) {
+
     }
+
     /**
      * Method which is called when a collision occurs, this method must ONLY handle
      * the damage.
