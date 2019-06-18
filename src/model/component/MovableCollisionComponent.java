@@ -9,6 +9,8 @@ import model.entity.Tear;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.EventListener;
+import util.Pair;
+import util.Triplet;
 
 /**
  * 
@@ -23,39 +25,6 @@ public class MovableCollisionComponent extends CollisionComponent {
      */
     public MovableCollisionComponent(final Entity entity) {
         super(entity);
-        this.registerListener(new EventListener<CollisionEvent>() {
-
-            @Override
-            @Subscribe
-            public void listenEvent(final CollisionEvent event) {
-                /**
-                 * handles the collision with a locked component
-                 */
-//                if (event.getSourceEntity().hasComponent(LockComponent.class)) {
-//                    /**
-//                     * la porta è chiusa?
-//                     */
-//
-//                    /**
-//                     * ho la chiave
-//                     */
-//                    if (getEntity().hasComponent(InventoryComponent.class) &&
-//                            ((InventoryComponent)getEntity().getComponent(InventoryComponent.class).get()).thingsOfThisKind(Key.class))  {
-//                        if (((KeychainComponent) getEntity().getComponent(KeychainComponent.class).get())
-//                                .getKey()
-//                                .contains(event.getSourceEntity())) {
-//                        }
-//                    }
-//                }
-
-                /**
-                 * handles the disappearing of the tear after a collision
-                 */
-                if (getEntity().getClass().equals(Tear.class)) {
-                    getEntity().getRoom().deleteEntity(getEntity());
-                }
-            }
-        });
     }
 
     /**
@@ -74,40 +43,13 @@ public class MovableCollisionComponent extends CollisionComponent {
     @Override
     protected void handleCollision(final CollisionEvent event) {
         super.handleCollision(event);
-        this.damageManagement(event);
+        final Entity me = this.getEntity(), other = event.getSourceEntity();
+        final BodyComponent meBody = (BodyComponent) me.getComponent(BodyComponent.class).get();
+        final BodyComponent otherBody = (BodyComponent) other.getComponent(BodyComponent.class).get();
+        final Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>> vectorMoveMe = new Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>>(
+                meBody.getPositionPrevious(), meBody.getPosition());
+        final Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>> vectorMoveOther = new Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>>(
+                otherBody.getPositionPrevious(), otherBody.getPosition());
     }
-
-    /**
-     * Method which is called when a collision occurs, this method must ONLY handle
-     * the damage.
-     * 
-     * @param event is the collision event
-     */
-    protected void damageManagement(final CollisionEvent event) {
-        AbstractMentalityComponent sourceMentaliy;
-        AbstractMentalityComponent myMentality;
-
-        if (event.getSourceEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
-            sourceMentaliy = (AbstractMentalityComponent) event.getSourceEntity()
-                    .getComponent(AbstractMentalityComponent.class).get();
-        } else {
-            sourceMentaliy = new NeutralMentalityComponent(event.getSourceEntity());
-        }
-
-        if (getEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
-            myMentality = (AbstractMentalityComponent) event.getSourceEntity()
-                    .getComponent(AbstractMentalityComponent.class).get();
-        } else {
-            myMentality = new NeutralMentalityComponent(event.getSourceEntity());
-        }
-
-        if (sourceMentaliy.isDamageableByMe(myMentality.getClass())) {
-            if (myMentality.canHurtMe(sourceMentaliy.getClass())) {
-                getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
-            }
-        }
-
-    }
-
 
 }
