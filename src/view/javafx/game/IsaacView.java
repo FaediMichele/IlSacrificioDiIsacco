@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import util.SpritesExtractor;
+
 /**
  * View and animations of Isaac.
  */
@@ -26,27 +28,19 @@ public class IsaacView {
      */
     public IsaacView() throws IOException {
         BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
+
         final int deltaFace = 32;
         final int faces = 6;
+        faceSprite = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
+
         List<BufferedImage> bodySprite = new ArrayList<>();
-
-        for (int i = 0; i < faces; i++) {
-            faceSprite.add(img.getSubimage(i * deltaFace, 0, deltaFace, deltaFace));
-        }
-
         final int deltaBody = 32;
-        final int bodies = 8;
+        final int bodies = 18;
+        final int cols = 8;
         final int spritesEachMove = 5;
         bodySprite.add(img.getSubimage(deltaFace * faces, 0, deltaBody, deltaBody));
         bodySprite.add(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody));
-        for (int i = 0; i < bodies; i++) {
-            bodySprite.add(img.getSubimage(i * deltaBody, deltaBody, deltaBody, deltaBody));
-        }
-        for (int i = 0; i < bodies; i++) {
-            bodySprite.add(img.getSubimage(i *  deltaBody, deltaBody * 2, deltaBody, deltaBody));
-        }
-        bodySprite.add(img.getSubimage(0, deltaBody * 3, deltaBody, deltaBody));
-        bodySprite.add(img.getSubimage(deltaBody, deltaBody * 3, deltaBody, deltaBody));
+        bodySprite.addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
 
         movingUpSprite = bodySprite.subList(0, spritesEachMove - 1);
         movingDownSprite = bodySprite.subList(spritesEachMove, spritesEachMove * 2 - 1);
