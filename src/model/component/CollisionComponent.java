@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.List;
+
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
@@ -91,4 +93,14 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
         });
     }
 
+    /**
+     * Custom event Listener.
+     * 
+     * @param entity         the {@link Entity}
+     * @param eventListeners the {@link EventListener}
+     */
+    public CollisionComponent(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
+        super(entity);
+        eventListeners.forEach(e -> this.registerListener(e));
+    }
 }
