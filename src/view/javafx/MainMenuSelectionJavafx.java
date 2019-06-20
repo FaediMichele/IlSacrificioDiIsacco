@@ -30,6 +30,8 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     private static final int DEFAULT_Y = 344;
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
+    private static final String ENTER = "pnEnter";
+    private static final String GAME = "pnGame";
 
     // Character image
     private static final double CR_WIDTH = 40;
@@ -62,9 +64,9 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         setImageView(null, (ImageView) getByName(s, "imgRandom"));
 
         // Add the sub menu in the sub menu handler.
-        add(new SubMenuEnter(this, (Pane) getByName(s, "pnEnter"), (ImageView) getByName(s, "imgNameOfGame"),
+        add(new SubMenuEnter(this, (Pane) getByName(s, ENTER), (ImageView) getByName(s, "imgNameOfGame"),
                 (ImageView) getByName(s, "imgIsaac"), (ImageView) getByName(s, "imgBackgroundEnter")));
-        add(new SubMenuGame(this, (Pane) getByName(s, "pnGame"), (ImageView) getByName(s, "imgNewRun"),
+        add(new SubMenuGame(this, (Pane) getByName(s, GAME), (ImageView) getByName(s, "imgNewRun"),
                 (ImageView) getByName(s, "imgOptions"), (ImageView) getByName(s, "imgSelector")));
         add(new SubMenuRun(this, (Pane) getByName(s, RUNPANE), (ProgressBar) getByName(s, "prgLife"),
                 (ProgressBar) getByName(s, "prgDamage"), (ProgressBar) getByName(s, "prgSpeed"),
@@ -74,9 +76,10 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
 
         // initialize the layout (x, y) of the pane in the menu.
         asSet().stream().map(sm -> (Pane) sm.getMain()).forEach(p -> setBind(p, s));
-        this.bindDown((Pane) getByName(s, "pnEnter"), (Pane) getByName(s, "pnGame"));
-        this.bindDown((Pane) getByName(s, "pnEnter"), (Pane) getByName(s, RUNPANE));
-        this.bindRight((Pane) getByName(s, "pnGame"), (Pane) getByName(s, RUNPANE));
+        this.bindDown((Pane) getByName(s, ENTER), (Pane) getByName(s, GAME));
+        this.bindLeft((Pane) getByName(s, ENTER), (Pane) getByName(s, GAME));
+        this.bindDown((Pane) getByName(s, ENTER), (Pane) getByName(s, RUNPANE));
+        this.bindRight((Pane) getByName(s, GAME), (Pane) getByName(s, RUNPANE));
 
         // When the window change the size all pane must be resize as well.
         s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -166,6 +169,9 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     }
     private void bindRight(final Pane from, final Pane dest) {
         dest.layoutXProperty().bind(from.layoutXProperty().add(from.widthProperty().multiply(from.scaleXProperty())));
+    }
+    private void bindLeft(final Pane from, final Pane dest) {
+        dest.layoutXProperty().bind(from.layoutXProperty());
     }
     private Node getByName(final Scene s, final String name) {
         return s.lookup("#" + name);
