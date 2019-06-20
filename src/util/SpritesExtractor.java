@@ -25,6 +25,7 @@ public class SpritesExtractor {
      * @param rows in the sheet
      * @param cols in the sheet
      * @param width of a sprite
+     * @param height of a sprite
      */
     public SpritesExtractor(final BufferedImage sheet, final int count, final int rows, final int cols, final int width, final int height) {
         this (sheet, count, rows, cols, width, height, 0, 0);

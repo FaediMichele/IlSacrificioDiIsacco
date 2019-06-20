@@ -35,12 +35,7 @@ public class TestGameView extends Application {
         BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
         final int deltaFace = 32;
         final int deltaBody = 32;
-        final int coorBodyX = 197;
-        final int coordBodyY = 10;
-        final int col = 8;
         final int faces = 6;
-        final int rows = 3;
-        final int extras = 2;
         List<BufferedImage> sprites = new ArrayList<>();
         // Facce
         for (int i = 0; i < faces; i++) {
