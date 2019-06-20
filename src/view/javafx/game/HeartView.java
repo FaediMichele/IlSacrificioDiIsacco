@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 /**
 * View of the hearts.
 */
-public class CollectibleHeartView {
+public class HeartView {
 
     private BufferedImage simpleHeart;
     private BufferedImage halfSimpleHeart;
@@ -19,7 +19,7 @@ public class CollectibleHeartView {
      * Base constructor that extract the sprites from the sheet.
      * @throws IOException trying to get the resource image
      */
-    public CollectibleHeartView() throws IOException {
+    public HeartView() throws IOException {
         BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/pickup_001_heart.png"));
         final int delta = 30;
         simpleHeart = img.getSubimage(0, 0, delta, delta);
