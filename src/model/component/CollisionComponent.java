@@ -8,9 +8,6 @@ import model.entity.Entity;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.EventListener;
-import model.events.PickUpEvent;
-import util.Pair;
-import util.Triplet;
 
 /**
  * This class manages the collision of this entity with the others.
@@ -27,7 +24,6 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
     public CollisionComponent(final Entity entity) {
         super(entity);
         this.registerListener(new EventListener<CollisionEvent>() {
-
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
@@ -52,6 +48,16 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
      * @param event is the collision event
      */
     protected void handleCollision(final CollisionEvent event) {
+        this.damageManagement(event);
+    }
+
+    /**
+     * Method which is called when a collision occurs, this method must ONLY handle
+     * the damage.
+     * 
+     * @param event is the collision event
+     */
+    protected void damageManagement(final CollisionEvent event) {
         AbstractMentalityComponent sourceMentaliy;
         AbstractMentalityComponent myMentality;
 
@@ -74,5 +80,6 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
                 getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
             }
         }
+
     }
 }
