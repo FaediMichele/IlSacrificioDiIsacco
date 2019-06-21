@@ -33,9 +33,5 @@ public class TearView extends AbstractAnimatedEntityView {
 
         enemyTear = super.toFXImageList((new SpritesExtractor(img, tears, 2, cols, delta, delta, 0, 2 * delta)).extract());
         Collections.reverse(enemyTear);
-
-        /*super.setEntityActualSprites(playerTear);
-          super.animate();*/
     }
-
 }

@@ -52,9 +52,6 @@ public class IsaacView extends AbstractAnimatedEntityView {
         deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
 
         this.extractFaceSprite();
-
-        /*super.setEntityActualSprites(faceSprite, movingUpSprite);
-        super.animate();*/
     }
 
     /**

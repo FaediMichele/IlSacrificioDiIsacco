@@ -33,8 +33,5 @@ public class FireView extends AbstractAnimatedEntityView {
         final int deltaGrid = 32;
         final int grids = 8;
         fireGridSprite = super.toFXImageList((new SpritesExtractor(fireGridSheet, grids, 2, 4, deltaGrid, deltaGrid)).extract());
-
-        /*super.setEntityActualSprites(fireSprite, fireGridSprite);
-        super.animate();*/
     }
 }

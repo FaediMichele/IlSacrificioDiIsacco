@@ -3,6 +3,7 @@ package view.javafx.game;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -20,6 +21,10 @@ public class AbstractAnimatedEntityView implements AnimatedEntityView {
     private List<Image> entityActualSprites = new ArrayList<>();
     private final TimedViews entityTimedViews = new TimedViewsJavafx();
     private AnimatedView entityAnimated;
+
+    private Optional<List<Image>> lowerEntityActualSprites; 
+    private final TimedViews lowerEntityTimedViews = new TimedViewsJavafx();
+    private AnimatedView lowerEntityAnimated;
 
     /**
      * {@inheritDoc}
@@ -39,8 +44,8 @@ public class AbstractAnimatedEntityView implements AnimatedEntityView {
      * {@inheritDoc}
      */
     public void setEntityActualSprites(final List<Image> upSprites, final List<Image> downSprites) {
-        // TODO Auto-generated method stub
-        // entityActualSprites = ??
+        this.entityActualSprites = upSprites;
+        this.lowerEntityActualSprites = Optional.of(downSprites);
     }
 
     /**
@@ -48,10 +53,17 @@ public class AbstractAnimatedEntityView implements AnimatedEntityView {
      */
     public void animate() {
         this.entityAnimated = new AnimatedViewJavafx();
-        entityAnimated.setFrames(entityActualSprites);
-        entityTimedViews.add(entityAnimated);
-        entityTimedViews.setMilliseconds(FRAMETIME);
-        entityTimedViews.start();
+        this.entityAnimated.setFrames(entityActualSprites);
+        this.entityTimedViews.add(entityAnimated);
+        this.entityTimedViews.setMilliseconds(FRAMETIME);
+        this.entityTimedViews.start();
+        if (this.lowerEntityActualSprites.isPresent()) {
+            this.lowerEntityAnimated = new AnimatedViewJavafx();
+            this.lowerEntityAnimated.setFrames(this.lowerEntityActualSprites.get());
+            this.lowerEntityTimedViews.add(this.lowerEntityAnimated);
+            this.lowerEntityTimedViews.setMilliseconds(FRAMETIME);
+            this.lowerEntityTimedViews.start();
+        }
     }
     /**
      * {@inheritDoc}
