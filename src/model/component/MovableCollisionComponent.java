@@ -6,8 +6,6 @@ import model.entity.Entity;
 import model.events.CollisionEvent;
 import model.events.EventListener;
 import model.events.MoveEvent;
-import util.Pair;
-import util.Triplet;
 
 /**
  * 
