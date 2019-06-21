@@ -9,6 +9,7 @@ import model.entity.Tear;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.EventListener;
+import model.events.MoveEvent;
 import util.Pair;
 import util.Triplet;
 
@@ -43,13 +44,46 @@ public class MovableCollisionComponent extends CollisionComponent {
     @Override
     protected void handleCollision(final CollisionEvent event) {
         super.handleCollision(event);
-        final Entity me = this.getEntity(), other = event.getSourceEntity();
-        final BodyComponent meBody = (BodyComponent) me.getComponent(BodyComponent.class).get();
-        final BodyComponent otherBody = (BodyComponent) other.getComponent(BodyComponent.class).get();
-        final Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>> vectorMoveMe = new Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>>(
-                meBody.getPositionPrevious(), meBody.getPosition());
-        final Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>> vectorMoveOther = new Pair<Triplet<Double, Double, Double>, Triplet<Double, Double, Double>>(
-                otherBody.getPositionPrevious(), otherBody.getPosition());
+        this.handleMovement(event);
+    }
+
+    /**
+     * Handles the movement of the entities after collision.
+     * 
+     * @param event the {@link Event}
+     */
+    protected void handleMovement(final CollisionEvent event) {
+        final double angle = 89;
+        double a = Math.random() * angle, b = Math.random() * angle;
+        while (Math.cos(a) == 0 || Math.sin(b) - Math.cos(b) * Math.sin(a) == 0) {
+            a = Math.random() * angle;
+            b = Math.random() * angle;
+        }
+
+        final double v1xi = ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).getPosition().getV1()
+                - ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).getPositionPrevious().getV1();
+        final double v1yi = ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).getPosition().getV2()
+                - ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).getPositionPrevious().getV2();
+        final double v2xi = ((BodyComponent) event.getSourceEntity().getComponent(BodyComponent.class).get())
+                .getPosition().getV1()
+                - ((BodyComponent) event.getSourceEntity().getComponent(BodyComponent.class).get())
+                        .getPositionPrevious().getV1();
+        final double v2yi = ((BodyComponent) event.getSourceEntity().getComponent(BodyComponent.class).get())
+                .getPosition().getV2()
+                - ((BodyComponent) event.getSourceEntity().getComponent(BodyComponent.class).get())
+                        .getPositionPrevious().getV2();
+
+        final double sumx = v1xi + v2xi;
+        final double sumy = v1yi + v2yi;
+
+        final double v2f = (sumx - sumy) / (Math.sin(b) - Math.cos(b) * Math.sin(a));
+        final double v1f = (sumx - v2f * Math.acos(b)) / Math.cos(a);
+
+        final double v1x = v1f * Math.cos(a), v1y = v1f * Math.sin(a);
+        final double v2x = v2f * Math.cos(b), v2y = v2f * Math.sin(b);
+
+        getEntity().postEvent(new MoveEvent(getEntity(), v1x, v1y, 0));
+        event.getSourceEntity().postEvent(new MoveEvent(event.getSourceEntity(), v2x, v2y, 0));
     }
 
 }
