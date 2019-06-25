@@ -49,7 +49,7 @@ public abstract class AbstractController implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public final void stop() {
+    public void stop() {
         this.unregisterAll();
     }
 }
