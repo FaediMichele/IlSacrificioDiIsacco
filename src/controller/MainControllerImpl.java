@@ -2,9 +2,13 @@ package controller;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.eventbus.EventBus;
+
+import controller.events.Event;
+import util.EventListener;
 
 /**
  * The main controller that changes its behavior with the active controller.
@@ -31,12 +35,12 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public final void register(final Object... eventListeners) {
+    public final void register(final List<EventListener<? extends Event>> eventListeners) {
         Arrays.asList(eventListeners).forEach(e -> this.eventBus.register(e));
     }
 
     @Override
-    public final void unregister(final Object... eventListeners) {
+    public final void unregister(final List<EventListener<? extends Event>> eventListeners) {
         Arrays.asList(eventListeners).forEach(e -> this.eventBus.unregister(e));
     }
 

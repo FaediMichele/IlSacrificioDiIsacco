@@ -1,5 +1,10 @@
 package controller;
 
+import java.util.List;
+
+import controller.events.Event;
+import util.EventListener;
+
 /**
  * The interface for the MainController.
  */
@@ -25,14 +30,14 @@ public interface MainController {
      * 
      * @param eventListeners the {@link EventListener}
      */
-    void register(Object... eventListeners);
+    void register(List<EventListener<? extends Event>> eventListeners);
 
     /**
      * Unregisters the eventListeners on the EventBus.
      * 
      * @param eventListeners the {@link EventListener}
      */
-    void unregister(Object... eventListeners);
+    void unregister(List<EventListener<? extends Event>> eventListeners);
 
     /**
      * Gets the active {@link Controller}.
