@@ -10,7 +10,7 @@ import util.EventListener;
 /**
  * Abstract class for the {@link Controller}.
  */
-public class AbstractController implements Controller {
+public abstract class AbstractController implements Controller {
     private final MainController main;
     private final List<EventListener<? extends Event>> eventListeners = new ArrayList<EventListener<? extends Event>>();
 
@@ -23,14 +23,33 @@ public class AbstractController implements Controller {
         this.main = main;
     }
 
-    @Override
-    public final void registerAll() {
+    /**
+     * Registers all the {@link EventListener}.
+     */
+    private void registerAll() {
         this.eventListeners.forEach(el -> this.main.register(Arrays.asList(el)));
     }
 
-    @Override
-    public final void unregisterAll() {
+    /**
+     * Unregisters all the {@link EventListener}.
+     */
+    private void unregisterAll() {
         this.eventListeners.forEach(el -> this.main.unregister(Arrays.asList(el)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void run() {
+        this.registerAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void stop() {
+        this.unregisterAll();
+    }
 }

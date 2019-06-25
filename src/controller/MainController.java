@@ -40,6 +40,13 @@ public interface MainController {
     void unregister(List<EventListener<? extends Event>> eventListeners);
 
     /**
+     * Post the event.
+     * 
+     * @param event {@link Event}
+     */
+    void postEvent(Event event);
+
+    /**
      * Gets the active {@link Controller}.
      * 
      * @return the {@link Controller}

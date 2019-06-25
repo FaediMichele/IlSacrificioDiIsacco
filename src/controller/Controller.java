@@ -5,12 +5,12 @@ package controller;
  */
 public interface Controller {
     /**
-     * Registers all the {@link EventListener}.
+     * Activates the controller.
      */
-    void registerAll();
+    void run();
 
     /**
-     * Unregisters all the {@link EventListener}.
+     * Stops the controller.
      */
-    void unregisterAll();
+    void stop();
 }

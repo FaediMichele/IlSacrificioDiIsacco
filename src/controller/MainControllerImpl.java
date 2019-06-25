@@ -23,9 +23,9 @@ public class MainControllerImpl implements MainController {
         if (!this.hasController(dest)) {
             return false;
         }
-        this.controllerComponents.get(this.activeController).unregisterAll();
+        this.getActiveController().stop();
         this.activeController = dest;
-        this.controllerComponents.get(this.activeController).registerAll();
+        this.getActiveController().run();
         return true;
     }
 
@@ -45,6 +45,11 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
+    public final void postEvent(final Event event) {
+        this.eventBus.post(event);
+    }
+
+    @Override
     public final Controller getActiveController() {
         return this.controllerComponents.get(this.activeController);
     }
@@ -60,7 +65,7 @@ public class MainControllerImpl implements MainController {
     @Override
     public final void detachController(final Class<? extends Controller> c) {
         if (this.hasController(c)) {
-            this.controllerComponents.get(c).unregisterAll();
+            this.controllerComponents.get(c).stop();
             this.controllerComponents.remove(c);
         }
 
