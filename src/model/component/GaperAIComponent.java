@@ -6,7 +6,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Player;
 import model.events.CollisionEvent;
-import model.events.EventListener;
+import util.EventListener;
 
 
 /**

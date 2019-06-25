@@ -3,8 +3,8 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
-import model.events.EventListener;
 import model.events.MoveEvent;
+import util.EventListener;
 import util.Pair;
 
 /**

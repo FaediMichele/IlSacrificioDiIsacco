@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.DamageEvent;
-import model.events.EventListener;
+import util.EventListener;
 import util.Pair;
 
 /**

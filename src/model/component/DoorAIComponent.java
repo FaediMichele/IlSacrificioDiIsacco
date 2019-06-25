@@ -8,8 +8,8 @@ import model.entity.Entity;
 import model.entity.Key;
 import model.events.CollisionEvent;
 import model.events.UseThingEvent;
+import util.EventListener;
 import model.events.DoorChangeEvent;
-import model.events.EventListener;
 
 /**
  * This component is used by the doors.

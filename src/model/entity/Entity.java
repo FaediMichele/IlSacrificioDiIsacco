@@ -6,8 +6,8 @@ import java.util.Optional;
 import model.component.Component;
 import model.component.StatusComponent;
 import model.events.Event;
-import model.events.EventListener;
 import model.game.Room;
+import util.EventListener;
 
 /**
  * The main interface for all the entities such as enemies, items and the player

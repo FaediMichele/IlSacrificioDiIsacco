@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Optional;
 import model.entity.Entity;
 import model.events.Event;
-import model.events.EventListener;
 import util.EqualsForGetters;
+import util.EventListener;
 import util.StaticMethodsUtils;
 
 /**

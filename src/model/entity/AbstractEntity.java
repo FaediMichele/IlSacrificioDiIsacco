@@ -12,9 +12,9 @@ import model.component.CollisionComponent;
 import model.component.Component;
 import model.component.StatusComponent;
 import model.events.Event;
-import model.events.EventListener;
 import model.game.Room;
 import util.EqualsForGetters;
+import util.EventListener;
 import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;

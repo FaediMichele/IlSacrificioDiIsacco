@@ -2,8 +2,8 @@ package model.component;
 
 import model.entity.Entity;
 import model.entity.Tear;
-import model.events.EventListener;
 import model.events.TearShotEvent;
+import util.EventListener;
 import util.Pair;
 
 /**

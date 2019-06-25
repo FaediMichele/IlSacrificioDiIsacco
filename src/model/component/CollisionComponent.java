@@ -7,7 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
-import model.events.EventListener;
+import util.EventListener;
 
 /**
  * This class manages the collision of this entity with the others.

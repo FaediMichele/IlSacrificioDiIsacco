@@ -5,9 +5,9 @@ import java.util.Objects;
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Heart;
-import model.events.EventListener;
 import model.events.FireHittedEvent;
 import model.events.FireOutEvent;
+import util.EventListener;
 
 /**
  * Implements the data for the fires.

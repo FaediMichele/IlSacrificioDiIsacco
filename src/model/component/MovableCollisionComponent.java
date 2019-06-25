@@ -4,8 +4,8 @@ import java.util.List;
 
 import model.entity.Entity;
 import model.events.CollisionEvent;
-import model.events.EventListener;
 import model.events.MoveEvent;
+import util.EventListener;
 
 /**
  * 
