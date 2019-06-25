@@ -1,6 +1,5 @@
 package util;
 
-import model.events.Event;
 
 /**
  * The interfaces for all the first kind of event listeners.
