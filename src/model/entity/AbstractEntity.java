@@ -10,10 +10,11 @@ import java.util.Optional;
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
 import model.component.Component;
+import model.component.StatusComponent;
 import model.events.Event;
-import model.events.EventListener;
 import model.game.Room;
 import util.EqualsForGetters;
+import util.EventListener;
 import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
@@ -31,19 +32,21 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
-        this.setDefaultComponents(new BodyComponent(this), new CollisionComponent(this));
+        this.setDefaultComponents(new BodyComponent(this), new CollisionComponent(this), new StatusComponent(this));
     }
 
     /**
      * 
      * @param entityBody      a
      * @param entityCollision s
+     * @param entityStatus    s
      */
-    public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
         this();
         Objects.requireNonNull(entityBody);
         Objects.requireNonNull(entityCollision);
-        this.setDefaultComponents(entityBody, entityCollision);
+        Objects.requireNonNull(entityStatus);
+        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 
     @Override
@@ -114,11 +117,13 @@ public abstract class AbstractEntity implements Entity {
      * 
      * @param entityBody      the body
      * @param entityCollision the collision
+     * @param statusComponent the status
      */
     protected final void setDefaultComponents(final BodyComponent entityBody,
-            final CollisionComponent entityCollision) {
+            final CollisionComponent entityCollision, final StatusComponent statusComponent) {
         this.attachComponent(entityBody);
         this.attachComponent(entityCollision);
+        this.attachComponent(statusComponent);
     }
 
     @Override
@@ -146,4 +151,12 @@ public abstract class AbstractEntity implements Entity {
     public final boolean equals(final Object obj) {
         return StaticMethodsUtils.equals(this, obj);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public StatusComponent getStatusComponent() {
+        return (StatusComponent) this.getComponent(StatusComponent.class).get();
+    }
+
 }

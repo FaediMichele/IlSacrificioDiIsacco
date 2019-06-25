@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import model.component.DoorComponent;
+import model.component.DoorAIComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import util.Matrix;
@@ -212,8 +212,8 @@ public class FloorImpl implements Floor {
         Optional<Integer> nextRoom;
         this.rooms.get(activeRoomIndex).updateEntity(deltaTime);
         nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
-                .filter(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).playerPassed())
-                .map(e -> ((DoorComponent) e.getComponent(DoorComponent.class).get()).getDestination()).findFirst();
+                .filter(e -> ((DoorAIComponent) e.getComponent(DoorAIComponent.class).get()).playerPassed())
+                .map(e -> ((DoorAIComponent) e.getComponent(DoorAIComponent.class).get()).getDestination()).findFirst();
 
         if (nextRoom.isPresent()) {
             activeRoomIndex = nextRoom.get();

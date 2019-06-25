@@ -14,15 +14,16 @@ import model.component.BlackHeart;
 import model.component.BodyComponent;
 import model.component.BombCollectibleComponent;
 import model.component.DamageComponent;
-import model.component.DoorComponent;
-import model.component.FireComponent;
+import model.component.DoorAIComponent;
+import model.component.EnemyMentalityComponent;
+import model.component.FireAIComponent;
 import model.component.FireType;
 import model.component.HealthComponent;
 import model.component.HeartCollectibleComponent;
 import model.component.InventoryComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.AbstractMentalityComponent;
 import model.component.MoveComponent;
+import model.component.PlayerMentalityComponent;
 import model.component.SimpleHeart;
 import model.entity.Bomb;
 import model.entity.Door;
@@ -35,7 +36,7 @@ import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.events.FireHittedEvent;
 import model.events.MoveEvent;
-import model.events.ReleaseEvent;
+import model.events.UseThingEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.Room;
@@ -62,7 +63,7 @@ public class TestModel {
         p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
         assertTrue(p.hasComponent(BodyComponent.class));
         assertTrue(p.hasComponent(HealthComponent.class));
-        assertFalse(p.hasComponent(DoorComponent.class));
+        assertFalse(p.hasComponent(DoorAIComponent.class));
         assertEquals(p, p2);
         assertTrue(p.equals(p2));
         assertFalse(p.equals(f));
@@ -79,18 +80,18 @@ public class TestModel {
     public void testFire() {
         final Fire f1 = new Fire(FireType.RED);
         final Fire f2 = new Fire(FireType.BLUE);
-        assertEquals(f1.getComponent(FireComponent.class).get(), new FireComponent(f1, FireType.RED));
+        assertEquals(f1.getComponent(FireAIComponent.class).get(), new FireAIComponent(f1, FireType.RED));
         f1.postEvent(new FireHittedEvent(f1));
-        assertFalse(f1.getComponent(FireComponent.class).get().equals(new FireComponent(f1, FireType.RED)));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
+        assertFalse(f1.getComponent(FireAIComponent.class).get().equals(new FireAIComponent(f1, FireType.RED)));
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f1.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(3));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f2.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(4));
         f2.postEvent(new FireHittedEvent(f2));
         f2.postEvent(new FireHittedEvent(f2));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f1.getComponent(FireComponent.class).get()).getLife()),
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f1.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(3));
-        assertEquals(Integer.valueOf(FireComponent.class.cast(f2.getComponent(FireComponent.class).get()).getLife()),
+        assertEquals(Integer.valueOf(FireAIComponent.class.cast(f2.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(2));
         // ((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
     }
@@ -230,7 +231,7 @@ public class TestModel {
         final double finalEnemyLife = 2.7;
         enemy.attachComponent(new DamageComponent(enemy, damage));
         enemy.attachComponent(new HealthComponent(enemy));
-        enemy.attachComponent(new MentalityComponent(enemy, Mentality.EVIL));
+        enemy.attachComponent(new EnemyMentalityComponent(enemy));
         goodEntity.postEvent(new DamageEvent(enemy));
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), 3);
@@ -257,15 +258,15 @@ public class TestModel {
         final int numberOfThings = 1;
         double life;
 
-        playerB.attachComponent(new MentalityComponent(playerB, Mentality.EVIL))
+        playerB.attachComponent(new AbstractMentalityComponent(playerB, Mentality.EVIL))
                 .attachComponent(new DamageComponent(playerB, damage));
-        life = ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife();
+        life = getHealthComponent(playerA).getLife();
         playerA.postEvent(new CollisionEvent(playerB));
-        assertEquals(life - damage, ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife());
+        assertEquals(life - damage, getHealthComponent(playerA).getLife());
 
-        playerB.attachComponent(new MentalityComponent(playerB, Mentality.GOOD));
+        playerB.attachComponent(new AbstractMentalityComponent(playerB, Mentality.GOOD));
         playerA.postEvent(new CollisionEvent(playerB));
-        assertEquals(life - damage, ((HealthComponent) playerA.getComponent(HealthComponent.class).get()).getLife());
+        assertEquals(life - damage, getHealthComponent(playerA).getLife());
 
         playerB.attachComponent(
                 new BombCollectibleComponent(playerB, settingBombTest, (int) settingBombTest, (int) settingBombTest));
@@ -296,12 +297,12 @@ public class TestModel {
         room.insertEntity(b2);
         p.postEvent(new CollisionEvent(b2));
         assertEquals(true, b2.hasComponent(AbstractPickupableComponent.class));
-        assertEquals(2, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
+        assertEquals(2, getInventoryComponent(p).getThings().size());
+        assertTrue(getInventoryComponent(p).getThings().contains(b2));
 
-        p.postEvent(new ReleaseEvent(p, b.getClass()));
-        assertEquals(1, ((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().size());
-        assertTrue(((InventoryComponent) p.getComponent(InventoryComponent.class).get()).getThings().contains(b2));
+        p.postEvent(new UseThingEvent(p, b.getClass()));
+        assertEquals(1, getInventoryComponent(p).getThings().size());
+        assertTrue(getInventoryComponent(p).getThings().contains(b2));
         assertEquals(room.getEntity().size(), 2);
         assertTrue(room.getEntity().contains(b));
         assertEquals(getBodyComponent(p).getPosition(), getBodyComponent(b).getPosition());
@@ -318,7 +319,21 @@ public class TestModel {
         p.postEvent(new CollisionEvent(h2));
         assertTrue(getHealthComponent(p).getHearts().stream().anyMatch(i -> i.getClass()
                 .equals(((HeartCollectibleComponent) h2.getComponent(HeartCollectibleComponent.class).get()).getHeartKind())));
+
+        // TO-DO: pick up and use also a key
     }
+
+    /**
+     * Test for {@link InventoryComponent}.
+     */
+    @Test
+    public void testMentalityComponent() {
+        Player p = new Player();
+        AbstractMentalityComponent m = (AbstractMentalityComponent) p.getComponent(AbstractMentalityComponent.class).get();
+        assertEquals(PlayerMentalityComponent.class, m.getClass());
+        System.out.println(m.getClass());
+    }
+
 
     private HealthComponent getHealthComponent(final Entity e) {
         return (HealthComponent) e.getComponent(HealthComponent.class).get();

@@ -2,9 +2,6 @@ package model.component;
 
 import model.entity.Entity;
 
-
-import model.entity.Door;
-
 /**
  * Collectible Component of the key entity: how the key have to act when it's
  * collected. It the key case, it just has to be "present" so the main point of
@@ -17,7 +14,7 @@ public class KeyCollectibleComponent extends AbstractCollectableComponent {
      * @param entity source Entity
      * @param doors  door this key allows the player to go through
      */
-    KeyCollectibleComponent(final Entity entity, final Door door) {
+    KeyCollectibleComponent(final Entity entity) {
         super(entity);
     }
 

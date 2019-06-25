@@ -2,8 +2,8 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
-import model.component.Mentality;
-import model.component.MentalityComponent;
+import model.component.NeutralMentalityComponent;
+import model.component.StatusComponent;
 
 /**
  * Implements the walls.
@@ -15,17 +15,18 @@ public class Wall extends AbstractStaticEntity {
      */
     public Wall() {
         super();
-        this.attachComponent(new MentalityComponent(this, Mentality.NEUTRAL));
+        this.attachComponent(new NeutralMentalityComponent(this));
     }
 
     /**
      * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
+     * @param entityStatus    the {@link StatusComponent}
      */
-    public Wall(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    public Wall(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
         this();
-        this.setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 
 }

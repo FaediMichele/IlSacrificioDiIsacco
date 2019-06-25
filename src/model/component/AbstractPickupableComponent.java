@@ -1,6 +1,7 @@
 package model.component;
 
 import model.entity.Entity;
+import util.Pair;
 
 /**
  * 
@@ -20,6 +21,7 @@ public abstract class AbstractPickupableComponent extends AbstractComponent<Abst
      */
     protected void deleteThisEntity() {
         this.getEntity().getRoom().deleteEntity(this.getEntity());
+        this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "deleted"));
     }
 
 

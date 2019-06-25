@@ -2,6 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
+import model.component.StatusComponent;
 
 /**
  * Base class for all the static entities such as rocks and doors. See also
@@ -13,10 +14,11 @@ public class AbstractStaticEntity extends AbstractEntity {
      * 
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
+     * @param entityStatus    the {@link StatusComponent}
      */
-    public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision) {
+    public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
         this();
-        this.setDefaultComponents(entityBody, entityCollision);
+        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 
     /**

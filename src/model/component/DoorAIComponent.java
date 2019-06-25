@@ -1,17 +1,21 @@
 package model.component;
 
+
+
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
+import model.entity.Key;
 import model.events.CollisionEvent;
+import model.events.UseThingEvent;
+import util.EventListener;
 import model.events.DoorChangeEvent;
-import model.events.EventListener;
 
 /**
  * This component is used by the doors.
  *
  */
-public class DoorComponent extends AbstractComponent<DoorComponent> {
+public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
 
     private final Integer destination;
     private final Integer location;
@@ -24,7 +28,7 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
      * @param destinationIndex index of the room
      * @param entity Entity that possess the component
      */
-    public DoorComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+    public DoorAIComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
         super(entity);
         this.hasPlayerPassed = false;
         this.location = location;
@@ -36,11 +40,11 @@ public class DoorComponent extends AbstractComponent<DoorComponent> {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
                     final LockComponent lc = (LockComponent) getEntity().getComponent(LockComponent.class).get(); 
-                    final KeychainComponent kc = (KeychainComponent) coll.getSourceEntity().getComponent(KeychainComponent.class).get();
-                    if (lc != null && lc.isLocked() && kc != null) {
-                        if (kc.getNumKey() > 0) {
+                    final InventoryComponent ic = (InventoryComponent) coll.getSourceEntity().getComponent(InventoryComponent.class).get();
+                    if (lc != null && lc.isLocked() && ic != null) {
+                        if (ic.thingsOfThisKind(Key.class) > 0) {
+                            coll.getSourceEntity().postEvent(new UseThingEvent(coll.getSourceEntity(), Key.class));
                             lc.unlock();
-                            kc.removeKey();
                         } else {
                             return;
                         }
