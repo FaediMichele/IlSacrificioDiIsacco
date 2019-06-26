@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import view.AnimatedView;
 import view.Command;
+import view.Sound;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.TimedViews;
@@ -21,6 +22,7 @@ public class SubMenuEnter extends SubMenu {
     private static final long FRAMETIME_ISAAC = 250;
     private static final long FRAMETIME_NAMEOFGAME = 1500;
     private static final double ANGLE_NAMEOFGAME = 1;
+    private final Sound s = new SoundJavafx("/menuSound/pageTurn.wav");
 
     private final TimedViews timeIsaac = new TimedViewsJavafx();
     private final RotatingNode nameOfGameAnimated = new RotatingNodeJavafx();
@@ -58,6 +60,7 @@ public class SubMenuEnter extends SubMenu {
     public final void input(final Command c) {
         super.input(c);
         if (c == Command.ENTER && getSelector().contains(SubMenuGame.class)) {
+            s.play();
             getSelector().selectSubMenu(SubMenuGame.class);
         }
     }
