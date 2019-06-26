@@ -29,6 +29,7 @@ public class SoundJavafx implements Sound {
      */
     @Override
     public void play() {
+        a.stop();
         a.play();
     }
 
@@ -47,6 +48,14 @@ public class SoundJavafx implements Sound {
     public void playInLoop() {
         a.setCycleCount(AudioClip.INDEFINITE);
         a.play();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPlaying() {
+        return a.isPlaying();
     }
 
 }

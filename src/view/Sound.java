@@ -18,4 +18,10 @@ public interface Sound {
      * Play the sound in loop with a latency between each loop.
      */
     void playInLoop();
+
+    /**
+     * True if the audio is playing. 
+     * @return the status of the audio.
+     */
+    boolean isPlaying();
 }

@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import util.Pair;
 import view.CharacterInfo;
 import view.ConfigurationManager;
+import view.Sound;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.node.TranslationPages;
@@ -41,6 +42,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     private final FadeTransition fd;
     private final Pane pnMain; 
     private final ConfigurationManager manager;
+    private final Sound changeSubMenuAudio = new SoundJavafx("/menuSound/pageTurn.wav");
 
     /**
      * Create the {@link MainMenuSelectionJavafx}. 
@@ -190,6 +192,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
             tp.addPage(end.getMain());
         }
         tp.goTo(end.getMain());
+        changeSubMenuAudio.play();
     }
 
     /**
