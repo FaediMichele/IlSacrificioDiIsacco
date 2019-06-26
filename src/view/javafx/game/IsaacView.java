@@ -21,11 +21,15 @@ import util.SpritesExtractor;
 public class IsaacView extends AbstractAnimatedEntityView {
 
     private List<Image> faceSprite = new ArrayList<Image>();
-    private List<Image> movingUpSprite;
-    private List<Image> movingDownSprite;
-    private List<Image> movingRightSprite;
-    private List<Image> movingLeftSprite;
-    private Image deadSprite;
+    private final List<Image> movingUpSprite;
+    private final List<Image> movingDownSprite;
+    private final List<Image> movingRightSprite;
+    private final List<Image> movingLeftSprite;
+    private final List<Image> movingUpFaceSprite;
+    private final List<Image> movingDownFaceSprite;
+    private final List<Image> movingRightFaceSprite;
+    private final List<Image> movingLeftFaceSprite;
+    private final Image deadSprite;
 
     /**
      * Base constructor that extract the sprites from the sheet.
@@ -41,6 +45,7 @@ public class IsaacView extends AbstractAnimatedEntityView {
         final int bodies = 18;
         final int cols = 8;
         final int spritesEachMove = 10;
+        final int spritesFaces = 2;
         bodySprite.add(img.getSubimage(deltaFace * faces, 0, deltaBody, deltaBody));
         bodySprite.add(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody));
         bodySprite.addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
@@ -70,6 +75,22 @@ public class IsaacView extends AbstractAnimatedEntityView {
         deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
 
         this.extractFaceSprite();
+        this.movingDownFaceSprite = this.faceSprite.subList(0, spritesFaces);
+        this.movingRightFaceSprite = this.faceSprite.subList(spritesFaces, spritesFaces * 2);
+        this.movingUpFaceSprite = this.faceSprite.subList(spritesFaces * 2, spritesFaces * 3);
+        this.movingLeftFaceSprite = new ArrayList<Image>();
+        this.movingLeftFaceSprite.addAll(this.movingRightFaceSprite);
+        this.movingLeftFaceSprite.forEach(l -> {
+            BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
+            BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+            Graphics2D graphics = (Graphics2D) mir.getGraphics();
+            AffineTransform trans = new AffineTransform();
+            trans.setToScale(-1, 1);
+            trans.translate(-tmp1.getWidth(), 0);
+            graphics.setTransform(trans);
+            graphics.drawImage(tmp1, 0, 0, null);
+        });
     }
 
     /**
