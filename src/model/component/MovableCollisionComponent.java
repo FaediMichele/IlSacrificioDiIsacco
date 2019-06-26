@@ -49,7 +49,7 @@ public class MovableCollisionComponent extends CollisionComponent {
     protected void handleMovement(final CollisionEvent event) {
         final double angle = 89;
         double a = Math.random() * angle, b = Math.random() * angle;
-        while (Math.cos(a) == 0 || Math.sin(b) - Math.cos(b) * Math.sin(a) == 0) {
+        while (Math.cos(a) == 0 || Math.sin(b) - Math.cos(b) * Math.sin(a) == 0 || a + b > 90) {
             a = Math.random() * angle;
             b = Math.random() * angle;
         }
