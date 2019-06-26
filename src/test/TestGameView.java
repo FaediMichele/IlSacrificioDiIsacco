@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.javafx.game.IsaacView;
 
 /**
  * 
@@ -32,7 +33,7 @@ public class TestGameView extends Application {
 
     @Override
     public final void start(final Stage stage) throws Exception {
-        BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
+        /*BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
         final int deltaFace = 32;
         final int deltaBody = 32;
         final int faces = 6;
@@ -51,7 +52,8 @@ public class TestGameView extends Application {
         final Scene scene = new Scene(parent);
         stage.setTitle("Il sacrificio di Isacco");
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
+        new IsaacView();
 
     }
 }

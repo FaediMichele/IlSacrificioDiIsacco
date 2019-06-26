@@ -66,7 +66,7 @@ public class SpritesExtractor {
                 x = xstart;
                 y = y + height;
             }
-            if (y >= height * rows) {
+            if (y > height * rows) {
                 break;
             }
         }
