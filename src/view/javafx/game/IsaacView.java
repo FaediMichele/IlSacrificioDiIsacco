@@ -45,34 +45,9 @@ public class IsaacView extends AbstractAnimatedEntityView {
         bodySprite.add(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody));
         bodySprite.addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
 
-        bodySprite.forEach(f -> {
-            try {
-                ImageIO.write(f, "jpg", new File(bodySprite.indexOf(f) + ".jpg"));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
         movingDownSprite = super.toFXImageList(bodySprite.subList(0, spritesEachMove));
         movingUpSprite = new ArrayList<Image>();
         movingUpSprite.addAll(movingDownSprite);
-        movingUpSprite.forEach(l -> {
-            BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
-            BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
-            Graphics2D graphics = (Graphics2D) mir.getGraphics();
-            AffineTransform trans = new AffineTransform();
-            trans.setToScale(1, -1);
-            trans.translate(0, -tmp1.getHeight());
-            graphics.setTransform(trans);
-            graphics.drawImage(tmp1, 0, 0, null);
-            try {
-                ImageIO.write(mir, "jpg", new File("test-mirror" + movingUpSprite.indexOf(l) + ".jpg"));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
         movingRightSprite = super.toFXImageList(bodySprite.subList(spritesEachMove, spritesEachMove * 2));
         movingLeftSprite = new ArrayList<Image>();
         movingLeftSprite.addAll(movingRightSprite);
@@ -87,6 +62,7 @@ public class IsaacView extends AbstractAnimatedEntityView {
             graphics.setTransform(trans);
             graphics.drawImage(tmp1, 0, 0, null);
         });
+
         final int deadX = 202;
         final int deadY = 159;
         final int deadWidth = 42;
@@ -94,12 +70,6 @@ public class IsaacView extends AbstractAnimatedEntityView {
         deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
 
         this.extractFaceSprite();
-        /*
-         * faceSprite.forEach(f -> { try { ImageIO.write(SwingFXUtils.fromFXImage(f,
-         * null), "jpg", new File(faceSprite.indexOf(f) + "f.jpg")); } catch
-         * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }
-         * });
-         */
     }
 
     /**
