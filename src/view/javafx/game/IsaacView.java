@@ -20,13 +20,13 @@ import util.SpritesExtractor;
 
 public class IsaacView extends AbstractAnimatedEntityView {
 
-    private List<Image> faceSprite = new ArrayList<Image>();
     private final List<Image> movingUpSprite;
     private final List<Image> movingDownSprite;
     private final List<Image> movingRightSprite;
     private final List<Image> movingLeftSprite;
+
     private final List<Image> movingUpFaceSprite;
-    private final List<Image> movingDownFaceSprite;
+    private List<Image> movingDownFaceSprite;
     private final List<Image> movingRightFaceSprite;
     private final List<Image> movingLeftFaceSprite;
     private final Image deadSprite;
@@ -74,10 +74,10 @@ public class IsaacView extends AbstractAnimatedEntityView {
         final int deadHeight = 32;
         deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
 
-        this.extractFaceSprite();
-        this.movingDownFaceSprite = this.faceSprite.subList(0, spritesFaces);
-        this.movingRightFaceSprite = this.faceSprite.subList(spritesFaces, spritesFaces * 2);
-        this.movingUpFaceSprite = this.faceSprite.subList(spritesFaces * 2, spritesFaces * 3);
+        List<Image> faceSprite = super.toFXImageList((new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract());
+        this.movingDownFaceSprite = faceSprite.subList(0, spritesFaces);
+        this.movingRightFaceSprite = faceSprite.subList(spritesFaces, spritesFaces * 2);
+        this.movingUpFaceSprite = faceSprite.subList(spritesFaces * 2, spritesFaces * 3);
         this.movingLeftFaceSprite = new ArrayList<Image>();
         this.movingLeftFaceSprite.addAll(this.movingRightFaceSprite);
         this.movingLeftFaceSprite.forEach(l -> {
@@ -94,23 +94,10 @@ public class IsaacView extends AbstractAnimatedEntityView {
     }
 
     /**
-     * Setter for the face.
-     * 
-     * @param faceSprite sprites to put in the face
+     * Setter to let the gaper use the body and all teh faces execpt the moving down one of the isaac view.
+     * @param movingDownFaceSprite list to set as the moving down face sprite
      */
-    public void setFaceSprite(final List<Image> faceSprite) {
-        this.faceSprite = faceSprite;
-    }
-
-    /**
-     * method to extract the faceSprites from the sheet.
-     * 
-     * @throws IOException trying to read the sheet with the sprites
-     */
-    protected void extractFaceSprite() throws IOException {
-        BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
-        final int deltaFace = 32;
-        final int faces = 6;
-        faceSprite = super.toFXImageList((new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract());
+    public void setMovingDownFaceSprite(final List<Image> movingDownFaceSprite) {
+        this.movingDownFaceSprite = movingDownFaceSprite;
     }
 }

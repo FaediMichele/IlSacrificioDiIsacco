@@ -13,7 +13,7 @@ import util.SpritesExtractor;
 * View and animations of the Monstro enemy.
 */
 public class MonstroView extends AbstractAnimatedEntityView {
-    private List<Image> monstroSprite;
+    private final List<Image> monstroSprite;
 
     /**
      * Base constructor that extract the sprites from the sheet.

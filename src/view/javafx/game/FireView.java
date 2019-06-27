@@ -31,7 +31,7 @@ public class FireView extends AbstractAnimatedEntityView {
 
         BufferedImage fireGridSheet = ImageIO.read(getClass().getResource(fireGridPath));
         final int deltaGrid = 32;
-        final int grids = 8;
-        fireGridSprite = super.toFXImageList((new SpritesExtractor(fireGridSheet, grids, 2, 4, deltaGrid, deltaGrid)).extract());
+        final int grids = 4;
+        fireGridSprite = super.toFXImageList((new SpritesExtractor(fireGridSheet, grids, 2, 2, deltaGrid, deltaGrid)).extract());
     }
 }
