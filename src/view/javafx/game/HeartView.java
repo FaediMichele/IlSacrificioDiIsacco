@@ -25,11 +25,11 @@ public class HeartView {
     public HeartView() throws IOException {
         BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/pickup_001_heart.png"));
         final int delta = 30;
-        simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
-        halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, 0, delta, delta), null);
+        this.simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
+        this.halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, 0, delta, delta), null);
 
         final int blackY = 64;
-        blackHeart = SwingFXUtils.toFXImage(img.getSubimage(0, blackY, delta, delta), null);
-        halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, blackY, delta, delta), null);
+        this.blackHeart = SwingFXUtils.toFXImage(img.getSubimage(0, blackY, delta, delta), null);
+        this.halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, blackY, delta, delta), null);
     }
 }

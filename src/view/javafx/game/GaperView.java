@@ -17,10 +17,13 @@ public class GaperView extends IsaacView {
         super();
     }
 
-    @Override
-    protected final void extractFaceSprite() throws IOException {
+    /**
+     * Changes some isaac faces to let it become the Gaper.
+     * @throws IOException trying to read the image
+     */
+    protected final void extractGaperFaces() throws IOException {
         BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/monster_017_gaper.png"));
         final int delta = 32;
-        super.setFaceSprite(super.toFXImageList((new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract()));
+        super.setMovingDownFaceSprite(super.toFXImageList((new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract()));
     }
 }
