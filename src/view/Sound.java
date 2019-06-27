@@ -1,5 +1,7 @@
 package view;
 
+import util.Lambda;
+
 /**
  * This interface is for the audio.
  * Load a file and permit to play it once or in loop.
@@ -24,4 +26,10 @@ public interface Sound {
      * @return the status of the audio.
      */
     boolean isPlaying();
+
+    /**
+     * Set a listener to be called when the audio end.
+     * @param l {@link Lambda}.
+     */
+    void setEndListener(Lambda l);
 }

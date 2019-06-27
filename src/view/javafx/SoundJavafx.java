@@ -1,6 +1,9 @@
 package view.javafx;
 
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import util.Lambda;
 import view.Sound;
 
 /**
@@ -8,7 +11,8 @@ import view.Sound;
  *
  */
 public class SoundJavafx implements Sound {
-    private AudioClip a;
+    private MediaPlayer a;
+    private boolean playing;
 
     /**
      * Create a new sound based on a file.
@@ -16,12 +20,13 @@ public class SoundJavafx implements Sound {
      */
     public SoundJavafx(final String path) {
         init(path);
+        playing = false;
     }
     private void init(final String path) {
         if (a != null) {
             throw new IllegalStateException("Already inited");
         }
-        a = new AudioClip(getClass().getResource(path).toExternalForm());
+        a = new MediaPlayer(new Media(getClass().getResource(path).toExternalForm()));
     }
 
     /**
@@ -31,6 +36,7 @@ public class SoundJavafx implements Sound {
     public void play() {
         a.stop();
         a.play();
+        playing = true;
     }
 
     /**
@@ -39,6 +45,7 @@ public class SoundJavafx implements Sound {
     @Override
     public void stop() {
         a.stop();
+        playing = false;
     }
 
     /**
@@ -55,7 +62,15 @@ public class SoundJavafx implements Sound {
      */
     @Override
     public boolean isPlaying() {
-        return a.isPlaying();
+        return playing;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setEndListener(final Lambda l) {
+        a.setOnEndOfMedia(() -> l.use());
     }
 
 }

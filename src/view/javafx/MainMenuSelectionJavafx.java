@@ -43,6 +43,8 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     private final Pane pnMain; 
     private final ConfigurationManager manager;
     private final Sound changeSubMenuAudio = new SoundJavafx("/menuSound/pageTurn.wav");
+    private final Sound backgroundAudioIntro = new SoundJavafx("/menuSound/audioIntro.wav");
+    private final Sound backgroundAudio = new SoundJavafx("/menuSound/background.wav");
 
     /**
      * Create the {@link MainMenuSelectionJavafx}. 
@@ -59,6 +61,8 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         fd = new FadeTransition(Duration.millis(msMenu), main);
         this.manager = manager;
         init(s);
+        backgroundAudioIntro.play();
+        backgroundAudioIntro.setEndListener(() -> backgroundAudio.playInLoop());
     }
 
     private void init(final Scene s) {
