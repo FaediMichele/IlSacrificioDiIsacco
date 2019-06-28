@@ -41,7 +41,7 @@
 							fitWidth="174" layoutX="230" layoutY="128" pickOnBounds="true"
 							preserveRatio="true" />
 						<ImageView fx:id="imgNameOfGame" fitHeight="92"
-							fitWidth="456" layoutX="72" layoutY="51" pickOnBounds="true"
+							fitWidth="456" layoutX="100" layoutY="60" pickOnBounds="true"
 							preserveRatio="true" />
 					</children>
 				</Pane>

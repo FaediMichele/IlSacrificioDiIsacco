@@ -12,6 +12,7 @@ import javafx.util.Duration;
 public class CircleListRandomJavafx extends CircleListJavafx {
     private final Node random;
     private final long ms;
+    private static final int MULTIPLIER = 10;
 
     /**
      * Create a new {@link CircleListRandomJavafx} with dimension and scaleMultiplier. With an initial node for the random search.
@@ -44,8 +45,8 @@ public class CircleListRandomJavafx extends CircleListJavafx {
                     int i = index;
                     while (i >= 0) {
                         Platform.runLater(() -> rotateLeft());
+                        Thread.sleep(MULTIPLIER * ms / (MULTIPLIER - 1));
                         i--;
-                        Thread.sleep(ms);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -17,7 +17,7 @@ import view.SubMenuSelection;
  */
 public final class GameIntroJavafx extends SubMenuSelection {
     private static final String INTROFILEPATH = "/video/intro.mp4";
-    private static final String NAMEPANE = "pnIntro1";
+    private static final String NAMEPANE = "#pnIntro1";
     private final MySubMenu s;
     private final FadeTransition fd;
     private final Pane pnMain;
@@ -101,6 +101,7 @@ public final class GameIntroJavafx extends SubMenuSelection {
             this.mv = mv;
             mv.setMediaPlayer(new MediaPlayer(new Media(getClass().getResource(videoPath).toExternalForm())));
             mv.getMediaPlayer().setOnEndOfMedia(this::end);
+            mv.getMediaPlayer().setRate(8);
         }
 
         @Override

@@ -28,7 +28,7 @@ public class SubMenuRun extends SubMenu {
     private static final int CL_HEIGHT = 65;
     private static final double CL_SCALE = 0.5;
     private static final long CL_TIME = 300;
-    private static final int CL_X = 135;
+    private static final int CL_X = 140;
     private static final int CL_Y = 50;
 
     private final Map<ImageView, CharacterInfo> infos = new LinkedHashMap<>();

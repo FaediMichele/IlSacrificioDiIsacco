@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -142,6 +143,9 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void rotateLeft() {
+        if (!elements.get(0).tt.getStatus().equals(Animation.Status.STOPPED)) {
+            return;
+        }
         index = index - 1 >= 0 ? index - 1 : elements.size();
         ((LinkedList<MyNode>) elements).addLast(((LinkedList<MyNode>) elements).removeFirst());
         updateNode();
@@ -152,6 +156,9 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void rotateRight() {
+        if (!elements.get(0).tt.getStatus().equals(Animation.Status.STOPPED)) {
+            return;
+        }
         index = (index + 1) % elements.size();
         ((LinkedList<MyNode>) elements).addFirst(((LinkedList<MyNode>) elements).removeLast());
         updateNode();
