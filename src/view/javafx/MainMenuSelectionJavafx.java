@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,6 +16,7 @@ import javafx.util.Duration;
 import util.Pair;
 import view.CharacterInfo;
 import view.ConfigurationManager;
+import view.MenuSelection;
 import view.Sound;
 import view.SubMenu;
 import view.SubMenuSelection;
@@ -27,13 +27,13 @@ import view.node.TranslationPages;
  * It manage the animation for change the sub menu.
  */
 public class MainMenuSelectionJavafx extends SubMenuSelection {
-    private static final int DEFAULT_X = 640;
-    private static final int DEFAULT_Y = 344;
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
     private static final String ENTER = "pnEnter";
     private static final String GAME = "pnGame";
 
+    private final int defaultX;
+    private final int defaultY;
     // Character image
     private static final double CR_WIDTH = 40;
     private static final double CR_HEIGHT = 40;
@@ -48,20 +48,23 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
 
     /**
      * Create the {@link MainMenuSelectionJavafx}. 
+     * @param parent the {@link MenuSelection}.
      * @param main the main pane that contains all sub menu node.
      * @param s the scene of the application.
      * @param msPage the time for the animation for slide the sub Menu.
      * @param msMenu the time for the fade effect.
      * @param manager for the character selection images and values.
      */
-    public MainMenuSelectionJavafx(final Pane main, final Scene s, final long msPage, final long msMenu, final ConfigurationManager manager) {
-        super();
+    public MainMenuSelectionJavafx(final MenuSelection parent, final Pane main, final Scene s, final long msPage, final long msMenu, final ConfigurationManager manager) {
+        super(parent);
+        this.defaultX = (int) s.getWidth();
+        this.defaultY = (int) s.getHeight();
         this.pnMain = main;
+        pnMain.setOpacity(0);
         tp = new TranslationPageJavafx(main, s, msPage);
         fd = new FadeTransition(Duration.millis(msMenu), main);
         this.manager = manager;
         init(s);
-        backgroundAudioIntro.play();
         backgroundAudioIntro.setEndListener(() -> backgroundAudio.playInLoop());
     }
 
@@ -150,10 +153,10 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
      * @param s
      */
     private void updateBind(final Pane p, final Scene s) {
-        if (pnMain.getWidth() / DEFAULT_X > pnMain.getHeight() / DEFAULT_Y) {
-            p.scaleXProperty().bind(s.heightProperty().divide(DEFAULT_Y));
+        if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
+            p.scaleXProperty().bind(s.heightProperty().divide(defaultY));
         } else {
-            p.scaleXProperty().bind(s.widthProperty().divide(DEFAULT_X));
+            p.scaleXProperty().bind(s.widthProperty().divide(defaultX));
         }
     }
 
@@ -165,9 +168,9 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     private void setBind(final Pane p, final Scene s) {
         // Challenge: try to discover how it work :-)
         p.layoutXProperty().bind(s.widthProperty().divide(2).subtract(p.widthProperty().divide(2)).
-                add(s.widthProperty().divide(DEFAULT_X).multiply(p.getLayoutX())));
+                add(s.widthProperty().divide(defaultX).multiply(p.getLayoutX())));
         p.layoutYProperty().bind(s.heightProperty().divide(2).subtract(p.heightProperty().divide(2)).
-                add(s.heightProperty().divide(DEFAULT_Y).multiply(p.getLayoutY())));
+                add(s.heightProperty().divide(defaultY).multiply(p.getLayoutY())));
         p.scaleYProperty().bind(p.scaleXProperty());
     }
     private void bindDown(final Pane from, final Pane dest) {
@@ -181,6 +184,10 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     }
     private Node getByName(final Scene s, final String name) {
         return s.lookup("#" + name);
+    }
+
+    private void select() {
+        backgroundAudioIntro.play();
     }
 
     /**
@@ -220,19 +227,18 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
             fd.setToValue(0);
             fd.playFromStart();
         } else {
-            (new Thread() { public void run() {
-                    try {
-                        Thread.sleep((long) fd.getTotalDuration().toMillis());
-                        Platform.runLater(() -> {
-                            fd.setToValue(1);
-                            fd.playFromStart();
-                        });
-                    } catch (InterruptedException e) {
-                            e.printStackTrace();
-                    }
-                }
-            }).start();
+            select();
+            fd.setToValue(1);
+            fd.playFromStart();
         }
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public long getTimeAnimation() {
+        return (long) fd.getDuration().toMillis();
     }
 
 }

@@ -4,13 +4,14 @@ import java.util.Random;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.util.Duration;
 
 /**
  * This circle list have a initial node that randomize the selection when selected.
  */
 public class CircleListRandomJavafx extends CircleListJavafx {
     private final Node random;
-    private final long msRandomize;
+    private final long ms;
 
     /**
      * Create a new {@link CircleListRandomJavafx} with dimension and scaleMultiplier. With an initial node for the random search.
@@ -19,14 +20,13 @@ public class CircleListRandomJavafx extends CircleListJavafx {
      * @param scaleMultiplier a scale multiplier for elements(far elements is smaller).
      * @param duration the time of the animation.
      * @param random the {@link Node} to use for the random.
-     * @param msRandomize time for the animation for the randomize.
      */
     public CircleListRandomJavafx(final double width, final double height, final double scaleMultiplier, final Object duration,
-            final Node random, final long msRandomize) {
+            final Node random) {
         super(width, height, scaleMultiplier);
         this.random = random;
         super.setDuration(duration);
-        this.msRandomize = msRandomize;
+        ms = (long) ((Duration) duration).toMillis();
         addAll(random);
     }
 
@@ -45,7 +45,7 @@ public class CircleListRandomJavafx extends CircleListJavafx {
                     while (i >= 0) {
                         Platform.runLater(() -> rotateLeft());
                         i--;
-                        Thread.sleep(msRandomize);
+                        Thread.sleep(ms);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

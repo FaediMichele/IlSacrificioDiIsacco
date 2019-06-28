@@ -3,8 +3,10 @@ package view.javafx;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaView;
 import view.ConfigurationManager;
 import view.MenuSelection;
+import view.SubMenuSelection;
 
 /**
  * This is the class that handle the main menu of javafx.
@@ -20,6 +22,8 @@ public class MenuControllerJavafx {
 
     @FXML private Pane pnMain;
     @FXML private Pane pnMainMenu;
+    @FXML private Pane pnIntro;
+    @FXML private MediaView mvIntro;
 
 
     /**
@@ -30,8 +34,12 @@ public class MenuControllerJavafx {
         menu = new MenuSelection();
         pnMainMenu.prefWidthProperty().bind(pnMain.widthProperty());
         pnMainMenu.prefHeightProperty().bind(pnMain.heightProperty());
-        final MainMenuSelectionJavafx mainMenu = new MainMenuSelectionJavafx(pnMainMenu, s, TIME_SUBMENU, TIME_MENU, manager);
-        menu.add(mainMenu);
+        pnIntro.prefWidthProperty().bind(pnMain.widthProperty());
+        pnIntro.prefHeightProperty().bind(pnMain.heightProperty());
+        final SubMenuSelection mainMenu = new MainMenuSelectionJavafx(menu, pnMainMenu, s, TIME_SUBMENU, TIME_MENU, manager);
+        final SubMenuSelection intro = new GameIntroJavafx(menu, pnIntro, s, mvIntro, TIME_MENU);
+        menu.add(mainMenu, intro);
+        menu.select(GameIntroJavafx.class);
         pnMain.focusedProperty().addListener(b -> {
             if (pnMain.isFocusTraversable()) {
                 pnMain.requestFocus();

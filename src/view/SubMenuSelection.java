@@ -11,6 +11,23 @@ import java.util.Set;
 public abstract class SubMenuSelection {
     private final Map<Class<? extends SubMenu>, SubMenu> menus = new LinkedHashMap<Class<? extends SubMenu>, SubMenu>();
     private SubMenu selected;
+    private final MenuSelection parent;
+
+    /**
+     * Create a new SubMenuSelection with the parent.
+     * @param parent the {@link MenuSelection};
+     */
+    public SubMenuSelection(final MenuSelection parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Get the MenuSelection that contains this sub menu.
+     * @return the parent.
+     */
+    public MenuSelection getParent() {
+        return this.parent;
+    }
 
     /**
      * Get the selected {@link SubMenu}.
@@ -67,6 +84,12 @@ public abstract class SubMenuSelection {
             throw new IllegalArgumentException("SubMenu not found");
         }
     }
+
+    /**
+     * Get the time that the {@link SubMenuSelection} require for the animation for the change of the sub menu.
+     * @return the time that require for the animation.
+     */
+    public abstract long getTimeAnimation();
 
     /**
      * Method called when the sub menu is changed. 

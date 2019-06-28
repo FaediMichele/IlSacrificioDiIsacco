@@ -68,7 +68,7 @@ public class SubMenuRun extends SubMenu {
         this.speed = speed;
         this.damage = damage;
         list = new CircleListRandomJavafx(CL_WIDTH, CL_HEIGHT,
-                CL_SCALE, Duration.millis(CL_TIME), random, CL_TIME);
+                CL_SCALE, Duration.millis(CL_TIME), random);
          list.setMarginLeft(CL_X);
          list.setMarginTop(CL_Y);
          pnMain.getChildren().add((Node) list);

@@ -5,7 +5,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import view.AnimatedView;
 import view.Command;
-import view.Sound;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.TimedViews;
