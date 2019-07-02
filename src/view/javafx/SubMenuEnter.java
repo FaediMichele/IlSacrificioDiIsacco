@@ -58,8 +58,8 @@ public class SubMenuEnter extends SubMenu {
     @Override
     public final void input(final Command c) {
         super.input(c);
-        if (c == Command.ENTER && getSelector().contains(SubMenuGame.class)) {
-            getSelector().selectSubMenu(SubMenuGame.class);
+        if (c == Command.ENTER && getSelector().contains(SubMenuGameMenu.class)) {
+            getSelector().selectSubMenu(SubMenuGameMenu.class);
         }
     }
 

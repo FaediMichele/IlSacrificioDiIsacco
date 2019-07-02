@@ -121,8 +121,8 @@ public class SubMenuRun extends SubMenu {
     }
 
     private void exit() {
-        if (getSelector().contains(SubMenuGame.class)) {
-            getSelector().selectSubMenu(SubMenuGame.class);
+        if (getSelector().contains(SubMenuGameMenu.class)) {
+            getSelector().selectSubMenu(SubMenuGameMenu.class);
         }
     }
     private void update(final CharacterInfo c) {

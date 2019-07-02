@@ -122,7 +122,22 @@
 			<children>
 				<Pane fx:id="pnIntro1" prefHeight="344" prefWidth="640">
 					<children>
-						<MediaView fx:id="mvIntro" fitHeight="444" fitWidth="640" />
+						<MediaView fx:id="mvIntro" fitHeight="444"
+							fitWidth="640" />
+					</children>
+				</Pane>
+			</children>
+		</Pane>
+		<Pane fx:id="pnGame" prefHeight="344" prefWidth="640">
+			<children>
+				<Pane fx:id="pnGameRun" prefHeight="344" prefWidth="640">
+					<children>
+						<Canvas fx:id="cnvGame" height="344" width="640" />
+					</children>
+				</Pane>
+				<Pane fx:id="pnGameMenu" prefHeight ="344" prefWidth="640">
+					<children>
+						<!-- TODO -->
 					</children>
 				</Pane>
 			</children>

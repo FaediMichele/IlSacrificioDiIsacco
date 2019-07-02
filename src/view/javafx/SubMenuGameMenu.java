@@ -13,7 +13,7 @@ import view.node.SelectList;
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).
  */
-public class SubMenuGame extends SubMenu {
+public class SubMenuGameMenu extends SubMenu {
 
     private static final String NEWRUN = "/menuImgs/newRun.png";
     private static final String OPTION = "/menuImgs/options.png";
@@ -30,7 +30,7 @@ public class SubMenuGame extends SubMenu {
      * @param option the option {@link ImageView}.
      * @param imgSelector the arrow {@link ImageView}.
      */
-    public SubMenuGame(final SubMenuSelection selector, final Pane pnMain, final ImageView newRun, final ImageView option, final ImageView imgSelector) {
+    public SubMenuGameMenu(final SubMenuSelection selector, final Pane pnMain, final ImageView newRun, final ImageView option, final ImageView imgSelector) {
         super(selector, pnMain);
         this.newRun = newRun;
         this.option = option;

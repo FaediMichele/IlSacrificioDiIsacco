@@ -75,7 +75,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         // Add the sub menu in the sub menu handler.
         add(new SubMenuEnter(this, (Pane) getByName(s, ENTER), (ImageView) getByName(s, "imgNameOfGame"),
                 (ImageView) getByName(s, "imgIsaac"), (ImageView) getByName(s, "imgBackgroundEnter")));
-        add(new SubMenuGame(this, (Pane) getByName(s, GAME), (ImageView) getByName(s, "imgNewRun"),
+        add(new SubMenuGameMenu(this, (Pane) getByName(s, GAME), (ImageView) getByName(s, "imgNewRun"),
                 (ImageView) getByName(s, "imgOptions"), (ImageView) getByName(s, "imgSelector")));
         add(new SubMenuRun(this, (Pane) getByName(s, RUNPANE), (ProgressBar) getByName(s, "prgLife"),
                 (ProgressBar) getByName(s, "prgDamage"), (ProgressBar) getByName(s, "prgSpeed"),
