@@ -122,7 +122,7 @@
 			<children>
 				<Pane fx:id="pnIntro1" prefHeight="344" prefWidth="640">
 					<children>
-						<MediaView fx:id="mvIntro" fitHeight="344" fitWidth="640" />
+						<MediaView fx:id="mvIntro" fitHeight="444" fitWidth="640" />
 					</children>
 				</Pane>
 			</children>

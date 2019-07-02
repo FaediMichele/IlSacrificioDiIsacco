@@ -101,7 +101,6 @@ public final class GameIntroJavafx extends SubMenuSelection {
             this.mv = mv;
             mv.setMediaPlayer(new MediaPlayer(new Media(getClass().getResource(videoPath).toExternalForm())));
             mv.getMediaPlayer().setOnEndOfMedia(this::end);
-            mv.getMediaPlayer().setRate(8);
         }
 
         @Override
