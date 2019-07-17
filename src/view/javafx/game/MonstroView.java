@@ -20,12 +20,13 @@ public class MonstroView extends AbstractAnimatedEntityView {
      * @throws IOException trying to get the resource image
      */
     public MonstroView() throws IOException {
-        BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/boss_004_monstro.png"));
+        super();
+        final BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/boss_004_monstro.png"));
         final int height = 112;
         final int width = 79;
         final int monstros = 9;
         final int cols = 5;
-        monstroSprite = super.toFXImageList((new SpritesExtractor(img, monstros, 2, cols, width, height)).extract());
+        monstroSprite = (new SpritesExtractor(img, monstros, 2, cols, width, height)).extract();
 
         super.setEntityActualSprites(monstroSprite);
         super.animate();

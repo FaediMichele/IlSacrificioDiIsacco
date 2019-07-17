@@ -1,6 +1,5 @@
 package view.javafx.game;
 
-import java.awt.image.BufferedImage;
 import java.util.List;
 import javafx.scene.image.Image;
 
@@ -24,13 +23,6 @@ public interface AnimatedEntityView {
      * @param lowerSprites the sprites that have to be animted in the lower part
      */
     void setEntityActualSprites(List<Image> upperSprites, List<Image> lowerSprites);
-
-    /**
-     * Convert a list of java.awt.image.BufferedImage to a list of javafx.scene.image.Image.
-     * @param list the java.awt.image.BufferedImage list
-     * @return the javafx.scene.image.Image list
-     */
-    List<Image> toFXImageList(List<BufferedImage> list);
 
     /**
      * this method starts the animation.

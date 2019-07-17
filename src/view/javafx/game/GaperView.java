@@ -22,8 +22,8 @@ public class GaperView extends IsaacView {
      * @throws IOException trying to read the image
      */
     protected final void extractGaperFaces() throws IOException {
-        BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/monster_017_gaper.png"));
+        final BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/monster_017_gaper.png"));
         final int delta = 32;
-        super.setMovingDownFaceSprite(super.toFXImageList((new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract()));
+        super.setMovingDownFaceSprite((new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract());
     }
 }

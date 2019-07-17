@@ -25,15 +25,16 @@ public class BombView extends AbstractAnimatedEntityView {
      * @throws IOException trying to get the resource image
      */
     public BombView() throws IOException {
+        super();
         this.bombSprite = SwingFXUtils.toFXImage(ImageIO.read(getClass().getResource("/gameImgs/bomba1.png")), null);
         this.triggeredBombSprite = new ArrayList<>();
         this.triggeredBombSprite.add(bombSprite);
         this.triggeredBombSprite.add(SwingFXUtils.toFXImage(ImageIO.read(getClass().getResource("/gameImgs/bomba2.png")), null));
 
-        BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/effect_029_explosion.png"));
+        final BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/effect_029_explosion.png"));
         final int delta = 96;
         final int explosions = 16;
         final int cols = 4;
-        this.explosionBombSprite = super.toFXImageList((new SpritesExtractor(img, explosions, cols, cols, delta, delta)).extract());
+        this.explosionBombSprite = (new SpritesExtractor(img, explosions, cols, cols, delta, delta)).extract();
     }
 }

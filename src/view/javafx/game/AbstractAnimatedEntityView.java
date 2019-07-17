@@ -1,11 +1,9 @@
 package view.javafx.game;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import view.AnimatedView;
 import view.TimedViews;
@@ -64,13 +62,5 @@ public class AbstractAnimatedEntityView implements AnimatedEntityView {
             this.lowerEntityTimedViews.setMilliseconds(FRAMETIME);
             this.lowerEntityTimedViews.start();
         }
-    }
-    /**
-     * {@inheritDoc}
-     */
-    public List<Image> toFXImageList(final List<BufferedImage> list) {
-        final List<Image> imageList = new ArrayList<>();
-        list.stream().forEach(i -> imageList.add(SwingFXUtils.toFXImage(i, null)));
-        return imageList;
     }
 }

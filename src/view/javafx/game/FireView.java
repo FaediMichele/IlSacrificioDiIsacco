@@ -23,15 +23,16 @@ public class FireView extends AbstractAnimatedEntityView {
      * @param fireGridPath same as firePath
      */
     public FireView(final String firePath, final String fireGridPath) throws IOException {
-        BufferedImage fireSheet = ImageIO.read(getClass().getResource(firePath));
+        super();
+        final BufferedImage fireSheet = ImageIO.read(getClass().getResource(firePath));
         final int delta = 48;
         final int fires = 6;
-        fireSprite = super.toFXImageList((new SpritesExtractor(fireSheet, fires, 1, fires, delta, delta)).extract());
-        dyingFireSprite = super.toFXImageList((new SpritesExtractor(fireSheet, fires + 1, 1, fires + 1, delta, delta, 0, delta)).extract());
+        fireSprite = (new SpritesExtractor(fireSheet, fires, 1, fires, delta, delta)).extract();
+        dyingFireSprite = (new SpritesExtractor(fireSheet, fires + 1, 1, fires + 1, delta, delta, 0, delta)).extract();
 
-        BufferedImage fireGridSheet = ImageIO.read(getClass().getResource(fireGridPath));
+        final BufferedImage fireGridSheet = ImageIO.read(getClass().getResource(fireGridPath));
         final int deltaGrid = 32;
         final int grids = 4;
-        fireGridSprite = super.toFXImageList((new SpritesExtractor(fireGridSheet, grids, 2, 2, deltaGrid, deltaGrid)).extract());
+        fireGridSprite = (new SpritesExtractor(fireGridSheet, grids, 2, 2, deltaGrid, deltaGrid)).extract();
     }
 }

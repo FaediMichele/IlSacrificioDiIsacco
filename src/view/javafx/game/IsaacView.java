@@ -3,7 +3,6 @@ package view.javafx.game;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +36,9 @@ public class IsaacView extends AbstractAnimatedEntityView {
      * @throws IOException trying to get the resource image
      */
     public IsaacView() throws IOException {
-        BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
-        List<BufferedImage> bodySprite = new ArrayList<>();
+        super();
+        final BufferedImage img = ImageIO.read(getClass().getResource("/gameImgs/character_001_isaac.png"));
+        final List<Image> bodySprite = new ArrayList<>();
         final int deltaFace = 32;
         final int faces = 6;
         final int deltaBody = 32;
@@ -46,22 +46,22 @@ public class IsaacView extends AbstractAnimatedEntityView {
         final int cols = 8;
         final int spritesEachMove = 10;
         final int spritesFaces = 2;
-        bodySprite.add(img.getSubimage(deltaFace * faces, 0, deltaBody, deltaBody));
-        bodySprite.add(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody));
+        bodySprite.add(SwingFXUtils.toFXImage(img.getSubimage(deltaFace * faces, 0, deltaBody, deltaBody), null));
+        bodySprite.add(SwingFXUtils.toFXImage(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody), null));
         bodySprite.addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
 
-        movingDownSprite = super.toFXImageList(bodySprite.subList(0, spritesEachMove));
+        movingDownSprite = bodySprite.subList(0, spritesEachMove);
         movingUpSprite = new ArrayList<Image>();
         movingUpSprite.addAll(movingDownSprite);
-        movingRightSprite = super.toFXImageList(bodySprite.subList(spritesEachMove, spritesEachMove * 2));
+        movingRightSprite = bodySprite.subList(spritesEachMove, spritesEachMove * 2);
         movingLeftSprite = new ArrayList<Image>();
         movingLeftSprite.addAll(movingRightSprite);
         movingLeftSprite.forEach(l -> {
-            BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
-            BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
+            final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-            Graphics2D graphics = (Graphics2D) mir.getGraphics();
-            AffineTransform trans = new AffineTransform();
+            final Graphics2D graphics = (Graphics2D) mir.getGraphics();
+            final AffineTransform trans = new AffineTransform();
             trans.setToScale(-1, 1);
             trans.translate(-tmp1.getWidth(), 0);
             graphics.setTransform(trans);
@@ -74,18 +74,18 @@ public class IsaacView extends AbstractAnimatedEntityView {
         final int deadHeight = 32;
         deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
 
-        List<Image> faceSprite = super.toFXImageList((new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract());
+        final List<Image> faceSprite = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
         this.movingDownFaceSprite = faceSprite.subList(0, spritesFaces);
         this.movingRightFaceSprite = faceSprite.subList(spritesFaces, spritesFaces * 2);
         this.movingUpFaceSprite = faceSprite.subList(spritesFaces * 2, spritesFaces * 3);
         this.movingLeftFaceSprite = new ArrayList<Image>();
         this.movingLeftFaceSprite.addAll(this.movingRightFaceSprite);
         this.movingLeftFaceSprite.forEach(l -> {
-            BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
-            BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
+            final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-            Graphics2D graphics = (Graphics2D) mir.getGraphics();
-            AffineTransform trans = new AffineTransform();
+            final Graphics2D graphics = (Graphics2D) mir.getGraphics();
+            final AffineTransform trans = new AffineTransform();
             trans.setToScale(-1, 1);
             trans.translate(-tmp1.getWidth(), 0);
             graphics.setTransform(trans);

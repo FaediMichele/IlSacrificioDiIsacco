@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+
 /**
  *  Class which extracts the sprites from the sheets.
  */
@@ -56,7 +59,7 @@ public class SpritesExtractor {
     /**
      * @return a list with all the sprites 
      */
-    public List<BufferedImage> extract() {
+    public List<Image> extract() {
         int x = xstart;
         int y = ystart;
         for (int index = 0; index < count; index++) {
@@ -70,7 +73,17 @@ public class SpritesExtractor {
                 break;
             }
         }
-        return sprites;
+        return this.toFXImageList(sprites);
     }
 
+    /**
+     * Convert a list of java.awt.image.BufferedImage to a list of javafx.scene.image.Image.
+     * @param list the java.awt.image.BufferedImage list
+     * @return the javafx.scene.image.Image list
+     */
+    private List<Image> toFXImageList(final List<BufferedImage> list) {
+        final List<Image> imageList = new ArrayList<>();
+        list.stream().forEach(i -> imageList.add(SwingFXUtils.toFXImage(i, null)));
+        return imageList;
+    }
 }
