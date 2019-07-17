@@ -6,6 +6,7 @@ import model.component.HealthComponent;
 import model.component.InventoryComponent;
 import model.component.PlayerMentalityComponent;
 import model.component.StatusComponent;
+import model.component.TearWeaponComponent;
 
 /**
  * Implements Player.
@@ -20,6 +21,7 @@ public class Player extends AbstractMovableEntity {
         this.attachComponent(new HealthComponent(this));
         this.attachComponent(new InventoryComponent(this));
         this.attachComponent(new PlayerMentalityComponent(this));
+        this.attachComponent(new TearWeaponComponent(this));
     }
 
     /**

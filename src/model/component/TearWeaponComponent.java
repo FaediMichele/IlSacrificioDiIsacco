@@ -1,5 +1,7 @@
 package model.component;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
 import model.entity.Tear;
 import model.events.TearShotEvent;
@@ -8,25 +10,21 @@ import util.Pair;
 
 /**
  * 
- * This is the component that generates tears when Isacco attacks.
+ * This is the component that generates tears when an entity attacks.
  *
  */
 
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
 
-    TearWeaponComponent(final Entity entity) {
+    /**
+     * Basic constructor that generates a tear when requested.
+     * @param entity to which this component is attached
+     */
+    public TearWeaponComponent(final Entity entity) {
         super(entity);
-        registerListeners();
-    }
-
-    TearWeaponComponent(final Entity entity, final TearWeaponComponent component) {
-        super(entity, component);
-        registerListeners();
-    }
-
-    private void registerListeners() {
         this.registerListener(new EventListener<TearShotEvent>() {
             @Override
+            @Subscribe
             public void listenEvent(final TearShotEvent event) {
                 final Tear t = new Tear(event.getAngle(), event.getSourceEntity());
                 getEntity().getRoom().insertEntity(t);
@@ -34,5 +32,4 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
             }
         });
     }
-
 }

@@ -32,7 +32,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     /**
      * Default value for friction: 0.001.
      */
-    public static final double DEFAULT_FRICTION = 0.001;
+    public static final double DEFAULT_FRICTION = 0.0001;
 
     private static final double MINIMIZE_SPACE_DELTA = 0.0001;
     private double deltaSpeed;
@@ -119,7 +119,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param z move made on the z axis
      */
     protected void move(final double x, final double y, final double z) {
-        System.out.println(xMove + " " + yMove + " " + zMove);
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
@@ -179,7 +178,9 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     private double calculateSpace(final Double deltaTime) {
         final double acceleration = -this.friction / this.getBody().getWeight();
-        return this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
+        double vel = this.deltaSpeed * deltaTime;
+        double acc = Math.pow(deltaTime, 2) * acceleration / 2;
+        return vel + acc;
     }
 
     @Override
@@ -187,7 +188,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         if (this.checkMove()) {
             final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
             this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-            postLogs();
+            //postLogs();
             this.initMove();
         }
     }

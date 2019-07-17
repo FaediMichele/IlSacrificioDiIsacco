@@ -2,6 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.CollisionComponent;
+import model.component.DamageComponent;
 import model.component.MoveComponent;
 import model.component.PlayerMentalityComponent;
 import model.component.StatusComponent;
@@ -11,7 +12,7 @@ import model.component.TearAIComponent;
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
-
+    private static final double DEFAULT_DAMAGE = 0.5;
     /**
      * Default constructor.
      * 
@@ -20,9 +21,10 @@ public class Tear extends AbstractMovableEntity {
      */
     public Tear(final int angle, final Entity entityThatShootedMe) {
         super();
-        final int minimizeBodySprite = 4;
+        final int minimizeBodySprite = 2;
         this.attachComponent(new PlayerMentalityComponent(this));
         this.attachComponent(new TearAIComponent(this, angle));
+        this.attachComponent(new DamageComponent(this, DEFAULT_DAMAGE));
         this.attachComponent(new MoveComponent(this, getMoveComponent(entityThatShootedMe).getSpeed(),
                 getMoveComponent(entityThatShootedMe).getMaxSpeed(),
                 getMoveComponent(entityThatShootedMe).getFriction()));
@@ -36,9 +38,11 @@ public class Tear extends AbstractMovableEntity {
      * @param entityBody      the {@link BodyComponent}
      * @param entityCollision the {@link CollisionComponent}
      * @param entityStatus    the {@link StatusComponent}
+     * @param angle           the angle of the tear when it's shot
+     * @param entityThatShootedMe shooter entity
      */
-    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        super();
+    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus, final int angle, final Entity entityThatShootedMe) {
+        this(angle, entityThatShootedMe);
         this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 

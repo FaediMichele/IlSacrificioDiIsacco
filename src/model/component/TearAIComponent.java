@@ -7,7 +7,7 @@ import model.entity.Entity;
  */
 public class TearAIComponent extends AbstractComponent<TearAIComponent> {
 
-    private final int angle;
+    private int angle = 0;
     /**
      * @param entity this entity
      */
@@ -39,7 +39,8 @@ public class TearAIComponent extends AbstractComponent<TearAIComponent> {
     /**
      * update method makes the tear move in the right direction.
      */
-    public void update() {
-        this.getMoveComponent(this.getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
+    @Override
+    public void update(final Double deltaTime) {
+        this.getMoveComponent(this.getEntity()).move(Math.cos(Math.toRadians(this.angle)), Math.sin(Math.toRadians(this.angle)), 0);
     }
 }
