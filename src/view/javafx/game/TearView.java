@@ -16,8 +16,10 @@ import util.SpritesExtractor;
 * View and animations of the player and the enemies.
 */
 public class TearView extends AbstractAnimatedEntityView {
-    private static Pair<List<Image>, Integer> playerTear;
-    private static Pair<List<Image>, Integer> enemyTear;
+    private static List<Image> playerTear;
+    private static List<Image> enemyTear;
+    private int playerIndex;
+    private int enemyIndex;
 
     static {
         BufferedImage img = null;
@@ -30,13 +32,11 @@ public class TearView extends AbstractAnimatedEntityView {
         final int tears = 13;
         final int cols = 8;
 
-        playerTear.setX((new SpritesExtractor(img, tears, 2, cols, delta, delta)).extract());
-        Collections.reverse(playerTear.getX());
-        playerTear.setY(0);
+        playerTear = (new SpritesExtractor(img, tears, 2, cols, delta, delta)).extract();
+        Collections.reverse(playerTear);
 
-        enemyTear.setX(new SpritesExtractor(img, tears, 2, cols, delta, delta, 0, 2 * delta).extract());
-        Collections.reverse(enemyTear.getX());
-        enemyTear.setY(0);
+        enemyTear = (new SpritesExtractor(img, tears, 2, cols, delta, delta, 0, 2 * delta).extract());
+        Collections.reverse(enemyTear);
     }
 
     /**
@@ -45,6 +45,8 @@ public class TearView extends AbstractAnimatedEntityView {
      */
     public TearView() throws IOException {
         super();
+        this.playerIndex = 0;
+        this.enemyIndex = 0;
     }
 
     /**
@@ -56,9 +58,9 @@ public class TearView extends AbstractAnimatedEntityView {
      */
     public void draw(final GraphicsContext gc, final String entity, final int x, final int y) {
         if (entity.equals("Player")) {
-            gc.drawImage(playerTear.getX().get(playerTear.getY()), x, y);
-            playerTear.setY(playerTear.getY() + 1);
-            if (playerTear.getY() > playerTear.getX().size()) {
+            gc.drawImage(playerTear.get(playerIndex), x, y);
+            playerIndex += 1;
+            if (playerIndex > playerTear.size()) {
                 //dubbio 1: in questo caso il draw della lacrima non dovrà più essere chiamato perchè quando finisce le animazioni 
                 //(che rendono la tear sempre più piccola) essa scompare...
             }
