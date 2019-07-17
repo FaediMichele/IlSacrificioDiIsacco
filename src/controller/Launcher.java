@@ -14,7 +14,7 @@ import view.javafx.MenuControllerJavafx;
  */
 public class Launcher extends Application {
     private static final String WINDOW_NAME = "Il sacrificio di Isacco";
-    private static final String FXML_PATH = "/fxml/MainMenu.fxml";
+    private static final String FXML_PATH = "/fxml/Isaac.fxml";
 
 
     /**
