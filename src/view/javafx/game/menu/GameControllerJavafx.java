@@ -1,4 +1,4 @@
-package view.javafx.game;
+package view.javafx.game.menu;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;

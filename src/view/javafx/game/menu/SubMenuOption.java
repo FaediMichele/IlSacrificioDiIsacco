@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import javafx.scene.layout.Pane;
 import view.SubMenu;

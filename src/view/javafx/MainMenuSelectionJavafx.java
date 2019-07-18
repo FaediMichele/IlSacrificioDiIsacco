@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.animation.FadeTransition;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -181,9 +180,6 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     }
     private void bindLeft(final Pane from, final Pane dest) {
         dest.layoutXProperty().bind(from.layoutXProperty());
-    }
-    private Node getByName(final Scene s, final String name) {
-        return s.lookup("#" + name);
     }
 
     private void select() {

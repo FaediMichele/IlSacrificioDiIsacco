@@ -65,6 +65,15 @@ public class TearView extends AbstractAnimatedEntityView {
                 //(che rendono la tear sempre più piccola) essa scompare...
             }
         }
+
+        if (entity.equals("Enemy")) {
+            gc.drawImage(enemyTear.get(enemyIndex), x, y);
+            enemyIndex += 1;
+            if (enemyIndex > playerTear.size()) {
+                //stesso dubbio di sopra
+            }
+        }
+
         /*dubbio 2: - in questo caso devo ricevere in input non lo status, ma l'entità... uso la stringa?
          * */
     }

@@ -67,5 +67,10 @@ public enum Command {
     /**
      * The command for show the map of the floor.
      */
-    SHOWMAP 
+    SHOWMAP, 
+
+    /**
+     * The command to make the options menu appear.
+     */
+    OPTIONS 
 }

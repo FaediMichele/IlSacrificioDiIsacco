@@ -5,6 +5,9 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.scene.Node;
+import javafx.scene.Scene;
+
 /**
  * Select the {@link SubMenu}.
  */
@@ -83,6 +86,16 @@ public abstract class SubMenuSelection {
         } else {
             throw new IllegalArgumentException("SubMenu not found");
         }
+    }
+
+    /**
+     * 
+     * @param s the scene
+     * @param name the name of the object to look for in the scene
+     * @return the object we were looking for in the scene
+     */
+    public Node getByName(final Scene s, final String name) {
+        return s.lookup("#" + name);
     }
 
     /**
