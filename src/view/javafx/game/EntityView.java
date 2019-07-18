@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 /**
  * Common methods to all the entity views.
  */
-public interface AnimatedEntityView {
+public interface EntityView {
     /**
      * @return the list of images which is being animated
      */
@@ -25,8 +25,12 @@ public interface AnimatedEntityView {
     void setEntityActualSprites(List<Image> upperSprites, List<Image> lowerSprites);
 
     /**
-     * this method starts the animation.
+     * 
+     * @param image initial image
+     * @param height of a sprite
+     * @param width of a sprite
+     * @return resized image
      */
-    void animate();
+    Image resize(Image image, int height, int width);
 
 }

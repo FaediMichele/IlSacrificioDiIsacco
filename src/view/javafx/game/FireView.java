@@ -11,7 +11,7 @@ import util.SpritesExtractor;
 * View and animations of the fire. 
 * With this class you can create a red, blue or purple fire based on the path of which sheet you pass in the constructor.
 */
-public class FireView extends AbstractAnimatedEntityView {
+public class FireView extends AbstractEntityView {
     private final List<Image> fireSprite;
     private final List<Image> dyingFireSprite;
     private final List<Image> fireGridSprite;

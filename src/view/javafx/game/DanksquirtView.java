@@ -12,7 +12,7 @@ import util.SpritesExtractor;
 /**
 * View and animations of the Danksquirt enemy.
 */
-public class DanksquirtView extends AbstractAnimatedEntityView {
+public class DanksquirtView extends AbstractEntityView {
     private final List<Image> danksquirtSprite;
 
     /**
@@ -25,8 +25,5 @@ public class DanksquirtView extends AbstractAnimatedEntityView {
         final int delta = 64;
         final int danksquirts = 5;
         this.danksquirtSprite = (new SpritesExtractor(img, danksquirts, 2, 3, delta, delta)).extract();
-
-        super.setEntityActualSprites(this.danksquirtSprite);
-        super.animate();
     }
 }

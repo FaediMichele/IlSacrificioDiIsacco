@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import view.AnimatedView;
 import view.TimedViews;
 import view.javafx.AnimatedViewJavafx;
@@ -14,15 +15,9 @@ import view.javafx.TimedViewsJavafx;
  * This class contains the method animate that can be used by all the entity view 
  * after having extracted the sprites from the sheet set the right list in entityActualSprites.
  */
-public class AbstractAnimatedEntityView implements AnimatedEntityView {
-    private static final long FRAMETIME = 300;
+public class AbstractEntityView implements EntityView {
     private List<Image> entityActualSprites = new ArrayList<>();
-    private final TimedViews entityTimedViews = new TimedViewsJavafx();
-    private AnimatedView entityAnimated;
-
     private Optional<List<Image>> lowerEntityActualSprites; 
-    private final TimedViews lowerEntityTimedViews = new TimedViewsJavafx();
-    private AnimatedView lowerEntityAnimated;
 
     /**
      * {@inheritDoc}
@@ -49,18 +44,10 @@ public class AbstractAnimatedEntityView implements AnimatedEntityView {
     /**
      * {@inheritDoc}
      */
-    public void animate() {
-        this.entityAnimated = new AnimatedViewJavafx();
-        this.entityAnimated.setFrames(entityActualSprites);
-        this.entityTimedViews.add(entityAnimated);
-        this.entityTimedViews.setMilliseconds(FRAMETIME);
-        this.entityTimedViews.start();
-        if (this.lowerEntityActualSprites.isPresent()) {
-            this.lowerEntityAnimated = new AnimatedViewJavafx();
-            this.lowerEntityAnimated.setFrames(this.lowerEntityActualSprites.get());
-            this.lowerEntityTimedViews.add(this.lowerEntityAnimated);
-            this.lowerEntityTimedViews.setMilliseconds(FRAMETIME);
-            this.lowerEntityTimedViews.start();
-        }
+    public Image resize(final Image image, final int height, final int width) {
+        ImageView resizedImage = new ImageView(image);
+        resizedImage.setFitHeight(height);
+        resizedImage.setFitWidth(width);
+        return resizedImage.snapshot(null, null);
     }
 }

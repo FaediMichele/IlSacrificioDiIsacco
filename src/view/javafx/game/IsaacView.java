@@ -17,7 +17,7 @@ import util.SpritesExtractor;
  * View and animations of Isaac.
  */
 
-public class IsaacView extends AbstractAnimatedEntityView {
+public class IsaacView extends AbstractEntityView {
 
     private final List<Image> movingUpSprite;
     private final List<Image> movingDownSprite;

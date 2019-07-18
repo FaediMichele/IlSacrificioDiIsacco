@@ -15,7 +15,7 @@ import util.SpritesExtractor;
  * View and animations of the Bomb enemy.
  */
 
-public class BombView extends AbstractAnimatedEntityView {
+public class BombView extends AbstractEntityView {
     private final Image bombSprite;
     private final List<Image> triggeredBombSprite;
     private final List<Image> explosionBombSprite;

@@ -15,7 +15,7 @@ import util.SpritesExtractor;
 /**
 * View and animations of the player and the enemies.
 */
-public class TearView extends AbstractAnimatedEntityView {
+public class TearView extends AbstractEntityView {
     private static List<Image> playerTear;
     private static List<Image> enemyTear;
     private int playerIndex;
@@ -52,7 +52,7 @@ public class TearView extends AbstractAnimatedEntityView {
     /**
      * Draws the correct animation in the correct position of the canvas.
      * @param gc where to draw
-     * @param entity entity that shooted the tera
+     * @param entity entity that shooted the tear
      * @param x position on the x axis
      * @param y position on the y axis
      */
