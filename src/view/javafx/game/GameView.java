@@ -9,13 +9,13 @@ import java.util.List;
  *
  */
 public class GameView {
-    private List<AnimatedEntityView> entities = new ArrayList<>();
+    private List<EntityView> entities = new ArrayList<>();
 
     /**
      * Add an {@link AnimatedEntityView} to draw.
      * @param entity {@link AnimatedEntityView}
      */
-    public void addAnimatedEntity(final AnimatedEntityView entity) {
+    public void addAnimatedEntity(final EntityView entity) {
         this.entities.add(entity);
     }
 
