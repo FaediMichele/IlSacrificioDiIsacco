@@ -12,7 +12,6 @@ public class KeyCollectibleComponent extends AbstractCollectableComponent {
     /**
      * 
      * @param entity source Entity
-     * @param doors  door this key allows the player to go through
      */
     KeyCollectibleComponent(final Entity entity) {
         super(entity);

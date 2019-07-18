@@ -12,7 +12,7 @@ import util.EventListener;
 /**
  * AI for the Gaper monster.
  */
-public class GaperAIComponent extends AbstractComponent<GaperAIComponent> {
+public class GaperAIComponent extends AbstractAIComponent {
 
     private double angle;
     /**
@@ -32,23 +32,23 @@ public class GaperAIComponent extends AbstractComponent<GaperAIComponent> {
     }
 
     /**
-     * returns the angle to move to get to Isaac.
+     * returns the angle to get to Isaac.
      * @return 
      */
     private void calculateAngle() {
-        BodyComponent isaacBody = (BodyComponent) this.getEntity().getRoom().getEntity().stream()
+        final BodyComponent isaacBody = (BodyComponent) this.getEntity().getRoom().getEntity().stream()
                 .filter(i -> i.getClass().equals(Player.class)).findAny().get().getComponent(BodyComponent.class).get();
-        BodyComponent myBody = (BodyComponent) this.getEntity().getComponent(BodyComponent.class).get();
-        Double diffX = isaacBody.getPosition().getV1() - myBody.getPosition().getV1();
-        Double diffY = isaacBody.getPosition().getV2() - myBody.getPosition().getV2();
+        final BodyComponent myBody = (BodyComponent) this.getEntity().getComponent(BodyComponent.class).get();
+        final Double diffX = isaacBody.getPosition().getV1() - myBody.getPosition().getV1();
+        final Double diffY = isaacBody.getPosition().getV2() - myBody.getPosition().getV2();
         angle = Math.atan2(diffX, diffY);
     }
 
     /**
      * {@inheritDoc}
      */
-    public void update() {
-        ((MoveComponent) this.getEntity().getComponent(MoveComponent.class).get())
-        .move(Math.cos(this.angle), Math.sin(this.angle), 0);
+    @Override
+    protected void moveUpdate() {
+        super.getMoveComponent(getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
     }
 }

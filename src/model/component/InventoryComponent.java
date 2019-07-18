@@ -66,15 +66,14 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
                     final Optional<Entity> thingToRelease = things.stream()
                             .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findFirst();
-//                    if (!thingToRelease.isPresent()) {
-//                        throw new IllegalArgumentException();
-//                    }
-                    ((AbstractCollectableComponent) thingToRelease.get().getComponents()
-                            .stream()
-                            .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
-                            .findFirst()
-                            .get())
-                    .use();
+                    if (thingToRelease.isPresent()) {
+                        ((AbstractCollectableComponent) thingToRelease.get().getComponents()
+                                .stream()
+                                .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
+                                .findFirst()
+                                .get())
+                        .use();
+                    }
                 }
             }
         });
@@ -90,8 +89,6 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      */
     protected boolean addThing(final Entity thing) {
         if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
-            // ((BodyComponent)
-            // thing.getComponent(BodyComponent.class).get()).setState(false);
             this.things.add(thing);
             this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "pick up"));
             return true;
@@ -105,8 +102,6 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing to release
      */
     protected void releaseThing(final Entity thing) {
-        // ((BodyComponent)
-        // thing.getComponent(BodyComponent.class).get()).setState(true);
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
                 .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);

@@ -75,10 +75,8 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
             myMentality = new NeutralMentalityComponent(event.getSourceEntity());
         }
 
-        if (sourceMentaliy.isDamageableByMe(myMentality.getClass())) {
-            if (myMentality.canHurtMe(sourceMentaliy.getClass())) {
-                getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
-            }
+        if (sourceMentaliy.isDamageableByMe(myMentality.getClass()) && myMentality.canHurtMe(sourceMentaliy.getClass())) {
+            getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
         }
 
     }
