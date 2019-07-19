@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Class for the main view of the game, it contains a list of all entities to
@@ -12,7 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
  *
  */
 public class GameView {
-    private List<EntityView> entities = new ArrayList<>();
+    private final List<EntityView> entities = new ArrayList<>();
     private final Canvas cv;
 
     /**

@@ -29,8 +29,8 @@ public class IsaacView extends AbstractStatusEntityView {
     private static Image sufferSprite;
     private static Image deadSprite;
 
-    private Map<Direction, Integer> bodyIndex = new HashMap<>();
-    private Map<Direction, Integer> faceIndex = new HashMap<>();
+    private final Map<Direction, Integer> bodyIndex = new HashMap<>();
+    private final Map<Direction, Integer> faceIndex = new HashMap<>();
 
     private Image face;
     private Image body;

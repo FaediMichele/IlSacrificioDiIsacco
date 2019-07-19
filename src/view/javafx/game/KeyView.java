@@ -30,13 +30,6 @@ public class KeyView extends AbstractEntityView {
     }
 
     /**
-     * Basic constructor.
-     */
-    public KeyView() {
-        super();
-    }
-
-    /**
      * Draws the correct animation in the correct position of the canvas.
      * @param gc where to draw
      * @param x position on the x axis
@@ -45,7 +38,7 @@ public class KeyView extends AbstractEntityView {
      * @param width of a sprite
      */
     public void draw(final GraphicsContext gc, final int x, final int y, final int height, final int width) {
-        Image img = super.resize(keySprite, height, width);
+        final Image img = super.resize(keySprite, height, width);
         gc.drawImage(img, x, y);
     }
 }

@@ -57,18 +57,18 @@ public class BombView extends AbstractStatusEntityView {
     @Override
     public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
         if (status.equals("collectible")) {
-            Image img = super.resize(bombSprite, height, width);
+            final Image img = super.resize(bombSprite, height, width);
             gc.drawImage(img, x, y);
         }
 
         if (status.equals("triggered")) {
-            Image img = super.resize(triggeredBombSprite.get(triggeredIndex), height, width);
+            final Image img = super.resize(triggeredBombSprite.get(triggeredIndex), height, width);
             gc.drawImage(img, x, y);
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
         }
 
         if (status.equals("explosion")) {
-            Image img = super.resize(explosionBombSprite.get(explosionIndex), height, width);
+            final Image img = super.resize(explosionBombSprite.get(explosionIndex), height, width);
             gc.drawImage(img, x, y);
             explosionIndex += 1;
             if (explosionIndex > explosionBombSprite.size() && super.getGameView().isPresent()) {

@@ -59,7 +59,7 @@ public class TearView extends AbstractEntityView {
      */
     public void draw(final GraphicsContext gc, final Class<? extends AbstractEntityView> entity, final int x, final int y, final int height, final int width) {
         if (entity.equals(IsaacView.class)) {
-            Image img = super.resize(playerTear.get(playerIndex), height, width);
+            final Image img = super.resize(playerTear.get(playerIndex), height, width);
             gc.drawImage(img, x, y);
             playerIndex += 1;
             if (playerIndex > playerTear.size() && super.getGameView().isPresent()) {
@@ -68,7 +68,7 @@ public class TearView extends AbstractEntityView {
         }
 
         if (entity.equals(MonstroView.class) || entity.equals(GaperView.class) || entity.equals(DanksquirtView.class)) {
-            Image img = super.resize(enemyTear.get(enemyIndex), height, width);
+            final Image img = super.resize(enemyTear.get(enemyIndex), height, width);
             gc.drawImage(img, x, y);
             enemyIndex += 1;
             if (enemyIndex > enemyTear.size() && super.getGameView().isPresent()) {

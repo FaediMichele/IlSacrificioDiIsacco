@@ -39,6 +39,16 @@ public class FireView extends AbstractStatusEntityView {
         }
     }
 
+    private final List<Image> fireSprite;
+    private final List<Image> dyingFireSprite;
+    private final List<Image> fireGridSprite;
+
+    private int fireIndex;
+    private int dyingIndex;
+    private int gridIndex;
+
+    private Image fire;
+
     static List<Image> getFires(final String firePath) throws IOException {
         final BufferedImage fireSheet = ImageIO.read(FireView.class.getResource(firePath));
         final int delta = 48;
@@ -59,17 +69,6 @@ public class FireView extends AbstractStatusEntityView {
         final int grids = 4;
         return new SpritesExtractor(fireGridSheet, grids, 2, 2, deltaGrid, deltaGrid).extract();
     }
-
-    private final List<Image> fireSprite;
-    private final List<Image> dyingFireSprite;
-    private final List<Image> fireGridSprite;
-
-    private int fireIndex;
-    private int dyingIndex;
-    private int gridIndex;
-
-    private Image fire;
-    private Image grid;
 
     /**
      * Base constructor, initilizes the indexes and sets the list to use based on the fire colour.
@@ -102,7 +101,7 @@ public class FireView extends AbstractStatusEntityView {
             fireIndex = (fireIndex + 1) % fireSprites.size();
         }
 
-        this.grid = fireGridSprite.get(gridIndex);
+        final Image grid = fireGridSprite.get(gridIndex);
         gridIndex = (gridIndex + 1) % fireGridSprites.size();
 
         final int gridShiftX = 6;

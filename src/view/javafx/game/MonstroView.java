@@ -48,7 +48,7 @@ public class MonstroView extends AbstractEntityView {
      * @param width of a sprite
      */
     public void draw(final GraphicsContext gc, final int x, final int y, final int height, final int width) {
-        Image img = super.resize(monstroSprite.get(index), height, width);
+        final Image img = super.resize(monstroSprite.get(index), height, width);
         gc.drawImage(img, x, y);
         index = (index + 1) % monstroSprite.size();
     }

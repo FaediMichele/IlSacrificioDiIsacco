@@ -33,7 +33,7 @@ public abstract class AbstractEntityView implements EntityView {
      * {@inheritDoc}
      */
     public Image resize(final Image image, final int height, final int width) {
-        ImageView resizedImage = new ImageView(image);
+        final ImageView resizedImage = new ImageView(image);
         resizedImage.setFitHeight(height);
         resizedImage.setFitWidth(width);
         return resizedImage.snapshot(null, null);

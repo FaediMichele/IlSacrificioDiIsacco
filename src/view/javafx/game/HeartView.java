@@ -59,12 +59,12 @@ public class HeartView extends AbstractStatusEntityView {
      */
     public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
         if (status.equals("full")) {
-            Image img = super.resize(heart, height, width);
+            final Image img = super.resize(heart, height, width);
             gc.drawImage(img, x, y);
         }
 
         if (status.equals("half")) {
-            Image img = super.resize(halfHeart, height, width);
+            final Image img = super.resize(halfHeart, height, width);
             gc.drawImage(img, x, y);
         }
     }
