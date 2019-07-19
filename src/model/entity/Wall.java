@@ -1,9 +1,9 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
-import model.component.NeutralMentalityComponent;
 import model.component.StatusComponent;
+import model.component.collision.CollisionComponent;
+import model.component.mentality.NeutralMentalityComponent;
 
 /**
  * Implements the walls.

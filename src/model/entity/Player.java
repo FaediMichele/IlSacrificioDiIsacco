@@ -1,12 +1,12 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.HealthComponent;
 import model.component.InventoryComponent;
-import model.component.PlayerMentalityComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
+import model.component.collision.CollisionComponent;
+import model.component.mentality.PlayerMentalityComponent;
 
 /**
  * Implements Player.

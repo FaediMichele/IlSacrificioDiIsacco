@@ -1,5 +1,6 @@
-package model.component;
+package model.component.collectible;
 
+import model.component.AbstractComponent;
 import model.entity.Entity;
 import util.Pair;
 
@@ -30,6 +31,6 @@ public abstract class AbstractPickupableComponent extends AbstractComponent<Abst
      * 
      * @param entity is the entity that tries to collect the object.
      */
-    protected abstract void init(Entity entity);
+    public abstract void init(Entity entity);
 
 }

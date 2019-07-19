@@ -1,9 +1,9 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.GaperAIComponent;
 import model.component.StatusComponent;
+import model.component.collision.CollisionComponent;
 
 /**
  * Implements the gaper enemy.

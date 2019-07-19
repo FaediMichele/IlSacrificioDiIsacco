@@ -1,7 +1,8 @@
-package model.component;
+package model.component.collision;
 
 import java.util.List;
 
+import model.component.BodyComponent;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import model.events.MoveEvent;

@@ -79,7 +79,9 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return position
      */
     public Triplet<Double, Double, Double> getPosition() {
-        return this.position;
+        return new Triplet<Double, Double, Double>(this.position.getV1(),
+                                                    this.position.getV2(), 
+                                                    this.position.getV3());
     }
 
     /**
@@ -139,7 +141,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param heightFactor multiply factor of the height
      * @param widthFactor  multiply factor of the width
      */
-    protected void scaleDimension(final double heightFactor, final double widthFactor) {
+    public void scaleDimension(final double heightFactor, final double widthFactor) {
         this.height = this.height * heightFactor;
         this.width = this.width * widthFactor;
     }
@@ -149,7 +151,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * 
      * @param factor multiply factor of the height and width.
      */
-    protected void scaleDimension(final double factor) {
+    public void scaleDimension(final double factor) {
         this.scaleDimension(factor, factor);
     }
 
@@ -172,7 +174,9 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * 
      * @return the position to the previous frame.
      */
-    protected Triplet<Double, Double, Double> getPositionPrevious() {
-        return this.previousPosition;
+    public Triplet<Double, Double, Double> getPositionPrevious() {
+        return new Triplet<Double, Double, Double>(this.previousPosition.getV1(),
+                                                   this.previousPosition.getV2(), 
+                                                   this.previousPosition.getV3());
     }
 }

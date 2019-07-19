@@ -37,7 +37,7 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      * 
      * @param newStatus the new Status to add
      */
-    protected void setStatus(final Pair<Integer, String> newStatus) {
+    public void setStatus(final Pair<Integer, String> newStatus) {
         this.statusQueue.add(newStatus);
     }
 }

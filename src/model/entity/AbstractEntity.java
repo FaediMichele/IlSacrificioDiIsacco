@@ -8,9 +8,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.Component;
 import model.component.StatusComponent;
+import model.component.collision.CollisionComponent;
 import model.events.Event;
 import model.game.Room;
 import util.EqualsForGetters;

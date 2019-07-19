@@ -1,5 +1,7 @@
 package model.component;
 
+import model.component.mentality.AbstractMentalityComponent;
+import model.component.mentality.EnemyMentalityComponent;
 import model.entity.Entity;
 import model.events.DamageEvent;
 

@@ -1,7 +1,7 @@
 package model.entity;
 
-import model.component.EnemyMentalityComponent;
-import model.component.PlayerMentalityComponent;
+import model.component.mentality.EnemyMentalityComponent;
+import model.component.mentality.PlayerMentalityComponent;
 
 /**
  * The entity for the enemy tears, that has a different mentality.

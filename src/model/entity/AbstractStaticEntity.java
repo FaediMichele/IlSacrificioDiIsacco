@@ -1,8 +1,8 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.StatusComponent;
+import model.component.collision.CollisionComponent;
 
 /**
  * Base class for all the static entities such as rocks and doors. See also

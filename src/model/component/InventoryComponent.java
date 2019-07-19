@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import com.google.common.eventbus.Subscribe;
 
+import model.component.collectible.AbstractCollectableComponent;
+import model.component.collectible.AbstractPickupableComponent;
 import model.entity.Entity;
 import model.events.PickUpEvent;
 import model.events.UseThingEvent;
@@ -87,7 +89,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @return true if the entity has been collected correctly or false if it was
      *         not possible to collect the entity
      */
-    protected boolean addThing(final Entity thing) {
+    public boolean addThing(final Entity thing) {
         if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
             this.things.add(thing);
             this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "pick up"));
@@ -101,7 +103,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * 
      * @param thing to release
      */
-    protected void releaseThing(final Entity thing) {
+    public void releaseThing(final Entity thing) {
         ((BodyComponent) thing.getComponent(BodyComponent.class).get())
                 .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);
@@ -114,7 +116,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * 
      * @param thing to remove
      */
-    protected void consumeThing(final Entity thing) {
+    public void consumeThing(final Entity thing) {
         this.things.remove(thing);
     }
 
@@ -123,7 +125,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thingClass it is the object of which we want to know the collected quantities
      * @return number of things of some kind (Es. number of bombs, number of keys)
      */
-    protected int thingsOfThisKind(final Class<? extends Entity> thingClass) {
+    public int thingsOfThisKind(final Class<? extends Entity> thingClass) {
         return (int) this.things.stream().filter(i -> i.getClass().equals(thingClass)).count();
     }
 

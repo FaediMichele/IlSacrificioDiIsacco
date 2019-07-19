@@ -1,9 +1,9 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
-import model.component.HeartCollectibleComponent;
 import model.component.StatusComponent;
+import model.component.collectible.HeartCollectibleComponent;
+import model.component.collision.CollisionComponent;
 
 /**
  * Implements a generic heart.

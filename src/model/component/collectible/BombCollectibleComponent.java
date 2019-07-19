@@ -1,5 +1,8 @@
-package model.component;
+package model.component.collectible;
 
+import model.component.BodyComponent;
+import model.component.InventoryComponent;
+import model.component.mentality.PsychoMentalityComponent;
 //import model.entity.BombTriggered;
 import model.entity.Entity;
 import util.Pair;
@@ -32,7 +35,7 @@ public class BombCollectibleComponent extends AbstractCollectableComponent {
      * {@inheritDoc}
      */
     @Override
-    protected void use() {
+    public void use() {
         ((InventoryComponent) this.getEntityThatCollectedMe().get()
                 .getComponent((InventoryComponent.class)).get()).releaseThing(this.getEntity());
 
