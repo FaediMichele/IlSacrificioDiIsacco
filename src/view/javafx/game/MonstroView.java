@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import util.SpritesExtractor;
 
 /**
@@ -16,7 +15,7 @@ import util.SpritesExtractor;
 */
 public class MonstroView extends AbstractEntityView {
     private static List<Image> monstroSprite;
-    private int monstroIndex;
+    private int index;
 
     static {
         BufferedImage img = null;
@@ -33,12 +32,11 @@ public class MonstroView extends AbstractEntityView {
     }
 
     /**
-     * Base constructor that extract the sprites from the sheet.
-     * @throws IOException trying to get the resource image
+     * Base constructor, initilizes the index.
      */
-    public MonstroView() throws IOException {
+    public MonstroView() {
         super();
-        monstroIndex = 0;
+        index = 0;
     }
 
     /**
@@ -50,8 +48,8 @@ public class MonstroView extends AbstractEntityView {
      * @param width of a sprite
      */
     public void draw(final GraphicsContext gc, final int x, final int y, final int height, final int width) {
-        Image img = super.resize(monstroSprite.get(monstroIndex), height, width);
+        Image img = super.resize(monstroSprite.get(index), height, width);
         gc.drawImage(img, x, y);
-        monstroIndex = (monstroIndex + 1) % monstroSprite.size();
+        index = (index + 1) % monstroSprite.size();
     }
 }

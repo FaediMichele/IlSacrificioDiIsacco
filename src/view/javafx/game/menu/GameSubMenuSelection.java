@@ -59,7 +59,6 @@ public class GameSubMenuSelection extends SubMenuSelection {
      * @param s
      */
     private void setBind(final Pane p, final Scene s) {
-        // Challenge: try to discover how it work :-)
         p.layoutXProperty().bind(s.widthProperty().divide(2).subtract(p.widthProperty().divide(2)).
                 add(s.widthProperty().divide(defaultX).multiply(p.getLayoutX())));
         p.layoutYProperty().bind(s.heightProperty().divide(2).subtract(p.heightProperty().divide(2)).

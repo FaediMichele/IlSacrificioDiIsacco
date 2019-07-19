@@ -8,12 +8,11 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
 * View of the hearts.
 */
-public class HeartView extends AbstractEntityView {
+public class HeartView extends AbstractStatusEntityView {
 
     private static Image simpleHeart;
     private static Image halfSimpleHeart;
@@ -36,33 +35,37 @@ public class HeartView extends AbstractEntityView {
         }
     }
 
+    private final Image heart;
+    private final Image halfHeart;
+
     /**
-     * Base constructor that extract the sprites from the sheet.
-     * @throws IOException trying to get the resource image
+     * Base constructor, initilizes the indexes and sets the images to used based on the colour of the heart.
+     * @param colour the colour of this heart
      */
-    public HeartView() throws IOException {
+    public HeartView(final HeartColour colour) {
         super();
+
+        if (colour.equals(HeartColour.RED)) {
+            this.heart = simpleHeart;
+            this.halfHeart = halfSimpleHeart;
+        } else {
+            this.heart = blackHeart;
+            this.halfHeart = halfBlackHeart;
+        }
     }
 
     /**
-     * Draws the correct animation in the correct position of the canvas.
-     * @param gc where to draw
-     * @param x position on the x axis
-     * @param y position on the y axis
-     * @param color of the heart 
-     * @param type of heart (full or half)
-     * @param height of a sprite
-     * @param width of a sprite
+     * {@inheritDoc}
      */
-    public void draw(final GraphicsContext gc, final String color, final String type, 
-            final int x, final int y, final int height, final int width) {
-        if (color.equals("Red")) {
-            if (type.equals("Half")) {
-                Image img = super.resize(halfSimpleHeart, height, width);
-                gc.drawImage(img, x, y);
-            }
+    public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
+        if (status.equals("full")) {
+            Image img = super.resize(heart, height, width);
+            gc.drawImage(img, x, y);
         }
 
-        // TO-DO
+        if (status.equals("half")) {
+            Image img = super.resize(halfHeart, height, width);
+            gc.drawImage(img, x, y);
+        }
     }
 }

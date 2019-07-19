@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import util.Pair;
 import util.SpritesExtractor;
 
 /**
@@ -40,11 +39,11 @@ public class TearView extends AbstractEntityView {
     }
 
     /**
-     * Base constructor that extract the sprites from the sheet and fills the static lists (if they are not filled yet).
-     * @throws IOException trying to get the resource image
+     * Base constructor, initilizes the indexes.
+     * @param gv The gameView to which this entityView is added
      */
-    public TearView() throws IOException {
-        super();
+    public TearView(final GameView gv) {
+        super(gv);
         this.playerIndex = 0;
         this.enemyIndex = 0;
     }
@@ -55,26 +54,26 @@ public class TearView extends AbstractEntityView {
      * @param entity entity that shooted the tear
      * @param x position on the x axis
      * @param y position on the y axis
+     * @param height of a sprite
+     * @param width of a sprite
      */
-    public void draw(final GraphicsContext gc, final String entity, final int x, final int y) {
-        if (entity.equals("Player")) {
-            gc.drawImage(playerTear.get(playerIndex), x, y);
+    public void draw(final GraphicsContext gc, final Class<? extends AbstractEntityView> entity, final int x, final int y, final int height, final int width) {
+        if (entity.equals(IsaacView.class)) {
+            Image img = super.resize(playerTear.get(playerIndex), height, width);
+            gc.drawImage(img, x, y);
             playerIndex += 1;
-            if (playerIndex > playerTear.size()) {
-                //dubbio 1: in questo caso il draw della lacrima non dovrà più essere chiamato perchè quando finisce le animazioni 
-                //(che rendono la tear sempre più piccola) essa scompare...
+            if (playerIndex > playerTear.size() && super.getGameView().isPresent()) {
+                super.getGameView().get().removeEntity(this);
             }
         }
 
-        if (entity.equals("Enemy")) {
-            gc.drawImage(enemyTear.get(enemyIndex), x, y);
+        if (entity.equals(MonstroView.class) || entity.equals(GaperView.class) || entity.equals(DanksquirtView.class)) {
+            Image img = super.resize(enemyTear.get(enemyIndex), height, width);
+            gc.drawImage(img, x, y);
             enemyIndex += 1;
-            if (enemyIndex > playerTear.size()) {
-                //stesso dubbio di sopra
+            if (enemyIndex > enemyTear.size() && super.getGameView().isPresent()) {
+                super.getGameView().get().removeEntity(this);
             }
         }
-
-        /*dubbio 2: - in questo caso devo ricevere in input non lo status, ma l'entità... uso la stringa?
-         * */
     }
 }

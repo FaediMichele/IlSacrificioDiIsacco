@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
 * View of the key.
@@ -31,10 +30,9 @@ public class KeyView extends AbstractEntityView {
     }
 
     /**
-     * Base constructor that extract the sprite from the sheet.
-     * @throws IOException trying to get the resource image
+     * Basic constructor.
      */
-    public KeyView() throws IOException {
+    public KeyView() {
         super();
     }
 

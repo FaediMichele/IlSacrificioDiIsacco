@@ -3,6 +3,9 @@ package view.javafx.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+
 /**
  * Class for the main view of the game, it contains a list of all entities to
  * draw.
@@ -10,13 +13,30 @@ import java.util.List;
  */
 public class GameView {
     private List<EntityView> entities = new ArrayList<>();
+    private final Canvas cv;
 
     /**
-     * Add an {@link AnimatedEntityView} to draw.
-     * @param entity {@link AnimatedEntityView}
+     * @param cv the Canvas in which the GameView has to draw
      */
-    public void addAnimatedEntity(final EntityView entity) {
+    public GameView(final Canvas cv) {
+        super();
+        this.cv = cv;
+    }
+
+    /**
+     * Add an {@link EntityView} to draw.
+     * @param entity {@link EntityView}
+     */
+    public void addEntity(final EntityView entity) {
         this.entities.add(entity);
+    }
+
+    /**
+     * Removes an {@link EntityView} to draw.
+     * @param entity {@link EntityView}
+     */
+    public void removeEntity(final EntityView entity) {
+        this.entities.remove(entity);
     }
 
     /**
