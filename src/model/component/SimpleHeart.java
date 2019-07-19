@@ -18,6 +18,9 @@ public class SimpleHeart extends AbstractHeart {
      */
     public SimpleHeart(final double value) {
         super();
+        if (value < 0.0 || value > 1.0) {
+            throw new IllegalArgumentException();
+        }
         this.value = value;
     }
 
@@ -25,8 +28,7 @@ public class SimpleHeart extends AbstractHeart {
      * Default SimpleHeart constructor.
      */
     public SimpleHeart() {
-        super();
-        this.value = DEFAULT_VALUE;
+        this(DEFAULT_VALUE);
     }
 
     /**

@@ -23,8 +23,8 @@ import model.component.SimpleHeart;
 import model.component.StatusComponent;
 import model.component.TearAIComponent;
 import model.component.collectible.AbstractPickupableComponent;
-import model.component.collectible.BombCollectibleComponent;
-import model.component.collectible.HeartCollectibleComponent;
+import model.component.collectible.BombCollectableComponent;
+import model.component.collectible.HeartPickupableComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
@@ -273,7 +273,7 @@ public class TestModel {
         assertEquals(life - damage, getHealthComponent(playerA).getLife());
 
         playerB.attachComponent(
-                new BombCollectibleComponent(playerB, settingBombTest, (int) settingBombTest, (int) settingBombTest));
+                new BombCollectableComponent(playerB, settingBombTest, (int) settingBombTest, (int) settingBombTest));
         Room room = new RoomImpl(2, null);
         room.insertEntity(playerB);
         playerA.postEvent(new CollisionEvent(playerB));
@@ -318,11 +318,11 @@ public class TestModel {
         assertEquals(getHealthComponent(p).getHearts().size(), 4);
 
         final Heart h2 = new Heart();
-        h2.attachComponent(new HeartCollectibleComponent(h2, BlackHeart.class));
+        h2.attachComponent(new HeartPickupableComponent(h2, BlackHeart.class));
         room.insertEntity(h2);
         p.postEvent(new CollisionEvent(h2));
         assertTrue(getHealthComponent(p).getHearts().stream().anyMatch(i -> i.getClass()
-                .equals(((HeartCollectibleComponent) h2.getComponent(HeartCollectibleComponent.class).get()).getHeartKind())));
+                .equals(((HeartPickupableComponent) h2.getComponent(HeartPickupableComponent.class).get()).getHeartKind())));
 
         // TO-DO: pick up and use also a key
     }

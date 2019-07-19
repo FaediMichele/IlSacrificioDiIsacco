@@ -19,12 +19,10 @@ public class EnemyMentalityComponent extends AbstractMentalityComponent {
     }
 
     private static Set<Class<? extends AbstractMentalityComponent>> generateCannotDamageSet() {
-        final Set<Class<? extends AbstractMentalityComponent>> cannotDamage = new HashSet<>();
-        return cannotDamage;
+        return new HashSet<>();
     }
 
     private static Set<Class<? extends AbstractMentalityComponent>> generateCannotHurtMeSet() {
-        final Set<Class<? extends AbstractMentalityComponent>> cannotHurtMe = new HashSet<>();
-        return cannotHurtMe;
+        return new HashSet<>();
     }
 }

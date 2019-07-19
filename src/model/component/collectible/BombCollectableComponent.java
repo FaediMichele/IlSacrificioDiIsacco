@@ -10,7 +10,7 @@ import util.Pair;
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's collected.
  */
-public class BombCollectibleComponent extends AbstractCollectableComponent {
+public class BombCollectableComponent extends AbstractCollectableComponent {
 
     private final double explosionScale;
     private final int timeBeforeExplodes;
@@ -24,11 +24,20 @@ public class BombCollectibleComponent extends AbstractCollectableComponent {
      * 
      * {@inheritDoc}.
      */
-    public BombCollectibleComponent(final Entity entity, final double explosionScale, final int timeBeforeExplodes, final int explosionTime) {
+    public BombCollectableComponent(final Entity entity, final double explosionScale, final int timeBeforeExplodes, final int explosionTime) {
         super(entity);
         this.explosionScale = explosionScale;
         this.timeBeforeExplodes = timeBeforeExplodes;
         this.explosionTime = explosionTime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void init(final Entity entity) {
+        super.init(entity);
+        getEntity().getStatusComponent().setStatus(new Pair<>(1, "collectible"));
     }
 
     /**
@@ -45,6 +54,7 @@ public class BombCollectibleComponent extends AbstractCollectableComponent {
             @Override
             public void run() {
                 try {
+                    getEntity().getStatusComponent().setStatus(new Pair<>(1, "triggered"));
                     Thread.sleep(timeBeforeExplodes);
                     ((BodyComponent) getEntity().getComponent(BodyComponent.class).get()).scaleDimension(explosionScale);
                     getEntity().getStatusComponent().setStatus(new Pair<>(1, "explode"));
