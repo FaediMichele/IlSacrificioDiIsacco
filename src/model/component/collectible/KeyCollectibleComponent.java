@@ -1,5 +1,6 @@
-package model.component;
+package model.component.collectible;
 
+import model.component.InventoryComponent;
 import model.entity.Entity;
 
 /**
@@ -21,7 +22,7 @@ public class KeyCollectibleComponent extends AbstractCollectableComponent {
      * {@inheritDoc}
      */
     @Override
-    protected void use() {
+    public void use() {
         ((InventoryComponent) this.getEntityThatCollectedMe().get()
                 .getComponent((InventoryComponent.class)).get()).consumeThing(this.getEntity());
     }

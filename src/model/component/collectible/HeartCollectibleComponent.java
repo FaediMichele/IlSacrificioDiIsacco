@@ -1,5 +1,10 @@
-package model.component;
+package model.component.collectible;
 
+import model.component.BlackHeart;
+import model.component.HealthComponent;
+import model.component.Heart;
+import model.component.SimpleHeart;
+import model.component.BlackHeart.Builder;
 import model.entity.Entity;
 
 /**
@@ -40,7 +45,7 @@ public class HeartCollectibleComponent extends AbstractPickupableComponent {
      * {@inheritDoc}
      */
     @Override
-    protected void init(final Entity entity) {
+    public void init(final Entity entity) {
         final HealthComponent healthComponent = ((HealthComponent) entity
                 .getComponent(HealthComponent.class).get());
 

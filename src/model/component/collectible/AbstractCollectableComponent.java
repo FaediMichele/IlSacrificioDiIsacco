@@ -1,7 +1,9 @@
-package model.component;
+package model.component.collectible;
 
 import java.util.Optional;
 
+import model.component.Component;
+import model.component.InventoryComponent;
 import model.entity.Entity;
 
 /**
@@ -22,7 +24,7 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      * {@inheritDoc}
      */
     @Override
-    protected void init(final Entity entity) {
+    public void init(final Entity entity) {
         final Optional<Component> optComponent = entity.getComponents().stream().filter(c -> c.getClass().equals(InventoryComponent.class)).findFirst();
         if (optComponent.isPresent()) {
             final InventoryComponent inventoryComponent = (InventoryComponent) optComponent.get();
@@ -53,5 +55,5 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      * Consumes the actions of the subject, for example if you want to trigger a
      * bomb this bomb will consume the bombs that were collected in the inventory.
      */
-    protected abstract void use();
+    public abstract void use();
 }

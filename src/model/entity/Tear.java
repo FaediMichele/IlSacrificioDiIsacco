@@ -1,12 +1,12 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.DamageComponent;
 import model.component.MoveComponent;
-import model.component.PlayerMentalityComponent;
 import model.component.StatusComponent;
 import model.component.TearAIComponent;
+import model.component.collision.CollisionComponent;
+import model.component.mentality.PlayerMentalityComponent;
 
 /**
  * The entity for the tears, they are the main damage dealing entity.

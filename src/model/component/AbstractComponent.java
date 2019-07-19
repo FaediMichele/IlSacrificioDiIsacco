@@ -21,7 +21,12 @@ public abstract class AbstractComponent<C extends Component> implements Componen
     private Optional<C> componentReplaced;
     private final List<EventListener<? extends Event>> eventListeners;
 
-    AbstractComponent(final Entity entity) {
+
+    /**
+     * This is the father of all the components.
+     * @param entity to which this component belongs
+     */
+    protected AbstractComponent(final Entity entity) {
         Objects.requireNonNull(entity);
         this.entity = entity;
         this.componentReplaced = Optional.empty();

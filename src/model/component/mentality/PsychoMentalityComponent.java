@@ -1,4 +1,4 @@
-package model.component;
+package model.component.mentality;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,15 +6,15 @@ import java.util.Set;
 import model.entity.Entity;
 
 /**
- * Mentality for a neutral entity.
+ * Mentality for a psycho entity.
  */
-public class NeutralMentalityComponent extends AbstractMentalityComponent {
+public class PsychoMentalityComponent extends AbstractMentalityComponent {
 
     /**
      * 
      * @param entity the {@link Entity}
      */
-    public NeutralMentalityComponent(final Entity entity) {
+    public PsychoMentalityComponent(final Entity entity) {
         super(entity, generateCannotDamageSet(), generateCannotHurtMeSet());
     }
 
@@ -25,6 +25,8 @@ public class NeutralMentalityComponent extends AbstractMentalityComponent {
 
     private static Set<Class<? extends AbstractMentalityComponent>> generateCannotHurtMeSet() {
         final Set<Class<? extends AbstractMentalityComponent>> cannotHurtMe = new HashSet<>();
+        cannotHurtMe.add(NeutralMentalityComponent.class);
+        cannotHurtMe.add(EnemyMentalityComponent.class);
         return cannotHurtMe;
     }
 

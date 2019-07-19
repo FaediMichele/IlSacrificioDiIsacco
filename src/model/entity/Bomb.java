@@ -1,11 +1,11 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.BombCollectibleComponent;
-import model.component.CollisionComponent;
 import model.component.DamageComponent;
-import model.component.PsychoMentalityComponent;
 import model.component.StatusComponent;
+import model.component.collectible.BombCollectibleComponent;
+import model.component.collision.CollisionComponent;
+import model.component.mentality.PsychoMentalityComponent;
 
 /**
  * 

@@ -1,9 +1,9 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
+import model.component.collision.CollisionComponent;
 
 /**
  * Base class for all the movable entities. See also {@link AbstractEntity}.
