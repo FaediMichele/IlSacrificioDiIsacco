@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -157,15 +158,16 @@ public final class StaticMethodsUtils {
      * @return {@link Document}
      */
     public static Document getDocumentXML(final String filePath) {
-        final File file = new File(filePath);
+        File file;
         final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder;
         Document document;
         try {
+            file =  new File(Object.class.getResource(filePath).toURI());
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
             document = documentBuilder.parse(file);
             return document;
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         return null;
