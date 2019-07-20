@@ -39,7 +39,7 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      * 
      * @return {@link Optional} of {@link Entity} that collect this entity.
      */
-    protected Optional<Entity> getEntityThatCollectedMe() {
+    public Optional<Entity> getEntityThatCollectedMe() {
         return this.entityThatCollectedMe;
     }
 

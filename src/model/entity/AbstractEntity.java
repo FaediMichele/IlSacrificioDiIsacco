@@ -32,16 +32,18 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
-        this.setDefaultComponents(new BodyComponent(this), new CollisionComponent(this), new StatusComponent(this));
+        this.attachComponent(new StatusComponent(this));
     }
 
     /**
      * 
-     * @param entityBody      a
-     * @param entityCollision s
-     * @param entityStatus    s
+     * @param <C> is extends CollisionComponent
+     * @param entityBody        a
+     * @param entityCollision   s
+     * @param entityStatus      s
      */
-    public AbstractEntity(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
+    public <C extends CollisionComponent> AbstractEntity(final BodyComponent entityBody, final C entityCollision,
+            final StatusComponent entityStatus) {
         this();
         Objects.requireNonNull(entityBody);
         Objects.requireNonNull(entityCollision);
@@ -62,6 +64,11 @@ public abstract class AbstractEntity implements Entity {
     public final void detachComponent(final Component c) {
         c.unregisterAllListener();
         this.componentsMap.remove(c.getClass());
+    }
+
+    @Override
+    public final void detachComponent(final Class<? extends Component> c) {
+        this.detachComponent(this.componentsMap.get(c));
     }
 
     @Override
@@ -112,20 +119,6 @@ public abstract class AbstractEntity implements Entity {
         return this.getClass().getSimpleName();
     }
 
-    /**
-     * Sets the default components.
-     * 
-     * @param entityBody      the body
-     * @param entityCollision the collision
-     * @param statusComponent the status
-     */
-    protected final void setDefaultComponents(final BodyComponent entityBody,
-            final CollisionComponent entityCollision, final StatusComponent statusComponent) {
-        this.attachComponent(entityBody);
-        this.attachComponent(entityCollision);
-        this.attachComponent(statusComponent);
-    }
-
     @Override
     public final Room getRoom() {
         return this.room;
@@ -159,4 +152,17 @@ public abstract class AbstractEntity implements Entity {
         return (StatusComponent) this.getComponent(StatusComponent.class).get();
     }
 
+    /**
+     * Sets the default components.
+     * 
+     * @param entityBody      the body
+     * @param entityCollision the collision
+     * @param statusComponent the status
+     */
+    protected final void setDefaultComponents(final BodyComponent entityBody,
+            final CollisionComponent entityCollision, final StatusComponent statusComponent) {
+        this.attachComponent(entityBody);
+        this.attachComponent(entityCollision);
+        this.attachComponent(statusComponent);
+    }
 }

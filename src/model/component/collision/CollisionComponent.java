@@ -63,7 +63,6 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
     protected void damageManagement(final CollisionEvent event) {
         AbstractMentalityComponent sourceMentaliy;
         AbstractMentalityComponent myMentality;
-
         if (event.getSourceEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
             sourceMentaliy = (AbstractMentalityComponent) event.getSourceEntity()
                     .getComponent(AbstractMentalityComponent.class).get();
@@ -72,7 +71,7 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
         }
 
         if (getEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
-            myMentality = (AbstractMentalityComponent) event.getSourceEntity()
+            myMentality = (AbstractMentalityComponent) getEntity()
                     .getComponent(AbstractMentalityComponent.class).get();
         } else {
             myMentality = new NeutralMentalityComponent(event.getSourceEntity());

@@ -188,7 +188,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         if (this.checkMove()) {
             final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
             this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-            //postLogs();
+            this.postLogs();
             this.initMove();
         }
     }

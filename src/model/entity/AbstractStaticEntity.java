@@ -17,13 +17,12 @@ public class AbstractStaticEntity extends AbstractEntity {
      * @param entityStatus    the {@link StatusComponent}
      */
     public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this();
+        super();
         this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
-
-    /**
-     * Default constructor for static entities.
-     */
+/**
+ * simple constructor of AbstractStaicEntity.
+ */
     public AbstractStaticEntity() {
         super();
     }

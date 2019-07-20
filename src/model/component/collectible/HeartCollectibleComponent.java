@@ -4,7 +4,6 @@ import model.component.BlackHeart;
 import model.component.HealthComponent;
 import model.component.Heart;
 import model.component.SimpleHeart;
-import model.component.BlackHeart.Builder;
 import model.entity.Entity;
 
 /**

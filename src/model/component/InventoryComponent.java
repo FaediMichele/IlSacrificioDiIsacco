@@ -52,12 +52,9 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final Optional<? extends Component> oc = event.getSourceEntity()
-                        .getComponent(AbstractPickupableComponent.class);
-                if (oc.isPresent()) {
-                    final AbstractPickupableComponent absCollComp = (AbstractPickupableComponent) oc.get();
-                    absCollComp.init(getEntity());
-                }
+                final AbstractPickupableComponent oc = (AbstractPickupableComponent) event.getSourceEntity()
+                        .getComponent(AbstractPickupableComponent.class).get();
+                oc.init(getEntity());
             }
         });
 
@@ -69,12 +66,9 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                     final Optional<Entity> thingToRelease = things.stream()
                             .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findFirst();
                     if (thingToRelease.isPresent()) {
-                        ((AbstractCollectableComponent) thingToRelease.get().getComponents()
-                                .stream()
+                        ((AbstractCollectableComponent) thingToRelease.get().getComponents().stream()
                                 .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
-                                .findFirst()
-                                .get())
-                        .use();
+                                .findFirst().get()).use();
                     }
                 }
             }
@@ -92,7 +86,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public boolean addThing(final Entity thing) {
         if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
             this.things.add(thing);
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "pick up"));
+            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "pick up"));
             return true;
         }
         return false;
@@ -104,8 +98,8 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing to release
      */
     public void releaseThing(final Entity thing) {
-        ((BodyComponent) thing.getComponent(BodyComponent.class).get())
-                .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
+//        ((BodyComponent) thing.getComponent(BodyComponent.class).get())
+//                .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);
         this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "appear"));
         this.things.remove(thing);
@@ -122,7 +116,8 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
 
     /**
      * 
-     * @param thingClass it is the object of which we want to know the collected quantities
+     * @param thingClass it is the object of which we want to know the collected
+     *                   quantities
      * @return number of things of some kind (Es. number of bombs, number of keys)
      */
     public int thingsOfThisKind(final Class<? extends Entity> thingClass) {

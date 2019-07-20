@@ -79,9 +79,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return position
      */
     public Triplet<Double, Double, Double> getPosition() {
-        return new Triplet<Double, Double, Double>(this.position.getV1(),
-                                                    this.position.getV2(), 
-                                                    this.position.getV3());
+        return new Triplet<Double, Double, Double>(this.position.getV1(), this.position.getV2(), this.position.getV3());
     }
 
     /**
@@ -91,7 +89,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param deltaY movement on the y axis
      * @param deltaZ movement on the z axis
      */
-    protected void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
+    public void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
         this.previousPosition = this.position;
         this.position = new Triplet<Double, Double, Double>(this.position.getV1() + deltaX,
                 this.position.getV2() + deltaY, this.position.getV3() + deltaZ);
@@ -104,16 +102,17 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param newY the new position on the y axis
      * @param newZ the new position on the z axis
      */
-    protected void setPosition(final double newX, final double newY, final double newZ) {
+    public void setPosition(final double newX, final double newY, final double newZ) {
         this.position = new Triplet<Double, Double, Double>(newX, newY, newZ);
     }
+
 
     /**
      * Sets a new position for the entity.
      * 
      * @param newPosition Triplet of the position
      */
-    protected void setPosition(final Triplet<Double, Double, Double> newPosition) {
+    public void setPosition(final Triplet<Double, Double, Double> newPosition) {
         this.position = newPosition;
     }
 
@@ -170,13 +169,13 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     public void changeWeight(final int deltaWeight) {
         this.weight = this.weight + deltaWeight;
     }
+
     /**
      * 
      * @return the position to the previous frame.
      */
     public Triplet<Double, Double, Double> getPositionPrevious() {
-        return new Triplet<Double, Double, Double>(this.previousPosition.getV1(),
-                                                   this.previousPosition.getV2(), 
-                                                   this.previousPosition.getV3());
+        return new Triplet<Double, Double, Double>(this.previousPosition.getV1(), this.previousPosition.getV2(),
+                this.previousPosition.getV3());
     }
 }

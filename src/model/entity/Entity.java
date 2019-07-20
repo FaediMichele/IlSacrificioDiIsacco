@@ -30,6 +30,13 @@ public interface Entity {
     void detachComponent(Component c);
 
     /**
+     * Detaches a {@link Component} from the Entity.
+     * 
+     * @param c {@link Component} class to detach from the Entity
+     */
+    void detachComponent(Class<? extends Component> c);
+
+    /**
      * Register the listener on the EventBus for the event objects.
      * 
      * @param eventListener the listener
