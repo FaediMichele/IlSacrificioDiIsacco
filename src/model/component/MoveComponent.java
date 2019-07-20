@@ -71,19 +71,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param entity {@link Entity} for this component
      */
     public MoveComponent(final Entity entity) {
-        super(entity);
-        this.deltaSpeed = DEFAULT_SPEED;
-        this.maxSpeed = DEFAULT_MAX_SPEED;
-        this.friction = DEFAULT_FRICTION;
-        this.initMove();
-
-        this.registerListener(new EventListener<MoveEvent>() {
-            @Override
-            @Subscribe
-            public void listenEvent(final MoveEvent event) {
-                move(event.getxMove(), event.getyMove(), event.getzMove());
-            }
-        });
+        this(entity, DEFAULT_SPEED, DEFAULT_MAX_SPEED, DEFAULT_FRICTION);
     }
 
     /**

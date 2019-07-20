@@ -21,6 +21,6 @@ public class NeutralMentalityComponent extends AbstractMentalityComponent {
      */
     public NeutralMentalityComponent(final Entity entity) {
         super(entity, CANNOT_DAMAGE_AND_HURT_ME, CANNOT_DAMAGE_AND_HURT_ME);
-
     }
+
 }

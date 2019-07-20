@@ -22,13 +22,6 @@ public class TearAIComponent extends AbstractAIComponent {
      */
     public TearAIComponent(final Entity entity) {
         this(entity, 0);
-        this.registerListener(new EventListener<CollisionEvent>() {
-            @Subscribe
-            @Override
-            public void listenEvent(final CollisionEvent event) {
-                getEntity().getRoom().deleteEntity(getEntity());
-            }
-        });
     }
 
     /**
@@ -38,6 +31,14 @@ public class TearAIComponent extends AbstractAIComponent {
     public TearAIComponent(final Entity entity, final int angle) {
         super(entity);
         this.angle = angle;
+
+        this.registerListener(new EventListener<CollisionEvent>() {
+            @Subscribe
+            @Override
+            public void listenEvent(final CollisionEvent event) {
+                getEntity().getRoom().deleteEntity(getEntity());
+            }
+        });
     }
 
     /**

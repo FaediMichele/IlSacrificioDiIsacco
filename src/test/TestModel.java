@@ -22,8 +22,7 @@ import model.component.MoveComponent;
 import model.component.SimpleHeart;
 import model.component.StatusComponent;
 import model.component.collectible.AbstractPickupableComponent;
-import model.component.collectible.BombCollectibleComponent;
-import model.component.collectible.HeartCollectibleComponent;
+import model.component.collectible.BombCollectableComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.component.mentality.PlayerMentalityComponent;
@@ -263,7 +262,7 @@ public class TestModel {
         final Entity good = new Player();
         final Entity enemy = new SimpleEnemyMovable();
         final Entity collectible = new Player();
-        collectible.attachComponent(new BombCollectibleComponent(collectible, 1, 1, 1));
+        collectible.attachComponent(new BombCollectableComponent(collectible, 1, 1, 1));
         final double damage = 0.2;
         final double settingBombTest = 0.5;
         final int numberOfThings = 1;
@@ -334,13 +333,6 @@ public class TestModel {
         assertEquals(getHealthComponent(player).getHearts().size(), 3);
         player.postEvent(new CollisionEvent(heart));
         assertEquals(getHealthComponent(player).getHearts().size(), 4);
-
-        final Heart h2 = new Heart();
-        h2.attachComponent(new HeartCollectibleComponent(h2, BlackHeart.class));
-        room.insertEntity(h2);
-        player.postEvent(new CollisionEvent(h2));
-        assertTrue(getHealthComponent(player).getHearts().stream().anyMatch(i -> i.getClass().equals(
-                ((HeartCollectibleComponent) h2.getComponent(HeartCollectibleComponent.class).get()).getHeartKind())));
 
         // TO-DO: pick up and use also a key
     }

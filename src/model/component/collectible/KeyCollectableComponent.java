@@ -8,13 +8,13 @@ import model.entity.Entity;
  * collected. It the key case, it just has to be "present" so the main point of
  * the code is setting the collectible boolean to true.
  */
-public class KeyCollectibleComponent extends AbstractCollectableComponent {
+public class KeyCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
      * @param entity source Entity
      */
-    KeyCollectibleComponent(final Entity entity) {
+    KeyCollectableComponent(final Entity entity) {
         super(entity);
     }
 

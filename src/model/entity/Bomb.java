@@ -2,7 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.StatusComponent;
-import model.component.collectible.BombCollectibleComponent;
+import model.component.collectible.BombCollectableComponent;
 import model.component.collision.CollisionComponent;
 
 /**
@@ -17,7 +17,7 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb() {
         super();
-        this.attachComponent(new BombCollectibleComponent(this, 3, 1000, 100))
+        this.attachComponent(new BombCollectableComponent(this, 3, 1000, 100))
             .attachComponent(new BodyComponent(this));
     }
 

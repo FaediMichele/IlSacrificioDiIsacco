@@ -53,11 +53,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      */
     public BodyComponent(final Entity entity, final double x, final double y, final double z, final double height,
             final double width, final int weight) {
-        super(entity);
-        this.position = new Triplet<Double, Double, Double>(x, y, z);
-        this.height = height;
-        this.width = width;
-        this.weight = weight;
+        this (entity, new Triplet<Double, Double, Double>(x, y, z), height, width, weight);
     }
 
     /**
@@ -66,11 +62,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param entity entity for this component
      */
     public BodyComponent(final Entity entity) {
-        super(entity);
-        this.position = DEFAULT_POSITION_VALUE;
-        this.width = DEFAULT_SCALABLE_VALUE;
-        this.height = DEFAULT_SCALABLE_VALUE;
-        this.weight = DEFAULT_WEIGHT_VALUE;
+        this(entity, DEFAULT_POSITION_VALUE, DEFAULT_SCALABLE_VALUE, DEFAULT_SCALABLE_VALUE, DEFAULT_WEIGHT_VALUE);
     }
 
     /**
