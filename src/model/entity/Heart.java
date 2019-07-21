@@ -1,9 +1,9 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.CollisionComponent;
-import model.component.HeartCollectibleComponent;
 import model.component.StatusComponent;
+import model.component.collectible.HeartPickupableComponent;
+import model.component.collision.CollisionComponent;
 
 /**
  * Implements a generic heart.
@@ -26,7 +26,7 @@ public class Heart extends AbstractStaticEntity {
      */
     public Heart() {
         super();
-        this.attachComponent(new HeartCollectibleComponent(this));
+        this.attachComponent(new HeartPickupableComponent(this));
     }
 
 }

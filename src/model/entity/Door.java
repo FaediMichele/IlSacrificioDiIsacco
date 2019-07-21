@@ -3,7 +3,7 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.Component;
 import model.component.DoorAIComponent;
-import model.component.NeutralMentalityComponent;
+import model.component.mentality.NeutralMentalityComponent;
 
 /**
  * Create a door. The doors have a position based on the location 

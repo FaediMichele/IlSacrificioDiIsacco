@@ -32,7 +32,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     /**
      * Default value for friction: 0.001.
      */
-    public static final double DEFAULT_FRICTION = 0.001;
+    public static final double DEFAULT_FRICTION = 0.0001;
 
     private static final double MINIMIZE_SPACE_DELTA = 0.0001;
     private double deltaSpeed;
@@ -71,19 +71,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param entity {@link Entity} for this component
      */
     public MoveComponent(final Entity entity) {
-        super(entity);
-        this.deltaSpeed = DEFAULT_SPEED;
-        this.maxSpeed = DEFAULT_MAX_SPEED;
-        this.friction = DEFAULT_FRICTION;
-        this.initMove();
-
-        this.registerListener(new EventListener<MoveEvent>() {
-            @Override
-            @Subscribe
-            public void listenEvent(final MoveEvent event) {
-                move(event.getxMove(), event.getyMove(), event.getzMove());
-            }
-        });
+        this(entity, DEFAULT_SPEED, DEFAULT_MAX_SPEED, DEFAULT_FRICTION);
     }
 
     /**
@@ -119,7 +107,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param z move made on the z axis
      */
     protected void move(final double x, final double y, final double z) {
-        System.out.println(xMove + " " + yMove + " " + zMove);
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
@@ -179,7 +166,9 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     private double calculateSpace(final Double deltaTime) {
         final double acceleration = -this.friction / this.getBody().getWeight();
-        return this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
+        final double vel = this.deltaSpeed * deltaTime;
+        final double acc = Math.pow(deltaTime, 2) * acceleration / 2;
+        return vel + acc;
     }
 
     @Override
@@ -187,7 +176,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         if (this.checkMove()) {
             final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
             this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
-            postLogs();
+            this.postLogs();
             this.initMove();
         }
     }

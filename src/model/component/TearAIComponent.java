@@ -1,14 +1,23 @@
 package model.component;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
+import model.events.CollisionEvent;
+import util.EventListener;
 
 /**
- *
+ * This component manages all the movements and actions that the tear must do
+ * independently once generated.
  */
-public class TearAIComponent extends AbstractComponent<TearAIComponent> {
+public class TearAIComponent extends AbstractAIComponent {
 
-    private final int angle;
+    private int angle;
+
     /**
+     * the listener of this component handles the disappearance of the entity when
+     * it collides with something.
+     * 
      * @param entity this entity
      */
     public TearAIComponent(final Entity entity) {
@@ -17,11 +26,19 @@ public class TearAIComponent extends AbstractComponent<TearAIComponent> {
 
     /**
      * @param entity this entity
-     * @param angle direction angle of the tear
+     * @param angle  direction angle of the tear
      */
     public TearAIComponent(final Entity entity, final int angle) {
         super(entity);
         this.angle = angle;
+
+        this.registerListener(new EventListener<CollisionEvent>() {
+            @Subscribe
+            @Override
+            public void listenEvent(final CollisionEvent event) {
+                getEntity().getRoom().deleteEntity(getEntity());
+            }
+        });
     }
 
     /**
@@ -32,14 +49,12 @@ public class TearAIComponent extends AbstractComponent<TearAIComponent> {
         return this.angle;
     }
 
-    private MoveComponent getMoveComponent(final Entity e) {
-        return ((MoveComponent) e.getComponent(MoveComponent.class).get());
-    }
-
     /**
-     * update method makes the tear move in the right direction.
+     * {@inheritDoc}
      */
-    public void update() {
-        this.getMoveComponent(this.getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
+    @Override
+    protected void moveUpdate() {
+        this.getMoveComponent(this.getEntity()).move(Math.cos(Math.toRadians(this.angle)),
+                Math.sin(Math.toRadians(this.angle)), 0);
     }
 }

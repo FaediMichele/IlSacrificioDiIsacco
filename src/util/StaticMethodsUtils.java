@@ -1,12 +1,25 @@
 package util;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * Class for all static methods.
@@ -136,5 +149,63 @@ public final class StaticMethodsUtils {
             return null;
         }).collect(Collectors.toList());
         return Arrays.hashCode(fieldsValueObj.toArray());
+    }
+
+    /**
+     * Returns the {@link Document} for xml file.
+     * 
+     * @param filePath the file path string
+     * @return {@link Document}
+     */
+    public static Document getDocumentXML(final String filePath) {
+        File file;
+        final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder;
+        Document document;
+        try {
+            file =  new File(Object.class.getResource(filePath).toURI());
+            documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            document = documentBuilder.parse(file);
+            return document;
+        } catch (ParserConfigurationException | SAXException | IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the {{@link Node)} list of all the nodes.
+     * 
+     * @param nl {@link NodeList}
+     * @return a list node
+     */
+    public static List<Node> getNodesFromNodelList(final NodeList nl) {
+        final List<Node> lNode = new ArrayList<Node>();
+        try {
+            for (int i = 0; i < nl.getLength(); i++) {
+                lNode.add(nl.item(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lNode;
+    }
+
+    /**
+     * Returns the string list of all the nodes.
+     * 
+     * @param nl {@link NodeList}
+     * @return a list string
+     */
+    public static List<String> getStringsFromNodelList(final NodeList nl) {
+        final List<String> ls = new ArrayList<String>();
+        try {
+            for (int i = 0; i < nl.getLength(); i++) {
+                ls.add(nl.item(i).getTextContent());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ls;
     }
 }
