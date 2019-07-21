@@ -33,14 +33,14 @@ public class MovableCollisionComponent extends CollisionComponent {
         super(entity, eventListeners);
     }
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    protected void handleCollision(final CollisionEvent event) {
-//        super.handleCollision(event);
-//        //this.handleMovement(event);
-//    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void handleCollision(final CollisionEvent event) {
+        super.handleCollision(event);
+        this.handleMovement(event);
+    }
 
     /**
      * Handles the movement of the entities after collision.
