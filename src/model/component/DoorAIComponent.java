@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
 import model.entity.Key;
+import model.entity.Player;
 import model.events.CollisionEvent;
 import model.events.UseThingEvent;
 import util.EventListener;
@@ -38,7 +39,7 @@ public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
-                if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+                if (coll.getSourceEntity().getClass().equals(Player.class)) {
                     final LockComponent lc = (LockComponent) getEntity().getComponent(LockComponent.class).get(); 
                     final InventoryComponent ic = (InventoryComponent) coll.getSourceEntity().getComponent(InventoryComponent.class).get();
                     if (lc != null && lc.isLocked() && ic != null) {

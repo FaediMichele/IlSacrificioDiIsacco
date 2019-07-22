@@ -31,6 +31,7 @@ import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
 import model.entity.Heart;
+import model.entity.Key;
 import model.entity.Player;
 import model.entity.Rock;
 import model.entity.SimpleEnemyMovable;
@@ -270,6 +271,7 @@ public class TestModel {
 
         enemy.attachComponent(new DamageComponent(enemy, damage));
         player.postEvent(new CollisionEvent(enemy));
+        //bug
         System.out.println(life);
         System.out.println(damage);
         System.out.println(getHealthComponent(player).getLife());
@@ -337,7 +339,24 @@ public class TestModel {
         player.postEvent(new CollisionEvent(heart));
         assertEquals(getHealthComponent(player).getHearts().size(), 4);
 
-        // TO-DO: pick up and use also a key
+        final Key key = new Key();
+        room.insertEntity(key);
+        player.postEvent(new CollisionEvent(key));
+        assertEquals(2, getInventoryComponent(player).getThings().size());
+        assertTrue(getInventoryComponent(player).getThings().contains(key));
+
+        player.postEvent(new UseThingEvent(player, key.getClass()));
+        assertEquals(1, getInventoryComponent(player).getThings().size());
+        assertFalse(room.getEntity().contains(key));
+
+        final Door door = new Door(0, 1);
+        room.insertEntity(door);
+        room.insertEntity(key);
+        player.postEvent(new CollisionEvent(key));
+        assertEquals(2, getInventoryComponent(player).getThings().size());
+        door.postEvent(new CollisionEvent(player));
+        assertEquals(1, getInventoryComponent(player).getThings().size());
+        assertFalse(room.getEntity().contains(key));
     }
 
     /**

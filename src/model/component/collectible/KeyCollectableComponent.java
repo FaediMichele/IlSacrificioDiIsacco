@@ -14,7 +14,7 @@ public class KeyCollectableComponent extends AbstractCollectableComponent {
      * 
      * @param entity source Entity
      */
-    KeyCollectableComponent(final Entity entity) {
+    public KeyCollectableComponent(final Entity entity) {
         super(entity);
     }
 
