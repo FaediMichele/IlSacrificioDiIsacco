@@ -16,7 +16,8 @@ import util.EventListener;
  *
  */
 public class LockCollisionComponent extends CollisionComponent {
-    private  boolean isLock;
+    private boolean isLock;
+
     /**
      * 
      * @param entity is {@link Entity} to which the component belongs.
@@ -35,17 +36,37 @@ public class LockCollisionComponent extends CollisionComponent {
 
                     if (invcmp.thingsOfThisKind(Key.class) > 0 && isLock) {
                         event.getSourceEntity().postEvent(new UseThingEvent(event.getSourceEntity(), Key.class));
-                        isLock = false;
+                        unlocks(event.getSourceEntity());
+                    } else if (!isLock) {
+                        afterUnlocks(event.getSourceEntity());
                     }
                 }
             }
         });
     }
+
     /**
      * 
      * @return true if entity is locked false otherwise.
      */
     public boolean isLocked() {
         return isLock;
+    }
+
+    /**
+     * Method that is called when a closed entity is unlocked.
+     * 
+     * @param entity is {@link Entity} who had a collision with the door.
+     */
+    protected void unlocks(final Entity entity) {
+        this.isLock = false;
+    }
+
+    /**
+     * Method that is called when the object is hit after it has been unlocked.
+     * 
+     * @param entity is {@link Entity} who had a collision with the door.
+     */
+    protected void afterUnlocks(final Entity entity) {
     }
 }
