@@ -16,6 +16,7 @@ public class GaperAIComponent extends AbstractAIComponent {
 
     private double angle;
     /**
+     * Each time the Gaper collides with somethig, re-calculates the angle to get to isaac.
      * @param entity for this component
      */
     public GaperAIComponent(final Entity entity) {
@@ -41,13 +42,12 @@ public class GaperAIComponent extends AbstractAIComponent {
         final BodyComponent myBody = (BodyComponent) this.getEntity().getComponent(BodyComponent.class).get();
         final Double diffX = isaacBody.getPosition().getV1() - myBody.getPosition().getV1();
         final Double diffY = isaacBody.getPosition().getV2() - myBody.getPosition().getV2();
-        angle = Math.atan2(diffX, diffY);
+        this.angle = Math.atan2(diffX, diffY);
     }
 
     /**
-     * {@inheritDoc}
+     * Update of the MoveComponent done by this AI.
      */
-    @Override
     protected void moveUpdate() {
         super.getMoveComponent(getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
     }

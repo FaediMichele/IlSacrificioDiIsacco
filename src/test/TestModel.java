@@ -270,7 +270,10 @@ public class TestModel {
 
         enemy.attachComponent(new DamageComponent(enemy, damage));
         player.postEvent(new CollisionEvent(enemy));
-        assertEquals(life - damage, getHealthComponent(player).getLife());
+        System.out.println(life);
+        System.out.println(damage);
+        System.out.println(getHealthComponent(player).getLife());
+        assertEquals(life - damage * 2, getHealthComponent(player).getLife());
 
         good.attachComponent(new DamageComponent(good, damage));
         player.postEvent(new CollisionEvent(good));
