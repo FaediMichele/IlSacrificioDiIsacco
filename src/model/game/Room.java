@@ -32,6 +32,11 @@ public interface Room {
     void updateEntity(Double deltaTime);
 
     /**
+     * React to the collision that is found at this time. 
+     */
+    void calculateCollision();
+
+    /**
      * If this room has been completed (the player killed all the enemy).
      * 
      * @return true if the room is completed.

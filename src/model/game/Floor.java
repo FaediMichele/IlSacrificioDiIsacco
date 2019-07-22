@@ -47,6 +47,11 @@ public interface Floor {
     void update(Double deltaTime);
 
     /**
+     * React to the collision that is found at this time. 
+     */
+    void calculateCollision();
+
+    /**
      * Change the position of an entity to another room.
      * @param e the entity to change the position.
      * @param location the room where the entity is.

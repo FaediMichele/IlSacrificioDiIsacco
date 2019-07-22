@@ -221,6 +221,11 @@ public class FloorImpl implements Floor {
     }
 
     @Override
+    public final void calculateCollision() {
+        getActiveRoom().calculateCollision();
+    }
+
+    @Override
     public final void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
         this.rooms.get(destination).insertEntity(e);
         this.rooms.get(location).deleteEntity(e);

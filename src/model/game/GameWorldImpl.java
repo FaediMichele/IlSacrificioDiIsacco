@@ -40,6 +40,16 @@ public class GameWorldImpl implements GameWorld {
     }
 
     @Override
+    public final void update(final double deltaTime) {
+        getActiveFloor().update(deltaTime);
+    }
+
+    @Override
+    public final void calculateCollision() {
+        getActiveFloor().calculateCollision();
+    }
+
+    @Override
     public final void setActiveFloor(final Integer activeFloor) {
         this.activeFloor = activeFloor;
     }

@@ -30,6 +30,17 @@ public interface GameWorld {
     Floor getActiveFloor();
 
     /**
+     * Go to the next frame of the game.
+     * @param deltaTime the time that has passed from the last call.
+     */
+    void update(double deltaTime);
+
+    /**
+     * React to the collision that is found at this time. 
+     */
+    void calculateCollision();
+
+    /**
      * Sets the active {@link Floor}.
      * 
      * @param activeFloor the active floor index
