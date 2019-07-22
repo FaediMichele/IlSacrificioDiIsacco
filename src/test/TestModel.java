@@ -351,6 +351,7 @@ public class TestModel {
         rooms.add(r);
         rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0)))));
         final Floor f = new FloorImpl(rooms);
+        f.getRooms();
 
         r.insertEntity(player);
         r.insertEntity(key);
