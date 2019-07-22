@@ -25,7 +25,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
     private final Pane pnMain;
     private final FadeTransition optionsTransition;
     private final Pane optionsPane;
-    private FadeTransition fd;
+    private final FadeTransition fd;
 
     /**
      * 
