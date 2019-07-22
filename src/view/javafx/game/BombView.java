@@ -16,7 +16,7 @@ import util.SpritesExtractor;
  * View and animations of the Bomb enemy.
  */
 
-public class BombView extends AbstractStatusEntityView {
+public class BombView extends AbstractEntityView {
     private static Image bombSprite;
     private static List<Image> triggeredBombSprite;
     private static List<Image> explosionBombSprite;
@@ -45,7 +45,7 @@ public class BombView extends AbstractStatusEntityView {
      * Base constructor, initilizes the indexes.
      * @param gv The gameView to which this entityView is added
      */
-    public BombView(final GameView gv) {
+    public BombView(final GameViewImpl gv) {
         super(gv);
         this.triggeredIndex = 0;
         this.explosionIndex = 0;
@@ -55,21 +55,21 @@ public class BombView extends AbstractStatusEntityView {
      * {@inheritDoc}
      */
     @Override
-    public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
-        if (status.equals("collectible")) {
-            final Image img = super.resize(bombSprite, height, width);
-            gc.drawImage(img, x, y);
+    public void draw(final GraphicsContext gc) {
+        if (super.getStatus().equals("collectible")) {
+            final Image img = super.resize(bombSprite, super.getHeight(), super.getWidth());
+            gc.drawImage(img, super.getX(), super.getY());
         }
 
-        if (status.equals("triggered")) {
-            final Image img = super.resize(triggeredBombSprite.get(triggeredIndex), height, width);
-            gc.drawImage(img, x, y);
+        if (super.getStatus().equals("triggered")) {
+            final Image img = super.resize(triggeredBombSprite.get(triggeredIndex), super.getHeight(), super.getWidth());
+            gc.drawImage(img, super.getX(), super.getY());
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
         }
 
-        if (status.equals("explosion")) {
-            final Image img = super.resize(explosionBombSprite.get(explosionIndex), height, width);
-            gc.drawImage(img, x, y);
+        if (super.getStatus().equals("explosion")) {
+            final Image img = super.resize(explosionBombSprite.get(explosionIndex), super.getHeight(), super.getWidth());
+            gc.drawImage(img, super.getX(), super.getY());
             explosionIndex += 1;
             if (explosionIndex > explosionBombSprite.size() && super.getGameView().isPresent()) {
                 super.getGameView().get().removeEntity(this);

@@ -17,8 +17,9 @@ import util.SpritesExtractor;
 public class TearView extends AbstractEntityView {
     private static List<Image> playerTear;
     private static List<Image> enemyTear;
-    private int playerIndex;
-    private int enemyIndex;
+
+    private final List<Image> tears;
+    private int index;
 
     static {
         BufferedImage img = null;
@@ -41,39 +42,33 @@ public class TearView extends AbstractEntityView {
     /**
      * Base constructor, initilizes the indexes.
      * @param gv The gameView to which this entityView is added
+     * @param entityClass the class determines which list of tears is needed
      */
-    public TearView(final GameView gv) {
+    public TearView(final GameViewImpl gv, final Class<? extends AbstractEntityView> entityClass) {
         super(gv);
-        this.playerIndex = 0;
-        this.enemyIndex = 0;
+        this.index = 0;
+        this.index = 0;
+
+        if (entityClass.equals(IsaacView.class)) {
+            tears = playerTear;
+        } else if (entityClass.equals(MonstroView.class) || entityClass.equals(GaperView.class) || entityClass.equals(DanksquirtView.class)) {
+            tears = enemyTear;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
-     * Draws the correct animation in the correct position of the canvas.
-     * @param gc where to draw
-     * @param entity entity that shooted the tear
-     * @param x position on the x axis
-     * @param y position on the y axis
-     * @param height of a sprite
-     * @param width of a sprite
+     * 
+     * {@inheritDoc}
      */
-    public void draw(final GraphicsContext gc, final Class<? extends AbstractEntityView> entity, final int x, final int y, final int height, final int width) {
-        if (entity.equals(IsaacView.class)) {
-            final Image img = super.resize(playerTear.get(playerIndex), height, width);
-            gc.drawImage(img, x, y);
-            playerIndex += 1;
-            if (playerIndex > playerTear.size() && super.getGameView().isPresent()) {
-                super.getGameView().get().removeEntity(this);
-            }
-        }
-
-        if (entity.equals(MonstroView.class) || entity.equals(GaperView.class) || entity.equals(DanksquirtView.class)) {
-            final Image img = super.resize(enemyTear.get(enemyIndex), height, width);
-            gc.drawImage(img, x, y);
-            enemyIndex += 1;
-            if (enemyIndex > enemyTear.size() && super.getGameView().isPresent()) {
-                super.getGameView().get().removeEntity(this);
-            }
+    @Override
+    public void draw(final GraphicsContext gc) {
+        final Image img = super.resize(this.tears.get(index), super.getHeight(), super.getWidth());
+        gc.drawImage(img, super.getX(), super.getY());
+        index += 1;
+        if (index > this.tears.size() && super.getGameView().isPresent()) {
+            super.getGameView().get().removeEntity(this);
         }
     }
 }

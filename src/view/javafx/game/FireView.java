@@ -16,7 +16,7 @@ import util.SpritesExtractor;
 * View and animations of the fire. 
 * With this class you can create a red, blue or purple fire based on the path of which sheet you pass in the constructor.
 */
-public class FireView extends AbstractStatusEntityView {
+public class FireView extends AbstractEntityView {
     private static Map<FireColour, List<Image>> fireSprites = new HashMap<>();
     private static Map<FireColour, List<Image>> dyingFireSprites = new HashMap<>();
     private static Map<FireColour, List<Image>> fireGridSprites = new HashMap<>();
@@ -75,7 +75,7 @@ public class FireView extends AbstractStatusEntityView {
      * @param colour the colour of this FireView
      * @param gv The gameView to which this entityView is added
      */
-    public FireView(final GameView gv, final FireColour colour) {
+    public FireView(final GameViewImpl gv, final FireColour colour) {
         super(gv);
         this.fireSprite = fireSprites.get(colour);
         this.dyingFireSprite = dyingFireSprites.get(colour);
@@ -89,8 +89,8 @@ public class FireView extends AbstractStatusEntityView {
      * {@inheritDoc}
      */
     @Override
-    public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
-        if (status.equals("dying")) {
+    public void draw(final GraphicsContext gc) {
+        if (super.getStatus().equals("dying")) {
             this.fire = dyingFireSprite.get(dyingIndex);
             dyingIndex += 1;
             if (dyingIndex > dyingFireSprite.size() && super.getGameView().isPresent()) {
@@ -108,7 +108,9 @@ public class FireView extends AbstractStatusEntityView {
         final double fireScale = 8 / 11;
         final double gridScale = 4 / 11;
         final double gridShiftY = 7 / 11;
-        gc.drawImage(super.resize(fire, (int) (height * fireScale), width), x, y);
-        gc.drawImage(super.resize(grid, (int) (height * gridScale), (width * 2) / 3), x + (width / gridShiftX), y + (height * gridShiftY));
+        gc.drawImage(super.resize(fire, (int) (super.getHeight() * fireScale), super.getWidth()), 
+                        super.getX(), super.getY());
+        gc.drawImage(super.resize(grid, (int) (super.getHeight() * gridScale), (super.getWidth() * 2) / 3), 
+                        super.getX() + (super.getWidth() / gridShiftX), super.getY() + (super.getHeight() * gridShiftY));
     }
 }

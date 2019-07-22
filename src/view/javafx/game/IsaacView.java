@@ -20,7 +20,7 @@ import util.SpritesExtractor;
  * View and animations of Isaac.
  */
 
-public class IsaacView extends AbstractStatusEntityView {
+public class IsaacView extends AbstractEntityView {
 
 
 
@@ -155,32 +155,34 @@ public class IsaacView extends AbstractStatusEntityView {
     /**
      * {@inheritDoc}
      */
-    public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
-        if (status.equals("dead")) {
-            gc.drawImage(deadSprite, x, y);
+    public void draw(final GraphicsContext gc) {
+        if (super.getStatus().equals("dead")) {
+            gc.drawImage(deadSprite, super.getX(), super.getY());
             return;
         }
 
-        if (status.equals("moving up")) {
-            this.setSprites(Direction.UP, status);
+        if (super.getStatus().equals("moving up")) {
+            this.setSprites(Direction.UP, super.getStatus());
         }
 
-        if (status.equals("moving down")) {
-            this.setSprites(Direction.DOWN, status);
+        if (super.getStatus().equals("moving down")) {
+            this.setSprites(Direction.DOWN, super.getStatus());
         }
 
-        if (status.equals("moving right")) {
-            this.setSprites(Direction.RIGHT, status);
+        if (super.getStatus().equals("moving right")) {
+            this.setSprites(Direction.RIGHT, super.getStatus());
         }
 
-        if (status.equals("moving left")) {
-            this.setSprites(Direction.LEFT, status);
+        if (super.getStatus().equals("moving left")) {
+            this.setSprites(Direction.LEFT, super.getStatus());
         }
 
         final double heightScale = 3 / 5;
         final double bodyShift = 2 / 5;
-        gc.drawImage(super.resize(face, (int) (height * heightScale), width), x, y);
-        gc.drawImage(super.resize(body, (int) (height * heightScale), width), x, y + (height * bodyShift));
+        gc.drawImage(super.resize(face, (int) (super.getHeight() * heightScale), super.getWidth()), 
+                            super.getX(), super.getY());
+        gc.drawImage(super.resize(body, (int) (super.getHeight() * heightScale), super.getWidth()), 
+                            super.getX(), super.getY() + (super.getHeight() * bodyShift));
     }
 
     /**

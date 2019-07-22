@@ -1,47 +1,35 @@
 package view.javafx.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.scene.canvas.Canvas;
-
 /**
- * Class for the main view of the game, it contains a list of all entities to
- * draw.
- *
+ * Main view of the game, the controller uses this to manage the entityViews status and position.
  */
-public class GameView {
-    private final List<EntityView> entities = new ArrayList<>();
-    private final Canvas cv;
 
-    /**
-     * @param cv the Canvas in which the GameView has to draw
-     */
-    public GameView(final Canvas cv) {
-        super();
-        this.cv = cv;
-    }
-
+public interface GameView {
     /**
      * Add an {@link EntityView} to draw.
      * @param entity {@link EntityView}
      */
-    public void addEntity(final EntityView entity) {
-        this.entities.add(entity);
-    }
+    void addEntity(EntityView entity);
 
     /**
-     * Removes an {@link EntityView} to draw.
+     * Removes an {@link EntityView} from the drawing list.
      * @param entity {@link EntityView}
      */
-    public void removeEntity(final EntityView entity) {
-        this.entities.remove(entity);
-    }
+    void removeEntity(EntityView entity);
+
+    /**
+     * This method must be called by the controller for each of the actual entityViews displayed in the canvas.
+     *@param status what isaac is doing
+     * @param x position on the x axis
+     * @param y position on the y axis
+     * @param height of a sprite
+     * @param width of a sprite
+     * @param entity the entityView to which this parameters must be applied
+     */
+    void setEntityViewParameters(EntityView entity, String status, double x, double y, double height, double width);
 
     /**
      * It draws all entities in the canvas.
      */
-    public void draw() {
-
-    }
+    void draw();
 }

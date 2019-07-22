@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 /**
 * View of the hearts.
 */
-public class HeartView extends AbstractStatusEntityView {
+public class HeartView extends AbstractEntityView {
 
     private static Image simpleHeart;
     private static Image halfSimpleHeart;
@@ -57,15 +57,15 @@ public class HeartView extends AbstractStatusEntityView {
     /**
      * {@inheritDoc}
      */
-    public void draw(final GraphicsContext gc, final String status, final int x, final int y, final int height, final int width) {
-        if (status.equals("full")) {
-            final Image img = super.resize(heart, height, width);
-            gc.drawImage(img, x, y);
+    public void draw(final GraphicsContext gc) {
+        if (super.getStatus().equals("full")) {
+            final Image img = super.resize(heart, super.getHeight(), super.getWidth());
+            gc.drawImage(img, super.getX(), super.getY());
         }
 
-        if (status.equals("half")) {
-            final Image img = super.resize(halfHeart, height, width);
-            gc.drawImage(img, x, y);
+        if (super.getStatus().equals("half")) {
+            final Image img = super.resize(halfHeart, super.getHeight(), super.getWidth());
+            gc.drawImage(img, super.getX(), super.getY());
         }
     }
 }

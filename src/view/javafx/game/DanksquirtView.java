@@ -37,16 +37,12 @@ public class DanksquirtView extends AbstractEntityView {
     }
 
     /**
-     * Draws the correct animation in the correct position of the canvas.
-     * @param gc where to draw
-     * @param x position on the x axis
-     * @param y position on the y axis
-     * @param height of a sprite
-     * @param width of a sprite
+     * 
+     * {@inheritDoc}
      */
-    public void draw(final GraphicsContext gc, final int x, final int y, final int height, final int width) {
-        final Image img = super.resize(danksquirtSprite.get(index), height, width);
-        gc.drawImage(img, x, y);
+    public void draw(final GraphicsContext gc) {
+        final Image img = super.resize(danksquirtSprite.get(index), super.getHeight(), super.getWidth());
+        gc.drawImage(img, super.getX(), super.getY());
         index = (index + 1) % danksquirtSprite.size();
     }
 }

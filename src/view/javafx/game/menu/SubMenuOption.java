@@ -1,6 +1,7 @@
 package view.javafx.game.menu;
 
 import javafx.scene.layout.Pane;
+import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 
@@ -18,6 +19,23 @@ public class SubMenuOption extends SubMenu {
         super(selector, pnMain);
         // TODO Auto-generated constructor stub
     }
+
+    @Override
+    public final void input(final Command c) {
+        switch (c) {
+        case OPTIONS:
+            options();
+            break;
+        default:
+        }
+    }
+
+    private void options() {
+        if (getSelector().contains(SubMenuGame.class)) {
+            getSelector().selectSubMenu(SubMenuGame.class);
+        }
+    }
+
 
     @Override
     public void reset() {
