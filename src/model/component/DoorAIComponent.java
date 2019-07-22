@@ -25,14 +25,14 @@ public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
     /**
      * Create a door component with a destination room index.
      * 
-     * @param location The {@link Room} where the player is
+     * @param locationIndex The {@link Room} where the player is
      * @param destinationIndex index of the room
      * @param entity Entity that possess the component
      */
-    public DoorAIComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+    public DoorAIComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex) {
         super(entity);
         this.hasPlayerPassed = false;
-        this.location = location;
+        this.location = locationIndex;
         this.destination = destinationIndex;
         entity.registerListener(new EventListener<CollisionEvent>() {
             @Override

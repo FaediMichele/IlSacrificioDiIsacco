@@ -72,7 +72,6 @@ public class RoomImpl implements Room {
         this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 0) {
-            // entity.add(new Bomb());
             this.isComplete = true;
         }
     }

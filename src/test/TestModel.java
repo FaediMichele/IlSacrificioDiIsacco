@@ -271,11 +271,7 @@ public class TestModel {
 
         enemy.attachComponent(new DamageComponent(enemy, damage));
         player.postEvent(new CollisionEvent(enemy));
-        //bug
-        System.out.println(life);
-        System.out.println(damage);
-        System.out.println(getHealthComponent(player).getLife());
-        assertEquals(life - damage * 2, getHealthComponent(player).getLife());
+        assertEquals(life - damage, getHealthComponent(player).getLife());
 
         good.attachComponent(new DamageComponent(good, damage));
         player.postEvent(new CollisionEvent(good));
@@ -349,9 +345,15 @@ public class TestModel {
         assertEquals(1, getInventoryComponent(player).getThings().size());
         assertFalse(room.getEntity().contains(key));
 
+        final List<Room> rooms = new ArrayList<>();
         final Door door = new Door(0, 1);
-        room.insertEntity(door);
-        room.insertEntity(key);
+        final Room r = new RoomImpl(0, new ArrayList<>(Arrays.asList(door)));
+        rooms.add(r);
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0)))));
+        final Floor f = new FloorImpl(rooms);
+
+        r.insertEntity(player);
+        r.insertEntity(key);
         player.postEvent(new CollisionEvent(key));
         assertEquals(2, getInventoryComponent(player).getThings().size());
         door.postEvent(new CollisionEvent(player));
