@@ -180,10 +180,11 @@ public class TestModel {
         Set<Pair<Entity, Entity>> coll = r.getEntityColliding();
         assertTrue(coll.size() == 0);
         b.setPosition(0, 5, 5);
-        assertTrue(r.getEntityColliding().size() == 1);
-        coll = r.getEntityColliding();
         r.calculateCollision();
-        r.updateEntity(10.0);
+        assertTrue(r.getEntityColliding().size() == 1);
+        r.updateEntity(90.0);
+        r.calculateCollision();
+        coll = r.getEntityColliding();
         assertTrue(coll.stream().filter(p -> 
                 Double.isNaN(getBodyComponent(p.getX()).getPosition().getV1())
                 || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV2())

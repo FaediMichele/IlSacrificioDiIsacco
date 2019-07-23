@@ -99,6 +99,7 @@ public class RoomImpl implements Room {
 
     @Override
     public final void calculateCollision() {
+        updateSpace();
         // get the collision detected and for each one call the event. 
         getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
     }
@@ -112,7 +113,6 @@ public class RoomImpl implements Room {
      */
     @Override
     public Set<Pair<Entity, Entity>> getEntityColliding() {
-        updateSpace();
         return sp.getCollisions().stream()
                 .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
                 .collect(Collectors.toSet());
