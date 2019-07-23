@@ -4,6 +4,7 @@ import java.util.Set;
 
 import model.entity.Door;
 import model.entity.Entity;
+import util.Pair;
 
 /**
  * The interface for the rooms for the floor. It have enemy and environment
@@ -35,6 +36,12 @@ public interface Room {
      * React to the collision that is found at this time. 
      */
     void calculateCollision();
+
+    /**
+     * Get the {@link Entity} that is colliding.
+     * @return the {@link Entity} that collide.
+     */
+    Set<Pair<Entity, Entity>> getEntityColliding();
 
     /**
      * If this room has been completed (the player killed all the enemy).

@@ -9,13 +9,28 @@ import model.component.mentality.NeutralMentalityComponent;
  * Implements the Rock.
  */
 public class Rock extends AbstractStaticEntity {
+    private static final double WIDTH = 1;
+    private static final double HEIGHT = 1;
+    private static final int WEIGHT = 1;
 
     /**
      * Empty constructor.
+     * the position is 0,0,0.
      */
     public Rock() {
+        this(0, 0);
+    }
+
+    /**
+     * Create a rock based on his position.
+     * @param x the x-axis.
+     * @param y the y-axis.
+     */
+    public Rock(final double x, final double y) {
         super();
         this.attachComponent(new NeutralMentalityComponent(this));
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
     }
 
     /**
@@ -25,7 +40,7 @@ public class Rock extends AbstractStaticEntity {
      * @param entityStatus    the {@link StatusComponent}
      */
     public Rock(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this();
+        this(0, 0);
         this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
 

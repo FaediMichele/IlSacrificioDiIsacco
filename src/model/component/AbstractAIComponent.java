@@ -33,7 +33,7 @@ public abstract class AbstractAIComponent extends AbstractComponent<AbstractAICo
 
     /**
      * Getter for the MoveComponent of the Entity.
-     * @param e entity to which this componente is attached
+     * @param e entity to which this component is attached
      * @return the MoveComponent
      */
     protected MoveComponent getMoveComponent(final Entity e) {

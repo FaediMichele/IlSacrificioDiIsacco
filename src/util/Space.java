@@ -48,7 +48,7 @@ public class Space {
     public List<Pair<Rectangle, Rectangle>> getCollisions() {
         final List<Pair<Rectangle, Rectangle>> ret = new ArrayList<>();
         for (int i = 0; i < rs.size(); i++) {
-            for (int k = i; k < rs.size(); k++) {
+            for (int k = i + 1; k < rs.size(); k++) {
                 final Rectangle tmp = rs.get(k);
                 if (rs.get(i).collide(rs.get(k)) && !ret.stream().anyMatch(p -> p.getX() == tmp)) {
                     ret.add(new Pair<Rectangle, Rectangle>(rs.get(i), rs.get(k)));

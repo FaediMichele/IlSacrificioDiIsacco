@@ -1,11 +1,14 @@
 package model.component;
 
 
+import java.util.Set;
+
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
 import model.entity.Player;
 import model.events.CollisionEvent;
+import model.game.Room;
 import util.EventListener;
 
 
@@ -37,8 +40,19 @@ public class GaperAIComponent extends AbstractAIComponent {
      * @return 
      */
     private void calculateAngle() {
-        final BodyComponent isaacBody = (BodyComponent) this.getEntity().getRoom().getEntity().stream()
+        final Room r = this.getEntity().getRoom();
+        if (r == null) {
+            return;
+        }
+        final Set<? extends Entity> entitys = r.getEntity();
+        if (entitys == null) {
+            return;
+        }
+        final BodyComponent isaacBody = (BodyComponent) entitys.stream()
                 .filter(i -> i.getClass().equals(Player.class)).findAny().get().getComponent(BodyComponent.class).get();
+        if (isaacBody == null) {
+            return;
+        }
         final BodyComponent myBody = (BodyComponent) this.getEntity().getComponent(BodyComponent.class).get();
         final Double diffX = isaacBody.getPosition().getV1() - myBody.getPosition().getV1();
         final Double diffY = isaacBody.getPosition().getV2() - myBody.getPosition().getV2();

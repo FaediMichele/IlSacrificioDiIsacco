@@ -14,5 +14,5 @@ public class SimpleEnemyMovable extends AbstractEnemyMovable {
     public SimpleEnemyMovable() {
         super();
         this.attachComponent(new BodyComponent(this));
-        } 
+    } 
 }

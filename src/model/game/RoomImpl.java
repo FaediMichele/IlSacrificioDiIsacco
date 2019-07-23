@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
@@ -14,7 +15,6 @@ import model.entity.Entity;
 import model.events.CollisionEvent;
 import util.Pair;
 import util.Space;
-import util.Space.Rectangle;
 
 /**
  * This class is the implementation for the room.
@@ -114,13 +114,22 @@ public class RoomImpl implements Room {
                 r.setY(b.getPosition().getV2());
             }
         });
-        // get the collision detected and for each one call the event.
-        final List<Pair<Rectangle, Rectangle>> coll = sp.getCollisions();
-        coll.forEach(p -> postCollision(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())));
+        // get the collision detected and for each one call the event. 
+        getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
     }
     private void postCollision(final Entity e1, final Entity e2) {
         e1.postEvent(new CollisionEvent(e2));
         e2.postEvent(new CollisionEvent(e1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Pair<Entity, Entity>> getEntityColliding() {
+        return sp.getCollisions().stream()
+                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
+                .collect(Collectors.toSet());
     }
 
     /**
