@@ -99,7 +99,29 @@ public class RoomImpl implements Room {
 
     @Override
     public final void calculateCollision() {
-        // Update the rectangle in the space.
+        // get the collision detected and for each one call the event. 
+        getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
+    }
+    private void postCollision(final Entity e1, final Entity e2) {
+        e1.postEvent(new CollisionEvent(e2));
+        e2.postEvent(new CollisionEvent(e1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Pair<Entity, Entity>> getEntityColliding() {
+        updateSpace();
+        return sp.getCollisions().stream()
+                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Update the rectangle in the space.
+     */
+    private void updateSpace() {
         this.entity.forEach(e -> {
             final Space.Rectangle r = entityRectangleSpace.get(e);
             if (r == null) { 
@@ -114,22 +136,6 @@ public class RoomImpl implements Room {
                 r.setY(b.getPosition().getV2());
             }
         });
-        // get the collision detected and for each one call the event. 
-        getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
-    }
-    private void postCollision(final Entity e1, final Entity e2) {
-        e1.postEvent(new CollisionEvent(e2));
-        e2.postEvent(new CollisionEvent(e1));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<Pair<Entity, Entity>> getEntityColliding() {
-        return sp.getCollisions().stream()
-                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
-                .collect(Collectors.toSet());
     }
 
     /**

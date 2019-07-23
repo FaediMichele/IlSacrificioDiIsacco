@@ -179,7 +179,10 @@ public class TestModel {
         final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
         Set<Pair<Entity, Entity>> coll = r.getEntityColliding();
         assertTrue(coll.size() == 0);
-        b.setPosition(0, 0, 0);
+        b.setPosition(0, 5, 5);
+        assertTrue(r.getEntityColliding().size() == 1);
+        r.calculateCollision();
+        r.updateEntity(10.0);
         assertTrue(r.getEntityColliding().size() == 0);
     }
 

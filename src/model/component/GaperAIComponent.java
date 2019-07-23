@@ -10,6 +10,7 @@ import model.entity.Player;
 import model.events.CollisionEvent;
 import model.game.Room;
 import util.EventListener;
+import java.util.Optional;
 
 
 /**
@@ -48,8 +49,11 @@ public class GaperAIComponent extends AbstractAIComponent {
         if (entitys == null) {
             return;
         }
-        final BodyComponent isaacBody = (BodyComponent) entitys.stream()
-                .filter(i -> i.getClass().equals(Player.class)).findAny().get().getComponent(BodyComponent.class).get();
+        final Optional<? extends Entity> isaac = entitys.stream().filter(i -> i.getClass().equals(Player.class)).findAny();
+        if (!isaac.isPresent()) {
+            return;
+        }
+        final BodyComponent isaacBody = (BodyComponent) isaac.get().getComponent(BodyComponent.class).get();
         if (isaacBody == null) {
             return;
         }
