@@ -73,4 +73,12 @@ public class SoundJavafx implements Sound {
         a.setOnEndOfMedia(() -> l.use());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void dispose() {
+        a.dispose();
+    }
+
 }

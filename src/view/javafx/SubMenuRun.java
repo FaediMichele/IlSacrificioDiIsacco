@@ -15,6 +15,7 @@ import view.CharacterInfo;
 import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
+import view.javafx.game.menu.GameSubMenuSelection;
 import view.node.CircleList;
 
 /**
@@ -22,6 +23,7 @@ import view.node.CircleList;
  */
 public class SubMenuRun extends SubMenu {
     private static final Image RANDOM_IMAGE = new Image("/menuImgs/randomSpritePreview.png");
+
 
     //CircleList. Height is calculated to have the same height and width even with the resize of the window.
     private static final int CL_WIDTH = 150;
@@ -39,6 +41,7 @@ public class SubMenuRun extends SubMenu {
     private final ImageView heart;
     private final ImageView speed;
     private final ImageView damage;
+    private final ImageView random;
     private final CircleList list;
 
     /**
@@ -69,11 +72,12 @@ public class SubMenuRun extends SubMenu {
         this.damage = damage;
         list = new CircleListRandomJavafx(CL_WIDTH, CL_HEIGHT,
                 CL_SCALE, Duration.millis(CL_TIME), random);
-         list.setMarginLeft(CL_X);
-         list.setMarginTop(CL_Y);
-         pnMain.getChildren().add((Node) list);
+        list.setMarginLeft(CL_X);
+        list.setMarginTop(CL_Y);
+        pnMain.getChildren().add((Node) list);
 
         random.setImage(RANDOM_IMAGE);
+        this.random = random;
         list.addAll(info.stream().map(p -> p.getX()).toArray());
         for (int i = 0; i < info.size(); i++) {
             this.infos.put(info.get(i).getX(), info.get(i).getY());
@@ -108,16 +112,28 @@ public class SubMenuRun extends SubMenu {
 
     private void left() {
         list.rotateLeft();
-        update(null);
+        if (list.getElement(0).equals(random)) {
+            update(null);
+        } else {
+            update(infos.get(list.getElement(0)));
+        }
     }
 
     private void right() {
         list.rotateRight();
-        update(null);
+        if (list.getElement(0).equals(random)) {
+            update(null);
+        } else {
+            update(infos.get(list.getElement(0)));
+        }
     }
 
     private void enter() {
-        update(infos.get(list.getElement()));
+        if (list.getElement(0).equals(random)) {
+            update(infos.get(list.getElement()));
+        } else {
+            getSelector().getParent().select(GameSubMenuSelection.class);
+        }
     }
 
     private void exit() {

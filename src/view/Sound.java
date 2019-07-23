@@ -32,4 +32,10 @@ public interface Sound {
      * @param l {@link Lambda}.
      */
     void setEndListener(Lambda l);
+
+
+    /**
+     * Release the resources.
+     */
+    void dispose();
 }
