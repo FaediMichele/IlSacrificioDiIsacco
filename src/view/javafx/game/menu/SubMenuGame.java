@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
+import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
 
 /**
@@ -13,7 +14,7 @@ import view.javafx.game.GameViewImpl;
  */
 public class SubMenuGame extends SubMenu {
 
-    private GameViewImpl gameView;
+    private GameView gameView;
     private final Canvas cnv;
     /**
      * 

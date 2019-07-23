@@ -38,8 +38,8 @@ public class CircleListRandomJavafx extends CircleListJavafx {
     public Object getElement() {
         final Object obj = super.getElement();
         if (obj.equals(random)) {
-            final int index = new Random().nextInt(size() * 2  - size() - 1) + size() + 1;
-            final Object o = super.getElement(index % size());
+            final int index = new Random().nextInt(size() - 1);
+            final Object o = super.getElement((index + 1) % size());
             (new Thread() { public void run() {
                 try {
                     int i = index;

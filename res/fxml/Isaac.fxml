@@ -23,14 +23,22 @@
 		<Screen fx:factory="getPrimary" fx:id="screen" />
 	</fx:define>
 	<children>
+		<ImageView id="imgBackGround" layoutX="0" layoutY="0"
+			fitHeight="${screen.visualBounds.height * 10}"
+			fitWidth="${screen.visualBounds.width * 10}" pickOnBounds="true"
+			preserveRatio="false">
+			<image>
+				<Image url="/menuImgs/background.jpg" />
+			</image>
+		</ImageView>
 		<Pane fx:id="pnMainMenu" prefHeight="344" prefWidth="640">
 			<children>
-				<ImageView id="imgBackGround" layoutX="0" layoutY="0"
+				<ImageView id="imgBackGroundMenu" layoutX="0" layoutY="0"
 					fitHeight="${screen.visualBounds.height * 10}"
 					fitWidth="${screen.visualBounds.width * 10}" pickOnBounds="true"
 					preserveRatio="false">
 					<image>
-						<Image url="/menuImgs/background.png" />
+						<Image url="/menuImgs/backgroundMenu.png" />
 					</image>
 				</ImageView>
 				<Pane fx:id="pnEnter" prefHeight="344" prefWidth="640">
@@ -136,7 +144,7 @@
 						<Canvas fx:id="cnvGame" height="344" width="640" />
 					</children>
 				</Pane>
-				<Pane fx:id="pnGameMenu" prefHeight ="344" prefWidth="640">
+				<Pane fx:id="pnGameMenu" prefHeight="344" prefWidth="640">
 					<children>
 						<!-- TODO -->
 					</children>

@@ -137,10 +137,15 @@ public class GameSubMenuSelection extends SubMenuSelection {
         if (previous.equals(this)) {
             fd.setToValue(0);
             fd.playFromStart();
-        } else {
-            fd.setToValue(1);
-            fd.playFromStart();
         }
+    }
+
+    /**
+     * Start the animation of the fade transition.
+     */
+    public void startAnimationSelected() {
+        fd.setToValue(1);
+        fd.playFromStart();
     }
 
 }

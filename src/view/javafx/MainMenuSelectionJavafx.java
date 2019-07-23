@@ -19,6 +19,7 @@ import view.MenuSelection;
 import view.Sound;
 import view.SubMenu;
 import view.SubMenuSelection;
+import view.javafx.game.menu.GameSubMenuSelection;
 import view.node.TranslationPages;
 
 /**
@@ -44,6 +45,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
     private final Sound changeSubMenuAudio = new SoundJavafx("/menuSound/pageTurn.wav");
     private final Sound backgroundAudioIntro = new SoundJavafx("/menuSound/audioIntro.wav");
     private final Sound backgroundAudio = new SoundJavafx("/menuSound/background.wav");
+    private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav");
 
     /**
      * Create the {@link MainMenuSelectionJavafx}. 
@@ -65,6 +67,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         this.manager = manager;
         init(s);
         backgroundAudioIntro.setEndListener(() -> backgroundAudio.playInLoop());
+        characterSelected.setEndListener(() -> getParent().select(GameSubMenuSelection.class));
     }
 
     private void init(final Scene s) {
@@ -222,6 +225,12 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
         if (previous.equals(this)) {
             fd.setToValue(0);
             fd.playFromStart();
+            backgroundAudioIntro.stop();
+            backgroundAudio.stop();
+            if (dest.getClass().equals(GameSubMenuSelection.class)) {
+                characterSelected.play();
+                characterSelected.setEndListener(() -> ((GameSubMenuSelection) dest).startAnimationSelected());
+            }
         } else {
             select();
             fd.setToValue(1);
