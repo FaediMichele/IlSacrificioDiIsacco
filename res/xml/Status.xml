@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MoveComponent>
-    <MOVEUP>MOVING UP</MOVEUP>
-    <MOVERIGHT>MOVING RIGHT</MOVERIGHT>
-    <MOVEDOWN>MOVING DOWN</MOVEDOWN>
-    <MOVELEFT>MOVING LEFT</MOVELEFT>
-</MoveComponent>
+<Status>
+    <fpoisoned>poisoned</fpoisoned>
+    <Normal>normal</Normal>
+</Status>

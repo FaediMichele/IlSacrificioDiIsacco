@@ -20,7 +20,7 @@ public class TestXML {
      */
     @Test
     public void testStatusXML() {
-        Document xml = StaticMethodsUtils.getDocumentXML("/xml/Status.xml");
+        Document xml = StaticMethodsUtils.getDocumentXML("/xml/Status_1.xml");
         List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(xml.getElementsByTagName("MoveComponent"));
         ls.forEach(n -> {
             System.out.println(n.getNodeName());
