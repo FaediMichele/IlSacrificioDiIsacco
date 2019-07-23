@@ -78,7 +78,6 @@ public class MovableCollisionComponent extends CollisionComponent {
         final double v2x = v2f * Math.cos(b), v2y = v2f * Math.sin(b);
 
         getEntity().postEvent(new MoveEvent(getEntity(), v1x, v1y, 0));
-        event.getSourceEntity().postEvent(new MoveEvent(event.getSourceEntity(), v2x, v2y, 0));
     }
 
 }

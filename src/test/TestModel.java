@@ -183,7 +183,8 @@ public class TestModel {
         assertTrue(r.getEntityColliding().size() == 1);
         r.calculateCollision();
         r.updateEntity(10.0);
-        assertTrue(r.getEntityColliding().size() == 0);
+        coll= r.getEntityColliding();
+        assertTrue(coll.size() == 0);
     }
 
     /**
