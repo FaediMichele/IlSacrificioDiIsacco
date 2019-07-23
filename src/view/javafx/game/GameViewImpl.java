@@ -1,6 +1,7 @@
 package view.javafx.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import javafx.scene.canvas.Canvas;
  */
 public class GameViewImpl implements GameView {
     private final List<EntityView> entities = new ArrayList<>();
+    private final List<StatisticView> statistics = new ArrayList<>();
     private final Canvas cv;
 
     /**
@@ -40,6 +42,29 @@ public class GameViewImpl implements GameView {
     }
 
     /**
+     * @return a Copy of the statistics list
+     */
+    public List<StatisticView> getStatistics() {
+        return Collections.unmodifiableList(statistics);
+    }
+
+    /**
+     * Add an {@link StatisticView} to draw.
+     * @param s {@link StatisticView}
+     */
+    public void addStatistic(final StatisticView s) {
+        this.statistics.add(s);
+    }
+
+    /**
+     * Removes an {@link StatisticView} from the drawing list.
+     * @param s {@link StatisticView}
+     */
+    public void removeStatistic(final StatisticView s) {
+        this.statistics.remove(s);
+    }
+
+    /**
      * This method must be called by the controller for each of the actual entityViews displayed in the canvas.
      *@param status what isaac is doing
      * @param x position on the x axis
@@ -50,21 +75,34 @@ public class GameViewImpl implements GameView {
      */
     public void setEntityViewParameters(final EntityView entity, final String status, final double x, final double y, final double height, final double width) {
         Objects.requireNonNull(entity);
-        if (this.entities.contains(entity)) {
-            entity.setX(x);
-            entity.setY(y);
-            entity.setStatus(status);
-            entity.setHeight(height);
-            entity.setWidth(width);
-        } else {
-            throw new IllegalArgumentException();
+        if (!this.entities.contains(entity)) {
+            this.entities.add(entity);
         }
-    };
+        entity.setX(x);
+        entity.setY(y);
+        entity.setStatus(status);
+        entity.setHeight(height);
+        entity.setWidth(width);
+    }
+
+    /**
+     * This method must be called by the controller to set the Number of each statistic.
+     * @param s the statisticView that needs to be update
+     * @param itemNumber the number of items that needs to be set
+     */
+    public void setStatisticNumber(final StatisticView s, final double itemNumber) {
+        Objects.requireNonNull(s);
+        if (!this.statistics.contains(s)) {
+            this.statistics.add(s);
+        } 
+        s.setNumber(itemNumber);
+    }
 
     /**
      * It draws all entities in the canvas.
      */
     public void draw() {
         entities.stream().forEach(e -> e.draw(cv.getGraphicsContext2D()));
+        statistics.stream().forEach(s -> s.draw(cv.getGraphicsContext2D()));
     }
 }
