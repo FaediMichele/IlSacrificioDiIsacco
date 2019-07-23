@@ -166,9 +166,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     private double calculateSpace(final Double deltaTime) {
         final double acceleration = -this.friction / this.getBody().getWeight();
-        final double vel = this.deltaSpeed * deltaTime;
-        final double acc = Math.pow(deltaTime, 2) * acceleration / 2;
-        return vel + acc;
+        return this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
     }
 
     @Override
