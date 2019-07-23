@@ -50,7 +50,7 @@ public class MovableCollisionComponent extends CollisionComponent {
     protected void handleMovement(final CollisionEvent event) {
         final double angle = 89;
         double a = Math.random() * angle, b = Math.random() * angle;
-        while (Math.cos(a) == 0 || Math.sin(b) - Math.cos(b) * Math.sin(a) == 0 || a + b > 90) {
+        while ((Math.cos(a) == 0 || Math.sin(b) - Math.cos(b) * Math.sin(a) == 0) && a + b > 90) {
             a = Math.random() * angle;
             b = Math.random() * angle;
         }
@@ -72,7 +72,7 @@ public class MovableCollisionComponent extends CollisionComponent {
         final double sumy = v1yi + v2yi;
 
         final double v2f = (sumx - sumy) / (Math.sin(b) - Math.cos(b) * Math.sin(a));
-        final double v1f = (sumx - v2f * Math.acos(b)) / Math.cos(a);
+        final double v1f = (sumx - v2f * Math.cos(b)) / Math.cos(a);
 
         final double v1x = v1f * Math.cos(a), v1y = v1f * Math.sin(a);
         final double v2x = v2f * Math.cos(b), v2y = v2f * Math.sin(b);
