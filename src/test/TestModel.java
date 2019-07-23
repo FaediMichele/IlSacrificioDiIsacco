@@ -181,10 +181,17 @@ public class TestModel {
         assertTrue(coll.size() == 0);
         b.setPosition(0, 5, 5);
         assertTrue(r.getEntityColliding().size() == 1);
+        coll = r.getEntityColliding();
         r.calculateCollision();
         r.updateEntity(10.0);
-        coll= r.getEntityColliding();
-        assertTrue(coll.size() == 0);
+        assertTrue(coll.stream().filter(p -> 
+                Double.isNaN(getBodyComponent(p.getX()).getPosition().getV1())
+                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV2())
+                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV3())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV1())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV2())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV3())).count() == 0);
+        assertTrue(r.getEntityColliding().size() == 0);
     }
 
     /**
