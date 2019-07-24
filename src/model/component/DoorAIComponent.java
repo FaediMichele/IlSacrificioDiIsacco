@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
 import model.entity.Key;
+import model.entity.Player;
 import model.events.CollisionEvent;
 import model.events.UseThingEvent;
 import util.EventListener;
@@ -24,21 +25,21 @@ public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
     /**
      * Create a door component with a destination room index.
      * 
-     * @param location The {@link Room} where the player is
+     * @param locationIndex The {@link Room} where the player is
      * @param destinationIndex index of the room
      * @param entity Entity that possess the component
      */
-    public DoorAIComponent(final Entity entity, final Integer location, final Integer destinationIndex) {
+    public DoorAIComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex) {
         super(entity);
         this.hasPlayerPassed = false;
-        this.location = location;
+        this.location = locationIndex;
         this.destination = destinationIndex;
         entity.registerListener(new EventListener<CollisionEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
-                if (coll.getSourceEntity().hasComponent(HealthComponent.class)) {
+                if (coll.getSourceEntity().getClass().equals(Player.class)) {
                     final LockComponent lc = (LockComponent) getEntity().getComponent(LockComponent.class).get(); 
                     final InventoryComponent ic = (InventoryComponent) coll.getSourceEntity().getComponent(InventoryComponent.class).get();
                     if (lc != null && lc.isLocked() && ic != null) {

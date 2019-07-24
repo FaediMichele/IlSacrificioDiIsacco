@@ -32,15 +32,16 @@ public abstract class AbstractEntity implements Entity {
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
-        this.attachComponent(new StatusComponent(this));
+        this.setDefaultComponents(new BodyComponent(this), new CollisionComponent(this), new StatusComponent(this));
+
     }
 
     /**
      * 
-     * @param <C> is extends CollisionComponent
-     * @param entityBody        a
-     * @param entityCollision   s
-     * @param entityStatus      s
+     * @param <C>             is extends CollisionComponent
+     * @param entityBody      a
+     * @param entityCollision s
+     * @param entityStatus    s
      */
     public <C extends CollisionComponent> AbstractEntity(final BodyComponent entityBody, final C entityCollision,
             final StatusComponent entityStatus) {
@@ -159,8 +160,8 @@ public abstract class AbstractEntity implements Entity {
      * @param entityCollision the collision
      * @param statusComponent the status
      */
-    protected final void setDefaultComponents(final BodyComponent entityBody,
-            final CollisionComponent entityCollision, final StatusComponent statusComponent) {
+    protected final void setDefaultComponents(final BodyComponent entityBody, final CollisionComponent entityCollision,
+            final StatusComponent statusComponent) {
         this.attachComponent(entityBody);
         this.attachComponent(entityCollision);
         this.attachComponent(statusComponent);

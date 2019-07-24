@@ -5,6 +5,7 @@ import model.component.HealthComponent;
 import model.component.InventoryComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
+import model.component.collision.CollisionComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
@@ -27,6 +28,7 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new BodyComponent(this))
             .attachComponent(new StatusComponent(this));
 
+        this.detachComponent(CollisionComponent.class);
         this.detachComponent(MovableCollisionComponent.class);
         }
 

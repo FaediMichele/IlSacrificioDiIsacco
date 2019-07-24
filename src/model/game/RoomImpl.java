@@ -1,13 +1,20 @@
 package model.game;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.entity.Door;
 import model.entity.Entity;
+import model.events.CollisionEvent;
+import util.Pair;
+import util.Space;
 
 /**
  * This class is the implementation for the room.
@@ -20,6 +27,9 @@ public class RoomImpl implements Room {
     private boolean isComplete;
     private final int index;
     private Floor floor;
+    private final Space sp = new Space();
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new LinkedHashMap<>();
+    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new LinkedHashMap<>();
 
     /**
      * Create a room with door and entity.
@@ -33,7 +43,18 @@ public class RoomImpl implements Room {
         this.doors = door;
         this.isComplete = false;
         this.entity = entity;
-        this.entity.forEach(e -> e.changeRoom(this));
+        this.entity.forEach(e -> {
+            final Space.Rectangle r = getShape(e);
+            entityRectangleSpace.put(e, r);
+            rectangleEntitySpace.put(r, e);
+            sp.addRectangle(r);
+            e.changeRoom(this);
+        });
+    }
+
+    private Space.Rectangle getShape(final Entity e) {
+        final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
+        return new Space.Rectangle(b.getPosition().getV1(), b.getPosition().getV2(), b.getWidth(), b.getHeight());
     }
 
     /**
@@ -72,9 +93,49 @@ public class RoomImpl implements Room {
         this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 0) {
-            // entity.add(new Bomb());
             this.isComplete = true;
         }
+    }
+
+    @Override
+    public final void calculateCollision() {
+        updateSpace();
+        // get the collision detected and for each one call the event. 
+        getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
+    }
+    private void postCollision(final Entity e1, final Entity e2) {
+        e1.postEvent(new CollisionEvent(e2));
+        e2.postEvent(new CollisionEvent(e1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Pair<Entity, Entity>> getEntityColliding() {
+        return sp.getCollisions().stream()
+                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Update the rectangle in the space.
+     */
+    private void updateSpace() {
+        this.entity.forEach(e -> {
+            final Space.Rectangle r = entityRectangleSpace.get(e);
+            if (r == null) { 
+                // Should never come here.
+                final Space.Rectangle rtmp = getShape(e);
+                entityRectangleSpace.put(e, rtmp);
+                rectangleEntitySpace.put(rtmp, e);
+                sp.addRectangle(rtmp); 
+            } else {
+                final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
+                r.setX(b.getPosition().getV1());
+                r.setY(b.getPosition().getV2());
+            }
+        });
     }
 
     /**
@@ -99,6 +160,10 @@ public class RoomImpl implements Room {
     @Override
     public void insertEntity(final Entity e) {
         this.entity.add(e);
+        final Space.Rectangle r = getShape(e);
+        entityRectangleSpace.put(e, r);
+        rectangleEntitySpace.put(r, e);
+        sp.addRectangle(r);
         e.changeRoom(this);
     }
 
@@ -108,6 +173,9 @@ public class RoomImpl implements Room {
     @Override
     public void deleteEntity(final Entity e) {
         this.entity.remove(e);
+        sp.remove(entityRectangleSpace.get(e));
+        rectangleEntitySpace.remove(entityRectangleSpace.get(e));
+        entityRectangleSpace.remove(e);
         e.changeRoom(null);
     }
 

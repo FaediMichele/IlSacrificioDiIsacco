@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import org.junit.Test;
 
+import model.component.AbstractAIComponent;
 import model.component.BlackHeart;
 import model.component.BodyComponent;
 import model.component.DamageComponent;
@@ -23,6 +27,7 @@ import model.component.SimpleHeart;
 import model.component.StatusComponent;
 import model.component.collectible.AbstractPickupableComponent;
 import model.component.collectible.BombCollectableComponent;
+import model.component.collision.CollisionComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.component.mentality.PlayerMentalityComponent;
@@ -30,7 +35,9 @@ import model.entity.Bomb;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Fire;
+import model.entity.GaperEnemy;
 import model.entity.Heart;
+import model.entity.Key;
 import model.entity.Player;
 import model.entity.Rock;
 import model.entity.SimpleEnemyMovable;
@@ -151,8 +158,60 @@ public class TestModel {
         e1.add(new Fire(FireType.RED));
         assertTrue(r.getEntity().containsAll(e1));
         r.updateEntity(0.0);
-        r.updateEntity(0.0);
+        r.updateEntity(10.0);
         assertTrue(r.getEntity().containsAll(e1));
+    }
+
+
+    /**
+     * Test for the collision.
+     */
+    @Test
+    public void testCollision() {
+        final List<Entity> e = new ArrayList<>();
+        e.add(new Rock(100, 100));
+        e.add(new Fire(FireType.RED, 64, 64));
+        Entity npc1 = createNPC(0, 0);
+        Entity npc2 = createNPC(10, 10);
+        e.add(npc1);
+        e.add(npc2);
+        BodyComponent b = getBodyComponent(npc2);
+        final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
+        Set<Pair<Entity, Entity>> coll = r.getEntityColliding();
+        assertTrue(coll.size() == 0);
+        b.setPosition(0, 5, 5);
+        r.calculateCollision();
+        assertTrue(r.getEntityColliding().size() == 1);
+        r.updateEntity(90.0);
+        r.calculateCollision();
+        coll = r.getEntityColliding();
+        assertTrue(coll.stream().filter(p -> 
+                Double.isNaN(getBodyComponent(p.getX()).getPosition().getV1())
+                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV2())
+                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV3())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV1())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV2())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV3())).count() == 0);
+        assertTrue(r.getEntityColliding().size() == 0);
+    }
+
+    /**
+     * Test for the creation of an NPC.
+     */
+    @Test
+    public void createNPC() {
+        // final Entity entity, final double x, final double y, final double z, final double height,
+        //       final double width, final int weight
+        Entity ret = createNPC(0, 0);
+        assertNotNull(ret);
+        assertNotNull(ret.getStatusComponent());
+        assertNotNull(ret.getComponent(BodyComponent.class).get());
+        assertNotNull(ret.getComponent(AbstractAIComponent.class).get());
+        assertNotNull(ret.getComponent(CollisionComponent.class).get());
+    }
+
+    private Entity createNPC(final double x, final double y) {
+        return new GaperEnemy(x, y);
     }
 
     /**
@@ -170,8 +229,8 @@ public class TestModel {
         assertEquals(getMoveComponent(p).getzMove(), -1);
         getMoveComponent(p).update(randomTime);
         assertTrue(getBodyComponent(p).getPosition().getV1() > 0.0);
-        assertEquals(getBodyComponent(p).getPosition().getV2(), 0.0);
         assertTrue(getBodyComponent(p).getPosition().getV3() < 0.0);
+        assertEquals(getBodyComponent(p).getPosition().getV2(), Double.valueOf(0));
         assertEquals(getMoveComponent(p).getxMove(), MoveComponent.NOMOVE);
         assertEquals(getMoveComponent(p).getyMove(), MoveComponent.NOMOVE);
         assertEquals(getMoveComponent(p).getzMove(), MoveComponent.NOMOVE);
@@ -334,7 +393,31 @@ public class TestModel {
         player.postEvent(new CollisionEvent(heart));
         assertEquals(getHealthComponent(player).getHearts().size(), 4);
 
-        // TO-DO: pick up and use also a key
+        final Key key = new Key();
+        room.insertEntity(key);
+        player.postEvent(new CollisionEvent(key));
+        assertEquals(2, getInventoryComponent(player).getThings().size());
+        assertTrue(getInventoryComponent(player).getThings().contains(key));
+
+        player.postEvent(new UseThingEvent(player, key.getClass()));
+        assertEquals(1, getInventoryComponent(player).getThings().size());
+        assertFalse(room.getEntity().contains(key));
+
+        final List<Room> rooms = new ArrayList<>();
+        final Door door = new Door(0, 1);
+        final Room r = new RoomImpl(0, new ArrayList<>(Arrays.asList(door)));
+        rooms.add(r);
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0)))));
+        final Floor f = new FloorImpl(rooms);
+        f.getRooms();
+
+        r.insertEntity(player);
+        r.insertEntity(key);
+        player.postEvent(new CollisionEvent(key));
+        assertEquals(2, getInventoryComponent(player).getThings().size());
+        door.postEvent(new CollisionEvent(player));
+        assertEquals(1, getInventoryComponent(player).getThings().size());
+        assertFalse(room.getEntity().contains(key));
     }
 
     /**

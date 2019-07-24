@@ -8,7 +8,7 @@ import model.entity.Entity;
 
 public abstract class AbstractAIComponent extends AbstractComponent<AbstractAIComponent> {
 
-    private static final long TIME_BETWEEN_MOVES = 200;
+    private static final double TIME_BETWEEN_MOVES = 200;
 
     AbstractAIComponent(final Entity entity) {
         super(entity);
@@ -33,7 +33,7 @@ public abstract class AbstractAIComponent extends AbstractComponent<AbstractAICo
 
     /**
      * Getter for the MoveComponent of the Entity.
-     * @param e entity to which this componente is attached
+     * @param e entity to which this component is attached
      * @return the MoveComponent
      */
     protected MoveComponent getMoveComponent(final Entity e) {

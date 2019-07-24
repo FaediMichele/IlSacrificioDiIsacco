@@ -14,7 +14,7 @@ public class LockComponent extends AbstractComponent<LockComponent> {
      * 
      * @param entity my Entity
      */
-    LockComponent(final Entity entity) {
+    public LockComponent(final Entity entity) {
         super(entity);
     }
 
