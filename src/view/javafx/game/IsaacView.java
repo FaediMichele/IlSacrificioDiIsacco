@@ -22,8 +22,6 @@ import util.SpritesExtractor;
 
 public class IsaacView extends AbstractEntityView {
 
-
-
     private static Map<Direction, List<Image>> bodySprites = new HashMap<>();
     private static Map<Direction, List<Image>> faceSprites = new HashMap<>();
     private static Image sufferSprite;

@@ -1,5 +1,6 @@
 package view.javafx.game;
 
+import java.util.Optional;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,32 +12,33 @@ public abstract class AbstractStatisticView implements StatisticView {
 
     private static final int MARGIN = 2;
     private static final int DEFAULT_DELTA = 30;
+    private Optional<Double> itemsNumber = Optional.empty();
+    private Optional<Integer> index = Optional.empty();
 
-    private double itemsNumber;
     private final int delta;
-    private final int index;
 
     /**
-     * @param index the position in the GameView list of statistics
+     * Basic constructor that uses the default delta.
      */
-    protected AbstractStatisticView(final int index) {
-        this(index, DEFAULT_DELTA);
+    protected AbstractStatisticView() {
+        this(DEFAULT_DELTA);
     }
 
     /**
-     * @param index the position in the GameView list of statistics
      * @param delta the size of a side of the square that will contain the sprite
      */
-    protected AbstractStatisticView(final int index, final int delta) {
+    protected AbstractStatisticView(final int delta) {
         this.delta = delta;
-        this.index = index;
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public double getNumber() {
-        return itemsNumber;
+        if (!this.itemsNumber.isPresent()) {
+            throw new IllegalStateException();
+        }
+        return itemsNumber.get();
     }
 
     /**
@@ -44,14 +46,39 @@ public abstract class AbstractStatisticView implements StatisticView {
      */
     @Override
     public void setNumber(final double number) {
-        this.itemsNumber = number;
+        this.itemsNumber = Optional.of(number);
+    }
+
+    /**
+     * @return the Margin from the top
+     */
+    protected static int getMargin() {
+        return MARGIN;
+    }
+
+    /**
+     * @return the index of the statstic in the GameView statstics list
+     */
+    protected int getIndex() {
+        if (!index.isPresent()) {
+            throw new IllegalStateException();
+        }
+        return index.get();
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public abstract void draw(GraphicsContext gc);
+    public void setIndex(final int index) {
+        this.index = Optional.of(index);
+    }
+
+    /**
+     * @return the delta (size of the sprite square)
+     */
+    public int getDelta() {
+        return delta;
+    }
 
     /**
      * @param img image to resize
@@ -65,24 +92,8 @@ public abstract class AbstractStatisticView implements StatisticView {
     }
 
     /**
-     * @return the Margin from the top
+     * {@inheritDoc}
      */
-    protected static int getMargin() {
-        return MARGIN;
-    }
-
-    /**
-     * @return the index of the statstics in the GameView statstics list
-     */
-    protected int getIndex() {
-        return index;
-    }
-
-    /**
-     * @return the delta (size of the sprite square)
-     */
-    public int getDelta() {
-        return delta;
-    }
-
+    @Override
+    public abstract void draw(GraphicsContext gc);
 }

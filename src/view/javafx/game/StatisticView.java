@@ -18,6 +18,11 @@ public interface StatisticView {
     void setNumber(double number);
 
     /**
+     * @param index the new index of the statstic in the GameView statstics list
+     */
+    void setIndex(int index);
+
+    /**
      * Draws the statistic on the upper right corner of the canvas.
      * @param gc the graphic contenxt to draw in
      */

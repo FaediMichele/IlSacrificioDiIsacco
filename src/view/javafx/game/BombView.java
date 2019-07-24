@@ -42,6 +42,13 @@ public class BombView extends AbstractEntityView {
     }
 
     /**
+     * @return the sprite of the bomb.
+     */
+    static Image getBombSprite() {
+        return bombSprite;
+    }
+
+    /**
      * Base constructor, initilizes the indexes.
      * @param gv The gameView to which this entityView is added
      */

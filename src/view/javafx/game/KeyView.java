@@ -30,6 +30,13 @@ public class KeyView extends AbstractEntityView {
     }
 
     /**
+     * @return the sprite of the key.
+     */
+    static Image getKeySprite() {
+        return keySprite;
+    }
+
+    /**
      * 
      * {@inheritDoc}
      */
