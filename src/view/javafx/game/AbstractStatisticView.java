@@ -11,6 +11,7 @@ public abstract class AbstractStatisticView implements StatisticView {
 
     private static final int MARGIN = 2;
     private static final int DEFAULT_DELTA = 30;
+
     private double itemsNumber;
     private final int delta;
     private final int index;
@@ -71,11 +72,17 @@ public abstract class AbstractStatisticView implements StatisticView {
     }
 
     /**
-     * 
      * @return the index of the statstics in the GameView statstics list
      */
     protected int getIndex() {
         return index;
+    }
+
+    /**
+     * @return the delta (size of the sprite square)
+     */
+    public int getDelta() {
+        return delta;
     }
 
 }
