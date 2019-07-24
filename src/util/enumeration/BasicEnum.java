@@ -1,4 +1,4 @@
-package util;
+package util.enumeration;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
