@@ -2,6 +2,7 @@ package model.entity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import model.component.Component;
 import model.component.StatusComponent;
@@ -88,20 +89,29 @@ public interface Entity {
     List<Component> getComponents();
 
     /**
-     * Get the room  where this entity is.
+     * Get the room where this entity is.
+     * 
      * @return the room.
      */
     Room getRoom();
 
     /**
+     * Gets the universal unique identifier.
+     * 
+     * @return {@link UUID}
+     */
+    UUID getUUID();
+
+    /**
      * Change the room where this entity is.
+     * 
      * @param r the new room
      */
     void changeRoom(Room r);
 
     /**
-     * @return the statusComponent of the entity, 
-     * this utility is useful because all entities need to log their status very often
+     * @return the statusComponent of the entity, this utility is useful because all
+     *         entities need to log their status very often
      */
     StatusComponent getStatusComponent();
 }

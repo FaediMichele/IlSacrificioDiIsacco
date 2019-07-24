@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import model.component.BodyComponent;
 import model.component.Component;
@@ -25,6 +26,7 @@ import com.google.common.eventbus.EventBus;
 public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap;
+    private final UUID uuid = UUID.randomUUID();
     private Room room;
 
     /**
@@ -123,6 +125,11 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public final Room getRoom() {
         return this.room;
+    }
+
+    @Override
+    public final UUID getUUID() {
+        return uuid;
     }
 
     @Override
