@@ -24,19 +24,7 @@ public class NumbersStatisticView extends AbstractStatisticView {
         BufferedImage img;
         try {
             img = ImageIO.read(MonstroView.class.getResource("/gameImgs/font.png"));
-            int i = 0;
-            final int height = 12;
-            final int width = 8;
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(237, 57, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(31, 73, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(22, 60, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(102, 58, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(32, 60, width + 1, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(111, 58, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(129, 58, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(210, 57, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(138, 58, width, height), null));
-            NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(147, 58, width, height), null));
+            NumbersStatisticView.initNumbers(img);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,6 +32,23 @@ public class NumbersStatisticView extends AbstractStatisticView {
 
     private Optional<Image> img = Optional.empty();
     private final Map<Integer, Image> numbers = new HashMap<>();
+
+    @SuppressWarnings("all")
+    private static void initNumbers(final BufferedImage img) {
+        int i = 0;
+        final int height = 12;
+        final int width = 8;
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(237, 57, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(31, 73, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(22, 60, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(102, 58, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(32, 60, width + 1, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(111, 58, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(129, 58, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(210, 57, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(138, 58, width, height), null));
+        NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(147, 58, width, height), null));
+    }
 
     /**
      * @param entityClass the entityView class of the statistic we want to represent

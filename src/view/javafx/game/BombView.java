@@ -44,7 +44,7 @@ public class BombView extends AbstractEntityView {
     /**
      * @return the sprite of the bomb.
      */
-    static Image getBombSprite() {
+    public static Image getBombSprite() {
         return bombSprite;
     }
 
