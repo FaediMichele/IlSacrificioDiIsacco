@@ -2,7 +2,8 @@ package model.component.collectible;
 
 import model.component.AbstractComponent;
 import model.entity.Entity;
-import util.Pair;
+import util.enumeration.BasicKeyMapStatusEnum;
+import util.enumeration.BasicStatusEnum;
 
 /**
  * 
@@ -22,7 +23,7 @@ public abstract class AbstractPickupableComponent extends AbstractComponent<Abst
      */
     protected void deleteThisEntity() {
         this.getEntity().getRoom().deleteEntity(this.getEntity());
-        this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "deleted"));
+        this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.STATUS, BasicStatusEnum.DEAD);
     }
 
     /**

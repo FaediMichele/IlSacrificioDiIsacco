@@ -6,7 +6,6 @@ import model.entity.Entity;
 import model.entity.Tear;
 import model.events.TearShotEvent;
 import util.EventListener;
-import util.Pair;
 
 /**
  * 
@@ -28,7 +27,7 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
             public void listenEvent(final TearShotEvent event) {
                 final Tear t = new Tear(event.getAngle(), event.getSourceEntity());
                 getEntity().getRoom().insertEntity(t);
-                t.getStatusComponent().setStatus(new Pair<>(1, "appear"));
+                //t.getStatusComponent().setStatus(new Pair<>(1, "appear"));
             }
         });
     }

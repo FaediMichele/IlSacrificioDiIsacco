@@ -7,5 +7,8 @@ package util.enumeration;
  */
 public enum BasicStatusEnum implements StatusEnum {
 
-    NORMAL, POISED, BURNED
+    /**
+     * Basic status for status component.
+     */
+    NORMAL, POISED, BURNED, DEAD, DAMAGING
 }

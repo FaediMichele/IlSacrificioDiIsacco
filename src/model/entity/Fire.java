@@ -5,7 +5,6 @@ import model.component.FireAIComponent;
 import model.component.FireType;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
-import model.component.mentality.NeutralMentalityComponent;
 import model.component.mentality.PsychoMentalityComponent;
 
 /**

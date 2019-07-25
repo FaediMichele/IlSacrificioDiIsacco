@@ -7,7 +7,6 @@ import model.component.HealthComponent;
 import model.component.Heart;
 import model.component.SimpleHeart;
 import model.entity.Entity;
-import util.Pair;
 
 /**
  * Collectible Component of the heart entity: how the heart have to act when
@@ -68,12 +67,12 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
                 e.printStackTrace();
             }
         }
-
-        if (actualValue > 0.5 && actualValue < 1) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "full"));
-        } else if (actualValue > 0.0 && actualValue <= 0.5) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "half"));
-        }
+// la pesno che i get di di stato debbano essere fatti a livello di componente della vita
+//        if (actualValue > 0.5 && actualValue < 1) {
+//            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "full"));
+//        } else if (actualValue > 0.0 && actualValue <= 0.5) {
+//            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "half"));
+//        }
     }
 
     private HealthComponent getHealthComponent(final Entity e) {

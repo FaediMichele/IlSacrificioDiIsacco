@@ -9,7 +9,8 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.DamageEvent;
 import util.EventListener;
-import util.Pair;
+import util.enumeration.BasicKeyMapStatusEnum;
+import util.enumeration.BasicStatusEnum;
 
 /**
  * This component controls the health of the entity.
@@ -113,9 +114,9 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
             }
         }
         if (!this.isAlive()) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "dead"));
+            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.STATUS, BasicStatusEnum.DEAD);
         } else {
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "suffer"));
+            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.STATUS, BasicStatusEnum.DAMAGING);
         }
     }
 
