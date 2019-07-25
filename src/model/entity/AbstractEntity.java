@@ -15,6 +15,8 @@ import model.events.Event;
 import model.game.Room;
 import util.EqualsForGetters;
 import util.EventListener;
+import util.NotEquals;
+import util.NotHashCode;
 import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
@@ -23,9 +25,13 @@ import com.google.common.eventbus.EventBus;
  * The base class for all the entities. See also {@link Entity}
  */
 public abstract class AbstractEntity implements Entity {
+    @NotEquals
+    @NotHashCode
+    private final UUID uuid = UUID.randomUUID();
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap;
-    private final UUID uuid = UUID.randomUUID();
+
+    
     private Room room;
 
     /**

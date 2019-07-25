@@ -3,8 +3,10 @@ package model.game;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,6 +21,7 @@ import model.events.DeadEvent;
 import util.EventListener;
 import util.Pair;
 import util.Space;
+import util.Space.Rectangle;
 import util.enumeration.KeyMapStatusEnum;
 import util.enumeration.ValuesMapStatusEnum;
 
@@ -136,9 +139,17 @@ public class RoomImpl implements Room {
      */
     @Override
     public Set<Pair<Entity, Entity>> getEntityColliding() {
-        return sp.getCollisions().stream()
-                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
-                .collect(Collectors.toSet());
+        return new LinkedHashSet<Pair<Entity, Entity>>(fromRectangleToEntity(sp.getCollisions()));
+    }
+    private List<Pair<Entity, Entity>> fromRectangleToEntity(final List<Pair<Rectangle, Rectangle>> l) {
+        final List<Pair<Entity, Entity>> ret = new ArrayList<>();
+        l.forEach(p -> {
+            final Entity e1 = rectangleEntitySpace.get(p.getX());
+            // don't ask why
+            final Entity e2 = rectangleEntitySpace.entrySet().stream().filter(e -> e.getKey().equals(p.getY())).map(e -> e.getValue()).findFirst().get();
+            ret.add(new Pair<Entity, Entity>(e1, e2));
+        });
+        return ret;
     }
 
     /**

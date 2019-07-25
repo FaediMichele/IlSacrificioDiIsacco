@@ -3,6 +3,7 @@ package util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -234,17 +235,11 @@ public class Space {
             return Math.sqrt(Math.pow(x + w / 2 - (r.x + r.w / 2), 2) + Math.pow(y + h / 2 - (r.y + r.h / 2), 2));
         }
 
-        /**
-         * Returns the hash code of the {@link Space.Rectangle}.
-         */
         @Override
         public final int hashCode() {
             return StaticMethodsUtils.hashCode(this);
         }
 
-        /**
-         * Checks if two {@link Space.Rectangle} are equals.
-         */
         @Override
         public final boolean equals(final Object obj) {
             return StaticMethodsUtils.equals(this, obj);

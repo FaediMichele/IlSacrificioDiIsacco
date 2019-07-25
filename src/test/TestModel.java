@@ -116,8 +116,10 @@ public class TestModel {
     public void testFloor() {
         final List<Room> rooms = new ArrayList<>();
         boolean ok;
+        Door d1 = new Door(2, 0);
+        Door d2 = new Door(1, 2);
         rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(new Door(0, 1), new Door(1, 2)))));
-        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0), new Door(1, 2)))));
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(d1, d2))));
         rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(new Door(3, 0), new Door(1, 1)))));
         final Floor f = new FloorImpl(rooms);
 
@@ -134,7 +136,7 @@ public class TestModel {
         assertTrue(ok);
         rooms.forEach(r -> assertEquals(r.getFloor(), f));
         assertEquals(f.getActiveRoom(), rooms.get(1));
-        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(new Door(2, 0), new Door(1, 2))));
+        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(d1, d2)));
         assertThrows(IllegalStateException.class, () -> rooms.get(0).setFloor(new FloorImpl()));
     }
 
@@ -144,18 +146,20 @@ public class TestModel {
     @Test
     public void testRoom() {
         final List<Entity> e = new ArrayList<>();
-        e.add(new Rock());
-        e.add(new Fire(FireType.RED, 0, 0));
-        final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
-        e.forEach(entity -> assertEquals(entity.getRoom(), r));
+        final Rock r = new Rock();
+        final Fire f = new Fire(FireType.RED, 0, 0);
+        e.add(r);
+        e.add(f);
+        final Room room = new RoomImpl(0, new ArrayList<Door>(), e);
+        e.forEach(entity -> assertEquals(entity.getRoom(), room));
 
         final List<Entity> e1 = new ArrayList<>();
-        e1.add(new Rock());
-        e1.add(new Fire(FireType.RED, 0, 0));
-        assertTrue(r.getEntity().containsAll(e1));
-        r.updateEntity(0.0);
-        r.updateEntity(10.0);
-        assertTrue(r.getEntity().containsAll(e1));
+        e1.add(r);
+        e1.add(f);
+        assertTrue(room.getEntity().containsAll(e1));
+        room.updateEntity(0.0);
+        room.updateEntity(10.0);
+        assertTrue(room.getEntity().containsAll(e1));
     }
 
 
@@ -177,6 +181,7 @@ public class TestModel {
         assertTrue(coll.size() == 0);
         b.setPosition(0, 4, 4);
         r.calculateCollision();
+
         assertTrue(r.getEntityColliding().size() == 1);
         r.updateEntity(90.0);
         r.calculateCollision();
