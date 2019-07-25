@@ -12,6 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import javax.rmi.CORBA.Tie;
+
 import org.junit.Test;
 import model.component.AbstractAIComponent;
 import model.component.BlackHeart;
@@ -58,6 +62,7 @@ import util.Triplet;
 @SuppressWarnings("all")
 public class TestModel {
 
+    private Room buildedRoom;
     /**
      * Test for {@link Entity}.
      */
@@ -165,6 +170,7 @@ public class TestModel {
 
     /**
      * Test for the collision.
+     * It require many time to build the space.
      */
     @Test
     public void testCollision() {
@@ -176,16 +182,16 @@ public class TestModel {
         e.add(npc1);
         e.add(npc2);
         BodyComponent b = getBodyComponent(npc2);
-        final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
-        Set<Pair<Entity, Entity>> coll = r.getEntityColliding();
+        buildedRoom = new RoomImpl(0, new ArrayList<Door>(), e);
+        Set<Pair<Entity, Entity>> coll = buildedRoom.getEntityColliding();
         assertTrue(coll.size() == 0);
         b.setPosition(0, 4, 4);
-        r.calculateCollision();
+        buildedRoom.calculateCollision();
 
-        assertTrue(r.getEntityColliding().size() == 1);
-        r.updateEntity(90.0);
-        r.calculateCollision();
-        coll = r.getEntityColliding();
+        assertTrue(buildedRoom.getEntityColliding().size() == 1);
+        buildedRoom.updateEntity(90.0);
+        buildedRoom.calculateCollision();
+        coll = buildedRoom.getEntityColliding();
         assertTrue(coll.stream().filter(p -> 
                 Double.isNaN(getBodyComponent(p.getX()).getPosition().getV1())
                 || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV2())
@@ -193,7 +199,26 @@ public class TestModel {
                 || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV1())
                 || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV2())
                 || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV3())).count() == 0);
-        assertTrue(r.getEntityColliding().size() == 0);
+        assertTrue(buildedRoom.getEntityColliding().size() == 0);
+    }
+
+    /**
+     * Test for the time of the collision detection.
+     * The first time is not counted.
+     */
+    @Test
+    public void timeForCollision() {
+        testCollision();
+        int time = 10;
+        long startTime = System.nanoTime();
+        for (int i = 0; i < time; i++) {
+            buildedRoom.calculateCollision();
+            buildedRoom.updateEntity(1.0);
+        }
+        long endTime = System.nanoTime();
+        long timeElapsed = (endTime - startTime) / (100 * 100 * 100); // to avoid checkstyle
+        System.out.println(timeElapsed);
+        assertTrue(timeElapsed < 3 * 10);
     }
 
     /**

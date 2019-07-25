@@ -234,16 +234,6 @@ public class Space {
         public double getDistanceTo(final Rectangle r) {
             return Math.sqrt(Math.pow(x + w / 2 - (r.x + r.w / 2), 2) + Math.pow(y + h / 2 - (r.y + r.h / 2), 2));
         }
-
-        @Override
-        public final int hashCode() {
-            return StaticMethodsUtils.hashCode(this);
-        }
-
-        @Override
-        public final boolean equals(final Object obj) {
-            return StaticMethodsUtils.equals(this, obj);
-        }
     }
 
     private static final class AStarCell {

@@ -1,13 +1,11 @@
 package model.game;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,8 +37,8 @@ public class RoomImpl implements Room {
     private final int index;
     private Floor floor;
     private final Space sp = new Space();
-    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new LinkedHashMap<>();
-    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new LinkedHashMap<>();
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
 
     /**
      * Create a room with only door. Entity is calculated based on the door.
@@ -143,12 +141,7 @@ public class RoomImpl implements Room {
     }
     private List<Pair<Entity, Entity>> fromRectangleToEntity(final List<Pair<Rectangle, Rectangle>> l) {
         final List<Pair<Entity, Entity>> ret = new ArrayList<>();
-        l.forEach(p -> {
-            final Entity e1 = rectangleEntitySpace.get(p.getX());
-            // don't ask why
-            final Entity e2 = rectangleEntitySpace.entrySet().stream().filter(e -> e.getKey().equals(p.getY())).map(e -> e.getValue()).findFirst().get();
-            ret.add(new Pair<Entity, Entity>(e1, e2));
-        });
+        l.forEach(p -> ret.add(new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY()))));
         return ret;
     }
 
