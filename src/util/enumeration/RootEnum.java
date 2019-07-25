@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * Basic interface for enums.
  */
-public interface BasicEnum {
+public interface RootEnum {
     /**
      * Gets the value.
      * 
