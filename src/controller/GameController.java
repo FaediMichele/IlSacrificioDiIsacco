@@ -6,21 +6,14 @@ package controller;
  *
  */
 public class GameController extends AbstractController {
-    private final Thread gameLoopThread;
-
+ //   private boolean stop;
     /**
      * 
      * @param main the {@link MainController}
      */
     public GameController(final MainController main) {
         super(main);
-        this.gameLoopThread = new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                gameLoop();
-            }
-        };
+        //sthis.stop = false;
     }
 
     /**
@@ -29,7 +22,8 @@ public class GameController extends AbstractController {
     @Override
     public void run() {
         super.run();
-        this.gameLoopThread.start();
+   //     this.stop = false;
+        this.gameLoop();
     }
 
     /**
@@ -38,13 +32,15 @@ public class GameController extends AbstractController {
     @Override
     public void stop() {
         super.stop();
-        //TODO
+       // this.stop = true;
     }
 
     /**
      * The method that handles the game loop on the thread.
      */
     protected void gameLoop() {
-
+//        while (!this.stop){
+//
+//        }
     }
 }

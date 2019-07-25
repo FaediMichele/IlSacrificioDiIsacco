@@ -8,7 +8,9 @@ import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -207,5 +209,28 @@ public final class StaticMethodsUtils {
             e.printStackTrace();
         }
         return ls;
+    }
+
+/**
+ *  .
+ * @param <X>  .
+ * @param <Y>  .
+ * @param path  .
+ * @param tag .
+ * @return .
+ */
+    public static <X, Y> Map<X, Y> xmlToMap(final String path, final String tag) {
+        Map<X, Y> map = new HashMap<>();
+//        List<Node> node = StaticMethodsUtils.getNodesFromNodelList(
+//                StaticMethodsUtils.getDocumentXML(path)
+//                .getElementsByTagName(tag));
+//        node.forEach(n -> {
+//            NodeList tmp = n.getChildNodes();
+//            for (int i = 1; i < tmp.getLength(); i = i + 2) {
+//                map.put(Class.forName(tmp.item(i).getNodeName()), Class.forName(tmp.item(i).getTextContent()));
+//                //System.out.println(tmp.item(i).getNodeName() + " --> " + tmp.item(i).getTextContent());
+//            }
+//        });
+        return (Map<X, Y>) map;
     }
 }
