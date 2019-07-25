@@ -33,7 +33,6 @@ public class NumbersStatisticView extends AbstractStatisticView {
     private Optional<Image> img = Optional.empty();
     private final Map<Integer, Image> numbers = new HashMap<>();
 
-    @SuppressWarnings("all")
     private static void initNumbers(final BufferedImage img) {
         int i = 0;
         final int height = 12;
@@ -67,7 +66,7 @@ public class NumbersStatisticView extends AbstractStatisticView {
      * @return the numbers of times as a list of digits
      */
     private List<Integer> getDigitList() {
-        List<Integer> digitList = new LinkedList<>();
+        final List<Integer> digitList = new LinkedList<>();
         int num = (int) this.getNumber();
         do {
             digitList.add(num % 10);
@@ -85,11 +84,12 @@ public class NumbersStatisticView extends AbstractStatisticView {
             throw new IllegalStateException();
         }
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
+
         gc.drawImage(img.get(), super.getMargin(), y);
-        final List<Image> numbers = new LinkedList<>();
-        this.getDigitList().stream().forEach(d -> numbers.add(this.numbers.get(d)));
-        for (int i = 0; i < numbers.size(); i++) {
-            gc.drawImage(numbers.get(i), super.getMargin() + (super.getDelta() * (i + 1)), y);
+        final List<Image> numbersToDraw = new LinkedList<>();
+        this.getDigitList().stream().forEach(d -> numbersToDraw.add(this.numbers.get(d)));
+        for (int i = 0; i < numbersToDraw.size(); i++) {
+            gc.drawImage(numbersToDraw.get(i), super.getMargin() + (super.getDelta() * (i + 1)), y);
         }
     }
 }

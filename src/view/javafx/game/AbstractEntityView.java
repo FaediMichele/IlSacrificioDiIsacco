@@ -2,6 +2,7 @@ package view.javafx.game;
 
 import java.util.Optional;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 /**
@@ -11,11 +12,11 @@ import javafx.scene.image.ImageView;
 public abstract class AbstractEntityView implements EntityView {
     private final Optional<GameViewImpl> gameView;
 
-    private double x;
-    private double y;
-    private double height;
-    private double width;
-    private String status;
+    private Optional<Double> x = Optional.empty();
+    private Optional<Double> y = Optional.empty();
+    private Optional<Double> height = Optional.empty();
+    private Optional<Double> width = Optional.empty();
+    private Optional<String> status = Optional.empty();
 
     AbstractEntityView(final GameViewImpl gv) {
         super();
@@ -46,82 +47,97 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     /**
-     * 
-     * @return the x value (position on the x axis)
+     * {@inheritDoc}
+     */
+    public abstract void draw(GraphicsContext gc);
+
+    /**
+     * {@inheritDoc}
      */
     public double getX() {
-        return x;
+        if (x.isPresent()) {
+            return x.get();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
-     * 
-     * @param x that is goind to be set (position on the x axis)
+     * {@inheritDoc}
      */
     public void setX(final double x) {
-        this.x = x;
+        this.x = Optional.of(x);
     }
 
     /**
-     * 
-     * @return the y value (position on the y axis)
+     * {@inheritDoc}
      */
     public double getY() {
-        return y;
+        if (y.isPresent()) {
+            return y.get();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
-     * 
-     * @param y that is going to be set (position on the y axis)
+     * {@inheritDoc}
      */
     public void setY(final double y) {
-        this.y = y;
+        this.y = Optional.of(y);
     }
 
     /**
-     * 
-     * @return the height value of the sprite
+     * {@inheritDoc}
      */
     public double getHeight() {
-        return height;
+        if (height.isPresent()) {
+            return height.get();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
-     * 
-     * @param height that is going to be set for the sprite
+     * {@inheritDoc}
      */
     public void setHeight(final double height) {
-        this.height = height;
+        this.height = Optional.of(height);
     }
 
     /**
-     * 
-     * @return the width of the sprite
+     * {@inheritDoc}
      */
     public double getWidth() {
-        return width;
+        if (width.isPresent()) {
+            return width.get();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
-     * 
-     * @param width that is goind to be set for the sprite
+     * {@inheritDoc}
      */
     public void setWidth(final double width) {
-        this.width = width;
+        this.width = Optional.of(width);
     }
 
     /**
-     * 
-     * @return the status (what the entity is doing)
+     * {@inheritDoc}
      */
     public String getStatus() {
-        return status;
+        if (status.isPresent()) {
+            return status.get();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
-     * 
-     * @param status that is going to be set (what the entity is doing)
+     * {@inheritDoc}
      */
     public void setStatus(final String status) {
-        this.status = status;
+        this.status = Optional.of(status);
     }
 }
