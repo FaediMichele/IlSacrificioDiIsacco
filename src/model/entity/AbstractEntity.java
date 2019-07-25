@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-
 import model.component.BodyComponent;
 import model.component.Component;
 import model.component.StatusComponent;

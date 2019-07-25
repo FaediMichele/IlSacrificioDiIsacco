@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
 import org.junit.Test;
-
 import model.component.AbstractAIComponent;
 import model.component.BlackHeart;
 import model.component.BodyComponent;
@@ -445,6 +445,17 @@ public class TestModel {
         t.update(deltaTime);
         BodyComponent secondPosition = getBodyComponent(t);
         assertTrue(firstPosition.getV2() < secondPosition.getPosition().getV2());
+    }
+    /**
+     * Test for the map.
+     */
+    @Test
+    public void testMap() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "uno");
+        assertEquals("uno", map.get(1));
+        map.put(1, "due");
+        assertEquals("due", map.get(1));
     }
 
     private HealthComponent getHealthComponent(final Entity e) {

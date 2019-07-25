@@ -5,7 +5,6 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import util.EventListener;
-import util.Pair;
 import util.enumeration.BasicKeyMapStatusEnum;
 import util.enumeration.BasicStatusEnum;
 

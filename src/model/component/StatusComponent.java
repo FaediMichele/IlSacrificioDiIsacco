@@ -3,6 +3,8 @@ package model.component;
 import java.util.HashMap;
 import java.util.Map;
 import model.entity.Entity;
+import util.enumeration.BasicEntityID;
+import util.enumeration.BasicKeyMapStatusEnum;
 import util.enumeration.KeyMapStatusEnum;
 import util.enumeration.ValuesMapStatusEnum;
 
@@ -18,7 +20,7 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public StatusComponent(final Entity entity) {
         super(entity);
-        this.status = new HashMap<>();
+        this.init();
     }
 
     /**
@@ -39,4 +41,9 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      public void setStatus(final KeyMapStatusEnum key, final ValuesMapStatusEnum value) {
         this.status.put(key, value);
     }
+
+     private void init() {
+         this.status = new HashMap<>();
+         this.status.put(BasicKeyMapStatusEnum.ID, new BasicEntityID(getEntity().getUUID()));
+     }
 }
