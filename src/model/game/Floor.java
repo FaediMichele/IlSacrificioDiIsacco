@@ -3,6 +3,7 @@ package model.game;
 import java.util.Set;
 
 import model.entity.Entity;
+import util.EventListener;
 
 /**
  * Interface for the floor.
@@ -58,4 +59,16 @@ public interface Floor {
      * @param destination the room to position the entity.
      */
     void changeEntityRoom(Entity e, Integer location, Integer destination);
+
+    /**
+     * Add a listener for changes that can be useful from the outside.
+     * @param eventListener the {@link EventListener} to add.
+     */
+    void registerListener(EventListener<?> eventListener);
+
+    /**
+     * remove a listener for changes of the {@link Floor}.
+     * @param eventListener the {@link EventListener} to remove.
+     */
+    void unregisterListener(EventListener<?> eventListener);
 }

@@ -3,6 +3,7 @@ package model.game;
 import java.util.List;
 
 import model.entity.Player;
+import util.EventListener;
 
 /**
  * The interface for the whole game.
@@ -41,4 +42,16 @@ public interface GameWorld {
      * @param activeFloor the active floor index
      */
     void setActiveFloor(Integer activeFloor);
+
+    /**
+     * Add a listener for changes that can be useful from the outside.
+     * @param eventListener the {@link EventListener} to add.
+     */
+    void registerListener(EventListener<?> eventListener);
+
+    /**
+     * remove a listener for changes of the game.
+     * @param eventListener the {@link EventListener} to remove.
+     */
+    void unregisterListener(EventListener<?> eventListener);
 }

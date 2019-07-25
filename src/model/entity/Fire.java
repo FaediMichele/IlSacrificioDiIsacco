@@ -3,6 +3,7 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.FireAIComponent;
 import model.component.FireType;
+import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.PsychoMentalityComponent;

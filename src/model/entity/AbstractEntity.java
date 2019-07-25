@@ -31,7 +31,6 @@ public abstract class AbstractEntity implements Entity {
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap;
 
-    
     private Room room;
 
     /**

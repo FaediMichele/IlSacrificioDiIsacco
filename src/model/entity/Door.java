@@ -4,6 +4,7 @@ import model.component.BodyComponent;
 import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
+import model.component.ObstacleComponent;
 import model.component.mentality.NeutralMentalityComponent;
 
 /**
@@ -26,10 +27,10 @@ public class Door extends AbstractStaticEntity {
      */
     public Door(final Integer location, final Integer destinationIndex) {
         super();
-        this.attachComponent(generateBody(location));
-        this.attachComponent(new DoorAIComponent(this, location, destinationIndex));
-        this.attachComponent(new NeutralMentalityComponent(this));
-        this.attachComponent(new LockComponent(this));
+        this.attachComponent(generateBody(location))
+            .attachComponent(new DoorAIComponent(this, location, destinationIndex))
+            .attachComponent(new NeutralMentalityComponent(this))
+            .attachComponent(new LockComponent(this));
     }
 
     /**

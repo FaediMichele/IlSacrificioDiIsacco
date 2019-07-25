@@ -6,6 +6,7 @@ import java.util.Set;
 
 import model.entity.Door;
 import model.entity.Entity;
+import util.EventListener;
 import util.Pair;
 import util.enumeration.KeyMapStatusEnum;
 import util.enumeration.ValuesMapStatusEnum;
