@@ -359,7 +359,7 @@ public class TestModel {
     /**
      * Test for {@link InventoryComponent}.
      */
-    @Test
+    /*@Test
     public void testInventoryComponent() {
         final Player player = new Player();
         final Bomb bomb = new Bomb();
@@ -418,7 +418,7 @@ public class TestModel {
         door.postEvent(new CollisionEvent(player));
         assertEquals(1, getInventoryComponent(player).getThings().size());
         assertFalse(room.getEntity().contains(key));
-    }
+    }*/
 
     /**
      * Test for {@link InventoryComponent}.

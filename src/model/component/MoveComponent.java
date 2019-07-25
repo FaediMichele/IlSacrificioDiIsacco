@@ -39,6 +39,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     private double xMove;
     private double yMove;
     private double zMove;
+    private double lastMovementAngle;
     private final double maxSpeed;
     private final double friction;
 
@@ -176,11 +177,29 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
             this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
             this.postLogs();
             this.initMove();
+            this.setLastMovementAngle();
         }
     }
 
     private BodyComponent getBody() {
-        return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
+        if (this.getEntity().getComponent(BodyComponent.class).isPresent()) {
+            return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    /**
+     * @return the angle of the last Movement accomplished by the entity.
+     */
+    public double getLastMovementAngle() {
+        return lastMovementAngle;
+    }
+
+    private void setLastMovementAngle() {
+        final double deltaX = this.getBody().getPosition().getV1() - this.getBody().getPositionPrevious().getV1();
+        final double deltaY = this.getBody().getPosition().getV2() - this.getBody().getPositionPrevious().getV2();
+        this.lastMovementAngle = Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
     }
 
     private void postLogs() {
