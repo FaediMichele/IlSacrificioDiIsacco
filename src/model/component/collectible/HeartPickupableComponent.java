@@ -1,11 +1,12 @@
 package model.component.collectible;
 
+import java.util.Objects;
+
 import model.component.BlackHeart;
 import model.component.HealthComponent;
 import model.component.Heart;
 import model.component.SimpleHeart;
 import model.entity.Entity;
-import util.Pair;
 
 /**
  * Collectible Component of the heart entity: how the heart have to act when
@@ -50,8 +51,8 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
      */
     @Override
     public void init(final Entity entity) {
-        final HealthComponent healthComponent = ((HealthComponent) entity
-                .getComponent(HealthComponent.class).get());
+        Objects.requireNonNull(entity);
+        final HealthComponent healthComponent = this.getHealthComponent(entity);
 
         if (heartKind.equals(BlackHeart.class)) {
             healthComponent.addHeart(new BlackHeart.Builder(entity).heartValue(actualValue).build());
@@ -66,11 +67,19 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
                 e.printStackTrace();
             }
         }
+// la pesno che i get di di stato debbano essere fatti a livello di componente della vita
+//        if (actualValue > 0.5 && actualValue < 1) {
+//            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "full"));
+//        } else if (actualValue > 0.0 && actualValue <= 0.5) {
+//            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "half"));
+//        }
+    }
 
-        if (actualValue > 0.5 && actualValue < 1) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "full"));
-        } else if (actualValue > 0.0 && actualValue <= 0.5) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "half"));
+    private HealthComponent getHealthComponent(final Entity e) {
+        if (e.getComponent(HealthComponent.class).isPresent()) {
+            return ((HealthComponent) e.getComponent(HealthComponent.class).get());
+        } else {
+            throw new IllegalStateException();
         }
     }
 

@@ -1,10 +1,13 @@
 package model.game;
 
+import java.util.Map;
 import java.util.Set;
 
 import model.entity.Door;
 import model.entity.Entity;
 import util.Pair;
+import util.enumeration.KeyMapStatusEnum;
+import util.enumeration.ValuesMapStatusEnum;
 
 /**
  * The interface for the rooms for the floor. It have enemy and environment
@@ -17,6 +20,13 @@ public interface Room {
      * @return Set of all {@link Entity}.
      */
     Set<? extends Entity> getEntity();
+
+    /**
+     * Get all the status of all the entities.
+     * Get also the deleted entities if not already got before.
+     * @return the map from {@link KeyMapStatusEnum} to {@link ValuesMapStatusEnum}.
+     */
+    Map<KeyMapStatusEnum, ValuesMapStatusEnum> getEntitysStatus();
 
     /**
      * Get the door that the room have.
@@ -82,4 +92,13 @@ public interface Room {
      * @param f the {@link Floor} where the room is
      */
     void setFloor(Floor f);
+
+    /**
+     * Get the shortest path. 
+     * Be careful to not use this every frame because it cost.
+     * @param start the entity to start the route.
+     * @param dest the entity of destination.
+     * @return a near point to the preferred path.
+     */
+    Pair<Double, Double> getRoute(Entity start, Entity dest);
 }

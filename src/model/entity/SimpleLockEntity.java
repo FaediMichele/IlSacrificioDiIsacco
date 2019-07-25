@@ -10,6 +10,7 @@ import model.component.collision.LockCollisionComponent;
 public class SimpleLockEntity extends AbstractStaticEntity {
 
     SimpleLockEntity() {
+        super();
         this.attachComponent(new LockCollisionComponent(this));
     }
 }

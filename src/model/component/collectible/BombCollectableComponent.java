@@ -2,11 +2,8 @@ package model.component.collectible;
 
 import model.component.BodyComponent;
 import model.component.DamageComponent;
-import model.component.InventoryComponent;
 import model.component.mentality.PsychoMentalityComponent;
-//import model.entity.BombTriggered;
 import model.entity.Entity;
-import util.Pair;
 
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's
@@ -40,7 +37,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
     @Override
     public void init(final Entity entity) {
         super.init(entity);
-        getEntity().getStatusComponent().setStatus(new Pair<>(1, "collectible"));
+        //getEntity().getStatusComponent().setStatus(new Pair<>(1, "collectible"));
     }
 
     /**
@@ -48,21 +45,16 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
      */
     @Override
     public void use() {
-        ((InventoryComponent) this.getEntityThatCollectedMe().get().getComponent((InventoryComponent.class)).get())
-                .releaseThing(this.getEntity());
-        ((BodyComponent) getEntity().getComponent(BodyComponent.class).get())
-                .setPosition(((BodyComponent) getEntityThatCollectedMe().get().getComponent(BodyComponent.class).get())
-                        .getPosition());
-        this.getEntityThatCollectedMe().get().getRoom().insertEntity(getEntity());
+        super.getInventoryComponent().releaseThing(this.getEntity());
         new Thread() {
             @Override
             public void run() {
                 try {
-                    getEntity().getStatusComponent().setStatus(new Pair<>(1, "triggered"));
+                    //getEntity().getStatusComponent().setStatus(new Pair<>(1, "triggered"));
                     Thread.sleep(timeBeforeExplodes);
                     ((BodyComponent) getEntity().getComponent(BodyComponent.class).get())
                             .scaleDimension(explosionScale);
-                    getEntity().getStatusComponent().setStatus(new Pair<>(1, "explode"));
+                    //getEntity().getStatusComponent().setStatus(new Pair<>(1, "explode"));
                     getEntity().attachComponent(new DamageComponent(getEntity(), 0.5))
                             .attachComponent(new PsychoMentalityComponent(getEntity()));
                     Thread.sleep(explosionTime);
@@ -73,4 +65,5 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
             }
         }.start();
     }
+
 }

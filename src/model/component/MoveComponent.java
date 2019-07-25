@@ -5,7 +5,8 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.MoveEvent;
 import util.EventListener;
-import util.Pair;
+import util.enumeration.BasicKeyMapStatusEnum;
+import util.enumeration.BasicMovementEnum;
 
 /**
  * Component that manages the movement of the entity and its speed.
@@ -39,6 +40,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     private double xMove;
     private double yMove;
     private double zMove;
+    private double lastMovementAngle;
     private final double maxSpeed;
     private final double friction;
 
@@ -176,23 +178,41 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
             this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
             this.postLogs();
             this.initMove();
+            this.setLastMovementAngle();
         }
     }
 
     private BodyComponent getBody() {
-        return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
+        if (this.getEntity().getComponent(BodyComponent.class).isPresent()) {
+            return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    /**
+     * @return the angle of the last Movement accomplished by the entity.
+     */
+    public double getLastMovementAngle() {
+        return lastMovementAngle;
+    }
+
+    private void setLastMovementAngle() {
+        final double deltaX = this.getBody().getPosition().getV1() - this.getBody().getPositionPrevious().getV1();
+        final double deltaY = this.getBody().getPosition().getV2() - this.getBody().getPositionPrevious().getV2();
+        this.lastMovementAngle = Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
     }
 
     private void postLogs() {
         if (xMove > 0) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move up"));
+            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.UP);
         } else if (xMove < 0) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move down"));
+            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.DOWN);
         }
         if (yMove > 0) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move right"));
+            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.RIGHT);
         } else if (yMove < 0) {
-            this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "move left"));
+            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.LEFT);
         }
     }
 }
