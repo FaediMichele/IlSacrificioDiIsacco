@@ -1,5 +1,6 @@
 package model.game;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,11 +23,11 @@ public interface Room {
     Set<? extends Entity> getEntity();
 
     /**
-     * Get all the status of all the entities.
-     * Get also the deleted entities if not already got before.
+     * Get a list of the status of all the entities.
+     * Get also the deleted entities if not already got before then delete them.
      * @return the map from {@link KeyMapStatusEnum} to {@link ValuesMapStatusEnum}.
      */
-    Map<KeyMapStatusEnum, ValuesMapStatusEnum> getEntitysStatus();
+    List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> getEntitysStatus();
 
     /**
      * Get the door that the room have.

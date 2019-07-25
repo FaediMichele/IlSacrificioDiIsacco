@@ -36,11 +36,6 @@ public interface GameWorld {
     void update(double deltaTime);
 
     /**
-     * React to the collision that is found at this time. 
-     */
-    void calculateCollision();
-
-    /**
      * Sets the active {@link Floor}.
      * 
      * @param activeFloor the active floor index

@@ -10,23 +10,20 @@ import model.component.mentality.NeutralMentalityComponent;
  */
 public class Wall extends AbstractStaticEntity {
 
-    /**
-     * Empty constructor.
-     */
-    public Wall() {
-        super();
-        this.attachComponent(new NeutralMentalityComponent(this));
-    }
+    private static final double WIDTH = 1;
+    private static final double HEIGHT = 1;
+    private static final int WEIGHT = 1;
 
     /**
-     * 
-     * @param entityBody      the {@link BodyComponent}
-     * @param entityCollision the {@link CollisionComponent}
-     * @param entityStatus    the {@link StatusComponent}
+     * Default constructor.
+     * @param x the position.
+     * @param y the position.
      */
-    public Wall(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this();
-        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
+    public Wall(final int x, final int y) {
+        super();
+        this.attachComponent(new NeutralMentalityComponent(this));
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
     }
 
 }

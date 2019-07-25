@@ -15,12 +15,13 @@ public class GameWorldImpl implements GameWorld {
     private final List<Floor> floors;
     private int activeFloor;
 
+
     /**
-     * @param player {@link Player}
+     * Create a new Game World.
      */
-    public GameWorldImpl(final Player player) {
+    public GameWorldImpl() {
         this.floors = new LinkedList<>();
-        this.player = player;
+        this.player = new Player();
         this.activeFloor = 0;
     }
 
@@ -42,10 +43,6 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public final void update(final double deltaTime) {
         getActiveFloor().update(deltaTime);
-    }
-
-    @Override
-    public final void calculateCollision() {
         getActiveFloor().calculateCollision();
     }
 

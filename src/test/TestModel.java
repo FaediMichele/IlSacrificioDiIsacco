@@ -65,7 +65,7 @@ public class TestModel {
     public void testEntity() {
         final Entity p = new Player();
         final Entity p2 = new Player();
-        final Entity f = new Fire(FireType.RED);
+        final Entity f = new Fire(FireType.RED, 0, 0);
         final Entity d1 = new Door(0, 0);
         final Entity d2 = new Door(0, 0);
         p2.attachComponent(new BodyComponent(p2, 1, 1, 0, 1, 1, 2));
@@ -87,8 +87,8 @@ public class TestModel {
      */
     @Test
     public void testFire() {
-        final Fire f1 = new Fire(FireType.RED);
-        final Fire f2 = new Fire(FireType.BLUE);
+        final Fire f1 = new Fire(FireType.RED, 0, 0);
+        final Fire f2 = new Fire(FireType.BLUE, 0, 0);
         assertEquals(f1.getComponent(FireAIComponent.class).get(), new FireAIComponent(f1, FireType.RED));
         f1.postEvent(new FireHittedEvent(f1));
         assertFalse(f1.getComponent(FireAIComponent.class).get().equals(new FireAIComponent(f1, FireType.RED)));
@@ -145,13 +145,13 @@ public class TestModel {
     public void testRoom() {
         final List<Entity> e = new ArrayList<>();
         e.add(new Rock());
-        e.add(new Fire(FireType.RED));
+        e.add(new Fire(FireType.RED, 0, 0));
         final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
         e.forEach(entity -> assertEquals(entity.getRoom(), r));
 
         final List<Entity> e1 = new ArrayList<>();
         e1.add(new Rock());
-        e1.add(new Fire(FireType.RED));
+        e1.add(new Fire(FireType.RED, 0, 0));
         assertTrue(r.getEntity().containsAll(e1));
         r.updateEntity(0.0);
         r.updateEntity(10.0);

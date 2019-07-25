@@ -29,14 +29,6 @@ public class DoorComponent extends LockCollisionComponent {
      * {@inheritDoc}.
      */
     @Override
-    protected void unlocks(final Entity entity) {
-        super.unlocks(entity);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     protected void afterUnlocks(final Entity entity) {
         entity.getRoom().getFloor()
         .changeEntityRoom(entity, location, destination);

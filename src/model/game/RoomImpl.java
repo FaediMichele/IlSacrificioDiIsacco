@@ -91,12 +91,13 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public Map<KeyMapStatusEnum, ValuesMapStatusEnum> getEntitysStatus() {
+    public List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> getEntitysStatus() {
         final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> e = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
         final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> g = graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
         cleanGraveyard = true;
-        return Stream.concat(e, g).flatMap(map -> map.entrySet().stream())
-                .collect(Collectors.toMap(en -> (KeyMapStatusEnum) en.getKey(),  ent -> (ValuesMapStatusEnum) ent.getValue()));
+        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret = e.collect(Collectors.toList());
+        ret.addAll(g.collect(Collectors.toList()));
+        return ret;
     }
 
     /**
