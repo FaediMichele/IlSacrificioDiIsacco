@@ -1,8 +1,8 @@
 package util.enumeration;
 
 /**
- * Interface for all the different upgrades enums.
+ * It contains the possible value for the status map.
  */
-public enum UpgradeEnum implements ValueMapStatusEnum {
+public interface UpgradeEnum extends BasicEnum {
 
 }
