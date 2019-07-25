@@ -179,7 +179,7 @@ public class TestModel {
         final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
         Set<Pair<Entity, Entity>> coll = r.getEntityColliding();
         assertTrue(coll.size() == 0);
-        b.setPosition(0, 5, 5);
+        b.setPosition(0, 4, 4);
         r.calculateCollision();
         assertTrue(r.getEntityColliding().size() == 1);
         r.updateEntity(90.0);
@@ -200,8 +200,6 @@ public class TestModel {
      */
     @Test
     public void createNPC() {
-        // final Entity entity, final double x, final double y, final double z, final double height,
-        //       final double width, final int weight
         Entity ret = createNPC(0, 0);
         assertNotNull(ret);
         assertNotNull(ret.getStatusComponent());

@@ -1,6 +1,6 @@
 package util;
 
-import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Two dimension array.
@@ -73,12 +73,26 @@ public class Matrix<T> {
      * @param element element to set
      */
     public void set(final int posX, final int posY, final T element) {
-        Objects.requireNonNull(element, "Element must not be null");
         lastX = posX;
         lastY = posY;
         mat[posX][posY] = element;
     }
 
+    /**
+     * Set any element that pass the predicate to a value.
+     * @param element the value to set to the element.
+     * @param p a function that say if an element will be override or not.
+     */
+    @SuppressWarnings("unchecked")
+    public void setToPredicate(final T element, final Predicate<T> p) {
+        for (int i = 0; i < dimX; i++) {
+            for (int j = 0; j < dimY; j++) {
+                if (p.test((T) mat[i][j])) {
+                    mat[i][j] = element;
+                }
+            }
+        }
+    }
     /**
      * Get the last element setted or getted.
      * 
