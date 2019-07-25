@@ -25,7 +25,6 @@ public abstract class AbstractPickupableComponent extends AbstractComponent<Abst
         this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "deleted"));
     }
 
-
     /**
      * It is the function that is called when the entity tries to be collected.
      * 

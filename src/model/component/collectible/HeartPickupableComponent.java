@@ -1,5 +1,7 @@
 package model.component.collectible;
 
+import java.util.Objects;
+
 import model.component.BlackHeart;
 import model.component.HealthComponent;
 import model.component.Heart;
@@ -50,8 +52,8 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
      */
     @Override
     public void init(final Entity entity) {
-        final HealthComponent healthComponent = ((HealthComponent) entity
-                .getComponent(HealthComponent.class).get());
+        Objects.requireNonNull(entity);
+        final HealthComponent healthComponent = this.getHealthComponent(entity);
 
         if (heartKind.equals(BlackHeart.class)) {
             healthComponent.addHeart(new BlackHeart.Builder(entity).heartValue(actualValue).build());
@@ -71,6 +73,14 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
             this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "full"));
         } else if (actualValue > 0.0 && actualValue <= 0.5) {
             this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "half"));
+        }
+    }
+
+    private HealthComponent getHealthComponent(final Entity e) {
+        if (e.getComponent(HealthComponent.class).isPresent()) {
+            return ((HealthComponent) e.getComponent(HealthComponent.class).get());
+        } else {
+            throw new IllegalStateException();
         }
     }
 

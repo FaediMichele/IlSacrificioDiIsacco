@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.Objects;
+
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.entity.Entity;
@@ -71,9 +73,7 @@ public class BlackHeart extends SimpleHeart {
          * @return      actual blackHeart
          */
         public BlackHeart build() {
-            if (this.e == null) {
-                throw new IllegalStateException();
-            }
+            Objects.requireNonNull(this.e);
             return new BlackHeart(this.e, this.enemyDamage, this.heartValue);
         }
     }

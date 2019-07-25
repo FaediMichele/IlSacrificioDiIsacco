@@ -37,6 +37,10 @@ public abstract class AbstractAIComponent extends AbstractComponent<AbstractAICo
      * @return the MoveComponent
      */
     protected MoveComponent getMoveComponent(final Entity e) {
-        return ((MoveComponent) e.getComponent(MoveComponent.class).get());
+        if (e.getComponent(MoveComponent.class).isPresent()) {
+            return ((MoveComponent) e.getComponent(MoveComponent.class).get());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 }
