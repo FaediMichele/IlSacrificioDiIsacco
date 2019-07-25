@@ -1,10 +1,13 @@
 package model.game;
 
+import java.util.Map;
 import java.util.Set;
 
 import model.entity.Door;
 import model.entity.Entity;
 import util.Pair;
+import util.enumeration.KeyMapStatusEnum;
+import util.enumeration.ValuesMapStatusEnum;
 
 /**
  * The interface for the rooms for the floor. It have enemy and environment
@@ -17,6 +20,13 @@ public interface Room {
      * @return Set of all {@link Entity}.
      */
     Set<? extends Entity> getEntity();
+
+    /**
+     * Get all the status of all the entities.
+     * Get also the deleted entities if not already got before.
+     * @return the map from {@link KeyMapStatusEnum} to {@link ValuesMapStatusEnum}.
+     */
+    Map<KeyMapStatusEnum, ValuesMapStatusEnum> getEntitysStatus();
 
     /**
      * Get the door that the room have.
