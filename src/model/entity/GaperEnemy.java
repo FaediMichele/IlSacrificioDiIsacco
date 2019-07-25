@@ -1,7 +1,7 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.GaperAIComponent;
+import model.component.FollowAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.collision.MovableCollisionComponent;
@@ -26,7 +26,7 @@ public class GaperEnemy extends AbstractEnemyMovable {
      */
     public <C extends MovableCollisionComponent> GaperEnemy(final BodyComponent entityBody, final C entityCollision, final StatusComponent entityStatus) {
         super(entityBody, entityCollision, entityStatus);
-        this.attachComponent(new GaperAIComponent(this));
+        this.attachComponent(new FollowAIComponent(this));
         this.attachComponent(new MoveComponent(this, DSPEED, MAXSPEED, FRICTION));
     }
 
@@ -41,6 +41,6 @@ public class GaperEnemy extends AbstractEnemyMovable {
         this.attachComponent(new MoveComponent(this, DSPEED, MAXSPEED, FRICTION));
         this.attachComponent(new MovableCollisionComponent(this));
         this.attachComponent(new StatusComponent(this));
-        this.attachComponent(new GaperAIComponent(this));
+        this.attachComponent(new FollowAIComponent(this));
     }
 }

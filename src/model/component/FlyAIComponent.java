@@ -16,14 +16,14 @@ import java.util.Optional;
 /**
  * AI for the Gaper monster.
  */
-public class GaperAIComponent extends AbstractAIComponent {
+public class FlyAIComponent extends AbstractAIComponent {
 
     private double angle;
     /**
-     * Each time the Gaper collides with somethig, re-calculates the angle to get to isaac.
+     * Each time the Gaper collides with something, re-calculates the angle to get to isaac.
      * @param entity for this component
      */
-    public GaperAIComponent(final Entity entity) {
+    public FlyAIComponent(final Entity entity) {
         super(entity);
         calculateAngle();
 
@@ -66,6 +66,7 @@ public class GaperAIComponent extends AbstractAIComponent {
     /**
      * Update of the MoveComponent done by this AI.
      */
+    @Override
     protected void moveUpdate() {
         super.getMoveComponent(getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
     }
