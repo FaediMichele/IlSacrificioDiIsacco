@@ -29,7 +29,7 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public Map<KeyMapStatusEnum, ValuesMapStatusEnum> getStatus() {
         Map<KeyMapStatusEnum, ValuesMapStatusEnum> aux = status;
-        this.status = new HashMap<>();
+        this.status.clear();
         return aux;
     }
 

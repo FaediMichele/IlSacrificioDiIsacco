@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.DamageEvent;
+import model.events.DeadEvent;
 import util.EventListener;
 import util.enumeration.BasicKeyMapStatusEnum;
 import util.enumeration.BasicStatusEnum;
@@ -115,6 +116,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
         }
         if (!this.isAlive()) {
             this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.STATUS, BasicStatusEnum.DEAD);
+            this.getEntity().postEvent(new DeadEvent(this.getEntity()));
         } else {
             this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.STATUS, BasicStatusEnum.DAMAGING);
         }

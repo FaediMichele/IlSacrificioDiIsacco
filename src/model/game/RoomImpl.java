@@ -7,14 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
+import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.events.CollisionEvent;
+import model.events.DeadEvent;
+import util.EventListener;
 import util.Pair;
 import util.Space;
+import util.enumeration.KeyMapStatusEnum;
+import util.enumeration.ValuesMapStatusEnum;
 
 /**
  * This class is the implementation for the room.
@@ -23,6 +29,8 @@ import util.Space;
 public class RoomImpl implements Room {
 
     private final List<Entity> entity;
+    private final List<Entity> graveyard = new ArrayList<Entity>();
+    private boolean cleanGraveyard;
     private final List<? extends Door> doors;
     private boolean isComplete;
     private final int index;
@@ -30,6 +38,19 @@ public class RoomImpl implements Room {
     private final Space sp = new Space();
     private final Map<Entity, Space.Rectangle> entityRectangleSpace = new LinkedHashMap<>();
     private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new LinkedHashMap<>();
+
+    /**
+     * Create a room with only door. Entity is calculated based on the door.
+     * 
+     * @param index the index of the room
+     * @param doors the door of this room
+     */
+    public RoomImpl(final int index, final List<Door> doors) {
+        this.index = index;
+        this.doors = doors;
+        this.entity = new ArrayList<>();
+        cleanGraveyard = false;
+    }
 
     /**
      * Create a room with door and entity.
@@ -49,24 +70,13 @@ public class RoomImpl implements Room {
             rectangleEntitySpace.put(r, e);
             sp.addRectangle(r);
             e.changeRoom(this);
+            addEventEntity(e);
         });
+        cleanGraveyard = false;
     }
-
     private Space.Rectangle getShape(final Entity e) {
         final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
         return new Space.Rectangle(b.getPosition().getV1(), b.getPosition().getV2(), b.getWidth(), b.getHeight());
-    }
-
-    /**
-     * Create a room with only door. Entity is calculated based on the door.
-     * 
-     * @param index the index of the room
-     * @param doors the door of this room
-     */
-    public RoomImpl(final int index, final List<Door> doors) {
-        this.index = index;
-        this.doors = doors;
-        this.entity = new ArrayList<>();
     }
 
     /**
@@ -75,6 +85,18 @@ public class RoomImpl implements Room {
     @Override
     public Set<? extends Entity> getEntity() {
         return new LinkedHashSet<Entity>(this.entity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<KeyMapStatusEnum, ValuesMapStatusEnum> getEntitysStatus() {
+        final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> e = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
+        final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> g = graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
+        cleanGraveyard = true;
+        return Stream.concat(e, g).flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(en -> (KeyMapStatusEnum) en.getKey(),  ent -> (ValuesMapStatusEnum) ent.getValue()));
     }
 
     /**
@@ -92,7 +114,7 @@ public class RoomImpl implements Room {
     public void updateEntity(final Double deltaTime) {
         this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
-                .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 0) {
+                .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
             this.isComplete = true;
         }
     }
@@ -165,6 +187,20 @@ public class RoomImpl implements Room {
         rectangleEntitySpace.put(r, e);
         sp.addRectangle(r);
         e.changeRoom(this);
+        addEventEntity(e);
+    }
+    private void addEventEntity(final Entity e) {
+        e.registerListener(new EventListener<DeadEvent>() {
+            @Override
+            public void listenEvent(final DeadEvent event) {
+                entity.remove(e);
+                if (cleanGraveyard) {
+                    graveyard.clear();
+                    cleanGraveyard = false;
+                }
+                graveyard.add(e);
+            }
+        });
     }
 
     /**
