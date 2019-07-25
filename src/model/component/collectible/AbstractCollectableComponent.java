@@ -1,5 +1,6 @@
 package model.component.collectible;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import model.component.Component;
@@ -25,6 +26,7 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      */
     @Override
     public void init(final Entity entity) {
+        Objects.requireNonNull(entity);
         final Optional<Component> optComponent = entity.getComponents().stream().filter(c -> c.getClass().equals(InventoryComponent.class)).findFirst();
         if (optComponent.isPresent()) {
             final InventoryComponent inventoryComponent = (InventoryComponent) optComponent.get();
@@ -37,10 +39,14 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
 
     /**
      * 
-     * @return {@link Optional} of {@link Entity} that collect this entity.
+     * @return {@link Entity} that collect this entity, throws an exception if it's not present.
      */
-    public Optional<Entity> getEntityThatCollectedMe() {
-        return this.entityThatCollectedMe;
+    public Entity getEntityThatCollectedMe() {
+        if (this.entityThatCollectedMe.isPresent()) {
+            return this.entityThatCollectedMe.get();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     /**
@@ -49,6 +55,17 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      */
     protected void setEntityThatCollectedMe(final Entity entityThatCollectedMe) {
         this.entityThatCollectedMe = Optional.of(entityThatCollectedMe);
+    }
+
+    /**
+     * @return the InventoryComponent ot the Entity that collected this entity.
+     */
+    protected InventoryComponent getInventoryComponent() {
+        if (this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).isPresent()) {
+            return ((InventoryComponent) this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).get());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     /**

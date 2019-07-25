@@ -2,9 +2,7 @@ package model.component.collectible;
 
 import model.component.BodyComponent;
 import model.component.DamageComponent;
-import model.component.InventoryComponent;
 import model.component.mentality.PsychoMentalityComponent;
-//import model.entity.BombTriggered;
 import model.entity.Entity;
 import util.Pair;
 
@@ -48,12 +46,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
      */
     @Override
     public void use() {
-        ((InventoryComponent) this.getEntityThatCollectedMe().get().getComponent((InventoryComponent.class)).get())
-                .releaseThing(this.getEntity());
-        ((BodyComponent) getEntity().getComponent(BodyComponent.class).get())
-                .setPosition(((BodyComponent) getEntityThatCollectedMe().get().getComponent(BodyComponent.class).get())
-                        .getPosition());
-        this.getEntityThatCollectedMe().get().getRoom().insertEntity(getEntity());
+        super.getInventoryComponent().releaseThing(this.getEntity());
         new Thread() {
             @Override
             public void run() {
@@ -73,4 +66,5 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
             }
         }.start();
     }
+
 }
