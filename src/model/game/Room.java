@@ -82,4 +82,13 @@ public interface Room {
      * @param f the {@link Floor} where the room is
      */
     void setFloor(Floor f);
+
+    /**
+     * Get the shortest path. 
+     * Be careful to not use this every frame because it cost.
+     * @param start the entity to start the route.
+     * @param dest the entity of destination.
+     * @return a near point to the preferred path.
+     */
+    Pair<Double, Double> getRoute(Entity start, Entity dest);
 }

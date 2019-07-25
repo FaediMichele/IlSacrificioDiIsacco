@@ -191,4 +191,12 @@ public class RoomImpl implements Room {
         }
         this.floor = f;
     }
+
+    /**
+     * {@inheritDoc} .
+     */
+    @Override
+    public Pair<Double, Double> getRoute(final Entity start, final Entity dest) {
+        return sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
+    }
 }
