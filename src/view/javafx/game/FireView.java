@@ -2,6 +2,7 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,25 +24,25 @@ public class FireView extends AbstractEntityView {
 
     static {
         try {
-            fireSprites.put(FireColour.RED, FireView.getFires("effect_005_fire.png"));
-            fireSprites.put(FireColour.PURPLE, FireView.getFires("effect_005_fire_purple.png"));
-            fireSprites.put(FireColour.BLUE, FireView.getFires("effect_005_fire_blue.png"));
+            fireSprites.put(FireColour.RED, FireView.getFires("/gameImgs/effect_005_fire.png"));
+            fireSprites.put(FireColour.PURPLE, FireView.getFires("/gameImgs/effect_005_fire_purple.png"));
+            fireSprites.put(FireColour.BLUE, FireView.getFires("/gameImgs/effect_005_fire_blue.png"));
 
-            dyingFireSprites.put(FireColour.RED, FireView.getDyingFires("effect_005_fire.png"));
-            dyingFireSprites.put(FireColour.PURPLE, FireView.getDyingFires("effect_005_fire_purple.png"));
-            dyingFireSprites.put(FireColour.BLUE, FireView.getDyingFires("effect_005_fire_blue.png"));
+            dyingFireSprites.put(FireColour.RED, FireView.getDyingFires("/gameImgs/effect_005_fire.png"));
+            dyingFireSprites.put(FireColour.PURPLE, FireView.getDyingFires("/gameImgs/effect_005_fire_purple.png"));
+            dyingFireSprites.put(FireColour.BLUE, FireView.getDyingFires("/gameImgs/effect_005_fire_blue.png"));
 
-            fireGridSprites.put(FireColour.RED, FireView.getFireGrids("grid_fireplace.png"));
-            fireGridSprites.put(FireColour.PURPLE, FireView.getFireGrids("grid_fireplace_purple.png"));
-            fireGridSprites.put(FireColour.BLUE, FireView.getFireGrids("grid_fireplace_blue.png"));
+            fireGridSprites.put(FireColour.RED, FireView.getFireGrids("/gameImgs/grid_fireplace.png"));
+            fireGridSprites.put(FireColour.PURPLE, FireView.getFireGrids("/gameImgs/grid_fireplace_purple.png"));
+            fireGridSprites.put(FireColour.BLUE, FireView.getFireGrids("/gameImgs/grid_fireplace_blue.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private final List<Image> fireSprite;
-    private final List<Image> dyingFireSprite;
-    private final List<Image> fireGridSprite;
+    private final List<Image> fireSprite = new ArrayList<Image>();
+    private final List<Image> dyingFireSprite = new ArrayList<Image>();
+    private final List<Image> fireGridSprite = new ArrayList<Image>();
 
     private int fireIndex;
     private int dyingIndex;
@@ -77,9 +78,9 @@ public class FireView extends AbstractEntityView {
      */
     public FireView(final GameViewImpl gv, final FireColour colour) {
         super(gv);
-        this.fireSprite = fireSprites.get(colour);
-        this.dyingFireSprite = dyingFireSprites.get(colour);
-        this.fireGridSprite = fireGridSprites.get(colour);
+        this.fireSprite.addAll(fireSprites.get(colour));
+        this.dyingFireSprite.addAll(dyingFireSprites.get(colour));
+        this.fireGridSprite.addAll(fireGridSprites.get(colour));
         this.dyingIndex = 0;
         this.fireIndex = 0;
         this.gridIndex = 0;

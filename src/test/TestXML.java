@@ -41,15 +41,15 @@ public class TestXML {
      */
     @Test
     public void testXmltoMap() {
-        /*Map<EntityEnum, Class<? extends EntityView>> map = StaticMethodsUtils.xmlToMap("/xml/Entity.xml", "Entity", "path-entityEnum", "path-entityView");
+        Map<EntityEnum, Class<? extends EntityView>> map = StaticMethodsUtils.xmlToMap("/xml/Entity.xml", "Entity", "path-entityEnum", "path-entityView");
         System.out.println(map.size());
         map.forEach((k, v) -> {
             System.out.println(k.getValue() + " " + v.getCanonicalName());
         });
-        */
         try {
-            //Enum.valueOf(Class<EntityEnum> , name)
-            Class.forName("util.enumeration.BasicEntityEnum.WALL");
+            String s = "util.enumeration.BasicEntityEnum.WALL";
+            System.out.println(Enum.valueOf((Class<Enum>) Class.forName(s.substring(0,  s.lastIndexOf("."))), s.substring(s.lastIndexOf(".") + 1)));
+            //Class.forName("util.enumeration.BasicEntityEnum.WALL");
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
