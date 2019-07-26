@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -219,18 +220,23 @@ public final class StaticMethodsUtils {
  * @param tag .
  * @return .
  */
+    @SuppressWarnings("unchecked")
     public static <X, Y> Map<X, Y> xmlToMap(final String path, final String tag) {
         Map<X, Y> map = new HashMap<>();
-//        List<Node> node = StaticMethodsUtils.getNodesFromNodelList(
-//                StaticMethodsUtils.getDocumentXML(path)
-//                .getElementsByTagName(tag));
-//        node.forEach(n -> {
-//            NodeList tmp = n.getChildNodes();
-//            for (int i = 1; i < tmp.getLength(); i = i + 2) {
-//                map.put(Class.forName(tmp.item(i).getNodeName()), Class.forName(tmp.item(i).getTextContent()));
-//                //System.out.println(tmp.item(i).getNodeName() + " --> " + tmp.item(i).getTextContent());
-//            }
-//        });
+        List<Node> node = StaticMethodsUtils.getNodesFromNodelList(
+                StaticMethodsUtils.getDocumentXML(path)
+                .getElementsByTagName(tag));
+        node.forEach(n -> {
+            NodeList tmp = n.getChildNodes();
+            for (int i = 1; i < tmp.getLength(); i = i + 2) {
+                try {
+                    map.put((X) Class.forName(tmp.item(i).getNodeName()), (Y) Class.forName(tmp.item(i).getTextContent()));
+                } catch (ClassNotFoundException | DOMException e) {
+                    e.printStackTrace();
+                }
+                //System.out.println(tmp.item(i).getNodeName() + " --> " + tmp.item(i).getTextContent());
+            }
+        });
         return (Map<X, Y>) map;
     }
 }
