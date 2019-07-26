@@ -7,8 +7,6 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
 import model.entity.Player;
-import model.events.CollisionEvent;
-import model.events.Event;
 import model.events.FloorChangedEvent;
 import model.events.RoomChangedEvent;
 import util.EventListener;

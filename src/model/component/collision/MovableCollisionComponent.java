@@ -71,14 +71,14 @@ public class MovableCollisionComponent extends CollisionComponent {
         final double v1f = (sumx - v2f * Math.cos(b)) / Math.cos(a);
 
         final double v1x = v1f * Math.cos(a), v1y = v1f * Math.sin(a);
-        final double v2x = v2f * Math.cos(b), v2y = v2f * Math.sin(b);
+        //final double v2x = v2f * Math.cos(b), v2y = v2f * Math.sin(b);
 
         getEntity().postEvent(new MoveEvent(getEntity(), v1x, v1y, 0));
     }
 
-    private double getAngle(final double deltaX, final double deltaY) {
-        return Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
-    }
+//    private double getAngle(final double deltaX, final double deltaY) {
+//        return Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
+//    }
 
     private BodyComponent getBodyComponent(final Entity e) {
         if (e.getComponent(BodyComponent.class).isPresent()) {

@@ -3,7 +3,6 @@ package util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -72,7 +71,7 @@ public class Space {
         for (int i = 0; i < rs.size(); i++) {
             for (int k = i + 1; k < rs.size(); k++) {
                 final Rectangle tmp = rs.get(k);
-                if (rs.get(i).collide(rs.get(k))) {
+                if (rs.get(i).collide(tmp)) {
                     ret.add(new Pair<Rectangle, Rectangle>(rs.get(i), rs.get(k)));
                 }
             }

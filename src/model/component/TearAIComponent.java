@@ -17,7 +17,7 @@ public class TearAIComponent extends AbstractAIComponent {
     private static final double DEFAULT_TEAR_LIFETIME = 2000000;
     private final double lifetime;
     private final int angle;
-    private double time = 0.0;
+    private double time;
 
     /**
      * @param entity this entity

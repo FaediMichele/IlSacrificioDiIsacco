@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
@@ -86,11 +85,9 @@ public class RoomImpl implements Room {
      */
     @Override
     public List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> getEntitysStatus() {
-        final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> e = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
-        final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> g = graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
+        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList());
+        ret.addAll(graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList()));
         cleanGraveyard = true;
-        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret = e.collect(Collectors.toList());
-        ret.addAll(g.collect(Collectors.toList()));
         return ret;
     }
 
