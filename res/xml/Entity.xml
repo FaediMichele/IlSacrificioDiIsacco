@@ -2,4 +2,15 @@
 
 <Entity>
     <SimpleEntityTest>test.TestControllerEntityView</SimpleEntityTest>
+    <PLAYER>IsaacView</PLAYER>
+    <FIRE>FireView</FIRE>
+    <GAPER>GaperView</GAPER>
+    <HEART_RED>HeartView</HEART_RED>
+    <DOOR>DoorView</DOOR>
+    <BOMB>BombView</BOMB>
+    <ENEMY_TEAR_SIMPLE>TearView</ENEMY_TEAR_SIMPLE>
+    <PLAYER_TEAR>TearView</PLAYER_TEAR>
+    <KEY>KeyView</KEY>
+    <ROCK>RockView</ROCK>
+    <WALL>WallView</WALL>
 </Entity>
