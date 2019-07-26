@@ -103,12 +103,13 @@ public abstract class AbstractEntity implements Entity {
         return this.getComponent(c).isPresent();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public final Optional<? extends Component> getComponent(final Class<? extends Component> c) {
+    public final <X extends Component> Optional<X> getComponent(final Class<X> c) {
         if (this.componentsMap.containsKey(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
-            return this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
+            return (Optional<X>) this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
         }
     }
 
