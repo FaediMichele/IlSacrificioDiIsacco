@@ -1,5 +1,7 @@
 package view.javafx.game;
 
+import java.util.Optional;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -73,7 +75,7 @@ public interface EntityView {
      * 
      * @return the status (what the entity is doing)
      */
-    String getStatus();
+    Optional<String> getStatus();
 
     /**
      * 
