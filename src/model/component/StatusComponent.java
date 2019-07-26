@@ -3,6 +3,7 @@ package model.component;
 import java.util.HashMap;
 import java.util.Map;
 import model.entity.Entity;
+import util.NotEquals;
 import util.enumeration.BasicEntityID;
 import util.enumeration.BasicKeyMapStatusEnum;
 import util.enumeration.KeyMapStatusEnum;
@@ -12,6 +13,7 @@ import util.enumeration.ValuesMapStatusEnum;
  * The component for the status of all entities.
  */
 public class StatusComponent extends AbstractComponent<StatusComponent> {
+    @NotEquals
     private Map<KeyMapStatusEnum, ValuesMapStatusEnum> status;
 
     /**
