@@ -2,12 +2,10 @@ package test;
 
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import util.StaticMethodsUtils;
 import util.enumeration.EntityEnum;
 import view.javafx.game.EntityView;
