@@ -2,11 +2,13 @@ package controller;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import test.EntityView;
 import util.enumeration.BasicEntityID;
 import util.enumeration.BasicKeyMapStatusEnum;
+import util.enumeration.BasicStatusEnum;
 import util.enumeration.KeyMapStatusEnum;
 import util.enumeration.ValuesMapStatusEnum;
 
@@ -28,14 +30,14 @@ public class EntityController {
     private static final String TAG_STATUS = "Status";
     private static final String ATTR1_STATUS = "";
     private static final String ATTR2_STATUS = "";
-    private static final Map<KeyMapStatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMap(PATH_STATUS,
+    private static final Map<ValuesMapStatusEnum, Method> STATUS_MAP = util.StaticMethodsUtils.xmlToMap(PATH_STATUS,
             TAG_STATUS, ATTR1_STATUS, ATTR2_STATUS);
 
     private static final String PATH_UPGRADE = "/xml/Upagrade.xml";
     private static final String TAG_UPGRADE = "Upgrade";
     private static final String ATTR1_UPGRADE = "";
     private static final String ATTR2_UPGRADE = "";
-    private static final Map<KeyMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMap(PATH_UPGRADE,
+    private static final Map<ValuesMapStatusEnum, Method> UPGADE_MAP = util.StaticMethodsUtils.xmlToMap(PATH_UPGRADE,
             TAG_UPGRADE, ATTR1_UPGRADE, ATTR2_UPGRADE);
 
     private final String id;
@@ -50,7 +52,17 @@ public class EntityController {
 
     }
 
-    void update(final Map<KeyMapStatusEnum, ValuesMapStatusEnum> status) {
-
+    /**
+     * 
+     * @param status is the status for the status component of entity.
+     */
+    public void update(final Map<KeyMapStatusEnum, ValuesMapStatusEnum> status) {
+        //update delle dimensioni
+        //update dello stato
+       try {
+        STATUS_MAP.get(status.get(BasicKeyMapStatusEnum.STATUS)).invoke(this.entityView, status.get(BasicKeyMapStatusEnum.MOVEMENT));
+    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        e.printStackTrace();
+    }
     }
 }
