@@ -5,7 +5,6 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import util.EventListener;
-import util.enumeration.BasicKeyMapStatusEnum;
 import util.enumeration.BasicStatusEnum;
 
 /**
@@ -88,7 +87,7 @@ public class TearAIComponent extends AbstractAIComponent {
         time += deltaTime;
         if (time > lifetime) {
             getEntity().getRoom().deleteEntity(this.getEntity());
-            getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.STATUS, BasicStatusEnum.DEAD);
+            getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
         } else {
             super.update(deltaTime);
         }

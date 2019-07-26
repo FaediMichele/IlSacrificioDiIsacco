@@ -5,7 +5,6 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.events.MoveEvent;
 import util.EventListener;
-import util.enumeration.BasicKeyMapStatusEnum;
 import util.enumeration.BasicMovementEnum;
 
 /**
@@ -205,14 +204,14 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
 
     private void postLogs() {
         if (xMove > 0) {
-            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.UP);
+            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
         } else if (xMove < 0) {
-            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.DOWN);
+            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.DOWN);
         }
         if (yMove > 0) {
-            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.RIGHT);
+            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.RIGHT);
         } else if (yMove < 0) {
-            this.getEntity().getStatusComponent().setStatus(BasicKeyMapStatusEnum.MOVEMENT, BasicMovementEnum.LEFT);
+            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);
         }
     }
 }

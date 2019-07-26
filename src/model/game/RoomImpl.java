@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.ObstacleComponent;
-import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.events.CollisionEvent;
@@ -85,9 +84,10 @@ public class RoomImpl implements Room {
      */
     @Override
     public List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> getEntitysStatus() {
-        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList());
-        ret.addAll(graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList()));
+        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret; // = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList());
+        //ret.addAll(graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList()));
         cleanGraveyard = true;
+        ret = new ArrayList<>(); 
         return ret;
     }
 

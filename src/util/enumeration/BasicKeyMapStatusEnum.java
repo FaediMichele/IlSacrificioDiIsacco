@@ -10,5 +10,5 @@ public enum BasicKeyMapStatusEnum implements KeyMapStatusEnum {
      * MOVEMENT = UP, DOWN, LEFT, RIGHT.
      * UPGRADE = the possible upgrades.
      */
-    ENTITY, STATUS, MOVEMENT, UPGRADE, ID;
+     STATUS, MOVEMENT, UPGRADE
 }

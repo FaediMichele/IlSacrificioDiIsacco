@@ -1,53 +1,92 @@
 package model.component;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import model.entity.Entity;
-import util.NotEquals;
-import util.enumeration.BasicEntityID;
-import util.enumeration.BasicKeyMapStatusEnum;
-import util.enumeration.KeyMapStatusEnum;
-import util.enumeration.ValuesMapStatusEnum;
+import util.enumeration.BasicStatusEnum;
+import util.enumeration.MovementEnum;
+import util.enumeration.StatusEnum;
+import util.enumeration.UpgradeEnum;
 
 /**
  * The component for the status of all entities.
  */
 public class StatusComponent extends AbstractComponent<StatusComponent> {
-    @NotEquals
-    private Map<KeyMapStatusEnum, ValuesMapStatusEnum> status;
+
+    private StatusEnum status;
+    private List<UpgradeEnum> upgrade;
+    private MovementEnum move;
 
     /**
      * 
-     * @param entity the {@link Entity}
+     * @param entity is {@link Entity} of component.
      */
     public StatusComponent(final Entity entity) {
         super(entity);
-        this.init();
+        this.reset();
     }
 
     /**
      * 
-     * @return the string list
+     * @return status
      */
-    public Map<KeyMapStatusEnum, ValuesMapStatusEnum> getStatus() {
-        final Map<KeyMapStatusEnum, ValuesMapStatusEnum> aux = new HashMap<>(status);
-        if (status != null) {
-            this.status.clear();
-        }
-        return aux;
+    public StatusEnum getStatus() {
+        return status;
     }
 
     /**
      * 
-     * @param key for map read of Controller:
-     * @param value for map read of Controller, the value must be in an interface that has been extended by the key.
+     * @param status 
      */
-     public void setStatus(final KeyMapStatusEnum key, final ValuesMapStatusEnum value) {
-        this.status.put(key, value);
+    public void setStatus(final StatusEnum status) {
+        this.status = status;
     }
 
-     private void init() {
-         this.status = new HashMap<>();
-         this.status.put(BasicKeyMapStatusEnum.ID, new BasicEntityID(getEntity().getUUID()));
-     }
+    /**
+     * 
+     * @return  upgrade
+     */
+    public List<UpgradeEnum> getUpgrade() {
+        return Collections.unmodifiableList(upgrade);
+    }
+
+    /**
+     * 
+     * @param upgrade 
+     */
+    public void addUpgrade(final UpgradeEnum upgrade) {
+        this.upgrade.add(upgrade);
+    }
+
+    /**
+     * 
+     * @param upgrade 
+     */ 
+    public void deleteUpgrade(final UpgradeEnum upgrade) {
+        this.upgrade.remove(upgrade);
+    }
+
+    /**
+     * 
+     * @return move
+     */
+    public MovementEnum getMove() {
+        return move;
+    }
+
+    /**
+     * 
+     * @param move 
+     */
+    public void setMove(final MovementEnum move) {
+        this.move = move;
+    }
+    /**
+     *  is reset.
+     */
+    public void reset() {
+        this.status = BasicStatusEnum.DEFAULT;
+        this.upgrade = new ArrayList<UpgradeEnum>();
+    }
 }
