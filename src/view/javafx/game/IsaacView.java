@@ -11,6 +11,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import com.sun.javafx.scene.traversal.Direction;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -117,6 +119,15 @@ public class IsaacView extends AbstractEntityView {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Static Method.
+     * @return the faceSprites
+     */
+    public static Map<Direction, List<Image>> getStaticFaceSprites() {
+        return faceSprites;
+    }
+
     /**
      * Base constructor, initilizes the indexes.
      */
@@ -143,8 +154,8 @@ public class IsaacView extends AbstractEntityView {
 
     private void setSprites(final Direction direction, final String status) {
         if (!checkSuffer(status)) {
-            this.face = faceSprites.get(direction).get(faceIndex.get(direction));
-            this.faceIndex.compute(direction, (k, v) -> (v + 1) % faceSprites.get(direction).size());
+            this.face = this.getFaceSprites().get(direction).get(faceIndex.get(direction));
+            this.faceIndex.compute(direction, (k, v) -> (v + 1) % this.getFaceSprites().get(direction).size());
         }
         this.body = bodySprites.get(direction).get(bodyIndex.get(direction));
         this.bodyIndex.compute(direction, (k, v) -> (v + 1) % bodySprites.get(direction).size());
@@ -154,25 +165,30 @@ public class IsaacView extends AbstractEntityView {
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().equals("dead")) {
-            gc.drawImage(deadSprite, super.getX(), super.getY());
-            return;
-        }
+        if (super.getStatus().isPresent()) {
+            if (super.getStatus().get().equals("dead")) {
+                gc.drawImage(deadSprite, super.getX(), super.getY());
+                return;
+            }
 
-        if (super.getStatus().equals("moving up")) {
-            this.setSprites(Direction.UP, super.getStatus());
-        }
+            if (super.getStatus().get().equals("moving up")) {
+                this.setSprites(Direction.UP, super.getStatus().get());
+            }
 
-        if (super.getStatus().equals("moving down")) {
-            this.setSprites(Direction.DOWN, super.getStatus());
-        }
+            if (super.getStatus().get().equals("moving down")) {
+                this.setSprites(Direction.DOWN, super.getStatus().get());
+            }
 
-        if (super.getStatus().equals("moving right")) {
-            this.setSprites(Direction.RIGHT, super.getStatus());
-        }
+            if (super.getStatus().get().equals("moving right")) {
+                this.setSprites(Direction.RIGHT, super.getStatus().get());
+            }
 
-        if (super.getStatus().equals("moving left")) {
-            this.setSprites(Direction.LEFT, super.getStatus());
+            if (super.getStatus().get().equals("moving left")) {
+                this.setSprites(Direction.LEFT, super.getStatus().get());
+            }
+        } else {
+            face = bodySprites.get(Direction.DOWN).get(0);
+            face = faceSprites.get(Direction.DOWN).get(0);
         }
 
         final double heightScale = 3 / 5;
@@ -186,8 +202,7 @@ public class IsaacView extends AbstractEntityView {
     /**
      * @return the faceSprites
      */
-    public static Map<Direction, List<Image>> getFaceSprites() {
-        return faceSprites;
+    public Map<Direction, List<Image>> getFaceSprites() {
+        return IsaacView.faceSprites;
     }
-
 }

@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import util.SpritesExtractor;
 
 /**
- * View and animations of the Bomb enemy.
+ * View and animations of the Bomb.
  */
 
 public class BombView extends AbstractEntityView {
@@ -63,24 +63,20 @@ public class BombView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().equals("collectible")) {
-            final Image img = super.resize(bombSprite, super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
-        }
-
-        if (super.getStatus().equals("triggered")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals("triggered")) {
             final Image img = super.resize(triggeredBombSprite.get(triggeredIndex), super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
-        }
-
-        if (super.getStatus().equals("explosion")) {
+        } else if (super.getStatus().isPresent() && super.getStatus().get().equals("explosion")) {
             final Image img = super.resize(explosionBombSprite.get(explosionIndex), super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
             explosionIndex += 1;
             if (explosionIndex > explosionBombSprite.size() && super.getGameView().isPresent()) {
                 super.getGameView().get().removeEntity(this);
             }
+        } else {
+            final Image img = super.resize(bombSprite, super.getHeight(), super.getWidth());
+            gc.drawImage(img, super.getX(), super.getY());
         }
     }
 }

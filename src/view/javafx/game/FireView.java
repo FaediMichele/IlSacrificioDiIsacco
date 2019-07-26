@@ -90,7 +90,7 @@ public class FireView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().equals("dying")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals("dying")) {
             this.fire = dyingFireSprite.get(dyingIndex);
             dyingIndex += 1;
             if (dyingIndex > dyingFireSprite.size() && super.getGameView().isPresent()) {
