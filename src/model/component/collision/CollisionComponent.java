@@ -13,7 +13,8 @@ import model.events.DamageEvent;
 import util.EventListener;
 
 /**
- * This class manages the collision of this entity with the others compared to the damage.
+ * This class manages the collision of this entity with the others compared to
+ * the damage.
  *
  */
 
@@ -64,20 +65,19 @@ public class CollisionComponent extends AbstractComponent<CollisionComponent> {
         AbstractMentalityComponent sourceMentaliy;
         AbstractMentalityComponent myMentality;
         if (event.getSourceEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
-            sourceMentaliy = (AbstractMentalityComponent) event.getSourceEntity()
-                    .getComponent(AbstractMentalityComponent.class).get();
+            sourceMentaliy = event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get();
         } else {
             sourceMentaliy = new NeutralMentalityComponent(event.getSourceEntity());
         }
 
         if (getEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
-            myMentality = (AbstractMentalityComponent) getEntity()
-                    .getComponent(AbstractMentalityComponent.class).get();
+            myMentality = getEntity().getComponent(AbstractMentalityComponent.class).get();
         } else {
             myMentality = new NeutralMentalityComponent(event.getSourceEntity());
         }
 
-        if (sourceMentaliy.isDamageableByMe(myMentality.getClass()) && myMentality.canHurtMe(sourceMentaliy.getClass())) {
+        if (sourceMentaliy.isDamageableByMe(myMentality.getClass())
+                && myMentality.canHurtMe(sourceMentaliy.getClass())) {
             getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
         }
 

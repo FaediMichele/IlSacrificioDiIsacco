@@ -82,7 +82,7 @@ public class MovableCollisionComponent extends CollisionComponent {
 
     private BodyComponent getBodyComponent(final Entity e) {
         if (e.getComponent(BodyComponent.class).isPresent()) {
-            return ((BodyComponent) e.getComponent(BodyComponent.class).get());
+            return e.getComponent(BodyComponent.class).get();
         } else {
             throw new IllegalStateException();
         }

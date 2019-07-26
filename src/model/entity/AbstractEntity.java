@@ -162,7 +162,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     public StatusComponent getStatusComponent() {
-        return (StatusComponent) this.getComponent(StatusComponent.class).get();
+        return this.getComponent(StatusComponent.class).get();
     }
 
     /**

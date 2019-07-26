@@ -69,7 +69,7 @@ public class RoomImpl implements Room {
         cleanGraveyard = false;
     }
     private Space.Rectangle getShape(final Entity e) {
-        final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
+        final BodyComponent b = e.getComponent(BodyComponent.class).get();
         return new Space.Rectangle(b.getPosition().getV1(), b.getPosition().getV2(), b.getWidth(), b.getHeight());
     }
 
@@ -109,7 +109,7 @@ public class RoomImpl implements Room {
     public void updateEntity(final Double deltaTime) {
         this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
-                .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
+                .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
             this.isComplete = true;
         }
     }
@@ -121,8 +121,9 @@ public class RoomImpl implements Room {
         getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
     }
     private void postCollision(final Entity e1, final Entity e2) {
-        e1.postEvent(new CollisionEvent(e2));
-        e2.postEvent(new CollisionEvent(e1));
+        final Entity tmp1 = e1, tmp2 = e2;
+        e1.postEvent(new CollisionEvent(tmp2));
+        e2.postEvent(new CollisionEvent(tmp1));
     }
 
     /**
@@ -149,7 +150,7 @@ public class RoomImpl implements Room {
                 rectangleEntitySpace.put(rtmp, e);
                 sp.addRectangle(rtmp); 
             } else {
-                final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
+                final BodyComponent b = e.getComponent(BodyComponent.class).get();
                 r.setX(b.getPosition().getV1());
                 r.setY(b.getPosition().getV2());
             }

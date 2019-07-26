@@ -111,7 +111,7 @@ public class TestModel {
         assertEquals(
                 Integer.valueOf(FireAIComponent.class.cast(f2.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(2));
-        // ((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
+        // (f1.getComponent(FireComponent.class).get()).dispose();
     }
 
     /**
@@ -450,7 +450,7 @@ public class TestModel {
     @Test
     public void testMentalityComponent() {
         Player p = new Player();
-        AbstractMentalityComponent m = (AbstractMentalityComponent) p.getComponent(AbstractMentalityComponent.class)
+        AbstractMentalityComponent m = p.getComponent(AbstractMentalityComponent.class)
                 .get();
         assertEquals(PlayerMentalityComponent.class, m.getClass());
     }
@@ -489,18 +489,18 @@ public class TestModel {
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
-        return (HealthComponent) e.getComponent(HealthComponent.class).get();
+        return e.getComponent(HealthComponent.class).get();
     }
 
     private MoveComponent getMoveComponent(final Entity e) {
-        return (MoveComponent) e.getComponent(MoveComponent.class).get();
+        return e.getComponent(MoveComponent.class).get();
     }
 
     private BodyComponent getBodyComponent(final Entity e) {
-        return (BodyComponent) e.getComponent(BodyComponent.class).get();
+        return e.getComponent(BodyComponent.class).get();
     }
 
     private InventoryComponent getInventoryComponent(final Entity e) {
-        return (InventoryComponent) e.getComponent(InventoryComponent.class).get();
+        return e.getComponent(InventoryComponent.class).get();
     }
 }

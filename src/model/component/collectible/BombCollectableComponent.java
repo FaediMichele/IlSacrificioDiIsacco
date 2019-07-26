@@ -52,7 +52,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                 try {
                     //getEntity().getStatusComponent().setStatus(new Pair<>(1, "triggered"));
                     Thread.sleep(timeBeforeExplodes);
-                    ((BodyComponent) getEntity().getComponent(BodyComponent.class).get())
+                    getEntity().getComponent(BodyComponent.class).get()
                             .scaleDimension(explosionScale);
                     //getEntity().getStatusComponent().setStatus(new Pair<>(1, "explode"));
                     getEntity().attachComponent(new DamageComponent(getEntity(), 0.5))

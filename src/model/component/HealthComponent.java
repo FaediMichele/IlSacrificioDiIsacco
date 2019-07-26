@@ -44,7 +44,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
                     getDamaged(event.getDamageValue().get());
                 } else {
                 getDamaged(event.getSourceEntity().getComponent(DamageComponent.class).isPresent()
-                        ? ((DamageComponent) event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamage()
+                        ? (event.getSourceEntity().getComponent(DamageComponent.class).get()).getDamage()
                         : 0);
                 }
             }
