@@ -1,6 +1,7 @@
 package test;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -8,6 +9,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import util.StaticMethodsUtils;
+import util.enumeration.EntityEnum;
+import view.javafx.game.EntityView;
 
 /**
  * Tests for XML files.
@@ -31,6 +34,26 @@ public class TestXML {
                 }
             }
         });
+    }
+
+    /**
+     * Test for xml to map.
+     */
+    @Test
+    public void testXmltoMap() {
+        /*Map<EntityEnum, Class<? extends EntityView>> map = StaticMethodsUtils.xmlToMap("/xml/Entity.xml", "Entity", "path-entityEnum", "path-entityView");
+        System.out.println(map.size());
+        map.forEach((k, v) -> {
+            System.out.println(k.getValue() + " " + v.getCanonicalName());
+        });
+        */
+        try {
+            //Enum.valueOf(Class<EntityEnum> , name)
+            Class.forName("util.enumeration.BasicEntityEnum.WALL");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }

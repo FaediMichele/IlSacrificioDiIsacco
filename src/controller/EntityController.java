@@ -19,18 +19,24 @@ import util.enumeration.ValuesMapStatusEnum;
 public class EntityController {
     private static final String PATH_ENTITY = "/xml/Entity.xml";
     private static final String TAG_ENTITY = "Entity";
+    private static final String ATTR1_ENTITY = "";
+    private static final String ATTR2_ENTITY = "";
     private static final Map<ValuesMapStatusEnum, String> ENTITY_MAP = util.StaticMethodsUtils
-            .xmlToMap(PATH_ENTITY, TAG_ENTITY);
+            .xmlToMap(PATH_ENTITY, TAG_ENTITY, ATTR1_ENTITY, ATTR2_ENTITY);
 
     private static final String PATH_STATUS = "/xml/Status.xml";
     private static final String TAG_STATUS = "Status";
+    private static final String ATTR1_STATUS = "";
+    private static final String ATTR2_STATUS = "";
     private static final Map<KeyMapStatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMap(PATH_STATUS,
-            TAG_STATUS);
+            TAG_STATUS, ATTR1_STATUS, ATTR2_STATUS);
 
     private static final String PATH_UPGRADE = "/xml/Upagrade.xml";
     private static final String TAG_UPGRADE = "Upgrade";
+    private static final String ATTR1_UPGRADE = "";
+    private static final String ATTR2_UPGRADE = "";
     private static final Map<KeyMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMap(PATH_UPGRADE,
-            TAG_UPGRADE);
+            TAG_UPGRADE, ATTR1_UPGRADE, ATTR2_UPGRADE);
 
     private final String id;
     private final EntityView entityView;
