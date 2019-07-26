@@ -1,12 +1,12 @@
 package controller;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import test.EntityView;
-import test.EntityViewImplements;
 import util.enumeration.BasicEntityID;
 import util.enumeration.BasicKeyMapStatusEnum;
-import util.enumeration.BasicMovementEnum;
 import util.enumeration.KeyMapStatusEnum;
 import util.enumeration.ValuesMapStatusEnum;
 
@@ -19,7 +19,7 @@ import util.enumeration.ValuesMapStatusEnum;
 public class EntityController {
     private static final String PATH_ENTITY = "/xml/Entity.xml";
     private static final String TAG_ENTITY = "Entity";
-    private static final Map<KeyMapStatusEnum, Class<? extends EntityView>> ENTITY_MAP = util.StaticMethodsUtils
+    private static final Map<ValuesMapStatusEnum, String> ENTITY_MAP = util.StaticMethodsUtils
             .xmlToMap(PATH_ENTITY, TAG_ENTITY);
 
     private static final String PATH_STATUS = "/xml/Status.xml";
@@ -35,9 +35,13 @@ public class EntityController {
     private final String id;
     private final EntityView entityView;
 
-    EntityController(final Map<KeyMapStatusEnum, ValuesMapStatusEnum> status) {
+    @SuppressWarnings("unchecked")
+    EntityController(final Map<KeyMapStatusEnum, ValuesMapStatusEnum> status) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
         this.id = ((BasicEntityID) status.get(BasicKeyMapStatusEnum.ID)).getValue();
-        this.entityView = new EntityViewImplements(this.id);
+        Class<EntityView> c = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(status.get(BasicKeyMapStatusEnum.ENTITY)));
+        Constructor<EntityView> constructor = c.getConstructor(new Class[] { String.class });
+        this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
+
     }
 
     void update(final Map<KeyMapStatusEnum, ValuesMapStatusEnum> status) {
