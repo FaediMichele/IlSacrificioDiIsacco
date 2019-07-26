@@ -31,8 +31,8 @@ public class LockCollisionComponent extends CollisionComponent {
             @Override
             public void listenEvent(final CollisionEvent event) {
                 if (event.getSourceEntity().getClass().isInstance(Player.class)) {
-                    final InventoryComponent invcmp = (InventoryComponent) event.getSourceEntity()
-                            .getComponent(InventoryComponent.class).get();
+                    final InventoryComponent invcmp = event.getSourceEntity().getComponent(InventoryComponent.class)
+                            .get();
 
                     if (invcmp.thingsOfThisKind(Key.class) > 0 && isLock) {
                         event.getSourceEntity().postEvent(new UseThingEvent(event.getSourceEntity(), Key.class));

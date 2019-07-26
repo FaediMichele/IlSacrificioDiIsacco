@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.component.BodyComponent;
+import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 
@@ -16,14 +17,18 @@ public class AbstractStaticEntity extends AbstractEntity {
      * @param entityCollision the {@link CollisionComponent}
      * @param entityStatus    the {@link StatusComponent}
      */
-    public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
+    public AbstractStaticEntity(final BodyComponent entityBody, final CollisionComponent entityCollision,
+            final StatusComponent entityStatus) {
         super();
         this.setDefaultComponents(entityBody, entityCollision, entityStatus);
+
     }
-/**
- * simple constructor of AbstractStaicEntity.
- */
+
+    /**
+     * simple constructor of AbstractStaicEntity.
+     */
     public AbstractStaticEntity() {
         super();
+        this.attachComponent(new ObstacleComponent(this));
     }
 }

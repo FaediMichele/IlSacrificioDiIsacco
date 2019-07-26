@@ -18,19 +18,6 @@ public class GaperEnemy extends AbstractEnemyMovable {
     private static final double FRICTION = 7;
 
     /**
-     * basic constructor.
-     * @param entityBody        body of the enemy
-     * @param entityCollision   collision management of the enemy
-     * @param entityStatus      status of the enemy
-     * {@inheritDoc}
-     */
-    public <C extends MovableCollisionComponent> GaperEnemy(final BodyComponent entityBody, final C entityCollision, final StatusComponent entityStatus) {
-        super(entityBody, entityCollision, entityStatus);
-        this.attachComponent(new FollowAIComponent(this));
-        this.attachComponent(new MoveComponent(this, DSPEED, MAXSPEED, FRICTION));
-    }
-
-    /**
      * Create a gaper enemy based on his position.
      * @param x the x-axis.
      * @param y the y.axis.

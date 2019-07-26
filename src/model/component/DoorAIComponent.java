@@ -40,8 +40,8 @@ public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().getClass().equals(Player.class)) {
-                    final LockComponent lc = (LockComponent) getEntity().getComponent(LockComponent.class).get(); 
-                    final InventoryComponent ic = (InventoryComponent) coll.getSourceEntity().getComponent(InventoryComponent.class).get();
+                    final LockComponent lc = getEntity().getComponent(LockComponent.class).get(); 
+                    final InventoryComponent ic = coll.getSourceEntity().getComponent(InventoryComponent.class).get();
                     if (lc != null && lc.isLocked() && ic != null) {
                         if (ic.thingsOfThisKind(Key.class) > 0) {
                             coll.getSourceEntity().postEvent(new UseThingEvent(coll.getSourceEntity(), Key.class));

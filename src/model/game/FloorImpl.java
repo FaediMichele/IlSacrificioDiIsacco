@@ -7,9 +7,14 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import com.google.common.eventbus.EventBus;
+
 import model.component.DoorAIComponent;
 import model.entity.Door;
 import model.entity.Entity;
+import model.entity.Player;
+import model.events.RoomChangedEvent;
+import util.EventListener;
 import util.Matrix;
 import util.Pair;
 
@@ -29,6 +34,7 @@ public class FloorImpl implements Floor {
     private static final int OVEST = 3;
 
     private final List<Room> rooms;
+    private final EventBus eventBus = new EventBus();
     private int activeRoomIndex;
 
     /**
@@ -212,8 +218,8 @@ public class FloorImpl implements Floor {
         Optional<Integer> nextRoom;
         this.rooms.get(activeRoomIndex).updateEntity(deltaTime);
         nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
-                .filter(e -> ((DoorAIComponent) e.getComponent(DoorAIComponent.class).get()).playerPassed())
-                .map(e -> ((DoorAIComponent) e.getComponent(DoorAIComponent.class).get()).getDestination()).findFirst();
+                .filter(e -> (e.getComponent(DoorAIComponent.class).get()).playerPassed())
+                .map(e -> (e.getComponent(DoorAIComponent.class).get()).getDestination()).findFirst();
 
         if (nextRoom.isPresent()) {
             activeRoomIndex = nextRoom.get();
@@ -227,7 +233,20 @@ public class FloorImpl implements Floor {
 
     @Override
     public final void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
+        if (e.getClass().equals(Player.class)) {
+            eventBus.post(new RoomChangedEvent(rooms.get(location), rooms.get(destination)));
+        }
         this.rooms.get(destination).insertEntity(e);
         this.rooms.get(location).deleteEntity(e);
+    }
+
+    @Override
+    public final void registerListener(final EventListener<?> eventListener) {
+        this.eventBus.register(eventListener);
+    }
+
+    @Override
+    public final void unregisterListener(final EventListener<?> eventListener) {
+        this.eventBus.unregister(eventListener);
     }
 }

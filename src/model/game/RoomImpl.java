@@ -1,16 +1,16 @@
 package model.game;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
+import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
@@ -30,14 +30,14 @@ public class RoomImpl implements Room {
 
     private final List<Entity> entity;
     private final List<Entity> graveyard = new ArrayList<Entity>();
-    private boolean cleanGraveyard;
     private final List<? extends Door> doors;
-    private boolean isComplete;
     private final int index;
-    private Floor floor;
     private final Space sp = new Space();
-    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new LinkedHashMap<>();
-    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new LinkedHashMap<>();
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
+    private Floor floor;
+    private boolean isComplete;
+    private boolean cleanGraveyard;
 
     /**
      * Create a room with only door. Entity is calculated based on the door.
@@ -63,19 +63,12 @@ public class RoomImpl implements Room {
         this.index = index;
         this.doors = door;
         this.isComplete = false;
-        this.entity = entity;
-        this.entity.forEach(e -> {
-            final Space.Rectangle r = getShape(e);
-            entityRectangleSpace.put(e, r);
-            rectangleEntitySpace.put(r, e);
-            sp.addRectangle(r);
-            e.changeRoom(this);
-            addEventEntity(e);
-        });
+        this.entity = new ArrayList<>();
+        entity.forEach(e -> insertEntity(e));
         cleanGraveyard = false;
     }
     private Space.Rectangle getShape(final Entity e) {
-        final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
+        final BodyComponent b = e.getComponent(BodyComponent.class).get();
         return new Space.Rectangle(b.getPosition().getV1(), b.getPosition().getV2(), b.getWidth(), b.getHeight());
     }
 
@@ -91,12 +84,11 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public Map<KeyMapStatusEnum, ValuesMapStatusEnum> getEntitysStatus() {
-        final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> e = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
-        final Stream<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> g = graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus);
+    public List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> getEntitysStatus() {
+        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList());
+        ret.addAll(graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList()));
         cleanGraveyard = true;
-        return Stream.concat(e, g).flatMap(map -> map.entrySet().stream())
-                .collect(Collectors.toMap(en -> (KeyMapStatusEnum) en.getKey(),  ent -> (ValuesMapStatusEnum) ent.getValue()));
+        return ret;
     }
 
     /**
@@ -114,7 +106,7 @@ public class RoomImpl implements Room {
     public void updateEntity(final Double deltaTime) {
         this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
-                .filter(e -> ((HealthComponent) e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
+                .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
             this.isComplete = true;
         }
     }
@@ -126,8 +118,9 @@ public class RoomImpl implements Room {
         getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
     }
     private void postCollision(final Entity e1, final Entity e2) {
-        e1.postEvent(new CollisionEvent(e2));
-        e2.postEvent(new CollisionEvent(e1));
+        final Entity tmp1 = e1, tmp2 = e2;
+        e1.postEvent(new CollisionEvent(tmp2));
+        e2.postEvent(new CollisionEvent(tmp1));
     }
 
     /**
@@ -136,9 +129,10 @@ public class RoomImpl implements Room {
     @Override
     public Set<Pair<Entity, Entity>> getEntityColliding() {
         return sp.getCollisions().stream()
-                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
+                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()),
+                    rectangleEntitySpace.get(p.getY())))
                 .collect(Collectors.toSet());
-    }
+}
 
     /**
      * Update the rectangle in the space.
@@ -153,7 +147,7 @@ public class RoomImpl implements Room {
                 rectangleEntitySpace.put(rtmp, e);
                 sp.addRectangle(rtmp); 
             } else {
-                final BodyComponent b = (BodyComponent) e.getComponent(BodyComponent.class).get();
+                final BodyComponent b = e.getComponent(BodyComponent.class).get();
                 r.setX(b.getPosition().getV1());
                 r.setY(b.getPosition().getV2());
             }
@@ -185,7 +179,7 @@ public class RoomImpl implements Room {
         final Space.Rectangle r = getShape(e);
         entityRectangleSpace.put(e, r);
         rectangleEntitySpace.put(r, e);
-        sp.addRectangle(r);
+        sp.addRectangle(r, !e.hasComponent(ObstacleComponent.class));
         e.changeRoom(this);
         addEventEntity(e);
     }

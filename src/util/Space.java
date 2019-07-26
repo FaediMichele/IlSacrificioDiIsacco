@@ -71,7 +71,7 @@ public class Space {
         for (int i = 0; i < rs.size(); i++) {
             for (int k = i + 1; k < rs.size(); k++) {
                 final Rectangle tmp = rs.get(k);
-                if (rs.get(i).collide(rs.get(k)) && !ret.stream().anyMatch(p -> p.getX() == tmp)) {
+                if (rs.get(i).collide(tmp)) {
                     ret.add(new Pair<Rectangle, Rectangle>(rs.get(i), rs.get(k)));
                 }
             }
@@ -232,22 +232,6 @@ public class Space {
          */
         public double getDistanceTo(final Rectangle r) {
             return Math.sqrt(Math.pow(x + w / 2 - (r.x + r.w / 2), 2) + Math.pow(y + h / 2 - (r.y + r.h / 2), 2));
-        }
-
-        /**
-         * Returns the hash code of the {@link Space.Rectangle}.
-         */
-        @Override
-        public final int hashCode() {
-            return StaticMethodsUtils.hashCode(this);
-        }
-
-        /**
-         * Checks if two {@link Space.Rectangle} are equals.
-         */
-        @Override
-        public final boolean equals(final Object obj) {
-            return StaticMethodsUtils.equals(this, obj);
         }
     }
 

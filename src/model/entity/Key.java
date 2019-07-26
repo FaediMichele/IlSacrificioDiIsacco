@@ -9,21 +9,19 @@ import model.component.collision.CollisionComponent;
  * Key entity that can be collected.
  */
 public class Key extends AbstractStaticEntity {
-    /**
-     * Default constructor.
-     */
-    public Key() {
-        super();
-        this.attachComponent(new KeyCollectableComponent(this));
-    }
+    private static final double WIDTH = 0.5;
+    private static final double HEIGHT = 0.5;
+    private static final int WEIGHT = 1;
 
     /**
-     * @param entityBody      Body of the entity
-     * @param entityCollision Collision component of the entity
-     * @param entityStatus    the {@link StatusComponent}
+     * Default constructor.
+     * @param x the position.
+     * @param y the position.
      */
-    public Key(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this();
-        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
+    public Key(final int x, final int y) {
+        super();
+        this.attachComponent(new KeyCollectableComponent(this));
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
     }
 }

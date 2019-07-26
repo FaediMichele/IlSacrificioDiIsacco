@@ -77,7 +77,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
 
     private HealthComponent getHealthComponent(final Entity e) {
         if (e.getComponent(HealthComponent.class).isPresent()) {
-            return ((HealthComponent) e.getComponent(HealthComponent.class).get());
+            return e.getComponent(HealthComponent.class).get();
         } else {
             throw new IllegalStateException();
         }

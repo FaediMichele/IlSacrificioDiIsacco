@@ -51,7 +51,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             @Override
             @Subscribe
             public void listenEvent(final PickUpEvent event) {
-                final AbstractPickupableComponent oc = (AbstractPickupableComponent) event.getSourceEntity()
+                final AbstractPickupableComponent oc = event.getSourceEntity()
                         .getComponent(AbstractPickupableComponent.class).get();
                 oc.init(getEntity());
             }
@@ -65,9 +65,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                     final Optional<Entity> thingToRelease = things.stream()
                             .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findFirst();
                     if (thingToRelease.isPresent()) {
-                        ((AbstractCollectableComponent) thingToRelease.get().getComponents().stream()
-                                .filter(c -> c.getClass().getSuperclass().equals(AbstractCollectableComponent.class))
-                                .findFirst().get()).use();
+                        thingToRelease.get().getComponent(AbstractCollectableComponent.class).get().use();
                     }
                 }
             }
@@ -97,8 +95,8 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing to release
      */
     public void releaseThing(final Entity thing) {
-//        ((BodyComponent) thing.getComponent(BodyComponent.class).get())
-//                .setPosition(((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
+//        (thing.getComponent(BodyComponent.class).get())
+//                .setPosition((this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);
 //        this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "appear"));
         this.things.remove(thing);

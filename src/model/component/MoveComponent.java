@@ -184,7 +184,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
 
     private BodyComponent getBody() {
         if (this.getEntity().getComponent(BodyComponent.class).isPresent()) {
-            return ((BodyComponent) this.getEntity().getComponent(BodyComponent.class).get());
+            return (this.getEntity().getComponent(BodyComponent.class).get());
         } else {
             throw new IllegalStateException();
         }

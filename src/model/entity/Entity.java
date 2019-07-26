@@ -77,9 +77,10 @@ public interface Entity {
      * Gets the certain kind of {@link Component} from Entity.
      * 
      * @param c {@link Component} to search
+     * @param <X> {@link Component}
      * @return the {@link Component}
      */
-    Optional<? extends Component> getComponent(Class<? extends Component> c);
+    <X extends Component> Optional<X> getComponent(Class<X> c);
 
     /**
      * Return the Set of all {@link Component}.

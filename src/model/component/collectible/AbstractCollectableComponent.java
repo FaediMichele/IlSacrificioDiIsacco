@@ -62,7 +62,7 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      */
     protected InventoryComponent getInventoryComponent() {
         if (this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).isPresent()) {
-            return ((InventoryComponent) this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).get());
+            return (this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).get());
         } else {
             throw new IllegalStateException();
         }

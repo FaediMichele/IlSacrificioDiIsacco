@@ -11,24 +11,21 @@ import model.component.collision.CollisionComponent;
  *
  */
 public class Bomb extends AbstractEntity {
+    private static final double WIDTH = 0.5;
+    private static final double HEIGHT = 0.5;
+    private static final int WEIGHT = 1;
 
     /**
      * Default constructor.
+     * @param x the position.
+     * @param y the position.
      */
-    public Bomb() {
+    public Bomb(final double x, final double y) {
         super();
         this.attachComponent(new BombCollectableComponent(this, 3, 1000, 100))
-            .attachComponent(new BodyComponent(this));
-    }
-
-    /**
-     * @param entityBody      Body of the entity
-     * @param entityCollision Collision component of the entity
-     * @param entityStatus    the {@link StatusComponent}
-     */
-    public Bomb(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this();
-        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
+            .attachComponent(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT));
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
     }
 
 }

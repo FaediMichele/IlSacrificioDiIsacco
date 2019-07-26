@@ -50,8 +50,8 @@ public class FireAIComponent extends AbstractComponent<FireAIComponent> {
                 final FireType type = event.getFireType();
                 if (type == FireType.BLUE) {
                     final Heart h = new Heart();
-                    final BodyComponent fireBody = (BodyComponent) event.getSourceEntity().getComponent(BodyComponent.class).get();
-                    final BodyComponent newBody = BodyComponent.class.cast(h.getComponent(BodyComponent.class).get());
+                    final BodyComponent fireBody = event.getSourceEntity().getComponent(BodyComponent.class).get();
+                    final BodyComponent newBody = h.getComponent(BodyComponent.class).get();
                     newBody.setPosition(fireBody.getPosition());
                     h.attachComponent(newBody);
                     event.getSourceEntity().getRoom().insertEntity(h);

@@ -33,15 +33,4 @@ public class Rock extends AbstractStaticEntity {
                 new CollisionComponent(this), new StatusComponent(this));
     }
 
-    /**
-     * 
-     * @param entityBody      the {@link BodyComponent}
-     * @param entityCollision the {@link CollisionComponent}
-     * @param entityStatus    the {@link StatusComponent}
-     */
-    public Rock(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this(0, 0);
-        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
-    }
-
 }

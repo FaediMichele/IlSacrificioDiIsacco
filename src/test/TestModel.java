@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+
 import org.junit.Test;
 import model.component.AbstractAIComponent;
 import model.component.BlackHeart;
@@ -58,6 +60,7 @@ import util.Triplet;
 @SuppressWarnings("all")
 public class TestModel {
 
+    private Room buildedRoom;
     /**
      * Test for {@link Entity}.
      */
@@ -65,7 +68,7 @@ public class TestModel {
     public void testEntity() {
         final Entity p = new Player();
         final Entity p2 = new Player();
-        final Entity f = new Fire(FireType.RED);
+        final Entity f = new Fire(FireType.RED, 0, 0);
         final Entity d1 = new Door(0, 0);
         final Entity d2 = new Door(0, 0);
         p2.attachComponent(new BodyComponent(p2, 1, 1, 0, 1, 1, 2));
@@ -87,8 +90,8 @@ public class TestModel {
      */
     @Test
     public void testFire() {
-        final Fire f1 = new Fire(FireType.RED);
-        final Fire f2 = new Fire(FireType.BLUE);
+        final Fire f1 = new Fire(FireType.RED, 0, 0);
+        final Fire f2 = new Fire(FireType.BLUE, 0, 0);
         assertEquals(f1.getComponent(FireAIComponent.class).get(), new FireAIComponent(f1, FireType.RED));
         f1.postEvent(new FireHittedEvent(f1));
         assertFalse(f1.getComponent(FireAIComponent.class).get().equals(new FireAIComponent(f1, FireType.RED)));
@@ -106,7 +109,7 @@ public class TestModel {
         assertEquals(
                 Integer.valueOf(FireAIComponent.class.cast(f2.getComponent(FireAIComponent.class).get()).getLife()),
                 Integer.valueOf(2));
-        // ((FireComponent) f1.getComponent(FireComponent.class).get()).dispose();
+        // (f1.getComponent(FireComponent.class).get()).dispose();
     }
 
     /**
@@ -116,8 +119,10 @@ public class TestModel {
     public void testFloor() {
         final List<Room> rooms = new ArrayList<>();
         boolean ok;
+        Door d1 = new Door(2, 0);
+        Door d2 = new Door(1, 2);
         rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(new Door(0, 1), new Door(1, 2)))));
-        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0), new Door(1, 2)))));
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(d1, d2))));
         rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(new Door(3, 0), new Door(1, 1)))));
         final Floor f = new FloorImpl(rooms);
 
@@ -134,7 +139,7 @@ public class TestModel {
         assertTrue(ok);
         rooms.forEach(r -> assertEquals(r.getFloor(), f));
         assertEquals(f.getActiveRoom(), rooms.get(1));
-        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(new Door(2, 0), new Door(1, 2))));
+        assertTrue(f.getActiveRoom().getDoor().containsAll(Arrays.asList(d1, d2)));
         assertThrows(IllegalStateException.class, () -> rooms.get(0).setFloor(new FloorImpl()));
     }
 
@@ -144,23 +149,26 @@ public class TestModel {
     @Test
     public void testRoom() {
         final List<Entity> e = new ArrayList<>();
-        e.add(new Rock());
-        e.add(new Fire(FireType.RED));
-        final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
-        e.forEach(entity -> assertEquals(entity.getRoom(), r));
+        final Rock r = new Rock();
+        final Fire f = new Fire(FireType.RED, 0, 0);
+        e.add(r);
+        e.add(f);
+        final Room room = new RoomImpl(0, new ArrayList<Door>(), e);
+        e.forEach(entity -> assertEquals(entity.getRoom(), room));
 
         final List<Entity> e1 = new ArrayList<>();
-        e1.add(new Rock());
-        e1.add(new Fire(FireType.RED));
-        assertTrue(r.getEntity().containsAll(e1));
-        r.updateEntity(0.0);
-        r.updateEntity(10.0);
-        assertTrue(r.getEntity().containsAll(e1));
+        e1.add(r);
+        e1.add(f);
+        assertTrue(room.getEntity().containsAll(e1));
+        room.updateEntity(0.0);
+        room.updateEntity(10.0);
+        assertTrue(room.getEntity().containsAll(e1));
     }
 
 
     /**
      * Test for the collision.
+     * It require many time to build the space.
      */
     @Test
     public void testCollision() {
@@ -172,15 +180,16 @@ public class TestModel {
         e.add(npc1);
         e.add(npc2);
         BodyComponent b = getBodyComponent(npc2);
-        final Room r = new RoomImpl(0, new ArrayList<Door>(), e);
-        Set<Pair<Entity, Entity>> coll = r.getEntityColliding();
+        buildedRoom = new RoomImpl(0, new ArrayList<Door>(), e);
+        Set<Pair<Entity, Entity>> coll = buildedRoom.getEntityColliding();
         assertTrue(coll.size() == 0);
         b.setPosition(0, 4, 4);
-        r.calculateCollision();
-        assertTrue(r.getEntityColliding().size() == 1);
-        r.updateEntity(90.0);
-        r.calculateCollision();
-        coll = r.getEntityColliding();
+        buildedRoom.calculateCollision();
+
+        assertTrue(buildedRoom.getEntityColliding().size() == 1);
+        buildedRoom.updateEntity(90.0);
+        buildedRoom.calculateCollision();
+        coll = buildedRoom.getEntityColliding();
         assertTrue(coll.stream().filter(p -> 
                 Double.isNaN(getBodyComponent(p.getX()).getPosition().getV1())
                 || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV2())
@@ -188,7 +197,26 @@ public class TestModel {
                 || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV1())
                 || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV2())
                 || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV3())).count() == 0);
-        assertTrue(r.getEntityColliding().size() == 0);
+        assertTrue(buildedRoom.getEntityColliding().size() == 0);
+    }
+
+    /**
+     * Test for the time of the collision detection.
+     * The first time is not counted.
+     */
+    @Test
+    public void timeForCollision() {
+        testCollision();
+        int time = 10;
+        long startTime = System.nanoTime();
+        for (int i = 0; i < time; i++) {
+            buildedRoom.calculateCollision();
+            buildedRoom.updateEntity(1.0);
+        }
+        long endTime = System.nanoTime();
+        long timeElapsed = (endTime - startTime) / (100 * 100 * 100); // to avoid checkstyle
+        System.out.println(timeElapsed);
+        assertTrue(timeElapsed < 3 * 10);
     }
 
     /**
@@ -420,7 +448,7 @@ public class TestModel {
     @Test
     public void testMentalityComponent() {
         Player p = new Player();
-        AbstractMentalityComponent m = (AbstractMentalityComponent) p.getComponent(AbstractMentalityComponent.class)
+        AbstractMentalityComponent m = p.getComponent(AbstractMentalityComponent.class)
                 .get();
         assertEquals(PlayerMentalityComponent.class, m.getClass());
     }
@@ -459,18 +487,18 @@ public class TestModel {
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
-        return (HealthComponent) e.getComponent(HealthComponent.class).get();
+        return e.getComponent(HealthComponent.class).get();
     }
 
     private MoveComponent getMoveComponent(final Entity e) {
-        return (MoveComponent) e.getComponent(MoveComponent.class).get();
+        return e.getComponent(MoveComponent.class).get();
     }
 
     private BodyComponent getBodyComponent(final Entity e) {
-        return (BodyComponent) e.getComponent(BodyComponent.class).get();
+        return e.getComponent(BodyComponent.class).get();
     }
 
     private InventoryComponent getInventoryComponent(final Entity e) {
-        return (InventoryComponent) e.getComponent(InventoryComponent.class).get();
+        return e.getComponent(InventoryComponent.class).get();
     }
 }

@@ -7,9 +7,8 @@ import model.component.LockComponent;
 import model.component.mentality.NeutralMentalityComponent;
 
 /**
- * Create a door. The doors have a position based on the location 
- * (North, East, ...). 
- * The doors have a component called DoorComponent that contains the
+ * Create a door. The doors have a position based on the location (North, East,
+ * ...). The doors have a component called DoorComponent that contains the
  */
 public class Door extends AbstractStaticEntity {
     private static final int DEFAULTZ = 0;
@@ -26,10 +25,9 @@ public class Door extends AbstractStaticEntity {
      */
     public Door(final Integer location, final Integer destinationIndex) {
         super();
-        this.attachComponent(generateBody(location));
-        this.attachComponent(new DoorAIComponent(this, location, destinationIndex));
-        this.attachComponent(new NeutralMentalityComponent(this));
-        this.attachComponent(new LockComponent(this));
+        this.attachComponent(generateBody(location))
+                .attachComponent(new DoorAIComponent(this, location, destinationIndex))
+                .attachComponent(new NeutralMentalityComponent(this)).attachComponent(new LockComponent(this));
     }
 
     /**

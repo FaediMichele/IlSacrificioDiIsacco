@@ -53,11 +53,11 @@ public class FlyAIComponent extends AbstractAIComponent {
         if (!isaac.isPresent()) {
             return;
         }
-        final BodyComponent isaacBody = (BodyComponent) isaac.get().getComponent(BodyComponent.class).get();
+        final BodyComponent isaacBody = isaac.get().getComponent(BodyComponent.class).get();
         if (isaacBody == null) {
             return;
         }
-        final BodyComponent myBody = (BodyComponent) this.getEntity().getComponent(BodyComponent.class).get();
+        final BodyComponent myBody = this.getEntity().getComponent(BodyComponent.class).get();
         final Double diffX = isaacBody.getPosition().getV1() - myBody.getPosition().getV1();
         final Double diffY = isaacBody.getPosition().getV2() - myBody.getPosition().getV2();
         this.angle = Math.atan2(diffX, diffY);

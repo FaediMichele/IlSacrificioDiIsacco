@@ -15,6 +15,8 @@ import model.events.Event;
 import model.game.Room;
 import util.EqualsForGetters;
 import util.EventListener;
+import util.NotEquals;
+import util.NotHashCode;
 import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
@@ -23,9 +25,12 @@ import com.google.common.eventbus.EventBus;
  * The base class for all the entities. See also {@link Entity}
  */
 public abstract class AbstractEntity implements Entity {
+    @NotEquals
+    @NotHashCode
+    private final UUID uuid = UUID.randomUUID();
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap;
-    private final UUID uuid = UUID.randomUUID();
+
     private Room room;
 
     /**
@@ -98,12 +103,13 @@ public abstract class AbstractEntity implements Entity {
         return this.getComponent(c).isPresent();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public final Optional<? extends Component> getComponent(final Class<? extends Component> c) {
+    public final <X extends Component> Optional<X> getComponent(final Class<X> c) {
         if (this.componentsMap.containsKey(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
-            return this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
+            return (Optional<X>) this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
         }
     }
 
@@ -156,7 +162,7 @@ public abstract class AbstractEntity implements Entity {
      * {@inheritDoc}
      */
     public StatusComponent getStatusComponent() {
-        return (StatusComponent) this.getComponent(StatusComponent.class).get();
+        return this.getComponent(StatusComponent.class).get();
     }
 
     /**
