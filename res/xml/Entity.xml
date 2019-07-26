@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Entity path-entityEnum="util.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
-    <SimpleEntityTest>test.TestControllerEntityView</SimpleEntityTest>
     <PLAYER>IsaacView</PLAYER>
     <FIRE>FireView</FIRE>
     <GAPER>GaperView</GAPER>

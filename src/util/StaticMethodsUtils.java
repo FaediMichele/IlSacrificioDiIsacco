@@ -169,6 +169,7 @@ public final class StaticMethodsUtils {
             file = new File(Object.class.getResource(filePath).toURI());
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
             document = documentBuilder.parse(file);
+            document.normalize();
             return document;
         } catch (ParserConfigurationException | SAXException | IOException | URISyntaxException e) {
             e.printStackTrace();
@@ -219,9 +220,13 @@ public final class StaticMethodsUtils {
      * @param <Y>  .
      * @param path .
      * @param tag  .
+     * @param attr1 .
+     * @param attr2 .
      * @return .
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
     public static <X, Y> Map<X, Y> xmlToMap(final String path, final String tag, final String attr1, final String attr2) {
         Map<X, Y> map = new HashMap<>();
         NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
@@ -230,12 +235,14 @@ public final class StaticMethodsUtils {
         List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
             NodeList tmp = n.getChildNodes();
-            for (int i = 1; i < tmp.getLength(); i = i + 2) {
-                try {
-                    map.put((X) Class.forName(path1 + "." + tmp.item(i).getNodeName()),
-                            (Y) Class.forName(path2 + ". " + tmp.item(i).getTextContent()));
-                } catch (ClassNotFoundException | DOMException e) {
-                    e.printStackTrace();
+            for (int i = 0; i < tmp.getLength(); i++) {
+                if (tmp.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    try {
+                        map.put((X) Enum.valueOf((Class<Enum>) Class.forName(path1), tmp.item(i).getNodeName()),
+                                (Y) Class.forName(path2 + "." + tmp.item(i).getTextContent()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 // System.out.println(tmp.item(i).getNodeName() + " --> " +
                 // tmp.item(i).getTextContent());
