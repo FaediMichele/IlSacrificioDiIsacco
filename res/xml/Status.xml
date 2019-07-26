@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Status>
+    <POISED>poisoned</POISED>
+    <NORMAL>normal</NORMAL>
+    <BURNED>burned</BURNED>
+    <DEAD>dead</DEAD>
+    <DAMAGING>damaging</DAMAGING>
+</Status>
