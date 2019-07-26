@@ -1,5 +1,6 @@
 package view.javafx.game;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +21,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     AbstractEntityView(final GameViewImpl gv) {
         super();
+        Objects.requireNonNull(gv);
         this.gameView = Optional.of(gv);
     }
 
@@ -126,12 +128,8 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public String getStatus() {
-        if (status.isPresent()) {
-            return status.get();
-        } else {
-            throw new IllegalArgumentException();
-        }
+    public Optional<String> getStatus() {
+        return status;
     }
 
     /**

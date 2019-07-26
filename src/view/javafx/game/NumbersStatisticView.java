@@ -33,10 +33,11 @@ public class NumbersStatisticView extends AbstractStatisticView {
     private Optional<Image> img = Optional.empty();
     private final Map<Integer, Image> numbers = new HashMap<>();
 
-    private static void initNumbers(final BufferedImage img) {
+   private static void initNumbers(final BufferedImage img) {
         int i = 0;
         final int height = 12;
         final int width = 8;
+
         NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(237, 57, width, height), null));
         NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(31, 73, width, height), null));
         NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(22, 60, width, height), null));
