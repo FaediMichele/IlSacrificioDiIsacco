@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import util.enumeration.UpgradeEnum;
+import util.enumeration.BasicStatusEnum;
 import util.enumeration.EntityEnum;
 import util.enumeration.MovementEnum;
 import util.enumeration.StatusEnum;
@@ -14,8 +15,8 @@ import util.enumeration.StatusEnum;
  *  Object for communication from model to controller. 
  */
 public class EntityInformation {
-    private final UUID uuid;
-    private final EntityEnum entity;
+    private UUID uuid;
+    private EntityEnum entityName;
     private StatusEnum status;
     private Position position;
     private double height;
@@ -26,13 +27,10 @@ public class EntityInformation {
 
     /**
      *  .
-     * @param uuid 
-     * @param entity 
      */
-    public EntityInformation(final UUID uuid, final EntityEnum entity) {
+    public EntityInformation() {
         super();
-        this.uuid = uuid;
-        this.entity = entity;
+        this.status = BasicStatusEnum.DEFAULT;
         this.upgrade = new HashMap<UpgradeEnum, List<Object>>();
     }
 
@@ -48,8 +46,8 @@ public class EntityInformation {
      * 
      * @return entity
      */
-    public EntityEnum getEntity() {
-        return entity;
+    public EntityEnum getEntityName() {
+        return this.entityName;
     }
 
     /**
@@ -102,6 +100,27 @@ public class EntityInformation {
 
 
 //-------setters
+
+    /**
+     * 
+     * @param uuid 
+     * @return this
+     */
+    public EntityInformation setUUID(final UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    /**
+     * 
+     * @param entityName 
+     * @return this
+     */
+    public EntityInformation setEntity(final EntityEnum entityName) {
+        this.entityName = entityName;
+        return this;
+    }
+
     /**
      * 
      * @param status 
@@ -111,7 +130,6 @@ public class EntityInformation {
         this.status = status;
         return this;
     }
-
 
     /**
      * 

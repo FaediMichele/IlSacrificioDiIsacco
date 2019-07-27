@@ -7,12 +7,16 @@ import model.component.StatusComponent;
 import model.component.TearAIComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
     private static final double DEFAULT_DAMAGE = 0.5;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.PLAYER_TEAR;
+
     /**
      * Default constructor.
      * 
@@ -52,5 +56,13 @@ public class Tear extends AbstractMovableEntity {
 
     private BodyComponent getBodyComponent(final Entity e) {
         return (e.getComponent(BodyComponent.class).get());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
     }
 }

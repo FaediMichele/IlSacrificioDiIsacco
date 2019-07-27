@@ -5,6 +5,8 @@ import model.component.FollowAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.collision.MovableCollisionComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * Implements the gaper enemy.
@@ -16,6 +18,8 @@ public class GaperEnemy extends AbstractEnemyMovable {
     private static final double DSPEED = 7;
     private static final double MAXSPEED = 7;
     private static final double FRICTION = 7;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.GASPER;
+
 
     /**
      * Create a gaper enemy based on his position.
@@ -29,5 +33,13 @@ public class GaperEnemy extends AbstractEnemyMovable {
         this.attachComponent(new MovableCollisionComponent(this));
         this.attachComponent(new StatusComponent(this));
         this.attachComponent(new FollowAIComponent(this));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
     }
 }

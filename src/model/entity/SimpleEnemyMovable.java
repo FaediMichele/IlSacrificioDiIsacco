@@ -1,6 +1,8 @@
 package model.entity;
 
 import model.component.BodyComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * 
@@ -8,6 +10,8 @@ import model.component.BodyComponent;
  *
  */
 public class SimpleEnemyMovable extends AbstractEnemyMovable {
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.SIMPLE_ENEMY_MOVABLE;
+
     /**
      * Basic constructor.
      */
@@ -15,4 +19,13 @@ public class SimpleEnemyMovable extends AbstractEnemyMovable {
         super();
         this.attachComponent(new BodyComponent(this));
     } 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
+    }
+
 }

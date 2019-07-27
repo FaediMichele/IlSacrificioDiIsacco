@@ -4,6 +4,8 @@ import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * Implements the Rock.
@@ -12,6 +14,7 @@ public class Rock extends AbstractStaticEntity {
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
     private static final int WEIGHT = 1;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.ROCK;
 
     /**
      * Empty constructor.
@@ -33,4 +36,11 @@ public class Rock extends AbstractStaticEntity {
                 new CollisionComponent(this), new StatusComponent(this));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
+    }
 }

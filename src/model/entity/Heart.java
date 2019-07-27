@@ -4,11 +4,14 @@ import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collectible.HeartPickupableComponent;
 import model.component.collision.CollisionComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * Implements a generic heart.
  */
 public class Heart extends AbstractStaticEntity {
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.HART_RED;
 
     /**
      * 
@@ -27,6 +30,14 @@ public class Heart extends AbstractStaticEntity {
     public Heart() {
         super();
         this.attachComponent(new HeartPickupableComponent(this));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
     }
 
 }
