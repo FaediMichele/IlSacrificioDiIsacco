@@ -10,5 +10,5 @@ public enum BasicStatusEnum implements StatusEnum {
     /**
      * Basic status for status component.
      */
-    NORMAL, POISED, BURNED, DEAD, DAMAGING
+    DEFAULT, POISED, BURNED, DEAD, DAMAGING, PICK_UP
 }

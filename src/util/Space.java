@@ -105,8 +105,9 @@ public class Space {
         final double distanceInOblq = Math.sqrt(Math.pow(cellDim.getX(), 2) + Math.pow(cellDim.getY(), 2));
         int step = 0;
         toVisit.add(startingCell);
+        AStarCell current = null;
         while (step < MAXSTEPASTAR) {
-            final AStarCell current = toVisit.remove();
+            current = toVisit.remove();
             if ((int) (end.x / cellDim.getX()) == current.posX && (int) (end.y / cellDim.getY()) == current.posY) {
                 break;
             }
@@ -139,7 +140,12 @@ public class Space {
             step++;
         }
         grid.setToPredicate(null, c -> !c.isWall());
-        final AStarCell ret =  visited.stream().filter(c -> c.parent != c).min((a, b) -> Double.compare(a.j, b.j)).get();
+        AStarCell ret = current;
+        if (current.parent != current.parent) {
+            while (ret.parent.parent != ret.parent) {
+               ret = ret.parent;
+            }
+        }
         return new Pair<Double, Double>(Double.valueOf(ret.posX), Double.valueOf(ret.posY));
     }
 
@@ -169,7 +175,15 @@ public class Space {
         grid = new Matrix<AStarCell>(dimXMat, dimYMat);
         cellDim = new Pair<Double, Double>(Double.valueOf(dimXMat) / wall.size(), Double.valueOf(dimYMat) / wall.size());
         wall.forEach(r -> {
-            grid.set((int) (r.x / cellDim.getX()), (int) (r.y / cellDim.getY()), new AStarCell((int) (r.x / cellDim.getX()), (int) (r.y / cellDim.getY())));
+            int j = 0;
+            do {
+                int i = 0;
+                do {
+                    grid.set((int) (r.x / cellDim.getX()) + i, (int) (r.y / cellDim.getY()) + j, new AStarCell((int) (r.x / cellDim.getX()) + i, (int) (r.y / cellDim.getY()) + j));
+                    i++;
+                } while (i < r.w / cellDim.getX());
+                j++;
+            } while (j < r.h / cellDim.getY());
         });
     }
 
