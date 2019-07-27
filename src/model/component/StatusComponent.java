@@ -1,8 +1,10 @@
 package model.component;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.entity.Entity;
 import util.enumeration.BasicStatusEnum;
 import util.enumeration.MovementEnum;
@@ -15,7 +17,7 @@ import util.enumeration.UpgradeEnum;
 public class StatusComponent extends AbstractComponent<StatusComponent> {
 
     private StatusEnum status;
-    private List<UpgradeEnum> upgrade;
+    private Map<UpgradeEnum, List<Object>> upgrade;
     private MovementEnum move;
 
     /**
@@ -24,6 +26,7 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public StatusComponent(final Entity entity) {
         super(entity);
+        this.upgrade = new HashMap<UpgradeEnum, List<Object>>();
         this.reset();
     }
 
@@ -47,16 +50,17 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      * 
      * @return  upgrade
      */
-    public List<UpgradeEnum> getUpgrade() {
-        return Collections.unmodifiableList(upgrade);
+    public Map<UpgradeEnum, List<Object>> getUpgrade() {
+        return Collections.unmodifiableMap(this.upgrade);
     }
 
     /**
      * 
      * @param upgrade 
+     * @param args 
      */
-    public void addUpgrade(final UpgradeEnum upgrade) {
-        this.upgrade.add(upgrade);
+    public void addUpgrade(final UpgradeEnum upgrade, final Object... args) {
+        this.upgrade.put(upgrade, Arrays.asList(args));
     }
 
     /**
@@ -65,6 +69,13 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */ 
     public void deleteUpgrade(final UpgradeEnum upgrade) {
         this.upgrade.remove(upgrade);
+    }
+
+    /**
+     * 
+     */ 
+    public void deleteAllUpgrade() {
+        this.upgrade = new HashMap<UpgradeEnum, List<Object>>();
     }
 
     /**
@@ -87,6 +98,5 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public void reset() {
         this.status = BasicStatusEnum.DEFAULT;
-        this.upgrade = new ArrayList<UpgradeEnum>();
     }
 }

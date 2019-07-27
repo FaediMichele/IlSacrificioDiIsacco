@@ -1,8 +1,14 @@
 package util;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import util.enumeration.BasicUpgradeEnum;
+
+import javax.swing.text.Position;
+
+import util.enumeration.UpgradeEnum;
 import util.enumeration.EntityEnum;
 import util.enumeration.MovementEnum;
 import util.enumeration.StatusEnum;
@@ -14,12 +20,11 @@ public class BasicEntityInformation {
     private final UUID uuid;
     private final EntityEnum entity;
     private StatusEnum status;
-    private Triplet<Double, Double, Double> position;
+    private Position position;
     private double height;
     private double width;
-    private List<BasicUpgradeEnum> upgrade;
     private MovementEnum move;
-
+    private Map<UpgradeEnum, List<Object>> upgrade;
 
 
     /**
@@ -31,14 +36,7 @@ public class BasicEntityInformation {
         super();
         this.uuid = uuid;
         this.entity = entity;
-    }
-
-    /**
-     * 
-     * @return entity
-     */
-    public EntityEnum getEntity() {
-        return entity;
+        this.upgrade = new HashMap<UpgradeEnum, List<Object>>();
     }
 
     /**
@@ -51,6 +49,14 @@ public class BasicEntityInformation {
 
     /**
      * 
+     * @return entity
+     */
+    public EntityEnum getEntity() {
+        return entity;
+    }
+
+    /**
+     * 
      * @return status
      */
     public StatusEnum getStatus() {
@@ -59,26 +65,10 @@ public class BasicEntityInformation {
 
     /**
      * 
-     * @param status 
+     * @return {@link Position} 
      */
-    public void setStatus(final StatusEnum status) {
-        this.status = status;
-    }
-
-    /**
-     * 
-     * @return position
-     */
-    public Triplet<Double, Double, Double> getPosition() {
-        return position;
-    }
-
-    /**
-     * 
-     * @param position 
-     */
-    public void setPosition(final Triplet<Double, Double, Double> position) {
-        this.position = position;
+    public Position getPosition() {
+        return this.position;
     }
 
     /**
@@ -89,13 +79,6 @@ public class BasicEntityInformation {
         return height;
     }
 
-    /**
-     * 
-     * @param height 
-     */
-    public void setHeight(final double height) {
-        this.height = height;
-    }
 
     /**
      * 
@@ -107,40 +90,80 @@ public class BasicEntityInformation {
 
     /**
      * 
-     * @param width 
-     */ 
-    public void setWidth(final double width) {
-        this.width = width;
-    }
-    /**
-     * 
-     * @return upgrade
-     */
-    public List<BasicUpgradeEnum> getUpgrade() {
-        return upgrade;
-    }
-
-    /**
-     * 
-     * @param upgrade 
-     */
-    public void setUpgrade(final List<BasicUpgradeEnum> upgrade) {
-        this.upgrade = upgrade;
-    }
-
-    /**
-     * 
      * @return move 
      */
     public MovementEnum getMove() {
         return move;
     }
+    /**
+     * 
+     * @return upgrade 
+     */
+    public Map<UpgradeEnum, List<Object>> getUpgrade() {
+        return Collections.unmodifiableMap(this.upgrade);
+    }
+
+
+//-------setters
+    /**
+     * 
+     * @param status 
+     * @return this
+     */
+    public BasicEntityInformation setStatus(final StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+
+    /**
+     * 
+     * @param position is positions.
+     * @return this
+     */
+    public BasicEntityInformation setPosition(final Position position) {
+        this.position = position;
+        return this;
+    }
+
+    /**
+     * 
+     * @param height is height
+     * @return this
+     */
+    public BasicEntityInformation setHeight(final double height) {
+        this.height = height;
+        return this;
+    }
+
+    /**
+     * 
+     * @param width 
+     * @return this
+     */ 
+    public BasicEntityInformation setWidth(final double width) {
+        this.width = width;
+        return this;
+    }
+
 
     /**
      * 
      * @param move 
+     * @return this
      */
-    public void setMove(final MovementEnum move) {
+    public BasicEntityInformation setMove(final MovementEnum move) {
         this.move = move;
+        return this;
+    }
+
+    /**
+     * 
+     * @param upgrade 
+     * @return this
+     */
+    public BasicEntityInformation setUpgrade(final Map<UpgradeEnum, List<Object>> upgrade) {
+        this.upgrade = upgrade;
+        return this;
     }
 }
