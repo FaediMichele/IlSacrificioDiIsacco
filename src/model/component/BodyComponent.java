@@ -1,6 +1,7 @@
 package model.component;
 
 import model.entity.Entity;
+import model.util.Position;
 import util.NotEquals;
 import util.Triplet;
 
@@ -12,7 +13,7 @@ import util.Triplet;
 public class BodyComponent extends AbstractComponent<BodyComponent> {
 
     @NotEquals
-    private static final Triplet<Double, Double, Double> DEFAULT_POSITION_VALUE = new Triplet<>(0.0, 0.0, 0.0);
+    private static final Position DEFAULT_POSITION_VALUE = new Position(0.0, 0.0, 0.0);
     private static final double DEFAULT_SCALABLE_VALUE = 1;
     private static final int DEFAULT_WEIGHT_VALUE = 1;
     private Triplet<Double, Double, Double> position;
@@ -53,7 +54,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      */
     public BodyComponent(final Entity entity, final double x, final double y, final double z, final double height,
             final double width, final int weight) {
-        this (entity, new Triplet<Double, Double, Double>(x, y, z), height, width, weight);
+        this (entity, new Position(x, y, z), height, width, weight);
     }
 
     /**
@@ -70,8 +71,8 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * 
      * @return position
      */
-    public Triplet<Double, Double, Double> getPosition() {
-        return new Triplet<Double, Double, Double>(this.position.getV1(), this.position.getV2(), this.position.getV3());
+    public Position getPosition() {
+        return new Position(this.position.getX(), this.position.getY(), this.position.getZ());
     }
 
     /**
@@ -83,8 +84,8 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      */
     public void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
         this.previousPosition = this.position;
-        this.position = new Triplet<Double, Double, Double>(this.position.getV1() + deltaX,
-                this.position.getV2() + deltaY, this.position.getV3() + deltaZ);
+        this.position = new Position(this.position.getX() + deltaX,
+                this.position.getY() + deltaY, this.position.getZ() + deltaZ);
     }
 
     /**
@@ -95,7 +96,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param newZ the new position on the z axis
      */
     public void setPosition(final double newX, final double newY, final double newZ) {
-        this.position = new Triplet<Double, Double, Double>(newX, newY, newZ);
+        this.position = new Position(newX, newY, newZ);
     }
 
 
@@ -104,7 +105,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * 
      * @param newPosition Triplet of the position
      */
-    public void setPosition(final Triplet<Double, Double, Double> newPosition) {
+    public void setPosition(final Position newPosition) {
         this.position = newPosition;
     }
 
@@ -167,7 +168,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @return the position to the previous frame.
      */
     public Triplet<Double, Double, Double> getPositionPrevious() {
-        return new Triplet<Double, Double, Double>(this.previousPosition.getV1(), this.previousPosition.getV2(),
-                this.previousPosition.getV3());
+        return new Position(this.previousPosition.getX(), this.previousPosition.getY(),
+                this.previousPosition.getZ());
     }
 }

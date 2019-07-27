@@ -191,12 +191,12 @@ public class TestModel {
         buildedRoom.calculateCollision();
         coll = buildedRoom.getEntityColliding();
         assertTrue(coll.stream().filter(p -> 
-                Double.isNaN(getBodyComponent(p.getX()).getPosition().getV1())
-                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV2())
-                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getV3())
-                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV1())
-                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV2())
-                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getV3())).count() == 0);
+                Double.isNaN(getBodyComponent(p.getX()).getPosition().getX())
+                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getY())
+                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getZ())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getX())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getY())
+                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getZ())).count() == 0);
         assertTrue(buildedRoom.getEntityColliding().size() == 0);
     }
 
@@ -250,9 +250,9 @@ public class TestModel {
         assertEquals(getMoveComponent(p).getyMove(), MoveComponent.NOMOVE);
         assertEquals(getMoveComponent(p).getzMove(), -1);
         getMoveComponent(p).update(randomTime);
-        assertTrue(getBodyComponent(p).getPosition().getV1() > 0.0);
-        assertTrue(getBodyComponent(p).getPosition().getV3() < 0.0);
-        assertEquals(getBodyComponent(p).getPosition().getV2(), Double.valueOf(0));
+        assertTrue(getBodyComponent(p).getPosition().getX() > 0.0);
+        assertTrue(getBodyComponent(p).getPosition().getZ() < 0.0);
+        assertEquals(getBodyComponent(p).getPosition().getY(), Double.valueOf(0));
         assertEquals(getMoveComponent(p).getxMove(), MoveComponent.NOMOVE);
         assertEquals(getMoveComponent(p).getyMove(), MoveComponent.NOMOVE);
         assertEquals(getMoveComponent(p).getzMove(), MoveComponent.NOMOVE);
@@ -472,7 +472,7 @@ public class TestModel {
         assertEquals(firstPosition, this.getBodyComponent(p).getPosition());
         t.update(deltaTime);
         BodyComponent secondPosition = getBodyComponent(t);
-        assertTrue(firstPosition.getV2() < secondPosition.getPosition().getV2());
+        assertTrue(firstPosition.getY() < secondPosition.getPosition().getY());
     }
     /**
      * Test for the map.
