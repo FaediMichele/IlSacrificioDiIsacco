@@ -197,8 +197,8 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     private void setLastMovementAngle() {
-        final double deltaX = this.getBody().getPosition().getV1() - this.getBody().getPositionPrevious().getV1();
-        final double deltaY = this.getBody().getPosition().getV2() - this.getBody().getPositionPrevious().getV2();
+        final double deltaX = this.getBody().getPosition().getX() - this.getBody().getPositionPrevious().getX();
+        final double deltaY = this.getBody().getPosition().getY() - this.getBody().getPositionPrevious().getY();
         this.lastMovementAngle = Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
     }
 

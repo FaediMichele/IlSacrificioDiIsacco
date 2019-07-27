@@ -1,4 +1,4 @@
-package util;
+package model.util;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import util.enumeration.StatusEnum;
 /**
  *  Object for communication from model to controller. 
  */
-public class BasicEntityInformation {
+public class EntityInformation {
     private final UUID uuid;
     private final EntityEnum entity;
     private StatusEnum status;
@@ -32,7 +32,7 @@ public class BasicEntityInformation {
      * @param uuid 
      * @param entity 
      */
-    public BasicEntityInformation(final UUID uuid, final EntityEnum entity) {
+    public EntityInformation(final UUID uuid, final EntityEnum entity) {
         super();
         this.uuid = uuid;
         this.entity = entity;
@@ -110,7 +110,7 @@ public class BasicEntityInformation {
      * @param status 
      * @return this
      */
-    public BasicEntityInformation setStatus(final StatusEnum status) {
+    public EntityInformation setStatus(final StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -121,7 +121,7 @@ public class BasicEntityInformation {
      * @param position is positions.
      * @return this
      */
-    public BasicEntityInformation setPosition(final Position position) {
+    public EntityInformation setPosition(final Position position) {
         this.position = position;
         return this;
     }
@@ -131,7 +131,7 @@ public class BasicEntityInformation {
      * @param height is height
      * @return this
      */
-    public BasicEntityInformation setHeight(final double height) {
+    public EntityInformation setHeight(final double height) {
         this.height = height;
         return this;
     }
@@ -141,7 +141,7 @@ public class BasicEntityInformation {
      * @param width 
      * @return this
      */ 
-    public BasicEntityInformation setWidth(final double width) {
+    public EntityInformation setWidth(final double width) {
         this.width = width;
         return this;
     }
@@ -152,7 +152,7 @@ public class BasicEntityInformation {
      * @param move 
      * @return this
      */
-    public BasicEntityInformation setMove(final MovementEnum move) {
+    public EntityInformation setMove(final MovementEnum move) {
         this.move = move;
         return this;
     }
@@ -162,7 +162,7 @@ public class BasicEntityInformation {
      * @param upgrade 
      * @return this
      */
-    public BasicEntityInformation setUpgrade(final Map<UpgradeEnum, List<Object>> upgrade) {
+    public EntityInformation setUpgrade(final Map<UpgradeEnum, List<Object>> upgrade) {
         this.upgrade = upgrade;
         return this;
     }

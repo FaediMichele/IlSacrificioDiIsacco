@@ -68,7 +68,7 @@ public class RoomImpl implements Room {
     }
     private Space.Rectangle getShape(final Entity e) {
         final BodyComponent b = e.getComponent(BodyComponent.class).get();
-        return new Space.Rectangle(b.getPosition().getV1(), b.getPosition().getV2(), b.getWidth(), b.getHeight());
+        return new Space.Rectangle(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
     }
 
     /**
@@ -148,8 +148,8 @@ public class RoomImpl implements Room {
                 sp.addRectangle(rtmp); 
             } else {
                 final BodyComponent b = e.getComponent(BodyComponent.class).get();
-                r.setX(b.getPosition().getV1());
-                r.setY(b.getPosition().getV2());
+                r.setX(b.getPosition().getX());
+                r.setY(b.getPosition().getY());
             }
         });
     }

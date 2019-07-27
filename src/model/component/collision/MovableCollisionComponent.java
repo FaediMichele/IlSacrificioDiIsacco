@@ -55,14 +55,14 @@ public class MovableCollisionComponent extends CollisionComponent {
             b = Math.random() * angle;
         }
 
-        final double v1xi = this.getBodyComponent(this.getEntity()).getPosition().getV1()
-                - this.getBodyComponent(this.getEntity()).getPositionPrevious().getV1();
-        final double v1yi = this.getBodyComponent(this.getEntity()).getPosition().getV2()
-                - this.getBodyComponent(this.getEntity()).getPositionPrevious().getV2();
-        final double v2xi = this.getBodyComponent(event.getSourceEntity()).getPosition().getV1()
-                - this.getBodyComponent(event.getSourceEntity()).getPositionPrevious().getV1();
-        final double v2yi = this.getBodyComponent(event.getSourceEntity()).getPosition().getV2()
-                - this.getBodyComponent(event.getSourceEntity()).getPositionPrevious().getV2();
+        final double v1xi = this.getBodyComponent(this.getEntity()).getPosition().getX()
+                - this.getBodyComponent(this.getEntity()).getPositionPrevious().getX();
+        final double v1yi = this.getBodyComponent(this.getEntity()).getPosition().getY()
+                - this.getBodyComponent(this.getEntity()).getPositionPrevious().getY();
+        final double v2xi = this.getBodyComponent(event.getSourceEntity()).getPosition().getX()
+                - this.getBodyComponent(event.getSourceEntity()).getPositionPrevious().getX();
+        final double v2yi = this.getBodyComponent(event.getSourceEntity()).getPosition().getY()
+                - this.getBodyComponent(event.getSourceEntity()).getPositionPrevious().getY();
 
         final double sumx = v1xi + v2xi;
         final double sumy = v1yi + v2yi;
