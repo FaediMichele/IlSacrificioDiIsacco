@@ -15,7 +15,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- *
+ * Class to draw all the StatisticView that needs the icon of the item and the number of items 
+ * of that kind in the inventory.
  */
 public class NumbersStatisticView extends AbstractStatisticView {
     private static final Map<Integer, Image> NUMBER_SPRITES = new HashMap<>();

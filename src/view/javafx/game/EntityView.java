@@ -32,8 +32,9 @@ public interface EntityView {
     /**
      * 
      * @param x that is goind to be set (position on the x axis)
+     * @return this
      */
-    void setX(double x);
+    EntityView setX(double x);
 
     /**
      * 
@@ -44,8 +45,9 @@ public interface EntityView {
     /**
      * 
      * @param y that is going to be set (position on the y axis)
+     * @return this
      */
-    void setY(double y);
+    EntityView setY(double y);
 
     /**
      * 
@@ -56,8 +58,9 @@ public interface EntityView {
     /**
      * 
      * @param height that is going to be set for the sprite
+     * @return this
      */
-    void setHeight(double height);
+    EntityView setHeight(double height);
 
     /**
      * 
@@ -68,8 +71,9 @@ public interface EntityView {
     /**
      * 
      * @param width that is goind to be set for the sprite
+     * @return this
      */
-    void setWidth(double width);
+    EntityView setWidth(double width);
 
     /**
      * 
@@ -80,6 +84,7 @@ public interface EntityView {
     /**
      * 
      * @param status that is going to be set (what the entity is doing)
+     * @return this
      */
-    void setStatus(String status);
+    EntityView setStatus(String status);
 }

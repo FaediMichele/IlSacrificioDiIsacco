@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- * Class used to draw the statistics of the hearts.
+ * Class to draw the statistics of the hearts.
  */
 public class HeartStatisticView extends AbstractStatisticView {
 
