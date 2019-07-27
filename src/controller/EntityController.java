@@ -53,8 +53,11 @@ public class EntityController {
      * @param info is the status for the status component of entity.
      */
     public void update(final BasicEntityInformation info) {
-//        //update posizione delle dimensioni
-//           this.entityView.setX(x);
+
+            this.entityView.setX(info.getPosition().getV1())
+                            .setY(info.getPosition().getV2())
+                            .setHeight(info.getHeight())
+                            .setWidth(info.getWidth());
 //        //update dello stato
 //       try {
 //        STATUS_MAP.get(status.).invoke(this.entityView, status.get(BasicKeyMapStatusEnum.MOVEMENT));
