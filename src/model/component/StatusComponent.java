@@ -24,6 +24,7 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public StatusComponent(final Entity entity) {
         super(entity);
+        this.upgrade = new ArrayList<UpgradeEnum>();
         this.reset();
     }
 
@@ -87,6 +88,5 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public void reset() {
         this.status = BasicStatusEnum.DEFAULT;
-        this.upgrade = new ArrayList<UpgradeEnum>();
     }
 }
