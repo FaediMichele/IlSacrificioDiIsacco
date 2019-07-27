@@ -2,10 +2,14 @@ package controller;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-import util.BasicEntityInformation;
+import model.util.EntityInformation;
+import util.enumeration.MovementEnum;
+import util.enumeration.UpgradeEnum;
 import util.enumeration.ValuesMapStatusEnum;
 import view.javafx.game.EntityView;
 
@@ -41,7 +45,7 @@ public class EntityController {
     private final EntityView entityView;
 
     @SuppressWarnings("unchecked")
-    EntityController(final BasicEntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getUUID();
         Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(info.getEntity()));
         Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
@@ -52,17 +56,23 @@ public class EntityController {
      * 
      * @param info is the status for the status component of entity.
      */
-    public void update(final BasicEntityInformation info) {
+    public void update(final EntityInformation info) {
 
-            this.entityView.setX(info.getPosition().getV1())
-                            .setY(info.getPosition().getV2())
+            this.entityView.setX(info.getPosition().getX())
+                            .setY(info.getPosition().getY())
                             .setHeight(info.getHeight())
                             .setWidth(info.getWidth());
-//        //update dello stato
-//       try {
-//        STATUS_MAP.get(status.).invoke(this.entityView, status.get(BasicKeyMapStatusEnum.MOVEMENT));
-//    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-//        e.printStackTrace();
-//    }
+            try {
+                Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
+                status.invoke(this.entityView, info.getMove());
+                for (UpgradeEnum upgrade : info.getUpgrade().keySet()) {
+                    Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
+                    classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList()).toArray(classArg);
+                    Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
+                    method.invoke(this.entityView, info.getUpgrade().get(upgrade));
+                }
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
     }
 }
