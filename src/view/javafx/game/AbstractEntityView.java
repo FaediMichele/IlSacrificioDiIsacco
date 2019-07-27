@@ -67,8 +67,9 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public void setX(final double x) {
+    public EntityView setX(final double x) {
         this.x = Optional.of(x);
+        return this;
     }
 
     /**
@@ -85,8 +86,9 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public void setY(final double y) {
+    public EntityView setY(final double y) {
         this.y = Optional.of(y);
+        return this;
     }
 
     /**
@@ -103,8 +105,9 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public void setHeight(final double height) {
+    public EntityView setHeight(final double height) {
         this.height = Optional.of(height);
+        return this;
     }
 
     /**
@@ -121,8 +124,9 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public void setWidth(final double width) {
+    public EntityView setWidth(final double width) {
         this.width = Optional.of(width);
+        return this;
     }
 
     /**
@@ -135,7 +139,8 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public void setStatus(final String status) {
+    public EntityView setStatus(final String status) {
         this.status = Optional.of(status);
+        return this;
     }
 }

@@ -14,7 +14,6 @@ import view.javafx.game.GameViewImpl;
  */
 public class SubMenuGame extends SubMenu {
 
-    @SuppressWarnings("unused")
     private GameView gameView;
     private final Canvas cnv;
     /**
