@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.swing.text.Position;
-
 import util.enumeration.UpgradeEnum;
 import util.enumeration.EntityEnum;
 import util.enumeration.MovementEnum;
