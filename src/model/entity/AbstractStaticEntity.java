@@ -4,12 +4,13 @@ import model.component.BodyComponent;
 import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
+import util.enumeration.EntityEnum;
 
 /**
  * Base class for all the static entities such as rocks and doors. See also
  * {@link AbstractEntity}.
  */
-public class AbstractStaticEntity extends AbstractEntity {
+public abstract class AbstractStaticEntity extends AbstractEntity {
 
     /**
      * 
@@ -31,4 +32,10 @@ public class AbstractStaticEntity extends AbstractEntity {
         super();
         this.attachComponent(new ObstacleComponent(this));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract EntityEnum getNameEntity();
 }

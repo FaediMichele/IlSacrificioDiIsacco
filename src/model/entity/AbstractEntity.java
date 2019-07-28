@@ -18,6 +18,7 @@ import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
 import util.StaticMethodsUtils;
+import util.enumeration.EntityEnum;
 
 import com.google.common.eventbus.EventBus;
 
@@ -39,7 +40,6 @@ public abstract class AbstractEntity implements Entity {
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
         this.setDefaultComponents(new BodyComponent(this), new CollisionComponent(this), new StatusComponent(this));
-
     }
 
     /**
@@ -178,4 +178,9 @@ public abstract class AbstractEntity implements Entity {
         this.attachComponent(entityCollision);
         this.attachComponent(statusComponent);
     }
+    /**
+     * 
+     * @return entity name.
+     */
+    public abstract EntityEnum getNameEntity();
 }

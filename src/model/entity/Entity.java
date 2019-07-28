@@ -9,6 +9,7 @@ import model.component.StatusComponent;
 import model.events.Event;
 import model.game.Room;
 import util.EventListener;
+import util.enumeration.EntityEnum;
 
 /**
  * The main interface for all the entities such as enemies, items and the player
@@ -115,4 +116,10 @@ public interface Entity {
      *         entities need to log their status very often
      */
     StatusComponent getStatusComponent();
+
+    /**
+     * 
+     * @return entity name.
+     */
+    EntityEnum getNameEntity();
 }

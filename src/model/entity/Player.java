@@ -9,12 +9,14 @@ import model.component.collision.CollisionComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * Implements Player.
  */
 public class Player extends AbstractMovableEntity {
-
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.PLAYER;
     /**
      * Empty constructor.
      */
@@ -40,4 +42,12 @@ public class Player extends AbstractMovableEntity {
 //        this();
 //        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
 //    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
+    }
 }

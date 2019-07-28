@@ -47,7 +47,7 @@ public class EntityController {
     @SuppressWarnings("unchecked")
     EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getUUID();
-        Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(info.getEntity()));
+        Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(info.getEntityName()));
         Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
         this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
     }

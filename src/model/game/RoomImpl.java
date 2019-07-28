@@ -11,15 +11,16 @@ import java.util.stream.Collectors;
 import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.ObstacleComponent;
+import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import model.events.DeadEvent;
+import model.util.EntityInformation;
 import util.EventListener;
 import util.Pair;
 import util.Space;
-import util.enumeration.KeyMapStatusEnum;
-import util.enumeration.ValuesMapStatusEnum;
+
 
 /**
  * This class is the implementation for the room.
@@ -81,14 +82,21 @@ public class RoomImpl implements Room {
 
     /**
      * {@inheritDoc}
+     * @return 
      */
     @Override
-    public List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> getEntitysStatus() {
-        final List<Map<KeyMapStatusEnum, ValuesMapStatusEnum>> ret; // = entity.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList());
-        //ret.addAll(graveyard.stream().map(Entity::getStatusComponent).map(StatusComponent::getStatus).collect(Collectors.toList()));
-        cleanGraveyard = true;
-        ret = new ArrayList<>(); 
-        return ret;
+    public List<EntityInformation> getEntitysStatus() {
+       final List<EntityInformation> entityInformations = this.entity.stream().map(e -> new EntityInformation()
+                                                                                         .setEntity(e.getNameEntity())
+                                                                                         .setUUID(e.getUUID())
+                                                                                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
+                                                                                         .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
+                                                                                         .setMove(e.getComponent(StatusComponent.class).get().getMove())
+                                                                                         .setStatus(e.getComponent(StatusComponent.class).get().getStatus())
+                                                                                         .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
+                                                                                         .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
+                                                                            .collect(Collectors.toList()); 
+       return entityInformations;
     }
 
     /**

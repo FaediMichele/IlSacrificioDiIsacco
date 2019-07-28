@@ -5,6 +5,8 @@ import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
 import model.component.mentality.NeutralMentalityComponent;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.EntityEnum;
 
 /**
  * Create a door. The doors have a position based on the location (North, East,
@@ -15,6 +17,8 @@ public class Door extends AbstractStaticEntity {
     private static final int DEFAULTHEIGHT = 100;
     private static final int DEFAULTWIDTH = 1 / 16;
     private static final int DEFAULTWEIGHT = 0;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.DOOR;
+
 
     /**
      * Create a door based on the direction, destination.
@@ -54,5 +58,13 @@ public class Door extends AbstractStaticEntity {
     @Override
     public final String toString() {
         return this.getComponent(DoorAIComponent.class).get().toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityEnum getNameEntity() {
+        return ENTITY_NAME;
     }
 }
