@@ -71,4 +71,10 @@ public interface Floor {
      * @param eventListener the {@link EventListener} to remove.
      */
     void unregisterListener(EventListener<?> eventListener);
+
+    /**
+     * 
+     * @return true if the room is change from the last upadte.
+     */
+    boolean isChangeRoom();
 }
