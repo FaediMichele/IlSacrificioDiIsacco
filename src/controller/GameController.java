@@ -6,7 +6,7 @@ import java.util.List;
 
 import model.game.GameWorld;
 import model.util.EntityInformation;
-import util.enumeration.BasicEntityEnum;
+import util.enumeration.BasicPlayerEnum;
 import util.enumeration.BasicStatusEnum;
 
 /**
@@ -69,7 +69,7 @@ public class GameController extends AbstractController {
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation dissapper = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEARS);
-                        entityControllerList.stream().filter(x -> x.getEntityName().equals(BasicEntityEnum.PLAYER))
+                        entityControllerList.stream().filter(x -> x.getEntityName().equals(BasicPlayerEnum.PLAYER))
                                                      .forEach(x -> x.update(dissapper));
                     }
 //                    gameWord.getActiveFloor().getActiveRoom().getEntitysStatus()
