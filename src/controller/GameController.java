@@ -1,12 +1,12 @@
 package controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import model.game.GameWorld;
 import model.util.EntityInformation;
-import util.enumeration.BasicPlayerEnum;
 import util.enumeration.BasicStatusEnum;
 
 /**
@@ -19,7 +19,7 @@ public class GameController extends AbstractController {
     private volatile boolean stop;
     private final GameWorld gameWord;
     private final GameLoop gameloop;
-    private final List<EntityController> entityControllerList;
+    private final Map<UUID, EntityController> entityControllers;
     /**
      * 
      * @param main the {@link MainController}
@@ -30,7 +30,7 @@ public class GameController extends AbstractController {
         this.gameWord = gameWorld;
         this.stop = false;
         this.gameloop = new GameLoop();
-        this.entityControllerList = new ArrayList<EntityController>();
+        this.entityControllers = new HashMap<UUID, EntityController>();
     }
 
     /**
@@ -69,10 +69,33 @@ public class GameController extends AbstractController {
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation dissapper = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEARS);
-                        entityControllerList.stream().filter(x -> x.getEntityName().equals(BasicPlayerEnum.PLAYER))
-                                                     .forEach(x -> x.update(dissapper));
+                        entityControllers.values().stream().forEach(x -> { 
+                                                         x.update(dissapper);
+                                                         entityControllers.remove(x.getId());
+                                                      });
                     }
-//                    gameWord.getActiveFloor().getActiveRoom().getEntitysStatus()
+                    gameWord.getActiveFloor()
+                            .getActiveRoom()
+                            .getEntitysStatus()
+                            .stream()
+                            .peek(st -> {
+                                    if (!entityControllers.containsKey(st.getUUID())) {
+                                        try {
+                                            entityControllers.put(st.getUUID(), new EntityController(st));
+                                        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
+                                                | InstantiationException | IllegalAccessException
+                                                | IllegalArgumentException | InvocationTargetException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                })
+                            .forEach(st -> {
+                                    entityControllers.get(st.getUUID()).update(st);
+                                    if (st.getStatus().equals(BasicStatusEnum.DISAPPEARS) || st.getStatus().equals(BasicStatusEnum.DEAD)) {
+                                        entityControllers.remove(st.getUUID());
+                                    }
+
+                                });
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
