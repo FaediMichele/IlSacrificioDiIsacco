@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import model.util.EntityInformation;
+import util.enumeration.EntityEnum;
 import util.enumeration.MovementEnum;
 import util.enumeration.UpgradeEnum;
 import util.enumeration.ValuesMapStatusEnum;
@@ -43,11 +44,13 @@ public class EntityController {
 
     private final UUID id;
     private final EntityView entityView;
+    private final EntityEnum entityName;
 
     @SuppressWarnings("unchecked")
     EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getUUID();
-        Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(info.getEntityName()));
+        this.entityName = info.getEntityName();
+        Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));
         Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
         this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
     }
@@ -74,5 +77,21 @@ public class EntityController {
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 e.printStackTrace();
             }
+    }
+
+    /** 
+     * 
+     * @return id entity
+     */
+    public UUID getId() {
+        return this.id;
+    }
+
+    /**
+     * 
+     * @return entity name 
+     */
+    public EntityEnum getEntityName() {
+        return this.entityName;
     }
 }

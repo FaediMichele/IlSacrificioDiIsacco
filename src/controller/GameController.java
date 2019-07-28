@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.game.GameWorld;
+import model.util.EntityInformation;
+import util.enumeration.BasicEntityEnum;
+import util.enumeration.BasicStatusEnum;
 
 /**
  * The {@link Controller} for the game which includes the game loop and it
@@ -13,7 +16,7 @@ import model.game.GameWorld;
  */
 public class GameController extends AbstractController {
     private static  long timeToSleep = 33;
-    private boolean stop;
+    private volatile boolean stop;
     private final GameWorld gameWord;
     private final GameLoop gameloop;
     private final List<EntityController> entityControllerList;
@@ -64,7 +67,11 @@ public class GameController extends AbstractController {
                 while (!stop) {
                     sleep(timeToSleep);
                     gameWord.update(timeToSleep);
-                    //guardo se è cambiato il piano o la stanza
+                    if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
+                        final EntityInformation dissapper = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEARS);
+                        entityControllerList.stream().filter(x -> x.getEntityName().equals(BasicEntityEnum.PLAYER))
+                                                     .forEach(x -> x.update(dissapper));
+                    }
 //                    gameWord.getActiveFloor().getActiveRoom().getEntitysStatus()
                 }
             } catch (InterruptedException e) {
