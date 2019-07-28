@@ -102,7 +102,7 @@ public interface Entity {
      * 
      * @return {@link UUID}
      */
-    UUID getUUID();
+    UUID getId();
 
     /**
      * Change the room where this entity is.
