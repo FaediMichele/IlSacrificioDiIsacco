@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.entity.Entity;
-import util.enumeration.BasicStatusEnum;
 import util.enumeration.MovementEnum;
 import util.enumeration.StatusEnum;
 import util.enumeration.UpgradeEnum;
@@ -27,7 +26,6 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
     public StatusComponent(final Entity entity) {
         super(entity);
         this.upgrade = new HashMap<UpgradeEnum, List<Object>>();
-        this.reset();
     }
 
     /**
@@ -92,11 +90,5 @@ public class StatusComponent extends AbstractComponent<StatusComponent> {
      */
     public void setMove(final MovementEnum move) {
         this.move = move;
-    }
-    /**
-     *  is reset.
-     */
-    public void reset() {
-        this.status = BasicStatusEnum.DEFAULT;
     }
 }
