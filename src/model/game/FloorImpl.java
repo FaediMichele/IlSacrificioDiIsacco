@@ -249,4 +249,13 @@ public class FloorImpl implements Floor {
     public final void unregisterListener(final EventListener<?> eventListener) {
         this.eventBus.unregister(eventListener);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isChangeRoom() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

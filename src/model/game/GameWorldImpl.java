@@ -79,4 +79,13 @@ public class GameWorldImpl implements GameWorld {
         this.eventBus.unregister(eventListener);
     }
 
+    /**
+     * {@inheritDoc} 
+     */
+    @Override
+    public boolean isChangeFloor() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

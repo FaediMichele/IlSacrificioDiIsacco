@@ -86,7 +86,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public List<EntityInformation> getEntitysStatus() {
-       final List<EntityInformation> entityInformations = this.entity.stream().map(e -> new EntityInformation()
+       return this.entity.stream().map(e -> new EntityInformation()
                                                                                          .setEntity(e.getNameEntity())
                                                                                          .setUUID(e.getUUID())
                                                                                          .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
@@ -96,7 +96,6 @@ public class RoomImpl implements Room {
                                                                                          .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
                                                                                          .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
                                                                             .collect(Collectors.toList()); 
-       return entityInformations;
     }
 
     /**

@@ -31,6 +31,12 @@ public interface GameWorld {
     Floor getActiveFloor();
 
     /**
+     * 
+     * @return true if the floor is change from last update 
+     */
+    boolean isChangeFloor();
+
+    /**
      * Go to the next frame of the game.
      * @param deltaTime the time that has passed from the last call.
      */
