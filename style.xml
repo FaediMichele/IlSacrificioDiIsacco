@@ -123,7 +123,7 @@
 		<module name="InnerAssignment" />
 		<module name="MagicNumber">
 			<property name="ignoreNumbers"
-				value="-0.5, -1, 0, 0.5, 1, 2, 3, 4, 8, 10, 16, 32, 64, 90, 100, 180, 360, 1000, 237, 57, 31, 73, 22, 60, 102, 58, 32, 60, 111, 58, 129, 58, 210, 57, 138, 58, 147, 58" />
+				value="-0.5, -1, 0, 0.5, 1, 2, 3, 4, 8, 10, 16, 32, 64, 90, 100, 180, 360, 1000, 237, 57, 31, 73, 22, 60, 102, 58, 32, 60, 111, 58, 129, 58, 210, 57, 138, 58, 147, 58, 33" />
 		</module>
 		<module name="MissingSwitchDefault" />
 		<module name="SimplifyBooleanExpression" />

@@ -1,6 +1,9 @@
 package controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.game.GameWorld;
 
 /**
@@ -9,8 +12,11 @@ import model.game.GameWorld;
  *
  */
 public class GameController extends AbstractController {
+    private static  long timeToSleep = 33;
     private boolean stop;
     private final GameWorld gameWord;
+    private final GameLoop gameloop;
+    private final List<EntityController> entityControllerList;
     /**
      * 
      * @param main the {@link MainController}
@@ -20,6 +26,8 @@ public class GameController extends AbstractController {
         super(main);
         this.gameWord = gameWorld;
         this.stop = false;
+        this.gameloop = new GameLoop();
+        this.entityControllerList = new ArrayList<EntityController>();
     }
 
     /**
@@ -29,6 +37,7 @@ public class GameController extends AbstractController {
     public void run() {
         super.run();
         this.stop = false;
+        this.gameloop.start();
     }
 
     /**
@@ -39,14 +48,28 @@ public class GameController extends AbstractController {
        super.stop();
        this.stop = true;
     }
+    /**
+     * 
+     * Is thread for game loop for game.
+     *
+     */
+    private class GameLoop extends Thread {
 
-//    /**
-//     * The method that handles the game loop on the thread.
-//     */
-//    protected void gameLoop() {
-//        while (!this.stop) {
-//            //implementare il thread
-//           // this.gameWord.update(deltaTime);
-//        }
-//    }
+        /**
+         * is run.
+         */
+        @Override
+        public void run() {
+            try {
+                while (!stop) {
+                    sleep(timeToSleep);
+                    gameWord.update(timeToSleep);
+                    //guardo se è cambiato il piano o la stanza
+//                    gameWord.getActiveFloor().getActiveRoom().getEntitysStatus()
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
