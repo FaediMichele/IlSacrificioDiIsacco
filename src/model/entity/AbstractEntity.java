@@ -28,7 +28,7 @@ import com.google.common.eventbus.EventBus;
 public abstract class AbstractEntity implements Entity {
     @NotEquals
     @NotHashCode
-    private final UUID uuid = UUID.randomUUID();
+    private final UUID id = UUID.randomUUID();
     private final EventBus eventBus = new EventBus();
     private final Map<Class<? extends Component>, Component> componentsMap;
 
@@ -133,8 +133,8 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final UUID getUUID() {
-        return uuid;
+    public final UUID getId() {
+        return this.id;
     }
 
     @Override

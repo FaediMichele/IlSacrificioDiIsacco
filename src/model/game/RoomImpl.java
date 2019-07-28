@@ -87,15 +87,15 @@ public class RoomImpl implements Room {
     @Override
     public List<EntityInformation> getEntitysStatus() {
        return this.entity.stream().map(e -> new EntityInformation()
-                                                                                         .setEntity(e.getNameEntity())
-                                                                                         .setUUID(e.getUUID())
-                                                                                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
-                                                                                         .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
-                                                                                         .setMove(e.getComponent(StatusComponent.class).get().getMove())
-                                                                                         .setStatus(e.getComponent(StatusComponent.class).get().getStatus())
-                                                                                         .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
-                                                                                         .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
-                                                                            .collect(Collectors.toList()); 
+                                         .setEntity(e.getNameEntity())
+                                         .setId(e.getId())
+                                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
+                                         .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
+                                         .setMove(e.getComponent(StatusComponent.class).get().getMove())
+                                         .setStatus(e.getComponent(StatusComponent.class).get().getStatus())
+                                         .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
+                                         .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
+                                   .collect(Collectors.toList()); 
     }
 
     /**

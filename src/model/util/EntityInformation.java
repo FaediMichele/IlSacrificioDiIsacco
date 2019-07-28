@@ -15,7 +15,7 @@ import util.enumeration.StatusEnum;
  *  Object for communication from model to controller. 
  */
 public class EntityInformation {
-    private UUID uuid;
+    private UUID id;
     private EntityEnum entityName;
     private StatusEnum status;
     private Position position;
@@ -38,8 +38,8 @@ public class EntityInformation {
      * 
      * @return id
      */
-    public UUID getUUID() {
-        return this.uuid;
+    public UUID getId() {
+        return this.id;
     }
 
     /**
@@ -103,11 +103,11 @@ public class EntityInformation {
 
     /**
      * 
-     * @param uuid 
+     * @param id 
      * @return this
      */
-    public EntityInformation setUUID(final UUID uuid) {
-        this.uuid = uuid;
+    public EntityInformation setId(final UUID id) {
+        this.id = id;
         return this;
     }
 
