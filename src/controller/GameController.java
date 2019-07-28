@@ -79,9 +79,9 @@ public class GameController extends AbstractController {
                             .getEntitysStatus()
                             .stream()
                             .peek(st -> {
-                                    if (!entityControllers.containsKey(st.getUUID())) {
+                                    if (!entityControllers.containsKey(st.getId())) {
                                         try {
-                                            entityControllers.put(st.getUUID(), new EntityController(st));
+                                            entityControllers.put(st.getId(), new EntityController(st));
                                         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
                                                 | InstantiationException | IllegalAccessException
                                                 | IllegalArgumentException | InvocationTargetException e) {
@@ -90,9 +90,9 @@ public class GameController extends AbstractController {
                                     }
                                 })
                             .forEach(st -> {
-                                    entityControllers.get(st.getUUID()).update(st);
+                                    entityControllers.get(st.getId()).update(st);
                                     if (st.getStatus().equals(BasicStatusEnum.DISAPPEARS) || st.getStatus().equals(BasicStatusEnum.DEAD)) {
-                                        entityControllers.remove(st.getUUID());
+                                        entityControllers.remove(st.getId());
                                     }
 
                                 });
