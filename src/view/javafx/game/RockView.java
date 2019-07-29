@@ -28,12 +28,12 @@ public class RockView extends AbstractEntityView {
         }
     }
 
-    /**
-     * Base constructor.
-     */
-    public RockView() {
-        super();
-    }
+//    /**
+//     * Base constructor.
+//     */
+//    public RockView() {
+//        super();
+//    }
 
     /**
      * {@inheritDoc}

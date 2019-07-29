@@ -22,11 +22,14 @@ public class SubMenuOption extends SubMenu {
 
     @Override
     public final void input(final Command c) {
-        switch (c) {
-        case OPTIONS:
+//        switch (c) {
+//                    case OPTIONS:
+//                        options();
+//                        break;
+//                    default:
+//        }
+        if (c.equals(Command.OPTIONS)) {
             options();
-            break;
-        default:
         }
     }
 

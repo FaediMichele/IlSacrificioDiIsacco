@@ -26,7 +26,8 @@ public class SubMenuGame extends SubMenu {
     public SubMenuGame(final SubMenuSelection selector, final Pane main, final Canvas cnv) {
         super(selector, main);
         this.cnv = cnv;
-        this.reset();
+        this.gameView = new GameViewImpl();
+        gameView.setCanvas(cnv);
     }
 
     @Override
