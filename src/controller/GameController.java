@@ -16,7 +16,7 @@ import util.enumeration.BasicStatusEnum;
  */
 public class GameController extends AbstractController {
     private static  long timeToSleep = 33;
-    private volatile boolean stop;
+    private volatile boolean stoped;
     private final GameWorld gameWord;
     private final GameLoop gameloop;
     private final Map<UUID, EntityController> entityControllers;
@@ -28,7 +28,7 @@ public class GameController extends AbstractController {
     public GameController(final MainController main, final GameWorld gameWorld) {
         super(main);
         this.gameWord = gameWorld;
-        this.stop = false;
+        this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
     }
@@ -39,7 +39,7 @@ public class GameController extends AbstractController {
     @Override
     public void run() {
         super.run();
-        this.stop = false;
+        this.stoped = false;
         this.gameloop.start();
     }
 
@@ -49,7 +49,7 @@ public class GameController extends AbstractController {
     @Override
     public void stop() {
        super.stop();
-       this.stop = true;
+       this.stoped = true;
     }
     /**
      * 
@@ -64,7 +64,7 @@ public class GameController extends AbstractController {
         @Override
         public void run() {
             try {
-                while (!stop) {
+                while (!stoped) {
                     sleep(timeToSleep);
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
