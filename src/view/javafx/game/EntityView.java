@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import util.enumeration.MovementEnum;
 
 /**
  * Common methods to all the entity views.
@@ -11,15 +12,16 @@ import javafx.scene.image.Image;
 public interface EntityView {
     /**
      * 
-     * @param image initial image
+     * @param image  initial image
      * @param height of a sprite
-     * @param width of a sprite
+     * @param width  of a sprite
      * @return resized image
      */
     Image resize(Image image, double height, double width);
 
     /**
      * Draws the correct animation in the correct position of the canvas.
+     * 
      * @param gc where to draw
      */
     void draw(GraphicsContext gc);
@@ -87,4 +89,25 @@ public interface EntityView {
      * @return this
      */
     EntityView setStatus(String status);
+
+    /**
+     * Method for the animation of the normal status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void normal(MovementEnum move);
+
+    /**
+     * Method for the animation of the damaging status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void damaging(MovementEnum move);
+
+    /**
+     * Method for the animation of the dead status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void dead(MovementEnum move);
 }

@@ -6,9 +6,12 @@ import java.util.Optional;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import util.enumeration.MovementEnum;
+
 /**
- * This class contains the method animate that can be used by all the entity view 
- * after having extracted the sprites from the sheet set the right list in entityActualSprites.
+ * This class contains the method animate that can be used by all the entity
+ * view after having extracted the sprites from the sheet set the right list in
+ * entityActualSprites.
  */
 public abstract class AbstractEntityView implements EntityView {
     private final Optional<GameViewImpl> gameView;
@@ -142,5 +145,23 @@ public abstract class AbstractEntityView implements EntityView {
     public EntityView setStatus(final String status) {
         this.status = Optional.of(status);
         return this;
+    }
+
+    @Override
+    public void normal(final MovementEnum move) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void damaging(final MovementEnum move) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void dead(final MovementEnum move) {
+        // TODO Auto-generated method stub
+
     }
 }
