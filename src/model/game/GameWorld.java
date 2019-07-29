@@ -17,6 +17,13 @@ public interface GameWorld {
     Player getPlayer();
 
     /**
+     * Adds a {@link Floor}.
+     * 
+     * @param floor the floor
+     */
+    void addFloor(Floor floor);
+
+    /**
      * Gets the List of {@link Floor}.
      * 
      * @return the floors
@@ -32,12 +39,13 @@ public interface GameWorld {
 
     /**
      * 
-     * @return true if the floor is change from last update 
+     * @return true if the floor is change from last update
      */
     boolean isChangeFloor();
 
     /**
      * Go to the next frame of the game.
+     * 
      * @param deltaTime the time that has passed from the last call.
      */
     void update(double deltaTime);
@@ -51,12 +59,14 @@ public interface GameWorld {
 
     /**
      * Add a listener for changes that can be useful from the outside.
+     * 
      * @param eventListener the {@link EventListener} to add.
      */
     void registerListener(EventListener<?> eventListener);
 
     /**
      * remove a listener for changes of the game.
+     * 
      * @param eventListener the {@link EventListener} to remove.
      */
     void unregisterListener(EventListener<?> eventListener);

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import org.junit.Test;
 import model.component.AbstractAIComponent;
 import model.component.BlackHeart;
@@ -48,6 +47,8 @@ import model.events.MoveEvent;
 import model.events.TearShotEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
+import model.game.GameWorld;
+import model.game.GameWorldImpl;
 import model.game.Room;
 import model.game.RoomImpl;
 import util.Pair;
@@ -61,6 +62,20 @@ import util.Triplet;
 public class TestModel {
 
     private Room buildedRoom;
+
+    /**
+     * Test for {@link GameWorld}.
+     */
+    @Test
+    public void testGameWorld() {
+        GameWorld gw = new GameWorldImpl();
+        Floor f = new FloorImpl();
+        Room r = new RoomImpl(0, new ArrayList<Door>());
+        r.insertEntity(new Player());
+        r.insertEntity(new GaperEnemy(10, 10));
+        r.insertEntity(new GaperEnemy(15,15));
+    }
+
     /**
      * Test for {@link Entity}.
      */
@@ -165,10 +180,8 @@ public class TestModel {
         assertTrue(room.getEntity().containsAll(e1));
     }
 
-
     /**
-     * Test for the collision.
-     * It require many time to build the space.
+     * Test for the collision. It require many time to build the space.
      */
     @Test
     public void testCollision() {
@@ -190,19 +203,19 @@ public class TestModel {
         buildedRoom.updateEntity(90.0);
         buildedRoom.calculateCollision();
         coll = buildedRoom.getEntityColliding();
-        assertTrue(coll.stream().filter(p -> 
-                Double.isNaN(getBodyComponent(p.getX()).getPosition().getX())
-                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getY())
-                || Double.isNaN(getBodyComponent(p.getX()).getPosition().getZ())
-                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getX())
-                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getY())
-                || Double.isNaN(getBodyComponent(p.getY()).getPosition().getZ())).count() == 0);
+        assertTrue(coll.stream()
+                .filter(p -> Double.isNaN(getBodyComponent(p.getX()).getPosition().getX())
+                        || Double.isNaN(getBodyComponent(p.getX()).getPosition().getY())
+                        || Double.isNaN(getBodyComponent(p.getX()).getPosition().getZ())
+                        || Double.isNaN(getBodyComponent(p.getY()).getPosition().getX())
+                        || Double.isNaN(getBodyComponent(p.getY()).getPosition().getY())
+                        || Double.isNaN(getBodyComponent(p.getY()).getPosition().getZ()))
+                .count() == 0);
         assertTrue(buildedRoom.getEntityColliding().size() == 0);
     }
 
     /**
-     * Test for the time of the collision detection.
-     * The first time is not counted.
+     * Test for the time of the collision detection. The first time is not counted.
      */
     @Test
     public void timeForCollision() {
@@ -381,66 +394,57 @@ public class TestModel {
     /**
      * Test for {@link InventoryComponent}.
      */
-    /*@Test
-    public void testInventoryComponent() {
-        final Player player = new Player();
-        final Bomb bomb = new Bomb();
-
-        Room room = new RoomImpl(2, null);
-        room.insertEntity(player);
-        room.insertEntity(bomb);
-        assertEquals(room.getEntity().size(), 2);
-
-        player.postEvent(new CollisionEvent(bomb));
-        assertEquals(1, getInventoryComponent(player).getThings().size());
-        assertTrue(getInventoryComponent(player).getThings().contains(bomb));
-
-        final Bomb bomb2 = new Bomb();
-        room.insertEntity(bomb2);
-        player.postEvent(new CollisionEvent(bomb2));
-        assertEquals(true, bomb2.hasComponent(AbstractPickupableComponent.class));
-        assertEquals(2, getInventoryComponent(player).getThings().size());
-        assertTrue(getInventoryComponent(player).getThings().contains(bomb2));
-
-        player.postEvent(new UseThingEvent(player, bomb.getClass()));
-        assertEquals(1, getInventoryComponent(player).getThings().size());
-        assertTrue(getInventoryComponent(player).getThings().contains(bomb2));
-        assertEquals(room.getEntity().size(), 2);
-        assertTrue(room.getEntity().contains(bomb));
-        assertEquals(getBodyComponent(player).getPosition(), getBodyComponent(bomb).getPosition());
-
-        final Heart heart = new Heart();
-        room.insertEntity(heart);
-        assertEquals(getHealthComponent(player).getHearts().size(), 3);
-        player.postEvent(new CollisionEvent(heart));
-        assertEquals(getHealthComponent(player).getHearts().size(), 4);
-
-        final Key key = new Key();
-        room.insertEntity(key);
-        player.postEvent(new CollisionEvent(key));
-        assertEquals(2, getInventoryComponent(player).getThings().size());
-        assertTrue(getInventoryComponent(player).getThings().contains(key));
-
-        player.postEvent(new UseThingEvent(player, key.getClass()));
-        assertEquals(1, getInventoryComponent(player).getThings().size());
-        assertFalse(room.getEntity().contains(key));
-
-        final List<Room> rooms = new ArrayList<>();
-        final Door door = new Door(0, 1);
-        final Room r = new RoomImpl(0, new ArrayList<>(Arrays.asList(door)));
-        rooms.add(r);
-        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new Door(2, 0)))));
-        final Floor f = new FloorImpl(rooms);
-        f.getRooms();
-
-        r.insertEntity(player);
-        r.insertEntity(key);
-        player.postEvent(new CollisionEvent(key));
-        assertEquals(2, getInventoryComponent(player).getThings().size());
-        door.postEvent(new CollisionEvent(player));
-        assertEquals(1, getInventoryComponent(player).getThings().size());
-        assertFalse(room.getEntity().contains(key));
-    }*/
+    /*
+     * @Test public void testInventoryComponent() { final Player player = new
+     * Player(); final Bomb bomb = new Bomb();
+     * 
+     * Room room = new RoomImpl(2, null); room.insertEntity(player);
+     * room.insertEntity(bomb); assertEquals(room.getEntity().size(), 2);
+     * 
+     * player.postEvent(new CollisionEvent(bomb)); assertEquals(1,
+     * getInventoryComponent(player).getThings().size());
+     * assertTrue(getInventoryComponent(player).getThings().contains(bomb));
+     * 
+     * final Bomb bomb2 = new Bomb(); room.insertEntity(bomb2); player.postEvent(new
+     * CollisionEvent(bomb2)); assertEquals(true,
+     * bomb2.hasComponent(AbstractPickupableComponent.class)); assertEquals(2,
+     * getInventoryComponent(player).getThings().size());
+     * assertTrue(getInventoryComponent(player).getThings().contains(bomb2));
+     * 
+     * player.postEvent(new UseThingEvent(player, bomb.getClass())); assertEquals(1,
+     * getInventoryComponent(player).getThings().size());
+     * assertTrue(getInventoryComponent(player).getThings().contains(bomb2));
+     * assertEquals(room.getEntity().size(), 2);
+     * assertTrue(room.getEntity().contains(bomb));
+     * assertEquals(getBodyComponent(player).getPosition(),
+     * getBodyComponent(bomb).getPosition());
+     * 
+     * final Heart heart = new Heart(); room.insertEntity(heart);
+     * assertEquals(getHealthComponent(player).getHearts().size(), 3);
+     * player.postEvent(new CollisionEvent(heart));
+     * assertEquals(getHealthComponent(player).getHearts().size(), 4);
+     * 
+     * final Key key = new Key(); room.insertEntity(key); player.postEvent(new
+     * CollisionEvent(key)); assertEquals(2,
+     * getInventoryComponent(player).getThings().size());
+     * assertTrue(getInventoryComponent(player).getThings().contains(key));
+     * 
+     * player.postEvent(new UseThingEvent(player, key.getClass())); assertEquals(1,
+     * getInventoryComponent(player).getThings().size());
+     * assertFalse(room.getEntity().contains(key));
+     * 
+     * final List<Room> rooms = new ArrayList<>(); final Door door = new Door(0, 1);
+     * final Room r = new RoomImpl(0, new ArrayList<>(Arrays.asList(door)));
+     * rooms.add(r); rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(new
+     * Door(2, 0))))); final Floor f = new FloorImpl(rooms); f.getRooms();
+     * 
+     * r.insertEntity(player); r.insertEntity(key); player.postEvent(new
+     * CollisionEvent(key)); assertEquals(2,
+     * getInventoryComponent(player).getThings().size()); door.postEvent(new
+     * CollisionEvent(player)); assertEquals(1,
+     * getInventoryComponent(player).getThings().size());
+     * assertFalse(room.getEntity().contains(key)); }
+     */
 
     /**
      * Test for {@link InventoryComponent}.
@@ -448,8 +452,7 @@ public class TestModel {
     @Test
     public void testMentalityComponent() {
         Player p = new Player();
-        AbstractMentalityComponent m = p.getComponent(AbstractMentalityComponent.class)
-                .get();
+        AbstractMentalityComponent m = p.getComponent(AbstractMentalityComponent.class).get();
         assertEquals(PlayerMentalityComponent.class, m.getClass());
     }
 
@@ -474,6 +477,7 @@ public class TestModel {
         BodyComponent secondPosition = getBodyComponent(t);
         assertTrue(firstPosition.getY() < secondPosition.getPosition().getY());
     }
+
     /**
      * Test for the map.
      */
