@@ -1,7 +1,6 @@
 package model.component.collectible;
 
 import java.util.Objects;
-
 import model.component.BlackHeart;
 import model.component.HealthComponent;
 import model.component.Heart;

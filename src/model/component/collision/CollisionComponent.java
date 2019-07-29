@@ -1,9 +1,7 @@
 package model.component.collision;
 
 import java.util.List;
-
 import com.google.common.eventbus.Subscribe;
-
 import model.component.AbstractComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.NeutralMentalityComponent;

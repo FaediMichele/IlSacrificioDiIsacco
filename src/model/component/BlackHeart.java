@@ -1,7 +1,6 @@
 package model.component;
 
 import java.util.Objects;
-
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.entity.Entity;
@@ -88,7 +87,7 @@ public class BlackHeart extends SimpleHeart {
             return 0;
         } else {
             final double tempValue = super.getValue();
-            this.myEntity.getRoom().getEntity().stream()
+            this.myEntity.getRoom().getEntitys().stream()
                 .filter(i -> i.hasComponent(AbstractMentalityComponent.class))
                 .filter(i -> i.getComponent(EnemyMentalityComponent.class).isPresent())
                 .forEach(i -> i.postEvent(new DamageEvent(this.myEntity, enemyDamage)));

@@ -1,7 +1,6 @@
 package model.component;
 
 import java.util.Objects;
-
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Heart;

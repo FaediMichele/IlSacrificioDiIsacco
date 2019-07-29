@@ -18,7 +18,7 @@ public interface Room {
      * 
      * @return Set of all {@link Entity}.
      */
-    Set<? extends Entity> getEntity();
+    List<? extends Entity> getEntitys();
 
     /**
      * Get a list of the status of all the entities.
