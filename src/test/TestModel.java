@@ -65,15 +65,14 @@ public class TestModel {
 
     /**
      * Test for {@link GameWorld}.
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
      */
     @Test
-    public void testGameWorld() {
-        GameWorld gw = new GameWorldImpl();
-        Floor f = new FloorImpl();
-        Room r = new RoomImpl(0, new ArrayList<Door>());
-        r.insertEntity(new Player());
-        r.insertEntity(new GaperEnemy(10, 10));
-        r.insertEntity(new GaperEnemy(15,15));
+    public void testGameWorld() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        final GameWorld gw = new GameWorldImpl("Game1");
+        assertEquals(gw, new GameWorldImpl("Game1"));
     }
 
     /**
