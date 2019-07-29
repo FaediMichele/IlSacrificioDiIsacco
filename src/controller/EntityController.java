@@ -68,7 +68,7 @@ public class EntityController {
             try {
                 final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
                 status.invoke(this.entityView, info.getMove());
-                for (UpgradeEnum upgrade : info.getUpgrade().keySet()) {
+                for (final UpgradeEnum upgrade : info.getUpgrade().keySet()) {
                     Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
                     classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList()).toArray(classArg);
                     final Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);

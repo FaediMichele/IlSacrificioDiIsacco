@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
  *  Class which extracts the sprites from the sheets.
  */
 public class SpritesExtractor {
-    private List<BufferedImage> sprites = new ArrayList<>();
+    private final List<BufferedImage> sprites;
     private final BufferedImage sheet;
     private final int count;
     private final int rows;
@@ -54,6 +54,7 @@ public class SpritesExtractor {
         this.height = height;
         this.xstart = xstart;
         this.ystart = ystart;
+        sprites = new ArrayList<>();
     }
 
     /**
