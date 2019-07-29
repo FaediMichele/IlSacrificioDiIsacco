@@ -2,6 +2,7 @@ package model.game;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -44,6 +45,12 @@ public class GameWorldImpl implements GameWorld {
     }
 
     @Override
+    public final void addFloor(final Floor floor) {
+        Objects.requireNonNull(floor);
+        this.floors.add(floor);
+    }
+
+    @Override
     public final List<Floor> getFloors() {
         return new LinkedList<>(this.floors);
     }
@@ -80,7 +87,7 @@ public class GameWorldImpl implements GameWorld {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean isChangeFloor() {
