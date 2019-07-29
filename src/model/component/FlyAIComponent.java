@@ -42,7 +42,7 @@ public class FlyAIComponent extends AbstractAIComponent {
         if (r == null) {
             return;
         }
-        final List<? extends Entity> entitys = r.getEntitys();
+        final List<? extends Entity> entitys = r.getEntities();
         if (entitys == null) {
             return;
         }
