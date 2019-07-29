@@ -28,6 +28,16 @@ public class Key extends AbstractStaticEntity {
         this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
     }
+
+    /**
+     * Default constructor.
+     */
+    public Key() {
+        super();
+        this.attachComponent(new KeyCollectableComponent(this));
+        this.setDefaultComponents(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
+    }
  
     /**
      * {@inheritDoc}

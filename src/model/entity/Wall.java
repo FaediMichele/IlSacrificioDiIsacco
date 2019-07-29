@@ -32,6 +32,17 @@ public class Wall extends AbstractStaticEntity {
     }
 
     /**
+     * Default constructor.
+     * 
+     */
+    public Wall() {
+        super();
+        this.attachComponent(new NeutralMentalityComponent(this));
+        this.setDefaultComponents(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT), new CollisionComponent(this),
+                new StatusComponent(this));
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

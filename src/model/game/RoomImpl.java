@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
@@ -20,21 +25,27 @@ import model.util.EntityInformation;
 import util.EventListener;
 import util.Pair;
 import util.Space;
-
+import util.StaticMethodsUtils;
 
 /**
  * This class is the implementation for the room.
  *
  */
 public class RoomImpl implements Room {
+    private static final int NORD = 0;
+    private static final int EAST = 1;
+    private static final int SUD = 2;
+    private static final int OVEST = 3;
 
     private final List<Entity> entity;
     private final List<Entity> graveyard = new ArrayList<Entity>();
-    private final List<? extends Door> doors;
+    private final List<Door> doors;
     private final int index;
     private final Space sp = new Space();
-    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
-    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>(
+            (a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>(
+            (a, b) -> a.hashCode() - b.hashCode());
     private Floor floor;
     private boolean isComplete;
     private boolean cleanGraveyard;
@@ -67,6 +78,58 @@ public class RoomImpl implements Room {
         entity.forEach(e -> insertEntity(e));
         cleanGraveyard = false;
     }
+
+    /**
+     * Initialize a {@link Room} via xml.
+     * 
+     * @param roomName the room name in xml
+     * @param index the index of the room
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     */
+    public RoomImpl(final String roomName, final int index) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
+        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(roomName));
+        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Entities")).findFirst();
+        this.entity = new ArrayList<Entity>();
+        this.doors = new ArrayList<Door>();
+        this.index = index;
+        this.cleanGraveyard = false;
+        if (node.isPresent()) {
+            final NodeList nl = node.get().getChildNodes();
+            for (int i = 0; i < nl.getLength(); i++) {
+                final Node entity = nl.item(i);
+                if (entity.getNodeType() == Node.ELEMENT_NODE) {
+                    final String entityName = entity.getNodeName();
+                    if (entityName.equals("Door")) {
+                        switch (entity.getTextContent()) {
+                        case "RIGHT":
+                            this.doors.add(new Door(EAST, this.index));
+                            break;
+                        case "DOWN":
+                            this.doors.add(new Door(SUD, this.index));
+                            break;
+                        case "LEFT":
+                            this.doors.add(new Door(OVEST, this.index));
+                            break;
+                        default:
+                            this.doors.add(new Door(NORD, this.index));
+                            break;
+                        }
+                    } else {
+                        final Entity e = (Entity) Class.forName(entityName).newInstance();
+                        final Double x = Double.parseDouble(entity.getAttributes().getNamedItem("x").getNodeValue());
+                        final Double y = Double.parseDouble(entity.getAttributes().getNamedItem("y").getNodeValue());
+                        final Double z = Double.parseDouble(entity.getAttributes().getNamedItem("z").getNodeValue());
+                        e.getComponent(BodyComponent.class).get().changePosition(x, y, z);
+                        this.entity.add(e);
+                    }
+                }
+            }
+        }
+    }
+
     private Space.Rectangle getShape(final Entity e) {
         final BodyComponent b = e.getComponent(BodyComponent.class).get();
         return new Space.Rectangle(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
@@ -82,20 +145,20 @@ public class RoomImpl implements Room {
 
     /**
      * {@inheritDoc}
-     * @return 
+     * 
+     * @return
      */
     @Override
     public List<EntityInformation> getEntitysStatus() {
-       return this.entity.stream().map(e -> new EntityInformation()
-                                         .setEntity(e.getNameEntity())
-                                         .setId(e.getId())
-                                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
-                                         .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
-                                         .setMove(e.getComponent(StatusComponent.class).get().getMove())
-                                         .setStatus(e.getComponent(StatusComponent.class).get().getStatus())
-                                         .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
-                                         .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
-                                   .collect(Collectors.toList()); 
+        return this.entity.stream()
+                .map(e -> new EntityInformation().setEntity(e.getNameEntity()).setId(e.getId())
+                        .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
+                        .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
+                        .setMove(e.getComponent(StatusComponent.class).get().getMove())
+                        .setStatus(e.getComponent(StatusComponent.class).get().getStatus())
+                        .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
+                        .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -121,9 +184,10 @@ public class RoomImpl implements Room {
     @Override
     public final void calculateCollision() {
         updateSpace();
-        // get the collision detected and for each one call the event. 
+        // get the collision detected and for each one call the event.
         getEntityColliding().forEach(p -> postCollision(p.getX(), p.getY()));
     }
+
     private void postCollision(final Entity e1, final Entity e2) {
         final Entity tmp1 = e1, tmp2 = e2;
         e1.postEvent(new CollisionEvent(tmp2));
@@ -135,11 +199,10 @@ public class RoomImpl implements Room {
      */
     @Override
     public Set<Pair<Entity, Entity>> getEntityColliding() {
-        return sp.getCollisions().stream()
-                .map(p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()),
-                    rectangleEntitySpace.get(p.getY())))
+        return sp.getCollisions().stream().map(
+                p -> new Pair<Entity, Entity>(rectangleEntitySpace.get(p.getX()), rectangleEntitySpace.get(p.getY())))
                 .collect(Collectors.toSet());
-}
+    }
 
     /**
      * Update the rectangle in the space.
@@ -147,12 +210,12 @@ public class RoomImpl implements Room {
     private void updateSpace() {
         this.entity.forEach(e -> {
             final Space.Rectangle r = entityRectangleSpace.get(e);
-            if (r == null) { 
+            if (r == null) {
                 // Should never come here.
                 final Space.Rectangle rtmp = getShape(e);
                 entityRectangleSpace.put(e, rtmp);
                 rectangleEntitySpace.put(rtmp, e);
-                sp.addRectangle(rtmp); 
+                sp.addRectangle(rtmp);
             } else {
                 final BodyComponent b = e.getComponent(BodyComponent.class).get();
                 r.setX(b.getPosition().getX());
@@ -190,6 +253,7 @@ public class RoomImpl implements Room {
         e.changeRoom(this);
         addEventEntity(e);
     }
+
     private void addEventEntity(final Entity e) {
         e.registerListener(new EventListener<DeadEvent>() {
             @Override

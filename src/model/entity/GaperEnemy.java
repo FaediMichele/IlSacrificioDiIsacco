@@ -36,6 +36,18 @@ public class GaperEnemy extends AbstractEnemyMovable {
     }
 
     /**
+     * Create a gaper enemy based on his position.
+     */
+    public GaperEnemy() {
+        super();
+        this.attachComponent(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT));
+        this.attachComponent(new MoveComponent(this, DSPEED, MAXSPEED, FRICTION));
+        this.attachComponent(new MovableCollisionComponent(this));
+        this.attachComponent(new StatusComponent(this));
+        this.attachComponent(new FollowAIComponent(this));
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

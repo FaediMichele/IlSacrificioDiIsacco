@@ -7,6 +7,10 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import com.google.common.eventbus.EventBus;
 
 import model.component.DoorAIComponent;
@@ -17,6 +21,7 @@ import model.events.RoomChangedEvent;
 import util.EventListener;
 import util.Matrix;
 import util.Pair;
+import util.StaticMethodsUtils;
 
 /**
  * Implementation of Floor.
@@ -53,6 +58,32 @@ public class FloorImpl implements Floor {
     public FloorImpl(final List<Room> rooms) {
         this.rooms = new ArrayList<>(rooms);
         this.rooms.forEach(r -> r.setFloor(this));
+    }
+
+    /**
+     * Create the {@link Floor} via xml.
+     * 
+     * @param floorName the floor name in xml
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     */
+    public FloorImpl(final String floorName) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
+        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName));
+        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
+        this.rooms = new ArrayList<>();
+        this.activeRoomIndex = 0;
+        if (node.isPresent()) {
+            final NodeList nl = node.get().getChildNodes();
+            for (int i = 0; i < nl.getLength(); i++) {
+                final Node room = nl.item(i);
+                if (room.getNodeType() == Node.ELEMENT_NODE) {
+                    final String roomName = room.getNodeName();
+                    this.rooms.add(new RoomImpl(roomName, Integer.parseInt(room.getAttributes().getNamedItem("index").getNodeValue())));
+                }
+            }
+        }
     }
 
     /**
