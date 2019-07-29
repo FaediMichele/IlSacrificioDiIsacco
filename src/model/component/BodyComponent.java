@@ -16,8 +16,8 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     private static final Position DEFAULT_POSITION_VALUE = new Position(0.0, 0.0, 0.0);
     private static final double DEFAULT_SCALABLE_VALUE = 1;
     private static final int DEFAULT_WEIGHT_VALUE = 1;
-    private Triplet<Double, Double, Double> position;
-    private Triplet<Double, Double, Double> previousPosition;
+    private Position position;
+    private Position previousPosition;
     private double height;
     private double width;
     private int weight;
@@ -31,11 +31,25 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param weight   of the entity
      * @param entity   entity for this component
      */
-    public BodyComponent(final Entity entity, final Triplet<Double, Double, Double> position, final double height,
+    public BodyComponent(final Entity entity, final Position position, final double height,
             final double width, final int weight) {
         super(entity);
         this.position = position;
         this.previousPosition = position;
+        this.height = height;
+        this.width = width;
+        this.weight = weight;
+    }
+
+    /**
+     * 
+     * @param entity 
+     * @param height 
+     * @param width 
+     * @param weight 
+     */
+    public BodyComponent(final Entity entity, final double height, final double width, final int weight) {
+        super(entity);
         this.height = height;
         this.width = width;
         this.weight = weight;
@@ -97,6 +111,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      */
     public void setPosition(final double newX, final double newY, final double newZ) {
         this.position = new Position(newX, newY, newZ);
+        this.previousPosition = new Position(newX, newY, newZ);
     }
 
 

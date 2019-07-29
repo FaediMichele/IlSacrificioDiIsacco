@@ -31,6 +31,17 @@ public class Bomb extends AbstractEntity {
     }
 
     /**
+     * Default empty constructor.
+     */
+    public Bomb() {
+        super();
+        this.attachComponent(new BombCollectableComponent(this, 3, 1000, 100))
+            .attachComponent(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT));
+        this.setDefaultComponents(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
