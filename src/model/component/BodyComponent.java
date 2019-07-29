@@ -53,6 +53,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
         this.height = height;
         this.width = width;
         this.weight = weight;
+        this.position = new Position(0.0, 0.0, 0.0);
     }
 
     /**
