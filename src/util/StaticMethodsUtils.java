@@ -217,22 +217,20 @@ public final class StaticMethodsUtils {
      * @param <Y>   .
      * @param path  .
      * @param tag   .
-     * @param attr1 .
-     * @param attr2 .
+     * @param attr .
      * @return .
      */
     @SuppressWarnings({
             "unchecked", "rawtypes"
     })
-    public static <X, Y> Map<X, Y> xmlToMap(final String path, final String tag, final String attr1,
-            final String attr2) {
-        Map<X, Y> map = new HashMap<>();
-        NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
-        final String path1 = nl.item(0).getAttributes().getNamedItem(attr1).getNodeValue();
-        final String path2 = nl.item(0).getAttributes().getNamedItem(attr2).getNodeValue();
-        List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
+    public static <X, Y> Map<X, Y> xmlToMap(final String path, final String tag, final String...attr) {
+        final Map<X, Y> map = new HashMap<>();
+        final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
+        final String path1 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
+        final String path2 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
+        final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
-            NodeList tmp = n.getChildNodes();
+            final NodeList tmp = n.getChildNodes();
             for (int i = 0; i < tmp.getLength(); i++) {
                 if (tmp.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     try {
@@ -256,19 +254,17 @@ public final class StaticMethodsUtils {
      * @param <Y>   .
      * @param path  .
      * @param tag   .
-     * @param attr1 .
-     * @param attr2 .
+     * @param attr .
      * @return .
      */
     @SuppressWarnings({
             "unchecked", "rawtypes"
     })
-    public static <X, Y> Map<X, Y> xmlToMapMethods(final String path, final String tag, final String attr1,
-            final String attr2) {
+    public static <X, Y> Map<X, Y> xmlToMapMethods(final String path, final String tag, final String...attr) {
         final Map<X, Y> map = new HashMap<>();
         final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
-        final String path1 = nl.item(0).getAttributes().getNamedItem(attr1).getNodeValue();
-        final String path2 = nl.item(0).getAttributes().getNamedItem(attr2).getNodeValue();
+        final String path1 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
+        final String path2 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
         final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
             final NodeList tmp = n.getChildNodes();
