@@ -93,7 +93,7 @@ public final class StaticMethodsUtils {
          * annotation) then it takes their return values and checks if their are the
          * same for both obj1 and obj2
          */
-        while (!(classObj1.getSuperclass() == Object.class || classObj2.getSuperclass() == Object.class)) {
+        while (eq && !(classObj1.getSuperclass() == Object.class || classObj2.getSuperclass() == Object.class)) {
             classObj1 = classObj1.getSuperclass();
             classObj2 = classObj2.getSuperclass();
             final List<Method> methodsListObj1 = Stream.of(classObj1.getDeclaredMethods())

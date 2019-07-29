@@ -20,6 +20,8 @@ import model.entity.Player;
 import model.events.RoomChangedEvent;
 import util.EventListener;
 import util.Matrix;
+import util.NotEquals;
+import util.NotHashCode;
 import util.Pair;
 import util.StaticMethodsUtils;
 
@@ -39,6 +41,8 @@ public class FloorImpl implements Floor {
     private static final int OVEST = 3;
 
     private final List<Room> rooms;
+    @NotEquals
+    @NotHashCode
     private final EventBus eventBus = new EventBus();
     private int activeRoomIndex;
 
@@ -71,7 +75,7 @@ public class FloorImpl implements Floor {
     public FloorImpl(final String floorName)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName));
+        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(0).getChildNodes());
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
         this.rooms = new ArrayList<>();
         this.activeRoomIndex = 0;

@@ -23,6 +23,8 @@ import model.events.CollisionEvent;
 import model.events.DeadEvent;
 import model.util.EntityInformation;
 import util.EventListener;
+import util.NotEquals;
+import util.NotHashCode;
 import util.Pair;
 import util.Space;
 import util.StaticMethodsUtils;
@@ -41,9 +43,15 @@ public class RoomImpl implements Room {
     private final List<Entity> graveyard = new ArrayList<Entity>();
     private final List<Door> doors;
     private final int index;
+    @NotEquals
+    @NotHashCode
     private final Space sp = new Space();
+    @NotEquals
+    @NotHashCode
     private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>(
             (a, b) -> a.hashCode() - b.hashCode());
+    @NotEquals
+    @NotHashCode
     private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>(
             (a, b) -> a.hashCode() - b.hashCode());
     private Floor floor;
@@ -90,8 +98,9 @@ public class RoomImpl implements Room {
      */
     public RoomImpl(final String roomName, final int index)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(roomName));
+        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Room.xml");
+        final List<Node> ls = StaticMethodsUtils
+                .getNodesFromNodelList(docXML.getElementsByTagName(roomName).item(0).getChildNodes());
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Entities")).findFirst();
         this.entity = new ArrayList<Entity>();
         this.doors = new ArrayList<Door>();
@@ -119,7 +128,7 @@ public class RoomImpl implements Room {
                             break;
                         }
                     } else {
-                        final Entity e = (Entity) Class.forName(entityName).newInstance();
+                        final Entity e = (Entity) Class.forName("model.entity." + entityName).newInstance();
                         final Double x = Double.parseDouble(entity.getAttributes().getNamedItem("x").getNodeValue());
                         final Double y = Double.parseDouble(entity.getAttributes().getNamedItem("y").getNodeValue());
                         final Double z = Double.parseDouble(entity.getAttributes().getNamedItem("z").getNodeValue());

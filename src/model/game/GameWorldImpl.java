@@ -16,6 +16,8 @@ import model.entity.Player;
 import model.events.FloorChangedEvent;
 import model.events.RoomChangedEvent;
 import util.EventListener;
+import util.NotEquals;
+import util.NotHashCode;
 import util.StaticMethodsUtils;
 
 /**
@@ -23,10 +25,17 @@ import util.StaticMethodsUtils;
  *
  */
 public class GameWorldImpl implements GameWorld {
+    @NotEquals
+    @NotHashCode
     private final Player player;
     private final List<Floor> floors;
+    @NotEquals
+    @NotHashCode
     private final EventBus eventBus = new EventBus();
     private int activeFloor;
+
+    @NotEquals
+    @NotHashCode
     private final EventListener<RoomChangedEvent> changeRoom = new EventListener<RoomChangedEvent>() {
         @Override
         @Subscribe
@@ -56,7 +65,7 @@ public class GameWorldImpl implements GameWorld {
     public GameWorldImpl(final String game)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game));
+        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
         this.player = new Player();
         this.activeFloor = 0;
