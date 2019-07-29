@@ -32,9 +32,9 @@ public class TestController {
         main.switchActive(gc);
         assertEquals(main.getActiveController(), gc);
         Room room = gw.getActiveFloor().getActiveRoom();
-        room.getEntity().forEach(e -> System.out.println(e.getClass()));
-        assertEquals(room.getEntity().size(), 5);
-        GaperEnemy g = (GaperEnemy) room.getEntity().stream().filter(e -> e.getClass().equals(GaperEnemy.class)).findFirst().get();
+        room.getEntities().forEach(e -> System.out.println(e.getClass()));
+        assertEquals(room.getEntities().size(), 5);
+        GaperEnemy g = (GaperEnemy) room.getEntities().stream().filter(e -> e.getClass().equals(GaperEnemy.class)).findFirst().get();
         g.postEvent(new MoveEvent(g, 2, 2, 0));
     }
 }
