@@ -83,12 +83,13 @@ public class RoomImpl implements Room {
      * Initialize a {@link Room} via xml.
      * 
      * @param roomName the room name in xml
-     * @param index the index of the room
+     * @param index    the index of the room
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public RoomImpl(final String roomName, final int index) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public RoomImpl(final String roomName, final int index)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
         final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(roomName));
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Entities")).findFirst();
@@ -299,5 +300,15 @@ public class RoomImpl implements Room {
     @Override
     public Pair<Double, Double> getRoute(final Entity start, final Entity dest) {
         return sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        return StaticMethodsUtils.equals(this, obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return StaticMethodsUtils.hashCode(this);
     }
 }

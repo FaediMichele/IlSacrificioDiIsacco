@@ -53,7 +53,8 @@ public class GameWorldImpl implements GameWorld {
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public GameWorldImpl(final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public GameWorldImpl(final String game)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
         final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game));
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
@@ -128,6 +129,16 @@ public class GameWorldImpl implements GameWorld {
     public boolean isChangeFloor() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        return StaticMethodsUtils.equals(this, obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return StaticMethodsUtils.hashCode(this);
     }
 
 }

@@ -68,7 +68,8 @@ public class FloorImpl implements Floor {
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public FloorImpl(final String floorName) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public FloorImpl(final String floorName)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
         final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName));
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
@@ -80,7 +81,8 @@ public class FloorImpl implements Floor {
                 final Node room = nl.item(i);
                 if (room.getNodeType() == Node.ELEMENT_NODE) {
                     final String roomName = room.getNodeName();
-                    this.rooms.add(new RoomImpl(roomName, Integer.parseInt(room.getAttributes().getNamedItem("index").getNodeValue())));
+                    this.rooms.add(new RoomImpl(roomName,
+                            Integer.parseInt(room.getAttributes().getNamedItem("index").getNodeValue())));
                 }
             }
         }
@@ -288,5 +290,15 @@ public class FloorImpl implements Floor {
     public boolean isChangeRoom() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        return StaticMethodsUtils.equals(this, obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return StaticMethodsUtils.hashCode(this);
     }
 }
