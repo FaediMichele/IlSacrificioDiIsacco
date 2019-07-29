@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import model.game.GameWorld;
 import model.util.EntityInformation;
+import util.NotEquals;
 import util.enumeration.BasicStatusEnum;
 
 /**
@@ -16,8 +17,10 @@ import util.enumeration.BasicStatusEnum;
  */
 public class GameController extends AbstractController {
     private static  long timeToSleep = 33;
+    @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;
+    @NotEquals
     private final GameLoop gameloop;
     private final Map<UUID, EntityController> entityControllers;
     /**

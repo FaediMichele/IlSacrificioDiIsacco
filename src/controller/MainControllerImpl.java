@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.google.common.eventbus.EventBus;
 
@@ -15,23 +16,43 @@ import util.EventListener;
  */
 public class MainControllerImpl implements MainController {
     private final EventBus eventBus = new EventBus();
-    private final Map<Class<? extends Controller>, Controller> controllerComponents = new LinkedHashMap<Class<? extends Controller>, Controller>();
-    private Class<? extends Controller> activeController;
+    // private final Map<Class<? extends Controller>, Controller>
+    // controllerComponents = new LinkedHashMap<Class<? extends Controller>,
+    // Controller>();
+    // private Class<? extends Controller> activeController;
+    private Controller activeController;
 
-    @Override
-    public final boolean switchActive(final Class<? extends Controller> dest) {
-        if (!this.hasController(dest)) {
-            return false;
-        }
-        this.getActiveController().stop();
-        this.activeController = dest;
-        this.getActiveController().run();
-        return true;
+    /**
+     * 
+     */
+    public MainControllerImpl() {
+        this.switchActive(new MenuController(this));
     }
 
+//    @Override
+//    public final boolean switchActive(final Class<? extends Controller> dest) {
+//        if (!this.hasController(dest)) {
+//            return false;
+//        }
+////        this.getActiveController().stop();
+////        this.activeController = dest;
+////        //this.getActiveController().run();
+////        return true;
+////    }
+//
+//    @Override
+//    public final boolean hasController(final Class<? extends Controller> dest) {
+//        return this.controllerComponents.containsKey(dest);
+//    }
+
     @Override
-    public final boolean hasController(final Class<? extends Controller> dest) {
-        return this.controllerComponents.containsKey(dest);
+    public final void switchActive(final Controller dest) {
+        Objects.requireNonNull(dest);
+        if (this.getActiveController() != null) {
+            this.getActiveController().stop();
+        }
+        this.activeController = dest;
+        this.activeController.run();
     }
 
     @Override
@@ -51,23 +72,24 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public final Controller getActiveController() {
-        return this.controllerComponents.get(this.activeController);
+        // return this.controllerComponents.get(this.activeController);
+        return this.activeController;
     }
 
-    @Override
-    public final void attachController(final Controller c) {
-        if (this.hasController(c.getClass())) {
-            this.detachController(c.getClass());
-        }
-        this.controllerComponents.put(c.getClass(), c);
-    }
-
-    @Override
-    public final void detachController(final Class<? extends Controller> c) {
-        if (this.hasController(c)) {
-            this.controllerComponents.get(c).stop();
-            this.controllerComponents.remove(c);
-        }
-
-    }
+//    @Override
+//    public final void attachController(final Controller c) {
+//        if (this.hasController(c.getClass())) {
+//            this.detachController(c.getClass());
+//        }
+//        this.controllerComponents.put(c.getClass(), c);
+//    }
+//
+//    @Override
+//    public final void detachController(final Class<? extends Controller> c) {
+//        if (this.hasController(c)) {
+//            this.controllerComponents.get(c).stop();
+//            this.controllerComponents.remove(c);
+//        }
+//
+//    }
 }
