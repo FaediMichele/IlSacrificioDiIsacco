@@ -68,7 +68,7 @@ public class GameController extends AbstractController {
                     sleep(timeToSleep);
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
-                        final EntityInformation dissapper = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEARS);
+                        final EntityInformation dissapper = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> { 
                                                          x.update(dissapper);
                                                          entityControllers.remove(x.getId());
@@ -91,7 +91,7 @@ public class GameController extends AbstractController {
                                 })
                             .forEach(st -> {
                                     entityControllers.get(st.getId()).update(st);
-                                    if (st.getStatus().equals(BasicStatusEnum.DISAPPEARS) || st.getStatus().equals(BasicStatusEnum.DEAD)) {
+                                    if (st.getStatus().equals(BasicStatusEnum.DISAPPEAR) || st.getStatus().equals(BasicStatusEnum.DEAD)) {
                                         entityControllers.remove(st.getId());
                                     }
 
