@@ -18,14 +18,14 @@ public interface Room {
      * 
      * @return Set of all {@link Entity}.
      */
-    List<? extends Entity> getEntitys();
+    List<? extends Entity> getEntities();
 
     /**
      * Get a list of the status of all the entities.
      * Get also the deleted entities if not already got before then delete them.
      * @return the map from {@link KeyMapStatusEnum} to {@link ValuesMapStatusEnum}.
      */
-    List<EntityInformation> getEntitysStatus();
+    List<EntityInformation> getEntitiesStatus();
 
     /**
      * Get the door that the room have.

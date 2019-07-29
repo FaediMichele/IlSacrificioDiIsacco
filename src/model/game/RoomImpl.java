@@ -150,7 +150,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public List<? extends Entity> getEntitys() {
+    public List<? extends Entity> getEntities() {
         return Collections.unmodifiableList(this.entity);
     }
 
@@ -160,7 +160,7 @@ public class RoomImpl implements Room {
      * @return
      */
     @Override
-    public List<EntityInformation> getEntitysStatus() {
+    public List<EntityInformation> getEntitiesStatus() {
         return this.entity.stream()
                 .map(e -> new EntityInformation().setEntity(e.getNameEntity()).setId(e.getId())
                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
