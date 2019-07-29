@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.enumeration.MovementEnum;
+import util.enumeration.UpgradeEnum;
 
 /**
  * This class contains the method animate that can be used by all the entity
@@ -161,6 +162,12 @@ public abstract class AbstractEntityView implements EntityView {
 
     @Override
     public void dead(final MovementEnum move) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void upgrade(final UpgradeEnum upgrade) {
         // TODO Auto-generated method stub
 
     }
