@@ -18,12 +18,12 @@ public class GameViewImpl implements GameView {
     private final List<StatisticView> statistics = new ArrayList<>();
     private Optional<Canvas> cv = Optional.empty();
 
-    /**
-     * Basic constructor.
-     */
-    public GameViewImpl() {
-        super();
-    }
+//    /**
+//     * Basic constructor.
+//     */
+//    public GameViewImpl() {
+//        super();
+//    }
 
     /**
      * {@inheritDoc}
