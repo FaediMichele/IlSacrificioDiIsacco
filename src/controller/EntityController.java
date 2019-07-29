@@ -50,8 +50,8 @@ public class EntityController {
     EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getId();
         this.entityName = info.getEntityName();
-        Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));
-        Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
+        final Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));
+        final Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
         this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
     }
 
@@ -66,12 +66,12 @@ public class EntityController {
                             .setHeight(info.getHeight())
                             .setWidth(info.getWidth());
             try {
-                Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
+                final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
                 status.invoke(this.entityView, info.getMove());
                 for (UpgradeEnum upgrade : info.getUpgrade().keySet()) {
                     Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
                     classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList()).toArray(classArg);
-                    Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
+                    final Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
                     method.invoke(this.entityView, info.getUpgrade().get(upgrade));
                 }
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
