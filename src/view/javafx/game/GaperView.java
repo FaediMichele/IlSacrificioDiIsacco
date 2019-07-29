@@ -12,6 +12,7 @@ import com.sun.javafx.scene.traversal.Direction;
 
 import javafx.scene.image.Image;
 import util.SpritesExtractor;
+import util.enumeration.MovementEnum;
 
 /**
 * View and animations of the Gaper enemy.
@@ -38,5 +39,10 @@ public class GaperView extends IsaacView {
      */
     public Map<Direction, List<Image>> getFaceSprites() {
         return GaperView.faceSprites;
+    }
+    
+    @Override
+    public void dead(MovementEnum move) {
+        System.out.println("DEAD!");
     }
 }

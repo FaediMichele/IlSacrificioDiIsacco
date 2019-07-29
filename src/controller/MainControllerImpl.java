@@ -52,7 +52,7 @@ public class MainControllerImpl implements MainController {
             this.getActiveController().stop();
         }
         this.activeController = dest;
-        this.activeController.run();
+        //this.activeController.run();
     }
 
     @Override
