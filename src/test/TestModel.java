@@ -173,10 +173,10 @@ public class TestModel {
         final List<Entity> e1 = new ArrayList<>();
         e1.add(r);
         e1.add(f);
-        assertTrue(room.getEntity().containsAll(e1));
+        assertTrue(room.getEntitys().containsAll(e1));
         room.updateEntity(0.0);
         room.updateEntity(10.0);
-        assertTrue(room.getEntity().containsAll(e1));
+        assertTrue(room.getEntitys().containsAll(e1));
     }
 
     /**
@@ -377,7 +377,7 @@ public class TestModel {
 
         assertTrue(collectible.hasComponent(AbstractPickupableComponent.class));
         assertEquals(numberOfThings, getInventoryComponent(player).getThings().size());
-        assertEquals(0, room.getEntity().size());
+        assertEquals(0, room.getEntitys().size());
     }
 
     /**
@@ -468,8 +468,8 @@ public class TestModel {
         this.getMoveComponent(p).update(deltaTime);
         p.postEvent(new TearShotEvent(p, 90));
 
-        assertEquals(room.getEntity().stream().filter(e -> e.getClass().equals(Tear.class)).count(), 1);
-        Tear t = (Tear) room.getEntity().stream().filter(e -> e.getClass().equals(Tear.class)).findFirst().get();
+        assertEquals(room.getEntitys().stream().filter(e -> e.getClass().equals(Tear.class)).count(), 1);
+        Tear t = (Tear) room.getEntitys().stream().filter(e -> e.getClass().equals(Tear.class)).findFirst().get();
         Triplet<Double, Double, Double> firstPosition = this.getBodyComponent(t).getPosition();
         assertEquals(firstPosition, this.getBodyComponent(p).getPosition());
         t.update(deltaTime);

@@ -1,6 +1,7 @@
 package model.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -149,8 +150,8 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public Set<? extends Entity> getEntity() {
-        return new LinkedHashSet<Entity>(this.entity);
+    public List<? extends Entity> getEntitys() {
+        return Collections.unmodifiableList(this.entity);
     }
 
     /**

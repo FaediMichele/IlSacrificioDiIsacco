@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import com.google.common.eventbus.Subscribe;
-
 import model.component.collectible.AbstractCollectableComponent;
 import model.component.collectible.AbstractPickupableComponent;
 import model.entity.Entity;

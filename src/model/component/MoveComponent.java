@@ -1,7 +1,6 @@
 package model.component;
 
 import com.google.common.eventbus.Subscribe;
-
 import model.entity.Entity;
 import model.events.MoveEvent;
 import util.EventListener;

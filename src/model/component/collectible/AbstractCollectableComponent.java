@@ -2,7 +2,6 @@ package model.component.collectible;
 
 import java.util.Objects;
 import java.util.Optional;
-
 import model.component.Component;
 import model.component.InventoryComponent;
 import model.entity.Entity;

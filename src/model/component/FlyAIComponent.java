@@ -1,15 +1,12 @@
 package model.component;
 
-
-import java.util.Set;
-
 import com.google.common.eventbus.Subscribe;
-
 import model.entity.Entity;
 import model.entity.Player;
 import model.events.CollisionEvent;
 import model.game.Room;
 import util.EventListener;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -45,7 +42,7 @@ public class FlyAIComponent extends AbstractAIComponent {
         if (r == null) {
             return;
         }
-        final Set<? extends Entity> entitys = r.getEntity();
+        final List<? extends Entity> entitys = r.getEntitys();
         if (entitys == null) {
             return;
         }

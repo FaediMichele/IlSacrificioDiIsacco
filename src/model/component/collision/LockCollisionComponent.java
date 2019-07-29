@@ -1,7 +1,6 @@
 package model.component.collision;
 
 import com.google.common.eventbus.Subscribe;
-
 import model.component.InventoryComponent;
 import model.entity.Entity;
 import model.entity.Key;

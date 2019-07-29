@@ -1,13 +1,10 @@
 package model.component;
 
-
-import java.util.Set;
-
 import model.entity.Entity;
 import model.entity.Player;
 import model.game.Room;
 import util.Pair;
-
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,7 +35,7 @@ public class FollowAIComponent extends AbstractAIComponent {
             if (r == null) {
                 return;
             }
-            final Set<? extends Entity> entitys = r.getEntity();
+            final List<? extends Entity> entitys = r.getEntitys();
             if (entitys == null) {
                 return;
             }
