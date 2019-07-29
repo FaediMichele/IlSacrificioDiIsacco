@@ -8,7 +8,9 @@ import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.parsers.DocumentBuilder;
@@ -161,9 +163,10 @@ public final class StaticMethodsUtils {
         DocumentBuilder documentBuilder;
         Document document;
         try {
-            file =  new File(Object.class.getResource(filePath).toURI());
+            file = new File(Object.class.getResource(filePath).toURI());
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
             document = documentBuilder.parse(file);
+            document.normalize();
             return document;
         } catch (ParserConfigurationException | SAXException | IOException | URISyntaxException e) {
             e.printStackTrace();
@@ -205,5 +208,79 @@ public final class StaticMethodsUtils {
             e.printStackTrace();
         }
         return ls;
+    }
+
+    /**
+     * .
+     * 
+     * @param <X>   .
+     * @param <Y>   .
+     * @param path  .
+     * @param tag   .
+     * @param attr .
+     * @return .
+     */
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
+    public static <X, Y> Map<X, Y> xmlToMap(final String path, final String tag, final String...attr) {
+        final Map<X, Y> map = new HashMap<>();
+        final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
+        final String path1 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
+        final String path2 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
+        final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
+        node.forEach(n -> {
+            final NodeList tmp = n.getChildNodes();
+            for (int i = 0; i < tmp.getLength(); i++) {
+                if (tmp.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    try {
+                        map.put((X) Enum.valueOf((Class<Enum>) Class.forName(path1), tmp.item(i).getNodeName()),
+                                (Y) Class.forName(path2 + "." + tmp.item(i).getTextContent()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                // System.out.println(tmp.item(i).getNodeName() + " --> " +
+                // tmp.item(i).getTextContent());
+            }
+        });
+        return (Map<X, Y>) map;
+    }
+
+    /**
+     * .
+     * 
+     * @param <X>   .
+     * @param <Y>   .
+     * @param path  .
+     * @param tag   .
+     * @param attr .
+     * @return .
+     */
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
+    public static <X, Y> Map<X, Y> xmlToMapMethods(final String path, final String tag, final String...attr) {
+        final Map<X, Y> map = new HashMap<>();
+        final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
+        final String path1 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
+        final String path2 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
+        final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
+        node.forEach(n -> {
+            final NodeList tmp = n.getChildNodes();
+            for (int i = 0; i < tmp.getLength(); i++) {
+                if (tmp.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    try {
+                        map.put((X) Enum.valueOf((Class<Enum>) Class.forName(path1), tmp.item(i).getNodeName()),
+                                (Y) (path2 + "." + tmp.item(i).getTextContent()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                // System.out.println(tmp.item(i).getNodeName() + " --> " +
+                // tmp.item(i).getTextContent());
+            }
+        });
+        return (Map<X, Y>) map;
     }
 }
