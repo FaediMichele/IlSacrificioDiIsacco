@@ -79,7 +79,7 @@ public class GameController extends AbstractController {
                     }
                     gameWord.getActiveFloor()
                             .getActiveRoom()
-                            .getEntitysStatus()
+                            .getEntitiesStatus()
                             .stream()
                             .peek(st -> {
                                     if (!entityControllers.containsKey(st.getId())) {
