@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;

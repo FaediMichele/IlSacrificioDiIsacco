@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import view.javafx.MenuControllerJavafx;
+import view.javafx.game.menu.MenuControllerJavafx;
 
 /**
  * Controller for the main menu.

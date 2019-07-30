@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,8 +15,8 @@ import view.CharacterInfo;
 import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
-import view.javafx.game.menu.GameSubMenuSelection;
 import view.node.CircleList;
+import view.node.javafx.CircleListRandomJavafx;
 
 /**
  * This is the sub menu for the selection of the character.

@@ -1,4 +1,4 @@
-package view.javafx;
+package view.node.javafx;
 
 import javafx.animation.RotateTransition;
 import javafx.scene.Node;

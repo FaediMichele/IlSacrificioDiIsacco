@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -8,8 +8,8 @@ import javafx.util.Pair;
 import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
-import view.javafx.game.menu.SubMenuOption;
 import view.node.SelectList;
+import view.node.javafx.SelectListJavafx;
 
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).

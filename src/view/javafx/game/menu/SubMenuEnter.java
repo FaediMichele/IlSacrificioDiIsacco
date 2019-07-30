@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,7 +8,10 @@ import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.TimedViews;
+import view.javafx.AnimatedViewJavafx;
+import view.javafx.TimedViewsJavafx;
 import view.node.RotatingNode;
+import view.node.javafx.RotatingNodeJavafx;
 
 /**
  * This class is the sub menu for the entering in the game.

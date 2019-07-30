@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,8 @@ import view.MenuSelection;
 import view.Sound;
 import view.SubMenu;
 import view.SubMenuSelection;
-import view.javafx.game.menu.GameSubMenuSelection;
+import view.javafx.SoundJavafx;
+import view.javafx.TranslationPageJavafx;
 import view.node.TranslationPages;
 
 /**

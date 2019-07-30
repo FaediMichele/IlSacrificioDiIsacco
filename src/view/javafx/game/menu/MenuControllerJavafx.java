@@ -1,4 +1,4 @@
-package view.javafx;
+package view.javafx.game.menu;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -7,7 +7,7 @@ import javafx.scene.media.MediaView;
 import view.ConfigurationManager;
 import view.MenuSelection;
 import view.SubMenuSelection;
-import view.javafx.game.menu.GameSubMenuSelection;
+import view.javafx.ConfigurationManagerJavafx;
 
 /**
  * This is the class that handle the main menu of javafx.
