@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Entity>
-    <SimpleEntityTest>test.TestControllerEntityView</SimpleEntityTest>
+<Entity path-entityEnum="util.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
+    <PLAYER>IsaacView</PLAYER>
+    <FIRE>FireView</FIRE>
+    <GAPER>GaperView</GAPER>
+    <HEART_RED>HeartView</HEART_RED>
+    <DOOR>DoorView</DOOR>
+    <BOMB>BombView</BOMB>
+    <ENEMY_TEAR_SIMPLE>TearView</ENEMY_TEAR_SIMPLE>
+    <PLAYER_TEAR>TearView</PLAYER_TEAR>
+    <KEY>KeyView</KEY>
+    <ROCK>RockView</ROCK>
+    <WALL>WallView</WALL>
 </Entity>
