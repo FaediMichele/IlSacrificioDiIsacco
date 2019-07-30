@@ -26,7 +26,7 @@ public class EntityController {
     private static final String TAG_ENTITY = "Entity";
     private static final String ATTR1_ENTITY = "path-entityEnum";
     private static final String ATTR2_ENTITY = "path-entityView";
-    private static final String PATH_PLAYER = "/xml/Entity.xml";
+    private static final String PATH_PLAYER = "/xml/Player.xml";
     private static final String TAG_PLAYER = "Player";
     private static final String ATTR1_PLAYER = "path-playerEnum";
     private static final String ATTR2_PLAYER = "path-entityView";
