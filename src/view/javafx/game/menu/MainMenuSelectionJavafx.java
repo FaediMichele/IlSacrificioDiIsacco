@@ -194,7 +194,7 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
      * {@inheritDoc}
      */
     @Override
-    public void goTo(final SubMenu start, final SubMenu end) {
+    public void selectSubMenu(final SubMenu start, final SubMenu end) {
         Objects.requireNonNull(end);
         if (start != null && !tp.contains(start.getMain())) {
             tp.addPage(start.getMain());
@@ -230,10 +230,15 @@ public class MainMenuSelectionJavafx extends SubMenuSelection {
             backgroundAudio.stop();
             if (dest.getClass().equals(GameSubMenuSelection.class)) {
                 characterSelected.play();
-                characterSelected.setEndListener(() -> ((GameSubMenuSelection) dest).startAnimationSelected());
+                characterSelected.setEndListener(() -> {
+                    ((GameSubMenuSelection) dest).startAnimationSelected();
+                });
             }
         } else {
             select();
+            if (previous.getClass().equals(GameSubMenuSelection.class)) {
+                this.selectSubMenu(SubMenuGameMenu.class);
+            }
             fd.setToValue(1);
             fd.playFromStart();
         }

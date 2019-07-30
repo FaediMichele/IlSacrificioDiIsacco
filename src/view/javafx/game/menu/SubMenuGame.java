@@ -54,6 +54,9 @@ public class SubMenuGame extends SubMenu {
             break;
         case BOMB:
             break;
+        case EXIT:
+            getSelector().getParent().select(MainMenuSelectionJavafx.class);
+            break;
         default:
         }
     }
