@@ -10,8 +10,6 @@ import org.junit.Test;
 
 import controller.EntityController;
 import controller.GameController;
-import controller.MainController;
-import controller.MainControllerImpl;
 import model.component.BodyComponent;
 import model.entity.GaperEnemy;
 import model.events.MoveEvent;
@@ -40,14 +38,14 @@ public class TestController {
      * 
      */
     @Test
-    public void testGameController() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-        final GameWorld gw = new GameWorldImpl("Game1");
-        final MainController main = new MainControllerImpl();
-        final GameController gc = new GameController(main, gw);
-        main.switchActive(gc);
-        assertEquals(main.getActiveController(), gc);
+    public void testEntityController() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+        final GameWorld gw = new GameWorldImplTest("Game1");
+        //final MainController main = new MainControllerImpl();
+        //final GameController gc = new GameController(gw);
+        //main.switchActive(gc);
+        //assertEquals(main.getActiveController(), gc);
         Room room = gw.getActiveFloor().getActiveRoom();
-        assertEquals(room.getEntities().size(), 5);
+        assertEquals(room.getEntities().size(), 1);
         GaperEnemy g = (GaperEnemy) room.getEntities().stream().filter(e -> e.getClass().equals(GaperEnemy.class)).findFirst().get();
         g.postEvent(new MoveEvent(g, 2, 0, 0));
         gw.update(1);
@@ -64,10 +62,52 @@ public class TestController {
         info = room.getEntitiesStatus();
         gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
         eC.update(gI);
-        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "baobab", 1, 1.0, room);
+        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "stringa", 1, 1.0, room);
         gw.update(1);
         info = room.getEntitiesStatus();
         gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
         eC.update(gI);
+    }
+
+    /**
+     * Test game controller.
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     */
+    @Test
+    public void testGameController() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        GameWorld gw = new GameWorldImpl("Game1");
+        Room room = gw.getActiveFloor().getActiveRoom();
+        GameController gc = new GameController(gw);
+        GaperEnemy g = (GaperEnemy) gw.getActiveFloor().getActiveRoom().getEntities().stream().filter(e -> e.getClass().equals(GaperEnemy.class)).findFirst().get();
+        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "stringa", 1, 1.0, room);
+        g.postEvent(new MoveEvent(g, 2, 0, 0));
+        g.getStatusComponent().setStatus(BasicStatusEnum.DEAD);
+        gc.run();
+    }
+
+    /**
+     * 
+     *Class for test sleep.
+     *
+     */
+    private class TimeSleep extends Thread {
+        private final long time;
+
+        TimeSleep(final long time) {
+            this.time = time;
+        }
+        @Override
+        public void run() {
+            try {
+                for (long i = 0; i < this.time; i++) {
+                    this.sleep(1);
+                    System.out.println(i);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

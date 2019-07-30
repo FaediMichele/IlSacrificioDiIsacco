@@ -1,4 +1,4 @@
-package model.game;
+package controller.test;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +16,9 @@ import model.entity.Player;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
 import model.events.RoomChangedEvent;
+import model.game.Floor;
+import model.game.FloorImpl;
+import model.game.GameWorld;
 import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
@@ -26,7 +29,7 @@ import view.Command;
  * 
  *
  */
-public class GameWorldImpl implements GameWorld {
+public class GameWorldImplTest implements GameWorld {
     @NotEquals
     @NotHashCode
     private final Player player;
@@ -50,7 +53,7 @@ public class GameWorldImpl implements GameWorld {
     /**
      * Create a new Game World.
      */
-    public GameWorldImpl() {
+    public GameWorldImplTest() {
         this.floors = new LinkedList<>();
         floors.add(0, new FloorImpl());
         this.player = new Player();
@@ -66,10 +69,11 @@ public class GameWorldImpl implements GameWorld {
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public GameWorldImpl(final String game)
+    public GameWorldImplTest(final String game)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
+        final List<Node> ls = StaticMethodsUtils
+                .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
         this.player = new Player();
         this.activeFloor = 0;

@@ -15,7 +15,7 @@ import util.enumeration.BasicStatusEnum;
  * communicates with the View and checks the Model.
  *
  */
-public class GameController extends AbstractController {
+public class GameController {
     private static  long timeToSleep = 33;
     @NotEquals
     private volatile boolean stoped;
@@ -25,11 +25,10 @@ public class GameController extends AbstractController {
     private final Map<UUID, EntityController> entityControllers;
     /**
      * 
-     * @param main the {@link MainController}
      * @param gameWorld is game world
      */
-    public GameController(final MainController main, final GameWorld gameWorld) {
-        super(main);
+    public GameController(final GameWorld gameWorld) {
+        //super(main);
         this.gameWord = gameWorld;
         this.stoped = false;
         this.gameloop = new GameLoop();
@@ -39,9 +38,8 @@ public class GameController extends AbstractController {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void run() {
-        super.run();
+       // super.run();
         this.stoped = false;
         this.gameloop.start();
     }
@@ -49,9 +47,8 @@ public class GameController extends AbstractController {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void stop() {
-       super.stop();
+      // super.stop();
        this.stoped = true;
     }
     /**
