@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Status>
+<Status path-status-enum="util.enumeration.BasicStatusEnum">
     <POISED>poisoned</POISED>
     <NORMAL>normal</NORMAL>
     <BURNED>burned</BURNED>

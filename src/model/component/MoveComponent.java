@@ -211,6 +211,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
 //        } else if (yMove < 0) {
 //            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);
 //        }
-        this.getEntity().getStatusComponent().setMove(BasicMovementEnum.DOWN);
+        this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
     }
 }
