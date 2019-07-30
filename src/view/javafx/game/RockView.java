@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -28,12 +29,13 @@ public class RockView extends AbstractEntityView {
         }
     }
 
-//    /**
-//     * Base constructor.
-//     */
-//    public RockView() {
-//        super();
-//    }
+    /**
+     * Base constructor.
+     * @param id 
+     */
+    public RockView(final UUID id) {
+        super(id);
+    }
 
     /**
      * {@inheritDoc}

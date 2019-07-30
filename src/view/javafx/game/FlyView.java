@@ -3,6 +3,8 @@ package view.javafx.game;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
 import javax.imageio.ImageIO;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -33,10 +35,11 @@ public class FlyView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes.
+     * @param id 
      * @param gv The gameView to which this entityView is added
      */
-    public FlyView(final GameViewImpl gv) {
-        super(gv);
+    public FlyView(final UUID id, final GameViewImpl gv) {
+        super(id, gv);
         this.explodingIndex = 0;
         this.index = 0;
     }

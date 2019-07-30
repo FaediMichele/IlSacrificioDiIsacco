@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -34,6 +35,13 @@ public class GaperView extends IsaacView {
         }
     }
 
+    /**
+     * 
+     * @param id 
+     */
+    public GaperView(final UUID id) {
+        super(id);
+    }
     /**
      * @return the faceSprites
      */

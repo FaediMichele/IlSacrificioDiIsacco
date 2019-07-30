@@ -2,6 +2,7 @@ package view.javafx.game;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,21 +17,21 @@ import util.enumeration.UpgradeEnum;
  */
 public abstract class AbstractEntityView implements EntityView {
     private final Optional<GameViewImpl> gameView;
-
+    private final UUID id;
     private Optional<Double> x = Optional.empty();
     private Optional<Double> y = Optional.empty();
     private Optional<Double> height = Optional.empty();
     private Optional<Double> width = Optional.empty();
     private Optional<String> status = Optional.empty();
 
-    AbstractEntityView(final GameViewImpl gv) {
-        super();
+    AbstractEntityView(final UUID id, final GameViewImpl gv) {
         Objects.requireNonNull(gv);
+        this.id = id;
         this.gameView = Optional.of(gv);
     }
 
-    AbstractEntityView() {
-        super();
+    AbstractEntityView(final UUID id) {
+        this.id = id;
         this.gameView = Optional.empty();
     }
 
@@ -170,5 +171,14 @@ public abstract class AbstractEntityView implements EntityView {
     public void upgrade(final UpgradeEnum upgrade) {
         // TODO Auto-generated method stub
 
+    }
+
+    /**
+     * Get the UUID.
+     * 
+     * @return id
+     */
+    public UUID getId() {
+        return this.id;
     }
 }

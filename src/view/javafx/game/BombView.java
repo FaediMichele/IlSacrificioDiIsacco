@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -50,10 +51,11 @@ public class BombView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes.
+     * @param id 
      * @param gv The gameView to which this entityView is added
      */
-    public BombView(final GameViewImpl gv) {
-        super(gv);
+    public BombView(final UUID id, final GameViewImpl gv) {
+        super(id, gv);
         this.triggeredIndex = 0;
         this.explosionIndex = 0;
     }
