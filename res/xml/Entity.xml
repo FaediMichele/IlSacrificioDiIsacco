@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Entity path-entityEnum="util.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
-    <PLAYER>IsaacView</PLAYER>
     <FIRE>FireView</FIRE>
     <GAPER>GaperView</GAPER>
     <HEART_RED>HeartView</HEART_RED>
@@ -13,3 +12,7 @@
     <ROCK>RockView</ROCK>
     <WALL>WallView</WALL>
 </Entity>
+
+<Player path-playerEnum="util.enumeration.BasicPlayerEnum" path-entityView="view.javafx.game">
+    <PLAYER>IsaacView</PLAYER>
+</Player>
