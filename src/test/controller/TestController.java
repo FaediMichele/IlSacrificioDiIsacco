@@ -22,6 +22,7 @@ import model.util.EntityInformation;
 import util.enumeration.BasicEntityEnum;
 import util.enumeration.BasicMovementEnum;
 import util.enumeration.BasicStatusEnum;
+import util.enumeration.BasicUpgradeEnum;
 
 /**
  * Test for the controller.
@@ -59,6 +60,11 @@ public class TestController {
         assertEquals(gI.getMove(), BasicMovementEnum.RIGHT);
         assertEquals(gI.getPosition(), g.getComponent(BodyComponent.class).get().getPosition());
         g.getStatusComponent().setStatus(BasicStatusEnum.DEAD);
+        gw.update(1);
+        info = room.getEntitiesStatus();
+        gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
+        eC.update(gI);
+        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "baobab", 1, 4.2, room);
         gw.update(1);
         info = room.getEntitiesStatus();
         gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
