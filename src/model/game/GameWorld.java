@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.entity.Player;
 import util.EventListener;
+import view.Command;
 
 /**
  * The interface for the whole game.
@@ -70,4 +71,10 @@ public interface GameWorld {
      * @param eventListener the {@link EventListener} to remove.
      */
     void unregisterListener(EventListener<?> eventListener);
+
+    /**
+     * TODO.
+     * @param c
+     */
+    void input(Command c);
 }

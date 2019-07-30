@@ -14,11 +14,13 @@ import com.google.common.eventbus.Subscribe;
 
 import model.entity.Player;
 import model.events.FloorChangedEvent;
+import model.events.InputEvent;
 import model.events.RoomChangedEvent;
 import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
 import util.StaticMethodsUtils;
+import view.Command;
 
 /**
  * 
@@ -148,6 +150,11 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public final int hashCode() {
         return StaticMethodsUtils.hashCode(this);
+    }
+
+    @Override
+    public final void input(final Command c) {
+        player.postEvent(new InputEvent(null, c));
     }
 
 }
