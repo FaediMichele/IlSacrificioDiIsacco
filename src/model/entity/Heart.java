@@ -11,7 +11,7 @@ import util.enumeration.EntityEnum;
  * Implements a generic heart.
  */
 public class Heart extends AbstractStaticEntity {
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.HART_RED;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.HEART_RED;
 
     /**
      * 
