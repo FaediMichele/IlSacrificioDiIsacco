@@ -18,7 +18,7 @@
 	prefHeight="${screen.visualBounds.height}"
 	prefWidth="${screen.visualBounds.width}"
 	xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-	fx:controller="view.javafx.MenuControllerJavafx">
+	fx:controller="view.javafx.game.menu.MenuControllerJavafx">
 	<fx:define>
 		<Screen fx:factory="getPrimary" fx:id="screen" />
 	</fx:define>
