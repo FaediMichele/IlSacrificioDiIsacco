@@ -73,8 +73,8 @@ public interface GameWorld {
     void unregisterListener(EventListener<?> eventListener);
 
     /**
-     * TODO.
-     * @param c
+     * Pass the input to the model.
+     * @param c the {@link Command}
      */
     void input(Command c);
 }
