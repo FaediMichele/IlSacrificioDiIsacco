@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Player path-playerEnum="util.enumeration.BasicPlayerEnum"
+    path-entityView="view.javafx.game">
+    <PLAYER>IsaacView</PLAYER>
+</Player>
