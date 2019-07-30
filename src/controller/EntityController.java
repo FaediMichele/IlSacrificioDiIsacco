@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import model.util.EntityInformation;
 import util.enumeration.EntityEnum;
 import util.enumeration.MovementEnum;
