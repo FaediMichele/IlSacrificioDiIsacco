@@ -39,7 +39,7 @@ public class TestXML {
      */
     @Test
     public void testXmltoMap() {
-        Map<EntityEnum, Class<? extends EntityView>> map = StaticMethodsUtils.xmlToMap("/xml/Entity.xml", "Entity", "path-entityEnum", "path-entityView");
+        Map<EntityEnum, Class<? extends EntityView>> map = StaticMethodsUtils.xmlToMapClass("/xml/Entity.xml", "Entity", "path-entityEnum", "path-entityView");
         System.out.println(map.size());
         map.forEach((k, v) -> {
             System.out.println(k.getValue() + " " + v.getCanonicalName());

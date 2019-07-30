@@ -29,22 +29,20 @@ public class EntityController {
     private static final String TAG_PLAYER = "Player";
     private static final String ATTR1_PLAYER = "path-playerEnum";
     private static final String ATTR2_PLAYER = "path-entityView";
-    private static final Map<ValuesMapStatusEnum, String> ENTITY_MAP = EntityController.initializeMap();
+    private static final Map<ValuesMapStatusEnum, Class<? extends EntityView>> ENTITY_MAP = EntityController.initializeMap();
 
     private static final String PATH_STATUS = "/xml/Status.xml";
     private static final String TAG_STATUS = "Status";
     private static final String ATTR1_STATUS = "path-status-enum";
-    private static final String ATTR2_STATUS = "";
     private static final Map<ValuesMapStatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_STATUS,
-            TAG_STATUS, ATTR1_STATUS, ATTR2_STATUS);
+            TAG_STATUS, ATTR1_STATUS);
 
-//    private static final String PATH_UPGRADE = "/xml/Upagrade.xml";
-//    private static final String TAG_UPGRADE = "Upgrade";
-//    private static final String ATTR1_UPGRADE = "path-upgrade-enum";
-//    private static final String ATTR2_UPGRADE = "";
-//    private static final Map<ValuesMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMap(PATH_UPGRADE,
-//            TAG_UPGRADE, ATTR1_UPGRADE, ATTR2_UPGRADE);
-//
+    private static final String PATH_UPGRADE = "/xml/Upgrade.xml";
+    private static final String TAG_UPGRADE = "Upgrade";
+    private static final String ATTR1_UPGRADE = "path-upgrade-enum";
+    private static final Map<ValuesMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_UPGRADE,
+            TAG_UPGRADE, ATTR1_UPGRADE);
+
 //    private final UUID id;
 //    private final EntityView entityView;
 //    private final EntityEnum entityName;
@@ -118,9 +116,9 @@ public class EntityController {
     private static <K, V> Map<K, V> initializeMap() {
         final Map<K, V> map = new LinkedHashMap<K, V>();
         map.putAll(util.StaticMethodsUtils
-            .xmlToMap(PATH_PLAYER, TAG_PLAYER, ATTR1_PLAYER, ATTR2_PLAYER));
+            .xmlToMapClass(PATH_PLAYER, TAG_PLAYER, ATTR1_PLAYER, ATTR2_PLAYER));
         map.putAll(util.StaticMethodsUtils
-                .xmlToMap(PATH_ENTITY, TAG_ENTITY, ATTR1_ENTITY, ATTR2_ENTITY));
+                .xmlToMapClass(PATH_ENTITY, TAG_ENTITY, ATTR1_ENTITY, ATTR2_ENTITY));
         return map;
     }
 }

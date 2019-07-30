@@ -56,7 +56,7 @@ public class TestController {
         EntityController eC = new EntityController();
         assertEquals(gI.getEntityName().getValue(), "util.enumeration.BasicEntityEnum.GAPER");
         assertEquals(gI.getEntityName(), BasicEntityEnum.GAPER);
-        assertEquals(gI.getMove(), BasicMovementEnum.UP);
+        assertEquals(gI.getMove(), BasicMovementEnum.RIGHT);
         assertEquals(gI.getPosition(), g.getComponent(BodyComponent.class).get().getPosition());
         g.getStatusComponent().setStatus(BasicStatusEnum.DEAD);
         gw.update(1);
