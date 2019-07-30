@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-
 import controller.events.Event;
 import util.EventListener;
 
