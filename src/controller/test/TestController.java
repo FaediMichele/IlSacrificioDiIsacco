@@ -64,7 +64,7 @@ public class TestController {
         info = room.getEntitiesStatus();
         gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
         eC.update(gI);
-        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "baobab", 1, 4.2, room);
+        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "baobab", 1, 1.0, room);
         gw.update(1);
         info = room.getEntitiesStatus();
         gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
