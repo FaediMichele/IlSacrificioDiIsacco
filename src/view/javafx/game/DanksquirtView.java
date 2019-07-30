@@ -3,6 +3,7 @@ package view.javafx.game;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -30,9 +31,11 @@ public class DanksquirtView extends AbstractEntityView {
     }
     /**
      * Base constructor, initilizes the index.
+     * 
+     * @param id 
      */
-    public DanksquirtView() {
-        super();
+    public DanksquirtView(final UUID id) {
+        super(id);
         this.index = 0;
     }
 

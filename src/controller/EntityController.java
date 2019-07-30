@@ -46,8 +46,19 @@ public class EntityController {
     private final EntityView entityView;
     private final EntityEnum entityName;
 
+    /**
+     * 
+     * @param info 
+     * @throws ClassNotFoundException 
+     * @throws NoSuchMethodException 
+     * @throws SecurityException 
+     * @throws InstantiationException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws InvocationTargetException 
+     */
     @SuppressWarnings("unchecked")
-    EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getId();
         this.entityName = info.getEntityName();
         final Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -41,11 +42,12 @@ public class TearView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes.
+     * @param id 
      * @param gv The gameView to which this entityView is added
      * @param entityClass the class determines which list of tears is needed
      */
-    public TearView(final GameViewImpl gv, final Class<? extends AbstractEntityView> entityClass) {
-        super(gv);
+    public TearView(final UUID id, final GameViewImpl gv, final Class<? extends AbstractEntityView> entityClass) {
+        super(id, gv);
         this.index = 0;
         this.index = 0;
 
