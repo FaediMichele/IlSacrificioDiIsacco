@@ -211,6 +211,18 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
 //        } else if (yMove < 0) {
 //            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);
 //        }
-        this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
+        final double x = Math.abs(this.xMove);
+        final double y = Math.abs(this.yMove);
+        if (y >= x) {
+            if (this.yMove <= 0) {
+                this.getEntity().getStatusComponent().setMove(BasicMovementEnum.DOWN);
+            } else {
+                this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
+            }
+        } else if (this.xMove >= 0) {
+            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.RIGHT);
+        } else {
+            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);
+        }
     }
 }
