@@ -23,7 +23,7 @@ public interface MainController {
 //     * @return true if it exists else false
 //     */
 //    boolean hasController(Class<? extends Controller> dest);
-    
+
 
     /**
      * Registers the eventListeners on the EventBus.

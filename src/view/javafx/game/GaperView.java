@@ -48,9 +48,9 @@ public class GaperView extends IsaacView {
     public Map<Direction, List<Image>> getFaceSprites() {
         return GaperView.faceSprites;
     }
-    
+
     @Override
-    public void dead(MovementEnum move) {
+    public final void dead(final MovementEnum move) {
         System.out.println("DEAD!");
     }
 }
