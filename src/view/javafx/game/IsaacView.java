@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -130,9 +131,10 @@ public class IsaacView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes.
+     * @param id 
      */
-    public IsaacView() {
-        super();
+    public IsaacView(final UUID id) {
+        super(id);
         bodyIndex.put(Direction.UP, 0);
         bodyIndex.put(Direction.DOWN, 0);
         bodyIndex.put(Direction.RIGHT, 0);

@@ -2,6 +2,7 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -40,10 +41,11 @@ public class HeartView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes and sets the images to used based on the colour of the heart.
+     * @param id 
      * @param colour the colour of this heart
      */
-    public HeartView(final HeartColour colour) {
-        super();
+    public HeartView(final UUID id, final HeartColour colour) {
+        super(id);
 
         if (colour.equals(HeartColour.RED)) {
             this.heart = simpleHeart;
