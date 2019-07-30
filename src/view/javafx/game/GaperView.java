@@ -12,11 +12,9 @@ import javax.imageio.ImageIO;
 import com.sun.javafx.scene.traversal.Direction;
 
 import javafx.scene.image.Image;
-import model.game.Room;
 import model.game.RoomImpl;
 import util.SpritesExtractor;
 import util.enumeration.MovementEnum;
-import util.enumeration.UpgradeEnum;
 
 /**
 * View and animations of the Gaper enemy.

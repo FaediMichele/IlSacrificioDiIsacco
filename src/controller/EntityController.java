@@ -83,7 +83,7 @@ public class EntityController {
                     Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
                     classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList()).toArray(classArg);
                     final Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
-                    method.invoke(this.entityView, info.getUpgrade().get(upgrade));
+                    method.invoke(this.entityView, info.getUpgrade().get(upgrade).toArray());
                 }
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 e.printStackTrace();
