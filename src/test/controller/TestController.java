@@ -53,7 +53,7 @@ public class TestController {
         List<EntityInformation> info = room.getEntitiesStatus();
         assertEquals(info.stream().filter(i -> i.getId().equals(g.getId())).collect(Collectors.toList()).size(), 1);
         EntityInformation gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
-        EntityController eC = new EntityController();
+        EntityController eC = new EntityController(gI);
         assertEquals(gI.getEntityName().getValue(), "util.enumeration.BasicEntityEnum.GAPER");
         assertEquals(gI.getEntityName(), BasicEntityEnum.GAPER);
         assertEquals(gI.getMove(), BasicMovementEnum.RIGHT);
@@ -62,6 +62,6 @@ public class TestController {
         gw.update(1);
         info = room.getEntitiesStatus();
         gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
-        //eC.update(gI);
+        eC.update(gI);
     }
 }

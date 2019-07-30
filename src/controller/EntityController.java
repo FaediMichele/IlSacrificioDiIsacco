@@ -43,69 +43,68 @@ public class EntityController {
     private static final Map<ValuesMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_UPGRADE,
             TAG_UPGRADE, ATTR1_UPGRADE);
 
-//    private final UUID id;
-//    private final EntityView entityView;
-//    private final EntityEnum entityName;
-//
-//    /**
-//     * 
-//     * @param info 
-//     * @throws ClassNotFoundException 
-//     * @throws NoSuchMethodException 
-//     * @throws SecurityException 
-//     * @throws InstantiationException 
-//     * @throws IllegalAccessException 
-//     * @throws IllegalArgumentException 
-//     * @throws InvocationTargetException 
-//     */
-//    @SuppressWarnings("unchecked")
-//    public EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-//        this.id = info.getId();
-//        this.entityName = info.getEntityName();
-//        final Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));
-//        final Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
-//        this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
-//    }
-//
-//    /**
-//     * 
-//     * @param info is the status for the status component of entity.
-//     */
-//    public void update(final EntityInformation info) {
-//
-//            this.entityView.setX(info.getPosition().getX())
-//                            .setY(info.getPosition().getY())
-//                            .setHeight(info.getHeight())
-//                            .setWidth(info.getWidth());
-//            try {
-//                final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
-//                status.invoke(this.entityView, info.getMove());
-//                for (final UpgradeEnum upgrade : info.getUpgrade().keySet()) {
-//                    Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
-//                    classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList()).toArray(classArg);
-//                    final Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
-//                    method.invoke(this.entityView, info.getUpgrade().get(upgrade));
-//                }
-//            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-//                e.printStackTrace();
-//            }
-//    }
-//
-//    /** 
-//     * 
-//     * @return id entity
-//     */
-//    public UUID getId() {
-//        return this.id;
-//    }
-//
-//    /**
-//     * 
-//     * @return entity name 
-//     */
-//    public EntityEnum getEntityName() {
-//        return this.entityName;
-//    }
+    private final UUID id;
+    private final EntityView entityView;
+    private final EntityEnum entityName;
+
+    /**
+     * 
+     * @param info 
+     * @throws ClassNotFoundException 
+     * @throws NoSuchMethodException 
+     * @throws SecurityException 
+     * @throws InstantiationException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws InvocationTargetException 
+     */
+    public EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        this.id = info.getId();
+        this.entityName = info.getEntityName();
+        final Class<? extends EntityView> classEntity = ENTITY_MAP.get(this.entityName);
+        final Constructor<? extends EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
+        this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
+    }
+
+    /**
+     * 
+     * @param info is the status for the status component of entity.
+     */
+    public void update(final EntityInformation info) {
+
+            this.entityView.setX(info.getPosition().getX())
+                            .setY(info.getPosition().getY())
+                            .setHeight(info.getHeight())
+                            .setWidth(info.getWidth());
+            try {
+                final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
+                status.invoke(this.entityView, info.getMove());
+                for (final UpgradeEnum upgrade : info.getUpgrade().keySet()) {
+                    Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
+                    classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList()).toArray(classArg);
+                    final Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
+                    method.invoke(this.entityView, info.getUpgrade().get(upgrade));
+                }
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+    }
+
+    /** 
+     * 
+     * @return id entity
+     */
+    public UUID getId() {
+        return this.id;
+    }
+
+    /**
+     * 
+     * @return entity name 
+     */
+    public EntityEnum getEntityName() {
+        return this.entityName;
+    }
 
     /**
      * 
