@@ -227,7 +227,7 @@ public final class StaticMethodsUtils {
         final String path1 = (attr.length < 1 || nl.item(0).getAttributes().getNamedItem(attr[0]) == null) ? ""
                 : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
         final String path2 = (attr.length < 2 || nl.item(0).getAttributes().getNamedItem(attr[1]) == null) ? ""
-                : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
+                : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue() + ".";
         final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
             final NodeList tmp = n.getChildNodes();
@@ -235,7 +235,7 @@ public final class StaticMethodsUtils {
                 if (tmp.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     try {
                         map.put((X) Enum.valueOf((Class<Enum>) Class.forName(path1), tmp.item(i).getNodeName()),
-                                (Y) Class.forName(path2 + "." + tmp.item(i).getTextContent()));
+                                (Y) Class.forName(path2 + tmp.item(i).getTextContent()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -264,7 +264,7 @@ public final class StaticMethodsUtils {
         final String path1 = (attr.length < 1 || nl.item(0).getAttributes().getNamedItem(attr[0]) == null) ? ""
                 : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
         final String path2 = (attr.length < 2 || nl.item(0).getAttributes().getNamedItem(attr[1]) == null) ? ""
-                : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
+                : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue() + ".";
         final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
             final NodeList tmp = n.getChildNodes();
@@ -272,7 +272,7 @@ public final class StaticMethodsUtils {
                 if (tmp.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     try {
                         map.put((X) Enum.valueOf((Class<Enum>) Class.forName(path1), tmp.item(i).getNodeName()),
-                                (Y) (path2 + "." + tmp.item(i).getTextContent()));
+                                (Y) (path2 + tmp.item(i).getTextContent()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
