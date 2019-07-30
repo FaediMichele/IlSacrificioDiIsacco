@@ -33,6 +33,7 @@ public class GameWorldImpl implements GameWorld {
     @NotHashCode
     private final EventBus eventBus = new EventBus();
     private int activeFloor;
+    private boolean changedFloor;
 
     @NotEquals
     @NotHashCode
@@ -52,6 +53,7 @@ public class GameWorldImpl implements GameWorld {
         floors.add(0, new FloorImpl());
         this.player = new Player();
         this.activeFloor = 0;
+        changedFloor = false;
     }
 
     /**
@@ -82,6 +84,7 @@ public class GameWorldImpl implements GameWorld {
         } else {
             floors.add(0, new FloorImpl());
         }
+        changedFloor = false;
     }
 
     @Override
@@ -109,6 +112,7 @@ public class GameWorldImpl implements GameWorld {
     public final void update(final double deltaTime) {
         getActiveFloor().update(deltaTime);
         getActiveFloor().calculateCollision();
+        changedFloor = false;
     }
 
     @Override
@@ -116,6 +120,7 @@ public class GameWorldImpl implements GameWorld {
         if (this.activeFloor != activeFloor) {
             getActiveFloor().unregisterListener(changeRoom);
             eventBus.post(new FloorChangedEvent(getActiveFloor(), floors.get(activeFloor)));
+            changedFloor = true;
         }
         this.activeFloor = activeFloor;
         getActiveFloor().registerListener(changeRoom);
@@ -136,8 +141,7 @@ public class GameWorldImpl implements GameWorld {
      */
     @Override
     public boolean isChangeFloor() {
-        // TODO Auto-generated method stub
-        return false;
+        return changedFloor;
     }
 
     @Override

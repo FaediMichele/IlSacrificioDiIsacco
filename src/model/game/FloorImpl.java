@@ -45,6 +45,7 @@ public class FloorImpl implements Floor {
     @NotHashCode
     private final EventBus eventBus = new EventBus();
     private int activeRoomIndex;
+    private boolean changedRoom;
 
     /**
      * Generate a random floor with random room and random enemy.
@@ -52,6 +53,7 @@ public class FloorImpl implements Floor {
     public FloorImpl() {
         this.rooms = new ArrayList<>();
         this.activeRoomIndex = 0;
+        changedRoom = false;
     }
 
     /**
@@ -62,6 +64,7 @@ public class FloorImpl implements Floor {
     public FloorImpl(final List<Room> rooms) {
         this.rooms = new ArrayList<>(rooms);
         this.rooms.forEach(r -> r.setFloor(this));
+        changedRoom = false;
     }
 
     /**
@@ -90,6 +93,7 @@ public class FloorImpl implements Floor {
                 }
             }
         }
+        changedRoom = false;
     }
 
     /**
@@ -109,6 +113,7 @@ public class FloorImpl implements Floor {
             throw new IllegalArgumentException("Room not found");
         }
         this.activeRoomIndex = index;
+        changedRoom = true;
     }
 
     /**
@@ -261,6 +266,7 @@ public class FloorImpl implements Floor {
         if (nextRoom.isPresent()) {
             activeRoomIndex = nextRoom.get();
         }
+        changedRoom = false;
     }
 
     @Override
@@ -292,8 +298,7 @@ public class FloorImpl implements Floor {
      */
     @Override
     public boolean isChangeRoom() {
-        // TODO Auto-generated method stub
-        return false;
+        return changedRoom;
     }
 
     @Override
