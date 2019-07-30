@@ -2,7 +2,7 @@
 
 <Status path-status-enum="util.enumeration.BasicStatusEnum">
     <POISED>poisoned</POISED>
-    <NORMAL>normal</NORMAL>
+    <DEFAULT>default</DEFAULT>
     <BURNED>burned</BURNED>
     <DEAD>dead</DEAD>
     <DAMAGING>damaging</DAMAGING>
