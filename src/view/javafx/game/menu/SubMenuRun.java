@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;

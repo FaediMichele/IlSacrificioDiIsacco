@@ -81,7 +81,7 @@ public abstract class SubMenuSelection {
             }
             final SubMenu sm = menus.get(s);
             sm.select();
-            goTo(selected, sm);
+            selectSubMenu(selected, sm);
             selected = sm;
         } else {
             throw new IllegalArgumentException("SubMenu not found");
@@ -109,7 +109,7 @@ public abstract class SubMenuSelection {
      * @param start the previous sub menu.
      * @param end the next sub menu.
      */
-    public abstract void goTo(SubMenu start, SubMenu end);
+    public abstract void selectSubMenu(SubMenu start, SubMenu end);
 
     /**
      * Jump to the destination sub menu immediately.

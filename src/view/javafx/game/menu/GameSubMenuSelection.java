@@ -111,7 +111,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
      * {@inheritDoc}
      */
     @Override
-    public void goTo(final SubMenu start, final SubMenu end) {
+    public void selectSubMenu(final SubMenu start, final SubMenu end) {
         Objects.requireNonNull(start);
         Objects.requireNonNull(end);
         optionsTransition.setFromValue(0.0);
@@ -146,6 +146,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
     public void startAnimationSelected() {
         fd.setToValue(1);
         fd.playFromStart();
+        fd.setOnFinished((e) -> System.out.println("Il gioco parte (sono in gameSubMenuSelection)"));
     }
 
 }

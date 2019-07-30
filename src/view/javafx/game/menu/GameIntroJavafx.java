@@ -68,7 +68,7 @@ public final class GameIntroJavafx extends SubMenuSelection {
     }
 
     @Override
-    public  void goTo(final SubMenu start, final SubMenu end) {
+    public  void selectSubMenu(final SubMenu start, final SubMenu end) {
         if (!start.equals(s) || !end.equals(s)) {
             throw new IllegalArgumentException("there is only one sub menu");
         }

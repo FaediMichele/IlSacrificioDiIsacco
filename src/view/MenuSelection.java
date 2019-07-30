@@ -66,12 +66,7 @@ public class MenuSelection {
         }
     }
 
-    /**
-     * Method called when the menu is changed. 
-     * @param start the previous sub menu.
-     * @param end the next sub menu.
-     */
-    public void goTo(final Class<? extends SubMenuSelection> start, final Class<? extends SubMenuSelection> end) {
+    private void goTo(final Class<? extends SubMenuSelection> start, final Class<? extends SubMenuSelection> end) {
         Objects.requireNonNull(menus.get(start));
         Objects.requireNonNull(menus.get(end));
         menus.get(start).selectMenu(menus.get(start), menus.get(end));
