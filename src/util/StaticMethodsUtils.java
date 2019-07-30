@@ -220,15 +220,13 @@ public final class StaticMethodsUtils {
      * @param attr .
      * @return .
      */
-    @SuppressWarnings({
-            "unchecked", "rawtypes"
-    })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <X, Y> Map<X, Y> xmlToMapClass(final String path, final String tag, final String... attr) {
         final Map<X, Y> map = new HashMap<>();
         final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
-        final String path1 = (nl.item(0).getAttributes().getNamedItem(attr[0]) == null) ? ""
+        final String path1 = (attr.length < 1 || nl.item(0).getAttributes().getNamedItem(attr[0]) == null) ? ""
                 : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
-        final String path2 = (nl.item(0).getAttributes().getNamedItem(attr[1]) == null) ? ""
+        final String path2 = (attr.length < 2 || nl.item(0).getAttributes().getNamedItem(attr[1]) == null) ? ""
                 : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
         final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
@@ -259,15 +257,13 @@ public final class StaticMethodsUtils {
      * @param attr .
      * @return .
      */
-    @SuppressWarnings({
-            "unchecked", "rawtypes"
-    })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <X, Y> Map<X, Y> xmlToMapMethods(final String path, final String tag, final String... attr) {
         final Map<X, Y> map = new HashMap<>();
         final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
-        final String path1 = (nl.item(0).getAttributes().getNamedItem(attr[0]) == null) ? ""
+        final String path1 = (attr.length < 1 || nl.item(0).getAttributes().getNamedItem(attr[0]) == null) ? ""
                 : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
-        final String path2 = (nl.item(0).getAttributes().getNamedItem(attr[1]) == null) ? ""
+        final String path2 = (attr.length < 2 || nl.item(0).getAttributes().getNamedItem(attr[1]) == null) ? ""
                 : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
         final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {
