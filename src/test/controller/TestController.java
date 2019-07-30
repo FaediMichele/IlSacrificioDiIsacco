@@ -54,7 +54,7 @@ public class TestController {
         assertEquals(info.stream().filter(i -> i.getId().equals(g.getId())).collect(Collectors.toList()).size(), 1);
         EntityInformation gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
         EntityController eC = new EntityController();
-        assertEquals(gI.getEntityName().getValue(), "util.enumeration.BasicEntityEnum.GASPER");
+        assertEquals(gI.getEntityName().getValue(), "util.enumeration.BasicEntityEnum.GAPER");
         assertEquals(gI.getEntityName(), BasicEntityEnum.GAPER);
         assertEquals(gI.getMove(), BasicMovementEnum.UP);
         assertEquals(gI.getPosition(), g.getComponent(BodyComponent.class).get().getPosition());

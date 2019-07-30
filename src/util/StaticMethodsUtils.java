@@ -263,7 +263,7 @@ public final class StaticMethodsUtils {
     public static <X, Y> Map<X, Y> xmlToMapMethods(final String path, final String tag, final String...attr) {
         final Map<X, Y> map = new HashMap<>();
         final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
-        final String path1 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
+        final String path1 = (attr.length < 1) ? "" : nl.item(0).getAttributes().getNamedItem(attr[0]).getNodeValue();
         final String path2 = (attr.length < 2) ? "" : nl.item(0).getAttributes().getNamedItem(attr[1]).getNodeValue();
         final List<Node> node = StaticMethodsUtils.getNodesFromNodelList(nl);
         node.forEach(n -> {

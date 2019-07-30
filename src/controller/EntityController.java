@@ -34,41 +34,41 @@ public class EntityController {
 
     private static final String PATH_STATUS = "/xml/Status.xml";
     private static final String TAG_STATUS = "Status";
-    private static final String ATTR1_STATUS = "";
+    private static final String ATTR1_STATUS = "path-status-enum";
     private static final String ATTR2_STATUS = "";
-    private static final Map<ValuesMapStatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMap(PATH_STATUS,
+    private static final Map<ValuesMapStatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_STATUS,
             TAG_STATUS, ATTR1_STATUS, ATTR2_STATUS);
 
-    private static final String PATH_UPGRADE = "/xml/Upagrade.xml";
-    private static final String TAG_UPGRADE = "Upgrade";
-    private static final String ATTR1_UPGRADE = "";
-    private static final String ATTR2_UPGRADE = "";
-    private static final Map<ValuesMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMap(PATH_UPGRADE,
-            TAG_UPGRADE, ATTR1_UPGRADE, ATTR2_UPGRADE);
-
+//    private static final String PATH_UPGRADE = "/xml/Upagrade.xml";
+//    private static final String TAG_UPGRADE = "Upgrade";
+//    private static final String ATTR1_UPGRADE = "path-upgrade-enum";
+//    private static final String ATTR2_UPGRADE = "";
+//    private static final Map<ValuesMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMap(PATH_UPGRADE,
+//            TAG_UPGRADE, ATTR1_UPGRADE, ATTR2_UPGRADE);
+//
 //    private final UUID id;
 //    private final EntityView entityView;
 //    private final EntityEnum entityName;
 //
-////    /**
-////     * 
-////     * @param info 
-////     * @throws ClassNotFoundException 
-////     * @throws NoSuchMethodException 
-////     * @throws SecurityException 
-////     * @throws InstantiationException 
-////     * @throws IllegalAccessException 
-////     * @throws IllegalArgumentException 
-////     * @throws InvocationTargetException 
-////     */
-////    @SuppressWarnings("unchecked")
-////    public EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-////        this.id = info.getId();
-////        this.entityName = info.getEntityName();
-////        final Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));
-////        final Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
-////        this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
-////    }
+//    /**
+//     * 
+//     * @param info 
+//     * @throws ClassNotFoundException 
+//     * @throws NoSuchMethodException 
+//     * @throws SecurityException 
+//     * @throws InstantiationException 
+//     * @throws IllegalAccessException 
+//     * @throws IllegalArgumentException 
+//     * @throws InvocationTargetException 
+//     */
+//    @SuppressWarnings("unchecked")
+//    public EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+//        this.id = info.getId();
+//        this.entityName = info.getEntityName();
+//        final Class<EntityView> classEntity = (Class<EntityView>) ClassLoader.getSystemClassLoader().loadClass(ENTITY_MAP.get(this.entityName));
+//        final Constructor<EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
+//        this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
+//    }
 //
 //    /**
 //     * 
