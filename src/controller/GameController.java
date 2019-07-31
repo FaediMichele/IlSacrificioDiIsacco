@@ -5,15 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import model.entity.Player;
 import model.game.GameWorld;
-import model.game.GameWorldImpl;
 import model.util.EntityInformation;
 import util.NotEquals;
 import util.enumeration.BasicStatusEnum;
-import util.enumeration.EntityEnum;
-import util.enumeration.PlayerEnum;
+
 
 /**
  * The {@link Controller} for the game which includes the game loop and it
