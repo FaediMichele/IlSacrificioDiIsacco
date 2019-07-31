@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Entity path-entityEnum="view.enumeration.BasicPlayerEnum" path-entityView="model.entity">
-    <ISAAC>Isaac</ISAAC>
-    <CAIN>Cain</CAIN>
-</Entity>

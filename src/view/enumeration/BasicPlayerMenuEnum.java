@@ -4,7 +4,7 @@ package view.enumeration;
  * 
  * .
  */
-public enum BasicPlayerEnum implements PlayerEnum {
+public enum BasicPlayerMenuEnum implements PlayerMenuEnum {
 
     /**
      * Type of entity player.

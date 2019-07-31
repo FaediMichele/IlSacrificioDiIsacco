@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Entity path-entityEnum="util.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
+<Entity path-entityEnum="model.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
     <FIRE>FireView</FIRE>
     <GAPER>GaperView</GAPER>
     <HEART_RED>HeartView</HEART_RED>

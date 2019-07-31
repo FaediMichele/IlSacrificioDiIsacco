@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Upgrade   path-upgrade-enum ="util.enumeration.BasicUpgradeEnum">
+<Upgrade   path-upgrade-enum ="model.enumeration.BasicUpgradeEnum">
     <UPGRADETEST>upgradeTest</UPGRADETEST>
 </Upgrade>
