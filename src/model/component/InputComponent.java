@@ -2,9 +2,11 @@ package model.component;
 
 import com.google.common.eventbus.Subscribe;
 
+import model.entity.Bomb;
 import model.entity.Entity;
 import model.events.InputEvent;
 import model.events.TearShotEvent;
+import model.events.UseThingEvent;
 import util.Command;
 import util.EventListener;
 
@@ -56,6 +58,7 @@ public class InputComponent extends AbstractComponent<InputComponent> {
             case ARROW_RIGHT:
                 getEntity().postEvent(new TearShotEvent(getEntity(), 0));
             case BOMB:
+                getEntity().postEvent(new UseThingEvent(getEntity(), Bomb.class));
                 break;
         default:
             break;
