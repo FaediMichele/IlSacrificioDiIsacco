@@ -21,7 +21,7 @@ public class TestView {
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
     @Test
-    public void testLoadEnumToString() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public void testLoadEnumFromString() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         final String enumerationClass = "view.enumeration.BasicPlayerMenuEnum";
         final String value = "ISAAC";
         final Enum<? extends PlayerMenuEnum> enumObjet = Enum.valueOf((Class<Enum>) Class.forName(enumerationClass), value);
