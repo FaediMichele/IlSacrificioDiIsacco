@@ -150,7 +150,7 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public void normal(final MovementEnum move) {
+    public void def(final MovementEnum move) {
         // TODO Auto-generated method stub
 
     }

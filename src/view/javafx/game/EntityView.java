@@ -92,11 +92,11 @@ public interface EntityView {
     EntityView setStatus(String status);
 
     /**
-     * Method for the animation of the normal status.
+     * Method for the animation of the default status.
      * 
      * @param move the enum for the movement of the entity
      */
-    void normal(MovementEnum move);
+    void def(MovementEnum move);
 
     /**
      * Method for the animation of the damaging status.
