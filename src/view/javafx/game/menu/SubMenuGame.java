@@ -2,7 +2,7 @@ package view.javafx.game.menu;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
-import view.Command;
+import util.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.javafx.game.GameView;

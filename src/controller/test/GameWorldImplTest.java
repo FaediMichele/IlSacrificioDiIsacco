@@ -19,11 +19,11 @@ import model.events.RoomChangedEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.GameWorld;
+import util.Command;
 import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
 import util.StaticMethodsUtils;
-import view.Command;
 
 /**
  * 

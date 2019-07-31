@@ -16,11 +16,11 @@ import model.entity.Player;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
 import model.events.RoomChangedEvent;
+import util.Command;
 import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
 import util.StaticMethodsUtils;
-import view.Command;
 
 /**
  * 
@@ -190,7 +190,7 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public final void input(final Command c) {
         //da correggere
-        player.postEvent(new InputEvent(new Player(), c));
+        player.postEvent(new InputEvent(player, c));
     }
 
 }

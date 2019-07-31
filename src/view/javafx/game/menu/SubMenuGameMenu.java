@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
-import view.Command;
+import util.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.node.SelectList;

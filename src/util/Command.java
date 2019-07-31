@@ -1,4 +1,4 @@
-package view;
+package util;
 
 /**
  * This enum is the input that is used.

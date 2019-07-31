@@ -7,7 +7,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-import view.Command;
+import util.Command;
 import view.MenuSelection;
 import view.SubMenu;
 import view.SubMenuSelection;

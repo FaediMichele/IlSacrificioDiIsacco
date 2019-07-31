@@ -1,14 +1,27 @@
     package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import util.Lambda;
+import util.Single;
 
 /**
  * This interface is for the audio.
  * Load a file and permit to play it once or in loop.
  */
 public interface Sound {
+    /**
+     * The volume for all the sounds.
+     */
+    Single<Double> VOLUME = new Single<Double>(Double.valueOf(1.0));
 
     /**
+     * The listener for the volume changed events.
+     */
+    List<Lambda> VOLUMECHANGED = new ArrayList<>();
+
+    /**s
      * Play the sound once.
      */
     void play();
@@ -38,4 +51,21 @@ public interface Sound {
      * Release the resources.
      */
     void dispose();
+
+    /**
+     * Set the volume of the sounds.
+     * @param volume the volume to set.
+     */
+    default void setVolume(double volume) {
+        VOLUME.set(volume);
+        VOLUMECHANGED.forEach(Lambda::use);
+    }
+
+    /**
+     * Get the volume.
+     * @return the volume.
+     */
+    default Double getVolume() {
+        return VOLUME.get();
+    }
 }

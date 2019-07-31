@@ -3,6 +3,8 @@ package view;
 import java.util.Map;
 import java.util.Set;
 
+import util.Command;
+
 /**
  * This interface is used to load and store the configuration in a external file.
  *
