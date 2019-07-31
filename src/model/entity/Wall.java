@@ -4,8 +4,8 @@ import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Implements the walls.

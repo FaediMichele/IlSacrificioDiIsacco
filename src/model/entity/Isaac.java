@@ -1,7 +1,7 @@
 package model.entity;
 
-import util.enumeration.BasicPlayerEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicPlayerEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * TODO.

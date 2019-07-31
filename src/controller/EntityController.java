@@ -7,11 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import model.enumeration.EntityEnum;
+import model.enumeration.MovementEnum;
+import model.enumeration.UpgradeEnum;
+import model.enumeration.ValuesMapStatusEnum;
 import model.util.EntityInformation;
-import util.enumeration.EntityEnum;
-import util.enumeration.MovementEnum;
-import util.enumeration.UpgradeEnum;
-import util.enumeration.ValuesMapStatusEnum;
 import view.javafx.game.EntityView;
 
 /**

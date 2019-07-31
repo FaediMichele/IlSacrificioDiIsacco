@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import util.enumeration.MovementEnum;
-import util.enumeration.UpgradeEnum;
+import model.enumeration.MovementEnum;
+import model.enumeration.UpgradeEnum;
 
 /**
  * Common methods to all the entity views.

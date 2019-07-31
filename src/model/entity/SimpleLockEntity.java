@@ -1,8 +1,8 @@
 package model.entity;
 
 import model.component.collision.LockCollisionComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * 

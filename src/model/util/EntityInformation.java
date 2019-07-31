@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import util.enumeration.UpgradeEnum;
-import util.enumeration.BasicStatusEnum;
-import util.enumeration.EntityEnum;
-import util.enumeration.MovementEnum;
-import util.enumeration.StatusEnum;
+
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.EntityEnum;
+import model.enumeration.MovementEnum;
+import model.enumeration.StatusEnum;
+import model.enumeration.UpgradeEnum;
 
 /**
  *  Object for communication from model to controller. 

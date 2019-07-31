@@ -2,7 +2,7 @@ package model.component.collectible;
 
 import model.component.AbstractComponent;
 import model.entity.Entity;
-import util.enumeration.BasicStatusEnum;
+import model.enumeration.BasicStatusEnum;
 
 /**
  * 

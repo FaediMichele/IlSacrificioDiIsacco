@@ -11,6 +11,7 @@ import model.component.BodyComponent;
 import model.component.Component;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
+import model.enumeration.EntityEnum;
 import model.events.Event;
 import model.game.Room;
 import util.EqualsForGetters;
@@ -18,7 +19,6 @@ import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
 import util.StaticMethodsUtils;
-import util.enumeration.EntityEnum;
 
 import com.google.common.eventbus.EventBus;
 

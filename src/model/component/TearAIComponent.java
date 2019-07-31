@@ -2,9 +2,9 @@ package model.component;
 
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
+import model.enumeration.BasicStatusEnum;
 import model.events.CollisionEvent;
 import util.EventListener;
-import util.enumeration.BasicStatusEnum;
 
 /**
  * This component manages all the movements and actions that the tear must do

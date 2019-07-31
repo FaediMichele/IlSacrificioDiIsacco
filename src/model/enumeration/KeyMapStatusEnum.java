@@ -1,4 +1,4 @@
-package util.enumeration;
+package model.enumeration;
 
 /**
  * It contains the possible key maps for the status map.

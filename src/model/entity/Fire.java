@@ -6,8 +6,8 @@ import model.component.FireType;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.PsychoMentalityComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Implements the fires.

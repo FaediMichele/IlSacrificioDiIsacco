@@ -9,8 +9,8 @@ import model.component.collision.CollisionComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
-import util.enumeration.BasicPlayerEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicPlayerEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Implements Player.

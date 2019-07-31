@@ -7,8 +7,8 @@ import java.util.UUID;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import util.enumeration.MovementEnum;
-import util.enumeration.UpgradeEnum;
+import model.enumeration.MovementEnum;
+import model.enumeration.UpgradeEnum;
 
 /**
  * This class contains the method animate that can be used by all the entity

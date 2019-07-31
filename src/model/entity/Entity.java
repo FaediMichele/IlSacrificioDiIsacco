@@ -6,10 +6,10 @@ import java.util.UUID;
 
 import model.component.Component;
 import model.component.StatusComponent;
+import model.enumeration.EntityEnum;
 import model.events.Event;
 import model.game.Room;
 import util.EventListener;
-import util.enumeration.EntityEnum;
 
 /**
  * The main interface for all the entities such as enemies, items and the player

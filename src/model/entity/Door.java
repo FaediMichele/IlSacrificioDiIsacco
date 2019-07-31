@@ -5,8 +5,8 @@ import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
 import model.component.mentality.NeutralMentalityComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Create a door. The doors have a position based on the location (North, East,
