@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.entity.Entity;
-import util.enumeration.MovementEnum;
-import util.enumeration.StatusEnum;
-import util.enumeration.UpgradeEnum;
+import model.enumeration.MovementEnum;
+import model.enumeration.StatusEnum;
+import model.enumeration.UpgradeEnum;
 
 /**
  * The component for the status of all entities.

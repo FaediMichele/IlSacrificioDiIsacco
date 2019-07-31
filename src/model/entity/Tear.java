@@ -7,8 +7,8 @@ import model.component.StatusComponent;
 import model.component.TearAIComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * The entity for the tears, they are the main damage dealing entity.

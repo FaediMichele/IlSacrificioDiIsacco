@@ -1,4 +1,4 @@
-package util.enumeration;
+package model.enumeration;
 
 /**
  * Interface extended by all the possible values of the keys of the status

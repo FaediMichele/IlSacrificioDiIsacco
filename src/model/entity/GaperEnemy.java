@@ -5,8 +5,8 @@ import model.component.FollowAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.collision.MovableCollisionComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Implements the gaper enemy.

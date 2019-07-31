@@ -2,9 +2,9 @@ package model.component;
 
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
+import model.enumeration.BasicMovementEnum;
 import model.events.MoveEvent;
 import util.EventListener;
-import util.enumeration.BasicMovementEnum;
 
 /**
  * Component that manages the movement of the entity and its speed.

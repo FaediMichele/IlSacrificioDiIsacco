@@ -4,7 +4,7 @@ import model.component.BodyComponent;
 import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
-import util.enumeration.EntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Base class for all the static entities such as rocks and doors. See also

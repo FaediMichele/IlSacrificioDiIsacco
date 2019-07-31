@@ -4,8 +4,8 @@ import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collectible.HeartPickupableComponent;
 import model.component.collision.CollisionComponent;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.EntityEnum;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.EntityEnum;
 
 /**
  * Implements a generic heart.

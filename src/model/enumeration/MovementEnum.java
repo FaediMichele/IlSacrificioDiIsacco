@@ -1,4 +1,4 @@
-package util.enumeration;
+package model.enumeration;
 
 /**
  * Interface for all the different movement enums.

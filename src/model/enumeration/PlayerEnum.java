@@ -1,4 +1,4 @@
-package util.enumeration;
+package model.enumeration;
 
 /**
  * 

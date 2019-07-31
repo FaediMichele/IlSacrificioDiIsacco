@@ -12,15 +12,15 @@ import controller.EntityController;
 import controller.GameController;
 import model.component.BodyComponent;
 import model.entity.GaperEnemy;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.BasicUpgradeEnum;
 import model.events.MoveEvent;
 import model.game.GameWorld;
 import model.game.GameWorldImpl;
 import model.game.Room;
 import model.util.EntityInformation;
-import util.enumeration.BasicEntityEnum;
-import util.enumeration.BasicMovementEnum;
-import util.enumeration.BasicStatusEnum;
-import util.enumeration.BasicUpgradeEnum;
 
 /**
  * Test for the controller.
