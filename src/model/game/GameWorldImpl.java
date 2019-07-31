@@ -159,7 +159,7 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public final void input(final Command c) {
         //da correggere
-        player.postEvent(new InputEvent(new Player(), c));
+        player.postEvent(new InputEvent(player, c));
     }
 
 }

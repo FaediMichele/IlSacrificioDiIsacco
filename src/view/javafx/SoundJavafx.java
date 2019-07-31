@@ -21,6 +21,7 @@ public class SoundJavafx implements Sound {
     public SoundJavafx(final String path) {
         init(path);
         playing = false;
+        VOLUMECHANGED.add(() -> a.setVolume(getVolume()));
     }
     private void init(final String path) {
         if (a != null) {
