@@ -65,6 +65,6 @@ public class FlyAIComponent extends AbstractAIComponent {
      */
     @Override
     protected void moveUpdate() {
-        super.getMoveComponent(getEntity()).move(Math.cos(this.angle), Math.sin(this.angle), 0);
+        super.getMoveComponent(getEntity()).move(angle);
     }
 }

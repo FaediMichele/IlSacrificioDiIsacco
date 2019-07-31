@@ -33,7 +33,7 @@ public class GameWorldImplTest implements GameWorld {
     @NotEquals
     @NotHashCode
     private final Player player;
-    private final List<Floor> floors;
+    private final List<Floor> floors = new LinkedList<>();
     @NotEquals
     @NotHashCode
     private final EventBus eventBus = new EventBus();
@@ -54,7 +54,6 @@ public class GameWorldImplTest implements GameWorld {
      * Create a new Game World.
      */
     public GameWorldImplTest() {
-        this.floors = new LinkedList<>();
         floors.add(0, new FloorImpl());
         this.player = new Player();
         this.activeFloor = 0;
@@ -77,7 +76,6 @@ public class GameWorldImplTest implements GameWorld {
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
         this.player = new Player();
         this.activeFloor = 0;
-        this.floors = new LinkedList<>();
         if (node.isPresent()) {
             final NodeList nl = node.get().getChildNodes();
             for (int i = 0; i < nl.getLength(); i++) {

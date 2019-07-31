@@ -73,8 +73,7 @@ public class TearAIComponent extends AbstractAIComponent {
      * Update of the MoveComponent done by this AI.
      */
     protected void moveUpdate() {
-        this.getMoveComponent(this.getEntity()).move(Math.cos(Math.toRadians(this.angle)),
-                Math.sin(Math.toRadians(this.angle)), 0);
+        this.getMoveComponent(this.getEntity()).move(angle);
     }
 
     /**

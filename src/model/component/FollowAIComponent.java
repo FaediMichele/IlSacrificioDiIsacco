@@ -4,6 +4,8 @@ import model.entity.Entity;
 import model.entity.Player;
 import model.game.Room;
 import util.Pair;
+import util.StaticMethodsUtils;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +47,8 @@ public class FollowAIComponent extends AbstractAIComponent {
             }
             lastDest = r.getRoute(getEntity(), isaac.get());
         }
-        super.getMoveComponent(getEntity()).move(lastDest.getX(), lastDest.getY(), 0);
+        BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
+        super.getMoveComponent(getEntity()).move(StaticMethodsUtils.getAngle(lastDest, new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY())));
         tick++;
     }
 }

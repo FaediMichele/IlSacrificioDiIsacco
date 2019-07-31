@@ -283,4 +283,26 @@ public final class StaticMethodsUtils {
         });
         return (Map<X, Y>) map;
     }
+
+    /**
+     * Get the angle between two point in 2 dimensional space.
+     * @param p1 the first point.
+     * @param p2 the second point
+     * @return the angle.
+     */
+    public static double getAngle(final Pair<Double, Double> p1, final Pair<Double, Double> p2) {
+        double dx = p1.getX() - p2.getX();
+        // Minus to correct for coord re-mapping
+        double dy = -(p1.getY() - p2.getY());
+
+        double inRads = Math.atan2(dy, dx);
+
+        // We need to map to coord system when 0 degree is at 3 O'clock, 270 at 12 O'clock
+        /*if (inRads < 0)
+            inRads = Math.abs(inRads);
+        else
+            inRads = 2 * Math.PI - inRads;
+*/
+        return Math.toDegrees(inRads);
+    }
 }

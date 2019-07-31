@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import model.entity.Entity;
 import model.events.InputEvent;
+import model.events.TearShotEvent;
 import util.Command;
 import util.EventListener;
 
@@ -35,21 +36,25 @@ public class InputComponent extends AbstractComponent<InputComponent> {
         }
         switch (c) {
             case KEY_DOWN:
+                mc.move(270);
                 break;
             case KEY_UP:
+                mc.move(90);
                 break;
             case KEY_RIGHT:
+                mc.move(0);
                 break;
             case KEY_LEFT:
+                mc.move(180);
                 break;
             case ARROW_DOWN:
-                break;
+                getEntity().postEvent(new TearShotEvent(getEntity(), 270));
             case ARROW_UP:
-                break;
+                getEntity().postEvent(new TearShotEvent(getEntity(), 90));
             case ARROW_LEFT:
-                break;
+                getEntity().postEvent(new TearShotEvent(getEntity(), 180));
             case ARROW_RIGHT:
-                break;
+                getEntity().postEvent(new TearShotEvent(getEntity(), 0));
             case BOMB:
                 break;
         default:

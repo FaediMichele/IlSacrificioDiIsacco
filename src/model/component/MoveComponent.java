@@ -102,11 +102,18 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     /**
+     * Move the entity to a direction.
+     * @param angle the angle of the direction.
+     */
+    public final void move(final double angle) {
+        move(Math.cos(Math.toRadians(angle)), Math.sin(Math.toRadians(angle)), 0);
+    }
+    /**
      * @param x move made on the x axis
      * @param y move made on the y axis
      * @param z move made on the z axis
      */
-    protected void move(final double x, final double y, final double z) {
+    private void move(final double x, final double y, final double z) {
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
