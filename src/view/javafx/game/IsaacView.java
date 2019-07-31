@@ -177,6 +177,7 @@ public class IsaacView extends AbstractEntityView {
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals("dead")) {
             gc.drawImage(deadSprite, super.getX(), super.getY());
+            super.setStatus("");
             return;
         }
         final double heightScale = 3 / 5;
