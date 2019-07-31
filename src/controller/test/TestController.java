@@ -84,7 +84,7 @@ public class TestController {
         g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "stringa", 1, 1.0, room);
         g.postEvent(new MoveEvent(g, 2, 0, 0));
         g.getStatusComponent().setStatus(BasicStatusEnum.DEAD);
-        gc.run();
+        gc.start();
     }
 
     /**

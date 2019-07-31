@@ -5,10 +5,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import model.entity.Player;
 import model.game.GameWorld;
+import model.game.GameWorldImpl;
 import model.util.EntityInformation;
 import util.NotEquals;
 import util.enumeration.BasicStatusEnum;
+import util.enumeration.EntityEnum;
+import util.enumeration.PlayerEnum;
 
 /**
  * The {@link Controller} for the game which includes the game loop and it
@@ -36,9 +41,19 @@ public class GameController {
     }
 
     /**
+     * @param playerType 
+     */
+    public GameController(final PlayerEnum playerType) {
+        //super(main);
+        this.gameWord = new GameWorldImpl(new Player());
+        this.stoped = false;
+        this.gameloop = new GameLoop();
+        this.entityControllers = new HashMap<UUID, EntityController>();
+    }
+    /**
      * {@inheritDoc}
      */
-    public void run() {
+    public void start() {
        // super.run();
         this.stoped = false;
         this.gameloop.start();

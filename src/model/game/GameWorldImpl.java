@@ -62,11 +62,13 @@ public class GameWorldImpl implements GameWorld {
      * Initialize the {@link GameWorld} via xml.
      * 
      * @param game the game settings
+     * @param typePlayer is type player start game.
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public GameWorldImpl(final String game)
+    //da fixare il type player con cui deve iniziare il gioco
+    public GameWorldImpl(final String game, final Player typePlayer)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
         final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
