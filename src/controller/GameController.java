@@ -41,16 +41,6 @@ public class GameController {
     }
 
     /**
-     * @param playerType 
-     */
-    public GameController(final PlayerEnum playerType) {
-        //super(main);
-        this.gameWord = new GameWorldImpl(new Player());
-        this.stoped = false;
-        this.gameloop = new GameLoop();
-        this.entityControllers = new HashMap<UUID, EntityController>();
-    }
-    /**
      * {@inheritDoc}
      */
     public void start() {
