@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 
 import view.CharacterInfo;
 import view.ConfigurationManager;
+//import view.enumeration.PlayerMenuEnum;
 
 import org.w3c.dom.Node;
 import java.io.File;
@@ -97,11 +98,9 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
                 final NamedNodeMap attr = charList.item(i).getAttributes();
 
                 characters.add(new CharacterInfo(new Image(attr.getNamedItem("Name").getNodeValue()),
-                        Boolean.parseBoolean(attr.getNamedItem("Locked").getNodeValue()),
-                        Double.parseDouble(attr.getNamedItem("Life").getNodeValue()),
-                        Double.parseDouble(attr.getNamedItem("Speed").getNodeValue()),
-                        Double.parseDouble(attr.getNamedItem("Damage").getNodeValue()),
-                        new Image(attr.getNamedItem("ImagePath").getNodeValue())));
+                        new Image(attr.getNamedItem("ImagePath").getNodeValue()))); /*,
+                        loadPlayerEnum(attr.getNamedItem("package").getNodeValue(),
+                                (attr.getNamedItem("Type").getNodeValue()))));*/
             }
             return new LinkedHashSet<CharacterInfo>(characters);
         } catch (Exception e) {
@@ -109,4 +108,14 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
         }
         return null;
     }
+    /*
+    private PlayerMenuInfo loadPlayerInfo(final String pack, final String typ) {
+        // TODO .
+        final PlayerMenuEnum = loadPlayerEnum(pack, typ);
+        return null;
+    }
+    private PlayerMenuEnum loadPlayerEnum(final String pack, final String typ){
+        return null
+    }
+    */
 }

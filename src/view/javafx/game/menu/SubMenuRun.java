@@ -144,9 +144,12 @@ public class SubMenuRun extends SubMenu {
     private void update(final CharacterInfo c) {
         final CharacterInfo cf = c == null ? infos.get(list.getElement(0)) : c;
         if (cf != null) {
-            prgLife.setProgress(cf.getLife());
-            prgDamage.setProgress(cf.getDamage());
-            prgSpeed.setProgress(cf.getSpeed());
+            /*
+            final PlayerMenuInfo info = cf.getInfo();
+            prgLife.setProgress(info.getLife());
+            prgDamage.setProgress(info.getDamage());
+            prgSpeed.setProgress(info.getSpeed());
+            */
             imgName.setImage((Image) cf.getNameImage());
             prgLife.setVisible(true);
             prgDamage.setVisible(true);
