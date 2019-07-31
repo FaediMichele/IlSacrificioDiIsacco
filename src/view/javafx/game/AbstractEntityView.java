@@ -151,26 +151,18 @@ public abstract class AbstractEntityView implements EntityView {
 
     @Override
     public void def(final MovementEnum move) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void damaging(final MovementEnum move) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void dead(final MovementEnum move) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void upgrade(final UpgradeEnum upgrade) {
-        // TODO Auto-generated method stub
-
     }
 
     /**

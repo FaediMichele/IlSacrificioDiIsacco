@@ -9,9 +9,9 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import com.sun.javafx.scene.traversal.Direction;
 
 import javafx.scene.image.Image;
+import model.enumeration.BasicMovementEnum;
 import model.enumeration.MovementEnum;
 import model.game.RoomImpl;
 import util.SpritesExtractor;
@@ -21,7 +21,7 @@ import util.SpritesExtractor;
 */
 public class GaperView extends IsaacView {
 
-    private static Map<Direction, List<Image>> faceSprites = new HashMap<>();
+    private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
 
     static {
         BufferedImage img = null;
@@ -30,7 +30,7 @@ public class GaperView extends IsaacView {
             final int delta = 32;
             final List<Image> gaperMovingDownFaceSprite = (new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract();
             faceSprites = IsaacView.getStaticFaceSprites();
-            faceSprites.put(Direction.DOWN, gaperMovingDownFaceSprite);
+            faceSprites.put(BasicMovementEnum.DOWN, gaperMovingDownFaceSprite);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,12 +46,15 @@ public class GaperView extends IsaacView {
     /**
      * @return the faceSprites
      */
-    public Map<Direction, List<Image>> getFaceSprites() {
+    public Map<MovementEnum, List<Image>> getFaceSprites() {
         return GaperView.faceSprites;
     }
 
+    /**
+     * Dead animation for {@link GaperView}.
+     */
     @Override
-    public final void dead(final MovementEnum move) {
+    public void dead(final MovementEnum move) {
         System.out.println("DEAD!");
     }
 
