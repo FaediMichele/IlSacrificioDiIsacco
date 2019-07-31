@@ -1,7 +1,7 @@
 package model.events;
 
 import model.entity.Entity;
-import view.Command;
+import util.Command;
 
 /**
  * TODO .
@@ -24,7 +24,7 @@ public class InputEvent extends AbstractEvent {
      * Get the command.
      * @return the command
      */
-    Command getCommand() {
+    public Command getCommand() {
         return c;
     }
 

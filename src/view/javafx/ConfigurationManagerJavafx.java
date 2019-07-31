@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import util.Command;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -16,7 +18,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
 import view.CharacterInfo;
-import view.Command;
 import view.ConfigurationManager;
 
 import org.w3c.dom.Node;

@@ -1,7 +1,7 @@
 package view.javafx.game.menu;
 
 import javafx.scene.layout.Pane;
-import view.Command;
+import util.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 

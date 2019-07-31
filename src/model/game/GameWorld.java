@@ -3,8 +3,8 @@ package model.game;
 import java.util.List;
 
 import model.entity.Player;
+import util.Command;
 import util.EventListener;
-import view.Command;
 
 /**
  * The interface for the whole game.

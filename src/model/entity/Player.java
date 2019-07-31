@@ -16,7 +16,6 @@ import util.enumeration.EntityEnum;
  * Implements Player.
  */
 public class Player extends AbstractMovableEntity {
-    private static final EntityEnum ENTITY_NAME = BasicPlayerEnum.PLAYER;
     /**
      * Empty constructor.
      */
@@ -47,7 +46,7 @@ public class Player extends AbstractMovableEntity {
      * {@inheritDoc}
      */
     @Override
-    public EntityEnum getNameEntity() {
-        return ENTITY_NAME;
+    public  EntityEnum getNameEntity() {
+        return BasicPlayerEnum.PLAYER;
     }
 }

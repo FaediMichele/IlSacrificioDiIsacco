@@ -1,5 +1,7 @@
 package view;
 
+import util.Command;
+
 /**
  * The SubMenu have different behavior based on their implementation.
  * Is used in the UI.

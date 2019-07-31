@@ -9,5 +9,5 @@ public enum BasicPlayerEnum implements PlayerEnum {
     /**
      * type of player.
      */
-    PLAYER
+    PLAYER, ISAAC
 }

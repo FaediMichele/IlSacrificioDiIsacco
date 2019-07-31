@@ -9,7 +9,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.javafx.game.menu.MenuControllerJavafx;
 
-public class MainView extends Application implements EntryPoint{
+/**
+ * Launch the application by calling openEntryPoint.
+ */
+public class MainView extends Application implements EntryPoint {
     private static final String WINDOW_NAME = "Il sacrificio di Isacco";
     private static final String FXML_PATH = "/fxml/Isaac.fxml";
 

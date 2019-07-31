@@ -4,16 +4,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import util.Command;
 import util.Pair;
 import view.CharacterInfo;
-import view.Command;
 import view.SubMenu;
 import view.SubMenuSelection;
 import view.node.CircleList;
