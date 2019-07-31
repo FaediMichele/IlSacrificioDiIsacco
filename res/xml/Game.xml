@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Game1>
-    <Floors>
-        <Floor1 />
-    </Floors>
-</Game1>
+<Games>
+    <Game1>
+        <Floors>
+            <Floor1 />
+        </Floors>
+    </Game1>
+    <Game2>
+        <Floors>
+            <Floor2 />
+        </Floors>
+    </Game2>
+</Games>
+

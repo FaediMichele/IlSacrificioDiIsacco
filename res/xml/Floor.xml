@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Floor1>
-    <Rooms>
-        <Room1 index="0" />
-    </Rooms>
-</Floor1>
+<Floors>
+    <Floor1>
+        <Rooms>
+            <Room1 index="0" />
+        </Rooms>
+    </Floor1>
+    <Floor2>
+        <Rooms>
+            <Room1 index="0" />
+        </Rooms>
+    </Floor2>
+</Floors>
+

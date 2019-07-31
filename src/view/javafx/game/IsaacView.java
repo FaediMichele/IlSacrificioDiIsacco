@@ -12,11 +12,12 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import com.sun.javafx.scene.traversal.Direction;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicMovementEnum;
+import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
 /**
@@ -25,13 +26,13 @@ import util.SpritesExtractor;
 
 public class IsaacView extends AbstractEntityView {
 
-    private static Map<Direction, List<Image>> bodySprites = new HashMap<>();
-    private static Map<Direction, List<Image>> faceSprites = new HashMap<>();
+    private static Map<MovementEnum, List<Image>> bodySprites = new HashMap<>();
+    private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
     private static Image sufferSprite;
     private static Image deadSprite;
 
-    private final Map<Direction, Integer> bodyIndex = new HashMap<>();
-    private final Map<Direction, Integer> faceIndex = new HashMap<>();
+    private final Map<MovementEnum, Integer> bodyIndex = new HashMap<>();
+    private final Map<MovementEnum, Integer> faceIndex = new HashMap<>();
 
     private Image face;
     private Image body;
@@ -59,8 +60,10 @@ public class IsaacView extends AbstractEntityView {
             final int spritesEachMove = 10;
             final int spritesFaces = 2;
             isaacBody.add(SwingFXUtils.toFXImage(img.getSubimage(deltaFace * faces, 0, deltaBody, deltaBody), null));
-            isaacBody.add(SwingFXUtils.toFXImage(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody), null));
-            isaacBody.addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
+            isaacBody.add(SwingFXUtils
+                    .toFXImage(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody), null));
+            isaacBody
+                    .addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
 
             movingDownSprite = isaacBody.subList(0, spritesEachMove);
             movingUpSprite = new ArrayList<Image>();
@@ -70,7 +73,8 @@ public class IsaacView extends AbstractEntityView {
             movingLeftSprite.addAll(movingRightSprite);
             movingLeftSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
-                final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(),
+                        BufferedImage.TYPE_INT_ARGB);
 
                 final Graphics2D graphics = (Graphics2D) mir.getGraphics();
                 final AffineTransform trans = new AffineTransform();
@@ -80,10 +84,10 @@ public class IsaacView extends AbstractEntityView {
                 graphics.drawImage(tmp1, 0, 0, null);
             });
 
-            bodySprites.put(Direction.UP, movingUpSprite);
-            bodySprites.put(Direction.DOWN, movingDownSprite);
-            bodySprites.put(Direction.RIGHT, movingRightSprite);
-            bodySprites.put(Direction.LEFT, movingLeftSprite);
+            bodySprites.put(BasicMovementEnum.UP, movingUpSprite);
+            bodySprites.put(BasicMovementEnum.DOWN, movingDownSprite);
+            bodySprites.put(BasicMovementEnum.RIGHT, movingRightSprite);
+            bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
             movingDownFaceSprite = isaacFace.subList(0, spritesFaces);
@@ -93,7 +97,8 @@ public class IsaacView extends AbstractEntityView {
             movingLeftFaceSprite.addAll(movingRightFaceSprite);
             movingLeftFaceSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
-                final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(),
+                        BufferedImage.TYPE_INT_ARGB);
 
                 final Graphics2D graphics = (Graphics2D) mir.getGraphics();
                 final AffineTransform trans = new AffineTransform();
@@ -103,12 +108,13 @@ public class IsaacView extends AbstractEntityView {
                 graphics.drawImage(tmp1, 0, 0, null);
             });
 
-            faceSprites.put(Direction.UP, movingUpFaceSprite);
-            faceSprites.put(Direction.DOWN, movingDownFaceSprite);
-            faceSprites.put(Direction.RIGHT, movingRightFaceSprite);
-            faceSprites.put(Direction.LEFT, movingLeftFaceSprite);
+            faceSprites.put(BasicMovementEnum.UP, movingUpFaceSprite);
+            faceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprite);
+            faceSprites.put(BasicMovementEnum.RIGHT, movingRightFaceSprite);
+            faceSprites.put(BasicMovementEnum.LEFT, movingLeftFaceSprite);
 
-            sufferSprite = SwingFXUtils.toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
+            sufferSprite = SwingFXUtils
+                    .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
 
             final int deadX = 202;
             final int deadY = 159;
@@ -123,88 +129,98 @@ public class IsaacView extends AbstractEntityView {
 
     /**
      * Static Method.
+     * 
      * @return the faceSprites
      */
-    public static Map<Direction, List<Image>> getStaticFaceSprites() {
+    public static Map<MovementEnum, List<Image>> getStaticFaceSprites() {
         return faceSprites;
     }
 
     /**
      * Base constructor, initilizes the indexes.
-     * @param id 
+     * 
+     * @param id the {@link UUID}
      */
     public IsaacView(final UUID id) {
         super(id);
-        bodyIndex.put(Direction.UP, 0);
-        bodyIndex.put(Direction.DOWN, 0);
-        bodyIndex.put(Direction.RIGHT, 0);
-        bodyIndex.put(Direction.LEFT, 0);
+        bodyIndex.put(BasicMovementEnum.UP, 0);
+        bodyIndex.put(BasicMovementEnum.DOWN, 0);
+        bodyIndex.put(BasicMovementEnum.RIGHT, 0);
+        bodyIndex.put(BasicMovementEnum.LEFT, 0);
 
-        faceIndex.put(Direction.UP, 0);
-        faceIndex.put(Direction.DOWN, 0);
-        faceIndex.put(Direction.RIGHT, 0);
-        faceIndex.put(Direction.LEFT, 0);
+        faceIndex.put(BasicMovementEnum.UP, 0);
+        faceIndex.put(BasicMovementEnum.DOWN, 0);
+        faceIndex.put(BasicMovementEnum.RIGHT, 0);
+        faceIndex.put(BasicMovementEnum.LEFT, 0);
     }
 
-    private boolean checkSuffer(final String status) {
-        if (status.contentEquals("damaged")) {
-            face = sufferSprite;
-            return true;
-        }
-        return false;
-    }
+//    private boolean checkSuffer(final String status) {
+//        if (status.contentEquals("damaged")) {
+//            face = sufferSprite;
+//            return true;
+//        }
+//        return false;
+//    }
 
-    private void setSprites(final Direction direction, final String status) {
-        if (!checkSuffer(status)) {
-            this.face = this.getFaceSprites().get(direction).get(faceIndex.get(direction));
-            this.faceIndex.compute(direction, (k, v) -> (v + 1) % this.getFaceSprites().get(direction).size());
-        }
-        this.body = bodySprites.get(direction).get(bodyIndex.get(direction));
-        this.bodyIndex.compute(direction, (k, v) -> (v + 1) % bodySprites.get(direction).size());
-    }
+//    private void setSprites(final MovementEnum direction, final String status) {
+//        if (!checkSuffer(status)) {
+//            this.face = this.getFaceSprites().get(direction).get(faceIndex.get(direction));
+//            this.faceIndex.compute(direction, (k, v) -> (v + 1) % this.getFaceSprites().get(direction).size());
+//        }
+//        this.body = bodySprites.get(direction).get(bodyIndex.get(direction));
+//        this.bodyIndex.compute(direction, (k, v) -> (v + 1) % bodySprites.get(direction).size());
+//    }
 
     /**
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().isPresent()) {
-            if (super.getStatus().get().equals("dead")) {
-                gc.drawImage(deadSprite, super.getX(), super.getY());
-                return;
-            }
-
-            if (super.getStatus().get().equals("moving up")) {
-                this.setSprites(Direction.UP, super.getStatus().get());
-            }
-
-            if (super.getStatus().get().equals("moving down")) {
-                this.setSprites(Direction.DOWN, super.getStatus().get());
-            }
-
-            if (super.getStatus().get().equals("moving right")) {
-                this.setSprites(Direction.RIGHT, super.getStatus().get());
-            }
-
-            if (super.getStatus().get().equals("moving left")) {
-                this.setSprites(Direction.LEFT, super.getStatus().get());
-            }
-        } else {
-            face = bodySprites.get(Direction.DOWN).get(0);
-            face = faceSprites.get(Direction.DOWN).get(0);
+        if (super.getStatus().isPresent() && super.getStatus().get().equals("dead")) {
+            gc.drawImage(deadSprite, super.getX(), super.getY());
+            super.setStatus("");
+            return;
         }
-
         final double heightScale = 3 / 5;
         final double bodyShift = 2 / 5;
-        gc.drawImage(super.resize(face, (int) (super.getHeight() * heightScale), super.getWidth()), 
-                            super.getX(), super.getY());
-        gc.drawImage(super.resize(body, (int) (super.getHeight() * heightScale), super.getWidth()), 
-                            super.getX(), super.getY() + (super.getHeight() * bodyShift));
+        gc.drawImage(super.resize(face, (int) (super.getHeight() * heightScale), super.getWidth()), super.getX(),
+                super.getY());
+        gc.drawImage(super.resize(body, (int) (super.getHeight() * heightScale), super.getWidth()), super.getX(),
+                super.getY() + (super.getHeight() * bodyShift));
     }
 
     /**
      * @return the faceSprites
      */
-    public Map<Direction, List<Image>> getFaceSprites() {
+    public Map<MovementEnum, List<Image>> getFaceSprites() {
         return IsaacView.faceSprites;
+    }
+
+    /**
+     * Default animation for {@link IsaacView}.
+     */
+    @Override
+    public void def(final MovementEnum move) {
+        this.face = this.getFaceSprites().get(move).get(faceIndex.get(move));
+        this.faceIndex.compute(move, (k, v) -> (v + 1) % this.getFaceSprites().get(move).size());
+        this.body = bodySprites.get(move).get(bodyIndex.get(move));
+        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
+    }
+
+    /**
+     * Damaging animation for {@link IsaacView}.
+     */
+    @Override
+    public void damaging(final MovementEnum move) {
+        this.face = sufferSprite;
+        this.body = bodySprites.get(move).get(bodyIndex.get(move));
+        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
+    }
+
+    /**
+     * Dead animation for {@link IsaacView}.
+     */
+    @Override
+    public void dead(final MovementEnum move) {
+        this.setStatus("dead");
     }
 }
