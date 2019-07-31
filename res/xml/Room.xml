@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Room1>
-    <Entities>
-        <GaperEnemy x="10" y="10" z="0" />
-    </Entities>
-</Room1>
+<Rooms>
+    <Room1>
+        <Entities>
+            <GaperEnemy x="10" y="10" z="0" />
+            <Door>RIGHT</Door>
+        </Entities>
+    </Room1>
+    <Room1>
+        <Entities>
+            <GaperEnemy x="10" y="10" z="0" />
+            <Door>LEFT</Door>
+        </Entities>
+    </Room1>
+</Rooms>
+
