@@ -47,7 +47,7 @@ public class FollowAIComponent extends AbstractAIComponent {
             }
             lastDest = r.getRoute(getEntity(), isaac.get());
         }
-        BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
+        final BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
         super.getMoveComponent(getEntity()).move(StaticMethodsUtils.getAngle(lastDest, new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY())));
         tick++;
     }

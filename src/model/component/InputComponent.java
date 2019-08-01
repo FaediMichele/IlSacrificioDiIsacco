@@ -32,7 +32,7 @@ public class InputComponent extends AbstractComponent<InputComponent> {
     }
 
     private void handleInput(final Command c) {
-        MoveComponent mc = getEntity().getComponent(MoveComponent.class).get();
+        final MoveComponent mc = getEntity().getComponent(MoveComponent.class).get();
         if (mc == null) {
             return;
         }

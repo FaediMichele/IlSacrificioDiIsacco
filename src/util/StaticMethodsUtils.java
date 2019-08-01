@@ -21,6 +21,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import model.enumeration.PlayerEnum;
+import model.util.DataPlayer;
+
 /**
  * Class for all static methods.
  */
@@ -291,11 +294,11 @@ public final class StaticMethodsUtils {
      * @return the angle.
      */
     public static double getAngle(final Pair<Double, Double> p1, final Pair<Double, Double> p2) {
-        double dx = p1.getX() - p2.getX();
+        final double dx = p1.getX() - p2.getX();
         // Minus to correct for coord re-mapping
-        double dy = -(p1.getY() - p2.getY());
+        final double dy = -(p1.getY() - p2.getY());
 
-        double inRads = Math.atan2(dy, dx);
+        final double inRads = Math.atan2(dy, dx);
 
         // We need to map to coord system when 0 degree is at 3 O'clock, 270 at 12 O'clock
         /*if (inRads < 0)
@@ -304,5 +307,24 @@ public final class StaticMethodsUtils {
             inRads = 2 * Math.PI - inRads;
 */
         return Math.toDegrees(inRads);
+    }
+
+    /**
+     * 
+     * @param plEnu 
+     * @param pathXml 
+     * @param pathEnum 
+     * @return .
+     */
+    public static DataPlayer enumFromXmlToDataPlayer(final PlayerEnum plEnu, final String pathXml, final String pathEnum) {
+        final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
+        final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
+        final String str = nodeRoot.getAttributes().getNamedItem(pathEnum).getTextContent();
+        final String tagEntity = plEnu.getValue().substring(str.length() + 1);
+        final Node node = xml.getElementsByTagName(tagEntity).item(0);
+        return new DataPlayer().setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
+                                        .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
+                                        .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()));
+
     }
 }

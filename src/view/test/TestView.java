@@ -12,6 +12,7 @@ import view.enumeration.PlayerMenuEnum;
  * Test for view.
  *
  */
+@SuppressWarnings("all")
 public class TestView {
     /**
      *  .
