@@ -35,12 +35,6 @@ public interface Floor {
     Set<Room> getRooms();
 
     /**
-     * Generate all the room for the floor. Including the boss room, treasure room,
-     * etc
-     */
-    void generateRooms();
-
-    /**
      * Update the floor (run a frame).
      * 
      * @param deltaTime time passed from the last call.
