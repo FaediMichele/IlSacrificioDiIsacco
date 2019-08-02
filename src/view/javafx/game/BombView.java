@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
 /**
@@ -65,11 +67,11 @@ public class BombView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().isPresent() && super.getStatus().get().equals("triggered")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.TRIGGERED)) {
             final Image img = super.resize(triggeredBombSprite.get(triggeredIndex), super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
-        } else if (super.getStatus().isPresent() && super.getStatus().get().equals("explosion")) {
+        } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
             final Image img = super.resize(explosionBombSprite.get(explosionIndex), super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
             explosionIndex += 1;
@@ -80,5 +82,21 @@ public class BombView extends AbstractEntityView {
             final Image img = super.resize(bombSprite, super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void exploded(final MovementEnum move) {
+        super.setStatus(BasicStatusEnum.EXPLODED);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void triggered(final MovementEnum move) {
+        super.setStatus(BasicStatusEnum.TRIGGERED);
     }
 }

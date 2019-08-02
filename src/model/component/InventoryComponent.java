@@ -93,8 +93,8 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing to release
      */
     public void releaseThing(final Entity thing) {
-//        (thing.getComponent(BodyComponent.class).get())
-//                .setPosition((this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
+        (thing.getComponent(BodyComponent.class).get())
+                .setPosition((this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
         this.getEntity().getRoom().insertEntity(thing);
 //        this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "appear"));
         this.things.remove(thing);

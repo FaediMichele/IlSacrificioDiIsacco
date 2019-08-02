@@ -38,17 +38,6 @@ public interface GameView {
     void removeStatistic(StatisticView s);
 
     /**
-     * This method must be called by the controller for each of the actual entityViews displayed in the canvas.
-     *@param status what isaac is doing
-     * @param x position on the x axis
-     * @param y position on the y axis
-     * @param height of a sprite
-     * @param width of a sprite
-     * @param entity the entityView to which this parameters must be applied
-     */
-    void setEntityViewParameters(EntityView entity, String status, double x, double y, double height, double width);
-
-    /**
      * This method must be called by the controller to set the Number of each statistic.
      * @param s the statisticView that needs to be update
      * @param itemNumber the number of items that needs to be set
