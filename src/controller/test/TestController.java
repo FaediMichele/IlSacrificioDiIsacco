@@ -21,6 +21,8 @@ import model.game.GameWorld;
 import model.game.GameWorldImpl;
 import model.game.Room;
 import model.util.EntityInformation;
+import view.javafx.game.GameView;
+import view.javafx.game.GameViewImpl;
 
 /**
  * Test for the controller.
@@ -40,6 +42,7 @@ public class TestController {
     @Test
     public void testEntityController() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
         final GameWorld gw = new GameWorldImplTest("Game1");
+        final GameView gv = new GameViewImpl();
         //final MainController main = new MainControllerImpl();
         //final GameController gc = new GameController(gw);
         //main.switchActive(gc);
@@ -52,7 +55,7 @@ public class TestController {
         List<EntityInformation> info = room.getEntitiesStatus();
         assertEquals(info.stream().filter(i -> i.getId().equals(g.getId())).collect(Collectors.toList()).size(), 1);
         EntityInformation gI = info.stream().filter(i -> i.getId().equals(g.getId())).findFirst().get();
-        EntityController eC = new EntityController(gI);
+        EntityController eC = new EntityController(gI, gv);
         assertEquals(gI.getEntityName().getValue(), "util.enumeration.BasicEntityEnum.GAPER");
         assertEquals(gI.getEntityName(), BasicEntityEnum.GAPER);
         assertEquals(gI.getMove(), BasicMovementEnum.RIGHT);
