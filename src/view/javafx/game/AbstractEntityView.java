@@ -169,10 +169,6 @@ public abstract class AbstractEntityView implements EntityView {
     public void dead(final MovementEnum move) {
     }
 
-    @Override
-    public void upgrade(final Object... upgrades) {
-    }
-
     /**
      * {@inheritDoc}
      */

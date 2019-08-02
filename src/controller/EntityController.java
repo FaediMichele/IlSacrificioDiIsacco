@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 import model.enumeration.EntityEnum;
 import model.enumeration.MovementEnum;
+import model.enumeration.StatusEnum;
 import model.enumeration.UpgradeEnum;
-import model.enumeration.ValuesMapStatusEnum;
 import model.util.EntityInformation;
 import view.javafx.game.EntityView;
 import view.javafx.game.GameView;
@@ -31,18 +31,18 @@ public class EntityController {
     private static final String TAG_PLAYER = "Player";
     private static final String ATTR1_PLAYER = "path-playerEnum";
     private static final String ATTR2_PLAYER = "path-entityView";
-    private static final Map<ValuesMapStatusEnum, Class<? extends EntityView>> ENTITY_MAP = EntityController.initializeMap();
+    private static final Map<EntityEnum, Class<? extends EntityView>> ENTITY_MAP = EntityController.initializeMap();
 
     private static final String PATH_STATUS = "/xml/Status.xml";
     private static final String TAG_STATUS = "Status";
     private static final String ATTR1_STATUS = "path-status-enum";
-    private static final Map<ValuesMapStatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_STATUS,
+    private static final Map<StatusEnum, String> STATUS_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_STATUS,
             TAG_STATUS, ATTR1_STATUS);
 
     private static final String PATH_UPGRADE = "/xml/Upgrade.xml";
     private static final String TAG_UPGRADE = "Upgrade";
     private static final String ATTR1_UPGRADE = "path-upgrade-enum";
-    private static final Map<ValuesMapStatusEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_UPGRADE,
+    private static final Map<UpgradeEnum, String> UPGADE_MAP = util.StaticMethodsUtils.xmlToMapMethods(PATH_UPGRADE,
             TAG_UPGRADE, ATTR1_UPGRADE);
 
     private final UUID id;
