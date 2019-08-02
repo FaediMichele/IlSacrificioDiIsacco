@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.MovementEnum;
 
 /**
 * View of the hearts.
@@ -60,14 +62,30 @@ public class HeartView extends AbstractEntityView {
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().isPresent() && super.getStatus().get().equals("full")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.FULL)) {
             final Image img = super.resize(heart, super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
         }
 
-        if (super.getStatus().isPresent() && super.getStatus().get().equals("half")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.HALF)) {
             final Image img = super.resize(halfHeart, super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void full(final MovementEnum move) {
+        super.setStatus(BasicStatusEnum.FULL);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void half(final MovementEnum move) {
+        super.setStatus(BasicStatusEnum.HALF);
     }
 }

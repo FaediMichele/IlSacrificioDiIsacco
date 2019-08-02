@@ -8,6 +8,8 @@ import model.enumeration.BasicStatusEnum;
 import model.game.GameWorld;
 import model.util.EntityInformation;
 import util.NotEquals;
+import view.javafx.game.GameView;
+import view.javafx.game.GameViewImpl;
 
 
 /**
@@ -22,6 +24,7 @@ public class GameController {
     private final GameWorld gameWord;
     @NotEquals
     private final GameLoop gameloop;
+    private final GameView gameView;
     private final Map<UUID, EntityController> entityControllers;
     /**
      * 
@@ -29,6 +32,7 @@ public class GameController {
      */
     public GameController(final GameWorld gameWorld) {
         //super(main);
+        this.gameView = new GameViewImpl();
         this.gameWord = gameWorld;
         this.stoped = false;
         this.gameloop = new GameLoop();
@@ -71,7 +75,6 @@ public class GameController {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> { 
                                                          x.update(disappear);
-                                                         //le entità devono anche essere inserite/rimosse dalla lista nel GameView (che le dovrà disegnare)
                                                          entityControllers.remove(x.getId());
                                                       });
                     }
@@ -82,7 +85,7 @@ public class GameController {
                             .peek(st -> {
                                     if (!entityControllers.containsKey(st.getId())) {
                                         try {
-                                            entityControllers.put(st.getId(), new EntityController(st));
+                                            entityControllers.put(st.getId(), new EntityController(st, gameView));
                                         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
                                                 | InstantiationException | IllegalAccessException
                                                 | IllegalArgumentException | InvocationTargetException e) {
@@ -95,8 +98,8 @@ public class GameController {
                                     if (st.getStatus().equals(BasicStatusEnum.DISAPPEAR) || st.getStatus().equals(BasicStatusEnum.DEAD)) {
                                         entityControllers.remove(st.getId());
                                     }
-
                                 });
+                    gameView.draw();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -5,8 +5,8 @@ import java.util.UUID;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
- * 
- *
+ * This view is needed just beacause a Wall Entity exsists, 
+ * but it is no required to draw anything because the walls are already in the background of the room.
  */
 public class WallView extends AbstractEntityView {
 
@@ -17,7 +17,6 @@ public class WallView extends AbstractEntityView {
      */
     public WallView(final UUID id, final GameViewImpl gv) {
         super(id, gv);
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -26,13 +25,10 @@ public class WallView extends AbstractEntityView {
      */
     public WallView(final UUID id) {
         super(id);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public void draw(final GraphicsContext gc) {
-        // TODO Auto-generated method stub
-
     }
 
 }
