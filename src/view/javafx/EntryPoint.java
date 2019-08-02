@@ -8,5 +8,5 @@ public interface EntryPoint {
      * Open the window.
      * @param args the argument passed by terminal.
      */
-    void openEntryPoint(String[] args);
+    void openEntryPoint(String... args);
 }
