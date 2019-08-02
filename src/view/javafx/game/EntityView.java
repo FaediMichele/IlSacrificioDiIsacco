@@ -92,6 +92,11 @@ public interface EntityView {
     EntityView setStatus(BasicStatusEnum status);
 
     /**
+     * @param gameView the game view to which this EntityView belongs
+     */
+    void setGameView(GameView gameView);
+
+    /**
      * Method for the animation of the default status.
      * 
      * @param move the enum for the movement of the entity

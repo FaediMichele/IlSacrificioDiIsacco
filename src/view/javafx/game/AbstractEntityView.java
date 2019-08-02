@@ -16,7 +16,7 @@ import model.enumeration.MovementEnum;
  * entityActualSprites.
  */
 public abstract class AbstractEntityView implements EntityView {
-    private final Optional<GameViewImpl> gameView;
+    private Optional<GameView> gameView;
     private final UUID id;
     private Optional<Double> x = Optional.empty();
     private Optional<Double> y = Optional.empty();
@@ -35,12 +35,20 @@ public abstract class AbstractEntityView implements EntityView {
         this.gameView = Optional.empty();
     }
 
+
+
     /**
-     * 
      * @return the GameView to which the entityView is attached (if there is one);
      */
-    public Optional<GameViewImpl> getGameView() {
+    public Optional<GameView> getGameView() {
         return gameView;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setGameView(final GameView gameView) {
+        this.gameView = Optional.of(gameView);
     }
 
     /**

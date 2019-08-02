@@ -43,6 +43,7 @@ public class GaperView extends IsaacView {
     public GaperView(final UUID id) {
         super(id);
     }
+
     /**
      * @return the faceSprites
      */
