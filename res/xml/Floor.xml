@@ -9,6 +9,7 @@
     <Floor2>
         <Rooms>
             <Room1 index="0" />
+            <Room2 index="1" />
         </Rooms>
     </Floor2>
 </Floors>

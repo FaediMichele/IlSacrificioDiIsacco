@@ -169,6 +169,10 @@ public abstract class AbstractEntityView implements EntityView {
      * {@inheritDoc}
      */
     @Override
+    public void appear(final MovementEnum move) {
+    }
+
+    @Override
     public void disappear(final MovementEnum move) {
         this.getGameView().get().removeEntity(this);
     }
