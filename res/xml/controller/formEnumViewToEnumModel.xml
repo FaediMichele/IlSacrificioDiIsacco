@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Entity path-enum-model="model.enumeration.BasicEntityEnum" path-enum-view="model.enumeration.BasicEntityEnum">
+    <ISAAC>ISAAC</ISAAC>
+    <CAIN>CAIN</CAIN>
+</Entity>
