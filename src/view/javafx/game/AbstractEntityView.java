@@ -161,10 +161,6 @@ public abstract class AbstractEntityView implements EntityView {
     public void dead(final MovementEnum move) {
     }
 
-    @Override
-    public void upgrade(final Object... upgrades) {
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -172,6 +168,9 @@ public abstract class AbstractEntityView implements EntityView {
     public void appear(final MovementEnum move) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disappear(final MovementEnum move) {
         this.getGameView().get().removeEntity(this);

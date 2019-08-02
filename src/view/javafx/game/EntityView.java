@@ -113,13 +113,6 @@ public interface EntityView {
     void dead(MovementEnum move);
 
     /**
-     * Method for the upgrade sprite.
-     * 
-     * @param upgrades the upgrades of the entity
-     */
-    void upgrade(Object... upgrades);
-
-    /**
      * Method for the animation of the triggered status.
      * 
      * @param move the enum for the movement of the entity
