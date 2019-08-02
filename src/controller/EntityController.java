@@ -14,6 +14,7 @@ import model.enumeration.UpgradeEnum;
 import model.enumeration.ValuesMapStatusEnum;
 import model.util.EntityInformation;
 import view.javafx.game.EntityView;
+import view.javafx.game.GameView;
 
 /**
  * 
@@ -51,6 +52,7 @@ public class EntityController {
     /**
      * 
      * @param info 
+     * @param gv the GameView to which this entityView belongs to
      * @throws ClassNotFoundException 
      * @throws NoSuchMethodException 
      * @throws SecurityException 
@@ -59,12 +61,12 @@ public class EntityController {
      * @throws IllegalArgumentException 
      * @throws InvocationTargetException 
      */
-    public EntityController(final EntityInformation info) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public EntityController(final EntityInformation info, final GameView gv) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getId();
         this.entityName = info.getEntityName();
         final Class<? extends EntityView> classEntity = ENTITY_MAP.get(this.entityName);
         final Constructor<? extends EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class });
-        this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
+        this.entityView = (EntityView) constructor.newInstance(new Object[] {id}, gv);
     }
 
     /**
@@ -105,6 +107,14 @@ public class EntityController {
      */
     public EntityEnum getEntityName() {
         return this.entityName;
+    }
+
+    /**
+     * 
+     * @return entity view 
+     */
+    public EntityView getEntityView() {
+        return this.entityView;
     }
 
     /**

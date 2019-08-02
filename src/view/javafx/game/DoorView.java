@@ -17,7 +17,6 @@ public class DoorView extends AbstractEntityView {
      */
     public DoorView(final UUID id, final GameViewImpl gv) {
         super(id, gv);
-        // TODO Auto-generated constructor stub
     }
 
     /**
