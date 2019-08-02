@@ -15,17 +15,21 @@ import view.enumeration.PlayerMenuEnum;
 @SuppressWarnings("all")
 public class TestView {
     /**
-     *  .
+     * .
+     * 
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    @SuppressWarnings({"unchecked", "rawtypes" })
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
     @Test
     public void testLoadEnumFromString() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         final String enumerationClass = "view.enumeration.BasicPlayerMenuEnum";
         final String value = "ISAAC";
-        final Enum<? extends PlayerMenuEnum> enumObjet = Enum.valueOf((Class<Enum>) Class.forName(enumerationClass), value);
+        final Enum<? extends PlayerMenuEnum> enumObjet = Enum.valueOf((Class<Enum>) Class.forName(enumerationClass),
+                value);
         assertEquals(BasicPlayerMenuEnum.ISAAC, enumObjet);
     }
 }

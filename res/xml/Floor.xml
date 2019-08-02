@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Floors>
-    <Floor1>
+    <Floor1 MaxRoom="6">
         <Rooms>
             <Room1 index="0" />
         </Rooms>
     </Floor1>
-    <Floor2>
+    <Floor2 MaxRoom="6">
         <Rooms>
             <Room1 index="0" />
             <Room2 index="1" />

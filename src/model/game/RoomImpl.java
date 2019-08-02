@@ -87,60 +87,6 @@ public class RoomImpl implements Room {
         entity.forEach(e -> insertEntity(e));
         cleanGraveyard = false;
     }
-
-    /**
-     * Initialize a {@link Room} via xml.
-     * 
-     * @param roomName the room name in xml
-     * @param index    the index of the room
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     */
-    public RoomImpl(final String roomName, final int index)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Room.xml");
-        final List<Node> ls = StaticMethodsUtils
-                .getNodesFromNodelList(docXML.getElementsByTagName(roomName).item(0).getChildNodes());
-        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Entities")).findFirst();
-        this.entity = new ArrayList<Entity>();
-        this.doors = new ArrayList<Door>();
-        this.index = index;
-        this.cleanGraveyard = false;
-        if (node.isPresent()) {
-            final NodeList nl = node.get().getChildNodes();
-            for (int i = 0; i < nl.getLength(); i++) {
-                final Node entity = nl.item(i);
-                if (entity.getNodeType() == Node.ELEMENT_NODE) {
-                    final String entityName = entity.getNodeName();
-                    if (entityName.equals("Door")) {
-                        switch (entity.getTextContent()) {
-                        case "RIGHT":
-                            this.doors.add(new Door(EAST, this.index));
-                            break;
-                        case "DOWN":
-                            this.doors.add(new Door(SUD, this.index));
-                            break;
-                        case "LEFT":
-                            this.doors.add(new Door(OVEST, this.index));
-                            break;
-                        default:
-                            this.doors.add(new Door(NORD, this.index));
-                            break;
-                        }
-                    } else {
-                        final Entity e = (Entity) Class.forName("model.entity." + entityName).newInstance();
-                        final Double x = Double.parseDouble(entity.getAttributes().getNamedItem("x").getNodeValue());
-                        final Double y = Double.parseDouble(entity.getAttributes().getNamedItem("y").getNodeValue());
-                        final Double z = Double.parseDouble(entity.getAttributes().getNamedItem("z").getNodeValue());
-                        e.getComponent(BodyComponent.class).get().changePosition(x, y, z);
-                        this.entity.add(e);
-                    }
-                }
-            }
-        }
-    }
-
     private Space.Rectangle getShape(final Entity e) {
         final BodyComponent b = e.getComponent(BodyComponent.class).get();
         return new Space.Rectangle(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
@@ -320,5 +266,40 @@ public class RoomImpl implements Room {
     @Override
     public final int hashCode() {
         return StaticMethodsUtils.hashCode(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void fill(final String name)  {
+        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Room.xml");
+        final List<Node> ls = StaticMethodsUtils
+                .getNodesFromNodelList(docXML.getElementsByTagName(name).item(0).getChildNodes());
+        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Entities")).findFirst();
+        if (node.isPresent()) {
+            final NodeList nl = node.get().getChildNodes();
+            for (int i = 0; i < nl.getLength(); i++) {
+                final Node entity = nl.item(i);
+                if (entity.getNodeType() == Node.ELEMENT_NODE) {
+                    final String entityName = entity.getNodeName();
+                    Entity e = null;
+                    try {
+                        e = (Entity) Class.forName("model.entity." + entityName).newInstance();
+                        final Double x = Double.parseDouble(entity.getAttributes().getNamedItem("x").getNodeValue());
+                        final Double y = Double.parseDouble(entity.getAttributes().getNamedItem("y").getNodeValue());
+                        final Double z = Double.parseDouble(entity.getAttributes().getNamedItem("z").getNodeValue());
+                        e.getComponent(BodyComponent.class).get().changePosition(x, y, z);
+                        this.entity.add(e);
+                    } catch (InstantiationException e1) {
+                        e1.printStackTrace();
+                    } catch (IllegalAccessException e1) {
+                        e1.printStackTrace();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }

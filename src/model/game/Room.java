@@ -67,6 +67,12 @@ public interface Room {
     int getIndex();
 
     /**
+     * Set the name of the room in order to load the entities.
+     * @param name the name of the room.
+     */
+    void fill(String name);
+
+    /**
      * Add an {@link Entity} to the room.
      * 
      * @param e the {@link Entity}

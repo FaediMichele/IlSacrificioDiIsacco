@@ -8,9 +8,14 @@ import model.enumeration.BasicStatusEnum;
 import model.game.GameWorld;
 import model.util.EntityInformation;
 import util.NotEquals;
+import view.enumeration.PlayerMenuEnum;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
+<<<<<<< HEAD
 import view.javafx.game.menu.SubMenuGame;
+=======
+import view.util.DataPlayer;
+>>>>>>> 3b6528cebe2c244f43efe04a8599906fa2b0468c
 
 
 /**
@@ -107,5 +112,18 @@ public class GameController {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 
+     * @param player .
+     * @return .
+     */
+    public static DataPlayer getDataPlayer(final PlayerMenuEnum player) {
+        model.util.DataPlayer dataPlayerModel = new model.util.DataPlayer();
+        return new view.util.DataPlayer()
+                            .setDamage(dataPlayerModel.getDamage())
+                            .setLife(dataPlayerModel.getLife())
+                            .setSpeed(dataPlayerModel.getSpeed());
     }
 }

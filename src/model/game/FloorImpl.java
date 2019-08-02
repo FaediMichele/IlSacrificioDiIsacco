@@ -34,7 +34,7 @@ import util.StaticMethodsUtils;
  */
 public class FloorImpl implements Floor {
 
-    private static final int MAXROOM = 6;
+    private int maxRoom;
     private static final int NORD = 0;
     private static final int EAST = 1;
     private static final int SUD = 2;
@@ -78,18 +78,21 @@ public class FloorImpl implements Floor {
     public FloorImpl(final String floorName)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(0).getChildNodes());
+        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(1).getChildNodes());
+        maxRoom = Integer.parseInt(docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("maxRoom").getNodeValue());
+        generateRooms();
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
         this.rooms = new ArrayList<>();
         this.activeRoomIndex = 0;
+        final Random rnd = new Random();
         if (node.isPresent()) {
             final NodeList nl = node.get().getChildNodes();
             for (int i = 0; i < nl.getLength(); i++) {
-                final Node room = nl.item(i);
+                int rndIndex = rnd.nextInt(nl.getLength());
+                final Node room = nl.item(rndIndex);
                 if (room.getNodeType() == Node.ELEMENT_NODE) {
                     final String roomName = room.getNodeName();
-                    this.rooms.add(new RoomImpl(roomName,
-                            Integer.parseInt(room.getAttributes().getNamedItem("index").getNodeValue())));
+                    rooms.get(i).fill(roomName);
                 }
             }
         }
@@ -124,15 +127,11 @@ public class FloorImpl implements Floor {
         return new LinkedHashSet<>(this.rooms);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void generateRooms() {
+    private void generateRooms() {
         if (!this.rooms.isEmpty()) {
             throw new IllegalStateException("Floor already created");
         }
-        final Matrix<Integer> m = new Matrix<>(MAXROOM, MAXROOM);
+        final Matrix<Integer> m = new Matrix<>(maxRoom, maxRoom);
         final List<Pair<Integer, Integer>> roomIndexs = new ArrayList<>();
         generateMap(m, roomIndexs);
 
@@ -178,9 +177,9 @@ public class FloorImpl implements Floor {
      *                   order
      */
     private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
-        final Pair<Integer, Integer> pos = new Pair<>(MAXROOM / 2, MAXROOM / 2);
+        final Pair<Integer, Integer> pos = new Pair<>(maxRoom / 2, maxRoom / 2);
         final Random rnd = new Random();
-        final int nRoom = rnd.nextInt(MAXROOM);
+        final int nRoom = rnd.nextInt(maxRoom);
 
         for (int index = 0; index < nRoom; index++) {
             int direction = rnd.nextInt(OVEST);
