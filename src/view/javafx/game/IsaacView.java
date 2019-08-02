@@ -17,6 +17,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
@@ -175,9 +176,9 @@ public class IsaacView extends AbstractEntityView {
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().isPresent() && super.getStatus().get().equals("dead")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DEAD)) {
             gc.drawImage(deadSprite, super.getX(), super.getY());
-            super.setStatus("");
+            super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }
         final double heightScale = 3 / 5;
@@ -221,6 +222,6 @@ public class IsaacView extends AbstractEntityView {
      */
     @Override
     public void dead(final MovementEnum move) {
-        this.setStatus("dead");
+        this.setStatus(BasicStatusEnum.DEAD);
     }
 }

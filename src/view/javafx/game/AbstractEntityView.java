@@ -7,6 +7,7 @@ import java.util.UUID;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
 
 /**
@@ -21,7 +22,7 @@ public abstract class AbstractEntityView implements EntityView {
     private Optional<Double> y = Optional.empty();
     private Optional<Double> height = Optional.empty();
     private Optional<Double> width = Optional.empty();
-    private Optional<String> status = Optional.empty();
+    private Optional<BasicStatusEnum> status = Optional.empty();
 
     AbstractEntityView(final UUID id, final GameViewImpl gv) {
         Objects.requireNonNull(gv);
@@ -136,14 +137,14 @@ public abstract class AbstractEntityView implements EntityView {
     /**
      * {@inheritDoc}
      */
-    public Optional<String> getStatus() {
+    public Optional<BasicStatusEnum> getStatus() {
         return status;
     }
 
     /**
      * {@inheritDoc}
      */
-    public EntityView setStatus(final String status) {
+    public EntityView setStatus(final BasicStatusEnum status) {
         this.status = Optional.of(status);
         return this;
     }

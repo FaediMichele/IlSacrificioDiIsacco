@@ -8,6 +8,8 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
 /**
@@ -49,7 +51,7 @@ public class FlyView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().isPresent() && super.getStatus().get().equals("explosion")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
             final Image img = super.resize(explodingFlySprite.get(explodingIndex), super.getHeight(), super.getWidth());
             gc.drawImage(img, super.getX(), super.getY());
             explodingIndex += 1;
@@ -61,5 +63,13 @@ public class FlyView extends AbstractEntityView {
             gc.drawImage(img, super.getX(), super.getY());
             index = (index + 1) % flySprite.size();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void exploded(final MovementEnum move) {
+        super.setStatus(BasicStatusEnum.EXPLODED);
     }
 }

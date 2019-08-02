@@ -68,9 +68,10 @@ public class GameController {
                     sleep(timeToSleep);
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
-                        final EntityInformation dissapper = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
+                        final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> { 
-                                                         x.update(dissapper);
+                                                         x.update(disappear);
+                                                         //le entità devono anche essere inserite/rimosse dalla lista nel GameView (che le dovrà disegnare)
                                                          entityControllers.remove(x.getId());
                                                       });
                     }

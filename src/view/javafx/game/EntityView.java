@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
 
 /**
@@ -81,14 +82,14 @@ public interface EntityView {
      * 
      * @return the status (what the entity is doing)
      */
-    Optional<String> getStatus();
+    Optional<BasicStatusEnum> getStatus();
 
     /**
      * 
      * @param status that is going to be set (what the entity is doing)
      * @return this
      */
-    EntityView setStatus(String status);
+    EntityView setStatus(BasicStatusEnum status);
 
     /**
      * Method for the animation of the default status.

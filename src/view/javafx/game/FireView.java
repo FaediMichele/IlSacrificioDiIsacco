@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
 /**
@@ -93,7 +95,7 @@ public class FireView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        if (super.getStatus().isPresent() && super.getStatus().get().equals("dying")) {
+        if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DEAD)) {
             this.fire = dyingFireSprite.get(dyingIndex);
             dyingIndex += 1;
             if (dyingIndex > dyingFireSprite.size() && super.getGameView().isPresent()) {
@@ -116,4 +118,13 @@ public class FireView extends AbstractEntityView {
         gc.drawImage(super.resize(grid, (int) (super.getHeight() * gridScale), (super.getWidth() * 2) / 3), 
                         super.getX() + (super.getWidth() / gridShiftX), super.getY() + (super.getHeight() * gridShiftY));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void dead(final MovementEnum move) {
+        super.setStatus(BasicStatusEnum.DEAD);
+    }
+
 }

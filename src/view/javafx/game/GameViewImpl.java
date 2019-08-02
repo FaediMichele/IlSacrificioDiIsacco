@@ -18,13 +18,6 @@ public class GameViewImpl implements GameView {
     private final List<StatisticView> statistics = new ArrayList<>();
     private Optional<Canvas> cv = Optional.empty();
 
-//    /**
-//     * Basic constructor.
-//     */
-//    public GameViewImpl() {
-//        super();
-//    }
-
     /**
      * {@inheritDoc}
      */
@@ -60,21 +53,6 @@ public class GameViewImpl implements GameView {
     public void removeStatistic(final StatisticView s) {
         this.statistics.remove(s);
         statistics.forEach(stat -> stat.setIndex(statistics.indexOf(stat)));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void setEntityViewParameters(final EntityView entity, final String status, final double x, final double y, final double height, final double width) {
-        Objects.requireNonNull(entity);
-        if (!this.entities.contains(entity)) {
-            this.entities.add(entity);
-        }
-        entity.setX(x);
-        entity.setY(y);
-        entity.setStatus(status);
-        entity.setHeight(height);
-        entity.setWidth(width);
     }
 
     /**
