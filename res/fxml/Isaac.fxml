@@ -141,7 +141,7 @@
 			<children>
 				<Pane fx:id="pnGameRun" prefHeight="344" prefWidth="640">
 					<children>
-						<Canvas fx:id="cnvGame" height="344" width="640" />
+						<Canvas fx:id="cnvGame" height="344" width="640"/>
 					</children>
 				</Pane>
 				<Pane fx:id="pnGameMenu" prefHeight="344" prefWidth="640">
