@@ -313,18 +313,17 @@ public final class StaticMethodsUtils {
      * 
      * @param plEnu 
      * @param pathXml 
-     * @param pathEnum 
      * @return .
      */
-    public static DataPlayer enumFromXmlToDataPlayer(final PlayerEnum plEnu, final String pathXml, final String pathEnum) {
+    public static DataPlayer enumFromXmlToDataPlayer(final PlayerEnum plEnu, final String pathXml) {
         final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
         final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
-        final String str = nodeRoot.getAttributes().getNamedItem(pathEnum).getTextContent();
-        final String tagEntity = plEnu.getValue().substring(str.length() + 1);
+        final String pathEnum = nodeRoot.getAttributes().getNamedItem("path-enum").getTextContent();
+        final String tagEntity = plEnu.getValue().substring(pathEnum.length() + 1);
         final Node node = xml.getElementsByTagName(tagEntity).item(0);
         return new DataPlayer().setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
-                                        .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
-                                        .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()));
+                               .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
+                               .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()));
 
     }
 }

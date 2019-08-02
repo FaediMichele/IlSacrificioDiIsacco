@@ -11,6 +11,7 @@ import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
 import model.enumeration.BasicPlayerEnum;
 import model.enumeration.EntityEnum;
+import model.util.DataPlayer;
 
 /**
  * Implements Player.
@@ -20,6 +21,23 @@ public class Player extends AbstractMovableEntity {
      * Empty constructor.
      */
     public Player() {
+        super();
+        this.attachComponent(new HealthComponent(this))
+            .attachComponent(new InventoryComponent(this))
+            .attachComponent(new PlayerMentalityComponent(this))
+            .attachComponent(new TearWeaponComponent(this))
+            .attachComponent(new PlayerCollisionComponent(this))
+            .attachComponent(new BodyComponent(this))
+            .attachComponent(new StatusComponent(this));
+        this.detachComponent(CollisionComponent.class);
+        this.detachComponent(MovableCollisionComponent.class);
+        }
+
+    /**
+     * Empty constructor.
+     * @param data .
+     */
+    public Player(final DataPlayer data) {
         super();
         this.attachComponent(new HealthComponent(this))
             .attachComponent(new InventoryComponent(this))
