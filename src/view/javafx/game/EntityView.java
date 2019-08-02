@@ -141,6 +141,13 @@ public interface EntityView {
     void pickUp(MovementEnum move);
 
     /**
+     * Method for the animation of the appear status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void appear(MovementEnum move);
+
+    /**
      * Method for the animation of the disappear status.
      * 
      * @param move the enum for the movement of the entity

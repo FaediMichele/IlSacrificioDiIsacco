@@ -166,6 +166,10 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
+    public void appear(final MovementEnum move) {
+    }
+
+    @Override
     public void disappear(final MovementEnum move) {
     }
 

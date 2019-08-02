@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Rooms>
-    <Room1>
+    <Room1 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
             <GaperEnemy x="10" y="10" z="0" />
             <Door>RIGHT</Door>
         </Entities>
     </Room1>
-    <Room1>
+    <Room2 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
             <GaperEnemy x="10" y="10" z="0" />
             <Door>LEFT</Door>
         </Entities>
-    </Room1>
+    </Room2>
 </Rooms>
 
