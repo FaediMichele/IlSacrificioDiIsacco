@@ -11,11 +11,7 @@ import util.NotEquals;
 import view.enumeration.PlayerMenuEnum;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
-<<<<<<< HEAD
-import view.javafx.game.menu.SubMenuGame;
-=======
 import view.util.DataPlayer;
->>>>>>> 3b6528cebe2c244f43efe04a8599906fa2b0468c
 
 
 /**
