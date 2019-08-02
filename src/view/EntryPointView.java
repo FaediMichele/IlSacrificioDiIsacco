@@ -10,5 +10,5 @@ public interface EntryPointView {
      * Open the window with generic parameter.
      * @param args generic arguments.
      */
-    void openEntryPoint(String[] args);
+    void openEntryPoint(String...args);
 }

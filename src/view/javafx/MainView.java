@@ -39,7 +39,7 @@ public class MainView extends Application implements EntryPoint {
 
 
     @Override
-    public final void openEntryPoint(final String[] args) {
+    public final void openEntryPoint(final String...args) {
         launch(args);
     }
 

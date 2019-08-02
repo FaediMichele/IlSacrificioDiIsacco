@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Status path-status-enum="model.enumeration.BasicStatusEnum">
-    <POISED>poisoned</POISED>
     <DEFAULT>def</DEFAULT>
-    <BURNED>burned</BURNED>
     <DEAD>dead</DEAD>
     <DAMAGING>damaging</DAMAGING>
+    <TRIGGERED>triggered</TRIGGERED>
+    <EXPLODED>exploded</EXPLODED>
+    <PICK_UP>pickUp</PICK_UP>
+    <DISAPPEAR>disappear</DISAPPEAR>
 </Status>

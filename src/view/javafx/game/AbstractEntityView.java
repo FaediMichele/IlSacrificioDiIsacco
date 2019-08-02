@@ -8,7 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.enumeration.MovementEnum;
-import model.enumeration.UpgradeEnum;
 
 /**
  * This class contains the method animate that can be used by all the entity
@@ -162,7 +161,23 @@ public abstract class AbstractEntityView implements EntityView {
     }
 
     @Override
-    public void upgrade(final UpgradeEnum upgrade) {
+    public void upgrade(final Object... upgrades) {
+    }
+
+    @Override
+    public void disappear(final MovementEnum move) {
+    }
+
+    @Override
+    public void exploded(final MovementEnum move) {
+    }
+
+    @Override
+    public void pickUp(final MovementEnum move) {
+    }
+
+    @Override
+    public void triggered(final MovementEnum move) {
     }
 
     /**

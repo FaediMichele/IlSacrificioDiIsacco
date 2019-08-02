@@ -5,7 +5,6 @@ import java.util.Optional;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.enumeration.MovementEnum;
-import model.enumeration.UpgradeEnum;
 
 /**
  * Common methods to all the entity views.
@@ -115,7 +114,35 @@ public interface EntityView {
     /**
      * Method for the upgrade sprite.
      * 
-     * @param upgrade the enum for the upgrade of the entity
+     * @param upgrades the upgrades of the entity
      */
-    void upgrade(UpgradeEnum upgrade);
+    void upgrade(Object... upgrades);
+
+    /**
+     * Method for the animation of the triggered status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void triggered(MovementEnum move);
+
+    /**
+     * Method for the animation of the exploded status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void exploded(MovementEnum move);
+
+    /**
+     * Method for the animation of the pick up status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void pickUp(MovementEnum move);
+
+    /**
+     * Method for the animation of the disappear up status.
+     * 
+     * @param move the enum for the movement of the entity
+     */
+    void disappear(MovementEnum move);
 }
