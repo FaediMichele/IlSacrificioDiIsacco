@@ -71,7 +71,8 @@ public class GameController {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> { 
                                                          x.update(disappear);
-                                                         //le entità devono anche essere inserite/rimosse dalla lista nel GameView (che le dovrà disegnare)
+                                                         //le entità devono anche essere inserite/rimosse dalla lista nel GameView
+                                                         //alla fine dell'update si dovrà chiamare il draw del gameView per disegnarle tutte
                                                          entityControllers.remove(x.getId());
                                                       });
                     }
