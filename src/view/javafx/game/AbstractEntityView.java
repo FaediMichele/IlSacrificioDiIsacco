@@ -180,6 +180,14 @@ public abstract class AbstractEntityView implements EntityView {
     public void triggered(final MovementEnum move) {
     }
 
+    @Override
+    public void full(final MovementEnum move) {
+    }
+
+    @Override
+    public void half(final MovementEnum move) {
+    }
+
     /**
      * Get the UUID.
      * 

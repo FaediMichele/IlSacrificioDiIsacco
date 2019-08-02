@@ -8,4 +8,6 @@
     <EXPLODED>exploded</EXPLODED>
     <PICK_UP>pickUp</PICK_UP>
     <DISAPPEAR>disappear</DISAPPEAR>
+    <FULL>full</FULL>
+    <HALF>half</HALF>
 </Status>
