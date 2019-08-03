@@ -9,6 +9,7 @@ import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
 import model.util.EntityInformation;
+import util.Command;
 import util.NotEquals;
 import util.StaticMethodsUtils;
 import view.enumeration.PlayerMenuEnum;
@@ -128,6 +129,12 @@ public class GameController {
                             .setLife(dataPlayerModel.getLife())
                             .setSpeed(dataPlayerModel.getSpeed());
     }
-    
-    /*devo sparare la comand nel game word */
+
+    /**
+     * 
+     * @param cm .
+     */
+    public void input(final Command cm) {
+        this.gameWord.input(cm);
+    }
 }
