@@ -7,8 +7,7 @@
 //import model.enumeration.PlayerEnum;
 //import model.util.DataPlayer;
 //import util.StaticMethodsUtils;
-//
-//
+//import view.enumeration.PlayerMenuEnum;
 //
 ///**
 //* 
@@ -41,4 +40,26 @@
 //                                       .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem(ATTRIBUTE_SPEED).getTextContent()));
 //
 //   }
+//
+//   /**
+//    * Test for status xml file.
+//    * 
+//    * @throws ClassNotFoundException 
+//    */
+//   @SuppressWarnings("unchecked")
+//   @Test
+//   public void enumFromViewToModel(final PlayerMenuEnum plEnumMenu, final String pathXml) throws ClassNotFoundException {
+//       PlayerEnum plEnu = BasicPlayerEnum.CAIN;
+//       Document xml = StaticMethodsUtils.getDocumentXML("/xml/controller/formEnumViewToEnumModel.xml");
+//
+//       Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
+//       String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();
+//       String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
+//       String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
+//       Node node = xml.getElementsByTagName(enumValue).item(0);
+//       System.out.println(pathEnumModel + " " + node.getTextContent());
+//       System.out.println(Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), "CAIN"));
+//       PlayerEnum plEnum = (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
+//   }
+//
 //}

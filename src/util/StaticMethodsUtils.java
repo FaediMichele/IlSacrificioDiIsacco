@@ -16,13 +16,14 @@ import java.util.stream.Stream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
+import view.enumeration.PlayerMenuEnum;
 
 /**
  * Class for all static methods.
@@ -325,5 +326,25 @@ public final class StaticMethodsUtils {
                                .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
                                .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()));
 
+    }
+
+    /**
+     * 
+     * @param plEnumMenu 
+     * @param pathXml 
+     * @return .
+     * @throws ClassNotFoundException 
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static PlayerEnum enumFromViewToModel(final PlayerMenuEnum plEnumMenu, final String pathXml) throws ClassNotFoundException {
+        Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
+        Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
+        String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();
+        String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
+        String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
+        Node node = xml.getElementsByTagName(enumValue).item(0);
+        System.out.println(pathEnumModel + " " + node.getTextContent());
+        System.out.println(Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getTextContent()));
+        return (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
     }
 }

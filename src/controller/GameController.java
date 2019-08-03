@@ -4,10 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import model.entity.FactoryPlayers;
 import model.enumeration.BasicStatusEnum;
+import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
 import model.util.EntityInformation;
 import util.NotEquals;
+import util.StaticMethodsUtils;
 import view.enumeration.PlayerMenuEnum;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
@@ -20,6 +23,7 @@ import view.util.DataPlayer;
  *
  */
 public class GameController {
+    private static String pathXml = "/xml/controller/formEnumViewToEnumModel.xml";
     private static  long timeToSleep = 33;
     @NotEquals
     private volatile boolean stoped;
@@ -111,14 +115,18 @@ public class GameController {
 
     /**
      * 
-     * @param player .
+     * @param plEnumMenu .
      * @return .
+     * @throws ClassNotFoundException 
      */
-    public static DataPlayer getDataPlayer(final PlayerMenuEnum player) {
-        model.util.DataPlayer dataPlayerModel = new model.util.DataPlayer();
+    public static DataPlayer getDataPlayer(final PlayerMenuEnum plEnumMenu) throws ClassNotFoundException {
+        PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
+        model.util.DataPlayer dataPlayerModel = FactoryPlayers.getDataPlayer(plEnum);
         return new view.util.DataPlayer()
                             .setDamage(dataPlayerModel.getDamage())
                             .setLife(dataPlayerModel.getLife())
                             .setSpeed(dataPlayerModel.getSpeed());
     }
+    
+    /*devo sparare la comand nel game word */
 }
