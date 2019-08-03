@@ -36,8 +36,9 @@ public class GameController {
      * 
      * @param gameWorld is game world
      */
-    public GameController(final GameWorld gameWorld) {
+    public GameController(final GameWorld gameWorld /*, final SubMenuGame gameMenu*/) {
         //super(main);
+        //this.gameView = gameMenu.getGameView();
         this.gameView = new GameViewImpl();
         this.gameWord = gameWorld;
         this.stoped = false;
@@ -105,7 +106,7 @@ public class GameController {
                                         entityControllers.remove(st.getId());
                                     }
                                 });
-                    gameView.draw();
+                    //gameView.draw();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -16,6 +16,7 @@ public class SubMenuGame extends SubMenu {
 
     private GameView gameView;
     private final Canvas cnv;
+
     /**
      * 
      * Creates SubMenu with the canvas for the actual game.
@@ -76,4 +77,10 @@ public class SubMenuGame extends SubMenu {
         gameView.setCanvas(cnv);
     }
 
+    /**
+     * @return the gameView
+     */
+    public GameView getGameView() {
+        return gameView;
+    }
 }
