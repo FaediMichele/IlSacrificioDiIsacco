@@ -13,9 +13,10 @@ public class EnemyTear extends Tear {
      * 
      * @param angle           the angle of the tear when it's shot
      * @param entityThatShootedMe shooter entity
+     * @param damage the Tear damage
      */
-    public EnemyTear(final int angle, final Entity entityThatShootedMe) {
-        super(angle, entityThatShootedMe);
+    public EnemyTear(final int angle, final Entity entityThatShootedMe, final double damage) {
+        super(angle, entityThatShootedMe, damage);
         this.detachComponent(this.getComponent(PlayerMentalityComponent.class).get());
         this.attachComponent(new EnemyMentalityComponent(this));
     }

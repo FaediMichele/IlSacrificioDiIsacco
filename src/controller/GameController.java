@@ -9,12 +9,12 @@ import model.entity.FACTORY_PLAYERS;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
+import model.game.GameWorldImpl;
 import model.util.EntityInformation;
 import util.Command;
 import util.NotEquals;
 import util.StaticMethodsUtils;
 import view.enumeration.PlayerMenuEnum;
-import view.javafx.game.GameView;
 import view.javafx.game.menu.SubMenuGame;
 import view.util.DataPlayer;
 
@@ -32,18 +32,15 @@ public class GameController {
     private final GameWorld gameWord;
     @NotEquals
     private final GameLoop gameloop;
-    private final GameView gameView;
+    private final SubMenuGame gameMenu;
     private final Map<UUID, EntityController> entityControllers;
     /**
-     * 
-     * @param gameWorld is game world
-     * @param gameMenu 
+     * @param gameMenu is the gameMenu in which the Game Controller operates
      */
-    public GameController(final GameWorld gameWorld, final SubMenuGame gameMenu) {
+    public GameController(final SubMenuGame gameMenu) {
         //super(main);
-        this.gameView = gameMenu.getGameView();
-        //this.gameView = new GameViewImpl();
-        this.gameWord = gameWorld;
+        this.gameMenu = gameMenu;
+        this.gameWord = new GameWorldImpl();
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
@@ -80,6 +77,7 @@ public class GameController {
             try {
                 while (!stoped) {
                     sleep(timeToSleep);
+                    //Se il Player è morto -> gameMenu.gameOver();
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
@@ -95,7 +93,7 @@ public class GameController {
                             .peek(st -> {
                                     if (!entityControllers.containsKey(st.getId())) {
                                         try {
-                                            entityControllers.put(st.getId(), new EntityController(st, gameView));
+                                            entityControllers.put(st.getId(), new EntityController(st, gameMenu.getGameView()));
                                         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
                                                 | InstantiationException | IllegalAccessException
                                                 | IllegalArgumentException | InvocationTargetException e) {
@@ -109,7 +107,8 @@ public class GameController {
                                         entityControllers.remove(st.getId());
                                     }
                                 });
-                    gameView.draw();
+                    //gestione StatisticView da fare
+                    //gameView.draw();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -124,7 +123,6 @@ public class GameController {
      * @throws ClassNotFoundException 
      */
     public static DataPlayer getDataPlayer(final PlayerMenuEnum plEnumMenu) throws ClassNotFoundException {
-
         final PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
         final model.util.DataPlayer dataPlayerModel = FACTORY_PLAYERS.getDataPlayer(plEnum);
         return new DataPlayer()

@@ -1,5 +1,6 @@
 package view.javafx.game.menu;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import javafx.animation.FadeTransition;
@@ -46,7 +47,11 @@ public class GameSubMenuSelection extends SubMenuSelection {
         optionsTransition = new FadeTransition(fd.getDuration(), optionsPane);
         initOptionsPane();
 
-        add(new SubMenuGame(this, (Pane) getByName(scene, GAMEPANE), (Canvas) getByName(scene, GAMECANVAS)));
+        try {
+            add(new SubMenuGame(this, (Pane) getByName(scene, GAMEPANE), (Canvas) getByName(scene, GAMECANVAS)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         add(new SubMenuOption(this, optionsPane));
 
         asSet().stream().map(sm -> (Pane) sm.getMain()).forEach(p -> setBind(p, scene));
