@@ -43,6 +43,7 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     public void addStatistic(final StatisticView s) {
+        Objects.requireNonNull(s);
         this.statistics.add(s);
         s.setIndex(statistics.indexOf(s));
     }
@@ -51,6 +52,7 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     public void removeStatistic(final StatisticView s) {
+        Objects.requireNonNull(s);
         this.statistics.remove(s);
         statistics.forEach(stat -> stat.setIndex(statistics.indexOf(stat)));
     }

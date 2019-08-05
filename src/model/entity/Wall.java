@@ -48,7 +48,7 @@ public class Wall extends AbstractStaticEntity {
      */
     public Wall(final String args) {
         super();
-        Map<String, String> holder = Splitter.on(" ").trimResults()
+        final Map<String, String> holder = Splitter.on(" ").trimResults()
                 .withKeyValueSeparator("=").split(args);
         build(Double.parseDouble(holder.get("X").replace("\"", "")),
                 Double.parseDouble(holder.get("Y").replace("\"", "")));
