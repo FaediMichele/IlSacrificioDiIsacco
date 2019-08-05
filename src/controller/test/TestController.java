@@ -5,11 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.Test;
-
 import controller.EntityController;
-import controller.GameController;
 import model.component.BodyComponent;
 import model.entity.GaperEnemy;
 import model.enumeration.BasicEntityEnum;
@@ -18,7 +15,6 @@ import model.enumeration.BasicStatusEnum;
 import model.enumeration.BasicUpgradeEnum;
 import model.events.MoveEvent;
 import model.game.GameWorld;
-import model.game.GameWorldImpl;
 import model.game.Room;
 import model.util.EntityInformation;
 import view.javafx.game.GameView;
@@ -78,17 +74,17 @@ public class TestController {
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    @Test
-    public void testGameController() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        GameWorld gw = new GameWorldImpl("Game1");
-        Room room = gw.getActiveFloor().getActiveRoom();
-        GameController gc = new GameController(gw);
-        GaperEnemy g = (GaperEnemy) gw.getActiveFloor().getActiveRoom().getEntities().stream().filter(e -> e.getClass().equals(GaperEnemy.class)).findFirst().get();
-        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "stringa", 1, 1.0, room);
-        g.postEvent(new MoveEvent(g, 2, 0, 0));
-        g.getStatusComponent().setStatus(BasicStatusEnum.DEAD);
-        gc.start();
-    }
+//    @Test
+//    public void testGameController() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+//        GameWorld gw = new GameWorldImpl("Game1");
+//        Room room = gw.getActiveFloor().getActiveRoom();
+//        GameController gc = new GameController(gw);
+//        GaperEnemy g = (GaperEnemy) gw.getActiveFloor().getActiveRoom().getEntities().stream().filter(e -> e.getClass().equals(GaperEnemy.class)).findFirst().get();
+//        g.getStatusComponent().addUpgrade(BasicUpgradeEnum.UPGRADETEST, "stringa", 1, 1.0, room);
+//        g.postEvent(new MoveEvent(g, 2, 0, 0));
+//        g.getStatusComponent().setStatus(BasicStatusEnum.DEAD);
+//        gc.start();
+//    }
 
     /**
      * 

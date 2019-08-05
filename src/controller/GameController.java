@@ -4,7 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import model.entity.FactoryPlayers;
+
+import model.entity.FACTORY_PLAYERS;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
@@ -14,7 +15,7 @@ import util.NotEquals;
 import util.StaticMethodsUtils;
 import view.enumeration.PlayerMenuEnum;
 import view.javafx.game.GameView;
-import view.javafx.game.GameViewImpl;
+import view.javafx.game.menu.SubMenuGame;
 import view.util.DataPlayer;
 
 
@@ -36,11 +37,12 @@ public class GameController {
     /**
      * 
      * @param gameWorld is game world
+     * @param gameMenu 
      */
-    public GameController(final GameWorld gameWorld /*, final SubMenuGame gameMenu*/) {
+    public GameController(final GameWorld gameWorld, final SubMenuGame gameMenu) {
         //super(main);
-        //this.gameView = gameMenu.getGameView();
-        this.gameView = new GameViewImpl();
+        this.gameView = gameMenu.getGameView();
+        //this.gameView = new GameViewImpl();
         this.gameWord = gameWorld;
         this.stoped = false;
         this.gameloop = new GameLoop();
@@ -107,7 +109,7 @@ public class GameController {
                                         entityControllers.remove(st.getId());
                                     }
                                 });
-                    //gameView.draw();
+                    gameView.draw();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -123,7 +125,7 @@ public class GameController {
      */
     public static DataPlayer getDataPlayer(final PlayerMenuEnum plEnumMenu) throws ClassNotFoundException {
         PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
-        model.util.DataPlayer dataPlayerModel = FactoryPlayers.getDataPlayer(plEnum);
+        model.util.DataPlayer dataPlayerModel = FACTORY_PLAYERS.getDataPlayer(plEnum);
         return new view.util.DataPlayer()
                             .setDamage(dataPlayerModel.getDamage())
                             .setLife(dataPlayerModel.getLife())
