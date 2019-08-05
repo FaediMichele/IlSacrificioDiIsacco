@@ -45,9 +45,10 @@ public class Bomb extends AbstractEntity {
      */
     public Bomb(final String args) {
         super();
-        Map<String, String> holder = Splitter.on(" ").trimResults()
+        Map<String, String> holder = Splitter.on(",").trimResults()
                 .withKeyValueSeparator("=").split(args);
-        build(Double.parseDouble(holder.get("X")), Double.parseDouble(holder.get("Y")));
+        build(Double.parseDouble(holder.get("X").replace("\"", "")),
+                Double.parseDouble(holder.get("Y").replace("\"", "")));
     }
 
     private void build(final double x, final double y) {

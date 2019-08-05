@@ -41,8 +41,9 @@ public class Fire extends AbstractStaticEntity {
         super();
         Map<String, String> holder = Splitter.on(" ").trimResults()
                 .withKeyValueSeparator("=").split(args);
-        build(FireType.valueOf(holder.get("FireType")), 
-                Double.parseDouble(holder.get("X")), Double.parseDouble(holder.get("Y")));
+        build(Enum.valueOf(FireType.class, holder.get("FireType").replace("\"", "")), 
+                Double.parseDouble(holder.get("X").replace("\"", "")), 
+                Double.parseDouble(holder.get("Y").replace("\"", "")));
     }
     private void build(final FireType fireType, final double x, final double y) {
         this.attachComponent(new FireAIComponent(this, fireType));

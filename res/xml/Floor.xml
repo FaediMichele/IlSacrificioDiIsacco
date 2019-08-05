@@ -3,13 +3,14 @@
 <Floors>
     <Floor1 MaxRoom="6">
         <Rooms>
-            <Room1 index="0" />
+            <Room1/>
+            <Room2/>
         </Rooms>
     </Floor1>
     <Floor2 MaxRoom="6">
         <Rooms>
-            <Room1 index="0" />
-            <Room2 index="1" />
+            <Room1/>
+            <Room2/>
         </Rooms>
     </Floor2>
 </Floors>

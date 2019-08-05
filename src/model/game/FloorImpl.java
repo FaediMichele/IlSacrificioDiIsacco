@@ -78,8 +78,8 @@ public class FloorImpl implements Floor {
     public FloorImpl(final String floorName)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(1).getChildNodes());
-        maxRoom = Integer.parseInt(docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("maxRoom").getNodeValue());
+        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(0).getChildNodes());
+        maxRoom = Integer.parseInt(docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("MaxRoom").getNodeValue());
         this.rooms = new ArrayList<>();
         generateRooms();
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
@@ -88,8 +88,9 @@ public class FloorImpl implements Floor {
         if (node.isPresent()) {
             final NodeList nl = node.get().getChildNodes();
             for (int i = 0; i < rooms.size(); i++) {
-                int rndIndex = rnd.nextInt(nl.getLength());
-                final Node room = nl.item(rndIndex);
+                int n = nl.getLength();
+                int rndIndex = rnd.nextInt((n - 1) / 2);
+                final Node room = nl.item(rndIndex * 2 + 1);
                 if (room.getNodeType() == Node.ELEMENT_NODE) {
                     final String roomName = room.getNodeName();
                     rooms.get(i).fill(roomName);
@@ -164,6 +165,7 @@ public class FloorImpl implements Floor {
             doors.add(new Door(OVEST, m.get(pos.getX() - 1, pos.getY())));
         }
         final Room r = new RoomImpl(index, doors);
+        doors.forEach(d -> d.changeRoom(r));
         r.setFloor(this);
         return r;
     }

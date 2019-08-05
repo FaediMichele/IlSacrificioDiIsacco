@@ -51,6 +51,8 @@ public class RoomImpl implements Room {
     @NotHashCode
     private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>(
             (a, b) -> a.hashCode() - b.hashCode());
+    @NotEquals
+    @NotHashCode
     private Floor floor;
     private boolean isComplete;
     private boolean cleanGraveyard;
@@ -275,7 +277,7 @@ public class RoomImpl implements Room {
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Entities")).findFirst();
         if (node.isPresent()) {
             final NodeList nl = node.get().getChildNodes();
-            for (int i = 0; i < nl.getLength(); i++) {
+            for (int i = 1; i < nl.getLength(); i += 2) {
                 final Node entity = nl.item(i);
                 if (entity.getNodeType() == Node.ELEMENT_NODE) {
                     final String entityName = entity.getNodeName();
@@ -285,8 +287,11 @@ public class RoomImpl implements Room {
                         cArg[0] = String.class;
                         String paramether = "";
                         for (int index = 0; index < entity.getAttributes().getLength(); index++) {
-                            paramether += entity.getAttributes().item(index).getLocalName() 
-                                    + "=\"" + entity.getAttributes().item(index).getNodeValue() + "\" ";
+                            paramether += entity.getAttributes().item(index).getNodeName()
+                                    + "=\"" + entity.getAttributes().item(index).getNodeValue() + "\"";
+                            if (index + 1 < entity.getAttributes().getLength()) {
+                                paramether += ", ";
+                            }
                         }
                         if (entityName.contains(".")) {
                             entityClass =  Class.forName(entityName);
