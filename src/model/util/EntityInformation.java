@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.EntityEnum;
 import model.enumeration.MovementEnum;
@@ -32,6 +33,7 @@ public class EntityInformation {
     public EntityInformation() {
         super();
         this.status = BasicStatusEnum.DEFAULT;
+        this.move = BasicMovementEnum.STATIONARY;
         this.upgrade = new HashMap<UpgradeEnum, List<Object>>();
     }
 
