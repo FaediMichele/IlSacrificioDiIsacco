@@ -10,6 +10,6 @@ public enum BasicMovementEnum implements MovementEnum {
     /**
      * are the movement basic for status component.
      */
-    UP, DOWN, LEFT, RIGHT, 
+    UP, DOWN, LEFT, RIGHT, STATIONARY
 
 }
