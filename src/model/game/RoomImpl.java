@@ -1,5 +1,6 @@
 package model.game;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -35,11 +36,6 @@ import util.StaticMethodsUtils;
  *
  */
 public class RoomImpl implements Room {
-    private static final int NORD = 0;
-    private static final int EAST = 1;
-    private static final int SUD = 2;
-    private static final int OVEST = 3;
-
     private final List<Entity> entity;
     private final List<Entity> graveyard = new ArrayList<Entity>();
     private final List<Door> doors;
@@ -283,14 +279,31 @@ public class RoomImpl implements Room {
                 final Node entity = nl.item(i);
                 if (entity.getNodeType() == Node.ELEMENT_NODE) {
                     final String entityName = entity.getNodeName();
-                    Entity e = null;
                     try {
-                        e = (Entity) Class.forName("model.entity." + entityName).newInstance();
-                        final Double x = Double.parseDouble(entity.getAttributes().getNamedItem("x").getNodeValue());
-                        final Double y = Double.parseDouble(entity.getAttributes().getNamedItem("y").getNodeValue());
-                        final Double z = Double.parseDouble(entity.getAttributes().getNamedItem("z").getNodeValue());
-                        e.getComponent(BodyComponent.class).get().changePosition(x, y, z);
-                        this.entity.add(e);
+                        Class<?> entityClass = null;
+                        Class<?>[] cArg = new Class[1];
+                        cArg[0] = String.class;
+                        String paramether = "";
+                        for (int index = 0; index < entity.getAttributes().getLength(); index++) {
+                            paramether += entity.getAttributes().item(index).getLocalName() 
+                                    + "=\"" + entity.getAttributes().item(index).getNodeValue() + "\" ";
+                        }
+                        if (entityName.contains(".")) {
+                            entityClass =  Class.forName(entityName);
+                        } else {
+                            entityClass = Class.forName("model.entity." + entityName);
+                        }
+                        try {
+                            this.entity.add((Entity) entityClass.getDeclaredConstructor(cArg).newInstance(paramether));
+                        } catch (IllegalArgumentException e1) {
+                            e1.printStackTrace();
+                        } catch (InvocationTargetException e1) {
+                            e1.printStackTrace();
+                        } catch (NoSuchMethodException e1) {
+                            e1.printStackTrace();
+                        } catch (SecurityException e1) {
+                            e1.printStackTrace();
+                        }
                     } catch (InstantiationException e1) {
                         e1.printStackTrace();
                     } catch (IllegalAccessException e1) {

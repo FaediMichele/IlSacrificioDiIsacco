@@ -80,14 +80,14 @@ public class FloorImpl implements Floor {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
         final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(1).getChildNodes());
         maxRoom = Integer.parseInt(docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("maxRoom").getNodeValue());
+        this.rooms = new ArrayList<>();
         generateRooms();
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
-        this.rooms = new ArrayList<>();
         this.activeRoomIndex = 0;
         final Random rnd = new Random();
         if (node.isPresent()) {
             final NodeList nl = node.get().getChildNodes();
-            for (int i = 0; i < nl.getLength(); i++) {
+            for (int i = 0; i < rooms.size(); i++) {
                 int rndIndex = rnd.nextInt(nl.getLength());
                 final Node room = nl.item(rndIndex);
                 if (room.getNodeType() == Node.ELEMENT_NODE) {

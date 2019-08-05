@@ -1,5 +1,9 @@
 package model.entity;
 
+import java.util.Map;
+
+import com.google.common.base.Splitter;
+
 import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collectible.KeyCollectableComponent;
@@ -24,9 +28,7 @@ public class Key extends AbstractStaticEntity {
      */
     public Key(final int x, final int y) {
         super();
-        this.attachComponent(new KeyCollectableComponent(this));
-        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
-                new CollisionComponent(this), new StatusComponent(this));
+        build(x, y);
     }
 
     /**
@@ -34,11 +36,24 @@ public class Key extends AbstractStaticEntity {
      */
     public Key() {
         super();
+        build(0, 0);
+    }
+    /**
+     * Create a new key with a String.
+     * @param args string Contains a map like " X="10.0" Y="20.0" ".
+     */
+    public Key(final String args) {
+        super();
+        Map<String, String> holder = Splitter.on(" ").trimResults()
+                .withKeyValueSeparator("=").split(args);
+        build(Double.parseDouble(holder.get("X")), Double.parseDouble(holder.get("Y")));
+    }
+
+    private void build(final double x, final double y) {
         this.attachComponent(new KeyCollectableComponent(this));
-        this.setDefaultComponents(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT),
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
     }
- 
     /**
      * {@inheritDoc}
      */

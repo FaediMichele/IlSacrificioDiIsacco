@@ -1,5 +1,9 @@
 package model.entity;
 
+import java.util.Map;
+
+import com.google.common.base.Splitter;
+
 import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collectible.HeartPickupableComponent;
@@ -11,25 +15,45 @@ import model.enumeration.EntityEnum;
  * Implements a generic heart.
  */
 public class Heart extends AbstractStaticEntity {
+    private static final double WIDTH = 0.5;
+    private static final double HEIGHT = 0.5;
+    private static final int WEIGHT = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.HEART_RED;
 
     /**
-     * 
-     * @param entityBody the {@link BodyComponent}
-     * @param entityCollision the {@link CollisionComponent}
-     * @param entityStatus the {@link StatusComponent}
+     * Create a heart based on his position.
+     * @param x the x-axis.
+     * @param y the y-axis.
      */
-    public Heart(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus) {
-        this();
-        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
+    public Heart(final double x, final double y) {
+        super();
+        build(x, y);
     }
 
     /**
-     * Main constructor.
+     * Empty constructor.
+     * Set the position to (0.0, 0.0)s
      */
     public Heart() {
         super();
+        build(0, 0);
+    }
+
+    /**
+     * Create a new heart with a String.
+     * @param args string Contains a map like " X="10.0" Y="20.0" ".
+     */
+    public Heart(final String args) {
+        super();
+        Map<String, String> holder = Splitter.on(" ").trimResults()
+                .withKeyValueSeparator("=").split(args);
+        build(Double.parseDouble(holder.get("X")), Double.parseDouble(holder.get("Y")));
+    }
+
+    private void build(final double x, final double y) {
         this.attachComponent(new HeartPickupableComponent(this));
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+                new CollisionComponent(this), new StatusComponent(this));
     }
 
     /**
