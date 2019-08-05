@@ -88,8 +88,8 @@ public class FloorImpl implements Floor {
         if (node.isPresent()) {
             final NodeList nl = node.get().getChildNodes();
             for (int i = 0; i < rooms.size(); i++) {
-                int n = nl.getLength();
-                int rndIndex = rnd.nextInt((n - 1) / 2);
+                final int n = nl.getLength();
+                final int rndIndex = rnd.nextInt((n - 1) / 2);
                 final Node room = nl.item(rndIndex * 2 + 1);
                 if (room.getNodeType() == Node.ELEMENT_NODE) {
                     final String roomName = room.getNodeName();

@@ -83,7 +83,7 @@ public class GameController {
                     gameWord.update(timeToSleep);
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
-                        entityControllers.values().stream().forEach(x -> { 
+                        entityControllers.values().stream().forEach(x -> {
                                                          x.update(disappear);
                                                          entityControllers.remove(x.getId());
                                                       });
@@ -124,9 +124,10 @@ public class GameController {
      * @throws ClassNotFoundException 
      */
     public static DataPlayer getDataPlayer(final PlayerMenuEnum plEnumMenu) throws ClassNotFoundException {
-        PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
-        model.util.DataPlayer dataPlayerModel = FACTORY_PLAYERS.getDataPlayer(plEnum);
-        return new view.util.DataPlayer()
+
+        final PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
+        final model.util.DataPlayer dataPlayerModel = FACTORY_PLAYERS.getDataPlayer(plEnum);
+        return new DataPlayer()
                             .setDamage(dataPlayerModel.getDamage())
                             .setLife(dataPlayerModel.getLife())
                             .setSpeed(dataPlayerModel.getSpeed());

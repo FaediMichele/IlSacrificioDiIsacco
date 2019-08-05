@@ -337,12 +337,12 @@ public final class StaticMethodsUtils {
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static PlayerEnum enumFromViewToModel(final PlayerMenuEnum plEnumMenu, final String pathXml) throws ClassNotFoundException {
-        Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
-        Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
-        String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();
-        String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
-        String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
-        Node node = xml.getElementsByTagName(enumValue).item(0);
+        final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
+        final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
+        final String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();
+        final String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
+        final String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
+        final Node node = xml.getElementsByTagName(enumValue).item(0);
         System.out.println(pathEnumModel + " " + node.getTextContent());
         System.out.println(Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getTextContent()));
         return (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
