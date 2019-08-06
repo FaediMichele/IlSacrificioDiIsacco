@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Pane;
 
 /**
  * Class for the main view of the game, it contains a list of all entities to
@@ -17,6 +18,16 @@ public class GameViewImpl implements GameView {
     private final List<EntityView> entities = new ArrayList<>();
     private final List<StatisticView> statistics = new ArrayList<>();
     private Optional<Canvas> cv = Optional.empty();
+    private final Pane main;
+
+    /**
+     * Set the main {@link Pain}.
+     * 
+     * @param main {@link Pain}
+     */
+    public GameViewImpl(final Pane main) {
+        this.main = main;
+    }
 
     /**
      * {@inheritDoc}
@@ -64,7 +75,7 @@ public class GameViewImpl implements GameView {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);
-        } 
+        }
         s.setNumber(itemNumber);
     }
 
@@ -81,8 +92,13 @@ public class GameViewImpl implements GameView {
      */
     public void draw() {
         if (cv.isPresent()) {
-            entities.stream().forEach(e -> e.draw(cv.get().getGraphicsContext2D()));
-            statistics.stream().forEach(s -> s.draw(cv.get().getGraphicsContext2D()));
+            final Canvas canvas = cv.get();
+            this.main.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+                canvas.setWidth(newValue.getWidth());
+                canvas.setHeight(newValue.getHeight());
+                entities.stream().forEach(e -> e.draw(cv.get().getGraphicsContext2D()));
+                statistics.stream().forEach(s -> s.draw(cv.get().getGraphicsContext2D()));
+            });
         } else {
             throw new IllegalStateException();
         }

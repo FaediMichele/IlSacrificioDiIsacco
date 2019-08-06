@@ -52,15 +52,13 @@ public class FlyView extends AbstractEntityView {
     @Override
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
-            final Image img = super.resize(explodingFlySprite.get(explodingIndex), super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(explodingFlySprite.get(explodingIndex), super.getX(), super.getY(), super.getHeight(), super.getWidth());
             explodingIndex += 1;
             if (explodingIndex > explodingFlySprite.size() && super.getGameView().isPresent()) {
                 super.getGameView().get().removeEntity(this);
             }
         } else {
-            final Image img = super.resize(flySprite.get(index), super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(flySprite.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
             index = (index + 1) % flySprite.size();
         }
     }

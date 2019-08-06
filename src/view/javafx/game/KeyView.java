@@ -49,7 +49,6 @@ public class KeyView extends AbstractEntityView {
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
-        final Image img = super.resize(keySprite, super.getHeight(), super.getWidth());
-        gc.drawImage(img, super.getX(), super.getY());
+        gc.drawImage(keySprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
     }
 }

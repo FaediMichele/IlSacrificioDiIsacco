@@ -66,8 +66,7 @@ public class TearView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        final Image img = super.resize(this.tears.get(index), super.getHeight(), super.getWidth());
-        gc.drawImage(img, super.getX(), super.getY());
+        gc.drawImage(this.tears.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
         index += 1;
         if (index > this.tears.size() && super.getGameView().isPresent()) {
             super.getGameView().get().removeEntity(this);

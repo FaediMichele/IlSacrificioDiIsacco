@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Test;
 import controller.EntityController;
+import javafx.scene.layout.Pane;
 import model.component.BodyComponent;
 import model.entity.GaperEnemy;
 import model.enumeration.BasicEntityEnum;
@@ -38,7 +39,7 @@ public class TestController {
     @Test
     public void testEntityController() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
         final GameWorld gw = new GameWorldImplTest("Game1");
-        final GameView gv = new GameViewImpl();
+        final GameView gv = new GameViewImpl(new Pane());
         //final MainController main = new MainControllerImpl();
         //final GameController gc = new GameController(gw);
         //main.switchActive(gc);

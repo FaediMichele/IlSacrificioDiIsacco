@@ -3,6 +3,7 @@ package view.javafx.game;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -155,23 +156,6 @@ public class IsaacView extends AbstractEntityView {
         faceIndex.put(BasicMovementEnum.LEFT, 0);
     }
 
-//    private boolean checkSuffer(final String status) {
-//        if (status.contentEquals("damaged")) {
-//            face = sufferSprite;
-//            return true;
-//        }
-//        return false;
-//    }
-
-//    private void setSprites(final MovementEnum direction, final String status) {
-//        if (!checkSuffer(status)) {
-//            this.face = this.getFaceSprites().get(direction).get(faceIndex.get(direction));
-//            this.faceIndex.compute(direction, (k, v) -> (v + 1) % this.getFaceSprites().get(direction).size());
-//        }
-//        this.body = bodySprites.get(direction).get(bodyIndex.get(direction));
-//        this.bodyIndex.compute(direction, (k, v) -> (v + 1) % bodySprites.get(direction).size());
-//    }
-
     /**
      * {@inheritDoc}
      */
@@ -181,12 +165,11 @@ public class IsaacView extends AbstractEntityView {
             super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }
-        final double heightScale = 3 / 5;
-        final double bodyShift = 2 / 5;
-        gc.drawImage(super.resize(face, (int) (super.getHeight() * heightScale), super.getWidth()), super.getX(),
-                super.getY());
-        gc.drawImage(super.resize(body, (int) (super.getHeight() * heightScale), super.getWidth()), super.getX(),
-                super.getY() + (super.getHeight() * bodyShift));
+        final double heightScale = 3.0 / 5;
+        final double bodyShift = 2.0 / 5;
+        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
+        gc.drawImage(body, super.getX(),
+                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
     }
 
     /**

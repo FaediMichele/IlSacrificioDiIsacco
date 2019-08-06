@@ -13,21 +13,29 @@ import util.EventListener;
  */
 
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
+    private static final double DEFAULT_DAMAGE = 0.5;
+    /**
+     * Basic constructor that generates a tear when requested.
+     * @param entity to which this component is attached
+     * @param damage the damage the Tear will cause
+     */
+    public TearWeaponComponent(final Entity entity, final double damage) {
+        super(entity);
+        this.registerListener(new EventListener<TearShotEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final TearShotEvent event) {
+                final Tear t = new Tear(event.getAngle(), event.getSourceEntity(), damage);
+                getEntity().getRoom().insertEntity(t);
+            }
+        });
+    }
 
     /**
      * Basic constructor that generates a tear when requested.
      * @param entity to which this component is attached
      */
     public TearWeaponComponent(final Entity entity) {
-        super(entity);
-        this.registerListener(new EventListener<TearShotEvent>() {
-            @Override
-            @Subscribe
-            public void listenEvent(final TearShotEvent event) {
-                final Tear t = new Tear(event.getAngle(), event.getSourceEntity());
-                getEntity().getRoom().insertEntity(t);
-                //t.getStatusComponent().setStatus(new Pair<>(1, "appear"));
-            }
-        });
+        this(entity, DEFAULT_DAMAGE);
     }
 }

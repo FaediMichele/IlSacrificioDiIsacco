@@ -76,7 +76,6 @@ public class EntityController {
      * @param info is the status for the status component of entity.
      */
     public void update(final EntityInformation info) {
-
             this.entityView.setX(info.getPosition().getX())
                             .setY(info.getPosition().getY())
                             .setHeight(info.getHeight())
