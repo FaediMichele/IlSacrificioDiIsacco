@@ -26,7 +26,7 @@ public class SubMenuGame extends SubMenu {
     private final Canvas cnv;
     private final Image gameOverImg;
     private final GameController gameController;
-
+    private final Pane main;
     /**
      * 
      * Creates SubMenu with the canvas for the actual game.
@@ -37,8 +37,9 @@ public class SubMenuGame extends SubMenu {
      */
     public SubMenuGame(final SubMenuSelection selector, final Pane main, final Canvas cnv) throws IOException {
         super(selector, main);
+        this.main = main;
         this.cnv = cnv;
-        this.gameView = new GameViewImpl();
+        this.gameView = new GameViewImpl(main);
         gameView.setCanvas(cnv);
         gameOverImg = SwingFXUtils.toFXImage(ImageIO.read(BombView.class.getResource("/menuImgs/Full_Death_Note.png")), null);
         this.gameController = new GameController(this);
@@ -68,7 +69,7 @@ public class SubMenuGame extends SubMenu {
      */
     @Override
     public void reset() {
-        this.gameView = new GameViewImpl();
+        this.gameView = new GameViewImpl(this.main);
         gameView.setCanvas(cnv);
     }
 
