@@ -63,13 +63,11 @@ public class HeartView extends AbstractEntityView {
      */
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.FULL)) {
-            final Image img = super.resize(heart, super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(heart, super.getX(), super.getY(), super.getHeight(), super.getWidth());
         }
 
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.HALF)) {
-            final Image img = super.resize(halfHeart, super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(halfHeart, super.getX(), super.getY(), super.getHeight(), super.getWidth());
         }
     }
 

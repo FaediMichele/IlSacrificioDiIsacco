@@ -113,10 +113,9 @@ public class FireView extends AbstractEntityView {
         final double fireScale = 8 / 11;
         final double gridScale = 4 / 11;
         final double gridShiftY = 7 / 11;
-        gc.drawImage(super.resize(fire, (int) (super.getHeight() * fireScale), super.getWidth()), 
-                        super.getX(), super.getY());
-        gc.drawImage(super.resize(grid, (int) (super.getHeight() * gridScale), (super.getWidth() * 2) / 3), 
-                        super.getX() + (super.getWidth() / gridShiftX), super.getY() + (super.getHeight() * gridShiftY));
+        gc.drawImage(fire, super.getX(), super.getY(), (super.getHeight() * fireScale), super.getWidth());
+        gc.drawImage(grid, super.getX() + (super.getWidth() / gridShiftX), super.getY() + (super.getHeight() * gridShiftY),
+                super.getHeight() * gridScale, (super.getWidth() * 2) / 3);
     }
 
     /**

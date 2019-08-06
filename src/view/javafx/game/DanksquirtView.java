@@ -44,8 +44,7 @@ public class DanksquirtView extends AbstractEntityView {
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
-        final Image img = super.resize(danksquirtSprite.get(index), super.getHeight(), super.getWidth());
-        gc.drawImage(img, super.getX(), super.getY());
+        gc.drawImage(danksquirtSprite.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
         index = (index + 1) % danksquirtSprite.size();
     }
 }

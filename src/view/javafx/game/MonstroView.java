@@ -47,8 +47,7 @@ public class MonstroView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        final Image img = super.resize(monstroSprite.get(index), super.getHeight(), super.getWidth());
-        gc.drawImage(img, super.getX(), super.getY());
+        gc.drawImage(monstroSprite.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
         index = (index + 1) % monstroSprite.size();
     }
 }

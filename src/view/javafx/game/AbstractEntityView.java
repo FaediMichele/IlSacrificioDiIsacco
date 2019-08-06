@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
 
@@ -49,16 +47,6 @@ public abstract class AbstractEntityView implements EntityView {
      */
     public void setGameView(final GameView gameView) {
         this.gameView = Optional.of(gameView);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Image resize(final Image image, final double height, final double width) {
-        final ImageView resizedImage = new ImageView(image);
-        resizedImage.setFitHeight(height);
-        resizedImage.setFitWidth(width);
-        return resizedImage.snapshot(null, null);
     }
 
     /**
