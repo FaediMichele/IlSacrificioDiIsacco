@@ -129,15 +129,6 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * Static Method.
-     * 
-     * @return the faceSprites
-     */
-    public static Map<MovementEnum, List<Image>> getStaticFaceSprites() {
-        return faceSprites;
-    }
-
-    /**
      * Base constructor, initilizes the indexes.
      * 
      * @param id the {@link UUID}
@@ -167,15 +158,8 @@ public class IsaacView extends AbstractEntityView {
         final double heightScale = 3.0 / 5;
         final double bodyShift = 2.0 / 5;
         gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
-        gc.drawImage(body, super.getX(),
-                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
-    }
-
-    /**
-     * @return the faceSprites
-     */
-    public Map<MovementEnum, List<Image>> getFaceSprites() {
-        return IsaacView.faceSprites;
+        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift),
+                     (super.getHeight() * heightScale), super.getWidth());
     }
 
     /**
@@ -183,8 +167,8 @@ public class IsaacView extends AbstractEntityView {
      */
     @Override
     public void def(final MovementEnum move) {
-        this.face = this.getFaceSprites().get(move).get(faceIndex.get(move));
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % this.getFaceSprites().get(move).size());
+        this.face = faceSprites.get(move).get(faceIndex.get(move));
+        this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
         this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }
