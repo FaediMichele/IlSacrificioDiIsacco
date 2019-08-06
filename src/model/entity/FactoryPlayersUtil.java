@@ -9,11 +9,11 @@ import util.StaticMethodsUtils;
  * This class make players.
  *
  */
-public final class FACTORY_PLAYERS {
+public final class FactoryPlayersUtil {
 
-    private static String pathXml = "/xml/model/dataPlayer.xml";
+    private static final String PATH_XML = "/xml/model/dataPlayer.xml";
 
-    private FACTORY_PLAYERS() { }
+    private FactoryPlayersUtil() { }
 
     /**
      * 
@@ -21,7 +21,7 @@ public final class FACTORY_PLAYERS {
      * @return .
      */
     public static DataPlayer getDataPlayer(final PlayerEnum player) {
-        return StaticMethodsUtils.enumFromXmlToDataPlayer(player, pathXml);
+        return StaticMethodsUtils.enumFromXmlToDataPlayer(player, PATH_XML);
     }
 
     /**

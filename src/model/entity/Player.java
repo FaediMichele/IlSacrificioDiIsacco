@@ -3,6 +3,7 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.InventoryComponent;
+import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
 import model.component.collision.CollisionComponent;
@@ -39,16 +40,16 @@ public class Player extends AbstractMovableEntity {
      */
     public Player(final DataPlayer data) {
         super();
-        this.attachComponent(new HealthComponent(this/*,data.getLife()*/))
+        this.attachComponent(new HealthComponent(this, data.getLife()))
             .attachComponent(new InventoryComponent(this))
             .attachComponent(new PlayerMentalityComponent(this))
-            .attachComponent(new TearWeaponComponent(this/*,data.getDamage()*/))
+            .attachComponent(new TearWeaponComponent(this, data.getDamage()))
             .attachComponent(new PlayerCollisionComponent(this))
             .attachComponent(new BodyComponent(this))
-            .attachComponent(new StatusComponent(this));
+            .attachComponent(new StatusComponent(this))
+            .attachComponent(new MoveComponent(this, 0, data.getSpeed(), 0));
         this.detachComponent(CollisionComponent.class);
         this.detachComponent(MovableCollisionComponent.class);
-        //this.getComponent(MoveComponent.class).setMove(data.getSpeed());
         }
 
 //    /**
