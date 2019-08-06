@@ -11,14 +11,6 @@ import model.enumeration.MovementEnum;
  * Common methods to all the entity views.
  */
 public interface EntityView {
-    /**
-     * 
-     * @param image  initial image
-     * @param height of a sprite
-     * @param width  of a sprite
-     * @return resized image
-     */
-    Image resize(Image image, double height, double width);
 
     /**
      * Draws the correct animation in the correct position of the canvas.

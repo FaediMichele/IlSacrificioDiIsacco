@@ -68,19 +68,16 @@ public class BombView extends AbstractEntityView {
     @Override
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.TRIGGERED)) {
-            final Image img = super.resize(triggeredBombSprite.get(triggeredIndex), super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(triggeredBombSprite.get(triggeredIndex), super.getX(), super.getY(), super.getHeight(), super.getWidth());
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
         } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
-            final Image img = super.resize(explosionBombSprite.get(explosionIndex), super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(explosionBombSprite.get(explosionIndex), super.getX(), super.getY(), super.getHeight(), super.getWidth());
             explosionIndex += 1;
             if (explosionIndex > explosionBombSprite.size() && super.getGameView().isPresent()) {
                 super.getGameView().get().removeEntity(this);
             }
         } else {
-            final Image img = super.resize(bombSprite, super.getHeight(), super.getWidth());
-            gc.drawImage(img, super.getX(), super.getY());
+            gc.drawImage(bombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
         }
     }
 
