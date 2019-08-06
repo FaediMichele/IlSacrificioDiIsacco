@@ -36,8 +36,8 @@ public class TestCanvas extends Application {
         isaac.setGameView(new GameViewImpl(root));
         isaac.def(BasicMovementEnum.DOWN);
         final GaperView gaper = new GaperView(UUID.randomUUID());
-        gaper.setX(100.0);
-        gaper.setY(100.0);
+        gaper.setX(400.0);
+        gaper.setY(400.0);
         gaper.setHeight(85);
         gaper.setWidth(85);
         gaper.setGameView(new GameViewImpl(root));
