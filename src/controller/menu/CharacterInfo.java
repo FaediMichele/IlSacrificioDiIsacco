@@ -1,4 +1,4 @@
-package view;
+package controller.menu;
 
 //import view.enumeration.PlayerMenuEnum;
 

@@ -30,6 +30,12 @@ public interface SelectList {
     Object get();
 
     /**
+     * Get how many items is contained.
+     * @return the lenght of the list.
+     */
+    int lenght();
+
+    /**
      * Add items to the list.
      * @param items items to add to the list.
      */

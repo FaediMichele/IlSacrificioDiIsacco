@@ -1,12 +1,13 @@
 package view.javafx.game.menu;
 
+import controller.menu.ConfigurationManager;
+import controller.menu.MainMenuSelection;
+import controller.menu.MenuSelection;
+import controller.menu.SubMenuSelection;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaView;
-import view.ConfigurationManager;
-import view.MenuSelection;
-import view.SubMenuSelection;
 import view.javafx.ConfigurationManagerJavafx;
 
 /**
@@ -14,9 +15,7 @@ import view.javafx.ConfigurationManagerJavafx;
  *
  */
 public class MenuControllerJavafx {
-    private static final long TIME_SUBMENU = 250;
     private static final long TIME_MENU = 500;
-
 
     private MenuSelection menu;
     private final ConfigurationManager manager = new ConfigurationManagerJavafx("/config.ini");
@@ -33,6 +32,7 @@ public class MenuControllerJavafx {
      * @param s the scene. It is used for the input.
      */
     public void start(final Scene s) {
+        ViewGetter.setScene(s);
         menu = new MenuSelection();
         pnMainMenu.prefWidthProperty().bind(pnMain.widthProperty());
         pnMainMenu.prefHeightProperty().bind(pnMain.heightProperty());
@@ -40,10 +40,10 @@ public class MenuControllerJavafx {
         pnIntro.prefHeightProperty().bind(pnMain.heightProperty());
         pnGame.prefWidthProperty().bind(pnMain.widthProperty());
         pnGame.prefHeightProperty().bind(pnMain.heightProperty());
-        final SubMenuSelection mainMenu = new MainMenuSelectionJavafx(menu, pnMainMenu, s, TIME_SUBMENU, TIME_MENU, manager);
-        final SubMenuSelection intro = new GameIntroJavafx(menu, pnIntro, s, mvIntro, TIME_MENU);
-        final SubMenuSelection game = new GameSubMenuSelection(menu, pnGame, s, TIME_MENU);
-        menu.add(mainMenu, intro, game);
+        final SubMenuSelection mainMenu = new MainMenuSelection(menu, TIME_MENU);
+        final SubMenuSelection intro = new GameIntroJavafx(menu, TIME_MENU);
+        //final SubMenuSelection game = new GameSubMenuSelection(menu, pnGame, s, TIME_MENU);
+        menu.add(mainMenu, intro); //, game);
         menu.select(GameIntroJavafx.class);
         pnMain.focusedProperty().addListener(b -> {
             if (pnMain.isFocusTraversable()) {

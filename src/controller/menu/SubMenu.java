@@ -1,6 +1,7 @@
-package view;
+package controller.menu;
 
 import util.Command;
+import view.SubMenuView;
 
 /**
  * The SubMenu have different behavior based on their implementation.
@@ -9,24 +10,13 @@ import util.Command;
  */
 public abstract class SubMenu {
     private final SubMenuSelection sms;
-    private final Object main;
 
     /**
      * Set the selector that controls every sub menu.
      * @param selector the {@link SubMenuSelection}.
-     * @param main the main object that represent the menu.
      */
-    public SubMenu(final SubMenuSelection selector, final Object main) {
+    public SubMenu(final SubMenuSelection selector) {
         sms = selector;
-        this.main = main;
-    }
-
-    /**
-     * Get the main object for the sub menu.
-     * @return the main object.
-     */
-    public Object getMain() {
-        return main;
     }
 
     /**
@@ -54,4 +44,10 @@ public abstract class SubMenu {
      * Go to the initial state.
      */
     public abstract void reset();
+
+    /**
+     * Get the {@link SubMenuView} that the sub menu use.
+     * @return the {@link SubMenuView} used.
+     */
+    public abstract SubMenuView getSubMenuView();
 }

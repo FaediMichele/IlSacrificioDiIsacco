@@ -39,7 +39,7 @@ public class TranslationPageJavafx implements TranslationPages {
     public void addPage(final Object... pages) {
         for (int i = 0; i < pages.length; i++) {
             if (!(pages[i] instanceof Pane)) {
-                throw new IllegalArgumentException("Parameter must be Javafx Pane");
+                throw new IllegalArgumentException("Parameter must be Javafx Pane[" + pages[i].getClass().toString() + "]");
             }
         }
         for (int i = 0; i < pages.length; i++) {

@@ -1,4 +1,4 @@
-package view;
+package controller.menu;
 
 import java.util.Map;
 import java.util.Set;

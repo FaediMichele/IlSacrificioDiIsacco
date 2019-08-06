@@ -1,4 +1,4 @@
-package view;
+package controller.menu;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;

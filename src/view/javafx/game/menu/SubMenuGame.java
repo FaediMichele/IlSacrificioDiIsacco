@@ -5,13 +5,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import controller.GameController;
+import controller.menu.SubMenu;
+import controller.menu.SubMenuSelection;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import util.Command;
-import view.SubMenu;
-import view.SubMenuSelection;
 import view.javafx.game.BombView;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
@@ -51,7 +51,7 @@ public class SubMenuGame extends SubMenu {
         case OPTIONS:
             options();
         case EXIT:
-            getSelector().getParent().select(MainMenuSelectionJavafx.class);
+            getSelector().getParent().select(MainMenuSelectionView.class);
             break;
         default: 
             gameController.input(c);

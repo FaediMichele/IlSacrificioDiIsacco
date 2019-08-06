@@ -111,4 +111,9 @@ public class SelectListJavafx extends Group implements SelectList {
         selector.setLayoutY(n.getLayoutY() + distance.getValue());
     }
 
+    @Override
+    public final int lenght() {
+        return elements.size();
+    }
+
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import util.Command;
 
@@ -17,9 +18,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
-import view.CharacterInfo;
-import view.ConfigurationManager;
-//import view.enumeration.PlayerMenuEnum;
+import controller.menu.CharacterInfo;
+import controller.menu.ConfigurationManager;
 
 import org.w3c.dom.Node;
 import java.io.File;
@@ -98,7 +98,7 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
                 final NamedNodeMap attr = charList.item(i).getAttributes();
 
                 characters.add(new CharacterInfo(new Image(attr.getNamedItem("Name").getNodeValue()),
-                        new Image(attr.getNamedItem("ImagePath").getNodeValue()))); /*,
+                        new ImageView(new Image(attr.getNamedItem("ImagePath").getNodeValue())))); /*,
                         loadPlayerEnum(attr.getNamedItem("package").getNodeValue(),
                                 (attr.getNamedItem("Type").getNodeValue()))));*/
             }

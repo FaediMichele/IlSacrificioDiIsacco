@@ -3,14 +3,14 @@ package view.javafx.game.menu;
 import java.io.IOException;
 import java.util.Objects;
 
+import controller.menu.MenuSelection;
+import controller.menu.SubMenu;
+import controller.menu.SubMenuSelection;
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import view.MenuSelection;
-import view.SubMenu;
-import view.SubMenuSelection;
 
 /**
  *
@@ -30,7 +30,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
 
     /**
      * 
-     * Create the {@link MainMenuSelectionJavafx}. 
+     * Create the {@link MainMenuSelectionView}. 
      * @param parent the {@link MenuSelection}.
      * @param main the main pane that contains all sub menu node.
      * @param scene the scene of the application.
@@ -52,7 +52,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        add(new SubMenuOption(this, optionsPane));
+        add(new SubMenuOption(this));
 
         asSet().stream().map(sm -> (Pane) sm.getMain()).forEach(p -> setBind(p, scene));
         this.bindDown((Pane) getByName(scene, GAMEPANE), optionsPane);

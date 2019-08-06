@@ -1,5 +1,9 @@
 package view.javafx.game.menu;
 
+import controller.menu.MainMenuSelection;
+import controller.menu.MenuSelection;
+import controller.menu.SubMenu;
+import controller.menu.SubMenuSelection;
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -8,16 +12,14 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 import util.Command;
-import view.MenuSelection;
-import view.SubMenu;
-import view.SubMenuSelection;
+import view.SubMenuView;
 
 /**
  * The menu for the introduction.
  */
 public final class GameIntroJavafx extends SubMenuSelection {
     private static final String INTROFILEPATH = "/video/intro.mp4";
-    private static final String NAMEPANE = "#pnIntro1";
+    private static final String NAMEPANE = "pnIntro1";
     private final MySubMenu s;
     private final FadeTransition fd;
     private final Pane pnMain;
@@ -27,25 +29,24 @@ public final class GameIntroJavafx extends SubMenuSelection {
     /**
      * Create the SubMenuSelection for the introduction.
      * @param parent the {@link MenuSelection}.
-     * @param main the {@link Pane} that contains all the stuff.
-     * @param scene the {@link Scene}.
-     * @param mv the {@link MediaView} for the video.
      * @param msMenu the time for the fade effect.
      */
-    public GameIntroJavafx(final MenuSelection parent, final Pane main, final Scene scene, final MediaView mv, final long msMenu) {
+    public GameIntroJavafx(final MenuSelection parent, final long msMenu) {
         super(parent);
-        s = new MySubMenu(this, scene.lookup(NAMEPANE), mv, INTROFILEPATH);
+        final Scene scene = ViewGetter.getScene();
+        s = new MySubMenu(this, ViewGetter.getNodeByName("mvIntro", MediaView.class),
+                INTROFILEPATH);
         add(s);
-        this.pnMain = main;
+        this.pnMain = ViewGetter.getNodeByName("pnIntro", Pane.class);
         this.defaultX = (int) scene.getWidth();
         this.defaultY = (int) scene.getHeight();
-        fd = new FadeTransition(Duration.millis(msMenu), main);
-        setBind((Pane) scene.lookup(NAMEPANE), scene);
+        fd = new FadeTransition(Duration.millis(msMenu), pnMain);
+        setBind(ViewGetter.getNodeByName(NAMEPANE, Pane.class), scene);
         scene.widthProperty().addListener((obs, oldVal, newVal) -> {
-            updateBind((Pane) scene.lookup(NAMEPANE), scene);
+            updateBind(ViewGetter.getNodeByName(NAMEPANE, Pane.class), scene);
         });
         scene.heightProperty().addListener((obs, oldVal, newVal) -> {
-            updateBind((Pane) scene.lookup(NAMEPANE), scene);
+            updateBind(ViewGetter.getNodeByName(NAMEPANE, Pane.class), scene);
         });
     }
 
@@ -96,8 +97,8 @@ public final class GameIntroJavafx extends SubMenuSelection {
 
     private static final class MySubMenu extends SubMenu {
         private final MediaView mv;
-        MySubMenu(final SubMenuSelection selector, final Object main, final MediaView mv, final String videoPath) {
-            super(selector, main);
+        MySubMenu(final SubMenuSelection selector, final MediaView mv, final String videoPath) {
+            super(selector);
             this.mv = mv;
             mv.setMediaPlayer(new MediaPlayer(new Media(getClass().getResource(videoPath).toExternalForm())));
             mv.getMediaPlayer().setOnEndOfMedia(this::end);
@@ -114,7 +115,7 @@ public final class GameIntroJavafx extends SubMenuSelection {
         }
 
         private void end() {
-            this.getSelector().getParent().select(MainMenuSelectionJavafx.class);
+            this.getSelector().getParent().select(MainMenuSelection.class);
         }
 
         public void release() {
@@ -124,6 +125,11 @@ public final class GameIntroJavafx extends SubMenuSelection {
 
         @Override
         public void reset() {
+        }
+
+        @Override
+        public SubMenuView getSubMenuView() {
+            return null;
         }
     }
 
