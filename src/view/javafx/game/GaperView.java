@@ -18,17 +18,15 @@ import javafx.scene.image.Image;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
-import model.game.RoomImpl;
 import util.SpritesExtractor;
 
 /**
-* View and animations of the Gaper enemy.
-*/
+ * View and animations of the Gaper enemy.
+ */
 public class GaperView extends IsaacView {
 
     private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
     private static Map<MovementEnum, List<Image>> bodySprites = new HashMap<>();
-    private static Image sufferSprite;
     private static Image deadSprite;
 
     private final Map<MovementEnum, Integer> bodyIndex = new HashMap<>();
@@ -114,15 +112,6 @@ public class GaperView extends IsaacView {
             final int delta = 32;
             final List<Image> gaperMovingDownFaceSprite = (new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract();
             faceSprites.put(BasicMovementEnum.DOWN, gaperMovingDownFaceSprite);
-
-            sufferSprite = SwingFXUtils
-                    .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
-
-            final int deadX = 202;
-            final int deadY = 159;
-            final int deadWidth = 42;
-            final int deadHeight = 32;
-            deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -156,10 +145,10 @@ public class GaperView extends IsaacView {
             return;
         }
         final double heightScale = 3.0 / 5;
-        final double bodyShift = 2.0 / 5;
-        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
-        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift), 
-                    (super.getHeight() * heightScale), super.getWidth());
+        final double bodyShift = 2.50 / 5;
+        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift),
+                (super.getHeight() * heightScale), super.getWidth());
+        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale, super.getWidth());
     }
 
     /**
@@ -169,16 +158,6 @@ public class GaperView extends IsaacView {
     public void def(final MovementEnum move) {
         this.face = faceSprites.get(move).get(faceIndex.get(move));
         this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
-        this.body = bodySprites.get(move).get(bodyIndex.get(move));
-        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
-    }
-
-    /**
-     * Damaging animation for {@link IsaacView}.
-     */
-    @Override
-    public void damaging(final MovementEnum move) {
-        this.face = sufferSprite;
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
         this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }

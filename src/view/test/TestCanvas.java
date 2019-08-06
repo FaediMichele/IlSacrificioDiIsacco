@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.enumeration.BasicMovementEnum;
 import view.javafx.game.GameViewImpl;
+import view.javafx.game.GaperView;
 import view.javafx.game.IsaacView;
 import view.javafx.game.RoomView;
 
@@ -34,11 +35,19 @@ public class TestCanvas extends Application {
         isaac.setWidth(85);
         isaac.setGameView(new GameViewImpl(root));
         isaac.def(BasicMovementEnum.DOWN);
+        final GaperView gaper = new GaperView(UUID.randomUUID());
+        gaper.setX(100.0);
+        gaper.setY(100.0);
+        gaper.setHeight(85);
+        gaper.setWidth(85);
+        gaper.setGameView(new GameViewImpl(root));
+        gaper.def(BasicMovementEnum.DOWN);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 room.draw(canvas.getGraphicsContext2D());
                 isaac.draw(canvas.getGraphicsContext2D());
+                gaper.draw(canvas.getGraphicsContext2D());
             }
         });
         root.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
@@ -52,12 +61,18 @@ public class TestCanvas extends Application {
                 final KeyCode key = keyEvent.getCode();
                 if (key == KeyCode.W) {
                     isaac.def(BasicMovementEnum.UP);
+                    isaac.setY(isaac.getY() - 1);
                 } else if (key == KeyCode.D) {
                     isaac.def(BasicMovementEnum.RIGHT);
+                    isaac.setX(isaac.getX() + 1);
                 } else if (key == KeyCode.S) {
                     isaac.def(BasicMovementEnum.DOWN);
+                    isaac.setY(isaac.getY() + 1);
                 } else if (key == KeyCode.A) {
                     isaac.def(BasicMovementEnum.LEFT);
+                    isaac.setX(isaac.getX() - 1);
+                } else {
+                    isaac.dead(BasicMovementEnum.DOWN);
                 }
                 System.out.println(key);
                 Platform.runLater(new Runnable() {
@@ -66,6 +81,7 @@ public class TestCanvas extends Application {
                         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         room.draw(canvas.getGraphicsContext2D());
                         isaac.draw(canvas.getGraphicsContext2D());
+                        gaper.draw(canvas.getGraphicsContext2D());
                     }
                 });
                 try {
@@ -75,7 +91,7 @@ public class TestCanvas extends Application {
                 }
             }
         });
-        
+
         stage.setScene(s);
         stage.show();
     }
