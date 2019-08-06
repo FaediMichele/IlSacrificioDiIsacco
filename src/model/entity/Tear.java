@@ -19,9 +19,9 @@ public class Tear extends AbstractMovableEntity {
     /**
      * Default constructor.
      * 
-     * @param angle           the angle of the tear when it's shot
+     * @param angle               the angle of the tear when it's shot
      * @param entityThatShootedMe shooter entity
-     * @param damage the tear damage
+     * @param damage              the tear damage
      */
     public Tear(final int angle, final Entity entityThatShootedMe, final double damage) {
         super();
@@ -39,13 +39,16 @@ public class Tear extends AbstractMovableEntity {
     }
 
     /**
-     * @param entityBody      the {@link BodyComponent}
-     * @param entityCollision the {@link CollisionComponent}
-     * @param entityStatus    the {@link StatusComponent}
-     * @param angle           the angle of the tear when it's shot
+     * @param entityBody          the {@link BodyComponent}
+     * @param entityCollision     the {@link CollisionComponent}
+     * @param entityStatus        the {@link StatusComponent}
+     * @param angle               the angle of the tear when it's shot
      * @param entityThatShootedMe shooter entity
+     * @param damage              the damage of the Tear
      */
-    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision, final StatusComponent entityStatus, final int angle, final Entity entityThatShootedMe, final double damage) {
+    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision,
+            final StatusComponent entityStatus, final int angle, final Entity entityThatShootedMe,
+            final double damage) {
         this(angle, entityThatShootedMe, damage);
         this.setDefaultComponents(entityBody, entityCollision, entityStatus);
     }
