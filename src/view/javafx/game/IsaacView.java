@@ -128,15 +128,6 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * Static Method.
-     * 
-     * @return the faceSprites
-     */
-    public static Map<MovementEnum, List<Image>> getStaticFaceSprites() {
-        return faceSprites;
-    }
-
-    /**
      * Base constructor, initilizes the indexes.
      * 
      * @param id the {@link UUID}
@@ -171,19 +162,12 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * @return the faceSprites
-     */
-    public Map<MovementEnum, List<Image>> getFaceSprites() {
-        return IsaacView.faceSprites;
-    }
-
-    /**
      * Default animation for {@link IsaacView}.
      */
     @Override
     public void def(final MovementEnum move) {
-        this.face = this.getFaceSprites().get(move).get(faceIndex.get(move));
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % this.getFaceSprites().get(move).size());
+        this.face = faceSprites.get(move).get(faceIndex.get(move));
+        this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
         this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }
