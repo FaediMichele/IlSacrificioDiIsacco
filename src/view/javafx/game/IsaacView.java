@@ -72,8 +72,7 @@ public class IsaacView extends AbstractEntityView {
             movingUpSprite.addAll(movingDownSprite);
             movingRightSprite = isaacBody.subList(spritesEachMove, spritesEachMove * 2);
             movingLeftSprite = new ArrayList<Image>();
-            movingLeftSprite.addAll(movingRightSprite);
-            movingLeftSprite.forEach(l -> {
+            movingRightSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
                 final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(),
                         BufferedImage.TYPE_INT_ARGB);
@@ -84,6 +83,7 @@ public class IsaacView extends AbstractEntityView {
                 trans.translate(-tmp1.getWidth(), 0);
                 graphics.setTransform(trans);
                 graphics.drawImage(tmp1, 0, 0, null);
+                movingLeftSprite.add(SwingFXUtils.toFXImage(mir, null));
             });
 
             bodySprites.put(BasicMovementEnum.UP, movingUpSprite);
@@ -96,8 +96,7 @@ public class IsaacView extends AbstractEntityView {
             movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
             movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3);
             movingLeftFaceSprite = new ArrayList<Image>();
-            movingLeftFaceSprite.addAll(movingRightFaceSprite);
-            movingLeftFaceSprite.forEach(l -> {
+            movingRightFaceSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
                 final BufferedImage mir = new BufferedImage(tmp1.getWidth(), tmp1.getHeight(),
                         BufferedImage.TYPE_INT_ARGB);
@@ -108,6 +107,7 @@ public class IsaacView extends AbstractEntityView {
                 trans.translate(-tmp1.getWidth(), 0);
                 graphics.setTransform(trans);
                 graphics.drawImage(tmp1, 0, 0, null);
+                movingLeftFaceSprite.add(SwingFXUtils.toFXImage(mir, null));
             });
 
             faceSprites.put(BasicMovementEnum.UP, movingUpFaceSprite);
@@ -123,7 +123,6 @@ public class IsaacView extends AbstractEntityView {
             final int deadWidth = 42;
             final int deadHeight = 32;
             deadSprite = SwingFXUtils.toFXImage(img.getSubimage(deadX, deadY, deadWidth, deadHeight), null);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
