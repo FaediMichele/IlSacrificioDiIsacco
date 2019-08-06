@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
@@ -96,8 +97,13 @@ public class GameViewImpl implements GameView {
             this.main.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
                 canvas.setWidth(newValue.getWidth());
                 canvas.setHeight(newValue.getHeight());
-                entities.stream().forEach(e -> e.draw(cv.get().getGraphicsContext2D()));
-                statistics.stream().forEach(s -> s.draw(cv.get().getGraphicsContext2D()));
+            });
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    entities.stream().forEach(e -> e.draw(cv.get().getGraphicsContext2D()));
+                    statistics.stream().forEach(s -> s.draw(cv.get().getGraphicsContext2D()));
+                }
             });
         } else {
             throw new IllegalStateException();
