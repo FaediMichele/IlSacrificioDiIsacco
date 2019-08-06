@@ -22,7 +22,7 @@ import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
 /**
- * View and animations of Isaac.
+ * View and animations of Cain.
  */
 
 public class CainView extends AbstractEntityView {
