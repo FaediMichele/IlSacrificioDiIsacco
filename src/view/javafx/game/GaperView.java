@@ -18,7 +18,6 @@ import javafx.scene.image.Image;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
-import model.game.RoomImpl;
 import util.SpritesExtractor;
 
 /**

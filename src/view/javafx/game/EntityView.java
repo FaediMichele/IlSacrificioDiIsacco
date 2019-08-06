@@ -3,7 +3,6 @@ package view.javafx.game;
 import java.util.Optional;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
 
