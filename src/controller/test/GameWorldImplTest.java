@@ -19,6 +19,7 @@ import model.events.RoomChangedEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.GameWorld;
+import model.util.StatisticsInformations;
 import util.Command;
 import util.EventListener;
 import util.NotEquals;
@@ -162,6 +163,16 @@ public class GameWorldImplTest implements GameWorld {
     public final void input(final Command c) {
         //da correggere
         player.postEvent(new InputEvent(new Player(), c));
+    }
+
+    /**
+     * 
+     * .
+     */
+    @Override
+    public StatisticsInformations getStatistics() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

@@ -2,12 +2,17 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicColorEnum;
+import model.enumeration.ColorHeartEnum;
+import util.Pair;
 
 /**
  * Class to draw the statistics of the hearts.
@@ -33,23 +38,7 @@ public class HeartStatisticView extends AbstractStatisticView {
         }
     }
 
-    private final Image heart;
-    private final Image halfHeart;
-
-    /**
-     * @param colour the colour of this heart
-     */
-    protected HeartStatisticView(final HeartColour colour) {
-        super();
-
-        if (colour.equals(HeartColour.RED)) {
-            this.heart = super.resize(simpleHeart);
-            this.halfHeart = super.resize(halfSimpleHeart);
-        } else {
-            this.heart = super.resize(blackHeart);
-            this.halfHeart = super.resize(halfBlackHeart);
-        }
-    }
+    private final List<Image> heartsToDraw = new LinkedList<>();
 
     /**
      * {@inheritDoc}
@@ -57,15 +46,35 @@ public class HeartStatisticView extends AbstractStatisticView {
     @Override
     public void draw(final GraphicsContext gc) {
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
-        int i = 0;
-        for (; i < Math.floor(super.getNumber()); i++) {
-            gc.drawImage(heart, super.getDelta() * i + super.getMargin(), y);
-        }
+        heartsToDraw.forEach(h -> gc.drawImage(h, super.getDelta() * heartsToDraw.indexOf(h) + super.getMargin(), y));
+        heartsToDraw.clear();
+    }
 
-        if ((super.getNumber() - Math.floor(super.getNumber())) >= 0.5) {
-            i++;
-            gc.drawImage(halfHeart, super.getDelta() * i + super.getMargin(), y);
-        }
+    /**
+     * As a classic statistic view sets the Number of the items,
+     * the hearts needs to know the color and the value of each item.
+     * @param hearts list of colors and values of the hearts
+     */
+    public void setHearts(final List<Pair<ColorHeartEnum, Double>> hearts) {
+        hearts.forEach(h -> {
+            if (h.getX().equals(BasicColorEnum.RED)) {
+                if (h.getY() <= 1.0 && h.getY() >= 0.5) {
+                    heartsToDraw.add(simpleHeart);
+                } else if (h.getY() < 0.5 && h.getY() > 0.0) {
+                    heartsToDraw.add(halfSimpleHeart);
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } else if (h.getX().equals(BasicColorEnum.BLACK)) {
+                if (h.getY() <= 1.0 && h.getY() >= 0.5) {
+                    heartsToDraw.add(blackHeart);
+                } else if (h.getY() < 0.5 && h.getY() > 0.0) {
+                    heartsToDraw.add(halfBlackHeart);
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            }
+        });
     }
 
 }

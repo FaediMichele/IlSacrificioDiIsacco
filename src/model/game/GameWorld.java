@@ -3,6 +3,7 @@ package model.game;
 import java.util.List;
 
 import model.entity.Player;
+import model.util.StatisticsInformations;
 import util.Command;
 import util.EventListener;
 
@@ -77,4 +78,10 @@ public interface GameWorld {
      * @param c the {@link Command}
      */
     void input(Command c);
+
+    /**
+     * 
+     * @return statistics informations for player.
+     */
+    StatisticsInformations getStatistics();
 }

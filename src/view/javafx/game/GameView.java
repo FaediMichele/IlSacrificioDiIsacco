@@ -34,7 +34,7 @@ public interface GameView {
      * @param s the statisticView that needs to be update
      * @param itemNumber the number of items that needs to be set
      */
-    void setStatisticNumber(StatisticView s, double itemNumber);
+    void setNumberStatistic(StatisticView s, double itemNumber);
 
     /**
      * Return to the initial state.
