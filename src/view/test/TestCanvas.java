@@ -3,22 +3,12 @@ package view.test;
 import java.util.HashSet;
 import java.util.UUID;
 import javafx.application.Application;
-<<<<<<< HEAD
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-=======
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
->>>>>>> 355b80deef31a3a4d6114aadfd37165f6ed184c5
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.enumeration.BasicMovementEnum;
