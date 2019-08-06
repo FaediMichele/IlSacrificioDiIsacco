@@ -12,7 +12,24 @@ import java.util.Set;
 public class MenuSelection {
     private final Map<Class<? extends SubMenuSelection>, SubMenuSelection> menus =
             new LinkedHashMap<Class<? extends SubMenuSelection>, SubMenuSelection>();
+    private final ConfigurationManager manager;
     private SubMenuSelection selected;
+
+    /**
+     * Set the manager of the configuration.
+     * @param manager {@link ConfigurationManager}.
+     */
+    public MenuSelection(final ConfigurationManager manager) {
+        this.manager = manager;
+    }
+
+    /**
+     * Get the {@link ConfigurationManager}.
+     * @return the {@link ConfigurationManager}.
+     */
+    public ConfigurationManager getConfiguration() {
+        return manager;
+    }
 
     /**
      * Get the selected {@link SubMenuSelection}.

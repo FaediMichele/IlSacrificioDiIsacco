@@ -74,6 +74,6 @@ public final class SubMenuEnterView implements SubMenuView {
 
     @Override
     public Object getMain() {
-        return MenuControllerJavafx.getNodeByName("pnEnter", Pane.class);
+        return ViewGetter.getNodeByName("pnEnter", Pane.class);
     }
 }

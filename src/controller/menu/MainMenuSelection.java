@@ -3,7 +3,6 @@ package controller.menu;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import view.javafx.game.menu.GameSubMenuSelection;
 import view.javafx.game.menu.MainMenuSelectionView;
 
 /**

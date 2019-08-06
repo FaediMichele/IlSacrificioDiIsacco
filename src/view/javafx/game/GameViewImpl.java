@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.Pane;
 
 /**
  * Class for the main view of the game, it contains a list of all entities to
@@ -18,16 +16,15 @@ import javafx.scene.layout.Pane;
 public class GameViewImpl implements GameView {
     private final List<EntityView> entities = new ArrayList<>();
     private final List<StatisticView> statistics = new ArrayList<>();
-    private Optional<Canvas> cv = Optional.empty();
-    private final Pane main;
+    private final Canvas cnv;
 
     /**
-     * Set the main {@link Pain}.
+     * Create a new Game view with a canvas.
      * 
-     * @param main {@link Pain}
+     * @param cnv the canvas to use
      */
-    public GameViewImpl(final Pane main) {
-        this.main = main;
+    public GameViewImpl(final Canvas cnv) {
+        this.cnv = cnv;
     }
 
     /**
@@ -81,32 +78,22 @@ public class GameViewImpl implements GameView {
     }
 
     /**
-     * {@inheritDoc}
+     * It draws all entities in the canvas.
      */
-    public void setCanvas(final Canvas cv) {
-        Objects.requireNonNull(cv);
-        this.cv = Optional.of(cv);
+    public void draw() { 
+        Platform.runLater(() -> {
+                entities.stream().forEach(e -> e.draw(cnv.getGraphicsContext2D()));
+                statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
+        });
     }
 
     /**
-     * It draws all entities in the canvas.
+     * Clear the canvas and all the saved stuff.
      */
-    public void draw() {
-        if (cv.isPresent()) {
-            final Canvas canvas = cv.get();
-            this.main.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-                canvas.setWidth(newValue.getWidth());
-                canvas.setHeight(newValue.getHeight());
-            });
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    entities.stream().forEach(e -> e.draw(cv.get().getGraphicsContext2D()));
-                    statistics.stream().forEach(s -> s.draw(cv.get().getGraphicsContext2D()));
-                }
-            });
-        } else {
-            throw new IllegalStateException();
-        }
+    @Override
+    public void clear() {
+        cnv.getGraphicsContext2D().fill();
+        entities.clear();
+        statistics.clear();
     }
 }

@@ -1,47 +1,27 @@
-package view.javafx.game.menu;
-
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+package controller.menu;
 
 import controller.GameController;
-import controller.menu.SubMenu;
-import controller.menu.SubMenuSelection;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import util.Command;
-import view.javafx.game.BombView;
+import view.SubMenuView;
 import view.javafx.game.GameView;
-import view.javafx.game.GameViewImpl;
+import view.javafx.game.menu.SubMenuGameView;
 
 /**
  * 
  *
  */
 public class SubMenuGame extends SubMenu {
-
-    private GameView gameView;
-    private final Canvas cnv;
-    private final Image gameOverImg;
+    private final SubMenuGameView smgv;
     private final GameController gameController;
-    private final Pane main;
     /**
      * 
      * Creates SubMenu with the canvas for the actual game.
      * @param selector the {@link SubMenuSelection}.
-     * @param main the {@link Pane}.
-     * @param cnv the {@link Canvas}.
      * @throws IOException 
      */
-    public SubMenuGame(final SubMenuSelection selector, final Pane main, final Canvas cnv) throws IOException {
-        super(selector, main);
-        this.main = main;
-        this.cnv = cnv;
-        this.gameView = new GameViewImpl(main);
-        gameView.setCanvas(cnv);
-        gameOverImg = SwingFXUtils.toFXImage(ImageIO.read(BombView.class.getResource("/menuImgs/Full_Death_Note.png")), null);
+    public SubMenuGame(final SubMenuSelection selector) {
+        super(selector);
+        smgv = new SubMenuGameView();
         this.gameController = new GameController(this);
     }
 
@@ -51,7 +31,7 @@ public class SubMenuGame extends SubMenu {
         case OPTIONS:
             options();
         case EXIT:
-            getSelector().getParent().select(MainMenuSelectionView.class);
+            getSelector().getParent().select(MainMenuSelection.class);
             break;
         default: 
             gameController.input(c);
@@ -69,22 +49,25 @@ public class SubMenuGame extends SubMenu {
      */
     @Override
     public void reset() {
-        this.gameView = new GameViewImpl(this.main);
-        gameView.setCanvas(cnv);
+        smgv.reset();
     }
 
     /**
      * @return the gameView
      */
     public GameView getGameView() {
-        return gameView;
+        return smgv.getGameView();
     }
 
     /**
      * sets the GameOver view.
      */
     public void gameOver() {
-        // TO-DO
-        cnv.getGraphicsContext2D().drawImage(gameOverImg, 0, 0);
+        smgv.gameOver();
+    }
+
+    @Override
+    public final SubMenuView getSubMenuView() {
+        return smgv;
     }
 }

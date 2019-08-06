@@ -1,14 +1,14 @@
-package view.javafx.game.menu;
+package controller.menu;
 
-import controller.menu.SubMenu;
-import controller.menu.SubMenuSelection;
 import util.Command;
 import view.SubMenuView;
+import view.javafx.game.menu.SubMenuOptionView;
 
 /**
  * The sub menu that manage the options of the game.
  */
 public class SubMenuOption extends SubMenu {
+    private final SubMenuOptionView smo;
 
     /**
      * Create a new SubMenuOption.
@@ -16,6 +16,7 @@ public class SubMenuOption extends SubMenu {
      */
     public SubMenuOption(final SubMenuSelection selector) {
         super(selector);
+        smo = new SubMenuOptionView();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class SubMenuOption extends SubMenu {
      */
     @Override
     public SubMenuView getSubMenuView() {
-        return null;
+        return smo;
     }
 
 }

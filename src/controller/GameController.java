@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import controller.menu.SubMenuGame;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -15,7 +16,6 @@ import util.Command;
 import util.NotEquals;
 import util.StaticMethodsUtils;
 import view.enumeration.PlayerMenuEnum;
-import view.javafx.game.menu.SubMenuGame;
 import view.util.DataPlayer;
 
 

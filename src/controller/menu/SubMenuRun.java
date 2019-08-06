@@ -2,7 +2,6 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
-import view.javafx.game.menu.GameSubMenuSelection;
 import view.javafx.game.menu.SubMenuRunView;
 
 /**
@@ -31,7 +30,7 @@ public class SubMenuRun extends SubMenu {
     @Override
     public final void select() {
         super.select();
-        update(null);
+        smrv.setInfo(getSelector().getParent().getConfiguration().getCharactes());
     }
 
     @Override
@@ -54,10 +53,12 @@ public class SubMenuRun extends SubMenu {
     }
 
     private void left() {
+        smrv.left();
         update(smrv.getInfoSelected());
     }
 
     private void right() {
+        smrv.right();
         update(smrv.getInfoSelected());
     }
 

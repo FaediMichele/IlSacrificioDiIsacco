@@ -1,6 +1,7 @@
 package view.javafx.game.menu;
 
 import controller.menu.ConfigurationManager;
+import controller.menu.GameSubMenuSelection;
 import controller.menu.MainMenuSelection;
 import controller.menu.MenuSelection;
 import controller.menu.SubMenuSelection;
@@ -33,7 +34,7 @@ public class MenuControllerJavafx {
      */
     public void start(final Scene s) {
         ViewGetter.setScene(s);
-        menu = new MenuSelection();
+        menu = new MenuSelection(manager);
         pnMainMenu.prefWidthProperty().bind(pnMain.widthProperty());
         pnMainMenu.prefHeightProperty().bind(pnMain.heightProperty());
         pnIntro.prefWidthProperty().bind(pnMain.widthProperty());
@@ -42,8 +43,8 @@ public class MenuControllerJavafx {
         pnGame.prefHeightProperty().bind(pnMain.heightProperty());
         final SubMenuSelection mainMenu = new MainMenuSelection(menu, TIME_MENU);
         final SubMenuSelection intro = new GameIntroJavafx(menu, TIME_MENU);
-        //final SubMenuSelection game = new GameSubMenuSelection(menu, pnGame, s, TIME_MENU);
-        menu.add(mainMenu, intro); //, game);
+        final SubMenuSelection game = new GameSubMenuSelection(menu, TIME_MENU);
+        menu.add(mainMenu, intro, game);
         menu.select(GameIntroJavafx.class);
         pnMain.focusedProperty().addListener(b -> {
             if (pnMain.isFocusTraversable()) {

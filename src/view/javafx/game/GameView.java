@@ -1,18 +1,10 @@
 package view.javafx.game;
 
-import javafx.scene.canvas.Canvas;
-
 /**
  * Main view of the game, the controller uses this to manage the entityViews status and position.
  */
 
 public interface GameView {
-
-    /**
-     * This method allows the GameMenu to set the Canvas.
-     * @param cv the Canvas to draw on.
-     */
-    void setCanvas(Canvas cv);
     /**
      * Add an {@link EntityView} to draw.
      * @param entity {@link EntityView}
@@ -43,6 +35,11 @@ public interface GameView {
      * @param itemNumber the number of items that needs to be set
      */
     void setStatisticNumber(StatisticView s, double itemNumber);
+
+    /**
+     * Return to the initial state.
+     */
+    void clear();
 
     /**
      * It draws all entities in the canvas.

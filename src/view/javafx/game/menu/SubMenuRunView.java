@@ -1,6 +1,9 @@
 package view.javafx.game.menu;
 
-import java.util.List;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import controller.menu.CharacterInfo;
 import javafx.scene.Node;
@@ -18,7 +21,8 @@ import view.node.javafx.CircleListRandomJavafx;
  */
 public class SubMenuRunView implements SubMenuView {
     private static final Image RANDOM_IMAGE = new Image("/menuImgs/randomSpritePreview.png");
-    private List<CharacterInfo> infos;
+    private Set<CharacterInfo> infos;
+    private final Map<ImageView, CharacterInfo> mapInfos = new LinkedHashMap<>();
     private final ProgressBar prgLife;
     private final ProgressBar prgDamage;
     private final ProgressBar prgSpeed;
@@ -59,11 +63,15 @@ public class SubMenuRunView implements SubMenuView {
 
     /**
      * Set the character to show.
-     * @param infos the list of the character.
+     * @param set the list of the character.
      */
-    public void setInfo(final List<CharacterInfo> infos) {
-        this.infos = infos;
-        infos.forEach(i -> list.addElement((ImageView) i.getImage()));
+    public void setInfo(final Set<CharacterInfo> set) {
+        this.infos = set;
+        if (list.size() < 2) {
+            set.forEach(i -> list.addElement((ImageView) i.getImage()));
+            infos.forEach(i -> mapInfos.put((ImageView) i.getImage(), i));
+        }
+
     }
 
 
@@ -86,7 +94,7 @@ public class SubMenuRunView implements SubMenuView {
      * @return the info of the selected character
      */
     public CharacterInfo getSelected() {
-        return infos.stream().filter(i -> i.getImage().equals(list.getElement())).findFirst().get();
+        return mapInfos.get(list.getElement());
     }
 
     /**
@@ -94,7 +102,7 @@ public class SubMenuRunView implements SubMenuView {
      * @return the info of the selected character
      */
     public CharacterInfo getInfoSelected() {
-        return infos.stream().filter(i -> i.getImage().equals(list.getElement(0))).findFirst().get();
+        return mapInfos.get(list.getElement(0));
     }
 
     /**

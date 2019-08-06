@@ -3,7 +3,6 @@ package controller.menu;
 import util.Command;
 import view.SubMenuView;
 import view.javafx.game.menu.SubMenuGameMenuView;
-import view.javafx.game.menu.SubMenuOption;
 
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).
