@@ -12,22 +12,23 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
-import model.game.RoomImpl;
 import util.SpritesExtractor;
 
 /**
-* View and animations of the Gaper enemy.
-*/
-public class GaperView extends IsaacView {
+ * View and animations of Cain.
+ */
 
-    private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
+public class CainView extends AbstractEntityView {
+
     private static Map<MovementEnum, List<Image>> bodySprites = new HashMap<>();
+    private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
     private static Image sufferSprite;
     private static Image deadSprite;
 
@@ -46,10 +47,11 @@ public class GaperView extends IsaacView {
             List<Image> movingLeftSprite;
 
             List<Image> movingUpFaceSprite;
+            List<Image> movingDownFaceSprite;
             List<Image> movingRightFaceSprite;
             List<Image> movingLeftFaceSprite;
 
-            img = ImageIO.read(IsaacView.class.getResource("/gameImgs/character_001_isaac.png"));
+            img = ImageIO.read(CainView.class.getResource("/gameImgs/character_003_cain.png"));
             final List<Image> isaacBody = new ArrayList<>();
             final int deltaFace = 32;
             final int faces = 6;
@@ -89,6 +91,7 @@ public class GaperView extends IsaacView {
             bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
+            movingDownFaceSprite = isaacFace.subList(0, spritesFaces);
             movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
             movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3);
             movingLeftFaceSprite = new ArrayList<Image>();
@@ -107,13 +110,9 @@ public class GaperView extends IsaacView {
             });
 
             faceSprites.put(BasicMovementEnum.UP, movingUpFaceSprite);
+            faceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprite);
             faceSprites.put(BasicMovementEnum.RIGHT, movingRightFaceSprite);
             faceSprites.put(BasicMovementEnum.LEFT, movingLeftFaceSprite);
-
-            img = ImageIO.read(GaperView.class.getResource("/gameImgs/monster_017_gaper.png"));
-            final int delta = 32;
-            final List<Image> gaperMovingDownFaceSprite = (new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract();
-            faceSprites.put(BasicMovementEnum.DOWN, gaperMovingDownFaceSprite);
 
             sufferSprite = SwingFXUtils
                     .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
@@ -133,7 +132,7 @@ public class GaperView extends IsaacView {
      * 
      * @param id the {@link UUID}
      */
-    public GaperView(final UUID id) {
+    public CainView(final UUID id) {
         super(id);
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
@@ -156,25 +155,25 @@ public class GaperView extends IsaacView {
             return;
         }
         final double heightScale = 3.0 / 5;
-        final double bodyShift = 2.0 / 5;
+        final double bodyShift = 1.75 / 5;
+        gc.drawImage(body, super.getX(),
+                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
         gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
-        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift), 
-                    (super.getHeight() * heightScale), super.getWidth());
     }
 
     /**
-     * Default animation for {@link IsaacView}.
+     * Default animation for {@link CainView}.
      */
     @Override
     public void def(final MovementEnum move) {
-        this.face = faceSprites.get(move).get(faceIndex.get(move));
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
+        this.face = CainView.faceSprites.get(move).get(faceIndex.get(move));
+        this.faceIndex.compute(move, (k, v) -> (v + 1) % CainView.faceSprites.get(move).size());
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
         this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }
 
     /**
-     * Damaging animation for {@link IsaacView}.
+     * Damaging animation for {@link CainView}.
      */
     @Override
     public void damaging(final MovementEnum move) {
@@ -184,7 +183,7 @@ public class GaperView extends IsaacView {
     }
 
     /**
-     * Dead animation for {@link IsaacView}.
+     * Dead animation for {@link CainView}.
      */
     @Override
     public void dead(final MovementEnum move) {
