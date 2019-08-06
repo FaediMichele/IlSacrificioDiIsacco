@@ -35,8 +35,8 @@ public class BlackHeart extends SimpleHeart {
         private static final double DEFAULT_ENEMY_DAMAGE = 0.3;
         private static final double DEFAULT_HEART_VALUE = 1;
         private final Entity e;
-        private double enemyDamage = DEFAULT_ENEMY_DAMAGE;
-        private double heartValue = DEFAULT_HEART_VALUE;
+        private double damage = DEFAULT_ENEMY_DAMAGE;
+        private double value = DEFAULT_HEART_VALUE;
 
         /**
          * The Entity must be initialized.
@@ -52,7 +52,7 @@ public class BlackHeart extends SimpleHeart {
          * @return              the blackHeart
          */
         public Builder enemyDamage(final double enemyDamage) {
-            this.enemyDamage = enemyDamage;
+            this.damage = enemyDamage;
             return this;
         }
 
@@ -62,7 +62,7 @@ public class BlackHeart extends SimpleHeart {
          * @return              the blackHeart
          */
         public Builder heartValue(final double heartValue) {
-            this.heartValue = heartValue;
+            this.value = heartValue;
             return this;
         }
 
@@ -71,7 +71,7 @@ public class BlackHeart extends SimpleHeart {
          */
         public BlackHeart build() {
             Objects.requireNonNull(this.e);
-            return new BlackHeart(this.e, this.enemyDamage, this.heartValue);
+            return new BlackHeart(this.e, this.damage, this.value);
         }
     }
 

@@ -211,19 +211,18 @@ public class GameWorldImpl implements GameWorld {
      * @return .
      */
     public StatisticsInformations getStatistics() {
-        List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
-        List<Pair<ColorHeartEnum, Double>> hearts = this.getPlayer()
+        final List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
+        final List<Pair<ColorHeartEnum, Double>> hearts = this.getPlayer()
                                                         .getComponent(HealthComponent.class).get()
                                                         .getHearts()
                                                         .stream()
                                                         .map(h -> new Pair<ColorHeartEnum, Double>(h.getColor(), h.getValue()))
                                                         .collect(Collectors.toList());
-        StatisticsInformations statInfo = new StatisticsInformations()
+        return new StatisticsInformations()
                 .setBombs(things.stream().filter(t -> t.getClass().isInstance(Bomb.class)).collect(Collectors.toList())
                         .size())
                 .setKeys(things.stream().filter(t -> t.getClass().isInstance(Key.class)).collect(Collectors.toList())
                         .size())
                 .setHearts(hearts);
-        return statInfo;
     }
 }

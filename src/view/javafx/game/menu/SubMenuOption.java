@@ -17,7 +17,6 @@ public class SubMenuOption extends SubMenu {
      */
     public SubMenuOption(final SubMenuSelection selector, final Pane pnMain) {
         super(selector, pnMain);
-        // TODO Auto-generated constructor stub
     }
 
     @Override

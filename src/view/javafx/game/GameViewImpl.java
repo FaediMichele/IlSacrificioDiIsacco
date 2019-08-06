@@ -9,6 +9,8 @@ import java.util.Optional;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
+import model.enumeration.ColorHeartEnum;
+import util.Pair;
 
 /**
  * Class for the main view of the game, it contains a list of all entities to
@@ -72,12 +74,23 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
-    public void setStatisticNumber(final StatisticView s, final double itemNumber) {
+    public void setNumberStatistic(final StatisticView s, final double itemNumber) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);
         }
         s.setNumber(itemNumber);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<ColorHeartEnum, Double>> hearts) {
+        Objects.requireNonNull(s);
+        if (!this.statistics.contains(s)) {
+            this.statistics.add(s);
+        }
+        s.setHearts(hearts);
     }
 
     /**
