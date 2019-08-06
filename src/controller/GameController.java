@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import model.entity.FACTORY_PLAYERS;
+import model.entity.FactoryPlayers;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
@@ -126,7 +126,7 @@ public class GameController {
     public static DataPlayer getDataPlayer(final PlayerMenuEnum plEnumMenu) throws ClassNotFoundException {
 
         final PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
-        final model.util.DataPlayer dataPlayerModel = FACTORY_PLAYERS.getDataPlayer(plEnum);
+        final model.util.DataPlayer dataPlayerModel = FactoryPlayers.getDataPlayer(plEnum);
         return new DataPlayer()
                             .setDamage(dataPlayerModel.getDamage())
                             .setLife(dataPlayerModel.getLife())
