@@ -25,7 +25,7 @@ import util.SpritesExtractor;
  * View and animations of Isaac.
  */
 
-public class IsaacView extends AbstractEntityView {
+public class CainView extends AbstractEntityView {
 
     private static Map<MovementEnum, List<Image>> bodySprites = new HashMap<>();
     private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
@@ -51,7 +51,7 @@ public class IsaacView extends AbstractEntityView {
             List<Image> movingRightFaceSprite;
             List<Image> movingLeftFaceSprite;
 
-            img = ImageIO.read(IsaacView.class.getResource("/gameImgs/character_001_isaac.png"));
+            img = ImageIO.read(CainView.class.getResource("/gameImgs/character_003_cain.png"));
             final List<Image> isaacBody = new ArrayList<>();
             final int deltaFace = 32;
             final int faces = 6;
@@ -128,20 +128,11 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * Static Method.
-     * 
-     * @return the faceSprites
-     */
-    public static Map<MovementEnum, List<Image>> getStaticFaceSprites() {
-        return faceSprites;
-    }
-
-    /**
      * Base constructor, initilizes the indexes.
      * 
      * @param id the {@link UUID}
      */
-    public IsaacView(final UUID id) {
+    public CainView(final UUID id) {
         super(id);
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
@@ -171,25 +162,18 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * @return the faceSprites
-     */
-    public Map<MovementEnum, List<Image>> getFaceSprites() {
-        return IsaacView.faceSprites;
-    }
-
-    /**
-     * Default animation for {@link IsaacView}.
+     * Default animation for {@link CainView}.
      */
     @Override
     public void def(final MovementEnum move) {
-        this.face = this.getFaceSprites().get(move).get(faceIndex.get(move));
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % this.getFaceSprites().get(move).size());
+        this.face = CainView.faceSprites.get(move).get(faceIndex.get(move));
+        this.faceIndex.compute(move, (k, v) -> (v + 1) % CainView.faceSprites.get(move).size());
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
         this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }
 
     /**
-     * Damaging animation for {@link IsaacView}.
+     * Damaging animation for {@link CainView}.
      */
     @Override
     public void damaging(final MovementEnum move) {
@@ -199,7 +183,7 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * Dead animation for {@link IsaacView}.
+     * Dead animation for {@link CainView}.
      */
     @Override
     public void dead(final MovementEnum move) {
