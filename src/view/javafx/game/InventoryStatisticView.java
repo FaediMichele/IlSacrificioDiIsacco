@@ -18,14 +18,14 @@ import javafx.scene.image.Image;
  * Class to draw all the StatisticView that needs the icon of the item and the number of items 
  * of that kind in the inventory.
  */
-public class NumbersStatisticView extends AbstractStatisticView {
+public class InventoryStatisticView extends AbstractStatisticView {
     private static final Map<Integer, Image> NUMBER_SPRITES = new HashMap<>();
 
     static {
         BufferedImage img;
         try {
             img = ImageIO.read(MonstroView.class.getResource("/gameImgs/font.png"));
-            NumbersStatisticView.initNumbers(img);
+            InventoryStatisticView.initNumbers(img);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class NumbersStatisticView extends AbstractStatisticView {
     /**
      * @param entityClass the entityView class of the statistic we want to represent
      */
-    public NumbersStatisticView(final Class<? extends EntityView> entityClass) {
+    public InventoryStatisticView(final Class<? extends EntityView> entityClass) {
         super();
         NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), this.resize(e.getValue())));
         if (entityClass.equals(BombView.class)) {
@@ -69,6 +69,10 @@ public class NumbersStatisticView extends AbstractStatisticView {
      */
     private List<Integer> getDigitList() {
         final List<Integer> digitList = new LinkedList<>();
+        if (this.getNumber() == 0) {
+            digitList.add(0);
+            return digitList;
+        }
         int num = (int) this.getNumber();
         do {
             digitList.add(num % 10);
