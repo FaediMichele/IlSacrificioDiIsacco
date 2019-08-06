@@ -3,6 +3,7 @@ package view.javafx.game;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -164,10 +165,11 @@ public class IsaacView extends AbstractEntityView {
             super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }
-        final double heightScale = 3 / 5;
-        final double bodyShift = 2 / 5;
-        gc.drawImage(face, super.getX(), super.getY(), (super.getHeight() * heightScale), super.getWidth());
-        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
+        final double heightScale = 3.0 / 5;
+        final double bodyShift = 2.0 / 5;
+        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
+        gc.drawImage(body, super.getX(),
+                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
     }
 
     /**
