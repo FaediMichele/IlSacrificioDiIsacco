@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -12,14 +13,22 @@ import org.w3c.dom.NodeList;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import model.component.HealthComponent;
+import model.component.InventoryComponent;
+import model.entity.Bomb;
+import model.entity.Entity;
+import model.entity.Key;
 import model.entity.Player;
+import model.enumeration.ColorHeartEnum;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
 import model.events.RoomChangedEvent;
+import model.util.StatisticsInformations;
 import util.Command;
 import util.EventListener;
 import util.NotEquals;
 import util.NotHashCode;
+import util.Pair;
 import util.StaticMethodsUtils;
 
 /**
@@ -69,7 +78,8 @@ public class GameWorldImpl implements GameWorld {
     public GameWorldImpl(final String game)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
+        final List<Node> ls = StaticMethodsUtils
+                .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
         this.player = new Player();
         this.activeFloor = 0;
@@ -88,6 +98,7 @@ public class GameWorldImpl implements GameWorld {
         }
         changedFloor = false;
     }
+
     /**
      * 
      * @param game 
@@ -96,12 +107,13 @@ public class GameWorldImpl implements GameWorld {
      * @throws IllegalAccessException 
      * @throws ClassNotFoundException 
      */
-    //da fixare il type player con cui deve iniziare il gioco
+    // da fixare il type player con cui deve iniziare il gioco
     @SuppressWarnings("all")
     public GameWorldImpl(final String game, final Player typePlayer)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
+        final List<Node> ls = StaticMethodsUtils
+                .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
         this.player = new Player();
         this.activeFloor = 0;
@@ -190,8 +202,28 @@ public class GameWorldImpl implements GameWorld {
 
     @Override
     public final void input(final Command c) {
-        //da correggere
+        // da correggere
         player.postEvent(new InputEvent(player, c));
     }
 
+    /**
+     * 
+     * @return .
+     */
+    public StatisticsInformations getStatistics() {
+        List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
+        List<Pair<ColorHeartEnum, Double>> hearts = this.getPlayer()
+                                                        .getComponent(HealthComponent.class).get()
+                                                        .getHearts()
+                                                        .stream()
+                                                        .map(h -> new Pair<ColorHeartEnum, Double>(h.getColor(), h.getValue()))
+                                                        .collect(Collectors.toList());
+        StatisticsInformations statInfo = new StatisticsInformations()
+                .setBombs(things.stream().filter(t -> t.getClass().isInstance(Bomb.class)).collect(Collectors.toList())
+                        .size())
+                .setKeys(things.stream().filter(t -> t.getClass().isInstance(Key.class)).collect(Collectors.toList())
+                        .size())
+                .setHearts(hearts);
+        return statInfo;
+    }
 }

@@ -1,5 +1,7 @@
 package model.component;
 
+import model.enumeration.ColorHeartEnum;
+
 /**
  * 
  * The simplest kind of heart.
@@ -71,5 +73,14 @@ public class SimpleHeart extends AbstractHeart {
     @Override
     public double getMaxValue() {
         return MAX_VALUE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ColorHeartEnum getColor() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

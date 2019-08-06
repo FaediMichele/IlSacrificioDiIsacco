@@ -4,19 +4,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
 import model.game.GameWorldImpl;
+import model.util.DataPlayer;
 import model.util.EntityInformation;
 import util.Command;
 import util.NotEquals;
-import util.StaticMethodsUtils;
-import view.enumeration.PlayerMenuEnum;
 import view.javafx.game.menu.SubMenuGame;
-import view.util.DataPlayer;
 
 
 /**
@@ -25,7 +22,6 @@ import view.util.DataPlayer;
  *
  */
 public class GameController {
-    private static String pathXml = "/xml/controller/formEnumViewToEnumModel.xml";
     private static  long timeToSleep = 33;
     @NotEquals
     private volatile boolean stoped;
@@ -122,13 +118,8 @@ public class GameController {
      * @return .
      * @throws ClassNotFoundException 
      */
-    public static DataPlayer getDataPlayer(final PlayerMenuEnum plEnumMenu) throws ClassNotFoundException {
-        final PlayerEnum plEnum = StaticMethodsUtils.enumFromViewToModel(plEnumMenu, pathXml);
-        final model.util.DataPlayer dataPlayerModel = FactoryPlayersUtil.getDataPlayer(plEnum);
-        return new DataPlayer()
-                            .setDamage(dataPlayerModel.getDamage())
-                            .setLife(dataPlayerModel.getLife())
-                            .setSpeed(dataPlayerModel.getSpeed());
+    public static DataPlayer getDataPlayer(final PlayerEnum plEnumMenu) throws ClassNotFoundException {
+        return FactoryPlayersUtil.getDataPlayer(plEnumMenu);
     }
 
     /**

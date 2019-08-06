@@ -35,9 +35,7 @@ public class BlackHeart extends SimpleHeart {
         private static final double DEFAULT_ENEMY_DAMAGE = 0.3;
         private static final double DEFAULT_HEART_VALUE = 1;
         private final Entity e;
-        @SuppressWarnings("all")
         private double enemyDamage = DEFAULT_ENEMY_DAMAGE;
-        @SuppressWarnings("all")
         private double heartValue = DEFAULT_HEART_VALUE;
 
         /**

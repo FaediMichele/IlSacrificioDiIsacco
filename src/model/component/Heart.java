@@ -1,5 +1,7 @@
 package model.component;
 
+import model.enumeration.ColorHeartEnum;
+
 /**
  * 
  * The heart represents the life of the entity.
@@ -27,4 +29,11 @@ public interface Heart {
      * @return actual value of the heart.
      */
     double getValue();
+
+    /**
+     * . 
+     * @return color for heart.
+     */
+    ColorHeartEnum getColor();
+
 }
