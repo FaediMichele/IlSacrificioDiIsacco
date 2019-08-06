@@ -29,7 +29,7 @@ public class TestCanvas extends Application {
         isaac.setHeight(100);
         isaac.setWidth(100);
         isaac.setGameView(new GameViewImpl(root));
-        isaac.dead(null);
+        isaac.def(BasicMovementEnum.LEFT);
         root.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
             canvas.setWidth(newValue.getWidth());
             canvas.setHeight(newValue.getHeight());
