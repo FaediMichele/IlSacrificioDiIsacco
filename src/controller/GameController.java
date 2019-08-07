@@ -49,6 +49,7 @@ public class GameController {
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
         gameMenu.getGameView().setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
+        gameMenu.getGameView().draw();
     }
 
     /**
