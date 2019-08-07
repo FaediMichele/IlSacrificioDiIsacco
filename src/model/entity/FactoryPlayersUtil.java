@@ -21,7 +21,7 @@ public final class FactoryPlayersUtil {
      * @return .
      */
     public static DataPlayer getDataPlayer(final PlayerEnum player) {
-        return StaticMethodsUtils.enumFromXmlToDataPlayer(player, PATH_XML);
+        return StaticMethodsUtils.enumFromXmlToDataPlayer(player, PATH_XML).setName(player);
     }
 
     /**
