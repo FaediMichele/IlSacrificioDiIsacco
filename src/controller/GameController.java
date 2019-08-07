@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import controller.menu.SubMenuGame;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
@@ -13,6 +12,7 @@ import model.game.GameWorld;
 import model.game.GameWorldImpl;
 import model.util.DataPlayer;
 import model.util.EntityInformation;
+import model.util.Position;
 import util.Command;
 import util.NotEquals;
 
@@ -73,8 +73,12 @@ public class GameController {
             try {
                 while (!stoped) {
                     sleep(timeToSleep);
-                    //Se il Player è morto -> gameMenu.gameOver();
                     gameWord.update(timeToSleep);
+                    //Se il Player è morto -> gameMenu.gameOver()
+                    final double widthMolti = gameMenu.getGameView().getWidth() 
+                                               / gameWord.getActiveFloor().getActiveRoom().getWidth();
+                    final double heightMolti = gameMenu.getGameView().getHeight() 
+                                               / gameWord.getActiveFloor().getActiveRoom().getHeight();
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {
@@ -86,6 +90,13 @@ public class GameController {
                             .getActiveRoom()
                             .getEntitiesStatus()
                             .stream()
+                            .peek(i -> 
+                                i.setWidth(i.getWidth() * widthMolti)
+                                 .setHeight(i.getHeight() * heightMolti)
+                                 .setPosition(new Position(i.getPosition().getX() * widthMolti, 
+                                                           i.getPosition().getY() * heightMolti, 
+                                                           i.getPosition().getZ()))
+                                 )
                             .peek(st -> {
                                     if (!entityControllers.containsKey(st.getId())) {
                                         try {
