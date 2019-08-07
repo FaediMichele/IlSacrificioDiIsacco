@@ -33,6 +33,7 @@ public class GameController {
     /**
      * @param gameMenu is the gameMenu in which the Game Controller operates
      * @param player .
+     * @param game .
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
