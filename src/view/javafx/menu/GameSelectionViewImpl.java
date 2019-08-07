@@ -25,8 +25,6 @@ public class GameSelectionViewImpl implements GameSelectionView {
     private final int defaultX;
     private final int defaultY;
     private final Pane pnMain;
-    private final FadeTransition optionsTransition;
-    private final Pane optionsPane;
     private final FadeTransition fd;
     private final TranslationPages tp;
     private final Lambda gameStarted;
@@ -44,10 +42,8 @@ public class GameSelectionViewImpl implements GameSelectionView {
         this.gameStarted = gameStarted;
         pnMain.setOpacity(0);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
-        optionsPane = ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class);
-        optionsTransition = new FadeTransition(fd.getDuration(), optionsPane);
-        initOptionsPane();
         tp = new ContextPageJavafx(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), MSSUBMENU);
+        tp.addPage(ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class));
    }
 
     /**
@@ -56,15 +52,17 @@ public class GameSelectionViewImpl implements GameSelectionView {
     @Override
     public void setBind(final Set<Object> paneOfSubMenu) {
         final Scene scene = ViewGetterUtil.getScene();
-        this.bindDown(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), optionsPane);
         final Supplier<Stream<Pane>> str = () -> Stream.of(paneOfSubMenu.toArray()).map(o -> Pane.class.cast(o));
         str.get().forEach(p -> setBind(p, scene));
         scene.widthProperty().addListener((obs, oldVal, newVal) -> {
             str.get().forEach(p -> updateBind(p, scene));
+            tp.jumpTo(tp.getSelected());
         });
         scene.heightProperty().addListener((obs, oldVal, newVal) -> {
             str.get().forEach(p -> updateBind(p, scene));
+            tp.jumpTo(tp.getSelected());
         });
+        tp.addPage(paneOfSubMenu.toArray());
     }
 
     /**
@@ -73,9 +71,6 @@ public class GameSelectionViewImpl implements GameSelectionView {
     @Override
     public void selectSubMenu(final SubMenu end) {
         tp.goTo(end.getSubMenuView().getMain());
-        optionsTransition.setFromValue(0.0);
-        optionsTransition.setToValue(1.0);
-        optionsTransition.play();
     }
 
     /**
@@ -101,9 +96,6 @@ public class GameSelectionViewImpl implements GameSelectionView {
         p.scaleYProperty().bind(p.scaleXProperty());
     }
 
-    private void bindDown(final Pane from, final Pane dest) {
-        dest.layoutYProperty().bind(from.layoutYProperty().add(from.heightProperty().multiply(from.scaleYProperty())));
-    }
 
     /**
      * Update the scale based on the edge with the minus ratio.
@@ -116,14 +108,5 @@ public class GameSelectionViewImpl implements GameSelectionView {
         } else {
             p.scaleXProperty().bind(s.widthProperty().divide(defaultX));
         }
-    }
-
-    private void initOptionsPane() {
-        final double scale = 9 / 10;
-        optionsPane.setPrefWidth(pnMain.getPrefWidth() * scale);
-        optionsPane.setPrefHeight(pnMain.getPrefHeight() * scale);
-
-        optionsPane.layoutXProperty().bind(pnMain.widthProperty().subtract(optionsPane.widthProperty()).divide(2));
-        optionsPane.layoutYProperty().bind(pnMain.heightProperty().subtract(optionsPane.heightProperty()).divide(2));
     }
 }

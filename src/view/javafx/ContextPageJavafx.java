@@ -23,7 +23,7 @@ public class ContextPageJavafx implements TranslationPages {
 
     /**
      * Create a ContextPageJavafx with the time for the animation.
-     * @param staticPane the pane that stay in fron of others.
+     * @param staticPane the pane that stay in from of others.
      * @param milliseconds the time for the animation.
      */
     public ContextPageJavafx(final Pane staticPane, final long milliseconds) {
@@ -31,6 +31,7 @@ public class ContextPageJavafx implements TranslationPages {
         tts = new ArrayList<>();
         this.mainPane = staticPane;
         this.milliseconds = milliseconds;
+        selected = staticPane;
     }
 
     /**
@@ -73,17 +74,22 @@ public class ContextPageJavafx implements TranslationPages {
      */
     @Override
     public void goTo(final Object page) {
+        if (page == null || page.equals(selected)) {
+            return;
+        }
         if (!panes.contains((Pane) page)) {
             throw new IllegalArgumentException("page not found");
         }
         if (selected != null && page.equals(mainPane)) {
-            selectedTransition.setToY(mainPane.getLayoutY() + mainPane.getHeight() * 2);
+            selectedTransition.setToY(0);
+            selected = mainPane;
+        } else {
+            selected = (Pane) page;
+            selectedTransition = tts.stream().filter(t -> t.getNode().equals(selected))
+                    .findFirst().get();
+            selectedTransition.setToX(-selected.getLayoutX() + mainPane.getLayoutX() + mainPane.getWidth() / 2 - selected.getWidth() / 2);
+            selectedTransition.setToY(-selected.getLayoutY() + mainPane.getLayoutY() + mainPane.getHeight() / 2 - selected.getHeight() / 2);
         }
-        selected = (Pane) page;
-        selectedTransition = tts.stream().filter(t -> t.getNode().equals(selected))
-                .findFirst().get();
-        selectedTransition.setToX(mainPane.getLayoutX() + mainPane.getWidth() / 2 - selected.getWidth() / 2);
-        selectedTransition.setToY(mainPane.getLayoutY() + mainPane.getHeight() / 2 - selected.getHeight() / 2);
         selectedTransition.playFromStart();
     }
 
@@ -101,16 +107,21 @@ public class ContextPageJavafx implements TranslationPages {
      */
     @Override
     public void jumpTo(final Object page) {
-        if (!panes.contains((Pane) page) || page == null) {
+        if (page == null) {
+            return;
+        }
+        if (!panes.contains((Pane) page)) {
             throw new IllegalArgumentException("page not found");
         }
         if (selected != null && page.equals(mainPane)) {
-            selected.setTranslateY(mainPane.getLayoutY() + mainPane.getHeight() * 2);
+            selected.setTranslateY(0);
+            selected = mainPane;
+        } else {
+            selected = (Pane) page;
+            selectedTransition = tts.stream().filter(t -> t.getNode().equals(selected))
+                    .findFirst().get();
+            selected.setTranslateX(-selected.getLayoutX() + mainPane.getLayoutX() + mainPane.getWidth() / 2 - selected.getWidth() / 2);
+            selected.setTranslateY(-selected.getLayoutY() + mainPane.getLayoutY() + mainPane.getHeight() / 2 - selected.getHeight() / 2);
         }
-        selected = (Pane) page;
-        selectedTransition = tts.stream().filter(t -> t.getNode().equals(selected))
-                .findFirst().get();
-        selected.setTranslateX(mainPane.getLayoutX() + mainPane.getWidth() / 2 - selected.getWidth() / 2);
-        selected.setTranslateY(mainPane.getLayoutY() + mainPane.getHeight() / 2 - selected.getHeight() / 2);
     }
 }

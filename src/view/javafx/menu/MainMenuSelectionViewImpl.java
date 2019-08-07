@@ -164,9 +164,11 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
         // When the window change the size all pane must be resize as well.
         s.widthProperty().addListener((obs, oldVal, newVal) -> {
             str.get().forEach(p -> updateBind(p, s));
+            tp.jumpTo(tp.getSelected());
         });
         s.heightProperty().addListener((obs, oldVal, newVal) -> {
             str.get().forEach(p -> updateBind(p, s));
+            tp.jumpTo(tp.getSelected());
         });
     }
 

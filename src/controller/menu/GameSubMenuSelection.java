@@ -13,6 +13,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
     private final GameSelectionView gmv;
     private final long msMenu;
     private CharacterInfo characterSelected;
+    private final SubMenuGame game;
 
     /**
      * 
@@ -23,10 +24,13 @@ public class GameSubMenuSelection extends SubMenuSelection {
     public GameSubMenuSelection(final MenuSelection parent, final long msMenu) {
         super(parent);
         this.msMenu = msMenu;
-
-        add(new SubMenuGame(this));
+        game = new SubMenuGame(this);
+        add(game);
         add(new SubMenuOption(this));
-        gmv = new GameSelectionViewImpl(msMenu, () -> this.selectSubMenu(SubMenuGame.class));
+        gmv = new GameSelectionViewImpl(msMenu, () -> {
+            this.selectSubMenu(SubMenuGame.class);
+            game.startGame();
+        });
         gmv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
     }
 
@@ -42,8 +46,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
     @Override
     public void selectSubMenu(final SubMenu start, final SubMenu end) {
         Objects.requireNonNull(end);
-        end.select();
-        System.out.println("BESTIA");
+        gmv.selectSubMenu(end);
     }
 
     /**
@@ -53,6 +56,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
     @Override
     public void jumpTo(final SubMenu dest) {
         Objects.requireNonNull(dest);
+        gmv.selectSubMenu(dest);
     }
 
     /**
@@ -64,7 +68,7 @@ public class GameSubMenuSelection extends SubMenuSelection {
         if (previous.equals(this)) {
             gmv.changeSelector(true);
         }
-        if (param != null && param instanceof CharacterInfo) {
+        if (param instanceof CharacterInfo) {
             characterSelected = (CharacterInfo) param;
         }
     }

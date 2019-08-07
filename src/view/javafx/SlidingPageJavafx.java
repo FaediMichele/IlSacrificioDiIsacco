@@ -97,6 +97,9 @@ public class SlidingPageJavafx implements TranslationPages {
      */
     @Override
     public void jumpTo(final Object page) {
+        if (page == null) {
+            return;
+        }
         if (!panes.contains((Pane) page)) {
             throw new IllegalArgumentException("page not found" + ((Pane) page).getId());
         }

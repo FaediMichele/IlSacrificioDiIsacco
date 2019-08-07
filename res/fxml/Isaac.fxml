@@ -144,13 +144,15 @@
 						<Canvas fx:id="cnvGame" height="344" width="640"/>
 					</children>
 				</Pane>
-				<Pane fx:id="pnInGameMenu" prefHeight="200" prefWidth="250">
+				<Pane fx:id="pnInGameMenu" layoutY="${screen.visualBounds.height}" prefHeight="200" prefWidth="250">
 					<children>
-            			<ImageView fx:id="imgContinuePlaying" fitHeight="62.0" fitWidth="177.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true"
+						<ImageView fx:id="imgPopUpBackground" fitHeight="200" fitWidth="250" layoutX="0" layoutY="0" pickOnBounds="true"
+							preserveRatio="false" />
+						<ImageView fx:id="imgContinuePlaying" fitHeight="60.0" fitWidth="150.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true"
 							preserveRatio="true" rotate="-5.0" />
-            			<ImageView fx:id="imgBackToGame" fitHeight="62.0" fitWidth="177.0" layoutX="12.0" layoutY="174.0" pickOnBounds="true"
+            			<ImageView fx:id="imgBackToGame" fitHeight="60.0" fitWidth="150.0" layoutX="50.0" layoutY="100.0" pickOnBounds="true"
 							preserveRatio="true" rotate="-5.0" />
-						<ImageView fx:id="imgSelectorInGameMenu" fitHeight="35.0" fitWidth="35.0" layoutX="8.0" layoutY="28.0" pickOnBounds="true"
+						<ImageView fx:id="imgSelectorInGameMenu" fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="28.0" pickOnBounds="true"
 							preserveRatio="true" rotate="5.0" />
          			</children>
 				</Pane>

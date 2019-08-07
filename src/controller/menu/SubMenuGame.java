@@ -3,7 +3,6 @@ package controller.menu;
 import java.io.IOException;
 
 import controller.GameController;
-import model.enumeration.BasicPlayerEnum;
 import util.Command;
 import view.SubMenuView;
 import view.interfaces.SubMenuGameView;
@@ -34,8 +33,10 @@ public class SubMenuGame extends SubMenu {
         case OPTIONS:
             options();
         case EXIT:
-            gameController.stop();
-            getSelector().getParent().select(MainMenuSelection.class);
+            if (gameController != null) {
+                gameController.stop();
+            }
+            options();
             break;
         default: 
             if (gameController != null) {
@@ -45,11 +46,9 @@ public class SubMenuGame extends SubMenu {
     }
 
     /**
-     * {@inheritDoc}.
+     * Start the game controller.
      */
-    @Override
-    public void select() {
-        super.select();
+    public void startGame() {
         final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
         final CharacterInfo character = sel.getCharacterInfo();
         try {

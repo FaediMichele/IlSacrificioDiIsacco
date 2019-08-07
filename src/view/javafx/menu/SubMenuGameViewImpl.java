@@ -16,6 +16,7 @@ public class SubMenuGameViewImpl implements SubMenuGameView {
     private final Image gameOverImg;
     private final GameView gameView;
 
+
     /**
      * Create a new SubMenuGameViewImpl.
      */
