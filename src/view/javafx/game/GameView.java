@@ -21,6 +21,13 @@ public interface GameView {
     void removeEntity(EntityView entity);
 
     /**
+     * Set the current {@link RoomView}.
+     * 
+     * @param room {@link RoomView}
+     */
+    void setRoomView(RoomView room);
+
+    /**
      * Add a {@link StatisticView} to draw.
      * 
      * @param s {@link StatisticView}
