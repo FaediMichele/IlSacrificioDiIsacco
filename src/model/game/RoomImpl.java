@@ -334,17 +334,13 @@ public class RoomImpl implements Room {
         }
     }
 
-    /**
-     * @return the width
-     */
-    public double getWidth() {
+    @Override
+    public final double getWidth() {
         return width;
     }
 
-    /**
-     * @return the height
-     */
-    public double getHeight() {
+    @Override
+    public final double getHeight() {
         return height;
     }
 
