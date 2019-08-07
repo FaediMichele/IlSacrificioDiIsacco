@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import controller.menu.MainMenuSelection;
 import controller.menu.MenuSelection;
@@ -13,6 +13,7 @@ import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 import util.Command;
 import view.SubMenuView;
+import view.javafx.ViewGetterUtil;
 
 /**
  * The menu for the introduction.
@@ -33,20 +34,20 @@ public final class GameIntroJavafx extends SubMenuSelection {
      */
     public GameIntroJavafx(final MenuSelection parent, final long msMenu) {
         super(parent);
-        final Scene scene = ViewGetter.getScene();
-        s = new MySubMenu(this, ViewGetter.getNodeByName("mvIntro", MediaView.class),
+        final Scene scene = ViewGetterUtil.getScene();
+        s = new MySubMenu(this, ViewGetterUtil.getNodeByName("mvIntro", MediaView.class),
                 INTROFILEPATH);
         add(s);
-        this.pnMain = ViewGetter.getNodeByName("pnIntro", Pane.class);
+        this.pnMain = ViewGetterUtil.getNodeByName("pnIntro", Pane.class);
         this.defaultX = (int) scene.getWidth();
         this.defaultY = (int) scene.getHeight();
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
-        setBind(ViewGetter.getNodeByName(NAMEPANE, Pane.class), scene);
+        setBind(ViewGetterUtil.getNodeByName(NAMEPANE, Pane.class), scene);
         scene.widthProperty().addListener((obs, oldVal, newVal) -> {
-            updateBind(ViewGetter.getNodeByName(NAMEPANE, Pane.class), scene);
+            updateBind(ViewGetterUtil.getNodeByName(NAMEPANE, Pane.class), scene);
         });
         scene.heightProperty().addListener((obs, oldVal, newVal) -> {
-            updateBind(ViewGetter.getNodeByName(NAMEPANE, Pane.class), scene);
+            updateBind(ViewGetterUtil.getNodeByName(NAMEPANE, Pane.class), scene);
         });
     }
 

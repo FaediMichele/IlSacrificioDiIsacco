@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+import view.javafx.ViewGetterUtil;
 import view.menuInterfaces.SubMenuSelectMenuView;
 import view.node.SelectList;
 import view.node.javafx.SelectListJavafx;
@@ -31,10 +32,10 @@ public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
             throw new IllegalArgumentException("args must be grater or equal to the list of the item(" + sl.lenght() + ")");
         }
         mapSelected = new LinkedHashMap<>();
-        final ImageView newRun = ViewGetter.getNodeByName("imgNewRun", ImageView.class);
-        final ImageView option = ViewGetter.getNodeByName("imgOptions", ImageView.class);
+        final ImageView newRun = ViewGetterUtil.getNodeByName("imgNewRun", ImageView.class);
+        final ImageView option = ViewGetterUtil.getNodeByName("imgOptions", ImageView.class);
         sl.addItems(newRun, option);
-        final ImageView imgSelector = ViewGetter.getNodeByName("imgSelector", ImageView.class);
+        final ImageView imgSelector = ViewGetterUtil.getNodeByName("imgSelector", ImageView.class);
         mapSelected.put(newRun, args[0]);
         mapSelected.put(option, args[1]);
         sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight()));
@@ -81,7 +82,7 @@ public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
 
     @Override
     public final Object getMain() {
-        return ViewGetter.getNodeByName("pnMenuMain", Pane.class);
+        return ViewGetterUtil.getNodeByName("pnMenuMain", Pane.class);
     }
 
 }

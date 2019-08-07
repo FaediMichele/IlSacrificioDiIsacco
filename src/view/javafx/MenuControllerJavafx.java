@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx;
 
 import controller.menu.ConfigurationManager;
 import controller.menu.GameSubMenuSelection;
@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaView;
-import view.javafx.ConfigurationManagerJavafx;
+import view.javafx.menu.GameIntroJavafx;
 
 /**
  * This is the class that handle the main menu of javafx.
@@ -33,7 +33,7 @@ public class MenuControllerJavafx {
      * @param s the scene. It is used for the input.
      */
     public void start(final Scene s) {
-        ViewGetter.setScene(s);
+        ViewGetterUtil.setScene(s);
         menu = new MenuSelection(manager);
         pnMainMenu.prefWidthProperty().bind(pnMain.widthProperty());
         pnMainMenu.prefHeightProperty().bind(pnMain.heightProperty());

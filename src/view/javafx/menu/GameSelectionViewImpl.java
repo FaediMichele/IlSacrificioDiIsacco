@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -9,6 +9,7 @@ import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import view.javafx.ViewGetterUtil;
 import view.menuInterfaces.GameSelectionView;
 
 /**
@@ -29,13 +30,13 @@ public class GameSelectionViewImpl implements GameSelectionView {
      * @param msMenu time for the animation of the sliding context menu.
      */
     public GameSelectionViewImpl(final long msMenu) {
-        final Scene scene = ViewGetter.getScene();
+        final Scene scene = ViewGetterUtil.getScene();
         this.defaultX = (int) scene.getWidth();
         this.defaultY = (int) scene.getHeight();
-        this.pnMain = ViewGetter.getNodeByName("pnGame", Pane.class);
+        this.pnMain = ViewGetterUtil.getNodeByName("pnGame", Pane.class);
         pnMain.setOpacity(0);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
-        optionsPane = ViewGetter.getNodeByName(OPTIONSPANE, Pane.class);
+        optionsPane = ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class);
         optionsTransition = new FadeTransition(fd.getDuration(), optionsPane);
         initOptionsPane();
     }
@@ -45,8 +46,8 @@ public class GameSelectionViewImpl implements GameSelectionView {
      */
     @Override
     public void setBind(final Set<Object> paneOfSubMenu) {
-        final Scene scene = ViewGetter.getScene();
-        this.bindDown(ViewGetter.getNodeByName(GAMEPANE, Pane.class), optionsPane);
+        final Scene scene = ViewGetterUtil.getScene();
+        this.bindDown(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), optionsPane);
         final Supplier<Stream<Pane>> str = () -> Stream.of(paneOfSubMenu.toArray()).map(o -> Pane.class.cast(o));
         str.get().forEach(p -> setBind(p, scene));
         scene.widthProperty().addListener((obs, oldVal, newVal) -> {

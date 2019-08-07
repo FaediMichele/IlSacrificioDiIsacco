@@ -4,7 +4,7 @@ import controller.GameController;
 import util.Command;
 import view.SubMenuView;
 import view.javafx.game.GameView;
-import view.javafx.game.menu.SubMenuGameViewImpl;
+import view.javafx.menu.SubMenuGameViewImpl;
 import view.menuInterfaces.SubMenuGameView;
 
 /**
@@ -32,11 +32,21 @@ public class SubMenuGame extends SubMenu {
         case OPTIONS:
             options();
         case EXIT:
+            gameController.stop();
             getSelector().getParent().select(MainMenuSelection.class);
             break;
         default: 
             gameController.input(c);
         }
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void select() {
+        super.select();
+        gameController.start();
     }
 
     private void options() {

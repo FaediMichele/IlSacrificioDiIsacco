@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 
 import java.util.LinkedHashMap;
@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import view.javafx.ViewGetterUtil;
 import view.menuInterfaces.SubMenuRunView;
 import view.node.CircleList;
 import view.node.javafx.CircleListRandomJavafx;
@@ -42,20 +43,20 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
      * @param y position of the circle list.
      */
     public SubMenuRunViewImpl(final int width, final int height, final double scale, final long time, final int x, final int y) {
-        final ImageView random = ViewGetter.getNodeByName("imgRandom", ImageView.class);
+        final ImageView random = ViewGetterUtil.getNodeByName("imgRandom", ImageView.class);
         list = new CircleListRandomJavafx(width, height,
                 scale, Duration.millis(time), random);
         list.setMarginLeft(x);
         list.setMarginTop(y);
-        ViewGetter.getNodeByName("pnRun", Pane.class).getChildren().add((Node) list);
+        ViewGetterUtil.getNodeByName("pnRun", Pane.class).getChildren().add((Node) list);
 
-        prgLife = ViewGetter.getNodeByName("prgLife", ProgressBar.class);
-        prgDamage = ViewGetter.getNodeByName("prgDamage", ProgressBar.class);
-        prgSpeed = ViewGetter.getNodeByName("prgSpeed", ProgressBar.class);
-        imgName = ViewGetter.getNodeByName("imgName", ImageView.class);
-        heart = ViewGetter.getNodeByName("imgHeart", ImageView.class);
-        speed = ViewGetter.getNodeByName("imgSpeed", ImageView.class);
-        damage = ViewGetter.getNodeByName("imgDamage", ImageView.class);
+        prgLife = ViewGetterUtil.getNodeByName("prgLife", ProgressBar.class);
+        prgDamage = ViewGetterUtil.getNodeByName("prgDamage", ProgressBar.class);
+        prgSpeed = ViewGetterUtil.getNodeByName("prgSpeed", ProgressBar.class);
+        imgName = ViewGetterUtil.getNodeByName("imgName", ImageView.class);
+        heart = ViewGetterUtil.getNodeByName("imgHeart", ImageView.class);
+        speed = ViewGetterUtil.getNodeByName("imgSpeed", ImageView.class);
+        damage = ViewGetterUtil.getNodeByName("imgDamage", ImageView.class);
 
         random.setImage(RANDOM_IMAGE);
         list.rotateRight();
@@ -147,7 +148,7 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
 
     @Override
     public final Object getMain() {
-        return ViewGetter.getNodeByName("pnRun", Pane.class);
+        return ViewGetterUtil.getNodeByName("pnRun", Pane.class);
     }
 
 }

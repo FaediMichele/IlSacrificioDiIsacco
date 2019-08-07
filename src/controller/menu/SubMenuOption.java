@@ -2,7 +2,7 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
-import view.javafx.game.menu.SubMenuOptionView;
+import view.javafx.menu.SubMenuOptionView;
 
 /**
  * The sub menu that manage the options of the game.

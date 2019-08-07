@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -6,9 +6,9 @@ import javafx.scene.Scene;
 /**
  * Class used to get all the JavaFx object in the scene.
  */
-public final class ViewGetter {
+public final class ViewGetterUtil {
     private static Scene scene;
-    private ViewGetter() {
+    private ViewGetterUtil() {
     }
 
     /**
@@ -16,7 +16,7 @@ public final class ViewGetter {
      * @param s the Scene.
      */
     public static void setScene(final Scene s) {
-        ViewGetter.scene = s;
+        ViewGetterUtil.scene = s;
     }
     /**
      * Get the {@link Scene}.

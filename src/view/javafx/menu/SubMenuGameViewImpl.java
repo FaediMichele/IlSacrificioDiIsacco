@@ -1,8 +1,9 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import view.javafx.ViewGetterUtil;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
 import view.menuInterfaces.SubMenuGameView;
@@ -19,8 +20,8 @@ public class SubMenuGameViewImpl implements SubMenuGameView {
      * Create a new SubMenuGameViewImpl.
      */
     public SubMenuGameViewImpl() {
-        this.cnv = ViewGetter.getNodeByName("cnvGame", Canvas.class);
-        final Pane main = ViewGetter.getNodeByName("pnGameRun", Pane.class);
+        this.cnv = ViewGetterUtil.getNodeByName("cnvGame", Canvas.class);
+        final Pane main = ViewGetterUtil.getNodeByName("pnGameRun", Pane.class);
         gameOverImg = new Image("/menuImgs/Full_Death_Note.png");
         cnv.widthProperty().bind(main.widthProperty());
         cnv.heightProperty().bind(main.heightProperty());
@@ -53,7 +54,7 @@ public class SubMenuGameViewImpl implements SubMenuGameView {
 
     @Override
     public final Object getMain() {
-        return ViewGetter.getNodeByName("pnGameRun", Pane.class);
+        return ViewGetterUtil.getNodeByName("pnGameRun", Pane.class);
     }
 
 }

@@ -1,7 +1,8 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import javafx.scene.layout.Pane;
 import view.SubMenuView;
+import view.javafx.ViewGetterUtil;
 
 /**
  * TODO .
@@ -13,7 +14,7 @@ public class SubMenuOptionView implements SubMenuView {
      * TODO .
      */
     public SubMenuOptionView() {
-        main = ViewGetter.getNodeByName("pnInGameMenu", Pane.class);
+        main = ViewGetterUtil.getNodeByName("pnInGameMenu", Pane.class);
     }
     @Override
     public final Object getMain() {

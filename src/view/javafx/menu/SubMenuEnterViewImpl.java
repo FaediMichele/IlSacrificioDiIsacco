@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -7,6 +7,7 @@ import view.AnimatedView;
 import view.TimedViews;
 import view.javafx.AnimatedViewJavafx;
 import view.javafx.TimedViewsJavafx;
+import view.javafx.ViewGetterUtil;
 import view.menuInterfaces.SubMenuEnterView;
 import view.node.RotatingNode;
 import view.node.javafx.RotatingNodeJavafx;
@@ -31,9 +32,9 @@ public final class SubMenuEnterViewImpl implements SubMenuEnterView {
      * @param angle angle of the animation of the rotating name.
      */
     public SubMenuEnterViewImpl(final long timeIsaac, final long timeName, final double angle) {
-        final ImageView nameOfGame = ViewGetter.getNodeByName("imgNameOfGame", ImageView.class);
-        final ImageView isaac = ViewGetter.getNodeByName("imgIsaac", ImageView.class);
-        final ImageView background = ViewGetter.getNodeByName("imgBackgroundEnter", ImageView.class);
+        final ImageView nameOfGame = ViewGetterUtil.getNodeByName("imgNameOfGame", ImageView.class);
+        final ImageView isaac = ViewGetterUtil.getNodeByName("imgIsaac", ImageView.class);
+        final ImageView background = ViewGetterUtil.getNodeByName("imgBackgroundEnter", ImageView.class);
 
         background.setImage(new Image(BACKGROUND));
         final AnimatedView isaacAnimated = new AnimatedViewJavafx(isaac);
@@ -75,6 +76,6 @@ public final class SubMenuEnterViewImpl implements SubMenuEnterView {
 
     @Override
     public Object getMain() {
-        return ViewGetter.getNodeByName("pnEnter", Pane.class);
+        return ViewGetterUtil.getNodeByName("pnEnter", Pane.class);
     }
 }

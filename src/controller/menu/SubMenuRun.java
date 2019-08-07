@@ -2,7 +2,7 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
-import view.javafx.game.menu.SubMenuRunViewImpl;
+import view.javafx.menu.SubMenuRunViewImpl;
 import view.menuInterfaces.SubMenuRunView;
 
 /**

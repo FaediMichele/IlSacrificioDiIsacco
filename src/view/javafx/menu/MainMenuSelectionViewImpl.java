@@ -1,4 +1,4 @@
-package view.javafx.game.menu;
+package view.javafx.menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import view.Sound;
 import view.SubMenuView;
 import view.javafx.SoundJavafx;
 import view.javafx.TranslationPageJavafx;
+import view.javafx.ViewGetterUtil;
 import view.menuInterfaces.MainMenuSelectionView;
 import view.node.TranslationPages;
 
@@ -53,10 +54,10 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
      * @param msMenu the time for the fade effect.
      */
     public MainMenuSelectionViewImpl(final long msPage, final long msMenu) {
-        final Scene s = ViewGetter.getScene();
+        final Scene s = ViewGetterUtil.getScene();
         this.defaultX = (int) s.getWidth();
         this.defaultY = (int) s.getHeight();
-        pnMain = ViewGetter.getNodeByName("pnMainMenu", Pane.class);
+        pnMain = ViewGetterUtil.getNodeByName("pnMainMenu", Pane.class);
         // pnMain.setOpacity(0);
         tp = new TranslationPageJavafx(pnMain, s, msPage);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
@@ -148,17 +149,17 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
      */
     @Override
     public void setBind(final List<Object> paneOfSubMenu) {
-        final Scene s = ViewGetter.getScene();
+        final Scene s = ViewGetterUtil.getScene();
         final Supplier<Stream<Pane>> str = () -> Stream.of(paneOfSubMenu.toArray()).map(o -> Pane.class.cast(o));
         str.get().forEach(p -> setBind(p, s));
-        this.bindDown(ViewGetter.getNodeByName(ENTER, Pane.class),
-                ViewGetter.getNodeByName(GAME, Pane.class));
-        this.bindLeft(ViewGetter.getNodeByName(ENTER, Pane.class),
-                ViewGetter.getNodeByName(GAME, Pane.class));
-        this.bindDown(ViewGetter.getNodeByName(ENTER, Pane.class),
-                ViewGetter.getNodeByName(RUNPANE, Pane.class));
-        this.bindRight(ViewGetter.getNodeByName(GAME, Pane.class),
-                ViewGetter.getNodeByName(RUNPANE, Pane.class));
+        this.bindDown(ViewGetterUtil.getNodeByName(ENTER, Pane.class),
+                ViewGetterUtil.getNodeByName(GAME, Pane.class));
+        this.bindLeft(ViewGetterUtil.getNodeByName(ENTER, Pane.class),
+                ViewGetterUtil.getNodeByName(GAME, Pane.class));
+        this.bindDown(ViewGetterUtil.getNodeByName(ENTER, Pane.class),
+                ViewGetterUtil.getNodeByName(RUNPANE, Pane.class));
+        this.bindRight(ViewGetterUtil.getNodeByName(GAME, Pane.class),
+                ViewGetterUtil.getNodeByName(RUNPANE, Pane.class));
 
         // When the window change the size all pane must be resize as well.
         s.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -171,24 +172,24 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
 
     private void init(final Scene s) {
         initShadow(s);
-        setImageView(null, ViewGetter.getNodeByName("imgRandom", ImageView.class));
+        setImageView(null, ViewGetterUtil.getNodeByName("imgRandom", ImageView.class));
     }
 
     private void initShadow(final Scene s) {
-        ViewGetter.getNodeByName(SHADOWPANE, Pane.class).translateXProperty()
+        ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).translateXProperty()
                 .bind(pnMain.translateXProperty().multiply(-1));
-        ViewGetter.getNodeByName(SHADOWPANE, Pane.class).translateYProperty()
+        ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).translateYProperty()
                 .bind(pnMain.translateYProperty().multiply(-1));
-        ViewGetter.getNodeByName(SHADOWPANE, Pane.class).prefWidthProperty().bind(s.widthProperty());
-        ViewGetter.getNodeByName(SHADOWPANE, Pane.class).prefHeightProperty().bind(s.heightProperty());
-        ViewGetter.getNodeByName("imgShadow", ImageView.class).fitWidthProperty()
-                .bind(ViewGetter.getNodeByName(SHADOWPANE, Pane.class).widthProperty());
-        ViewGetter.getNodeByName("imgShadow1", ImageView.class).fitWidthProperty()
-                .bind(ViewGetter.getNodeByName(SHADOWPANE, Pane.class).widthProperty());
-        ViewGetter.getNodeByName("imgShadow", ImageView.class).fitHeightProperty()
-                .bind(ViewGetter.getNodeByName(SHADOWPANE, Pane.class).heightProperty());
-        ViewGetter.getNodeByName("imgShadow1", ImageView.class).fitHeightProperty()
-                .bind(ViewGetter.getNodeByName(SHADOWPANE, Pane.class).heightProperty());
+        ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).prefWidthProperty().bind(s.widthProperty());
+        ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).prefHeightProperty().bind(s.heightProperty());
+        ViewGetterUtil.getNodeByName("imgShadow", ImageView.class).fitWidthProperty()
+                .bind(ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).widthProperty());
+        ViewGetterUtil.getNodeByName("imgShadow1", ImageView.class).fitWidthProperty()
+                .bind(ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).widthProperty());
+        ViewGetterUtil.getNodeByName("imgShadow", ImageView.class).fitHeightProperty()
+                .bind(ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).heightProperty());
+        ViewGetterUtil.getNodeByName("imgShadow1", ImageView.class).fitHeightProperty()
+                .bind(ViewGetterUtil.getNodeByName(SHADOWPANE, Pane.class).heightProperty());
     }
 
     /**
