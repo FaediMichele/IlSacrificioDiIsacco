@@ -12,12 +12,15 @@ import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
 import model.enumeration.BasicPlayerEnum;
 import model.enumeration.EntityEnum;
+import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
 
 /**
  * Implements Player.
  */
 public class Player extends AbstractMovableEntity {
+
+    private final PlayerEnum name;
     /**
      * Empty constructor.
      */
@@ -32,6 +35,7 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new StatusComponent(this));
         this.detachComponent(CollisionComponent.class);
         this.detachComponent(MovableCollisionComponent.class);
+        this.name = BasicPlayerEnum.ISAAC;
         }
 
     /**
@@ -48,6 +52,7 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new BodyComponent(this))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new MoveComponent(this, 0, data.getSpeed(), 0));
+        this.name = data.getName();
         this.detachComponent(CollisionComponent.class);
         this.detachComponent(MovableCollisionComponent.class);
         }
@@ -67,6 +72,6 @@ public class Player extends AbstractMovableEntity {
      */
     @Override
     public  EntityEnum getNameEntity() {
-        return BasicPlayerEnum.PLAYER;
+        return this.name;
     }
 }

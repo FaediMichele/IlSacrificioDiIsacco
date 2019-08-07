@@ -33,11 +33,14 @@ public class GameController {
     /**
      * @param gameMenu is the gameMenu in which the Game Controller operates
      * @param player .
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
      */
-    public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) {
+    public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         //super(main);
         this.gameMenu = gameMenu;
-        this.gameWord = new GameWorldImpl(game, player);
+        this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
