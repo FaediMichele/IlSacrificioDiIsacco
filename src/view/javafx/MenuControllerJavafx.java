@@ -16,6 +16,7 @@ import view.javafx.menu.GameIntroJavafx;
  */
 public class MenuControllerJavafx {
     private static final long TIME_MENU = 500;
+    private static final int MAXKEYATTIME = 3;
 
     private MenuSelection menu;
     private final ConfigurationManager manager = new ConfigurationManagerJavafx("/config.ini");
@@ -52,11 +53,13 @@ public class MenuControllerJavafx {
         });
 
         // Input redirection.
-        pnMain.setOnKeyPressed(k -> {
-            if (manager.getKeyMap().containsKey(k.getCode())) {
-                menu.get().get().input(manager.getKeyMap().get(k.getCode()));
-            }
-        });
+        for (int i = 0; i < MAXKEYATTIME; i++) {
+            pnMain.setOnKeyPressed(k -> {
+                if (manager.getKeyMap().containsKey(k.getCode())) {
+                    menu.get().get().input(manager.getKeyMap().get(k.getCode()));
+                }
+            });
+        }
         pnMain.requestFocus();
     }
 }

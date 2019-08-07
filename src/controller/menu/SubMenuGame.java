@@ -1,5 +1,7 @@
 package controller.menu;
 
+import java.io.IOException;
+
 import controller.GameController;
 import util.Command;
 import view.SubMenuView;
@@ -35,7 +37,9 @@ public class SubMenuGame extends SubMenu {
             getSelector().getParent().select(MainMenuSelection.class);
             break;
         default: 
-            gameController.input(c);
+            if (gameController != null) {
+                gameController.input(c);
+            }
         }
     }
 
@@ -50,7 +54,7 @@ public class SubMenuGame extends SubMenu {
         try {
             this.gameController = new GameController(this, character.getInfo(), null);
             gameController.start();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
             System.out.println("ERRORE FATALE");
         }
