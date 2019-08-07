@@ -3,9 +3,9 @@ package controller.menu;
 import controller.GameController;
 import util.Command;
 import view.SubMenuView;
+import view.interfaces.SubMenuGameView;
 import view.javafx.game.GameView;
 import view.javafx.menu.SubMenuGameViewImpl;
-import view.menuInterfaces.SubMenuGameView;
 
 /**
  * 

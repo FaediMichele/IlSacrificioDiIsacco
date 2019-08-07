@@ -13,7 +13,6 @@ import view.javafx.menu.GameIntroJavafx;
 
 /**
  * This is the class that handle the main menu of javafx.
- *
  */
 public class MenuControllerJavafx {
     private static final long TIME_MENU = 500;

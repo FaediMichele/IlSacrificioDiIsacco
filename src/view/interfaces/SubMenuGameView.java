@@ -1,4 +1,4 @@
-package view.menuInterfaces;
+package view.interfaces;
 
 import view.SubMenuView;
 import view.javafx.game.GameView;

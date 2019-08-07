@@ -2,8 +2,8 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
+import view.interfaces.SubMenuEnterView;
 import view.javafx.menu.SubMenuEnterViewImpl;
-import view.menuInterfaces.SubMenuEnterView;
 
 /**
  * This class is the sub menu for the entering in the game.

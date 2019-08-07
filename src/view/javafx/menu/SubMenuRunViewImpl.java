@@ -12,8 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import view.interfaces.SubMenuRunView;
 import view.javafx.ViewGetterUtil;
-import view.menuInterfaces.SubMenuRunView;
 import view.node.CircleList;
 import view.node.javafx.CircleListRandomJavafx;
 

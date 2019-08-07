@@ -2,8 +2,8 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
+import view.interfaces.SubMenuRunView;
 import view.javafx.menu.SubMenuRunViewImpl;
-import view.menuInterfaces.SubMenuRunView;
 
 /**
  * This is the sub menu for the selection of the character.

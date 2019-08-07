@@ -5,10 +5,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import view.AnimatedView;
 import view.TimedViews;
+import view.interfaces.SubMenuEnterView;
 import view.javafx.AnimatedViewJavafx;
 import view.javafx.TimedViewsJavafx;
 import view.javafx.ViewGetterUtil;
-import view.menuInterfaces.SubMenuEnterView;
 import view.node.RotatingNode;
 import view.node.javafx.RotatingNodeJavafx;
 

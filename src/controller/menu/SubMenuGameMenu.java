@@ -2,8 +2,8 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
+import view.interfaces.SubMenuSelectMenuView;
 import view.javafx.menu.SubMenuSelectMenuViewImpl;
-import view.menuInterfaces.SubMenuSelectMenuView;
 
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).

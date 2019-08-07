@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+import view.interfaces.SubMenuSelectMenuView;
 import view.javafx.ViewGetterUtil;
-import view.menuInterfaces.SubMenuSelectMenuView;
 import view.node.SelectList;
 import view.node.javafx.SelectListJavafx;
 

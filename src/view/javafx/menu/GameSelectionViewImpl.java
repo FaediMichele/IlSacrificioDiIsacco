@@ -9,8 +9,8 @@ import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import view.interfaces.GameSelectionView;
 import view.javafx.ViewGetterUtil;
-import view.menuInterfaces.GameSelectionView;
 
 /**
  * The implementation of view of the Game sub menu selection.

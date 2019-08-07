@@ -15,10 +15,10 @@ import javafx.util.Duration;
 import util.Lambda;
 import view.Sound;
 import view.SubMenuView;
+import view.interfaces.MainMenuSelectionView;
 import view.javafx.SoundJavafx;
 import view.javafx.TranslationPageJavafx;
 import view.javafx.ViewGetterUtil;
-import view.menuInterfaces.MainMenuSelectionView;
 import view.node.TranslationPages;
 
 /**
