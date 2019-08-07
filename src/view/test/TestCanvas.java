@@ -44,8 +44,14 @@ public class TestCanvas extends Application {
         gaper.setGameView(new GameViewImpl(canvas));
         gaper.def(BasicMovementEnum.DOWN);
         final DoorView door = new DoorView(UUID.randomUUID());
-        door.setX(root.getLayoutX());
-        door.setY(15);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                door.setX((canvas.getWidth() - 100)/ 2);
+                door.setY(15);
+            }
+        });
+        
         door.setHeight(85);
         door.setWidth(85);
         door.setGameView(new GameViewImpl(canvas));

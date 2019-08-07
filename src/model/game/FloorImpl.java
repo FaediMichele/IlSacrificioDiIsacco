@@ -78,8 +78,10 @@ public class FloorImpl implements Floor {
     public FloorImpl(final String floorName)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
-        final List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(0).getChildNodes());
-        maxRoom = Integer.parseInt(docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("MaxRoom").getNodeValue());
+        final List<Node> ls = StaticMethodsUtils
+                .getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(0).getChildNodes());
+        maxRoom = Integer.parseInt(
+                docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("MaxRoom").getNodeValue());
         this.rooms = new ArrayList<>();
         generateRooms();
         final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
@@ -135,9 +137,10 @@ public class FloorImpl implements Floor {
         final Matrix<Integer> m = new Matrix<>(maxRoom, maxRoom);
         final List<Pair<Integer, Integer>> roomIndexs = new ArrayList<>();
         generateMap(m, roomIndexs);
-
+        final double widthRoom = 100;
+        final double heightRoom = 100;
         for (int index = 0; index < roomIndexs.size(); index++) {
-            this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index)));
+            this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index), widthRoom, heightRoom));
         }
 
     }
@@ -148,9 +151,12 @@ public class FloorImpl implements Floor {
      * @param activeRoomIndex the activeRoomIndex of the room
      * @param m               Matrix of adjacent room
      * @param pos             the position on the matrix of the room to initialize
+     * @param width           the witdh of the room
+     * @param height          the height of the room
      * @return the room
      */
-    private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos) {
+    private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos,
+            final double width, final double height) {
         final List<Door> doors = new ArrayList<>();
         if (this.roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
             doors.add(new Door(NORD, m.get(pos.getX(), pos.getY() - 1)));
@@ -164,7 +170,7 @@ public class FloorImpl implements Floor {
         if (this.roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
             doors.add(new Door(OVEST, m.get(pos.getX() - 1, pos.getY())));
         }
-        final Room r = new RoomImpl(index, doors);
+        final Room r = new RoomImpl(index, doors, width, height);
         doors.forEach(d -> d.changeRoom(r));
         r.setFloor(this);
         return r;
