@@ -42,10 +42,10 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
      */
     public ConfigurationManagerJavafx(final String path) {
         try {
-            final File fXmlFile = new File(this.getClass().getResource(path).getFile());
+            final File xmlFile = new File(this.getClass().getResource(path).getFile());
             final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            this.doc = dBuilder.parse(fXmlFile);
+            this.doc = dBuilder.parse(xmlFile);
             this.doc.getDocumentElement().normalize();
         } catch (Exception e) {
             e.printStackTrace();

@@ -34,14 +34,15 @@ public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
         mapSelected = new LinkedHashMap<>();
         final ImageView newRun = ViewGetterUtil.getNodeByName("imgNewRun", ImageView.class);
         final ImageView option = ViewGetterUtil.getNodeByName("imgOptions", ImageView.class);
-        sl.addItems(newRun, option);
         final ImageView imgSelector = ViewGetterUtil.getNodeByName("imgSelector", ImageView.class);
+        final Pair<Double, Double> pair = new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight());
+        sl.addItems(newRun, option);
         mapSelected.put(newRun, args[0]);
         mapSelected.put(option, args[1]);
-        sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight()));
+        sl.setDistance(pair);
         sl.setSelector(imgSelector);
         imgSelector.boundsInParentProperty().addListener(b -> {
-            Platform.runLater(() -> sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight())));
+            Platform.runLater(() -> sl.setDistance(pair));
         });
         newRun.setImage(new Image(NEWRUN));
         option.setImage(new Image(OPTION));

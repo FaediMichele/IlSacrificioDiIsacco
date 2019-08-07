@@ -17,7 +17,7 @@ import view.Sound;
 import view.SubMenuView;
 import view.interfaces.MainMenuSelectionView;
 import view.javafx.SoundJavafx;
-import view.javafx.TranslationPageJavafx;
+import view.javafx.SlidingPageJavafx;
 import view.javafx.ViewGetterUtil;
 import view.node.TranslationPages;
 
@@ -59,7 +59,7 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
         this.defaultY = (int) s.getHeight();
         pnMain = ViewGetterUtil.getNodeByName("pnMainMenu", Pane.class);
         // pnMain.setOpacity(0);
-        tp = new TranslationPageJavafx(pnMain, s, msPage);
+        tp = new SlidingPageJavafx(pnMain, s, msPage);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
 
         init(s);

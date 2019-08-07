@@ -18,6 +18,7 @@ import util.Pair;
 public class GameViewImpl implements GameView {
     private final List<EntityView> entities = new ArrayList<>();
     private final List<StatisticView> statistics = new ArrayList<>();
+    private RoomView room;
     private final Canvas cnv;
 
     /**
@@ -41,6 +42,13 @@ public class GameViewImpl implements GameView {
      */
     public void removeEntity(final EntityView entity) {
         this.entities.remove(entity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setRoomView(final RoomView room) {
+        this.room = room;
     }
 
     /**
@@ -82,15 +90,17 @@ public class GameViewImpl implements GameView {
     /**
      * It draws all entities in the canvas.
      */
-    public void draw() { 
+    public void draw() {
         Platform.runLater(() -> {
-                entities.stream().forEach(e -> e.draw(cnv.getGraphicsContext2D()));
-                statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
+            room.draw(cnv.getGraphicsContext2D());
+            entities.stream().forEach(e -> e.draw(cnv.getGraphicsContext2D()));
+            statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
         });
     }
 
     /**
      * {@inheritDoc}
+     * 
      * @param s
      * @param hearts
      */
@@ -101,6 +111,7 @@ public class GameViewImpl implements GameView {
         }
         s.setHearts(hearts);
     }
+
     /**
      * Clear the canvas and all the saved stuff.
      */
