@@ -60,14 +60,7 @@ public class MainMenuSelection extends SubMenuSelection {
      */
     @Override
     public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
-        if (previous.equals(this)) {
-            if (dest.getClass().equals(GameSubMenuSelection.class)) {
-                mmsv.setReadyToChangeListener(() -> {
-                    ((GameSubMenuSelection) dest).startAnimationSelected();
-                });
-                mmsv.playAudioCharacterSelected();
-            }
-        } else if (previous.getClass().equals(GameSubMenuSelection.class)) {
+        if (!previous.equals(this) && previous.getClass().equals(GameSubMenuSelection.class)) {
             this.selectSubMenu(SubMenuGameMenu.class);
         }
         mmsv.selectSelection(previous.equals(this));

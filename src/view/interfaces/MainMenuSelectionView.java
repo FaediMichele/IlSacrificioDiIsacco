@@ -2,7 +2,6 @@ package view.interfaces;
 
 import java.util.List;
 
-import util.Lambda;
 import view.SubMenuView;
 
 /**
@@ -28,25 +27,6 @@ public interface MainMenuSelectionView {
      * @param dest the SubMenuView of destination.
      */
     void jumpTo(SubMenuView dest);
-
-    /**
-     * Start the audio of the character selected.
-     */
-    void playAudioCharacterSelected();
-
-    /**
-     * Set the listener for the character selected audio.
-     * 
-     * @param l the listener
-     */
-    void setReadyToChangeListener(Lambda l);
-
-    /**
-     * Remove the listener for the character selected audio.
-     * 
-     * @param l the listener
-     */
-    void removeReadyToChangeListener(Lambda l);
 
     /**
      * Do the operation for the change of the sub menu selection.

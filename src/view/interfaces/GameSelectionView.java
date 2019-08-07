@@ -3,6 +3,7 @@ package view.interfaces;
 import java.util.Set;
 
 import controller.menu.SubMenu;
+import util.Lambda;
 
 /**
  * The view of the Game sub menu selection.
@@ -14,6 +15,18 @@ public interface GameSelectionView {
      * @param paneOfSubMenu list of pane to bind.
      */
     void setBind(Set<Object> paneOfSubMenu);
+
+    /**
+     * Get a value that indicate if the audio into has ended or it's already running.
+     * @return a boolean.
+     */
+    boolean isPlayingIntro();
+
+    /**
+     * Set a operation to use when the audio ends.
+     * @param l {@link Lambda}.
+     */
+    void setOnIntroEnded(Lambda l);
 
     /**
      * Select the sub menu.

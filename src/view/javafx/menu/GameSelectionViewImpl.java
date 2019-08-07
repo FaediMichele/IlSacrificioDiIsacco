@@ -10,8 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import util.Lambda;
+import view.Sound;
 import view.interfaces.GameSelectionView;
 import view.javafx.ContextPageJavafx;
+import view.javafx.SoundJavafx;
 import view.javafx.ViewGetterUtil;
 import view.node.TranslationPages;
 
@@ -22,24 +24,23 @@ public class GameSelectionViewImpl implements GameSelectionView {
     private static final String GAMEPANE = "pnGameRun";
     private static final String OPTIONSPANE = "pnInGameMenu";
     private static final long MSSUBMENU = 250;
+    private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav");
     private final int defaultX;
     private final int defaultY;
     private final Pane pnMain;
     private final FadeTransition fd;
     private final TranslationPages tp;
-    private final Lambda gameStarted;
+    private Lambda onIntroEnded;
 
     /**
      * Create a new GameSelectionViewImpl.
      * @param msMenu time for the animation of the sliding context menu.
-     * @param gameStarted Listener when the animation end.
      */
-    public GameSelectionViewImpl(final long msMenu, final Lambda gameStarted) {
+    public GameSelectionViewImpl(final long msMenu) {
         final Scene scene = ViewGetterUtil.getScene();
         this.defaultX = (int) scene.getWidth();
         this.defaultY = (int) scene.getHeight();
         this.pnMain = ViewGetterUtil.getNodeByName("pnGame", Pane.class);
-        this.gameStarted = gameStarted;
         pnMain.setOpacity(0);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
         tp = new ContextPageJavafx(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), MSSUBMENU);
@@ -82,10 +83,29 @@ public class GameSelectionViewImpl implements GameSelectionView {
             fd.setToValue(0);
             fd.playFromStart();
         } else {
-            fd.setToValue(1);
-            fd.playFromStart();
-            fd.setOnFinished((e) -> gameStarted.use());
+            characterSelected.play();
+            characterSelected.setEndListener(() -> {
+                fd.setToValue(1);
+                fd.playFromStart();
+                onIntroEnded.use();
+            });
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPlayingIntro() {
+        return characterSelected.isPlaying();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setOnIntroEnded(Lambda l) {
+        onIntroEnded = l;
     }
 
     private void setBind(final Pane p, final Scene s) {

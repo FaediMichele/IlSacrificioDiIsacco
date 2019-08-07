@@ -3,6 +3,7 @@ package controller.menu;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import util.Lambda;
 import view.interfaces.GameSelectionView;
 import view.javafx.menu.GameSelectionViewImpl;
 
@@ -24,13 +25,11 @@ public class GameSubMenuSelection extends SubMenuSelection {
     public GameSubMenuSelection(final MenuSelection parent, final long msMenu) {
         super(parent);
         this.msMenu = msMenu;
+        gmv = new GameSelectionViewImpl(msMenu);
+       
         game = new SubMenuGame(this);
         add(game);
         add(new SubMenuOption(this));
-        gmv = new GameSelectionViewImpl(msMenu, () -> {
-            this.selectSubMenu(SubMenuGame.class);
-            game.startGame();
-        });
         gmv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
     }
 
@@ -65,11 +64,11 @@ public class GameSubMenuSelection extends SubMenuSelection {
      */
     @Override
     public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
-        if (previous.equals(this)) {
-            gmv.changeSelector(true);
-        }
-        if (param instanceof CharacterInfo) {
+        gmv.changeSelector(previous.equals(this));
+        if (!previous.equals(this) && param instanceof CharacterInfo) {
             characterSelected = (CharacterInfo) param;
+            this.selectSubMenu(SubMenuGame.class);
+            game.loadGame();
         }
     }
 
@@ -86,5 +85,17 @@ public class GameSubMenuSelection extends SubMenuSelection {
      */
     public CharacterInfo getCharacterInfo() {
         return characterSelected;
+    }
+
+    /**
+     * Set a listener for the end of the intro.
+     * @param l the listener.
+     */
+    public void setOnIntroEnded(final Lambda l) {
+        gmv.setOnIntroEnded(l);
+    }
+
+    public boolean isPlayingIntro() {
+        return gmv.isPlayingIntro();
     }
 }

@@ -46,6 +46,7 @@ public class SubMenuOption extends SubMenu {
     }
     private void backToMenu() {
         if (getSelector().getParent().contains(MainMenuSelection.class)) {
+            System.out.println("tutto ok");
             getSelector().getParent().select(MainMenuSelection.class);
         }
     }

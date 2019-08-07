@@ -1,6 +1,5 @@
 package view.javafx.menu;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import util.Lambda;
 import view.Sound;
 import view.SubMenuView;
 import view.interfaces.MainMenuSelectionView;
@@ -25,7 +23,6 @@ import view.node.TranslationPages;
  * The selector for JavaFx. It manage the animation for change the sub menu.
  */
 public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
-    private final List<Lambda> readyToChange = new ArrayList<>();
 
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
@@ -45,7 +42,7 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
     private final Sound changeSubMenuAudio = new SoundJavafx("/menuSound/pageTurn.wav");
     private final Sound backgroundAudioIntro = new SoundJavafx("/menuSound/audioIntro.wav");
     private final Sound backgroundAudio = new SoundJavafx("/menuSound/background.wav");
-    private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav");
+
 
     /**
      * Create the {@link MainMenuSelectionViewImpl}.
@@ -64,7 +61,6 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
 
         init(s);
         backgroundAudioIntro.setEndListener(() -> backgroundAudio.playInLoop());
-        characterSelected.setEndListener(() -> readyToChange.forEach(Lambda::use));
     }
 
     /**
@@ -101,30 +97,6 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
             tp.addPage(dest.getMain());
         }
         tp.jumpTo(dest.getMain());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void playAudioCharacterSelected() {
-        characterSelected.play();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setReadyToChangeListener(final Lambda l) {
-        readyToChange.add(l);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeReadyToChangeListener(final Lambda l) {
-        readyToChange.remove(l);
     }
 
     /**
