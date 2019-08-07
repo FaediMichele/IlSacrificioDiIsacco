@@ -32,11 +32,12 @@ public class GameController {
     private final Map<UUID, EntityController> entityControllers;
     /**
      * @param gameMenu is the gameMenu in which the Game Controller operates
+     * @param player .
      */
-    public GameController(final SubMenuGame gameMenu) {
+    public GameController(final SubMenuGame gameMenu, final DataPlayer player, final String game) {
         //super(main);
         this.gameMenu = gameMenu;
-        this.gameWord = new GameWorldImpl();
+        this.gameWord = new GameWorldImpl(game, player);
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
