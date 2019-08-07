@@ -10,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import view.interfaces.GameSelectionView;
+import view.javafx.ContextPageJavafx;
 import view.javafx.ViewGetterUtil;
+import view.node.TranslationPages;
 
 /**
  * The implementation of view of the Game sub menu selection.
@@ -18,12 +20,14 @@ import view.javafx.ViewGetterUtil;
 public class GameSelectionViewImpl implements GameSelectionView {
     private static final String GAMEPANE = "pnGameRun";
     private static final String OPTIONSPANE = "pnInGameMenu";
+    private static final long MSSUBMENU = 250;
     private final int defaultX;
     private final int defaultY;
     private final Pane pnMain;
     private final FadeTransition optionsTransition;
     private final Pane optionsPane;
     private final FadeTransition fd;
+    private final TranslationPages tp;
 
     /**
      * Create a new GameSelectionViewImpl.
@@ -39,7 +43,8 @@ public class GameSelectionViewImpl implements GameSelectionView {
         optionsPane = ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class);
         optionsTransition = new FadeTransition(fd.getDuration(), optionsPane);
         initOptionsPane();
-    }
+        tp = new ContextPageJavafx(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), MSSUBMENU);
+   }
 
     /**
      * {@inheritDoc}
@@ -63,6 +68,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
      */
     @Override
     public void selectSubMenu(final SubMenu end) {
+        tp.goTo(end.getSubMenuView().getMain());
         optionsTransition.setFromValue(0.0);
         optionsTransition.setToValue(1.0);
         optionsTransition.play();

@@ -21,12 +21,12 @@ public class SubMenuOption extends SubMenu {
 
     @Override
     public final void input(final Command c) {
-        if (c.equals(Command.OPTIONS)) {
-            options();
+        if (c.equals(Command.EXIT)) {
+            backToGame();
         }
     }
 
-    private void options() {
+    private void backToGame() {
         if (getSelector().contains(SubMenuGame.class)) {
             getSelector().selectSubMenu(SubMenuGame.class);
         }

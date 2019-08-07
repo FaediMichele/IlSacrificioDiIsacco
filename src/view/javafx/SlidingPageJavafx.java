@@ -12,20 +12,21 @@ import javafx.scene.layout.Pane;
 
 /**
  * The implementation for JavaFx of {@link TranslationPages}.
+ * The pages will slide to the selected one.
  */
-public class TranslationPageJavafx implements TranslationPages {
+public class SlidingPageJavafx implements TranslationPages {
     private final List<Pane> panes;
     private Pane selected;
     private final TranslateTransition tt; 
     private final Scene s; 
 
     /**
-     * Create a TranslationPageJavafx with the time for the animation.
+     * Create a SlidingPageJavafx with the time for the animation.
      * @param main the main pane that contains all the node that will slide.
      * @param s the scene of the application.
      * @param milliseconds the time for the animation.
      */
-    public TranslationPageJavafx(final Pane main, final Scene s, final long milliseconds) {
+    public SlidingPageJavafx(final Pane main, final Scene s, final long milliseconds) {
         panes = new ArrayList<Pane>();
         tt = new TranslateTransition(Duration.millis(milliseconds), main);
         this.s = s;
