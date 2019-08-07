@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ import model.util.EntityInformation;
 import model.util.Position;
 import util.Command;
 import util.NotEquals;
+import view.javafx.game.RoomView;
 
 /**
  * The {@link Controller} for the game which includes the game loop and it
@@ -37,14 +39,16 @@ public class GameController {
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
+     * @throws IOException 
      */
-    public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         //super(main);
         this.gameMenu = gameMenu;
         this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
+        gameMenu.getGameView().setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
     }
 
     /**
