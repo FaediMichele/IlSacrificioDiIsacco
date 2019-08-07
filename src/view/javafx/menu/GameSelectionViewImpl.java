@@ -9,6 +9,7 @@ import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import util.Lambda;
 import view.interfaces.GameSelectionView;
 import view.javafx.ContextPageJavafx;
 import view.javafx.ViewGetterUtil;
@@ -28,16 +29,19 @@ public class GameSelectionViewImpl implements GameSelectionView {
     private final Pane optionsPane;
     private final FadeTransition fd;
     private final TranslationPages tp;
+    private final Lambda gameStarted;
 
     /**
      * Create a new GameSelectionViewImpl.
      * @param msMenu time for the animation of the sliding context menu.
+     * @param gameStarted Listener when the animation end.
      */
-    public GameSelectionViewImpl(final long msMenu) {
+    public GameSelectionViewImpl(final long msMenu, final Lambda gameStarted) {
         final Scene scene = ViewGetterUtil.getScene();
         this.defaultX = (int) scene.getWidth();
         this.defaultY = (int) scene.getHeight();
         this.pnMain = ViewGetterUtil.getNodeByName("pnGame", Pane.class);
+        this.gameStarted = gameStarted;
         pnMain.setOpacity(0);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
         optionsPane = ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class);
@@ -85,7 +89,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
         } else {
             fd.setToValue(1);
             fd.playFromStart();
-            fd.setOnFinished((e) -> System.out.println("Il gioco parte (sono in gameSubMenuSelectionView)"));
+            fd.setOnFinished((e) -> gameStarted.use());
         }
     }
 

@@ -43,7 +43,7 @@ public class GameController {
      */
     public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         //super(main);
-        System.out.println("perchè non esiste printf in java devo ancora capirlo");
+        System.out.println("perchè non esiste printf in java devo ancora capirlo\nGiocatore Selezionato: " + player.getValue());
         this.gameMenu = gameMenu;
         this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;

@@ -3,6 +3,7 @@ package controller.menu;
 import java.io.IOException;
 
 import controller.GameController;
+import model.enumeration.BasicPlayerEnum;
 import util.Command;
 import view.SubMenuView;
 import view.interfaces.SubMenuGameView;
@@ -52,7 +53,7 @@ public class SubMenuGame extends SubMenu {
         final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
         final CharacterInfo character = sel.getCharacterInfo();
         try {
-            this.gameController = new GameController(this, character.getInfo(), null);
+            this.gameController = new GameController(this, character.getInfo(), "");
             gameController.start();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
             e.printStackTrace();

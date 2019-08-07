@@ -22,12 +22,11 @@ public class GameSubMenuSelection extends SubMenuSelection {
      */
     public GameSubMenuSelection(final MenuSelection parent, final long msMenu) {
         super(parent);
-        gmv = new GameSelectionViewImpl(msMenu);
         this.msMenu = msMenu;
 
         add(new SubMenuGame(this));
         add(new SubMenuOption(this));
-
+        gmv = new GameSelectionViewImpl(msMenu, () -> this.selectSubMenu(SubMenuGame.class));
         gmv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
     }
 
@@ -42,8 +41,9 @@ public class GameSubMenuSelection extends SubMenuSelection {
      */
     @Override
     public void selectSubMenu(final SubMenu start, final SubMenu end) {
-        Objects.requireNonNull(start);
         Objects.requireNonNull(end);
+        end.select();
+        System.out.println("BESTIA");
     }
 
     /**
