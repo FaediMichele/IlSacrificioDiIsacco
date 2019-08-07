@@ -27,7 +27,7 @@ public class RoomView {
      * @throws IOException 
      */
     public RoomView(final String path, final Set<DoorView> doors) throws IOException {
-        final BufferedImage img = ImageIO.read(IsaacView.class.getResource(path));
+        final BufferedImage img = ImageIO.read(RoomView.class.getResource(path));
         this.imageRoom = SwingFXUtils.toFXImage(img, null);
         this.doors = doors;
     }

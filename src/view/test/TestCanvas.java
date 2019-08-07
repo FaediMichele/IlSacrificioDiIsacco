@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.enumeration.BasicMovementEnum;
+import view.javafx.game.DoorView;
 import view.javafx.game.GameViewImpl;
 import view.javafx.game.GaperView;
 import view.javafx.game.IsaacView;
@@ -42,12 +43,20 @@ public class TestCanvas extends Application {
         gaper.setWidth(85);
         gaper.setGameView(new GameViewImpl(canvas));
         gaper.def(BasicMovementEnum.DOWN);
+        final DoorView door = new DoorView(UUID.randomUUID());
+        door.setX(root.getLayoutX());
+        door.setY(15);
+        door.setHeight(85);
+        door.setWidth(85);
+        door.setGameView(new GameViewImpl(canvas));
+        door.locked(BasicMovementEnum.UP);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 room.draw(canvas.getGraphicsContext2D());
                 isaac.draw(canvas.getGraphicsContext2D());
                 gaper.draw(canvas.getGraphicsContext2D());
+                door.draw(canvas.getGraphicsContext2D());
             }
         });
         root.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
@@ -82,10 +91,11 @@ public class TestCanvas extends Application {
                         room.draw(canvas.getGraphicsContext2D());
                         isaac.draw(canvas.getGraphicsContext2D());
                         gaper.draw(canvas.getGraphicsContext2D());
+                        door.draw(canvas.getGraphicsContext2D());
                     }
                 });
                 try {
-                    Thread.sleep(75);
+                    Thread.sleep(40);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
