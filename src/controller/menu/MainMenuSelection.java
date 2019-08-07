@@ -3,7 +3,8 @@ package controller.menu;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import view.javafx.game.menu.MainMenuSelectionView;
+import view.javafx.game.menu.MainMenuSelectionViewImpl;
+import view.menuInterfaces.MainMenuSelectionView;
 
 /**
  * SubMenuSelection for the main menu of the game.
@@ -20,7 +21,7 @@ public class MainMenuSelection extends SubMenuSelection {
      */
     public MainMenuSelection(final MenuSelection parent, final long msMenu) {
         super(parent);
-        mmsv = new MainMenuSelectionView(MSPAGE, msMenu);
+        mmsv = new MainMenuSelectionViewImpl(MSPAGE, msMenu);
         this.msMenu = msMenu;
         add(new SubMenuEnter(this));
         add(new SubMenuGameMenu(this));

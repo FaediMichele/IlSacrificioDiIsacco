@@ -2,7 +2,8 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
-import view.javafx.game.menu.SubMenuEnterView;
+import view.javafx.game.menu.SubMenuEnterViewImpl;
+import view.menuInterfaces.SubMenuEnterView;
 
 /**
  * This class is the sub menu for the entering in the game.
@@ -19,7 +20,7 @@ public class SubMenuEnter extends SubMenu {
      */
     public SubMenuEnter(final SubMenuSelection selector) {
         super(selector);
-        smv = new SubMenuEnterView(FRAMETIME_ISAAC, FRAMETIME_NAMEOFGAME, ANGLE_NAMEOFGAME);
+        smv = new SubMenuEnterViewImpl(FRAMETIME_ISAAC, FRAMETIME_NAMEOFGAME, ANGLE_NAMEOFGAME);
     }
 
     @Override

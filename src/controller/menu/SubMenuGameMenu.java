@@ -2,14 +2,15 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
-import view.javafx.game.menu.SubMenuGameMenuView;
+import view.javafx.game.menu.SubMenuSelectMenuViewImpl;
+import view.menuInterfaces.SubMenuSelectMenuView;
 
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).
  */
 public class SubMenuGameMenu extends SubMenu {
     private static final Object[] ARGS = new Object[] { new Object(), new Object()};
-    private final SubMenuGameMenuView mgv;
+    private final SubMenuSelectMenuView mgv;
 
     /**
      * Create the menu to choose the options or new run.
@@ -17,7 +18,7 @@ public class SubMenuGameMenu extends SubMenu {
      */
     public SubMenuGameMenu(final SubMenuSelection selector) {
         super(selector); 
-        mgv = new SubMenuGameMenuView(ARGS);
+        mgv = new SubMenuSelectMenuViewImpl(ARGS);
     }
 
     @Override

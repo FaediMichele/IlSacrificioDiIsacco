@@ -4,18 +4,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import view.AnimatedView;
-import view.SubMenuView;
 import view.TimedViews;
 import view.javafx.AnimatedViewJavafx;
 import view.javafx.TimedViewsJavafx;
+import view.menuInterfaces.SubMenuEnterView;
 import view.node.RotatingNode;
 import view.node.javafx.RotatingNodeJavafx;
 
 /**
- * View of the sub menu for the initial page of the main menu.
- *
+ * Implementation view of the sub menu for the initial page of the main menu.
  */
-public final class SubMenuEnterView implements SubMenuView {
+public final class SubMenuEnterViewImpl implements SubMenuEnterView {
 
     private static final String BACKGROUND = "/menuImgs/backgroundEnter.png";
     private static final String NAMEOFGAME = "/menuImgs/titleMenu.png";
@@ -31,7 +30,7 @@ public final class SubMenuEnterView implements SubMenuView {
      * @param timeName time in milliseconds of the animation of the rotating name.
      * @param angle angle of the animation of the rotating name.
      */
-    public SubMenuEnterView(final long timeIsaac, final long timeName, final double angle) {
+    public SubMenuEnterViewImpl(final long timeIsaac, final long timeName, final double angle) {
         final ImageView nameOfGame = ViewGetter.getNodeByName("imgNameOfGame", ImageView.class);
         final ImageView isaac = ViewGetter.getNodeByName("imgIsaac", ImageView.class);
         final ImageView background = ViewGetter.getNodeByName("imgBackgroundEnter", ImageView.class);
@@ -50,16 +49,18 @@ public final class SubMenuEnterView implements SubMenuView {
     }
 
     /**
-     * Start the animation.
+     * {@inheritDoc}
      */
+    @Override
     public void start() {
         timedIsaac.start();
         nameOfGameAnimated.start();
     }
 
     /**
-     * Stop the animation.
+     * {@inheritDoc}
      */
+    @Override
     public void stop() {
         timedIsaac.stop();
         nameOfGameAnimated.stop();

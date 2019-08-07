@@ -8,14 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
-import view.SubMenuView;
+import view.menuInterfaces.SubMenuSelectMenuView;
 import view.node.SelectList;
 import view.node.javafx.SelectListJavafx;
 
 /**
- * The view of the sub menu where select new run or options.
+ * The implementation view of the sub menu where select new run or options.
  */
-public class SubMenuGameMenuView implements SubMenuView {
+public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
     private static final String NEWRUN = "/menuImgs/newRun.png";
     private static final String OPTION = "/menuImgs/options.png";
     private static final String ARROW = "/menuImgs/selector.png";
@@ -23,10 +23,10 @@ public class SubMenuGameMenuView implements SubMenuView {
     private final Map<ImageView, Object> mapSelected;
 
     /**
-     * Create a new {@link SubMenuGameMenuView}.
-     * @param args argument to returned by the {@link SubMenuGameMenuView#get()} in order by the selected item.
+     * Create a new {@link SubMenuSelectMenuViewImpl}.
+     * @param args argument to returned by the {@link SubMenuSelectMenuViewImpl#get()} in order by the selected item.
      */
-    public SubMenuGameMenuView(final Object... args) {
+    public SubMenuSelectMenuViewImpl(final Object... args) {
         if (args.length < sl.lenght()) {
             throw new IllegalArgumentException("args must be grater or equal to the list of the item(" + sl.lenght() + ")");
         }
@@ -48,30 +48,33 @@ public class SubMenuGameMenuView implements SubMenuView {
     }
 
     /**
-     * Next item.
+     * {@inheritDoc}
      */
+    @Override
     public void next() {
         sl.next();
     }
 
     /**
-     * Previous item.
+     * {@inheritDoc}
      */
+    @Override
     public void previous() {
         sl.previous();
     }
 
     /**
-     * Get the valued passed in the {@link SubMenuGameMenuView#SubMenuGameMenuView(Object...)}.
-     * @return an object
+     * {@inheritDoc}
      */
+    @Override
     public Object get() {
         return mapSelected.get(sl.get());
     }
 
     /**
-     * Go to the initial position.
+     * {@inheritDoc}
      */
+    @Override
     public void initial() {
         sl.initial();
     }

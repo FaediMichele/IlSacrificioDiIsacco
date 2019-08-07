@@ -9,11 +9,12 @@ import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import view.menuInterfaces.GameSelectionView;
 
 /**
- * The view of the Game sub menu selection.
+ * The implementation of view of the Game sub menu selection.
  */
-public class GameSubMenuSelectionView {
+public class GameSelectionViewImpl implements GameSelectionView {
     private static final String GAMEPANE = "pnGameRun";
     private static final String OPTIONSPANE = "pnInGameMenu";
     private final int defaultX;
@@ -24,10 +25,10 @@ public class GameSubMenuSelectionView {
     private final FadeTransition fd;
 
     /**
-     * Create a new GameSubMenuSelectionView.
+     * Create a new GameSelectionViewImpl.
      * @param msMenu time for the animation of the sliding context menu.
      */
-    public GameSubMenuSelectionView(final long msMenu) {
+    public GameSelectionViewImpl(final long msMenu) {
         final Scene scene = ViewGetter.getScene();
         this.defaultX = (int) scene.getWidth();
         this.defaultY = (int) scene.getHeight();
@@ -40,9 +41,9 @@ public class GameSubMenuSelectionView {
     }
 
     /**
-     * Set the bind of the list of sub panes to the main pane.
-     * @param paneOfSubMenu list of pane to bind.
+     * {@inheritDoc}
      */
+    @Override
     public void setBind(final Set<Object> paneOfSubMenu) {
         final Scene scene = ViewGetter.getScene();
         this.bindDown(ViewGetter.getNodeByName(GAMEPANE, Pane.class), optionsPane);
@@ -57,9 +58,9 @@ public class GameSubMenuSelectionView {
     }
 
     /**
-     * Select the sub menu.
-     * @param end the sub menu selected.
+     * {@inheritDoc}
      */
+    @Override
     public void selectSubMenu(final SubMenu end) {
         optionsTransition.setFromValue(0.0);
         optionsTransition.setToValue(1.0);
@@ -67,9 +68,9 @@ public class GameSubMenuSelectionView {
     }
 
     /**
-     * Change the selector.
-     * @param previous if the previous selector is this or not.
+     * {@inheritDoc}
      */
+    @Override
     public void changeSelector(final boolean previous) {
         if (previous) {
             fd.setToValue(0);
@@ -80,11 +81,7 @@ public class GameSubMenuSelectionView {
             fd.setOnFinished((e) -> System.out.println("Il gioco parte (sono in gameSubMenuSelectionView)"));
         }
     }
-    /**
-     * Initialize the layout binding.
-     * @param p
-     * @param s
-     */
+
     private void setBind(final Pane p, final Scene s) {
         p.layoutXProperty().bind(s.widthProperty().divide(2).subtract(p.widthProperty().divide(2)).
                 add(s.widthProperty().divide(defaultX).multiply(p.getLayoutX())));

@@ -4,7 +4,8 @@ import controller.GameController;
 import util.Command;
 import view.SubMenuView;
 import view.javafx.game.GameView;
-import view.javafx.game.menu.SubMenuGameView;
+import view.javafx.game.menu.SubMenuGameViewImpl;
+import view.menuInterfaces.SubMenuGameView;
 
 /**
  * 
@@ -21,7 +22,7 @@ public class SubMenuGame extends SubMenu {
      */
     public SubMenuGame(final SubMenuSelection selector) {
         super(selector);
-        smgv = new SubMenuGameView();
+        smgv = new SubMenuGameViewImpl();
         this.gameController = new GameController(this);
     }
 

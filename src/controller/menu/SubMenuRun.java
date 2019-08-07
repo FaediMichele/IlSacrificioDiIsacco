@@ -2,7 +2,8 @@ package controller.menu;
 
 import util.Command;
 import view.SubMenuView;
-import view.javafx.game.menu.SubMenuRunView;
+import view.javafx.game.menu.SubMenuRunViewImpl;
+import view.menuInterfaces.SubMenuRunView;
 
 /**
  * This is the sub menu for the selection of the character.
@@ -24,7 +25,7 @@ public class SubMenuRun extends SubMenu {
      */
     public SubMenuRun(final SubMenuSelection selector) {
         super(selector);
-        smrv = new SubMenuRunView(CL_WIDTH, CL_HEIGHT, CL_SCALE, CL_TIME, CL_X, CL_Y);
+        smrv = new SubMenuRunViewImpl(CL_WIDTH, CL_HEIGHT, CL_SCALE, CL_TIME, CL_X, CL_Y);
     }
 
     @Override

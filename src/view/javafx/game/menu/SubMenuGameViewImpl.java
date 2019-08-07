@@ -3,22 +3,22 @@ package view.javafx.game.menu;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import view.SubMenuView;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
+import view.menuInterfaces.SubMenuGameView;
 
 /**
- * The view of the sub menu of the game. 
+ * The implementation view of the sub menu of the game. 
  */
-public class SubMenuGameView implements SubMenuView {
+public class SubMenuGameViewImpl implements SubMenuGameView {
     private final Canvas cnv;
     private final Image gameOverImg;
     private final GameView gameView;
 
     /**
-     * Create a new SubMenuGameView.
+     * Create a new SubMenuGameViewImpl.
      */
-    public SubMenuGameView() {
+    public SubMenuGameViewImpl() {
         this.cnv = ViewGetter.getNodeByName("cnvGame", Canvas.class);
         final Pane main = ViewGetter.getNodeByName("pnGameRun", Pane.class);
         gameOverImg = new Image("/menuImgs/Full_Death_Note.png");
@@ -28,23 +28,25 @@ public class SubMenuGameView implements SubMenuView {
     }
 
     /**
-     * Get the {@link GameView}.
-     * @return the {@link GameView}
+     * {@inheritDoc}
      */
+    @Override
     public GameView getGameView() {
         return gameView;
     }
 
     /**
-     * Reset the {@link GameView}.
+     * {@inheritDoc}
      */
+    @Override
     public void reset() {
         gameView.clear();
     }
 
     /**
-     * Show a end game picture.
+     * {@inheritDoc}
      */
+    @Override
     public void gameOver() {
         cnv.getGraphicsContext2D().drawImage(gameOverImg, 0, 0);
     }

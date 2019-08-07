@@ -3,24 +3,25 @@ package controller.menu;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import view.javafx.game.menu.GameSubMenuSelectionView;
+import view.javafx.game.menu.GameSelectionViewImpl;
+import view.menuInterfaces.GameSelectionView;
 
 /**
  *
  */
 public class GameSubMenuSelection extends SubMenuSelection {
-    private final GameSubMenuSelectionView gmv;
+    private final GameSelectionView gmv;
     private final long msMenu;
 
     /**
      * 
-     * Create the {@link MainMenuSelectionView}. 
+     * Create the {@link MainMenuSelectionViewImpl}. 
      * @param parent the {@link MenuSelection}.
      * @param msMenu the time for the fade effect.
      */
     public GameSubMenuSelection(final MenuSelection parent, final long msMenu) {
         super(parent);
-        gmv = new GameSubMenuSelectionView(msMenu);
+        gmv = new GameSelectionViewImpl(msMenu);
         this.msMenu = msMenu;
 
         add(new SubMenuGame(this));

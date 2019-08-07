@@ -12,14 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import view.SubMenuView;
+import view.menuInterfaces.SubMenuRunView;
 import view.node.CircleList;
 import view.node.javafx.CircleListRandomJavafx;
 
 /**
- * View of the SubMenu of the run part of the main menu.
+ * Implementation view of the SubMenu of the run part of the main menu.
  */
-public class SubMenuRunView implements SubMenuView {
+public class SubMenuRunViewImpl implements SubMenuRunView {
     private static final Image RANDOM_IMAGE = new Image("/menuImgs/randomSpritePreview.png");
     private Set<CharacterInfo> infos;
     private final Map<ImageView, CharacterInfo> mapInfos = new LinkedHashMap<>();
@@ -33,7 +33,7 @@ public class SubMenuRunView implements SubMenuView {
     private final CircleList list;
 
     /**
-     * Create a new SubMenuRunView.
+     * Create a new SubMenuRunViewImpl.
      * @param width dimension of the circle list.
      * @param height dimension of the circle list.
      * @param scale dimension of the circle list.
@@ -41,7 +41,7 @@ public class SubMenuRunView implements SubMenuView {
      * @param x position of the circle list.
      * @param y position of the circle list.
      */
-    public SubMenuRunView(final int width, final int height, final double scale, final long time, final int x, final int y) {
+    public SubMenuRunViewImpl(final int width, final int height, final double scale, final long time, final int x, final int y) {
         final ImageView random = ViewGetter.getNodeByName("imgRandom", ImageView.class);
         list = new CircleListRandomJavafx(width, height,
                 scale, Duration.millis(time), random);

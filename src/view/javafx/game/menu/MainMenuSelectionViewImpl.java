@@ -17,18 +17,19 @@ import view.Sound;
 import view.SubMenuView;
 import view.javafx.SoundJavafx;
 import view.javafx.TranslationPageJavafx;
+import view.menuInterfaces.MainMenuSelectionView;
 import view.node.TranslationPages;
 
 /**
  * The selector for JavaFx. It manage the animation for change the sub menu.
  */
-public class MainMenuSelectionView {
+public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
     private final List<Lambda> readyToChange = new ArrayList<>();
 
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
     private static final String ENTER = "pnEnter";
-    private static final String GAME = "pnGame";
+    private static final String GAME = "pnMenuMain";
 
     private final int defaultX;
     private final int defaultY;
@@ -46,12 +47,12 @@ public class MainMenuSelectionView {
     private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav");
 
     /**
-     * Create the {@link MainMenuSelectionView}.
+     * Create the {@link MainMenuSelectionViewImpl}.
      * 
      * @param msPage the time for the animation for slide the sub Menu.
      * @param msMenu the time for the fade effect.
      */
-    public MainMenuSelectionView(final long msPage, final long msMenu) {
+    public MainMenuSelectionViewImpl(final long msPage, final long msMenu) {
         final Scene s = ViewGetter.getScene();
         this.defaultX = (int) s.getWidth();
         this.defaultY = (int) s.getHeight();
@@ -66,18 +67,17 @@ public class MainMenuSelectionView {
     }
 
     /**
-     * Play the audio of the sub menu that change.
+     * {@inheritDoc}
      */
+    @Override
     public void playChanged() {
         changeSubMenuAudio.play();
     }
 
     /**
-     * Animate the transition of the sub menu.
-     * 
-     * @param start the SubMenuView of start
-     * @param end   the SubMenuView of end
+     * {@inheritDoc}
      */
+    @Override
     public void changeSubMenu(final SubMenuView start, final SubMenuView end) {
         if (start != null && !tp.contains(start.getMain())) {
             tp.addPage(start.getMain());
@@ -91,10 +91,9 @@ public class MainMenuSelectionView {
     }
 
     /**
-     * Jump to the SubMenu.
-     * 
-     * @param dest the SubMenuView of destination.
+     * {@inheritDoc}
      */
+    @Override
     public void jumpTo(final SubMenuView dest) {
         Objects.requireNonNull(dest);
         if (!tp.contains(dest.getMain())) {
@@ -104,35 +103,33 @@ public class MainMenuSelectionView {
     }
 
     /**
-     * Start the audio of the character selected.
+     * {@inheritDoc}
      */
+    @Override
     public void playAudioCharacterSelected() {
         characterSelected.play();
     }
 
     /**
-     * Set the listener for the character selected audio.
-     * 
-     * @param l the listener
+     * {@inheritDoc}
      */
+    @Override
     public void setReadyToChangeListener(final Lambda l) {
         readyToChange.add(l);
     }
 
     /**
-     * Remove the listener for the character selected audio.
-     * 
-     * @param l the listener
+     * {@inheritDoc}
      */
+    @Override
     public void removeReadyToChangeListener(final Lambda l) {
         readyToChange.remove(l);
     }
 
     /**
-     * Do the operation for the change of the sub menu selection.
-     * 
-     * @param previous if the selected sub menu selection is this or not.
+     * {@inheritDoc}
      */
+    @Override
     public void selectSelection(final boolean previous) {
         if (previous) {
             fd.setToValue(0);
@@ -147,10 +144,9 @@ public class MainMenuSelectionView {
     }
 
     /**
-     * Set the bind of the sub menu contained.
-     * 
-     * @param paneOfSubMenu the sub menu panes.
+     * {@inheritDoc}
      */
+    @Override
     public void setBind(final List<Object> paneOfSubMenu) {
         final Scene s = ViewGetter.getScene();
         final Supplier<Stream<Pane>> str = () -> Stream.of(paneOfSubMenu.toArray()).map(o -> Pane.class.cast(o));
