@@ -7,7 +7,6 @@ import model.entity.Entity;
 import model.util.EntityInformation;
 import util.Pair;
 
-
 /**
  * The interface for the rooms for the floor. It have enemy and environment
  * entity.
@@ -21,8 +20,9 @@ public interface Room {
     List<? extends Entity> getEntities();
 
     /**
-     * Get a list of the status of all the entities.
-     * Get also the deleted entities if not already got before then delete them.
+     * Get a list of the status of all the entities. Get also the deleted entities
+     * if not already got before then delete them.
+     * 
      * @return the map from {@link KeyMapStatusEnum} to {@link ValuesMapStatusEnum}.
      */
     List<EntityInformation> getEntitiesStatus();
@@ -42,12 +42,13 @@ public interface Room {
     void updateEntity(Double deltaTime);
 
     /**
-     * React to the collision that is found at this time. 
+     * React to the collision that is found at this time.
      */
     void calculateCollision();
 
     /**
      * Get the {@link Entity} that is colliding.
+     * 
      * @return the {@link Entity} that collide.
      */
     Set<Pair<Entity, Entity>> getEntityColliding();
@@ -68,6 +69,7 @@ public interface Room {
 
     /**
      * Set the name of the room in order to load the entities.
+     * 
      * @param name the name of the room.
      */
     void fill(String name);
@@ -81,29 +83,42 @@ public interface Room {
 
     /**
      * Delete the {@link Entity} to the room.
+     * 
      * @param e the {@link Entity} to delete
      */
     void deleteEntity(Entity e);
 
     /**
      * Get the {@link Floor} that contains the room.
+     * 
      * @return the {@link Floor} where the room is.
      */
     Floor getFloor();
 
-
     /**
      * Set the {@link Floor} that contains the room.
+     * 
      * @param f the {@link Floor} where the room is
      */
     void setFloor(Floor f);
 
     /**
-     * Get the shortest path. 
-     * Be careful to not use this every frame because it cost.
+     * Get the shortest path. Be careful to not use this every frame because it
+     * cost.
+     * 
      * @param start the entity to start the route.
-     * @param dest the entity of destination.
+     * @param dest  the entity of destination.
      * @return a near point to the preferred path.
      */
     Pair<Double, Double> getRoute(Entity start, Entity dest);
+
+    /**
+     * @return the width
+     */
+    double getWidth();
+
+    /**
+     * @return the height
+     */
+    double getHeight();
 }

@@ -52,7 +52,7 @@ public class EntityController {
     /**
      * 
      * @param info 
-     * @param gv the GameView to which this entityView belongs to
+     * @param gameView the GameView to which this entityView belongs to
      * @throws ClassNotFoundException 
      * @throws NoSuchMethodException 
      * @throws SecurityException 
@@ -61,13 +61,13 @@ public class EntityController {
      * @throws IllegalArgumentException 
      * @throws InvocationTargetException 
      */
-    public EntityController(final EntityInformation info, final GameView gv) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public EntityController(final EntityInformation info, final GameView gameView) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.id = info.getId();
         this.entityName = info.getEntityName();
         final Class<? extends EntityView> classEntity = ENTITY_MAP.get(this.entityName);
         final Constructor<? extends EntityView> constructor = classEntity.getConstructor(new Class[] { UUID.class});
         this.entityView = (EntityView) constructor.newInstance(new Object[] {id});
-        this.entityView.setGameView(gv);
+        this.entityView.setGameView(gameView);
         this.entityView.appear(null);
     }
 

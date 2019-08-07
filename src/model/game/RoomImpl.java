@@ -57,17 +57,24 @@ public class RoomImpl implements Room {
     private boolean isComplete;
     private boolean cleanGraveyard;
 
+    private final double width;
+    private final double height;
+
     /**
      * Create a room with only door. Entity is calculated based on the door.
      * 
-     * @param index the index of the room
-     * @param doors the door of this room
+     * @param index  the index of the room
+     * @param doors  the door of this room
+     * @param width  the width of the room
+     * @param height the height of the room
      */
-    public RoomImpl(final int index, final List<Door> doors) {
+    public RoomImpl(final int index, final List<Door> doors, final double width, final double height) {
         this.index = index;
         this.doors = doors;
         this.entity = new ArrayList<>();
         cleanGraveyard = false;
+        this.width = width;
+        this.height = height;
     }
 
     /**
@@ -76,15 +83,21 @@ public class RoomImpl implements Room {
      * @param index  the index of the room
      * @param door   the door of this room
      * @param entity the entity of this room
+     * @param width  the width of the room
+     * @param height the height of the room
      */
-    public RoomImpl(final int index, final List<Door> door, final List<Entity> entity) {
+    public RoomImpl(final int index, final List<Door> door, final List<Entity> entity, final double width,
+            final double height) {
         this.index = index;
         this.doors = door;
         this.isComplete = false;
         this.entity = new ArrayList<>();
         entity.forEach(e -> insertEntity(e));
         cleanGraveyard = false;
+        this.width = width;
+        this.height = height;
     }
+
     private Space.Rectangle getShape(final Entity e) {
         final BodyComponent b = e.getComponent(BodyComponent.class).get();
         return new Space.Rectangle(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
@@ -270,7 +283,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public void fill(final String name)  {
+    public void fill(final String name) {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Room.xml");
         final List<Node> ls = StaticMethodsUtils
                 .getNodesFromNodelList(docXML.getElementsByTagName(name).item(0).getChildNodes());
@@ -287,14 +300,14 @@ public class RoomImpl implements Room {
                         cArg[0] = String.class;
                         String paramether = "";
                         for (int index = 0; index < entity.getAttributes().getLength(); index++) {
-                            paramether += entity.getAttributes().item(index).getNodeName()
-                                    + "=\"" + entity.getAttributes().item(index).getNodeValue() + "\"";
+                            paramether += entity.getAttributes().item(index).getNodeName() + "=\""
+                                    + entity.getAttributes().item(index).getNodeValue() + "\"";
                             if (index + 1 < entity.getAttributes().getLength()) {
                                 paramether += ", ";
                             }
                         }
                         if (entityName.contains(".")) {
-                            entityClass =  Class.forName(entityName);
+                            entityClass = Class.forName(entityName);
                         } else {
                             entityClass = Class.forName("model.entity." + entityName);
                         }
@@ -319,6 +332,16 @@ public class RoomImpl implements Room {
                 }
             }
         }
+    }
+
+    @Override
+    public final double getWidth() {
+        return width;
+    }
+
+    @Override
+    public final double getHeight() {
+        return height;
     }
 
 }

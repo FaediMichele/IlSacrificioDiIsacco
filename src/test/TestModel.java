@@ -134,9 +134,9 @@ public class TestModel {
         boolean ok;
         Door d1 = new Door(2, 0);
         Door d2 = new Door(1, 2);
-        rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(new Door(0, 1), new Door(1, 2)))));
-        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(d1, d2))));
-        rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(new Door(3, 0), new Door(1, 1)))));
+        rooms.add(new RoomImpl(0, new ArrayList<>(Arrays.asList(new Door(0, 1), new Door(1, 2))), 10, 10));
+        rooms.add(new RoomImpl(1, new ArrayList<>(Arrays.asList(d1, d2)), 10, 10));
+        rooms.add(new RoomImpl(2, new ArrayList<>(Arrays.asList(new Door(3, 0), new Door(1, 1))), 10, 10));
         final Floor f = new FloorImpl(rooms);
 
         assertEquals(Integer.valueOf(f.getActiveRoom().getIndex()), Integer.valueOf(0));
@@ -166,7 +166,7 @@ public class TestModel {
         final Fire f = new Fire(FireType.RED, 0, 0);
         e.add(r);
         e.add(f);
-        final Room room = new RoomImpl(0, new ArrayList<Door>(), e);
+        final Room room = new RoomImpl(0, new ArrayList<Door>(), e, 10, 10);
         e.forEach(entity -> assertEquals(entity.getRoom(), room));
 
         final List<Entity> e1 = new ArrayList<>();
@@ -191,7 +191,7 @@ public class TestModel {
         e.add(npc1);
         e.add(npc2);
         BodyComponent b = getBodyComponent(npc2);
-        buildedRoom = new RoomImpl(0, new ArrayList<Door>(), e);
+        buildedRoom = new RoomImpl(0, new ArrayList<Door>(), e, 10, 10);
         Set<Pair<Entity, Entity>> coll = buildedRoom.getEntityColliding();
         assertTrue(coll.size() == 0);
         b.setPosition(0, 4, 4);
@@ -338,7 +338,7 @@ public class TestModel {
         final List<Entity> entities = new ArrayList<>();
         entities.add(goodEntity);
         entities.add(enemy);
-        new RoomImpl(0, new LinkedList<Door>(), entities);
+        new RoomImpl(0, new LinkedList<Door>(), entities, 10, 10);
         goodEntity.postEvent(new DamageEvent(enemy));
         assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
         assertEquals(this.getHealthComponent(enemy).getLife(), finalEnemyLife);
@@ -368,7 +368,7 @@ public class TestModel {
         player.postEvent(new CollisionEvent(good));
         assertEquals(life - damage, getHealthComponent(player).getLife());
 
-        Room room = new RoomImpl(2, null);
+        Room room = new RoomImpl(2, null, 10, 10);
         room.insertEntity(collectible);
         assertTrue(player.hasComponent(StatusComponent.class));
         assertTrue(collectible.hasComponent(StatusComponent.class));
@@ -461,7 +461,7 @@ public class TestModel {
     public void testTearWeaponComponent() {
         final double deltaTime = 2000;
         Player p = new Player();
-        Room room = new RoomImpl(2, null);
+        Room room = new RoomImpl(2, null, 10, 10);
         room.insertEntity(p);
         p.postEvent(new MoveEvent(p, 3, 2, 0));
         this.getMoveComponent(p).update(deltaTime);

@@ -110,4 +110,14 @@ public class GameViewImpl implements GameView {
         entities.clear();
         statistics.clear();
     }
+
+    @Override
+    public final double getHeight() {
+        return cnv.getHeight();
+    }
+
+    @Override
+    public final double getWidth() {
+        return cnv.getWidth();
+    }
 }
