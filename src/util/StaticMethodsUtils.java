@@ -343,8 +343,8 @@ public final class StaticMethodsUtils {
         final String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
         final String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
         final Node node = xml.getElementsByTagName(enumValue).item(0);
-        System.out.println(pathEnumModel + " " + node.getTextContent());
-        System.out.println(Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getTextContent()));
+        //System.out.println(pathEnumModel + " " + node.getTextContent());
+        //System.out.println(Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getTextContent()));
         return (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
     }
 }

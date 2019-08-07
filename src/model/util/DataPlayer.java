@@ -1,6 +1,6 @@
 package model.util;
 
-import view.enumeration.PlayerMenuEnum;
+import model.enumeration.PlayerEnum;
 
 /**
  * 
@@ -9,7 +9,7 @@ import view.enumeration.PlayerMenuEnum;
  */
 public class DataPlayer {
 
-    private  PlayerMenuEnum name;
+    private PlayerEnum name;
     private double life;
     private double speed;
     private double damage;
@@ -18,7 +18,7 @@ public class DataPlayer {
      * 
      * @return .
      */
-    public PlayerMenuEnum getName() {
+    public PlayerEnum getName() {
         return name;
     }
 
@@ -27,7 +27,7 @@ public class DataPlayer {
      * @param name .
      * @return .
      */
-    public DataPlayer setName(final PlayerMenuEnum name) {
+    public DataPlayer setName(final PlayerEnum name) {
         this.name = name;
         return this;
     }

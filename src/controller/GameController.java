@@ -34,7 +34,7 @@ public class GameController {
      * @param gameMenu is the gameMenu in which the Game Controller operates
      * @param player .
      */
-    public GameController(final SubMenuGame gameMenu, final DataPlayer player, final String game) {
+    public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) {
         //super(main);
         this.gameMenu = gameMenu;
         this.gameWord = new GameWorldImpl(game, player);
