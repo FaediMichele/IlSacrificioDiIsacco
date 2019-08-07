@@ -84,7 +84,7 @@ public final class GameIntroJavafx extends SubMenuSelection {
     }
 
     @Override
-    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest) {
+    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
         if (previous.equals(this)) {
             fd.setToValue(0);
             fd.playFromStart();

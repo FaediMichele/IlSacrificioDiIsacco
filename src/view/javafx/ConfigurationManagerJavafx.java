@@ -10,6 +10,8 @@ import java.util.Set;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import model.enumeration.BasicPlayerEnum;
+import model.enumeration.PlayerEnum;
 import util.Command;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -98,9 +100,9 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
                 final NamedNodeMap attr = charList.item(i).getAttributes();
 
                 characters.add(new CharacterInfo(new Image(attr.getNamedItem("Name").getNodeValue()),
-                        new ImageView(new Image(attr.getNamedItem("ImagePath").getNodeValue())))); /*,
+                        new ImageView(new Image(attr.getNamedItem("ImagePath").getNodeValue())),
                         loadPlayerEnum(attr.getNamedItem("package").getNodeValue(),
-                                (attr.getNamedItem("Type").getNodeValue()))));*/
+                                (attr.getNamedItem("Type").getNodeValue()))));
             }
             return new LinkedHashSet<CharacterInfo>(characters);
         } catch (Exception e) {
@@ -108,14 +110,14 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
         }
         return null;
     }
-    /*
-    private PlayerMenuInfo loadPlayerInfo(final String pack, final String typ) {
-        // TODO .
-        final PlayerMenuEnum = loadPlayerEnum(pack, typ);
-        return null;
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private PlayerEnum loadPlayerEnum(final String pack, final String typ) {
+        try {
+            return (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pack), typ);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return BasicPlayerEnum.ISAAC;
+        }
     }
-    private PlayerMenuEnum loadPlayerEnum(final String pack, final String typ){
-        return null
-    }
-    */
 }

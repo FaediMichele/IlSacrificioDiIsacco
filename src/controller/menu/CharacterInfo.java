@@ -1,24 +1,25 @@
 package controller.menu;
 
-//import view.enumeration.PlayerMenuEnum;
+import model.enumeration.PlayerEnum;
 
 /**
  * This interface is for a simple info a the implemented character.
  */
 public class CharacterInfo {
     private final Object nameImage;
-    // private final PlayerMenuInfo info.
+    private final PlayerEnum info;
     private final Object img;
 
     /**
      * Create a character info with values and a image.
      * @param nameImage the image with the name of the character.
      * @param img an object to use in the GUI representing the character.
+     * @param info The enum of the player.
      */
-    public CharacterInfo(final Object nameImage, final Object img) { //, final PlayerMenuInfo info) {
+    public CharacterInfo(final Object nameImage, final Object img, final PlayerEnum info) {
         this.nameImage = nameImage;
         this.img = img;
-        //this.info = info;
+        this.info = info;
     }
 
     /**
@@ -33,9 +34,9 @@ public class CharacterInfo {
      * Get the info of the character.
      * @return the {@link PlayerMenuInfo}.
      */
-    /*public PlayerMenuEnum getInfo() {
+    public PlayerEnum getInfo() {
         return info;
-    }*/
+    }
 
     /**
      * Get the image of the character.

@@ -23,7 +23,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
-import view.enumeration.PlayerMenuEnum;
 
 /**
  * Class for all static methods.
@@ -336,7 +335,7 @@ public final class StaticMethodsUtils {
      * @throws ClassNotFoundException 
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static PlayerEnum enumFromViewToModel(final PlayerMenuEnum plEnumMenu, final String pathXml) throws ClassNotFoundException {
+    public static PlayerEnum enumFromViewToModel(final PlayerEnum plEnumMenu, final String pathXml) throws ClassNotFoundException {
         final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
         final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
         final String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();

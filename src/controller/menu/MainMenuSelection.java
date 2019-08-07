@@ -59,7 +59,7 @@ public class MainMenuSelection extends SubMenuSelection {
      * Play a fade animation.
      */
     @Override
-    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest) {
+    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
         if (previous.equals(this)) {
             if (dest.getClass().equals(GameSubMenuSelection.class)) {
                 mmsv.setReadyToChangeListener(() -> {

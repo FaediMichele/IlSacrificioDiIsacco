@@ -12,6 +12,7 @@ import view.javafx.menu.GameSelectionViewImpl;
 public class GameSubMenuSelection extends SubMenuSelection {
     private final GameSelectionView gmv;
     private final long msMenu;
+    private CharacterInfo characterSelected;
 
     /**
      * 
@@ -59,9 +60,12 @@ public class GameSubMenuSelection extends SubMenuSelection {
      * {@inheritDoc}
      */
     @Override
-    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest) {
+    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
         if (previous.equals(this)) {
             gmv.changeSelector(true);
+        }
+        if (param != null && param instanceof CharacterInfo) {
+            characterSelected = (CharacterInfo) param;
         }
     }
 
@@ -72,4 +76,11 @@ public class GameSubMenuSelection extends SubMenuSelection {
         gmv.changeSelector(false);
     }
 
+    /**
+     * Get the character passed.
+     * @return {@link CharacterInfo}.
+     */
+    public CharacterInfo getCharacterInfo() {
+        return characterSelected;
+    }
 }

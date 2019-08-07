@@ -110,6 +110,7 @@ public abstract class SubMenuSelection {
      * It's invoked for both menu selection.
      * @param previous the previous menu selected. May be this subMenu.
      * @param dest the menu selected. May be this subMenu.
+     * @param param paramether passed to the Selection
      */
-    public abstract void selectMenu(SubMenuSelection previous, SubMenuSelection dest);
+    public abstract void selectMenu(SubMenuSelection previous, SubMenuSelection dest, Object param);
 }

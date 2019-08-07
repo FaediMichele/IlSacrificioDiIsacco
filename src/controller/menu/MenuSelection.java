@@ -72,21 +72,30 @@ public class MenuSelection {
     /**
      * Change the selected {@link SubMenuSelection}.
      * @param s the {@link SubMenuSelection} to select.
+     * @param param object to pass to the sub menu selection.
      */
-    public void select(final Class<? extends SubMenuSelection> s) {
+    public void select(final Class<? extends SubMenuSelection> s, final Object param) {
         if (menus.containsKey(s)) {
             final SubMenuSelection sms = menus.get(s);
-            goTo(selected.getClass(), s);
+            goTo(selected.getClass(), s, param);
             selected = sms;
         } else {
             throw new IllegalArgumentException("SubMenuSelection not found");
         }
     }
 
-    private void goTo(final Class<? extends SubMenuSelection> start, final Class<? extends SubMenuSelection> end) {
+    /**
+     * Change the selected {@link SubMenuSelection}.
+     * @param s the {@link SubMenuSelection} to select.
+     */
+    public void select(final Class<? extends SubMenuSelection> s) {
+        select(s, null);
+    }
+
+    private void goTo(final Class<? extends SubMenuSelection> start, final Class<? extends SubMenuSelection> end, final Object param) {
         Objects.requireNonNull(menus.get(start));
         Objects.requireNonNull(menus.get(end));
-        menus.get(start).selectMenu(menus.get(start), menus.get(end));
-        menus.get(end).selectMenu(menus.get(start), menus.get(end));
+        menus.get(start).selectMenu(menus.get(start), menus.get(end), param);
+        menus.get(end).selectMenu(menus.get(start), menus.get(end), param);
     }
 }

@@ -13,7 +13,7 @@ import view.javafx.menu.SubMenuGameViewImpl;
  */
 public class SubMenuGame extends SubMenu {
     private final SubMenuGameView smgv;
-    private final GameController gameController;
+    private GameController gameController;
     /**
      * 
      * Creates SubMenu with the canvas for the actual game.
@@ -23,7 +23,6 @@ public class SubMenuGame extends SubMenu {
     public SubMenuGame(final SubMenuSelection selector) {
         super(selector);
         smgv = new SubMenuGameViewImpl();
-        this.gameController = new GameController(this);
     }
 
     @Override
@@ -46,7 +45,15 @@ public class SubMenuGame extends SubMenu {
     @Override
     public void select() {
         super.select();
-        gameController.start();
+        final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
+        final CharacterInfo character = sel.getCharacterInfo();
+        try {
+            this.gameController = new GameController(this, character.getInfo(), null);
+            gameController.start();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("ERRORE FATALE");
+        }
     }
 
     private void options() {

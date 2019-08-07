@@ -32,6 +32,14 @@ public class SubMenuOption extends SubMenu {
         }
     }
 
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void select() {
+        super.select();
+    }
+
 
     @Override
     public void reset() {
