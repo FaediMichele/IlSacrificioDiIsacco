@@ -18,7 +18,7 @@ public class TestGame extends Application {
      */
     @Override
     public void start(final Stage arg0) throws Exception {
-        final MenuSelection sel = new MenuSelection(new ConfigurationManagerJavafx("config.ini"));
+        final MenuSelection sel = new MenuSelection(new ConfigurationManagerJavafx("/config.ini"));
         final SubMenuSelection subMenu = new GameSubMenuSelection(sel, 100);
         final SubMenuGame gameMenu = new SubMenuGame(subMenu);
         final GameController controller = new GameController(gameMenu);
