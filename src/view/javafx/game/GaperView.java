@@ -148,6 +148,7 @@ public class GaperView extends AbstractEntityView {
             super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }
+
         final double heightScale = 3.0 / 5;
         final double bodyShift = 1.50 / 5;
         gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift),
