@@ -18,8 +18,8 @@ import util.EventListener;
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
     private static final double DEFAULT_LIFE_TIME = 10000;
     private static final double DEFAULT_SPEED = 10;
-    private final double damage;
-    private final double lifeTime;
+    private double damage;
+    private double lifeTime;
     private final EntityEnum nameTear;
     /**
      * Basic constructor that generates a tear when requested.
@@ -53,6 +53,39 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
                          event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get())
                 );
     }
+
+    /**
+     * 
+     * @return .
+     */
+    public double getDamage() {
+        return damage;
+    }
+
+    /**
+     * 
+     * @param damage 
+     */ 
+    public void setDamage(final double damage) {
+        this.damage = damage;
+    }
+
+    /**
+     * 
+     * @return .
+     */
+    public double getLifeTime() {
+        return lifeTime;
+    }
+
+    /**
+     * 
+     * @param lifeTime .
+     */
+    public void setLifeTime(final double lifeTime) {
+        this.lifeTime = lifeTime;
+    }
+
 
 //    /**
 //     * Basic constructor that generates a tear when requested.
