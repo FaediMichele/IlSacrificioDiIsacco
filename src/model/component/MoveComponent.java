@@ -143,6 +143,15 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         }
     }
 
+    /**
+     * Set all speed to 0.
+     */
+    public void stop() {
+        this.xMove = 0;
+        this.yMove = 0;
+        this.zMove = 0;
+    }
+
     private BodyComponent getBody() {
         if (this.getEntity().getComponent(BodyComponent.class).isPresent()) {
             return (this.getEntity().getComponent(BodyComponent.class).get());
