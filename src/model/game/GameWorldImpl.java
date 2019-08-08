@@ -86,6 +86,7 @@ public class GameWorldImpl implements GameWorld {
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         this();
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
+        
         if (docXML != null) {
             final List<Node> ls = StaticMethodsUtils
                     .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
@@ -104,6 +105,7 @@ public class GameWorldImpl implements GameWorld {
                 floors.add(0, new FloorImpl());
             }
             changedFloor = false;
+            getActiveFloor().getActiveRoom().insertEntity(player);
         }
     }
 
@@ -141,6 +143,7 @@ public class GameWorldImpl implements GameWorld {
                 floors.add(0, new FloorImpl());
             }
             changedFloor = false;
+            getActiveFloor().getActiveRoom().insertEntity(player);
         }
     }
 
