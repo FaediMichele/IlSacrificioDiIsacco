@@ -46,8 +46,6 @@ import model.events.MoveEvent;
 import model.events.TearShotEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
-import model.game.GameWorld;
-import model.game.GameWorldImpl;
 import model.game.Room;
 import model.game.RoomImpl;
 import util.Pair;
@@ -62,17 +60,17 @@ public class TestModel {
 
     private Room buildedRoom;
 
-    /**
-     * Test for {@link GameWorld}.
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     */
-    @Test
-    public void testGameWorld() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        final GameWorld gw = new GameWorldImpl("Game1");
-        assertEquals(gw, new GameWorldImpl("Game1"));
-    }
+//    /**
+//     * Test for {@link GameWorld}.
+//     * @throws ClassNotFoundException 
+//     * @throws IllegalAccessException 
+//     * @throws InstantiationException 
+//     */
+//    @Test
+//    public void testGameWorld() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+//        final GameWorld gw = new GameWorldImpl("Game1");
+//        assertEquals(gw, new GameWorldImpl("Game1"));
+//    }
 
     /**
      * Test for {@link Entity}.
