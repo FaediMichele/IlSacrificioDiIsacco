@@ -31,6 +31,7 @@ public class SoundJavafx implements Sound {
     public SoundJavafx(final String path, final TypeOfAudio type) {
         if (path != null && !path.equals("")) {
             a = new MediaPlayer(new Media(getClass().getResource(path).toExternalForm()));
+            a.setOnEndOfMedia(() -> playing = false);
             VOLUME.addListener(type, () -> a.setVolume(VOLUME.getVolume(type)));
             VOLUME.verifyFirst(type);
         }
@@ -89,7 +90,10 @@ public class SoundJavafx implements Sound {
     @Override
     public void setEndListener(final Lambda l) {
         verifyPlayer();
-        a.setOnEndOfMedia(() -> l.use());
+        a.setOnEndOfMedia(() -> {
+            playing = false;
+            l.use();
+        });
     }
 
     /**

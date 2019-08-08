@@ -157,9 +157,8 @@ public class IsaacView extends AbstractEntityView {
         }
         final double heightScale = 3.0 / 5;
         final double bodyShift = 1.75 / 5;
-        gc.drawImage(body, super.getX(),
-                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
-        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
+        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
+        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale, super.getWidth());
     }
 
     /**

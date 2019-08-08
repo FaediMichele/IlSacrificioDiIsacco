@@ -89,6 +89,7 @@ public class CainView extends AbstractEntityView {
             bodySprites.put(BasicMovementEnum.DOWN, movingDownSprite);
             bodySprites.put(BasicMovementEnum.RIGHT, movingRightSprite);
             bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
+            bodySprites.put(BasicMovementEnum.STATIONARY, movingDownSprite.subList(0, 1));
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
             movingDownFaceSprite = isaacFace.subList(0, spritesFaces);
@@ -113,6 +114,7 @@ public class CainView extends AbstractEntityView {
             faceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprite);
             faceSprites.put(BasicMovementEnum.RIGHT, movingRightFaceSprite);
             faceSprites.put(BasicMovementEnum.LEFT, movingLeftFaceSprite);
+            faceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprite.subList(0, 1));
 
             sufferSprite = SwingFXUtils
                     .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
@@ -138,11 +140,13 @@ public class CainView extends AbstractEntityView {
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
         bodyIndex.put(BasicMovementEnum.LEFT, 0);
+        bodyIndex.put(BasicMovementEnum.STATIONARY, 0);
 
         faceIndex.put(BasicMovementEnum.UP, 0);
         faceIndex.put(BasicMovementEnum.DOWN, 0);
         faceIndex.put(BasicMovementEnum.RIGHT, 0);
         faceIndex.put(BasicMovementEnum.LEFT, 0);
+        faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
     /**
