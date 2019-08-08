@@ -55,7 +55,7 @@ public class SubMenuGame extends SubMenu {
         final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
         final CharacterInfo character = sel.getCharacterInfo();
         try {
-            this.gameController = new GameController(this, character.getInfo(), "");
+            this.gameController = new GameController(getGameView(), character.getInfo(), "Game1");
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
             System.out.println("ERRORE FATALE");

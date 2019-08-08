@@ -21,6 +21,9 @@ import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
+import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicPlayerEnum;
+import model.enumeration.BasicStatusEnum;
 import model.events.CollisionEvent;
 import model.events.DeadEvent;
 import model.util.EntityInformation;
@@ -122,8 +125,8 @@ public class RoomImpl implements Room {
                 .map(e -> new EntityInformation().setEntity(e.getNameEntity()).setId(e.getId())
                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
                         .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
-                        .setMove(e.getComponent(StatusComponent.class).get().getMove())
-                        .setStatus(e.getComponent(StatusComponent.class).get().getStatus())
+                        .setMove(e.getComponent(StatusComponent.class).get().getMove() == null ? BasicMovementEnum.STATIONARY : e.getComponent(StatusComponent.class).get().getMove())
+                        .setStatus(e.getComponent(StatusComponent.class).get().getStatus() == null ? BasicStatusEnum.DEFAULT : e.getComponent(StatusComponent.class).get().getStatus())
                         .setPosition(e.getComponent(BodyComponent.class).get().getPosition())
                         .setUpgrade(e.getComponent(StatusComponent.class).get().getUpgrade()))
                 .collect(Collectors.toList());

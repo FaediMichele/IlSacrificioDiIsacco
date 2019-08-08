@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import controller.menu.SubMenuGame;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -16,6 +15,7 @@ import model.util.EntityInformation;
 import model.util.Position;
 import util.Command;
 import util.NotEquals;
+import view.javafx.game.GameView;
 import view.javafx.game.RoomView;
 
 /**
@@ -30,10 +30,10 @@ public class GameController {
     private final GameWorld gameWord;
     @NotEquals
     private final GameLoop gameloop;
-    private final SubMenuGame gameMenu;
+    private final GameView gameView;
     private final Map<UUID, EntityController> entityControllers;
     /**
-     * @param gameMenu is the gameMenu in which the Game Controller operates
+     * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player .
      * @param game .
      * @throws ClassNotFoundException 
@@ -41,16 +41,16 @@ public class GameController {
      * @throws InstantiationException 
      * @throws IOException 
      */
-    public GameController(final SubMenuGame gameMenu, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-        //super(main);
+    public GameController(final GameView gameView, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         System.out.println("perchè non esiste printf in java devo ancora capirlo\nGiocatore Selezionato: " + player.getValue());
-        this.gameMenu = gameMenu;
+        System.out.println(player.getValue());
+        this.gameView = gameView;
         this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
-        gameMenu.getGameView().setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
-        gameMenu.getGameView().draw();
+        gameView.setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
+        gameView.draw();
     }
 
     /**
@@ -85,10 +85,10 @@ public class GameController {
                 while (!stoped) {
                     sleep(timeToSleep);
                     gameWord.update(timeToSleep);
-                    //Se il Player è morto -> gameMenu.gameOver()
-                    final double widthMolti = gameMenu.getGameView().getWidth() 
+                    //Se il Player è morto -> gameView.gameOver()
+                    final double widthMolti = gameView.getWidth() 
                                                / gameWord.getActiveFloor().getActiveRoom().getWidth();
-                    final double heightMolti = gameMenu.getGameView().getHeight() 
+                    final double heightMolti = gameView.getHeight() 
                                                / gameWord.getActiveFloor().getActiveRoom().getHeight();
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
@@ -111,7 +111,7 @@ public class GameController {
                             .peek(st -> {
                                     if (!entityControllers.containsKey(st.getId())) {
                                         try {
-                                            entityControllers.put(st.getId(), new EntityController(st, gameMenu.getGameView()));
+                                            entityControllers.put(st.getId(), new EntityController(st, gameView));
                                         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
                                                 | InstantiationException | IllegalAccessException
                                                 | IllegalArgumentException | InvocationTargetException e) {

@@ -42,12 +42,10 @@ public class GaperView extends IsaacView {
             List<Image> movingDownSprite;
             List<Image> movingRightSprite;
             List<Image> movingLeftSprite;
-            List<Image> stationarySprite = new ArrayList<>();
 
             List<Image> movingUpFaceSprite;
             List<Image> movingRightFaceSprite;
             List<Image> movingLeftFaceSprite;
-            List<Image> stationaryFaceSprite = new ArrayList<>();
 
             img = ImageIO.read(IsaacView.class.getResource("/gameImgs/character_001_isaac.png"));
             final List<Image> isaacBody = new ArrayList<>();
@@ -87,8 +85,7 @@ public class GaperView extends IsaacView {
             bodySprites.put(BasicMovementEnum.DOWN, movingDownSprite);
             bodySprites.put(BasicMovementEnum.RIGHT, movingRightSprite);
             bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
-            stationarySprite.add(movingDownSprite.get(0));
-            bodySprites.put(BasicMovementEnum.STATIONARY, stationarySprite);
+            bodySprites.put(BasicMovementEnum.STATIONARY, movingDownSprite.subList(0, 1));
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
             movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
@@ -116,8 +113,7 @@ public class GaperView extends IsaacView {
             final int delta = 32;
             final List<Image> gaperMovingDownFaceSprite = (new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract();
             faceSprites.put(BasicMovementEnum.DOWN, gaperMovingDownFaceSprite);
-            stationaryFaceSprite.add(gaperMovingDownFaceSprite.get(0));
-            faceSprites.put(BasicMovementEnum.STATIONARY, stationaryFaceSprite);
+            faceSprites.put(BasicMovementEnum.STATIONARY, gaperMovingDownFaceSprite.subList(0, 1));
         } catch (IOException e) {
             e.printStackTrace();
         }
