@@ -1,6 +1,5 @@
 package view.test;
 
-import java.util.HashSet;
 import java.util.UUID;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -26,7 +25,7 @@ public class TestCanvas extends Application {
 
     @Override
     public final void start(final Stage stage) throws Exception {
-        final RoomView room = new RoomView("/gameImgs/basement_background1_640x344.png", new HashSet<>());
+        final RoomView room = new RoomView("/gameImgs/basement_background1_640x344.png");
         final Canvas canvas = new Canvas();
         final Pane root = new Pane(canvas);
         final IsaacView isaac = new IsaacView(UUID.randomUUID());

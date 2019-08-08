@@ -17,13 +17,10 @@ import com.google.common.eventbus.Subscribe;
 import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.InventoryComponent;
-import model.component.StatusComponent;
 import model.entity.Bomb;
 import model.entity.Entity;
 import model.entity.Key;
 import model.entity.Player;
-import model.enumeration.BasicMovementEnum;
-import model.enumeration.BasicStatusEnum;
 import model.enumeration.ColorHeartEnum;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
@@ -205,8 +202,7 @@ public class GameWorldImpl implements GameWorld {
      */
     @Override
     public List<EntityInformation> getEntityInformation() {
-        final List<EntityInformation> lst = new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
-        return lst;
+        return new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
     }
 
     /**

@@ -62,7 +62,7 @@ public class GameController {
 //        for (final Door door : doors ) {
 //            final EntityView doorView = 
 //        }
-        gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png", null));
+        gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png"));
     }
 
     /**
