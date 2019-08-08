@@ -1,10 +1,6 @@
-    package view;
-
-import java.util.ArrayList;
-import java.util.List;
+package view;
 
 import util.Lambda;
-import util.Single;
 
 /**
  * This interface is for the audio.
@@ -12,16 +8,6 @@ import util.Single;
  */
 public interface Sound {
     /**
-     * The volume for all the sounds.
-     */
-    Single<Double> VOLUME = new Single<Double>(Double.valueOf(1.0));
-
-    /**
-     * The listener for the volume changed events.
-     */
-    List<Lambda> VOLUMECHANGED = new ArrayList<>();
-
-    /**s
      * Play the sound once.
      */
     void play();
@@ -55,17 +41,14 @@ public interface Sound {
     /**
      * Set the volume of the sounds.
      * @param volume the volume to set.
+     * @param type the type of audio to get. See also {@link TypeOfAudio}.
      */
-    default void setVolume(double volume) {
-        VOLUME.set(volume);
-        VOLUMECHANGED.forEach(Lambda::use);
-    }
+    void setVolume(double volume, TypeOfAudio type);
 
     /**
      * Get the volume.
+     * @param type the type of audio to get. See also {@link TypeOfAudio}.
      * @return the volume.
      */
-    default Double getVolume() {
-        return VOLUME.get();
-    }
+    Double getVolume(TypeOfAudio type);
 }

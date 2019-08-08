@@ -26,7 +26,6 @@ public class GameSubMenuSelection extends SubMenuSelection {
         super(parent);
         this.msMenu = msMenu;
         gmv = new GameSelectionViewImpl(msMenu);
-       
         game = new SubMenuGame(this);
         add(game);
         add(new SubMenuOption(this));
@@ -95,6 +94,10 @@ public class GameSubMenuSelection extends SubMenuSelection {
         gmv.setOnIntroEnded(l);
     }
 
+    /**
+     * Get a value that indicate if the intro of the game has ended.
+     * @return true if the intro is still playing.
+     */
     public boolean isPlayingIntro() {
         return gmv.isPlayingIntro();
     }

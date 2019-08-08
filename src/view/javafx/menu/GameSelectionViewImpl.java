@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import util.Lambda;
 import view.Sound;
+import view.TypeOfAudio;
 import view.interfaces.GameSelectionView;
 import view.javafx.ContextPageJavafx;
 import view.javafx.SoundJavafx;
@@ -24,7 +25,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
     private static final String GAMEPANE = "pnGameRun";
     private static final String OPTIONSPANE = "pnInGameMenu";
     private static final long MSSUBMENU = 250;
-    private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav");
+    private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav", TypeOfAudio.EFFECT);
     private final int defaultX;
     private final int defaultY;
     private final Pane pnMain;
@@ -104,7 +105,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
      * {@inheritDoc}
      */
     @Override
-    public void setOnIntroEnded(Lambda l) {
+    public void setOnIntroEnded(final Lambda l) {
         onIntroEnded = l;
     }
 

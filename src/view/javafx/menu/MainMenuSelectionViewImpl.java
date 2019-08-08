@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import view.Sound;
 import view.SubMenuView;
+import view.TypeOfAudio;
 import view.interfaces.MainMenuSelectionView;
 import view.javafx.SoundJavafx;
 import view.javafx.SlidingPageJavafx;
@@ -39,9 +40,9 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
     private final FadeTransition fd;
     private final Pane pnMain;
 
-    private final Sound changeSubMenuAudio = new SoundJavafx("/menuSound/pageTurn.wav");
-    private final Sound backgroundAudioIntro = new SoundJavafx("/menuSound/audioIntro.wav");
-    private final Sound backgroundAudio = new SoundJavafx("/menuSound/background.wav");
+    private final Sound changeSubMenuAudio = new SoundJavafx("/menuSound/pageTurn.wav", TypeOfAudio.EFFECT);
+    private final Sound backgroundAudioIntro = new SoundJavafx("/menuSound/audioIntro.wav", TypeOfAudio.MUSIC);
+    private final Sound backgroundAudio = new SoundJavafx("/menuSound/background.wav", TypeOfAudio.MUSIC);
 
 
     /**
