@@ -23,7 +23,7 @@ import util.SpritesExtractor;
 /**
  * View and animations of the Gaper enemy.
  */
-public class GaperView extends IsaacView {
+public class GaperView extends AbstractEntityView {
 
     private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
     private static Map<MovementEnum, List<Image>> bodySprites = new HashMap<>();
