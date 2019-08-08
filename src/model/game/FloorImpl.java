@@ -137,8 +137,8 @@ public class FloorImpl implements Floor {
         final Matrix<Integer> m = new Matrix<>(maxRoom, maxRoom);
         final List<Pair<Integer, Integer>> roomIndexs = new ArrayList<>();
         generateMap(m, roomIndexs);
-        final double widthRoom = 100;
-        final double heightRoom = 100;
+        final double widthRoom = 364;
+        final double heightRoom = 207;
         for (int index = 0; index < roomIndexs.size(); index++) {
             this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index), widthRoom, heightRoom));
         }
