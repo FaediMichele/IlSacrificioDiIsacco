@@ -25,7 +25,7 @@ public class SubMenuGame extends SubMenu {
     public SubMenuGame(final SubMenuSelection selector) {
         super(selector);
         smgv = new SubMenuGameViewImpl();
-        //((GameSubMenuSelection) getSelector()).setOnIntroEnded(() -> gameController.start());
+        ((GameSubMenuSelection) getSelector()).setOnIntroEnded(() -> gameController.start());
     }
 
     @Override
@@ -54,13 +54,13 @@ public class SubMenuGame extends SubMenu {
     public void loadGame() {
         final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
         final CharacterInfo character = sel.getCharacterInfo();
-        /*
+        
         try {
             this.gameController = new GameController(getGameView(), character.getInfo(), "Game1");
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
             System.out.println("ERRORE FATALE");
-        }*/
+        }
     }
 
     private void options() {
