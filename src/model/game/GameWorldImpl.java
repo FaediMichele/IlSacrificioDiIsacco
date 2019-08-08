@@ -117,7 +117,6 @@ public class GameWorldImpl implements GameWorld {
      * @throws ClassNotFoundException 
      */
     // da fixare il type player con cui deve iniziare il gioco
-    @SuppressWarnings("all")
     public GameWorldImpl(final String game, final Player typePlayer)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         this.player = typePlayer;

@@ -20,8 +20,8 @@ public class GaperEnemy extends AbstractEnemyMovable {
     private static final double HEIGHT = 7;
     private static final int WEIGHT = 5;
     private static final double DSPEED = 7;
-    private static final double MAXSPEED = 7;
-    private static final double FRICTION = 7;
+//    private static final double MAXSPEED = 7;
+//    private static final double FRICTION = 7;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.GAPER;
 
 
