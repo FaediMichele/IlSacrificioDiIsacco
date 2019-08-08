@@ -5,7 +5,6 @@ import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
 import model.component.mentality.NeutralMentalityComponent;
-import model.enumeration.BasicDoorEnum;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
 
