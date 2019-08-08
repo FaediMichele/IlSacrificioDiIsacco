@@ -2,15 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
-import javafx.application.Platform;
-import model.entity.Door;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -21,8 +16,6 @@ import model.util.EntityInformation;
 import model.util.Position;
 import util.Command;
 import util.NotEquals;
-import view.javafx.game.DoorView;
-import view.javafx.game.EntityView;
 import view.javafx.game.GameView;
 import view.javafx.game.RoomView;
 
@@ -50,8 +43,6 @@ public class GameController {
      * @throws IOException 
      */
     public GameController(final GameView gameView, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-        System.out.println("perchè non esiste printf in java devo ancora capirlo\nGiocatore Selezionato: " + player.getValue());
-        System.out.println(player.getValue());
         this.gameView = gameView;
         this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;

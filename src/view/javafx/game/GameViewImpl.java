@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import model.enumeration.ColorHeartEnum;
 import util.Pair;
