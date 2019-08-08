@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import view.javafx.game.AbstractPlayerView;
 import view.javafx.game.IsaacView;
 
 /**

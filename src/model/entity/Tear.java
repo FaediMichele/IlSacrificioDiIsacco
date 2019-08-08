@@ -5,6 +5,7 @@ import model.component.Component;
 import model.component.DamageComponent;
 import model.component.MoveComponent;
 import model.component.TearAIComponent;
+import model.component.mentality.AbstractMentalityComponent;
 import model.enumeration.EntityEnum;
 import model.util.Position;
 
@@ -34,7 +35,7 @@ public class Tear extends AbstractMovableEntity {
                 final double lifetime, 
                 final double speed, 
                 final EntityEnum name,
-                final Component mentality) {
+                final AbstractMentalityComponent mentality) {
         super();
         this.attachComponent(mentality);
         this.attachComponent(new TearAIComponent(this, angle));
