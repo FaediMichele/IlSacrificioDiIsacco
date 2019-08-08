@@ -4,6 +4,8 @@ import java.util.Objects;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.entity.Entity;
+import model.enumeration.BasicColorEnum;
+import model.enumeration.ColorHeartEnum;
 import model.events.DamageEvent;
 
 /**
@@ -92,5 +94,13 @@ public class BlackHeart extends SimpleHeart {
             super.setValue(0);
             return damageValue - tempValue;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ColorHeartEnum getColor() {
+        return BasicColorEnum.BLACK;
     }
 }

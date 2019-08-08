@@ -42,11 +42,13 @@ public class IsaacView extends AbstractEntityView {
             List<Image> movingDownSprite;
             List<Image> movingRightSprite;
             List<Image> movingLeftSprite;
+            List<Image> stationarySprite = new ArrayList<>();
 
             List<Image> movingUpFaceSprite;
             List<Image> movingDownFaceSprite;
             List<Image> movingRightFaceSprite;
             List<Image> movingLeftFaceSprite;
+            List<Image> stationaryFaceSprite = new ArrayList<>();
 
             img = ImageIO.read(IsaacView.class.getResource("/gameImgs/character_001_isaac.png"));
             final List<Image> isaacBody = new ArrayList<>();
@@ -86,6 +88,8 @@ public class IsaacView extends AbstractEntityView {
             bodySprites.put(BasicMovementEnum.DOWN, movingDownSprite);
             bodySprites.put(BasicMovementEnum.RIGHT, movingRightSprite);
             bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
+            stationarySprite.add(movingDownSprite.get(0));
+            bodySprites.put(BasicMovementEnum.STATIONARY, stationarySprite);
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
             movingDownFaceSprite = isaacFace.subList(0, spritesFaces);
@@ -110,6 +114,8 @@ public class IsaacView extends AbstractEntityView {
             faceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprite);
             faceSprites.put(BasicMovementEnum.RIGHT, movingRightFaceSprite);
             faceSprites.put(BasicMovementEnum.LEFT, movingLeftFaceSprite);
+            stationaryFaceSprite.add(movingDownFaceSprite.get(0));
+            faceSprites.put(BasicMovementEnum.STATIONARY, stationaryFaceSprite);
 
             sufferSprite = SwingFXUtils
                     .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
@@ -135,11 +141,13 @@ public class IsaacView extends AbstractEntityView {
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
         bodyIndex.put(BasicMovementEnum.LEFT, 0);
+        bodyIndex.put(BasicMovementEnum.STATIONARY, 0);
 
         faceIndex.put(BasicMovementEnum.UP, 0);
         faceIndex.put(BasicMovementEnum.DOWN, 0);
         faceIndex.put(BasicMovementEnum.RIGHT, 0);
         faceIndex.put(BasicMovementEnum.LEFT, 0);
+        faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
     /**
@@ -153,9 +161,8 @@ public class IsaacView extends AbstractEntityView {
         }
         final double heightScale = 3.0 / 5;
         final double bodyShift = 1.75 / 5;
-        gc.drawImage(body, super.getX(),
-                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
-        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
+        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
+        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale, super.getWidth());
     }
 
     /**

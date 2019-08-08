@@ -42,10 +42,12 @@ public class GaperView extends IsaacView {
             List<Image> movingDownSprite;
             List<Image> movingRightSprite;
             List<Image> movingLeftSprite;
+            List<Image> stationarySprite = new ArrayList<>();
 
             List<Image> movingUpFaceSprite;
             List<Image> movingRightFaceSprite;
             List<Image> movingLeftFaceSprite;
+            List<Image> stationaryFaceSprite = new ArrayList<>();
 
             img = ImageIO.read(IsaacView.class.getResource("/gameImgs/character_001_isaac.png"));
             final List<Image> isaacBody = new ArrayList<>();
@@ -85,6 +87,8 @@ public class GaperView extends IsaacView {
             bodySprites.put(BasicMovementEnum.DOWN, movingDownSprite);
             bodySprites.put(BasicMovementEnum.RIGHT, movingRightSprite);
             bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
+            stationarySprite.add(movingDownSprite.get(0));
+            bodySprites.put(BasicMovementEnum.STATIONARY, stationarySprite);
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
             movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
@@ -112,6 +116,8 @@ public class GaperView extends IsaacView {
             final int delta = 32;
             final List<Image> gaperMovingDownFaceSprite = (new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract();
             faceSprites.put(BasicMovementEnum.DOWN, gaperMovingDownFaceSprite);
+            stationaryFaceSprite.add(gaperMovingDownFaceSprite.get(0));
+            faceSprites.put(BasicMovementEnum.STATIONARY, stationaryFaceSprite);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,11 +134,13 @@ public class GaperView extends IsaacView {
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
         bodyIndex.put(BasicMovementEnum.LEFT, 0);
+        bodyIndex.put(BasicMovementEnum.STATIONARY, 0);
 
         faceIndex.put(BasicMovementEnum.UP, 0);
         faceIndex.put(BasicMovementEnum.DOWN, 0);
         faceIndex.put(BasicMovementEnum.RIGHT, 0);
         faceIndex.put(BasicMovementEnum.LEFT, 0);
+        faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
     /**
