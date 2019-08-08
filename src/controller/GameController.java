@@ -27,7 +27,9 @@ import view.javafx.game.RoomView;
  *
  */
 public class GameController {
-    private static  long timeToSleep = 50;
+    private static  long timeToSleep = 5
+            
+            ;
     @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;

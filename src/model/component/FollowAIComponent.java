@@ -31,7 +31,8 @@ public class FollowAIComponent extends AbstractAIComponent {
      * Update of the MoveComponent done by this AI.
      */
     @Override
-    protected void moveUpdate() {
+    public void moveUpdate() {
+        final BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
         if (tick % SEARCHTICK == 0) {
             final Room r = this.getEntity().getRoom();
             if (r == null) {
@@ -41,13 +42,13 @@ public class FollowAIComponent extends AbstractAIComponent {
             if (entitys == null) {
                 return;
             }
-            final Optional<? extends Entity> isaac = entitys.stream().filter(i -> i.getClass().equals(Player.class)).findAny();
-            if (!isaac.isPresent()) {
+            final Optional<? extends Entity> player = entitys.stream().filter(i -> i instanceof Player).findAny();
+            if (!player.isPresent()) {
+                lastDest = new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY());
                 return;
             }
-            lastDest = r.getRoute(getEntity(), isaac.get());
+            lastDest = r.getRoute(getEntity(), player.get());
         }
-        final BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
         super.getMoveComponent(getEntity()).move(StaticMethodsUtils.getAngle(lastDest, new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY())));
         tick++;
     }
