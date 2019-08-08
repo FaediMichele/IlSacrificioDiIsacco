@@ -74,7 +74,7 @@ public class SubMenuGame extends SubMenu {
     @Override
     public void reset() {
         smgv.reset();
-        ((GameSubMenuSelection) getSelector()).setOnIntroEnded(null);
+        //((GameSubMenuSelection) getSelector()).setOnIntroEnded(null);
         if (gameController != null) {
             gameController.stop();
             gameController = null;
