@@ -1,5 +1,6 @@
 package model.component;
 
+import model.enumeration.BasicColorEnum;
 import model.enumeration.ColorHeartEnum;
 
 /**
@@ -80,7 +81,6 @@ public class SimpleHeart extends AbstractHeart {
      */
     @Override
     public ColorHeartEnum getColor() {
-        // TODO Auto-generated method stub
-        return null;
+        return BasicColorEnum.RED;
     }
 }
