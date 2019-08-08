@@ -1,7 +1,6 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.Component;
 import model.component.DamageComponent;
 import model.component.MoveComponent;
 import model.component.TearAIComponent;

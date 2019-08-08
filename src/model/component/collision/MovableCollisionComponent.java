@@ -5,7 +5,6 @@ import model.component.BodyComponent;
 import model.component.MoveComponent;
 import model.entity.Entity;
 import model.events.CollisionEvent;
-import model.events.MoveEvent;
 import util.EventListener;
 
 /**

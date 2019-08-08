@@ -116,6 +116,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      * 
      * @param move the movement fo the entity
      * @param actualFaceSprites the sprites it needs to use for the face
+     * @param actualFaceIndex 
      */
     protected void setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites, final Map<MovementEnum, Integer> actualFaceIndex) {
         this.face = actualFaceSprites.get(move).get(actualFaceIndex.get(move));

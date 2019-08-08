@@ -1,10 +1,7 @@
 package view.javafx;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
-
 import controller.menu.ConfigurationManager;
 import controller.menu.GameSubMenuSelection;
 import controller.menu.MainMenuSelection;
