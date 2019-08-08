@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.javafx.game.IsaacView;
+import view.javafx.game.AbstractPlayerView;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class TestGameView extends Application {
         stage.setTitle("Il sacrificio di Isacco");
         stage.setScene(scene);
         stage.show();*/
-        new IsaacView(UUID.randomUUID());
+        new AbstractPlayerView(UUID.randomUUID());
 
     }
 }

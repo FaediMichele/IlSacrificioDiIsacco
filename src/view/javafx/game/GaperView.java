@@ -20,6 +20,7 @@ public class GaperView extends IsaacView {
 
     private static List<Image> movingDownFaceSprites;
     private Map<MovementEnum, List<Image>> gaperFaceSprites = new HashMap<>();
+    private final Map<MovementEnum, Integer> gaperFaceIndex = new HashMap<>();
 
     static {
         BufferedImage img = null;
@@ -41,16 +42,24 @@ public class GaperView extends IsaacView {
         super(id);
         gaperFaceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprites);
         gaperFaceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprites.subList(0, 0));
-        gaperFaceSprites.put(BasicMovementEnum.UP, IsaacView.getFaceSprites().get(BasicMovementEnum.UP));
-        gaperFaceSprites.put(BasicMovementEnum.RIGHT, IsaacView.getFaceSprites().get(BasicMovementEnum.RIGHT));
-        gaperFaceSprites.put(BasicMovementEnum.DOWN, IsaacView.getFaceSprites().get(BasicMovementEnum.DOWN));
+        gaperFaceSprites.put(BasicMovementEnum.UP, super.getFaceSprites().get(BasicMovementEnum.UP));
+        gaperFaceSprites.put(BasicMovementEnum.RIGHT, super.getFaceSprites().get(BasicMovementEnum.RIGHT));
+        gaperFaceSprites.put(BasicMovementEnum.DOWN, super.getFaceSprites().get(BasicMovementEnum.DOWN));
+
+        gaperFaceIndex.put(BasicMovementEnum.UP, 0);
+        gaperFaceIndex.put(BasicMovementEnum.DOWN, 0);
+        gaperFaceIndex.put(BasicMovementEnum.RIGHT, 0);
+        gaperFaceIndex.put(BasicMovementEnum.LEFT, 0);
+        gaperFaceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
     /**
-     * Default animation for {@link IsaacView}.
+     * Default animation for {@link AbstractPlayerView}.
      */
     @Override
-    public void def(final MovementEnum move) {
+    public void def(final MovementEnum initialMove) {
+        final MovementEnum move = this.correctMove(initialMove);
         super.setSprites(move, gaperFaceSprites);
+        this.gaperFaceIndex.compute(move, (k, v) -> (v + 1) % gaperFaceSprites.get(move).size());
     }
 }
