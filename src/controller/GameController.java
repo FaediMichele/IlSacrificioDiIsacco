@@ -26,7 +26,7 @@ import view.javafx.game.RoomView;
  *
  */
 public class GameController {
-    private static  long timeToSleep = 33;
+    private static  long timeToSleep = 10;
     @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;
@@ -53,7 +53,6 @@ public class GameController {
         this.entityControllers = new HashMap<UUID, EntityController>();
         this.gameWord.getActiveFloor().getActiveRoom().getDoor();
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
-        //gameView.draw();
     }
 
     /**
