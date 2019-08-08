@@ -42,10 +42,10 @@ public class GaperView extends IsaacView {
     public GaperView(final UUID id) {
         super(id);
         gaperFaceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprites);
-        gaperFaceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprites.subList(0, 0));
+        gaperFaceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprites);
         gaperFaceSprites.put(BasicMovementEnum.UP, super.getFaceSprites().get(BasicMovementEnum.UP));
         gaperFaceSprites.put(BasicMovementEnum.RIGHT, super.getFaceSprites().get(BasicMovementEnum.RIGHT));
-        gaperFaceSprites.put(BasicMovementEnum.DOWN, super.getFaceSprites().get(BasicMovementEnum.DOWN));
+        gaperFaceSprites.put(BasicMovementEnum.LEFT, super.getFaceSprites().get(BasicMovementEnum.LEFT));
 
         gaperFaceIndex.put(BasicMovementEnum.UP, 0);
         gaperFaceIndex.put(BasicMovementEnum.DOWN, 0);
@@ -60,7 +60,12 @@ public class GaperView extends IsaacView {
     @Override
     public void def(final MovementEnum initialMove) {
         final MovementEnum move = this.correctMove(initialMove);
-        super.setSprites(move, gaperFaceSprites);
+        this.setSprites(move, gaperFaceSprites);
         this.gaperFaceIndex.compute(move, (k, v) -> (v + 1) % gaperFaceSprites.get(move).size());
+    }
+    
+    @Override
+    protected void setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites) {
+        super.setSprites(move, gaperFaceSprites);
     }
 }
