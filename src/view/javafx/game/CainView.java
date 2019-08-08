@@ -154,7 +154,7 @@ public class CainView extends AbstractEntityView {
      */
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DEAD)) {
-            gc.drawImage(deadSprite, super.getX(), super.getY());
+            gc.drawImage(deadSprite, super.getX(), super.getY(), super.getWidth(), super.getHeight());
             super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }

@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import javafx.application.Platform;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -50,7 +52,7 @@ public class GameController {
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
-        gameView.draw();
+        //gameView.draw();
     }
 
     /**
@@ -126,7 +128,7 @@ public class GameController {
                                     }
                                 });
                     //gestione StatisticView da fare
-                    //gameView.draw();
+                    gameView.draw();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -91,11 +91,12 @@ public class GameViewImpl implements GameView {
      * It draws all entities in the canvas.
      */
     public void draw() {
-        Platform.runLater(() -> {
+        System.out.println("DRAW GAMEVIEW");
+        //Platform.runLater(() -> {
             room.draw(cnv.getGraphicsContext2D());
             entities.stream().forEach(e -> e.draw(cnv.getGraphicsContext2D()));
             statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
-        });
+        //});
     }
 
     /**

@@ -40,9 +40,10 @@ public class RoomView {
      * @param graphic the {@link GraphicsContext}
      */
     public void draw(final GraphicsContext graphic) {
-        //final BackgroundImage backImg = new BackgroundImage(this.imageRoom, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        graphic.getCanvas().getScene().setFill(new ImagePattern(this.imageRoom));
+        graphic.drawImage(this.imageRoom, 0, 0, graphic.getCanvas().getWidth(), graphic.getCanvas().getHeight());
+        //graphic.getCanvas().getScene().setFill(new ImagePattern(this.imageRoom))
         this.doors.forEach(d -> d.draw(graphic));
+        System.out.println("DRAW ROOM");
     }
 
 }
