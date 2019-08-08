@@ -203,8 +203,9 @@ public class RoomImpl implements Room {
         if (e instanceof Door) {
             this.doors.add((Door) e);
             return;
+        } else {
+            this.entity.add(e);
         }
-        this.entity.add(e);
         final Space.Rectangle r = getShape(e);
         entityRectangleSpace.put(e, r);
         rectangleEntitySpace.put(r, e);
