@@ -5,11 +5,7 @@ import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
 import model.component.mentality.NeutralMentalityComponent;
-<<<<<<< HEAD
-import model.enumeration.BasicDoorEunm;
-=======
 import model.enumeration.BasicEntityEnum;
->>>>>>> dd04e91ed98bb65e2daba1d8331ecdfdb4e50344
 import model.enumeration.EntityEnum;
 
 /**
