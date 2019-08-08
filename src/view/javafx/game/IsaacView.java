@@ -157,7 +157,7 @@ public class IsaacView extends AbstractEntityView {
         if (move != BasicMovementEnum.STATIONARY) {
             lastMove = move;
         }
-        if (this.countStationary >= 5) {
+        if (this.countStationary >= 15) {
             return BasicMovementEnum.STATIONARY;
         } else {
             return lastMove;
