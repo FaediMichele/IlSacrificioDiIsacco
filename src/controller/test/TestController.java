@@ -16,6 +16,7 @@ import model.enumeration.BasicStatusEnum;
 import model.enumeration.BasicUpgradeEnum;
 import model.events.MoveEvent;
 import model.game.GameWorld;
+import model.game.GameWorldImpl;
 import model.game.Room;
 import model.util.EntityInformation;
 import view.javafx.game.GameView;
@@ -38,7 +39,7 @@ public class TestController {
      */
     @Test
     public void testEntityController() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-        final GameWorld gw = new GameWorldImplTest("Game1");
+        final GameWorld gw = new GameWorldImpl("Game1");
         final GameView gv = new GameViewImpl(new Canvas());
         //final MainController main = new MainControllerImpl();
         //final GameController gc = new GameController(gw);

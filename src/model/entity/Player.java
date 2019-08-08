@@ -14,6 +14,7 @@ import model.enumeration.BasicPlayerEnum;
 import model.enumeration.EntityEnum;
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
+import model.util.Position;
 
 /**
  * Implements Player.
@@ -49,7 +50,7 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new PlayerMentalityComponent(this))
             .attachComponent(new TearWeaponComponent(this, data.getDamage()))
             .attachComponent(new PlayerCollisionComponent(this))
-            .attachComponent(new BodyComponent(this))
+            .attachComponent(new BodyComponent(this, new Position(50.0, 50.0, 0.0), 10, 10, 5))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new MoveComponent(this, 0, data.getSpeed(), 0));
         this.name = data.getName();
