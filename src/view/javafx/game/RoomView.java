@@ -40,8 +40,7 @@ public class RoomView {
      * @param graphic the {@link GraphicsContext}
      */
     public void draw(final GraphicsContext graphic) {
-        
-        graphic.setFill(new ImagePattern(this.imageRoom));
+        graphic.setFill(new ImagePattern(this.imageRoom, 0, 0, graphic.getCanvas().getWidth(), graphic.getCanvas().getHeight(), true));
         this.doors.forEach(d -> d.draw(graphic));
         System.out.println("DRAW ROOM");
     }

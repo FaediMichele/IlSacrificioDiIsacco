@@ -151,7 +151,7 @@ public class IsaacView extends AbstractEntityView {
      */
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DEAD)) {
-            gc.drawImage(deadSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth() * 3);
+            gc.drawImage(deadSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
             super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }
