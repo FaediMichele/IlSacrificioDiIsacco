@@ -79,8 +79,14 @@ public class GameWorldImpl implements GameWorld {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
         if (docXML != null) {
             final List<Node> ls = StaticMethodsUtils
-                    .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
-            final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
+                    .getNodesFromNodelList(docXML.getElementsByTagName(game)
+                    .item(0)
+                    .getChildNodes());
+
+            final Optional<Node> node = ls.stream()
+                                          .filter(n -> n.getNodeName()
+                                          .equals("Floors"))
+                                          .findFirst();
 
             if (node.isPresent()) {
                 final NodeList nl = node.get().getChildNodes();
@@ -92,7 +98,8 @@ public class GameWorldImpl implements GameWorld {
                     }
                 }
             } else {
-                floors.add(0, new FloorImpl());
+                //floors.add(0, new FloorImpl());
+                throw new IllegalArgumentException();
             }
             changedFloor = false;
             getActiveFloor().getActiveRoom().insertEntity(player);
@@ -125,7 +132,6 @@ public class GameWorldImpl implements GameWorld {
         getActiveFloor().update(deltaTime);
         getActiveFloor().calculateCollision();
         changedFloor = false;
-        //System.out.println(this.player.getComponent(BodyComponent.class).get().getPosition());
     }
 
     @Override
