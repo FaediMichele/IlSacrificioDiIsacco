@@ -23,37 +23,19 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     public static final double DEFAULT_SPEED = 1;
 
-    /**
-     * Default maximum value for speed: 10.
-     */
-    public static final double DEFAULT_MAX_SPEED = 10;
-
-    /**
-     * Default value for friction: 0.001.
-     */
-    public static final double DEFAULT_FRICTION = 0.0001;
-
-    private static final double MINIMIZE_SPACE_DELTA = 0.0001;
     private double deltaSpeed;
     private double xMove;
     private double yMove;
     private double zMove;
     private double lastMovementAngle;
-    private final double maxSpeed;
-    private final double friction;
-
     /**
      * 
      * @param deltaSpeed is the actual speed
-     * @param maxSpeed   is the max speed that can be reached
-     * @param friction   friction force against the movement
      * @param entity     {@link Entity} for this component
      */
-    public MoveComponent(final Entity entity, final double deltaSpeed, final double maxSpeed, final double friction) {
+    public MoveComponent(final Entity entity, final double deltaSpeed) {
         super(entity);
         this.deltaSpeed = deltaSpeed;
-        this.maxSpeed = maxSpeed;
-        this.friction = friction;
         this.initMove();
 
         this.registerListener(new EventListener<MoveEvent>() {
@@ -71,7 +53,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param entity {@link Entity} for this component
      */
     public MoveComponent(final Entity entity) {
-        this(entity, DEFAULT_SPEED, DEFAULT_MAX_SPEED, DEFAULT_FRICTION);
+        this(entity, DEFAULT_SPEED);
     }
 
     /**
@@ -84,20 +66,10 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     /**
-     * @return friction
-     */
-    public double getFriction() {
-        return friction;
-    }
-
-    /**
      * 
      * @param deltaSpeed is the speed in space/ms
      */
     protected void changeSpeed(final double deltaSpeed) {
-        if (deltaSpeed > this.maxSpeed) {
-            throw new IllegalArgumentException();
-        }
         this.deltaSpeed = deltaSpeed;
     }
 
@@ -159,29 +131,11 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         return this.zMove;
     }
 
-    /**
-     * Getter for maxSpeed.
-     * @return maxSped
-     */
-    public double getMaxSpeed() {
-        return this.maxSpeed;
-    }
-
-    /**
-     * space = v0*t +1/2*a*t^2.
-     * 
-     * @return the real speed space/ms, considering the friction force
-     */
-    private double calculateSpace(final Double deltaTime) {
-        final double acceleration = -this.friction / this.getBody().getWeight();
-        return this.deltaSpeed * deltaTime + Math.pow(deltaTime, 2) * acceleration / 2;
-    }
-
     @Override
     public final void update(final Double deltaTime) {
         if (this.checkMove()) {
-            final double spaceEachMove = calculateSpace(deltaTime) * MINIMIZE_SPACE_DELTA;
-            this.getBody().changePosition(xMove * spaceEachMove, yMove * spaceEachMove, zMove * spaceEachMove);
+            this.getBody().changePosition(xMove * this.deltaSpeed, yMove * this.deltaSpeed, zMove);
+            System.out.println(this.getEntity().getComponent(BodyComponent.class).get().getPosition().toString());
             this.postLogs();
             this.initMove();
             this.setLastMovementAngle();

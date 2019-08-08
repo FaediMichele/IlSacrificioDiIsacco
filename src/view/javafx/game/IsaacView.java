@@ -63,10 +63,10 @@ public class IsaacView extends AbstractEntityView {
             isaacBody
                     .addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
 
-            movingDownSprite = isaacBody.subList(0, spritesEachMove);
+            movingDownSprite = isaacBody.subList(0, spritesEachMove - 1);
             movingUpSprite = new ArrayList<Image>();
             movingUpSprite.addAll(movingDownSprite);
-            movingRightSprite = isaacBody.subList(spritesEachMove, spritesEachMove * 2);
+            movingRightSprite = isaacBody.subList(spritesEachMove, spritesEachMove * 2 - 1);
             movingLeftSprite = new ArrayList<Image>();
             movingRightSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
@@ -89,9 +89,9 @@ public class IsaacView extends AbstractEntityView {
             bodySprites.put(BasicMovementEnum.STATIONARY, movingDownSprite.subList(0, 1));
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
-            movingDownFaceSprite = isaacFace.subList(0, spritesFaces);
-            movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
-            movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3);
+            movingDownFaceSprite = isaacFace.subList(0, spritesFaces - 1);
+            movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2 - 1);
+            movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3 - 1);
             movingLeftFaceSprite = new ArrayList<Image>();
             movingRightFaceSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
