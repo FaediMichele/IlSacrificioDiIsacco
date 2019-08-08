@@ -27,9 +27,10 @@ import view.javafx.game.RoomView;
  *
  */
 public class GameController {
+    private static final double PADDING_X_MAP = 76;
+    private static final double PADDING_Y_MAP = 63;
     private static final long TIMETOSLEEP = 5;
-    private static final double PADDING_X_MAP = 51;
-    private static final double PADDING_Y_MAP = 51;
+
     @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;
@@ -60,7 +61,7 @@ public class GameController {
 //        for (final Door door : doors ) {
 //            final EntityView doorView = 
 //        }
-        gameView.setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
+        gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png", null));
     }
 
     /**
@@ -96,6 +97,8 @@ public class GameController {
                     sleep(TIMETOSLEEP);
                     gameWord.update(TIMETOSLEEP);
                     //Se il Player è morto -> gameView.gameOver()
+                    System.out.println(gameView.getWidth());
+                    System.out.println(gameView.getHeight());
                     final double widthMolti = gameView.getWidth() 
                                                / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight() 
@@ -113,8 +116,8 @@ public class GameController {
                             .peek(i -> 
                                 i.setWidth(i.getWidth() * widthMolti)
                                  .setHeight(i.getHeight() * heightMolti)
-                                 .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX()  * widthMolti, 
-                                         heightAdd - i.getPosition().getY() * heightMolti, 
+                                 .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), 
+                                         heightAdd - i.getPosition().getY(), 
                                                            i.getPosition().getZ()))
                                  )
                             .peek(st -> {
