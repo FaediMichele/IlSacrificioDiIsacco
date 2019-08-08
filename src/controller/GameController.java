@@ -126,7 +126,7 @@ public class GameController {
                                     }
                                 });
                     //gestione StatisticView da fare
-                    //gameView.draw();
+                    gameView.draw();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
