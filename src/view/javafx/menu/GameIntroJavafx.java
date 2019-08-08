@@ -1,5 +1,7 @@
 package view.javafx.menu;
 
+import java.util.Set;
+
 import controller.menu.MainMenuSelection;
 import controller.menu.MenuSelection;
 import controller.menu.SubMenu;
@@ -110,7 +112,7 @@ public final class GameIntroJavafx extends SubMenuSelection {
         }
 
         @Override
-        public void input(final Command c) {
+        public void input(final Set<Command> c) {
             end();
         }
 

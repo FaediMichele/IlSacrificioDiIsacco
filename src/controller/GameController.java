@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
 
@@ -168,10 +169,11 @@ public class GameController {
      * 
      * @param cm .
      */
-    public void input(final Command cm) {
+    public void input(final Set<Command> cm) {
         try {
             inputDisponible.acquire();
-            inputCommand.add(cm);
+            inputCommand.clear();
+            inputCommand.addAll(cm);
             inputDisponible.release();
         } catch (InterruptedException e) {
             e.printStackTrace();

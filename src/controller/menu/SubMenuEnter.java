@@ -1,5 +1,7 @@
 package controller.menu;
 
+import java.util.Set;
+
 import util.Command;
 import view.SubMenuView;
 import view.interfaces.SubMenuEnterView;
@@ -29,9 +31,9 @@ public class SubMenuEnter extends SubMenu {
     }
 
     @Override
-    public final void input(final Command c) {
+    public final void input(final Set<Command> c) {
         super.input(c);
-        if (c == Command.ENTER && getSelector().contains(SubMenuGameMenu.class)) {
+        if (c.contains(Command.ENTER) && getSelector().contains(SubMenuGameMenu.class)) {
             getSelector().selectSubMenu(SubMenuGameMenu.class);
         }
     }

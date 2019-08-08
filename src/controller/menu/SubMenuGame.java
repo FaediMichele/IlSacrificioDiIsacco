@@ -1,6 +1,7 @@
 package controller.menu;
 
 import java.io.IOException;
+import java.util.Set;
 
 import controller.GameController;
 import util.Command;
@@ -29,18 +30,16 @@ public class SubMenuGame extends SubMenu {
     }
 
     @Override
-    public final void input(final Command c) {
+    public final void input(final Set<Command> c) {
         if (!((GameSubMenuSelection) getSelector()).isPlayingIntro()) {
-            switch (c) {
-            case OPTIONS:
+            if (c.contains(Command.OPTIONS)) { 
                 options();
-            case EXIT:
+            } else if (c.contains(Command.EXIT)) {
                 if (gameController != null) {
                     gameController.stop();
                 }
                 options();
-                break;
-            default: 
+            } else { 
                 if (gameController != null) {
                     gameController.input(c);
                 }

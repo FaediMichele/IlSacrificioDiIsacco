@@ -1,5 +1,7 @@
 package controller.menu;
 
+import java.util.Set;
+
 import util.Command;
 import view.SubMenuView;
 import view.interfaces.SubMenuSelectMenuView;
@@ -22,21 +24,15 @@ public class SubMenuGameMenu extends SubMenu {
     }
 
     @Override
-    public final void input(final Command c) {
-        switch (c) {
-        case ARROW_UP:
+    public final void input(final Set<Command> c) {
+        if (c.contains(Command.ARROW_UP)) {
             up();
-            break;
-        case ARROW_DOWN:
+        } else if (c.contains(Command.ARROW_DOWN)) {
             down();
-            break;
-        case ENTER:
+        } else if (c.contains(Command.ENTER)) {
             enter();
-            break;
-        case EXIT:
+        } else if (c.contains(Command.EXIT)) {
             exit();
-            break;
-         default:
         }
     }
 

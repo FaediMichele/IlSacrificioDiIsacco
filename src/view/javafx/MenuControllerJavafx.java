@@ -2,6 +2,8 @@ package view.javafx;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import controller.menu.ConfigurationManager;
 import controller.menu.GameSubMenuSelection;
 import controller.menu.MainMenuSelection;
@@ -56,19 +58,11 @@ public class MenuControllerJavafx {
         });
         s.setOnKeyPressed(k -> {
             keyPressed.add(k.getCode());
-            keyPressed.forEach(key -> {
-                if (manager.getKeyMap().containsKey(key)) {
-                    menu.get().get().input(manager.getKeyMap().get(key));
-                }
-            });
+            menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
         s.setOnKeyReleased(k -> {
             keyPressed.remove(k.getCode());
-            keyPressed.forEach(key -> {
-                if (manager.getKeyMap().containsKey(key)) {
-                    menu.get().get().input(manager.getKeyMap().get(key));
-                }
-            });
+            menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
         pnMain.requestFocus();
     }

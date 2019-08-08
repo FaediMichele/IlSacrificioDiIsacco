@@ -1,5 +1,7 @@
 package controller.menu;
 
+import java.util.Set;
+
 import util.Command;
 import view.SubMenuView;
 import view.interfaces.SubMenuRunView;
@@ -35,21 +37,15 @@ public class SubMenuRun extends SubMenu {
     }
 
     @Override
-    public final void input(final Command c) {
-        switch (c) {
-        case ARROW_LEFT:
+    public final void input(final Set<Command> c) {
+        if (c.contains(Command.ARROW_LEFT)) {
             left();
-            break;
-        case ARROW_RIGHT:
+        } else if (c.contains(Command.ARROW_RIGHT)) {
             right();
-            break;
-        case ENTER:
+        } else if (c.contains(Command.ENTER)) {
             enter();
-            break;
-        case EXIT:
+        } else if (c.contains(Command.EXIT)) {
             exit();
-            break;
-        default:
         }
     }
 

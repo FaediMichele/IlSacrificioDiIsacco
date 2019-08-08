@@ -1,5 +1,7 @@
 package controller.menu;
 
+import java.util.Set;
+
 import util.Command;
 import view.SubMenuView;
 
@@ -31,7 +33,7 @@ public abstract class SubMenu {
      * Pass the {@link Command} clicked.
      * @param c the {@link Command} to manage.
      */
-    public void input(final Command c) {
+    public void input(final Set<Command> c) {
     }
 
     /**
