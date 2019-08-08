@@ -202,8 +202,7 @@ public class GameWorldImpl implements GameWorld {
      */
     @Override
     public List<EntityInformation> getEntityInformation() {
-        final List<EntityInformation> lst = new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
-        return lst;
+        return new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
     }
 
     /**
