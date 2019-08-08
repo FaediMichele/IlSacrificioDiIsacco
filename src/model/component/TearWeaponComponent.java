@@ -29,6 +29,7 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
                 System.out.println(t);
                 System.out.println(getEntity());
                 System.out.println(getEntity().getNameEntity());
+                System.out.println(getEntity().getRoom());
                 getEntity().getRoom().insertEntity(t);
             }
         });
