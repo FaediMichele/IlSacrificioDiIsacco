@@ -39,10 +39,10 @@ public class InputComponent extends AbstractComponent<InputComponent> {
         }
         switch (c) {
             case KEY_DOWN:
-                mc.move(90);
+                mc.move(270);
                 break;
             case KEY_UP:
-                mc.move(270);
+                mc.move(90);
                 break;
             case KEY_RIGHT:
                 mc.move(0);
