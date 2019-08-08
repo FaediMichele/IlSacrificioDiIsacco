@@ -85,6 +85,7 @@ public class GaperView extends IsaacView {
             bodySprites.put(BasicMovementEnum.DOWN, movingDownSprite);
             bodySprites.put(BasicMovementEnum.RIGHT, movingRightSprite);
             bodySprites.put(BasicMovementEnum.LEFT, movingLeftSprite);
+            bodySprites.put(BasicMovementEnum.STATIONARY, movingDownSprite.subList(0, 1));
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
             movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
@@ -112,6 +113,7 @@ public class GaperView extends IsaacView {
             final int delta = 32;
             final List<Image> gaperMovingDownFaceSprite = (new SpritesExtractor(img, 2, 1, 1, delta, delta)).extract();
             faceSprites.put(BasicMovementEnum.DOWN, gaperMovingDownFaceSprite);
+            faceSprites.put(BasicMovementEnum.STATIONARY, gaperMovingDownFaceSprite.subList(0, 1));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,11 +130,13 @@ public class GaperView extends IsaacView {
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
         bodyIndex.put(BasicMovementEnum.LEFT, 0);
+        bodyIndex.put(BasicMovementEnum.STATIONARY, 0);
 
         faceIndex.put(BasicMovementEnum.UP, 0);
         faceIndex.put(BasicMovementEnum.DOWN, 0);
         faceIndex.put(BasicMovementEnum.RIGHT, 0);
         faceIndex.put(BasicMovementEnum.LEFT, 0);
+        faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
     /**
