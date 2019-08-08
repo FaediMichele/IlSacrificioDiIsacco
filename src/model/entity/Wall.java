@@ -46,7 +46,6 @@ public class Wall extends AbstractStaticEntity {
 
 
     private Pair<Pair<Double, Double>, Pair<Double, Double>> setPosition(final BasicMovementEnum direction, final Pair<Double, Double> size) {
-        final BodyComponent b = (BodyComponent) this.getComponent(BodyComponent.class).get();
         switch (direction) {
         case UP:
             return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.2, 0.0),
