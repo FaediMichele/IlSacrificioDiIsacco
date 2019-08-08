@@ -2,6 +2,7 @@ package model.entity;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
+import model.component.InputComponent;
 import model.component.InventoryComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
@@ -20,6 +21,8 @@ import model.util.Position;
  * Implements Player.
  */
 public class Player extends AbstractMovableEntity {
+    private static final Double HEIGHT = 10.0;
+    private static final Double WIDTH = 20.0;
 
     private final PlayerEnum name;
     /**
@@ -50,9 +53,10 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new PlayerMentalityComponent(this))
             .attachComponent(new TearWeaponComponent(this, data.getDamage()))
             .attachComponent(new PlayerCollisionComponent(this))
-            .attachComponent(new BodyComponent(this, new Position(50.0, 50.0, 0.0), 10, 10, 5))
+            .attachComponent(new BodyComponent(this, new Position(50.0, 50.0, 0.0), WIDTH , HEIGHT, 5))
             .attachComponent(new StatusComponent(this))
-            .attachComponent(new MoveComponent(this, 0, data.getSpeed(), 0));
+            .attachComponent(new MoveComponent(this, 0, data.getSpeed(), 0))
+            .attachComponent(new InputComponent(this));
         this.name = data.getName();
         this.detachComponent(CollisionComponent.class);
         this.detachComponent(MovableCollisionComponent.class);

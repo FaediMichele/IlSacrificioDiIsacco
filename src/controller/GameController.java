@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Semaphore;
 
 import javafx.application.Platform;
 import model.entity.Door;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
+import model.events.InputEvent;
 import model.game.GameWorld;
 import model.game.GameWorldImpl;
 import model.util.DataPlayer;
@@ -40,6 +43,8 @@ public class GameController {
     private final GameLoop gameloop;
     private final GameView gameView;
     private final Map<UUID, EntityController> entityControllers;
+    private final Semaphore inputDisponible = new Semaphore(1);
+    private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
     /**
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player .
@@ -96,7 +101,6 @@ public class GameController {
             try {
                 while (!stoped) {
                     sleep(timeToSleep);
-                    System.out.println("Start game loop");
                     gameWord.update(timeToSleep);
                     //Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth() 
@@ -138,6 +142,11 @@ public class GameController {
                                 });
                     //gestione StatisticView da fare
                     gameView.draw();
+                    if (inputDisponible.tryAcquire()) {
+                        inputCommand.forEach(c -> gameWord.input(c));
+                        inputCommand.clear();
+                        inputDisponible.release();
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -160,6 +169,12 @@ public class GameController {
      * @param cm .
      */
     public void input(final Command cm) {
-        this.gameWord.input(cm);
+        try {
+            inputDisponible.acquire();
+            inputCommand.add(cm);
+            inputDisponible.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

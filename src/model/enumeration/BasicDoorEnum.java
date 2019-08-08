@@ -6,7 +6,7 @@ package model.enumeration;
  *
  */
 
-public enum BasicDoorEunm implements DoorEnum {
+public enum BasicDoorEnum implements DoorEnum {
 
     /**
      * Basic type of door.

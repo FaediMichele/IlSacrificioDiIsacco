@@ -20,7 +20,7 @@ public class InputComponent extends AbstractComponent<InputComponent> {
      * Create a new inputComponent which control the entity.
      * @param entity the entity.
      */
-    protected InputComponent(final Entity entity) {
+    public InputComponent(final Entity entity) {
         super(entity);
         this.registerListener((new EventListener<InputEvent>() {
             @Override
@@ -32,6 +32,7 @@ public class InputComponent extends AbstractComponent<InputComponent> {
     }
 
     private void handleInput(final Command c) {
+        System.out.println(c+"entity");
         final MoveComponent mc = getEntity().getComponent(MoveComponent.class).get();
         if (mc == null) {
             return;
