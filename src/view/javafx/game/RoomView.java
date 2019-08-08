@@ -2,7 +2,6 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -16,7 +15,6 @@ import javafx.scene.image.Image;
  */
 public class RoomView {
     private final Image imageRoom;
-    private final Set<DoorView> doors = new HashSet<DoorView>();;
     /**
      * @param path the path of the background of the room
      * @param doors the doors of the Room
@@ -25,9 +23,6 @@ public class RoomView {
     public RoomView(final String path, final Set<DoorView> doors) throws IOException {
         final BufferedImage img = ImageIO.read(RoomView.class.getResource(path));
         this.imageRoom = SwingFXUtils.toFXImage(img, null);
-        if (doors != null) {
-            this.doors.addAll(doors);
-        }
     }
 
     /**
@@ -36,7 +31,6 @@ public class RoomView {
      */
     public void draw(final GraphicsContext graphic) {
         graphic.drawImage(this.imageRoom, 0, 0, graphic.getCanvas().getWidth(), graphic.getCanvas().getHeight());
-        this.doors.forEach(d -> d.draw(graphic));
     }
 
 }

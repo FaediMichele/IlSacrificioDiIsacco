@@ -61,7 +61,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
             public void listenEvent(final UseThingEvent event) {
                 if (thingsOfThisKind(event.getReleasedEntityClass()) != 0) {
                     final Optional<Entity> thingToRelease = things.stream()
-                            .filter(i -> i.getClass().equals(event.getReleasedEntityClass())).findFirst();
+                            .filter(i -> i.getClass().isInstance(event.getReleasedEntityClass())).findFirst();
                     if (thingToRelease.isPresent()) {
                         thingToRelease.get().getComponent(AbstractCollectableComponent.class).get().use();
                     }

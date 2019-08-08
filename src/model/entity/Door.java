@@ -18,7 +18,7 @@ public class Door extends AbstractStaticEntity {
     private static final int DEFAULTHEIGHT = 100;
     private static final int DEFAULTWIDTH = 1 / 16;
     private static final int DEFAULTWEIGHT = 0;
-    private static final EntityEnum ENTITY_NAME = BasicDoorEnum.UP;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.DOOR;
 
 
     /**
