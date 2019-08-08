@@ -208,7 +208,6 @@ public class IsaacView extends AbstractEntityView {
     @Override
     public void def(final MovementEnum move) {
         this.setSprites(move, faceSprites);
-        System.out.println(this.getClass());
     }
 
     /**
