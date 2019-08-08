@@ -29,7 +29,7 @@ import view.javafx.game.RoomView;
 public class GameController {
     private static final double PADDING_X_MAP = 51;
     private static final double PADDING_Y_MAP = 51;
-    private static  long timeToSleep = 50;
+    private static  long timeToSleep = 10;
     @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;
@@ -39,7 +39,7 @@ public class GameController {
     private final Map<UUID, EntityController> entityControllers;
     private final Semaphore inputDisponible = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
-    
+
     /**
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player .
