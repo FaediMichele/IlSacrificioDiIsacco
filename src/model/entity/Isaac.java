@@ -1,13 +1,13 @@
-package model.entity;
-
-
-/**
- * TODO.
- *
- */
-public class Isaac extends Player {
-      @SuppressWarnings("unused")
-    private static Entity e = (Entity) util.StaticMethodsUtils.xmlToMapClass("ciao", "pippo", "paperino").get("ciao");
+//package model.entity;
+//
+//
+///**
+// * TODO.
+// *
+// */
+//public class Isaac extends Player {
+//      @SuppressWarnings("unused")
+//    private static Entity e = (Entity) util.StaticMethodsUtils.xmlToMapClass("ciao", "pippo", "paperino").get("ciao");
 //    private static final EntityEnum ENTITY_NAME = BasicPlayerEnum.ISAAC;
 //    public static final double LIFE = 10; 
 //    public static final double SPEED = 10;
@@ -45,5 +45,5 @@ public class Isaac extends Player {
 //    public static void setSTUCK(final boolean setStuck) {
 //        stuck = setStuck;
 //    }
-
-}
+//
+//}

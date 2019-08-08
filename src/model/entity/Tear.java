@@ -1,69 +1,76 @@
 package model.entity;
 
 import model.component.BodyComponent;
+import model.component.Component;
 import model.component.DamageComponent;
 import model.component.MoveComponent;
-import model.component.StatusComponent;
 import model.component.TearAIComponent;
-import model.component.collision.CollisionComponent;
-import model.component.mentality.PlayerMentalityComponent;
-import model.enumeration.BasicEntityEnum;
+import model.component.mentality.AbstractMentalityComponent;
 import model.enumeration.EntityEnum;
+import model.util.Position;
 
 /**
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.PLAYER_TEAR;
+    private static final double HEIGHT = 10;
+    private static final double WIDTH = 10;
+    private final EntityEnum name;
+
 
     /**
      * Default constructor.
      * 
      * @param angle               the angle of the tear when it's shot
-     * @param entityThatShootedMe shooter entity
+     * @param positions 
      * @param damage              the tear damage
+     * @param lifetime .
+     * @param speed .
+     * @param name .
+     * @param mentality .
      */
-    public Tear(final int angle, final Entity entityThatShootedMe, final double damage) {
+    public Tear(final int angle, 
+                final Position positions, 
+                final double damage, 
+                final double lifetime, 
+                final double speed, 
+                final EntityEnum name,
+                final AbstractMentalityComponent mentality) {
         super();
-        final int minimizeBodySprite = 2;
-        this.attachComponent(new PlayerMentalityComponent(this));
+        this.attachComponent(mentality);
         this.attachComponent(new TearAIComponent(this, angle));
         this.attachComponent(new DamageComponent(this, damage));
-        this.attachComponent(new MoveComponent(this, getMoveComponent(entityThatShootedMe).getSpeed()));
-        this.attachComponent(new BodyComponent(this, this.getBodyComponent(entityThatShootedMe).getPosition(),
-                this.getBodyComponent(entityThatShootedMe).getHeight() / minimizeBodySprite,
-                this.getBodyComponent(entityThatShootedMe).getWidth() / minimizeBodySprite,
-                this.getBodyComponent(entityThatShootedMe).getWeight()));
+        this.attachComponent(new MoveComponent(this, speed));
+        this.attachComponent(new BodyComponent(this, positions,
+                                                        HEIGHT,
+                                                        WIDTH,
+                                                        0));
+        this.name = name;
     }
 
-    /**
-     * @param entityBody          the {@link BodyComponent}
-     * @param entityCollision     the {@link CollisionComponent}
-     * @param entityStatus        the {@link StatusComponent}
-     * @param angle               the angle of the tear when it's shot
-     * @param entityThatShootedMe shooter entity
-     * @param damage              the damage of the Tear
-     */
-    public Tear(final BodyComponent entityBody, final CollisionComponent entityCollision,
-            final StatusComponent entityStatus, final int angle, final Entity entityThatShootedMe,
-            final double damage) {
-        this(angle, entityThatShootedMe, damage);
-        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
-    }
-
-    private MoveComponent getMoveComponent(final Entity e) {
-        return (e.getComponent(MoveComponent.class).get());
-    }
-
-    private BodyComponent getBodyComponent(final Entity e) {
-        return (e.getComponent(BodyComponent.class).get());
-    }
+//    /**
+//     * @param entityBody          the {@link BodyComponent}
+//     * @param entityCollision     the {@link CollisionComponent}
+//     * @param entityStatus        the {@link StatusComponent}
+//     * @param angle               the angle of the tear when it's shot
+//     * @param entityThatShootedMe shooter entity
+//     * @param damage              the damage of the Tear
+//     */
+//    public Tear(final BodyComponent entityBody, 
+//                final CollisionComponent entityCollision,
+//                final StatusComponent entityStatus, 
+//                final int angle, 
+//                final Entity entityThatShootedMe,
+//                final double damage) {
+//        this(angle, entityThatShootedMe, damage);
+//        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
+//    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public EntityEnum getNameEntity() {
-        return ENTITY_NAME;
+        return this.name;
     }
 }

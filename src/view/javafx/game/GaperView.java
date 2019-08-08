@@ -22,6 +22,7 @@ public class GaperView extends IsaacView {
     private Map<MovementEnum, List<Image>> gaperFaceSprites = new HashMap<>();
     private final Map<MovementEnum, Integer> gaperFaceIndex = new HashMap<>();
 
+
     static {
         BufferedImage img = null;
         try {

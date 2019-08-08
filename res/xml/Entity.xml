@@ -6,8 +6,8 @@
     <HEART_RED>HeartView</HEART_RED>
     <DOOR>DoorView</DOOR>
     <BOMB>BombView</BOMB>
-    <ENEMY_TEAR_SIMPLE>TearView</ENEMY_TEAR_SIMPLE>
-    <PLAYER_TEAR>TearView</PLAYER_TEAR>
+    <EVIL_TEAR>RedTearView</EVIL_TEAR>
+    <GOOD_TEAR>BlueTearView</GOOD_TEAR>
     <KEY>KeyView</KEY>
     <ROCK>RockView</ROCK>
     <WALL>WallView</WALL>

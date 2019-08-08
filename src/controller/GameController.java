@@ -30,7 +30,7 @@ import view.javafx.game.RoomView;
 public class GameController {
     private static final double PADDING_X_MAP = 76;
     private static final double PADDING_Y_MAP = 63;
-    private static final long TIMETOSLEEP = 5;
+    private static final long TIMETOSLEEP = 3000;
 
     @NotEquals
     private volatile boolean stoped;

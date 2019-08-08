@@ -7,7 +7,9 @@ import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicMovementEnum;
 import model.enumeration.EntityEnum;
+import util.Pair;
 
 /**
  * Implements the walls.
@@ -32,6 +34,37 @@ public class Wall extends AbstractStaticEntity {
     }
 
     /**
+     * Create a wall that stay on the corner of the room.
+     * @param direction the position of the wall.
+     * @param roomSize the room size.
+     */
+    public Wall(final BasicMovementEnum direction, final Pair<Double, Double> roomSize) {
+        super();
+        final Pair<Pair<Double, Double>, Pair<Double, Double>> pos = setPosition(direction, roomSize);
+        build(pos.getX().getX(), pos.getX().getY(), pos.getY().getX(), pos.getY().getY());
+    }
+
+
+    private Pair<Pair<Double, Double>, Pair<Double, Double>> setPosition(final BasicMovementEnum direction, final Pair<Double, Double> size) {
+        switch (direction) {
+        case UP:
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.2, 0.0),
+                    new Pair<Double, Double>(size.getX() - 0.4, 0.01));
+        case RIGHT:
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(size.getX() - 0.2, 0.3),
+                    new Pair<Double, Double>(0.1, size.getY() - 0.6));
+        case DOWN:
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.4, size.getY() - 0.2),
+                    new Pair<Double, Double>(size.getX() - 0.2, 0.1));
+        case LEFT:
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.0, 0.4),
+                    new Pair<Double, Double>(0.01, size.getY() - 0.2));
+        default:
+            throw new IllegalArgumentException();
+        }
+    }
+
+    /**
      * Default constructor.
      * 
      */
@@ -53,8 +86,11 @@ public class Wall extends AbstractStaticEntity {
     }
 
     private void build(final double x, final double y) {
+        build(x, y, WIDTH, HEIGHT);
+    }
+    private void build(final double x, final double y, final double width, final double height) {
         this.attachComponent(new NeutralMentalityComponent(this));
-        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT), new CollisionComponent(this),
+        this.setDefaultComponents(new BodyComponent(this, x, y, 0, height, width, WEIGHT), new CollisionComponent(this),
                 new StatusComponent(this));
     }
 

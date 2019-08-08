@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Floors>
-    <Floor1 MaxRoom="6">
+    <Floor1 MaxRoom="16">
         <Rooms>
             <Room1/>
             <Room2/>

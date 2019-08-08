@@ -11,7 +11,7 @@ import model.component.collision.CollisionComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
-import model.enumeration.BasicPlayerEnum;
+import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
@@ -28,19 +28,19 @@ public class Player extends AbstractMovableEntity {
     /**
      * Empty constructor.
      */
-    public Player() {
-        super();
-        this.attachComponent(new HealthComponent(this))
-            .attachComponent(new InventoryComponent(this))
-            .attachComponent(new PlayerMentalityComponent(this))
-            .attachComponent(new TearWeaponComponent(this))
-            .attachComponent(new PlayerCollisionComponent(this))
-            .attachComponent(new BodyComponent(this))
-            .attachComponent(new StatusComponent(this));
-        this.detachComponent(CollisionComponent.class);
-        this.detachComponent(MovableCollisionComponent.class);
-        this.name = BasicPlayerEnum.ISAAC;
-        }
+//    public Player() {
+//        super();
+//        this.attachComponent(new HealthComponent(this))
+//            .attachComponent(new InventoryComponent(this))
+//            .attachComponent(new PlayerMentalityComponent(this))
+//            .attachComponent(new TearWeaponComponent(this))
+//            .attachComponent(new PlayerCollisionComponent(this))
+//            .attachComponent(new BodyComponent(this))
+//            .attachComponent(new StatusComponent(this));
+//        this.detachComponent(CollisionComponent.class);
+//        this.detachComponent(MovableCollisionComponent.class);
+//        this.name = BasicPlayerEnum.ISAAC;
+//        }
 
     /**
      * Empty constructor.
@@ -51,7 +51,7 @@ public class Player extends AbstractMovableEntity {
         this.attachComponent(new HealthComponent(this, data.getLife()))
             .attachComponent(new InventoryComponent(this))
             .attachComponent(new PlayerMentalityComponent(this))
-            .attachComponent(new TearWeaponComponent(this, data.getDamage()))
+            //.attachComponent(new TearWeaponComponent(this, data.getDamage(), BasicEntityEnum.GOOD_TEAR))
             .attachComponent(new PlayerCollisionComponent(this))
             .attachComponent(new BodyComponent(this, new Position(50.0, 50.0, 0.0), WIDTH, HEIGHT, 5))
             .attachComponent(new StatusComponent(this))
