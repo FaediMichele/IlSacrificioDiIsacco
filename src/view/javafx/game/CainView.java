@@ -9,10 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.imageio.ImageIO;
-
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -22,7 +19,7 @@ import model.enumeration.MovementEnum;
 import util.SpritesExtractor;
 
 /**
- * View and animations of Cain.
+ * View and animations of Isaac.
  */
 
 public class CainView extends AbstractEntityView {
@@ -37,6 +34,8 @@ public class CainView extends AbstractEntityView {
 
     private Image face;
     private Image body;
+    private MovementEnum lastMove = BasicMovementEnum.STATIONARY;
+    private int countStationary;
 
     static {
         BufferedImage img = null;
@@ -66,10 +65,10 @@ public class CainView extends AbstractEntityView {
             isaacBody
                     .addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
 
-            movingDownSprite = isaacBody.subList(0, spritesEachMove);
+            movingDownSprite = isaacBody.subList(0, spritesEachMove - 1);
             movingUpSprite = new ArrayList<Image>();
             movingUpSprite.addAll(movingDownSprite);
-            movingRightSprite = isaacBody.subList(spritesEachMove, spritesEachMove * 2);
+            movingRightSprite = isaacBody.subList(spritesEachMove, spritesEachMove * 2 - 1);
             movingLeftSprite = new ArrayList<Image>();
             movingRightSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
@@ -92,9 +91,9 @@ public class CainView extends AbstractEntityView {
             bodySprites.put(BasicMovementEnum.STATIONARY, movingDownSprite.subList(0, 1));
 
             final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
-            movingDownFaceSprite = isaacFace.subList(0, spritesFaces);
-            movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2);
-            movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3);
+            movingDownFaceSprite = isaacFace.subList(0, spritesFaces - 1);
+            movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2 - 1);
+            movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3 - 1);
             movingLeftFaceSprite = new ArrayList<Image>();
             movingRightFaceSprite.forEach(l -> {
                 final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
@@ -130,12 +129,13 @@ public class CainView extends AbstractEntityView {
     }
 
     /**
-     * Base constructor, initilizes the indexes.
+     * Base constructor, initializes the indexes.
      * 
      * @param id the {@link UUID}
      */
     public CainView(final UUID id) {
         super(id);
+        System.out.println("ISAAC");
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
@@ -149,22 +149,35 @@ public class CainView extends AbstractEntityView {
         faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
+    private MovementEnum rightMove(final MovementEnum move) {
+        if (move.equals(BasicMovementEnum.STATIONARY)) {
+            this.countStationary++;
+        } else {
+            this.countStationary = 0;
+        }
+        if (move != BasicMovementEnum.STATIONARY) {
+            lastMove = move;
+        }
+        if (this.countStationary >= 15) {
+            return BasicMovementEnum.STATIONARY;
+        } else {
+            return lastMove;
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DEAD)) {
-            gc.drawImage(deadSprite, super.getX(), super.getY(), super.getWidth(), super.getHeight());
+            gc.drawImage(deadSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
             super.setStatus(BasicStatusEnum.DEFAULT);
             return;
         }
         final double heightScale = 1;
-        final double bodyShift = 1.5 / 5;
-        System.out.println("X = " + super.getX());
-        System.out.println("Y = " + super.getY());
-        gc.drawImage(body, super.getX(),
-                super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
-        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
+        final double bodyShift = 1.1 / 5;
+        gc.drawImage(body, super.getX(), super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
+        gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale, super.getWidth());
     }
 
     /**
@@ -172,10 +185,11 @@ public class CainView extends AbstractEntityView {
      */
     @Override
     public void def(final MovementEnum move) {
-        this.face = CainView.faceSprites.get(move).get(faceIndex.get(move));
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % CainView.faceSprites.get(move).size());
-        this.body = bodySprites.get(move).get(bodyIndex.get(move));
-        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
+        final MovementEnum rightMove = this.rightMove(move);
+        this.face = faceSprites.get(rightMove).get(faceIndex.get(rightMove));
+        this.faceIndex.compute(rightMove, (k, v) -> (v + 1) % faceSprites.get(rightMove).size());
+        this.body = bodySprites.get(rightMove).get(bodyIndex.get(rightMove));
+        this.bodyIndex.compute(rightMove, (k, v) -> (v + 1) % bodySprites.get(rightMove).size());
     }
 
     /**
