@@ -114,10 +114,16 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param newZ the new position on the z axis
      */
     public void setPosition(final double newX, final double newY, final double newZ) {
+        this.previousPosition = this.position;
         this.position = new Position(newX, newY, newZ);
-        this.previousPosition = new Position(newX, newY, newZ);
     }
 
+    /**
+     * Go to the previous position.
+     */
+    public void goPrevious() {
+        this.position = previousPosition;
+    }
 
     /**
      * Sets a new position for the entity.

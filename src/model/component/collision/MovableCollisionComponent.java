@@ -2,6 +2,7 @@ package model.component.collision;
 
 import java.util.List;
 import model.component.BodyComponent;
+import model.component.MoveComponent;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import model.events.MoveEvent;
@@ -47,37 +48,17 @@ public class MovableCollisionComponent extends CollisionComponent {
      * @param event the {@link Event}
      */
     protected void handleMovement(final CollisionEvent event) {
-        final double angle = 89;
-        double a = Math.random() * angle, b = Math.random() * angle;
-        while ((Math.cos(a) == 0 || Math.sin(b) - Math.cos(b) * Math.sin(a) == 0) && a + b > 90) {
-            a = Math.random() * angle;
-            b = Math.random() * angle;
-        }
-
-        final double v1xi = this.getBodyComponent(this.getEntity()).getPosition().getX()
-                - this.getBodyComponent(this.getEntity()).getPositionPrevious().getX();
-        final double v1yi = this.getBodyComponent(this.getEntity()).getPosition().getY()
-                - this.getBodyComponent(this.getEntity()).getPositionPrevious().getY();
-        final double v2xi = this.getBodyComponent(event.getSourceEntity()).getPosition().getX()
-                - this.getBodyComponent(event.getSourceEntity()).getPositionPrevious().getX();
-        final double v2yi = this.getBodyComponent(event.getSourceEntity()).getPosition().getY()
-                - this.getBodyComponent(event.getSourceEntity()).getPositionPrevious().getY();
-
-        final double sumx = v1xi + v2xi;
-        final double sumy = v1yi + v2yi;
-
-        final double v2f = (sumx - sumy) / (Math.sin(b) - Math.cos(b) * Math.sin(a));
-        final double v1f = (sumx - v2f * Math.cos(b)) / Math.cos(a);
-
-        final double v1x = v1f * Math.cos(a), v1y = v1f * Math.sin(a);
-        //final double v2x = v2f * Math.cos(b), v2y = v2f * Math.sin(b);
-
-        getEntity().postEvent(new MoveEvent(getEntity(), v1x, v1y, 0));
+        getBodyComponent(this.getEntity()).goPrevious();
+        getMoveComponent(this.getEntity()).stop();
     }
 
-//    private double getAngle(final double deltaX, final double deltaY) {
-//        return Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
-//    }
+    private MoveComponent getMoveComponent(final Entity e) {
+        if (e.getComponent(MoveComponent.class).isPresent()) {
+            return e.getComponent(MoveComponent.class).get();
+        } else {
+            throw new IllegalStateException();
+        }
+    }
 
     private BodyComponent getBodyComponent(final Entity e) {
         if (e.getComponent(BodyComponent.class).isPresent()) {
