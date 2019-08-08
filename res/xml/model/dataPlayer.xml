@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Entity path-enum="model.enumeration.BasicEntityEnum">
-    <ISAAC life="10.0" speed="100" damage="10.0"> </ISAAC>
+    <ISAAC life="10.0" speed="1000" damage="10.0"> </ISAAC>
     <CAIN life="3.0" speed="300" damage="4.0"> </CAIN>
 </Entity>

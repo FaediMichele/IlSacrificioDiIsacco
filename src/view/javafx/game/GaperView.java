@@ -19,7 +19,7 @@ import util.SpritesExtractor;
 public class GaperView extends IsaacView {
 
     private static List<Image> movingDownFaceSprites;
-    private Map<MovementEnum, List<Image>> gaperFaceSprites = new HashMap<>();
+    private final Map<MovementEnum, List<Image>> gaperFaceSprites = new HashMap<>();
 
     static {
         BufferedImage img = null;
