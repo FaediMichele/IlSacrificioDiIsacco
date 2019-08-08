@@ -164,15 +164,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     private void postLogs() {
-//        if (xMove > 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
-//        } else if (xMove < 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.DOWN);
-//        } else if (yMove > 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.RIGHT);
-//        } else if (yMove < 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);
-//        }
         final double x = Math.abs(this.xMove);
         final double y = Math.abs(this.yMove);
         if (y >= x) {
