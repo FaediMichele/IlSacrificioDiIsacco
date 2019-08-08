@@ -31,8 +31,11 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param weight   of the entity
      * @param entity   entity for this component
      */
-    public BodyComponent(final Entity entity, final Position position, final double height,
-            final double width, final int weight) {
+    public BodyComponent(final Entity entity, 
+                        final Position position, 
+                        final double height,
+                        final double width, 
+                        final int weight) {
         super(entity);
         this.position = position;
         this.previousPosition = position;
