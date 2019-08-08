@@ -55,7 +55,7 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new PlayerCollisionComponent(this))
             .attachComponent(new BodyComponent(this, new Position(50.0, 50.0, 0.0), WIDTH, HEIGHT, 5))
             .attachComponent(new StatusComponent(this))
-            .attachComponent(new MoveComponent(this, 0, data.getSpeed(), 0))
+            .attachComponent(new MoveComponent(this, data.getSpeed()))
             .attachComponent(new InputComponent(this));
         this.name = data.getName();
         this.detachComponent(CollisionComponent.class);

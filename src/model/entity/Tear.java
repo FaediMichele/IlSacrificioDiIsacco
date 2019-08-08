@@ -29,9 +29,7 @@ public class Tear extends AbstractMovableEntity {
         this.attachComponent(new PlayerMentalityComponent(this));
         this.attachComponent(new TearAIComponent(this, angle));
         this.attachComponent(new DamageComponent(this, damage));
-        this.attachComponent(new MoveComponent(this, getMoveComponent(entityThatShootedMe).getSpeed(),
-                getMoveComponent(entityThatShootedMe).getMaxSpeed(),
-                getMoveComponent(entityThatShootedMe).getFriction()));
+        this.attachComponent(new MoveComponent(this, getMoveComponent(entityThatShootedMe).getSpeed()));
         this.attachComponent(new BodyComponent(this, this.getBodyComponent(entityThatShootedMe).getPosition(),
                 this.getBodyComponent(entityThatShootedMe).getHeight() / minimizeBodySprite,
                 this.getBodyComponent(entityThatShootedMe).getWidth() / minimizeBodySprite,
