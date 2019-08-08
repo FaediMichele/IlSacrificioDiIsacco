@@ -1,5 +1,10 @@
 package view.javafx;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import controller.menu.ConfigurationManager;
 import controller.menu.GameSubMenuSelection;
 import controller.menu.MainMenuSelection;
@@ -7,6 +12,7 @@ import controller.menu.MenuSelection;
 import controller.menu.SubMenuSelection;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaView;
 import view.javafx.menu.GameIntroJavafx;
@@ -16,10 +22,10 @@ import view.javafx.menu.GameIntroJavafx;
  */
 public class MenuControllerJavafx {
     private static final long TIME_MENU = 500;
-    private static final int MAXKEYATTIME = 3;
 
     private MenuSelection menu;
     private final ConfigurationManager manager = new ConfigurationManagerJavafx("/config.ini");
+    private final Set<KeyCode> keyPressed = new LinkedHashSet<>();
 
     @FXML private Pane pnMain;
     @FXML private Pane pnMainMenu;
@@ -51,15 +57,22 @@ public class MenuControllerJavafx {
                 pnMain.requestFocus();
             }
         });
-
-        // Input redirection.
-        for (int i = 0; i < MAXKEYATTIME; i++) {
-            pnMain.setOnKeyPressed(k -> {
-                if (manager.getKeyMap().containsKey(k.getCode())) {
-                    menu.get().get().input(manager.getKeyMap().get(k.getCode()));
+        s.setOnKeyPressed(k -> {
+            keyPressed.add(k.getCode());
+            keyPressed.forEach(key -> {
+                if (manager.getKeyMap().containsKey(key)) {
+                    menu.get().get().input(manager.getKeyMap().get(key));
                 }
             });
-        }
+        });
+        s.setOnKeyReleased(k -> {
+            keyPressed.remove(k.getCode());
+            keyPressed.forEach(key -> {
+                if (manager.getKeyMap().containsKey(key)) {
+                    menu.get().get().input(manager.getKeyMap().get(key));
+                }
+            });
+        });
         pnMain.requestFocus();
     }
 }
