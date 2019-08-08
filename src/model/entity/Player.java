@@ -21,8 +21,8 @@ import model.util.Position;
  * Implements Player.
  */
 public class Player extends AbstractMovableEntity {
-    private static final Double HEIGHT = 10.0;
-    private static final Double WIDTH = 20.0;
+    private static final Double HEIGHT = 20.0;
+    private static final Double WIDTH = 25.0;
 
     private final PlayerEnum name;
     /**
