@@ -53,7 +53,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
         Objects.requireNonNull(entity);
         final HealthComponent healthComponent = this.getHealthComponent(entity);
 
-        if (heartKind.equals(BlackHeart.class)) {
+        if (heartKind.isInstance(BlackHeart.class)) {
             healthComponent.addHeart(new BlackHeart.Builder(entity).heartValue(actualValue).build());
         } else if (heartKind.equals(SimpleHeart.class)) {
             healthComponent.addHeart(new SimpleHeart(actualValue));
