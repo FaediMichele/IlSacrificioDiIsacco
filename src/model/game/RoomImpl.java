@@ -144,6 +144,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
+        this.entity.forEach(e -> e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY));
         this.entity.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
