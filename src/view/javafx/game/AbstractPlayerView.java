@@ -108,7 +108,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
     @Override
     public void def(final MovementEnum initialMove) {
         final MovementEnum move = this.correctMove(initialMove);
-        this.setSprites(move, faceSprites);
+        this.setSprites(move, faceSprites, faceIndex);
         this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
     }
 
@@ -117,8 +117,8 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      * @param move the movement fo the entity
      * @param actualFaceSprites the sprites it needs to use for the face
      */
-    protected void setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites) {
-        this.face = actualFaceSprites.get(move).get(faceIndex.get(move));
+    protected void setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites, final Map<MovementEnum, Integer> actualFaceIndex) {
+        this.face = actualFaceSprites.get(move).get(actualFaceIndex.get(move));
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
         this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }
