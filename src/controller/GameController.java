@@ -2,11 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javafx.application.Platform;
+import model.entity.Door;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -17,6 +21,8 @@ import model.util.EntityInformation;
 import model.util.Position;
 import util.Command;
 import util.NotEquals;
+import view.javafx.game.DoorView;
+import view.javafx.game.EntityView;
 import view.javafx.game.GameView;
 import view.javafx.game.RoomView;
 
@@ -51,7 +57,11 @@ public class GameController {
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
-        this.gameWord.getActiveFloor().getActiveRoom().getDoor();
+//        Set<? extends Door> doors = this.gameWord.getActiveFloor().getActiveRoom().getDoor();
+//        List<EntityView> doorsView = new ArrayList<>();
+//        for (final Door door : doors ) {
+//            final EntityView doorView = 
+//        }
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
     }
 
@@ -86,6 +96,7 @@ public class GameController {
             try {
                 while (!stoped) {
                     sleep(timeToSleep);
+                    System.out.println("Start game loop");
                     gameWord.update(timeToSleep);
                     //Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth() 

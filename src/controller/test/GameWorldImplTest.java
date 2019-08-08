@@ -19,6 +19,7 @@ import model.events.RoomChangedEvent;
 import model.game.Floor;
 import model.game.FloorImpl;
 import model.game.GameWorld;
+import model.util.EntityInformation;
 import model.util.StatisticsInformations;
 import util.Command;
 import util.EventListener;
@@ -173,6 +174,18 @@ public class GameWorldImplTest implements GameWorld {
     public StatisticsInformations getStatistics() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public List<EntityInformation> getEntityInformation() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean isChangeRoom() {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }
