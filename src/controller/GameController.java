@@ -51,6 +51,7 @@ public class GameController {
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
+        this.gameWord.getActiveFloor().getActiveRoom().getDoor();
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1.png", null));
         //gameView.draw();
     }
@@ -99,9 +100,7 @@ public class GameController {
                                                          entityControllers.remove(x.getId());
                                                       });
                     }
-                    gameWord.getActiveFloor()
-                            .getActiveRoom()
-                            .getEntitiesStatus()
+                    gameWord.getEntityInformation()
                             .stream()
                             .peek(i -> 
                                 i.setWidth(i.getWidth() * widthMolti)
