@@ -69,13 +69,9 @@ public class GameSubMenuSelection extends SubMenuSelection {
             this.selectSubMenu(SubMenuGame.class);
             game.loadGame();
         }
-    }
-
-    /**
-     * Start the animation of the fade transition.
-     */
-    public void startAnimationSelected() {
-        gmv.changeSelector(false);
+        if (previous.equals(this)) {
+            game.reset();
+        }
     }
 
     /**

@@ -1,8 +1,11 @@
 package model.game;
 
 import java.util.List;
+import java.util.Set;
 
+import model.entity.Entity;
 import model.entity.Player;
+import model.util.EntityInformation;
 import model.util.StatisticsInformations;
 import util.Command;
 import util.EventListener;
@@ -40,10 +43,22 @@ public interface GameWorld {
     Floor getActiveFloor();
 
     /**
+     * Get the set of the entity that will be updated.
+     * @return the set.
+     */
+    Set<EntityInformation> getEntityInformation();
+
+    /**
      * 
      * @return true if the floor is change from last update
      */
     boolean isChangeFloor();
+
+    /**
+     * 
+     * @return true if the floor is change from last update
+     */
+    boolean isChangeRoom();
 
     /**
      * Go to the next frame of the game.

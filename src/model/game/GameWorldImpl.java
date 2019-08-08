@@ -1,9 +1,12 @@
 package model.game;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
@@ -13,16 +16,21 @@ import org.w3c.dom.NodeList;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.InventoryComponent;
+import model.component.StatusComponent;
 import model.entity.Bomb;
 import model.entity.Entity;
 import model.entity.Key;
 import model.entity.Player;
+import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicStatusEnum;
 import model.enumeration.ColorHeartEnum;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
 import model.events.RoomChangedEvent;
+import model.util.EntityInformation;
 import model.util.StatisticsInformations;
 import util.Command;
 import util.EventListener;
@@ -225,5 +233,29 @@ public class GameWorldImpl implements GameWorld {
                 .setKeys(things.stream().filter(t -> t.getClass().isInstance(Key.class)).collect(Collectors.toList())
                         .size())
                 .setHearts(hearts);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<EntityInformation> getEntityInformation() {
+        final List<EntityInformation> lst = new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
+        lst.add(new EntityInformation().setEntity(player.getNameEntity()).setId(player.getId())
+                .setHeight(player.getComponent(BodyComponent.class).get().getHeight())
+                .setWidth(player.getComponent(BodyComponent.class).get().getWidth())
+                .setMove(player.getComponent(StatusComponent.class).get().getMove() == null ? BasicMovementEnum.STATIONARY : player.getComponent(StatusComponent.class).get().getMove())
+                .setStatus(player.getComponent(StatusComponent.class).get().getStatus() == null ? BasicStatusEnum.DEFAULT : player.getComponent(StatusComponent.class).get().getStatus())
+                .setPosition(player.getComponent(BodyComponent.class).get().getPosition())
+                .setUpgrade(player.getComponent(StatusComponent.class).get().getUpgrade()));
+        return new LinkedHashSet<EntityInformation>(lst);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isChangeRoom() {
+        return getActiveFloor().isChangeRoom();
     }
 }
