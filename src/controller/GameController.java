@@ -97,8 +97,6 @@ public class GameController {
                     sleep(TIMETOSLEEP);
                     gameWord.update(TIMETOSLEEP);
                     //Se il Player è morto -> gameView.gameOver()
-                    System.out.println(gameView.getWidth());
-                    System.out.println(gameView.getHeight());
                     final double widthMolti = gameView.getWidth() 
                                                / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight() 

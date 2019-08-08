@@ -17,6 +17,7 @@ import model.component.DoorAIComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
+import model.entity.Wall;
 import model.enumeration.BasicMovementEnum;
 import model.events.RoomChangedEvent;
 import util.EventListener;
@@ -159,20 +160,29 @@ public class FloorImpl implements Floor {
             final double width, final double height) {
         final Room r = new RoomImpl(index, width, height);
         final List<Door> doors = new ArrayList<>();
+        final List<Wall> walls = new ArrayList<>();
+        final Pair<Double, Double> roomSize = new Pair<Double, Double>(r.getWidth(), r.getHeight());
         if (this.roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
-            doors.add(new Door(BasicMovementEnum.UP, index, m.get(pos.getX(), pos.getY() - 1), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
+            doors.add(new Door(BasicMovementEnum.UP, index, m.get(pos.getX(), pos.getY() - 1), roomSize));
         }
         if (this.roomExist(m, pos.getX() + 1, pos.getY())) { // EAST
-            doors.add(new Door(BasicMovementEnum.RIGHT, index, m.get(pos.getX() + 1, pos.getY()), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
+            doors.add(new Door(BasicMovementEnum.RIGHT, index, m.get(pos.getX() + 1, pos.getY()), roomSize));
         }
         if (this.roomExist(m, pos.getX(), pos.getY() + 1)) { // SUD
-            doors.add(new Door(BasicMovementEnum.DOWN, index, m.get(pos.getX(), pos.getY() + 1), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
+            doors.add(new Door(BasicMovementEnum.DOWN, index, m.get(pos.getX(), pos.getY() + 1), roomSize));
         }
         if (this.roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
-            doors.add(new Door(BasicMovementEnum.LEFT, index, m.get(pos.getX() - 1, pos.getY()), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
+            doors.add(new Door(BasicMovementEnum.LEFT, index, m.get(pos.getX() - 1, pos.getY()), roomSize));
         }
+        walls.add(new Wall(BasicMovementEnum.UP, roomSize));
+        walls.add(new Wall(BasicMovementEnum.RIGHT, roomSize));
+        walls.add(new Wall(BasicMovementEnum.DOWN, roomSize));
+        walls.add(new Wall(BasicMovementEnum.LEFT, roomSize));
         doors.forEach(d -> r.insertEntity(d));
         doors.forEach(d -> d.changeRoom(r));
+
+        walls.forEach(d -> r.insertEntity(d));
+        walls.forEach(d -> d.changeRoom(r));
         r.setFloor(this);
         return r;
     }

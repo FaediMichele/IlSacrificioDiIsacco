@@ -160,8 +160,6 @@ public class CainView extends AbstractEntityView {
         }
         final double heightScale = 1;
         final double bodyShift = 1.1 / 5;
-        System.out.println("X = " + super.getX());
-        System.out.println("Y = " + super.getY());
         gc.drawImage(body, super.getX(),
                 super.getY() + (super.getHeight() * bodyShift), (super.getHeight() * heightScale), super.getWidth());
         gc.drawImage(face, super.getX(), super.getY(), super.getHeight() * heightScale,  super.getWidth());
