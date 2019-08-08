@@ -54,7 +54,6 @@ public class SubMenuGame extends SubMenu {
     public void loadGame() {
         final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
         final CharacterInfo character = sel.getCharacterInfo();
-        
         try {
             this.gameController = new GameController(getGameView(), character.getInfo(), "Game1");
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
@@ -75,6 +74,11 @@ public class SubMenuGame extends SubMenu {
     @Override
     public void reset() {
         smgv.reset();
+        ((GameSubMenuSelection) getSelector()).setOnIntroEnded(null);
+        if (gameController != null) {
+            gameController.stop();
+            gameController = null;
+        }
     }
 
     /**
