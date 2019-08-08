@@ -10,11 +10,6 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-/*import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;*/
-import javafx.scene.paint.ImagePattern;
 
 /**
  * It generates the background of the room with the correct doors.
@@ -41,9 +36,7 @@ public class RoomView {
      */
     public void draw(final GraphicsContext graphic) {
         graphic.drawImage(this.imageRoom, 0, 0, graphic.getCanvas().getWidth(), graphic.getCanvas().getHeight());
-        //graphic.getCanvas().getScene().setFill(new ImagePattern(this.imageRoom))
         this.doors.forEach(d -> d.draw(graphic));
-        System.out.println("DRAW ROOM");
     }
 
 }
