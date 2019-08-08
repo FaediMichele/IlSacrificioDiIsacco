@@ -1,10 +1,8 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
-import model.component.StatusComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;

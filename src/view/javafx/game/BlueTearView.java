@@ -13,19 +13,15 @@ import javafx.scene.image.Image;
 import util.SpritesExtractor;
 
 /**
-* View and animations of the player and the enemies.
-*/
-public class TearView extends AbstractEntityView {
+ * View of the tears shot by the player.
+ */
+public class BlueTearView extends AbstractEntityView {
     private static List<Image> playerTear;
-    private static List<Image> enemyTear;
-
-    private final List<Image> tears;
-    private int index;
 
     static {
         BufferedImage img = null;
          try {
-            img = ImageIO.read(TearView.class.getResource("/gameImgs/tears.png"));
+            img = ImageIO.read(BlueTearView.class.getResource("/gameImgs/tears.png"));
         } catch (IOException e) {
            e.printStackTrace();
         }
@@ -35,33 +31,21 @@ public class TearView extends AbstractEntityView {
 
         playerTear = (new SpritesExtractor(img, tears, 2, cols, delta, delta)).extract();
         Collections.reverse(playerTear);
-
-        enemyTear = (new SpritesExtractor(img, tears, 2, cols, delta, delta, 0, 2 * delta).extract());
-        Collections.reverse(enemyTear);
     }
-
-    /**
-     * Base constructor, initilizes the indexes.
-     * @param id 
-     * @param gv The gameView to which this entityView is added
-     * @param entityClass the class determines which list of tears is needed
-     */
-    public TearView(final UUID id, final GameViewImpl gv, final Class<? extends AbstractEntityView> entityClass) {
-        super(id, gv);
-        this.index = 0;
-        this.index = 0;
-
-        if (entityClass.equals(IsaacView.class)) {
-            tears = playerTear;
-        } else if (entityClass.equals(MonstroView.class) || entityClass.equals(GaperView.class) || entityClass.equals(DanksquirtView.class)) {
-            tears = enemyTear;
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
+    private final List<Image> tears;
+    private int index;
 
     /**
      * 
+     * @param id 
+     * @param gv The gameView to which this entityView is added
+     */
+    public BlueTearView(final UUID id, final GameViewImpl gv) {
+        super(id, gv);
+        tears = BlueTearView.playerTear;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

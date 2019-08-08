@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.Semaphore;
 
 import model.entity.FactoryPlayersUtil;
+import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
@@ -61,7 +62,7 @@ public class GameController {
 //        for (final Door door : doors ) {
 //            final EntityView doorView = 
 //        }
-        gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png", null));
+        gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png"));
     }
 
     /**
@@ -137,6 +138,10 @@ public class GameController {
                                 });
                     //gestione StatisticView da fare
                     gameView.draw();
+                    gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
+                        e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);
+                        e.getStatusComponent().setStatus(BasicStatusEnum.DEFAULT);
+                    });
                     if (inputDisponible.tryAcquire()) {
                         inputCommand.forEach(c -> gameWord.input(c));
                         inputCommand.clear();

@@ -2,7 +2,6 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -17,10 +16,9 @@ public class RoomView {
     private final Image imageRoom;
     /**
      * @param path the path of the background of the room
-     * @param doors the doors of the Room
      * @throws IOException 
      */
-    public RoomView(final String path, final Set<DoorView> doors) throws IOException {
+    public RoomView(final String path) throws IOException {
         final BufferedImage img = ImageIO.read(RoomView.class.getResource(path));
         this.imageRoom = SwingFXUtils.toFXImage(img, null);
     }

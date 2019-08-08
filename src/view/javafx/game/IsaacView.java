@@ -26,6 +26,7 @@ public class IsaacView extends AbstractEntityView {
 
     private static Map<MovementEnum, List<Image>> bodySprites = new HashMap<>();
     private static Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
+
     private static Image sufferSprite;
     private static Image deadSprite;
 
@@ -129,12 +130,13 @@ public class IsaacView extends AbstractEntityView {
     }
 
     /**
-     * Base constructor, initilizes the indexes.
+     * Base constructor, initializes the indexes.
      * 
      * @param id the {@link UUID}
      */
     public IsaacView(final UUID id) {
         super(id);
+        System.out.println("ISAAC");
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
@@ -148,6 +150,27 @@ public class IsaacView extends AbstractEntityView {
         faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
+    /**
+     * @return the faces of isaac
+     */
+    public static Map<MovementEnum, List<Image>> getFaceSprites() {
+        return faceSprites;
+    }
+
+    /**
+     * @return the dead body of isaac
+     */
+    public static Image getSufferSprite() {
+        return sufferSprite;
+    }
+
+    /**
+     * @return the suffering body of isaac
+     */
+    public static Image getDeadSprite() {
+        return deadSprite;
+    }
+
     private MovementEnum rightMove(final MovementEnum move) {
         if (move.equals(BasicMovementEnum.STATIONARY)) {
             this.countStationary++;
@@ -157,7 +180,7 @@ public class IsaacView extends AbstractEntityView {
         if (move != BasicMovementEnum.STATIONARY) {
             lastMove = move;
         }
-        if (this.countStationary >= 15) {
+        if (this.countStationary >= 100) {
             return BasicMovementEnum.STATIONARY;
         } else {
             return lastMove;
@@ -184,11 +207,21 @@ public class IsaacView extends AbstractEntityView {
      */
     @Override
     public void def(final MovementEnum move) {
-        final MovementEnum rightMove = this.rightMove(move);
-        this.face = faceSprites.get(rightMove).get(faceIndex.get(rightMove));
-        this.faceIndex.compute(rightMove, (k, v) -> (v + 1) % faceSprites.get(rightMove).size());
-        this.body = bodySprites.get(rightMove).get(bodyIndex.get(rightMove));
-        this.bodyIndex.compute(rightMove, (k, v) -> (v + 1) % bodySprites.get(rightMove).size());
+        this.setSprites(move, faceSprites);
+        System.out.println(this.getClass());
+    }
+
+    /**
+     * 
+     * @param initialMove the movement fo the entity
+     * @param actualFaceSprites the sprites it needs to use for the face
+     */
+    protected void setSprites(final MovementEnum initialMove, final Map<MovementEnum, List<Image>> actualFaceSprites) {
+        final MovementEnum move = this.rightMove(initialMove);
+        this.face = actualFaceSprites.get(move).get(faceIndex.get(move));
+        this.faceIndex.compute(move, (k, v) -> (v + 1) % actualFaceSprites.get(move).size());
+        this.body = bodySprites.get(move).get(bodyIndex.get(move));
+        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
     }
 
     /**
