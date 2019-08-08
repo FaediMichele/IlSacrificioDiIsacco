@@ -26,6 +26,9 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
             @Subscribe
             public void listenEvent(final TearShotEvent event) {
                 final Tear t = new Tear(event.getAngle(), event.getSourceEntity(), damage);
+                System.out.println(t);
+                System.out.println(getEntity());
+                System.out.println(getEntity().getNameEntity());
                 getEntity().getRoom().insertEntity(t);
             }
         });
