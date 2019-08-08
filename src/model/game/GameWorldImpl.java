@@ -70,33 +70,34 @@ public class GameWorldImpl implements GameWorld {
     /**
      * Initialize the {@link GameWorld} via xml.
      * 
-     * @param game the game settings
+     * @param game the game settings 
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
     public GameWorldImpl(final String game)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        this();
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        final List<Node> ls = StaticMethodsUtils
-                .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
-        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
-        this.player = new Player();
-        this.activeFloor = 0;
-        this.floors = new LinkedList<>();
-        if (node.isPresent()) {
-            final NodeList nl = node.get().getChildNodes();
-            for (int i = 0; i < nl.getLength(); i++) {
-                final Node floor = nl.item(i);
-                if (floor.getNodeType() == Node.ELEMENT_NODE) {
-                    final String floorName = floor.getNodeName();
-                    this.floors.add(new FloorImpl(floorName));
+        if (docXML != null) {
+            final List<Node> ls = StaticMethodsUtils
+                    .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
+            final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
+            this.activeFloor = 0;
+            if (node.isPresent()) {
+                final NodeList nl = node.get().getChildNodes();
+                for (int i = 0; i < nl.getLength(); i++) {
+                    final Node floor = nl.item(i);
+                    if (floor.getNodeType() == Node.ELEMENT_NODE) {
+                        final String floorName = floor.getNodeName();
+                        this.floors.add(new FloorImpl(floorName));
+                    }
                 }
+            } else {
+                floors.add(0, new FloorImpl());
             }
-        } else {
-            floors.add(0, new FloorImpl());
+            changedFloor = false;
         }
-        changedFloor = false;
     }
 
     /**
@@ -111,26 +112,29 @@ public class GameWorldImpl implements GameWorld {
     @SuppressWarnings("all")
     public GameWorldImpl(final String game, final Player typePlayer)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        final List<Node> ls = StaticMethodsUtils
-                .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
-        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
-        this.player = new Player();
+        this.player = typePlayer;
         this.activeFloor = 0;
         this.floors = new LinkedList<>();
-        if (node.isPresent()) {
-            final NodeList nl = node.get().getChildNodes();
-            for (int i = 0; i < nl.getLength(); i++) {
-                final Node floor = nl.item(i);
-                if (floor.getNodeType() == Node.ELEMENT_NODE) {
-                    final String floorName = floor.getNodeName();
-                    this.floors.add(new FloorImpl(floorName));
+        final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
+        if (docXML != null) {
+            final List<Node> ls = StaticMethodsUtils
+                    .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
+            final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
+
+            if (node.isPresent()) {
+                final NodeList nl = node.get().getChildNodes();
+                for (int i = 0; i < nl.getLength(); i++) {
+                    final Node floor = nl.item(i);
+                    if (floor.getNodeType() == Node.ELEMENT_NODE) {
+                        final String floorName = floor.getNodeName();
+                        this.floors.add(new FloorImpl(floorName));
+                    }
                 }
+            } else {
+                floors.add(0, new FloorImpl());
             }
-        } else {
-            floors.add(0, new FloorImpl());
+            changedFloor = false;
         }
-        changedFloor = false;
     }
 
     @Override
@@ -212,12 +216,9 @@ public class GameWorldImpl implements GameWorld {
      */
     public StatisticsInformations getStatistics() {
         final List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
-        final List<Pair<ColorHeartEnum, Double>> hearts = this.getPlayer()
-                                                        .getComponent(HealthComponent.class).get()
-                                                        .getHearts()
-                                                        .stream()
-                                                        .map(h -> new Pair<ColorHeartEnum, Double>(h.getColor(), h.getValue()))
-                                                        .collect(Collectors.toList());
+        final List<Pair<ColorHeartEnum, Double>> hearts = this.getPlayer().getComponent(HealthComponent.class).get()
+                .getHearts().stream().map(h -> new Pair<ColorHeartEnum, Double>(h.getColor(), h.getValue()))
+                .collect(Collectors.toList());
         return new StatisticsInformations()
                 .setBombs(things.stream().filter(t -> t.getClass().isInstance(Bomb.class)).collect(Collectors.toList())
                         .size())
