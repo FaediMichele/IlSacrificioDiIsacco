@@ -111,6 +111,7 @@ public class IsaacView extends AbstractEntityView {
             faceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprite);
             faceSprites.put(BasicMovementEnum.RIGHT, movingRightFaceSprite);
             faceSprites.put(BasicMovementEnum.LEFT, movingLeftFaceSprite);
+            faceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprite.subList(0, 1));
 
             sufferSprite = SwingFXUtils
                     .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
@@ -136,11 +137,13 @@ public class IsaacView extends AbstractEntityView {
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);
         bodyIndex.put(BasicMovementEnum.LEFT, 0);
+        bodyIndex.put(BasicMovementEnum.STATIONARY, 0);
 
         faceIndex.put(BasicMovementEnum.UP, 0);
         faceIndex.put(BasicMovementEnum.DOWN, 0);
         faceIndex.put(BasicMovementEnum.RIGHT, 0);
         faceIndex.put(BasicMovementEnum.LEFT, 0);
+        faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
     /**
