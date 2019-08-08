@@ -81,6 +81,8 @@ public class EntityController {
                             .setHeight(info.getHeight())
                             .setWidth(info.getWidth());
             try {
+                System.out.println(info.getStatus());
+                System.out.println(STATUS_MAP.get(info.getStatus()));
                 final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()), MovementEnum.class);
                 status.invoke(this.entityView, info.getMove());
                 for (final UpgradeEnum upgrade : info.getUpgrade().keySet()) {
