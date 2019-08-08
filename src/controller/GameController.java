@@ -27,9 +27,9 @@ import view.javafx.game.RoomView;
  *
  */
 public class GameController {
-    private static  long timeToSleep = 5
-            
-            ;
+    private static final long TIMETOSLEEP = 5;
+    private static final double PADDING_X_MAP = 51;
+    private static final double PADDING_Y_MAP = 51;
     @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;
@@ -39,6 +39,7 @@ public class GameController {
     private final Map<UUID, EntityController> entityControllers;
     private final Semaphore inputDisponible = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
+
     /**
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player .
@@ -92,13 +93,14 @@ public class GameController {
         public void run() {
             try {
                 while (!stoped) {
-                    sleep(timeToSleep);
-                    gameWord.update(timeToSleep);
+                    sleep(TIMETOSLEEP);
+                    gameWord.update(TIMETOSLEEP);
                     //Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth() 
                                                / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight() 
                                                / gameWord.getActiveFloor().getActiveRoom().getHeight();
+                    final double heightAdd = gameView.getHeight() - PADDING_Y_MAP;
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {
@@ -111,8 +113,8 @@ public class GameController {
                             .peek(i -> 
                                 i.setWidth(i.getWidth() * widthMolti)
                                  .setHeight(i.getHeight() * heightMolti)
-                                 .setPosition(new Position(i.getPosition().getX() * widthMolti, 
-                                                           i.getPosition().getY() * heightMolti, 
+                                 .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX()  * widthMolti, 
+                                         heightAdd - i.getPosition().getY() * heightMolti, 
                                                            i.getPosition().getZ()))
                                  )
                             .peek(st -> {

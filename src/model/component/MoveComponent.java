@@ -134,8 +134,8 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     @Override
     public final void update(final Double deltaTime) {
         if (this.checkMove()) {
-            this.getBody().changePosition(xMove * this.deltaSpeed, yMove * this.deltaSpeed, zMove);
-            System.out.println(this.getEntity().getComponent(BodyComponent.class).get().getPosition().toString());
+            this.getBody().changePosition(xMove * this.deltaSpeed * deltaTime, yMove * this.deltaSpeed * deltaTime, zMove * this.deltaSpeed * deltaTime);
+            //System.out.println(this.getEntity().getComponent(BodyComponent.class).get().getPosition().toString());
             this.postLogs();
             this.initMove();
             this.setLastMovementAngle();
@@ -164,15 +164,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     private void postLogs() {
-//        if (xMove > 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
-//        } else if (xMove < 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.DOWN);
-//        } else if (yMove > 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.RIGHT);
-//        } else if (yMove < 0) {
-//            this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);
-//        }
         final double x = Math.abs(this.xMove);
         final double y = Math.abs(this.yMove);
         if (y >= x) {

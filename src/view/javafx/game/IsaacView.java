@@ -34,6 +34,8 @@ public class IsaacView extends AbstractEntityView {
 
     private Image face;
     private Image body;
+    private MovementEnum lastMove = BasicMovementEnum.STATIONARY;
+    private int countStationary;
 
     static {
         BufferedImage img = null;
@@ -146,6 +148,22 @@ public class IsaacView extends AbstractEntityView {
         faceIndex.put(BasicMovementEnum.STATIONARY, 0);
     }
 
+    private MovementEnum rightMove(final MovementEnum move) {
+        if (move.equals(BasicMovementEnum.STATIONARY)) {
+            this.countStationary++;
+        } else {
+            this.countStationary = 0;
+        }
+        if (move != BasicMovementEnum.STATIONARY) {
+            lastMove = move;
+        }
+        if (this.countStationary >= 15) {
+            return BasicMovementEnum.STATIONARY;
+        } else {
+            return lastMove;
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -166,10 +184,12 @@ public class IsaacView extends AbstractEntityView {
      */
     @Override
     public void def(final MovementEnum move) {
-        this.face = faceSprites.get(move).get(faceIndex.get(move));
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
-        this.body = bodySprites.get(move).get(bodyIndex.get(move));
-        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
+        final MovementEnum rightMove = this.rightMove(move);
+        System.out.println(rightMove);
+        this.face = faceSprites.get(rightMove).get(faceIndex.get(rightMove));
+        this.faceIndex.compute(rightMove, (k, v) -> (v + 1) % faceSprites.get(rightMove).size());
+        this.body = bodySprites.get(rightMove).get(bodyIndex.get(rightMove));
+        this.bodyIndex.compute(rightMove, (k, v) -> (v + 1) % bodySprites.get(rightMove).size());
     }
 
     /**
