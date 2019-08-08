@@ -157,7 +157,7 @@ public class IsaacView extends AbstractEntityView {
         if (move != BasicMovementEnum.STATIONARY) {
             lastMove = move;
         }
-        if (this.countStationary >= 15) {
+        if (this.countStationary >= 100) {
             return BasicMovementEnum.STATIONARY;
         } else {
             return lastMove;
@@ -187,7 +187,6 @@ public class IsaacView extends AbstractEntityView {
     @Override
     public void def(final MovementEnum move) {
         final MovementEnum rightMove = this.rightMove(move);
-        System.out.println(rightMove);
         this.face = faceSprites.get(rightMove).get(faceIndex.get(rightMove));
         this.faceIndex.compute(rightMove, (k, v) -> (v + 1) % faceSprites.get(rightMove).size());
         this.body = bodySprites.get(rightMove).get(bodyIndex.get(rightMove));
