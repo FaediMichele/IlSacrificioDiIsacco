@@ -32,7 +32,7 @@ public class FollowAIComponent extends AbstractAIComponent {
      */
     @Override
     protected void moveUpdate() {
-        if (SEARCHTICK % tick == 0) {
+        if (tick % SEARCHTICK == 0) {
             final Room r = this.getEntity().getRoom();
             if (r == null) {
                 return;

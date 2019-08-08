@@ -74,4 +74,11 @@ public class Triplet<X, Y, Z> {
         final Triplet<Object, Object, Object> other = (Triplet<Object, Object, Object>) obj;
         return Objects.equals(this.z, other.z) && Objects.equals(this.y, other.y) && Objects.equals(this.z, other.z);
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return this.getClass().getName() + " : " + this.x + " " + this.y + " " + this.z;
+    }
 }
