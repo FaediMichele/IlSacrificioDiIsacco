@@ -139,14 +139,15 @@ public class Space {
             }
             step++;
         }
-        grid.setToPredicate(null, c -> !c.isWall());
+        //grid.setToPredicate(null, c -> !c.isWall());
         AStarCell ret = current;
         if (current.parent != current.parent) {
             while (ret.parent.parent != ret.parent) {
                ret = ret.parent;
             }
         }
-        return new Pair<Double, Double>(Double.valueOf(ret.posX), Double.valueOf(ret.posY));
+        System.out.println(ret.posX + " " + ret.posY);
+        return new Pair<Double, Double>(Double.valueOf(ret.posX), Double.valueOf(-ret.posY));
     }
 
     private void operationForNeighbour(final AStarCell c, final AStarCell current, final PriorityQueue<AStarCell> toVisit,
@@ -168,12 +169,12 @@ public class Space {
         return null;
     }
     private void initMatrix() {
-        final int dimXMat = (int) (1 + wall.stream().max((a, b) -> Double.compare(a.x, b.x)).get().x
+        final int dimXMat = (int) (1 + rs.stream().max((a, b) -> Double.compare(a.x, b.x)).get().x
                 / GRIDDEFINITION);
-        final int dimYMat = (int) (1 + wall.stream().max((a, b) -> Double.compare(a.y, b.y)).get().y
+        final int dimYMat = (int) (1 + rs.stream().max((a, b) -> Double.compare(a.y, b.y)).get().y
                 / GRIDDEFINITION);
         grid = new Matrix<AStarCell>(dimXMat, dimYMat);
-        cellDim = new Pair<Double, Double>(Double.valueOf(dimXMat) / wall.size(), Double.valueOf(dimYMat) / wall.size());
+        cellDim = new Pair<Double, Double>(Double.valueOf(dimXMat) / rs.size(), Double.valueOf(dimYMat) / wall.size());
         wall.forEach(r -> {
             int j = 0;
             do {

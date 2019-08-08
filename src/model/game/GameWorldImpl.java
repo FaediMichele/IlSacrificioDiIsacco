@@ -80,8 +80,14 @@ public class GameWorldImpl implements GameWorld {
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
         if (docXML != null) {
             final List<Node> ls = StaticMethodsUtils
-                    .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());
-            final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Floors")).findFirst();
+                    .getNodesFromNodelList(docXML.getElementsByTagName(game)
+                    .item(0)
+                    .getChildNodes());
+
+            final Optional<Node> node = ls.stream()
+                                          .filter(n -> n.getNodeName()
+                                          .equals("Floors"))
+                                          .findFirst();
 
             if (node.isPresent()) {
                 final NodeList nl = node.get().getChildNodes();
@@ -93,7 +99,8 @@ public class GameWorldImpl implements GameWorld {
                     }
                 }
             } else {
-                floors.add(0, new FloorImpl());
+                //floors.add(0, new FloorImpl());
+                throw new IllegalArgumentException();
             }
             changedFloor = false;
             getActiveFloor().getActiveRoom().insertEntity(player);
@@ -129,7 +136,6 @@ public class GameWorldImpl implements GameWorld {
         getActiveFloor().update(deltaTime);
         getActiveFloor().calculateCollision();
         changedFloor = false;
-        //System.out.println(this.player.getComponent(BodyComponent.class).get().getPosition());
     }
 
     @Override
@@ -200,13 +206,6 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public List<EntityInformation> getEntityInformation() {
         final List<EntityInformation> lst = new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
-        lst.add(new EntityInformation().setEntity(player.getNameEntity()).setId(player.getId())
-                .setHeight(player.getComponent(BodyComponent.class).get().getHeight())
-                .setWidth(player.getComponent(BodyComponent.class).get().getWidth())
-                .setMove(player.getComponent(StatusComponent.class).get().getMove() == null ? BasicMovementEnum.STATIONARY : player.getComponent(StatusComponent.class).get().getMove())
-                .setStatus(player.getComponent(StatusComponent.class).get().getStatus() == null ? BasicStatusEnum.DEFAULT : player.getComponent(StatusComponent.class).get().getStatus())
-                .setPosition(player.getComponent(BodyComponent.class).get().getPosition())
-                .setUpgrade(player.getComponent(StatusComponent.class).get().getUpgrade()));
         return lst;
     }
 

@@ -29,7 +29,8 @@ import view.javafx.game.RoomView;
 public class GameController {
     private static final double PADDING_X_MAP = 76;
     private static final double PADDING_Y_MAP = 63;
-    private static  long timeToSleep = 50;
+    private static final long TIMETOSLEEP = 5;
+
     @NotEquals
     private volatile boolean stoped;
     private final GameWorld gameWord;
@@ -93,8 +94,8 @@ public class GameController {
         public void run() {
             try {
                 while (!stoped) {
-                    sleep(timeToSleep);
-                    gameWord.update(timeToSleep);
+                    sleep(TIMETOSLEEP);
+                    gameWord.update(TIMETOSLEEP);
                     //Se il Player è morto -> gameView.gameOver()
                     System.out.println(gameView.getWidth());
                     System.out.println(gameView.getHeight());

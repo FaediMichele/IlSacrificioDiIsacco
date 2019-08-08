@@ -17,6 +17,7 @@ import model.component.DoorAIComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
+import model.enumeration.BasicMovementEnum;
 import model.events.RoomChangedEvent;
 import util.EventListener;
 import util.Matrix;
@@ -33,8 +34,6 @@ import util.StaticMethodsUtils;
  *
  */
 public class FloorImpl implements Floor {
-
-    private int maxRoom;
     private static final int NORD = 0;
     private static final int EAST = 1;
     private static final int SUD = 2;
@@ -46,6 +45,7 @@ public class FloorImpl implements Floor {
     private final EventBus eventBus = new EventBus();
     private int activeRoomIndex;
     private boolean changedRoom;
+    private int maxRoom;
 
     /**
      * Generate a random floor with random room and random enemy.
@@ -157,20 +157,21 @@ public class FloorImpl implements Floor {
      */
     private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos,
             final double width, final double height) {
+        final Room r = new RoomImpl(index, width, height);
         final List<Door> doors = new ArrayList<>();
         if (this.roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
-            doors.add(new Door(NORD, m.get(pos.getX(), pos.getY() - 1)));
+            doors.add(new Door(BasicMovementEnum.UP, index, m.get(pos.getX(), pos.getY() - 1), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
         }
         if (this.roomExist(m, pos.getX() + 1, pos.getY())) { // EAST
-            doors.add(new Door(EAST, m.get(pos.getX() + 1, pos.getY())));
+            doors.add(new Door(BasicMovementEnum.RIGHT, index, m.get(pos.getX() + 1, pos.getY()), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
         }
         if (this.roomExist(m, pos.getX(), pos.getY() + 1)) { // SUD
-            doors.add(new Door(SUD, m.get(pos.getX(), pos.getY() + 1)));
+            doors.add(new Door(BasicMovementEnum.DOWN, index, m.get(pos.getX(), pos.getY() + 1), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
         }
         if (this.roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
-            doors.add(new Door(OVEST, m.get(pos.getX() - 1, pos.getY())));
+            doors.add(new Door(BasicMovementEnum.LEFT, index, m.get(pos.getX() - 1, pos.getY()), new Pair<Double, Double>(r.getWidth(), r.getHeight())));
         }
-        final Room r = new RoomImpl(index, doors, width, height);
+        doors.forEach(d -> r.insertEntity(d));
         doors.forEach(d -> d.changeRoom(r));
         r.setFloor(this);
         return r;
@@ -187,7 +188,7 @@ public class FloorImpl implements Floor {
     private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
         final Pair<Integer, Integer> pos = new Pair<>(maxRoom / 2, maxRoom / 2);
         final Random rnd = new Random();
-        final int nRoom = rnd.nextInt(maxRoom);
+        final int nRoom = rnd.nextInt(maxRoom) + 1;
 
         for (int index = 0; index < nRoom; index++) {
             int direction = rnd.nextInt(OVEST);

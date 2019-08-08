@@ -37,6 +37,7 @@ public class DoorAIComponent extends AbstractComponent<DoorAIComponent> {
             public void listenEvent(final CollisionEvent event) {
                 final CollisionEvent coll = (CollisionEvent) event;
                 if (coll.getSourceEntity().getClass().equals(Player.class)) {
+                    System.out.println("COLISIONE PORTA");
                     final LockComponent lc = getEntity().getComponent(LockComponent.class).get(); 
                     final InventoryComponent ic = coll.getSourceEntity().getComponent(InventoryComponent.class).get();
                     if (lc != null && lc.isLocked() && ic != null) {

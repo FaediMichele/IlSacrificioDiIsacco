@@ -134,7 +134,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     @Override
     public final void update(final Double deltaTime) {
         if (this.checkMove()) {
-            this.getBody().changePosition(xMove * this.deltaSpeed, yMove * this.deltaSpeed, zMove);
+            this.getBody().changePosition(xMove * this.deltaSpeed * deltaTime, yMove * this.deltaSpeed * deltaTime, zMove * this.deltaSpeed * deltaTime);
             //System.out.println(this.getEntity().getComponent(BodyComponent.class).get().getPosition().toString());
             this.postLogs();
             this.initMove();
