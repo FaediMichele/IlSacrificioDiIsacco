@@ -39,7 +39,7 @@ public class GameController {
     private final Map<UUID, EntityController> entityControllers;
     private final Semaphore inputDisponible = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
-    
+
     /**
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player .
