@@ -1,9 +1,7 @@
 package model.game;
 
 import java.util.List;
-import java.util.Set;
 
-import model.entity.Entity;
 import model.entity.Player;
 import model.util.EntityInformation;
 import model.util.StatisticsInformations;

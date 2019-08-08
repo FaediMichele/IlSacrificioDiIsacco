@@ -2,15 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
-import javafx.application.Platform;
-import model.entity.Door;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -48,7 +43,6 @@ public class GameController {
      * @throws IOException 
      */
     public GameController(final GameView gameView, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-        System.out.println(player.getValue());
         this.gameView = gameView;
         this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;

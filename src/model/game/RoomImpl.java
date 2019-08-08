@@ -22,7 +22,6 @@ import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.enumeration.BasicMovementEnum;
-import model.enumeration.BasicPlayerEnum;
 import model.enumeration.BasicStatusEnum;
 import model.events.CollisionEvent;
 import model.events.DeadEvent;
