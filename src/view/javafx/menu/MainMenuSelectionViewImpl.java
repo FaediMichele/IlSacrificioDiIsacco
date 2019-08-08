@@ -24,6 +24,8 @@ import view.node.TranslationPages;
  * The selector for JavaFx. It manage the animation for change the sub menu.
  */
 public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
+    private static final int DIMENSIONSCREENTESTX = 1920;
+    private static final int DIMENSIONSCREENTESTY = 1030;
 
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
@@ -192,7 +194,7 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
      */
     private void updateBind(final Pane p, final Scene s) {
         if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
-            p.scaleXProperty().bind(s.heightProperty().divide(defaultY));
+            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty()).divide(defaultY * DIMENSIONSCREENTESTY));
         } else {
             p.scaleXProperty().bind(s.widthProperty().divide(defaultX));
         }

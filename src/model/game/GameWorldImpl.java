@@ -71,6 +71,7 @@ public class GameWorldImpl implements GameWorld {
         this.player = new Player();
         this.activeFloor = 0;
         changedFloor = false;
+        getActiveFloor().getActiveRoom().insertEntity(player);
     }
 
     /**
