@@ -19,11 +19,7 @@ public abstract class AbstractAIComponent extends AbstractComponent<AbstractAICo
      * @param deltaTime time since the last update
      */
     public void update(final Double deltaTime) {
-        Double time = deltaTime;
-        while (time > TIME_BETWEEN_MOVES) {
-           moveUpdate();
-           time -= TIME_BETWEEN_MOVES;
-        }
+        moveUpdate();
     }
 
     /**

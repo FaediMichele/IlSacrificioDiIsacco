@@ -63,35 +63,15 @@ public class RoomImpl implements Room {
     private final double height;
 
     /**
-     * Create a room with only door. Entity is calculated based on the door.
-     * 
-     * @param index  the index of the room
-     * @param doors  the door of this room
-     * @param width  the width of the room
-     * @param height the height of the room
-     */
-    public RoomImpl(final int index, final List<Door> doors, final double width, final double height) {
-        this.index = index;
-        this.doors = doors;
-        this.entity = new ArrayList<>();
-        cleanGraveyard = false;
-        this.width = width;
-        this.height = height;
-    }
-
-    /**
      * Create a room with door and entity.
      * 
      * @param index  the index of the room
-     * @param door   the door of this room
-     * @param entity the entity of this room
      * @param width  the width of the room
      * @param height the height of the room
      */
-    public RoomImpl(final int index, final List<Door> door, final List<Entity> entity, final double width,
-            final double height) {
+    public RoomImpl(final int index, final double width, final double height) {
         this.index = index;
-        this.doors = door;
+        this.doors = new ArrayList<>();
         this.isComplete = false;
         this.entity = new ArrayList<>();
         entity.forEach(e -> insertEntity(e));
@@ -120,7 +100,12 @@ public class RoomImpl implements Room {
      */
     @Override
     public List<EntityInformation> getEntitiesStatus() {
-        return this.entity.stream()
+        final List<EntityInformation> ret = toInformation(entity);
+        ret.addAll(toInformation(doors));
+        return ret;
+    }
+    private List<EntityInformation> toInformation(final List<? extends Entity> par) {
+        return par.stream()
                 .map(e -> new EntityInformation().setEntity(e.getNameEntity()).setId(e.getId())
                         .setHeight(e.getComponent(BodyComponent.class).get().getHeight())
                         .setWidth(e.getComponent(BodyComponent.class).get().getWidth())
@@ -217,6 +202,10 @@ public class RoomImpl implements Room {
      */
     @Override
     public void insertEntity(final Entity e) {
+        if (e instanceof Door) {
+            this.doors.add((Door) e);
+            return;
+        }
         this.entity.add(e);
         final Space.Rectangle r = getShape(e);
         entityRectangleSpace.put(e, r);
@@ -316,7 +305,7 @@ public class RoomImpl implements Room {
                             entityClass = Class.forName("model.entity." + entityName);
                         }
                         try {
-                            this.entity.add((Entity) entityClass.getDeclaredConstructor(cArg).newInstance(paramether));
+                            insertEntity((Entity) entityClass.getDeclaredConstructor(cArg).newInstance(paramether));
                         } catch (IllegalArgumentException e1) {
                             e1.printStackTrace();
                         } catch (InvocationTargetException e1) {

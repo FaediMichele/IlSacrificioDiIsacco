@@ -202,13 +202,6 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public List<EntityInformation> getEntityInformation() {
         final List<EntityInformation> lst = new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
-        lst.add(new EntityInformation().setEntity(player.getNameEntity()).setId(player.getId())
-                .setHeight(player.getComponent(BodyComponent.class).get().getHeight())
-                .setWidth(player.getComponent(BodyComponent.class).get().getWidth())
-                .setMove(player.getComponent(StatusComponent.class).get().getMove() == null ? BasicMovementEnum.STATIONARY : player.getComponent(StatusComponent.class).get().getMove())
-                .setStatus(player.getComponent(StatusComponent.class).get().getStatus() == null ? BasicStatusEnum.DEFAULT : player.getComponent(StatusComponent.class).get().getStatus())
-                .setPosition(player.getComponent(BodyComponent.class).get().getPosition())
-                .setUpgrade(player.getComponent(StatusComponent.class).get().getUpgrade()));
         return lst;
     }
 

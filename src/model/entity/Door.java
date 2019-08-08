@@ -4,34 +4,38 @@ import model.component.BodyComponent;
 import model.component.Component;
 import model.component.DoorAIComponent;
 import model.component.LockComponent;
+import model.component.StatusComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicMovementEnum;
 import model.enumeration.EntityEnum;
+import model.util.Position;
+import util.Pair;
 
 /**
  * Create a door. The doors have a position based on the location (North, East,
  * ...). The doors have a component called DoorComponent that contains the
  */
 public class Door extends AbstractStaticEntity {
-    private static final int DEFAULTZ = 0;
-    private static final int DEFAULTHEIGHT = 100;
-    private static final int DEFAULTWIDTH = 1 / 16;
-    private static final int DEFAULTWEIGHT = 0;
+    private static final Double DEFAULTZ = 0.0;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.DOOR;
 
 
     /**
      * Create a door based on the direction, destination.
      * 
-     * @param location         the direction of the door in the room (0= North; 1=
-     *                         East; 2= South; 3= West)
+     * @param direction the direction of the door in the room.
+     * @param location Where the door is
      * @param destinationIndex the room that this door conducts
+     * @param roomSize The size of the room.
      */
-    public Door(final Integer location, final Integer destinationIndex) {
+    public Door(final BasicMovementEnum direction, final Integer location, final Integer destinationIndex, final Pair<Double, Double> roomSize) {
         super();
-        this.attachComponent(generateBody(location))
-                .attachComponent(new DoorAIComponent(this, location, destinationIndex))
-                .attachComponent(new NeutralMentalityComponent(this)).attachComponent(new LockComponent(this));
+       this.attachComponent(new DoorAIComponent(this, location, destinationIndex))
+                .attachComponent(new NeutralMentalityComponent(this))
+                .attachComponent(new LockComponent(this))
+                .getStatusComponent().setMove(direction);
+       setPosition(direction, roomSize);
     }
 
     /**
@@ -40,16 +44,21 @@ public class Door extends AbstractStaticEntity {
      * @param location
      * @return
      */
-    private Component generateBody(final Integer location) {
-        switch (location) {
-        case 0:
-            return new BodyComponent(this, 1 / 2, 0, DEFAULTZ, DEFAULTHEIGHT, DEFAULTWIDTH, DEFAULTWEIGHT);
-        case 1:
-            return new BodyComponent(this, 1, 1 / 2, DEFAULTZ, DEFAULTHEIGHT, DEFAULTWIDTH, DEFAULTWEIGHT);
-        case 2:
-            return new BodyComponent(this, 1 / 2, 1, DEFAULTZ, DEFAULTHEIGHT, DEFAULTWIDTH, DEFAULTWEIGHT);
-        case 3:
-            return new BodyComponent(this, 0, 1 / 2, DEFAULTZ, DEFAULTHEIGHT, DEFAULTWIDTH, DEFAULTWEIGHT);
+    private void setPosition(final BasicMovementEnum direction, final Pair<Double, Double> size) {
+        final BodyComponent b = (BodyComponent) this.getComponent(BodyComponent.class).get();
+        switch (direction) {
+        case UP:
+            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), 1.0, DEFAULTZ));
+            break;
+        case RIGHT:
+            b.setPosition(new Position(size.getX() - 1, size.getY() / 2 - b.getHeight(), DEFAULTZ));
+            break;
+        case DOWN:
+            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), size.getY() - 1, DEFAULTZ));
+            break;
+        case LEFT:
+            b.setPosition(new Position(1.0, size.getY() / 2 - b.getHeight(), DEFAULTZ));
+            break;
         default:
             throw new IllegalArgumentException();
         }
