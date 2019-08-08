@@ -169,6 +169,7 @@ public class GameWorldImpl implements GameWorld {
         getActiveFloor().update(deltaTime);
         getActiveFloor().calculateCollision();
         changedFloor = false;
+        //System.out.println(this.player.getComponent(BodyComponent.class).get().getPosition());
     }
 
     @Override
