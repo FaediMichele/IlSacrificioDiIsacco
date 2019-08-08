@@ -195,9 +195,9 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
      */
     private void updateBind(final Pane p, final Scene s) {
         if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
-            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty().multiply(SCALEMULTIPLIER)).divide(defaultY * DIMENSIONSCREENTESTY));
+            p.scaleXProperty().bind(s.heightProperty().multiply(SCALEMULTIPLIER).divide(DIMENSIONSCREENTESTY));
         } else {
-            p.scaleXProperty().bind(s.widthProperty().multiply(s.widthProperty().multiply(SCALEMULTIPLIER)).divide(defaultX * DIMENSIONSCREENTESTX));
+            p.scaleXProperty().bind(s.widthProperty().multiply(SCALEMULTIPLIER).divide(DIMENSIONSCREENTESTX));
         }
     }
 

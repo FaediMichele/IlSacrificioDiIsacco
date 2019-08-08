@@ -43,8 +43,8 @@ public class GameSelectionViewImpl implements GameSelectionView {
      */
     public GameSelectionViewImpl(final long msMenu) {
         final Scene scene = ViewGetterUtil.getScene();
-        this.defaultX = (int) scene.getWidth();
-        this.defaultY = (int) scene.getHeight();
+        this.defaultX = ((int) scene.getWidth());
+        this.defaultY = ((int) scene.getHeight());
         this.pnMain = ViewGetterUtil.getNodeByName("pnGame", Pane.class);
         pnMain.setOpacity(0);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
@@ -131,9 +131,9 @@ public class GameSelectionViewImpl implements GameSelectionView {
      */
     private void updateBind(final Pane p, final Scene s) {
         if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
-            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty().multiply(SCALEMULTIPLIER)).divide(defaultY * DIMENSIONSCREENTESTY));
+            p.scaleXProperty().bind(s.heightProperty().multiply(SCALEMULTIPLIER).divide(DIMENSIONSCREENTESTY));
         } else {
-            p.scaleXProperty().bind(s.widthProperty().multiply(s.widthProperty().multiply(SCALEMULTIPLIER)).divide(defaultX * DIMENSIONSCREENTESTX));
+            p.scaleXProperty().bind(s.widthProperty().multiply(SCALEMULTIPLIER).divide(DIMENSIONSCREENTESTX));
         }
     }
 }
