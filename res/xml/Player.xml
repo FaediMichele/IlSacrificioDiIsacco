@@ -2,5 +2,6 @@
 
 <Player path-playerEnum="model.enumeration.BasicPlayerEnum"
     path-entityView="view.javafx.game">
-    <PLAYER>IsaacView</PLAYER>
+    <ISAAC>IsaacView</ISAAC>
+    <CAIN>CainView</CAIN>
 </Player>
