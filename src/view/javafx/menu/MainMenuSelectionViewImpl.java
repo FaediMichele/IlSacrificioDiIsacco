@@ -26,6 +26,7 @@ import view.node.TranslationPages;
 public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
     private static final int DIMENSIONSCREENTESTX = 1920;
     private static final int DIMENSIONSCREENTESTY = 1030;
+    private static final int SCALEMULTIPLIER = 3;
 
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
@@ -194,9 +195,9 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
      */
     private void updateBind(final Pane p, final Scene s) {
         if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
-            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty()).divide(defaultY * DIMENSIONSCREENTESTY));
+            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty().multiply(SCALEMULTIPLIER)).divide(defaultY * DIMENSIONSCREENTESTY));
         } else {
-            p.scaleXProperty().bind(s.widthProperty().divide(defaultX));
+            p.scaleXProperty().bind(s.widthProperty().multiply(s.widthProperty().multiply(SCALEMULTIPLIER)).divide(defaultX * DIMENSIONSCREENTESTX));
         }
     }
 

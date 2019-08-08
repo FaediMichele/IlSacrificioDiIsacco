@@ -22,6 +22,10 @@ import view.node.TranslationPages;
  * The implementation of view of the Game sub menu selection.
  */
 public class GameSelectionViewImpl implements GameSelectionView {
+    private static final int DIMENSIONSCREENTESTX = 1920;
+    private static final int DIMENSIONSCREENTESTY = 1030;
+    private static final int SCALEMULTIPLIER = 3;
+
     private static final String GAMEPANE = "pnGameRun";
     private static final String OPTIONSPANE = "pnInGameMenu";
     private static final long MSSUBMENU = 250;
@@ -127,9 +131,9 @@ public class GameSelectionViewImpl implements GameSelectionView {
      */
     private void updateBind(final Pane p, final Scene s) {
         if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
-            p.scaleXProperty().bind(s.heightProperty().divide(defaultY));
+            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty().multiply(SCALEMULTIPLIER)).divide(defaultY * DIMENSIONSCREENTESTY));
         } else {
-            p.scaleXProperty().bind(s.widthProperty().divide(defaultX));
+            p.scaleXProperty().bind(s.widthProperty().multiply(s.widthProperty().multiply(SCALEMULTIPLIER)).divide(defaultX * DIMENSIONSCREENTESTX));
         }
     }
 }

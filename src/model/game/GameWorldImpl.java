@@ -86,7 +86,6 @@ public class GameWorldImpl implements GameWorld {
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         this();
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Game.xml");
-        
         if (docXML != null) {
             final List<Node> ls = StaticMethodsUtils
                     .getNodesFromNodelList(docXML.getElementsByTagName(game).item(0).getChildNodes());

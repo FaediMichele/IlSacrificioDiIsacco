@@ -19,6 +19,10 @@ import view.javafx.ViewGetterUtil;
  * The menu for the introduction.
  */
 public final class GameIntroJavafx extends SubMenuSelection {
+    private static final int DIMENSIONSCREENTESTX = 1920;
+    private static final int DIMENSIONSCREENTESTY = 1030;
+    private static final int SCALEMULTIPLIER = 3;
+
     private static final String INTROFILEPATH = "/video/intro.mp4";
     private static final String NAMEPANE = "pnIntro1";
     private final MySubMenu s;
@@ -57,10 +61,10 @@ public final class GameIntroJavafx extends SubMenuSelection {
         p.scaleYProperty().bind(p.scaleXProperty());
     }
     private void updateBind(final Pane p, final Scene s) {
-        if (pnMain.getWidth() / defaultX < pnMain.getHeight() / defaultY) {
-            p.scaleXProperty().bind(s.heightProperty().divide(defaultY));
+        if (pnMain.getWidth() / defaultX > pnMain.getHeight() / defaultY) {
+            p.scaleXProperty().bind(s.heightProperty().multiply(s.heightProperty().multiply(SCALEMULTIPLIER)).divide(defaultY * DIMENSIONSCREENTESTY));
         } else {
-            p.scaleXProperty().bind(s.widthProperty().divide(defaultX));
+            p.scaleXProperty().bind(s.widthProperty().multiply(s.widthProperty().multiply(SCALEMULTIPLIER)).divide(defaultX * DIMENSIONSCREENTESTX));
         }
     }
 
