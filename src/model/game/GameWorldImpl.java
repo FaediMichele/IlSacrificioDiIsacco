@@ -239,7 +239,7 @@ public class GameWorldImpl implements GameWorld {
      * {@inheritDoc}
      */
     @Override
-    public Set<EntityInformation> getEntityInformation() {
+    public List<EntityInformation> getEntityInformation() {
         final List<EntityInformation> lst = new ArrayList<EntityInformation>(getActiveFloor().getActiveRoom().getEntitiesStatus());
         lst.add(new EntityInformation().setEntity(player.getNameEntity()).setId(player.getId())
                 .setHeight(player.getComponent(BodyComponent.class).get().getHeight())
@@ -248,7 +248,7 @@ public class GameWorldImpl implements GameWorld {
                 .setStatus(player.getComponent(StatusComponent.class).get().getStatus() == null ? BasicStatusEnum.DEFAULT : player.getComponent(StatusComponent.class).get().getStatus())
                 .setPosition(player.getComponent(BodyComponent.class).get().getPosition())
                 .setUpgrade(player.getComponent(StatusComponent.class).get().getUpgrade()));
-        return new LinkedHashSet<EntityInformation>(lst);
+        return lst;
     }
 
     /**

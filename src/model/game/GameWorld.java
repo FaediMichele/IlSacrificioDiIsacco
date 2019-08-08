@@ -46,7 +46,7 @@ public interface GameWorld {
      * Get the set of the entity that will be updated.
      * @return the set.
      */
-    Set<EntityInformation> getEntityInformation();
+    List<EntityInformation> getEntityInformation();
 
     /**
      * 
