@@ -88,7 +88,9 @@ public class GameSelectionViewImpl implements GameSelectionView {
             characterSelected.setEndListener(() -> {
                 fd.setToValue(1);
                 fd.playFromStart();
-                onIntroEnded.use();
+                if (onIntroEnded != null) {
+                    onIntroEnded.use();
+                }
             });
         }
     }
