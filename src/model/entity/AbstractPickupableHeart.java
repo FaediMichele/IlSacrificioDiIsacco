@@ -8,25 +8,25 @@ import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collectible.HeartPickupableComponent;
 import model.component.collision.CollisionComponent;
-import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
 
 /**
  * Implements a generic heart.
  */
-public class Heart extends AbstractStaticEntity {
+public class AbstractPickupableHeart extends AbstractStaticEntity {
     private static final double WIDTH = 0.5;
     private static final double HEIGHT = 0.5;
     private static final int WEIGHT = 1;
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.HEART_RED;
+    private final EntityEnum entityName;
 
     /**
      * Create a heart based on his position.
      * @param x the x-axis.
      * @param y the y-axis.
      */
-    public Heart(final double x, final double y) {
+    AbstractPickupableHeart(final double x, final double y, final EntityEnum entityName) {
         super();
+        this.entityName = entityName;
         build(x, y);
     }
 
@@ -34,8 +34,9 @@ public class Heart extends AbstractStaticEntity {
      * Empty constructor.
      * Set the position to (0.0, 0.0)s
      */
-    public Heart() {
+    AbstractPickupableHeart(final EntityEnum entityName) {
         super();
+        this.entityName = entityName;
         build(0, 0);
     }
 
@@ -43,8 +44,9 @@ public class Heart extends AbstractStaticEntity {
      * Create a new heart with a String.
      * @param args string Contains a map like " X="10.0" Y="20.0" ".
      */
-    public Heart(final String args) {
+    AbstractPickupableHeart(final String args, final EntityEnum entityName) {
         super();
+        this.entityName = entityName;
         final Map<String, String> holder = Splitter.on(" ").trimResults()
                 .withKeyValueSeparator("=").split(args);
         build(Double.parseDouble(holder.get("X").replace("\"", "")),
@@ -62,7 +64,7 @@ public class Heart extends AbstractStaticEntity {
      */
     @Override
     public EntityEnum getNameEntity() {
-        return ENTITY_NAME;
+        return entityName;
     }
 
 }
