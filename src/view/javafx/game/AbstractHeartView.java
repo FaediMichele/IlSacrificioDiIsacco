@@ -78,7 +78,6 @@ public class AbstractHeartView extends AbstractEntityView {
     @Override
     public void full(final MovementEnum move) {
         super.setStatus(BasicStatusEnum.FULL);
-        System.out.println("full");
     }
 
     /**
@@ -87,7 +86,6 @@ public class AbstractHeartView extends AbstractEntityView {
     @Override
     public void half(final MovementEnum move) {
         super.setStatus(BasicStatusEnum.HALF);
-        System.out.println("half");
     }
 
 

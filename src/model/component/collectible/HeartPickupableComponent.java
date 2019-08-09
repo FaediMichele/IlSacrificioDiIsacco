@@ -8,7 +8,6 @@ import model.component.HealthComponent;
 import model.component.SimpleHeart;
 import model.entity.Entity;
 import model.enumeration.BasicHeartEnum;
-import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.HeartEnum;
 
