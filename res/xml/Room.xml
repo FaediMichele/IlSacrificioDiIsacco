@@ -7,6 +7,8 @@
             <GaperEnemy X="20" Y="30"/>
             <Rock X="150" Y="150"/>
             <SimplePickupableHeart X="200" Y="200"/>
+            <BlackPickupableHeart X="100" Y="200"/>
+            <Key X="200" Y="150"/>
         </Entities>
     </Room1>
     <Room2 background="/gameimgs/basement_background1_640x344.png">
@@ -15,6 +17,8 @@
             <GaperEnemy X="20" Y="30"/>
             <Rock X="150" Y="150"/>
             <SimplePickupableHeart X="200" Y="200"/>
+            <BlackPickupableHeart X="100" Y="200"/>
+            <Key X="200" Y="150"/>
         </Entities>
     </Room2>
 </Rooms>

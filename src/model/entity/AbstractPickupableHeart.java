@@ -15,8 +15,8 @@ import model.enumeration.HeartEnum;
  * Implements a generic heart.
  */
 public class AbstractPickupableHeart extends AbstractStaticEntity {
-    private static final double WIDTH = 0.5;
-    private static final double HEIGHT = 0.5;
+    private static final double WIDTH = 20;
+    private static final double HEIGHT = 20;
     private static final int WEIGHT = 1;
     private final HeartEnum entityName;
 
@@ -42,9 +42,9 @@ public class AbstractPickupableHeart extends AbstractStaticEntity {
     }
 
     private void build(final double x, final double y) {
-        this.attachComponent(new HeartPickupableComponent(this));
         this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
+        this.attachComponent(new HeartPickupableComponent(this));
     }
 
     /**
