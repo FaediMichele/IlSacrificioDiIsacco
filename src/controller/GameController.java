@@ -18,14 +18,9 @@ import model.game.GameWorldImpl;
 import model.util.DataPlayer;
 import model.util.EntityInformation;
 import model.util.Position;
-import model.util.StatisticsInformations;
 import util.Command;
 import util.NotEquals;
-import view.javafx.game.BombView;
 import view.javafx.game.GameView;
-import view.javafx.game.HeartStatisticView;
-import view.javafx.game.InventoryStatisticView;
-import view.javafx.game.KeyView;
 import view.javafx.game.RoomView;
 
 /**
@@ -142,10 +137,7 @@ public class GameController {
                                         entityControllers.remove(st.getId());
                                     }
                                 });
-                    final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
-                    gameView.setNumberStatistic(new InventoryStatisticView(BombView.class), stats.getBombs());
-                    gameView.setNumberStatistic(new InventoryStatisticView(KeyView.class), stats.getKeys());
-                    gameView.setHeartsStatistic(new HeartStatisticView(), stats.getHearts());
+                    //gestione StatisticView da fare
                     gameView.draw();
                     gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
                         e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);
@@ -153,6 +145,7 @@ public class GameController {
                     });
                     if (inputDisponible.tryAcquire()) {
                         inputCommand.forEach(c -> gameWord.input(c));
+                        inputCommand.clear();
                         inputDisponible.release();
                     }
                 }

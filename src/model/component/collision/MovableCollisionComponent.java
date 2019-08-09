@@ -2,8 +2,6 @@ package model.component.collision;
 
 import java.util.List;
 
-import javax.management.OperationsException;
-
 import model.component.BodyComponent;
 import model.component.MoveComponent;
 import model.component.collectible.AbstractPickupableComponent;
@@ -11,7 +9,6 @@ import model.entity.AbstractStaticEntity;
 import model.entity.Entity;
 import model.events.CollisionEvent;
 import util.EventListener;
-import util.Line;
 import util.Pair;
 import util.StaticMethodsUtils;
 
@@ -61,11 +58,9 @@ public class MovableCollisionComponent extends CollisionComponent {
         getBodyComponent(this.getEntity());
         BodyComponent b1 = event.getSourceEntity().getComponent(BodyComponent.class).get();
         BodyComponent b2 = this.getEntity().getComponent(BodyComponent.class).get();
-        if (event.getSourceEntity() instanceof AbstractStaticEntity &&
-                !(touchUp(b1, b2) && touchLeft(b1, b2) || touchUp(b1, b2) && touchRight(b1, b2) ||
-                    touchDown(b1, b2) && touchLeft(b1, b2) || touchDown(b1, b2) && touchRight(b1, b2))) {
-            System.out.println("Collision with wall");
-            Line l;
+        if (event.getSourceEntity() instanceof AbstractStaticEntity
+                && !(touchUp(b1, b2) && touchLeft(b1, b2) || touchUp(b1, b2) && touchRight(b1, b2) || touchDown(b1, b2) && touchLeft(b1, b2) || touchDown(b1, b2) && touchRight(b1, b2))) {
+            System.out.println("Collision with static entity");
             if (touchUp(b1, b2)) {
                 getMoveComponent(this.getEntity()).move(270);
                 return;
@@ -89,25 +84,26 @@ public class MovableCollisionComponent extends CollisionComponent {
         Pair<Double, Double> p2 = new Pair<>(b2.getPosition().getX(), b2.getPosition().getY());
         getMoveComponent(this.getEntity()).move(StaticMethodsUtils.getAngle(p2, p1));
     }
-    private boolean touchUp(BodyComponent b1, BodyComponent b2) {
-        return (b1.getPosition().getX() < b2.getPosition().getX() &&
-                b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() + b2.getWidth() && b1.getPosition().getY() > b2.getPosition().getY() &&
-                    b1.getPosition().getY() < b2.getPosition().getY() + b2.getHeight()); 
+    private boolean touchUp(final BodyComponent b1, final BodyComponent b2) {
+        return (b1.getPosition().getX() < b2.getPosition().getX()
+                && b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() + b2.getWidth() && b1.getPosition().getY() > b2.getPosition().getY()
+                && b1.getPosition().getY() < b2.getPosition().getY() + b2.getHeight()); 
     }
-    private boolean touchRight(BodyComponent b1, BodyComponent b2) {
-        return b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() &&
-                b1.getPosition().getX() + b1.getWidth() < b2.getPosition().getX() + b2.getWidth() && (b1.getPosition().getY() < b2.getPosition().getY() &&
-                    b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY());
+    private boolean touchRight(final BodyComponent b1, final BodyComponent b2) {
+        return b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX()
+                && b1.getPosition().getX() + b1.getWidth() < b2.getPosition().getX() + b2.getWidth() && (b1.getPosition().getY() < b2.getPosition().getY()
+                        && b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY());
     }
-    private boolean touchDown(BodyComponent b1, BodyComponent b2) {
-        return (b1.getPosition().getX() < b2.getPosition().getX() &&
-                b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() + b2.getWidth() &&
-                b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY() && b1.getPosition().getY() + b1.getHeight() < b2.getPosition().getY() + b2.getHeight());
+    private boolean touchDown(final BodyComponent b1, final BodyComponent b2) {
+        return (b1.getPosition().getX() < b2.getPosition().getX()
+                && b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() + b2.getWidth()
+                && b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY() && b1.getPosition().getY() + b1.getHeight() < b2.getPosition().getY() + b2.getHeight());
     }
-    private boolean touchLeft(BodyComponent b1, BodyComponent b2) {
-        return b1.getPosition().getX() > b2.getPosition().getX() &&
-                b1.getPosition().getX() < b2.getPosition().getX() + b2.getWeight() &&(b1.getPosition().getY() < b2.getPosition().getY() &&
-                    b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY() + b2.getHeight());
+    private boolean touchLeft(final BodyComponent b1, final BodyComponent b2) {
+        return b1.getPosition().getX() > b2.getPosition().getX() 
+                && b1.getPosition().getX() < b2.getPosition().getX() + b2.getWeight() 
+                && (b1.getPosition().getY() < b2.getPosition().getY()
+                        && b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY() + b2.getHeight());
     }
 
     private MoveComponent getMoveComponent(final Entity e) {
