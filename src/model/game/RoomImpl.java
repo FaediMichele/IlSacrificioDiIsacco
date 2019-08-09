@@ -260,8 +260,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Pair<Double, Double> getRoute(final Entity start, final Entity dest) {
-        final Pair<Double, Double> ret = sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
-        return ret;
+        return sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
     }
 
     @Override

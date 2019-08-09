@@ -89,11 +89,11 @@ public class InventoryStatisticView extends AbstractStatisticView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        final double numbersDelta = super.getDelta() * 2 / 3;
-        final double numbersShift = super.getDelta() * 1 / 4;
         if (!img.isPresent()) {
             throw new IllegalStateException();
         }
+        final double numbersDelta = super.getDelta() * 2 / 3;
+        final double numbersShift = super.getDelta() * 1 / 4;
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
 
         gc.drawImage(img.get(), super.getMargin(), y, super.getDelta(), super.getDelta());
