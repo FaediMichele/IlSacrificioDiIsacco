@@ -58,8 +58,7 @@ public class GaperView extends IsaacView {
      * Default animation for {@link AbstractPlayerView}.
      */
     @Override
-    public void def(final MovementEnum initialMove) {
-        final MovementEnum move = this.correctMove(initialMove);
+    public void def(final MovementEnum move) {
         super.setSprites(move, gaperFaceSprites, gaperFaceIndex);
         this.gaperFaceIndex.compute(move, (k, v) -> (v + 1) % gaperFaceSprites.get(move).size());
     }
