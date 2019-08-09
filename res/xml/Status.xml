@@ -7,7 +7,6 @@
         <DAMAGING>damaging</DAMAGING>
         <TRIGGERED>triggered</TRIGGERED>
         <EXPLODED>exploded</EXPLODED>
-        <PICK_UP>pickUp</PICK_UP>
         <APPEAR>appear</APPEAR>
         <DISAPPEAR>disappear</DISAPPEAR>
         <FULL>full</FULL>
