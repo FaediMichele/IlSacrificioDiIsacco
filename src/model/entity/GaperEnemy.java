@@ -11,6 +11,7 @@ import model.component.StatusComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
+import model.util.Position;
 
 /**
  * Implements the gaper enemy.
@@ -56,7 +57,7 @@ public class GaperEnemy extends AbstractEnemyMovable {
     }
 
     private void build(final double x, final double y) {
-        this.attachComponent(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT))
+        this.attachComponent(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT))
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new MovableCollisionComponent(this))
             .attachComponent(new StatusComponent(this))

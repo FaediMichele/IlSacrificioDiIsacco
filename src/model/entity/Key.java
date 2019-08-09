@@ -10,6 +10,7 @@ import model.component.collectible.KeyCollectableComponent;
 import model.component.collision.CollisionComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
+import model.util.Position;
 
 /**
  * Key entity that can be collected.
@@ -51,7 +52,7 @@ public class Key extends AbstractStaticEntity {
     }
 
     private void build(final double x, final double y) {
-        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
         this.attachComponent(new KeyCollectableComponent(this));
     }

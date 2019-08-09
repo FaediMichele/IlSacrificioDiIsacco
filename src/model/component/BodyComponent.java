@@ -60,22 +60,6 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     }
 
     /**
-     * Initialize the parameters.
-     * 
-     * @param x      position on the x axis
-     * @param y      position on the y axis
-     * @param z      position on the z axis
-     * @param height of the entity
-     * @param width  of the entity
-     * @param weight of the entity
-     * @param entity entity for this component
-     */
-    public BodyComponent(final Entity entity, final double x, final double y, final double z, final double height,
-            final double width, final int weight) {
-        this (entity, new Position(x, y, z), height, width, weight);
-    }
-
-    /**
      * Default BodyComponent constructor.
      * 
      * @param entity entity for this component
@@ -95,27 +79,11 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
 
     /**
      * Changes the position of the entity.
-     * 
-     * @param deltaX movement on the x axis
-     * @param deltaY movement on the y axis
-     * @param deltaZ movement on the z axis
+     * @param deltaPosition the movement that has been made
      */
-    public void changePosition(final double deltaX, final double deltaY, final double deltaZ) {
+    public void changePosition(final Position deltaPosition) {
         this.previousPosition = this.position;
-        this.position = new Position(this.position.getX() + deltaX,
-                this.position.getY() + deltaY, this.position.getZ() + deltaZ);
-    }
-
-    /**
-     * Sets a new position for the entity.
-     * 
-     * @param newX the new position on the x axis
-     * @param newY the new position on the y axis
-     * @param newZ the new position on the z axis
-     */
-    public void setPosition(final double newX, final double newY, final double newZ) {
-        this.previousPosition = this.position;
-        this.position = new Position(newX, newY, newZ);
+        this.position.add(deltaPosition);
     }
 
     /**
@@ -131,6 +99,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * @param newPosition Triplet of the position
      */
     public void setPosition(final Position newPosition) {
+        this.previousPosition = this.position;
         this.position = newPosition;
     }
 
@@ -192,7 +161,7 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
      * 
      * @return the position to the previous frame.
      */
-    public Triplet<Double, Double, Double> getPositionPrevious() {
+    public Triplet<Double, Double, Double> getPreviousPosition() {
         return new Position(this.previousPosition.getX(), this.previousPosition.getY(),
                 this.previousPosition.getZ());
     }

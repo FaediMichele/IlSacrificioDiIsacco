@@ -12,6 +12,7 @@ import model.component.collision.CollisionComponent;
 import model.component.mentality.PsychoMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
+import model.util.Position;
 
 /**
  * Implements the fires.
@@ -48,7 +49,7 @@ public class Fire extends AbstractStaticEntity {
     private void build(final FireType fireType, final double x, final double y) {
         this.attachComponent(new FireAIComponent(this, fireType));
         this.attachComponent(new PsychoMentalityComponent(this));
-        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
     }
 

@@ -10,6 +10,7 @@ import model.component.collectible.HeartPickupableComponent;
 import model.component.collision.CollisionComponent;
 import model.enumeration.EntityEnum;
 import model.enumeration.HeartEnum;
+import model.util.Position;
 
 /**
  * Implements a generic heart.
@@ -42,7 +43,7 @@ public class AbstractPickupableHeart extends AbstractStaticEntity {
     }
 
     private void build(final double x, final double y) {
-        this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
+        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
         this.attachComponent(new HeartPickupableComponent(this, heartColour));
     }
