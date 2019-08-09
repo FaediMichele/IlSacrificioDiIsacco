@@ -27,7 +27,7 @@ public class HeartStatisticView extends AbstractStatisticView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(RedHeartView.class.getResource("/gameImgs/ui_hearts.png"));
+            img = ImageIO.read(SimpleHeartView.class.getResource("/gameImgs/ui_hearts.png"));
             final int delta = 16;
             simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
             halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta, 0, delta, delta), null);
