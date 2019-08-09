@@ -67,27 +67,6 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
     }
 
     /**
-     * 
-     * @param move actual move
-     * @return move to figure
-     */
-    protected MovementEnum correctMove(final MovementEnum move) {
-        if (move.equals(BasicMovementEnum.STATIONARY)) {
-            this.countStationary++;
-        } else {
-            this.countStationary = 0;
-        }
-        if (move != BasicMovementEnum.STATIONARY) {
-            lastMove = move;
-        }
-        if (this.countStationary >= 100) {
-            return BasicMovementEnum.STATIONARY;
-        } else {
-            return lastMove;
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     public void draw(final GraphicsContext gc) {
@@ -106,8 +85,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      * Default animation for {@link AbstractPlayerView}.
      */
     @Override
-    public void def(final MovementEnum initialMove) {
-        final MovementEnum move = this.correctMove(initialMove);
+    public void def(final MovementEnum move) {
         this.setSprites(move, faceSprites, faceIndex);
         this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
     }
