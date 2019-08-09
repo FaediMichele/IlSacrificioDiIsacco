@@ -54,7 +54,6 @@ public class FireAIComponent extends AbstractComponent<FireAIComponent> {
                     newBody.setPosition(fireBody.getPosition());
                     h.attachComponent(newBody);
                     event.getSourceEntity().getRoom().insertEntity(h);
-                    System.out.println("BLUE");
                 }
                 event.getSourceEntity().getRoom().deleteEntity(event.getSourceEntity());
             }

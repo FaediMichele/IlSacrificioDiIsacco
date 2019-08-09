@@ -85,7 +85,6 @@
 //            NodeList tmp = n.getChildNodes();
 //            for (int i = 1; i < tmp.getLength(); i = i + 2) {
 //                map.put(tmp.item(i).getNodeName(), tmp.item(i).getTextContent());
-//                //System.out.println(tmp.item(i).getNodeName() + " --> " + tmp.item(i).getTextContent());
 //            }
 //        });
 //        return map;

@@ -100,7 +100,6 @@ public class TestCanvas extends Application {
                 } else {
                     isaac.dead(BasicMovementEnum.DOWN);
                 }
-                System.out.println(key);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {

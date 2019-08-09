@@ -89,7 +89,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         this.xMove = this.xMove + x;
         this.yMove = this.yMove + y;
         this.zMove = this.zMove + z;
-        //System.out.println(this.getClass().getName() + " : " + this.xMove + " " + this.yMove + " " + this.zMove);
     }
 
     /**
@@ -136,7 +135,6 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         if (this.checkMove()) {
             final Double time = deltaTime / 100;
             this.getBody().changePosition(xMove * this.deltaSpeed * time, yMove * this.deltaSpeed * time, zMove * this.deltaSpeed * time);
-            //System.out.println(this.getEntity().getComponent(BodyComponent.class).get().getPosition().toString());
             this.postLogs();
             this.initMove();
             this.setLastMovementAngle();

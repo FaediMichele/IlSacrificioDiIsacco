@@ -60,7 +60,6 @@ public class MovableCollisionComponent extends CollisionComponent {
         BodyComponent b2 = this.getEntity().getComponent(BodyComponent.class).get();
         if (event.getSourceEntity() instanceof AbstractStaticEntity
                 && !(touchUp(b1, b2) && touchLeft(b1, b2) || touchUp(b1, b2) && touchRight(b1, b2) || touchDown(b1, b2) && touchLeft(b1, b2) || touchDown(b1, b2) && touchRight(b1, b2))) {
-            System.out.println("Collision with static entity");
             if (touchUp(b1, b2)) {
                 getMoveComponent(this.getEntity()).move(270);
                 return;
@@ -76,7 +75,6 @@ public class MovableCollisionComponent extends CollisionComponent {
                 // l = new Line(new Pair<Double, Double>(b1.getPosition().getX() + b1.getWidth(), b1.getPosition().getY()), new Pair<Double, Double>(b1.getPosition().getX() + b1.getWidth(), b1.getPosition().getY() + b1.getHeight()));
             }
             /*l.perpendicular(new Pair<Double, Double>(b2.getPosition().getX() + b2.getWidth() / 2, b2.getPosition().getY() + b2.getHeight() / 2));
-            System.out.println(l.getAngle());
             getMoveComponent(this.getEntity()).move(l.getAngle());
             return;*/
         }
