@@ -50,7 +50,7 @@ public class GameViewImpl implements GameView {
     }
 
     /**
-     * @return a Copy of the statistics list
+     * {@inheritDoc}
      */
     public List<StatisticView> getStatistics() {
         return Collections.unmodifiableList(statistics);
@@ -98,12 +98,12 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
-    public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
+    public void setHeartsStatistic(final StatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);
         }
-        s.setHearts(hearts);
+        HeartStatisticView.class.cast(s).setHearts(hearts);
     }
 
     /**

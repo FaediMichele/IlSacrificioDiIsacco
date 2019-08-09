@@ -2,12 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Stream;
 
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicMovementEnum;
@@ -27,6 +30,7 @@ import view.javafx.game.HeartStatisticView;
 import view.javafx.game.InventoryStatisticView;
 import view.javafx.game.KeyView;
 import view.javafx.game.RoomView;
+import view.javafx.game.StatisticView;
 
 /**
  * The {@link Controller} for the game which includes the game loop and it
@@ -63,12 +67,14 @@ public class GameController {
         this.stoped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
-//        Set<? extends Door> doors = this.gameWord.getActiveFloor().getActiveRoom().getDoor();
-//        List<EntityView> doorsView = new ArrayList<>();
-//        for (final Door door : doors ) {
-//            final EntityView doorView = 
-//        }
+        this.initStatistics();
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png"));
+    }
+
+    private void initStatistics() {
+        gameView.addStatistic(new InventoryStatisticView(BombView.class));
+        gameView.addStatistic(new InventoryStatisticView(KeyView.class));
+        gameView.addStatistic(new HeartStatisticView());
     }
 
     /**
@@ -143,9 +149,17 @@ public class GameController {
                                     }
                                 });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
-                    gameView.setNumberStatistic(new InventoryStatisticView(BombView.class), stats.getBombs());
-                    gameView.setNumberStatistic(new InventoryStatisticView(KeyView.class), stats.getKeys());
-                    gameView.setHeartsStatistic(new HeartStatisticView(), stats.getHearts());
+                    gameView.setNumberStatistic(gameView.getStatistics().stream()
+                            .filter(s -> s.getClass().isInstance(InventoryStatisticView.class))
+                            .filter(s -> s.getEntityClass().equals(BombView.class))
+                            .findAny().get(), stats.getBombs());
+                    gameView.setNumberStatistic(gameView.getStatistics().stream()
+                            .filter(s -> s.getClass().isInstance(InventoryStatisticView.class))
+                            .filter(s -> s.getEntityClass().equals(KeyView.class))
+                            .findAny().get(), stats.getKeys());
+                    gameView.setHeartsStatistic(gameView.getStatistics().stream()
+                            .filter(s -> s.getClass().isInstance(HeartStatisticView.class))
+                            .findAny().get(), stats.getHearts());
                     gameView.draw();
                     gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
                         e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);

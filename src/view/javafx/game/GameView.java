@@ -47,6 +47,11 @@ public interface GameView {
     void removeStatistic(StatisticView s);
 
     /**
+     * @return a Copy of the statistics list
+     */
+    List<StatisticView> getStatistics();
+
+    /**
      * This method must be called by the controller to set the Number of each
      * statistic.
      * 
@@ -61,7 +66,7 @@ public interface GameView {
      * @param s 
      * @param hearts 
      */
-    void setHeartsStatistic(HeartStatisticView s, List<Pair<HeartEnum, Double>> hearts);
+    void setHeartsStatistic(StatisticView s, List<Pair<HeartEnum, Double>> hearts);
 
     /**
      * Return to the initial state.
