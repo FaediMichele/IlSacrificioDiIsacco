@@ -40,6 +40,12 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
         super(entity);
         this.color = color;
         this.actualValue = actualValue;
+
+        if (actualValue > 0.5 && actualValue < 1) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.FULL);
+        } else if (actualValue > 0.0 && actualValue <= 0.5) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.HALF);
+        }
     }
 
     /**
@@ -61,12 +67,6 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
             healthComponent.addHeart(new SimpleHeart(entity, actualValue));
         } else if (this.color.equals(BasicHeartEnum.BLACK)) {
             healthComponent.addHeart(new BlackHeart(entity, actualValue));
-        }
-
-        if (actualValue > 0.5 && actualValue < 1) {
-            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.FULL);
-        } else if (actualValue > 0.0 && actualValue <= 0.5) {
-            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.HALF);
         }
     }
 
