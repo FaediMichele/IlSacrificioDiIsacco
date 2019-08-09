@@ -294,19 +294,19 @@ public final class StaticMethodsUtils {
      * @return the angle.
      */
     public static double getAngle(final Pair<Double, Double> p1, final Pair<Double, Double> p2) {
-        final double dx = p1.getX() - p2.getX();
-        // Minus to correct for coord re-mapping
-        final double dy = -(p1.getY() - p2.getY());
-
-        final double inRads = Math.atan2(dy, dx);
-
-        // We need to map to coord system when 0 degree is at 3 O'clock, 270 at 12 O'clock
-        /*if (inRads < 0)
-            inRads = Math.abs(inRads);
-        else
-            inRads = 2 * Math.PI - inRads;
-*/
-        return Math.toDegrees(inRads);
+        Double base = Math.toDegrees(-Math.abs(Math.atan((p1.getY() - p2.getY()) / (p1.getX() - p2.getX()))));
+        if (p1.getX() < p2.getX()) {
+            if (p1.getY() < p2.getY()) {
+                base += 270;
+            } else {
+                base += 180;
+            }
+        } else {
+            if (p1.getY() > p2.getY()) {
+                base += 90;
+            }
+        }
+        return base;
     }
 
     /**

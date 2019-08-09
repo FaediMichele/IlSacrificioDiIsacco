@@ -3,19 +3,28 @@ package util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  * This class is used to calculate the collision.
  */
 public class Space {
-    private static final int MAXSTEPASTAR = 200;
-    private static final int GRIDDEFINITION = 1;
+    private static final int GRIDDEFINITION = 5;
 
     private final List<Rectangle> rs = new ArrayList<>();
     private final List<Rectangle> wall = new ArrayList<>();
-    private Matrix<AStarCell> grid;
-    private Pair<Double, Double> cellDim;
+    private final AStar algoritm;
+    private final Pair<Double, Double> cellDim;
+
+    /**
+     * Create a new space with dimensions.
+     * Dimensions is used for path finding, not for find collision.
+     * @param width width of the space.
+     * @param height height of the space.
+     */
+    public Space(final int width, final int height) {
+        cellDim = new Pair<Double, Double>(Double.valueOf(((double) width) /  GRIDDEFINITION), Double.valueOf(((double) height) / GRIDDEFINITION));
+        algoritm = new AStar(1 + (int) width / GRIDDEFINITION, 1 + (int) height / GRIDDEFINITION);
+    }
 
     /**
      * Add a {@link Rectangle} to the space.
@@ -25,7 +34,12 @@ public class Space {
     public void addRectangle(final Rectangle r, final boolean passable) {
         addRectangle(r);
         if (!passable) {
-            wall.add(r);
+            algoritm.setBlocked((int) r.x / GRIDDEFINITION, (int) r.y / GRIDDEFINITION);
+            for (int i = 1; cellDim.getX() * i < r.w / GRIDDEFINITION; i++) {
+                for (int k = 1; cellDim.getY() * k < r.h / GRIDDEFINITION; k++) {
+                    algoritm.setBlocked(i * (int) r.x / GRIDDEFINITION, k * (int) r.y / GRIDDEFINITION);
+                }
+            }
         }
     }
 
@@ -94,97 +108,10 @@ public class Space {
      * @return the next 
      */
     public Pair<Double, Double> getNextNodePath(final Rectangle start, final Rectangle end) {
-        if (grid == null) {
-            initMatrix();
-        }
-        final PriorityQueue<AStarCell> toVisit = new PriorityQueue<>(1, (a, b) -> Double.compare(a.getValue(), b.getValue()));
-        final PriorityQueue<AStarCell> visited = new PriorityQueue<>(1, (a, b) -> Double.compare(a.getValue(), b.getValue()));
-        final AStarCell startingCell = new AStarCell((int) (start.x / cellDim.getX()), (int) (start.y / cellDim.getY()));
-        final double distanceInVert = cellDim.getY();
-        final double distanceInHor = cellDim.getX();
-        final double distanceInOblq = Math.sqrt(Math.pow(cellDim.getX(), 2) + Math.pow(cellDim.getY(), 2));
-        int step = 0;
-        toVisit.add(startingCell);
-        AStarCell current = null;
-        while (step < MAXSTEPASTAR) {
-            current = toVisit.remove();
-            if ((int) (end.x / cellDim.getX()) == current.posX && (int) (end.y / cellDim.getY()) == current.posY) {
-                break;
-            }
-            visited.add(current);
-            // Neighbors
-            if (current.posX > 0) {
-   /* WEST*/    operationForNeighbour(toCell(current.posX - 1, current.posY, end, current, distanceInHor), current, toVisit, visited, distanceInHor);
-                if (current.posY > 0) {
-   /* NOTH-WEST*/   operationForNeighbour(toCell(current.posX - 1, current.posY - 1, end, current, distanceInOblq), current, toVisit, visited, distanceInOblq);
-                }
-                if (current.posY < grid.getHeight() - 1) {
-   /* SOUTH-WEST*/  operationForNeighbour(toCell(current.posX - 1, current.posY + 1, end, current, distanceInOblq), current, toVisit, visited, distanceInOblq);
-                }
-            }
-            if (current.posY > 0) {
-   /* NOTH */   operationForNeighbour(toCell(current.posX, current.posY - 1, end, current, distanceInVert), current, toVisit, visited, distanceInVert);
-            }
-            if (current.posX < grid.getWidth() - 1) {
-   /* EAST*/    operationForNeighbour(toCell(current.posX + 1, current.posY, end, current, distanceInHor), current, toVisit, visited, distanceInHor);
-                if (current.posY > 0) {
-   /* NORTH-EAST*/  operationForNeighbour(toCell(current.posX + 1, current.posY - 1, end, current, distanceInOblq), current, toVisit, visited, distanceInOblq);
-                }
-                if (current.posY < grid.getHeight() - 1) {
-   /* SOUTH-EAST*/  operationForNeighbour(toCell(current.posX + 1, current.posY + 1, end, current, distanceInOblq), current, toVisit, visited, distanceInOblq);
-                }
-            }
-            if (current.posY < grid.getHeight() - 1) {
-   /* SOUTH*/   operationForNeighbour(toCell(current.posX, current.posY + 1, end, current, distanceInVert), current, toVisit, visited, distanceInVert);
-            }
-            step++;
-        }
-        //grid.setToPredicate(null, c -> !c.isWall());
-        AStarCell ret = current;
-        if (current.parent != current.parent) {
-            while (ret.parent.parent != ret.parent) {
-               ret = ret.parent;
-            }
-        }
-        return new Pair<Double, Double>(Double.valueOf(ret.posX), Double.valueOf(-ret.posY));
-    }
-
-    private void operationForNeighbour(final AStarCell c, final AStarCell current, final PriorityQueue<AStarCell> toVisit,
-            final PriorityQueue<AStarCell> visited, final double distanceToParent) {
-        if (!c.isWall() && !visited.contains(c) && (!toVisit.contains(c) || c.getValue() > current.getValue() + distanceToParent)) {
-            c.update(current.getValue() + distanceToParent, current);
-            if (!toVisit.contains(c)) {
-                toVisit.add(c);
-            }
-        }
-    }
-
-    private AStarCell toCell(final int posX, final int posY, final Rectangle end, final AStarCell parent, final double distFromParent) {
-        final double distanceToEnd = Math.sqrt(Math.pow(posX - end.x - end.w / 2, 2) + Math.pow(posY - end.y - end.h / 2, 2));
-        if (parent != null) {
-            return new AStarCell(distanceToEnd, distFromParent + parent.getValue(),
-                    parent, posX, posY);
-        }
-        return null;
-    }
-    private void initMatrix() {
-        final int dimXMat = (int) (1 + wall.stream().max((a, b) -> Double.compare(a.x, b.x)).get().x
-                / GRIDDEFINITION);
-        final int dimYMat = (int) (1 + wall.stream().max((a, b) -> Double.compare(a.y, b.y)).get().y
-                / GRIDDEFINITION);
-        grid = new Matrix<AStarCell>(dimXMat, dimYMat);
-        cellDim = new Pair<Double, Double>(Double.valueOf(dimXMat) / wall.size(), Double.valueOf(dimYMat) / wall.size());
-        wall.forEach(r -> {
-            int j = 0;
-            do {
-                int i = 0;
-                do {
-                    grid.set((int) (r.x / cellDim.getX()) + i, (int) (r.y / cellDim.getY()) + j, new AStarCell((int) (r.x / cellDim.getX()) + i, (int) (r.y / cellDim.getY()) + j));
-                    i++;
-                } while (i < r.w / cellDim.getX());
-                j++;
-            } while (j < r.h / cellDim.getY());
-        });
+        final Pair<Integer, Integer> ret = algoritm.calculate(new Pair<Integer, Integer>((int) (start.x / cellDim.getX()), (int) (start.y / cellDim.getY())),
+                new Pair<Integer, Integer>((int) (end.x / cellDim.getX()), (int) (end.y / cellDim.getY())));
+        //return new Pair<Double, Double>(end.x, end.y);
+        return new Pair<Double, Double>(Double.valueOf((int) ret.getX()) * cellDim.getX(), Double.valueOf((int) ret.getY()) * cellDim.getY());
     }
 
     /**
@@ -248,43 +175,4 @@ public class Space {
             return Math.sqrt(Math.pow(x + w / 2 - (r.x + r.w / 2), 2) + Math.pow(y + h / 2 - (r.y + r.h / 2), 2));
         }
     }
-
-    private static final class AStarCell {
-        private double i;
-        private double j;
-        private AStarCell parent;
-        private final boolean wall; 
-        private final int posX;
-        private final int posY;
-        protected AStarCell(final double i, final double j, final AStarCell parent, final int posX, final int posY) {
-            this.i = i;
-            this.j = j;
-            this.parent = parent;
-            if (this.parent == null) {
-                this.parent = this;
-            }
-            wall = false;
-            this.posX = posX;
-            this.posY = posY;
-        }
-
-        protected AStarCell(final int posX, final int posY) {
-            wall = true;
-            this.posX = posX;
-            this.posY = posY;
-        }
-
-        public void update(final double j, final AStarCell parent) {
-            this.j = j;
-            this.parent = parent;
-        }
-        public double getValue() {
-            return i + j;
-        }
-
-        public boolean isWall() {
-            return wall;
-        }
-    }
-
 }

@@ -44,7 +44,7 @@ public class RoomImpl implements Room {
     private final int index;
     @NotEquals
     @NotHashCode
-    private final Space sp = new Space();
+    private final Space sp;
     @NotEquals
     @NotHashCode
     private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>(
@@ -78,6 +78,7 @@ public class RoomImpl implements Room {
         cleanGraveyard = false;
         this.width = width;
         this.height = height;
+        this.sp = new Space((int) width, (int) height);
     }
 
     private Space.Rectangle getShape(final Entity e) {
@@ -202,9 +203,11 @@ public class RoomImpl implements Room {
     public void insertEntity(final Entity e) {
         if (e instanceof Door) {
             this.doors.add((Door) e);
-            return;
         } else {
             this.entity.add(e);
+        }
+        if (e.hasComponent(ObstacleComponent.class)) {
+            System.out.println();
         }
         final Space.Rectangle r = getShape(e);
         entityRectangleSpace.put(e, r);
@@ -258,7 +261,9 @@ public class RoomImpl implements Room {
      */
     @Override
     public Pair<Double, Double> getRoute(final Entity start, final Entity dest) {
-        return sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
+        final Pair<Double, Double> ret = sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
+        System.out.println("PATH: " + ret.getX() + " " + ret.getY());
+        return ret;
     }
 
     @Override

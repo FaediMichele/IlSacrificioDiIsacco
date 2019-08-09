@@ -52,7 +52,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
         faceIndex.put(BasicMovementEnum.LEFT, 0);
         faceIndex.put(BasicMovementEnum.STATIONARY, 0);
 
-        PlayerSpritesExtractor extractor = new PlayerSpritesExtractor(path);
+        final PlayerSpritesExtractor extractor = new PlayerSpritesExtractor(path);
         this.bodySprites = extractor.getBodySprites();
         this.faceSprites = extractor.getFaceSprites();
         this.sufferSprite = extractor.getSufferSprite();

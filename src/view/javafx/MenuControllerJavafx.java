@@ -58,7 +58,7 @@ public class MenuControllerJavafx {
         });
         s.setOnKeyPressed(k -> {
             keyPressed.add(k.getCode());
-            menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
+            menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).filter(c -> c != null).collect(Collectors.toSet()));
         });
         s.setOnKeyReleased(k -> {
             keyPressed.remove(k.getCode());

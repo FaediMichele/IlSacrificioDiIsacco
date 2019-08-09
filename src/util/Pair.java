@@ -80,4 +80,9 @@ public class Pair<X, Y> {
         return Objects.equals(x1, other.x1) && Objects.equals(y1, other.y1);
     }
 
+    @Override
+    public final String toString() {
+        return "[" + x1.toString() + "," + y1.toString() + "]";
+    }
+
 }

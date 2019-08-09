@@ -15,6 +15,7 @@ public class Tear extends AbstractMovableEntity {
     private static final double HEIGHT = 10;
     private static final double WIDTH = 10;
     private final EntityEnum name;
+    private final double lifeTime;
 
 
     /**
@@ -45,6 +46,15 @@ public class Tear extends AbstractMovableEntity {
                                                         WIDTH,
                                                         0));
         this.name = name;
+        this.lifeTime = lifetime;
+    }
+
+    /**
+     * Get the life time.
+     * @return the life time.
+     */
+    public double getLifeTime() {
+        return lifeTime;
     }
 
 //    /**

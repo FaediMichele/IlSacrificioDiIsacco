@@ -20,22 +20,25 @@ import model.enumeration.MovementEnum;
  *  Class which extracts the sprites from the player sheet.
  */
 public class PlayerSpritesExtractor {
-    private BufferedImage img = null;
-    private final int deltaBody = 32;
-    private final int deltaFace = 32;
-    private final int spritesFaces = 2;
-    private final int faces = 6;
+    private static final int DELTABODY = 32;
+    private static final int DELTAFACE = 32;
+    private static final int SRITEFACES = 2;
+    private static final int FACES = 6;
+
+    private final BufferedImage img;
 
     /**
-     * This construcotor initializes the image.
+     * This constructor initializes the image.
      * @param path the path to follow to find the sheet
      */
     public PlayerSpritesExtractor(final String path) {
+        BufferedImage imgTmp = null;
         try {
-            img = ImageIO.read(PlayerSpritesExtractor.class.getResource(path));
+            imgTmp = ImageIO.read(PlayerSpritesExtractor.class.getResource(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        img = imgTmp;
     }
 
     /**
@@ -52,11 +55,11 @@ public class PlayerSpritesExtractor {
         final int bodies = 18;
         final int cols = 8;
         final int spritesEachMove = 10;
-        isaacBody.add(SwingFXUtils.toFXImage(img.getSubimage(deltaFace * faces, 0, deltaBody, deltaBody), null));
+        isaacBody.add(SwingFXUtils.toFXImage(img.getSubimage(DELTAFACE * FACES, 0, DELTABODY, DELTABODY), null));
         isaacBody.add(SwingFXUtils
-                .toFXImage(img.getSubimage(deltaFace * faces + deltaBody, 0, deltaBody, deltaBody), null));
+                .toFXImage(img.getSubimage(DELTAFACE * FACES + DELTABODY, 0, DELTABODY, DELTABODY), null));
         isaacBody
-                .addAll((new SpritesExtractor(img, bodies, 3, cols, deltaBody, deltaBody, 0, deltaFace)).extract());
+                .addAll((new SpritesExtractor(img, bodies, 3, cols, DELTABODY, DELTABODY, 0, DELTAFACE)).extract());
 
         movingDownSprite = isaacBody.subList(0, spritesEachMove - 1);
         movingUpSprite = new ArrayList<Image>();
@@ -87,19 +90,19 @@ public class PlayerSpritesExtractor {
     }
 
     /**
-     * @return the faces.
+     * @return the FACES.
      */
     public Map<MovementEnum, List<Image>> getFaceSprites() {
-        Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
+        final Map<MovementEnum, List<Image>> faceSprites = new HashMap<>();
         List<Image> movingUpFaceSprite;
         List<Image> movingDownFaceSprite;
         List<Image> movingRightFaceSprite;
         List<Image> movingLeftFaceSprite;
 
-        final List<Image> isaacFace = (new SpritesExtractor(img, faces, 1, faces, deltaFace, deltaFace)).extract();
-        movingDownFaceSprite = isaacFace.subList(0, spritesFaces - 1);
-        movingRightFaceSprite = isaacFace.subList(spritesFaces, spritesFaces * 2 - 1);
-        movingUpFaceSprite = isaacFace.subList(spritesFaces * 2, spritesFaces * 3 - 1);
+        final List<Image> isaacFace = (new SpritesExtractor(img, FACES, 1, FACES, DELTAFACE, DELTAFACE)).extract();
+        movingDownFaceSprite = isaacFace.subList(0, SRITEFACES - 1);
+        movingRightFaceSprite = isaacFace.subList(SRITEFACES, SRITEFACES * 2 - 1);
+        movingUpFaceSprite = isaacFace.subList(SRITEFACES * 2, SRITEFACES * 3 - 1);
         movingLeftFaceSprite = new ArrayList<Image>();
         movingRightFaceSprite.forEach(l -> {
             final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);
@@ -129,7 +132,7 @@ public class PlayerSpritesExtractor {
      */
     public Image getSufferSprite() {
         return SwingFXUtils
-                .toFXImage(img.getSubimage(deltaFace * faces + deltaBody * 2, 0, deltaFace, deltaFace), null);
+                .toFXImage(img.getSubimage(DELTAFACE * FACES + DELTABODY * 2, 0, DELTAFACE, DELTAFACE), null);
     }
 
     /**

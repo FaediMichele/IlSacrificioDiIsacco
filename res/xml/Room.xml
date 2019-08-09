@@ -3,12 +3,14 @@
 <Rooms>
     <Room1 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
-            <GaperEnemy X="200" Y="100"/>
+            <Wall X="100" Y="150.0" H="500.0" W="30.0" />
+            <GaperEnemy X="20" Y="30"/>
         </Entities>
     </Room1>
     <Room2 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
-            <GaperEnemy X="200" Y="100"/>
+            <Wall X="10" Y="150.0" H="500.0" W="30.0" />
+            <GaperEnemy X="20" Y="30"/>
         </Entities>
     </Room2>
 </Rooms>

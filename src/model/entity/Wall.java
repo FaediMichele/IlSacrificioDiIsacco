@@ -3,6 +3,7 @@ package model.entity;
 import java.util.Map;
 import com.google.common.base.Splitter;
 import model.component.BodyComponent;
+import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
@@ -75,23 +76,31 @@ public class Wall extends AbstractStaticEntity {
 
     /**
      * Create a new wall with a String.
-     * @param args string Contains a map like " X="10.0" Y="20.0" ".
+     * @param args string Contains a map like " X="10.0" Y="20.0" " or "X="10.0" Y="20.0" W="50.0" H="5.0" ".
      */
     public Wall(final String args) {
         super();
-        final Map<String, String> holder = Splitter.on(" ").trimResults()
+        final Map<String, String> holder = Splitter.on(",").trimResults()
                 .withKeyValueSeparator("=").split(args);
+        if (holder.containsKey("H") && holder.containsKey("W")) {
+            build(Double.parseDouble(holder.get("X").replace("\"", "")),
+                    Double.parseDouble(holder.get("Y").replace("\"", "")),
+                    Double.parseDouble(holder.get("W").replace("\"", "")),
+                    Double.parseDouble(holder.get("H").replace("\"", "")));
+        } else {
         build(Double.parseDouble(holder.get("X").replace("\"", "")),
                 Double.parseDouble(holder.get("Y").replace("\"", "")));
+        }
     }
 
     private void build(final double x, final double y) {
         build(x, y, WIDTH, HEIGHT);
     }
     private void build(final double x, final double y, final double width, final double height) {
-        this.attachComponent(new NeutralMentalityComponent(this));
         this.setDefaultComponents(new BodyComponent(this, x, y, 0, height, width, WEIGHT), new CollisionComponent(this),
                 new StatusComponent(this));
+        this.attachComponent(new NeutralMentalityComponent(this))
+            .attachComponent(new ObstacleComponent(this));
     }
 
     /**
