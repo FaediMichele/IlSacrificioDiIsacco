@@ -10,11 +10,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.entity.SimplePickupableHeart;
 import model.enumeration.BasicMovementEnum;
 import view.javafx.game.DoorView;
 import view.javafx.game.GameViewImpl;
 import view.javafx.game.GaperView;
 import view.javafx.game.IsaacView;
+import view.javafx.game.KeyView;
+import view.javafx.game.RedHeartView;
 import view.javafx.game.RockView;
 import view.javafx.game.AbstractPlayerView;
 import view.javafx.game.RoomView;
@@ -44,13 +47,12 @@ public class TestCanvas extends Application {
         gaper.setWidth(85);
         gaper.setGameView(new GameViewImpl(canvas));
         gaper.def(BasicMovementEnum.DOWN);
-        final RockView rock = new RockView(UUID.randomUUID());
+        final KeyView rock = new KeyView(UUID.randomUUID());
         rock.setX(200.0);
         rock.setY(200.0);
-        rock.setHeight(85);
-        rock.setWidth(85);
+        rock.setHeight(30);
+        rock.setWidth(30);
         rock.setGameView(new GameViewImpl(canvas));
-        rock.def(BasicMovementEnum.DOWN);
         final DoorView door = new DoorView(UUID.randomUUID());
         Platform.runLater(new Runnable() {
             @Override
