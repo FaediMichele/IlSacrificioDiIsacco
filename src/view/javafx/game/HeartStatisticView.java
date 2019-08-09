@@ -77,4 +77,12 @@ public class HeartStatisticView extends AbstractStatisticView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<? extends EntityView> getEntityClass() {
+        return RedHeartView.class;
+    }
+
 }

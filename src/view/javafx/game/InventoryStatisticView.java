@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
  */
 public class InventoryStatisticView extends AbstractStatisticView {
     private static final Map<Integer, Image> NUMBER_SPRITES = new HashMap<>();
+    private final Class<? extends EntityView> entityClass;
 
     static {
         BufferedImage img;
@@ -56,6 +57,7 @@ public class InventoryStatisticView extends AbstractStatisticView {
      */
     public InventoryStatisticView(final Class<? extends EntityView> entityClass) {
         super();
+        this.entityClass = entityClass;
         NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), e.getValue()));
         if (entityClass.equals(BombView.class)) {
             img = Optional.of(BombView.getBombSprite());
@@ -97,5 +99,12 @@ public class InventoryStatisticView extends AbstractStatisticView {
         for (int i = 0; i < numbersToDraw.size(); i++) {
             gc.drawImage(numbersToDraw.get(i), super.getMargin() + (super.getDelta() * (i + 1)), y);
         }
+    }
+
+    /**
+     * @return the entityClass
+     */
+    public Class<? extends EntityView> getEntityClass() {
+        return entityClass;
     }
 }
