@@ -56,11 +56,11 @@ public class InventoryStatisticView extends AbstractStatisticView {
      */
     public InventoryStatisticView(final Class<? extends EntityView> entityClass) {
         super();
-        NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), this.resize(e.getValue())));
+        NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), e.getValue()));
         if (entityClass.equals(BombView.class)) {
-            img = Optional.of(super.resize(BombView.getBombSprite()));
+            img = Optional.of(BombView.getBombSprite());
         } else if (entityClass.equals(KeyView.class)) {
-            img = Optional.of(super.resize(KeyView.getKeySprite()));
+            img = Optional.of(KeyView.getKeySprite());
         }
     }
 
