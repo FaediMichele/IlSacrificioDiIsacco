@@ -67,9 +67,9 @@ public class GameController {
     }
 
     private void initStatistics() {
+        gameView.addStatistic(new HeartStatisticView());
         gameView.addStatistic(new InventoryStatisticView(BombView.class));
         gameView.addStatistic(new InventoryStatisticView(KeyView.class));
-        gameView.addStatistic(new HeartStatisticView());
     }
 
     /**
