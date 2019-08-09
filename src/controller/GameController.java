@@ -2,15 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
-import java.util.stream.Stream;
 
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicMovementEnum;
@@ -30,7 +27,6 @@ import view.javafx.game.HeartStatisticView;
 import view.javafx.game.InventoryStatisticView;
 import view.javafx.game.KeyView;
 import view.javafx.game.RoomView;
-import view.javafx.game.StatisticView;
 
 /**
  * The {@link Controller} for the game which includes the game loop and it

@@ -2,8 +2,6 @@ package view.javafx.game;
 
 import java.util.Optional;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * Implementation of the StatisticView.
@@ -78,17 +76,6 @@ public abstract class AbstractStatisticView implements StatisticView {
      */
     public int getDelta() {
         return delta;
-    }
-
-    /**
-     * @param img image to resize
-     * @return resized image
-     */
-    protected Image resize(final Image img) {
-        final ImageView resizedImage = new ImageView(img);
-        resizedImage.setFitHeight(delta);
-        resizedImage.setFitWidth(delta);
-        return resizedImage.snapshot(null, null);
     }
 
     /**
