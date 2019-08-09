@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import model.entity.FactoryPlayersUtil;
@@ -150,15 +151,15 @@ public class GameController {
                                 });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
                     gameView.setNumberStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().isInstance(InventoryStatisticView.class))
+                            .filter(s -> s.getClass().equals(InventoryStatisticView.class))
                             .filter(s -> s.getEntityClass().equals(BombView.class))
                             .findAny().get(), stats.getBombs());
                     gameView.setNumberStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().isInstance(InventoryStatisticView.class))
+                            .filter(s -> s.getClass().equals(InventoryStatisticView.class))
                             .filter(s -> s.getEntityClass().equals(KeyView.class))
                             .findAny().get(), stats.getKeys());
                     gameView.setHeartsStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().isInstance(HeartStatisticView.class))
+                            .filter(s -> s.getClass().equals(HeartStatisticView.class))
                             .findAny().get(), stats.getHearts());
                     gameView.draw();
                     gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
