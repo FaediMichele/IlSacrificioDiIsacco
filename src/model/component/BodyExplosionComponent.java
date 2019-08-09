@@ -42,6 +42,7 @@ public class BodyExplosionComponent extends BodyComponent {
         this.timePassed = 0;
         this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.TRIGGERED);
         this.exploded = false;
+        setPosition(positions);
     }
 
     /**
