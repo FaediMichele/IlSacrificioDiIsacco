@@ -27,9 +27,4 @@ public interface StatisticView {
      * @param gc the graphic contenxt to draw in
      */
     void draw(GraphicsContext gc);
-
-    /**
-     * @return the entityClass
-     */
-    Class<? extends EntityView> getEntityClass();
 }

@@ -46,7 +46,9 @@ public class HeartStatisticView extends AbstractStatisticView {
     @Override
     public void draw(final GraphicsContext gc) {
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
-        heartsToDraw.forEach(h -> gc.drawImage(h, super.getDelta() * heartsToDraw.indexOf(h) + super.getMargin(), y));
+        for (int i = 0; i < heartsToDraw.size(); i++) {
+            gc.drawImage(heartsToDraw.get(i), super.getDelta() * i + super.getMargin(), y, super.getDelta(), super.getDelta());
+        }
         heartsToDraw.clear();
     }
 
@@ -56,19 +58,22 @@ public class HeartStatisticView extends AbstractStatisticView {
      * @param hearts list of colors and values of the hearts
      */
     public void setHearts(final List<Pair<HeartEnum, Double>> hearts) {
+        if (hearts.stream().filter(h -> h.getX().equals(BasicHeartEnum.BLACK)).findAny().isPresent()) {
+            System.out.println("black");
+        }
         hearts.forEach(h -> {
             if (h.getX().equals(BasicHeartEnum.RED)) {
-                if (h.getY() <= 1.0 && h.getY() >= 0.5) {
+                if (h.getY() <= 1.0 && h.getY() > 0.5) {
                     heartsToDraw.add(simpleHeart);
-                } else if (h.getY() < 0.5 && h.getY() > 0.0) {
+                } else if (h.getY() <= 0.5 && h.getY() > 0.0) {
                     heartsToDraw.add(halfSimpleHeart);
                 } else {
                     throw new IllegalArgumentException();
                 }
             } else if (h.getX().equals(BasicHeartEnum.BLACK)) {
-                if (h.getY() <= 1.0 && h.getY() >= 0.5) {
+                if (h.getY() <= 1.0 && h.getY() > 0.5) {
                     heartsToDraw.add(blackHeart);
-                } else if (h.getY() < 0.5 && h.getY() > 0.0) {
+                } else if (h.getY() <= 0.5 && h.getY() > 0.0) {
                     heartsToDraw.add(halfBlackHeart);
                 } else {
                     throw new IllegalArgumentException();
@@ -76,13 +81,4 @@ public class HeartStatisticView extends AbstractStatisticView {
             }
         });
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Class<? extends EntityView> getEntityClass() {
-        return RedHeartView.class;
-    }
-
 }

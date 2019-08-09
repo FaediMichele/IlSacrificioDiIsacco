@@ -1,6 +1,5 @@
 package model.component;
 
-import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.PsychoMentalityComponent;
 import model.entity.Entity;
 import model.enumeration.BasicStatusEnum;

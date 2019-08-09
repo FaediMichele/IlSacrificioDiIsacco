@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
  */
 public class InventoryStatisticView extends AbstractStatisticView {
     private static final Map<Integer, Image> NUMBER_SPRITES = new HashMap<>();
+    private static final int INNER_SPACE = 2;
     private final Class<? extends EntityView> entityClass;
 
     static {
@@ -88,16 +89,19 @@ public class InventoryStatisticView extends AbstractStatisticView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
+        final double numbersDelta = super.getDelta() * 2 / 3;
+        final double numbersShift = super.getDelta() * 1 / 4;
         if (!img.isPresent()) {
             throw new IllegalStateException();
         }
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
 
-        gc.drawImage(img.get(), super.getMargin(), y);
+        gc.drawImage(img.get(), super.getMargin(), y, super.getDelta(), super.getDelta());
         final List<Image> numbersToDraw = new LinkedList<>();
         this.getDigitList().stream().forEach(d -> numbersToDraw.add(this.numbers.get(d)));
         for (int i = 0; i < numbersToDraw.size(); i++) {
-            gc.drawImage(numbersToDraw.get(i), super.getMargin() + (super.getDelta() * (i + 1)), y);
+            gc.drawImage(numbersToDraw.get(i), super.getMargin() + (super.getDelta() * (i + 1)) + INNER_SPACE, 
+                            y + numbersShift, numbersDelta, numbersDelta);
         }
     }
 
