@@ -171,6 +171,7 @@ public abstract class AbstractEntityView implements EntityView {
     @Override
     public void disappear(final MovementEnum move) {
         this.getGameView().get().removeEntity(this);
+        System.out.println("DISAPPER");
     }
 
     @Override

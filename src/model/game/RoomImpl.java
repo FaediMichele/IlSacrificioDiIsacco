@@ -102,6 +102,7 @@ public class RoomImpl implements Room {
     @Override
     public List<EntityInformation> getEntitiesStatus() {
         final List<EntityInformation> ret = toInformation(entity);
+        ret.addAll(toInformation(graveyard));
         ret.addAll(toInformation(doors));
         return ret;
     }
@@ -236,6 +237,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void deleteEntity(final Entity e) {
+        this.graveyard.add(e);
         this.entity.remove(e);
         sp.remove(entityRectangleSpace.get(e));
         rectangleEntitySpace.remove(entityRectangleSpace.get(e));
@@ -329,7 +331,6 @@ public class RoomImpl implements Room {
                 }
             }
         }
-        this.entity.forEach(e -> System.out.println(e.getClass()));
     }
 
     @Override
