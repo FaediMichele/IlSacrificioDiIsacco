@@ -329,6 +329,7 @@ public class RoomImpl implements Room {
                 }
             }
         }
+        this.entity.forEach(e -> System.out.println(e.getClass()));
     }
 
     @Override

@@ -9,13 +9,15 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicHeartEnum;
 import model.enumeration.BasicStatusEnum;
+import model.enumeration.HeartEnum;
 import model.enumeration.MovementEnum;
 
 /**
 * View of the hearts.
 */
-public class HeartView extends AbstractEntityView {
+public class AbstractHeartView extends AbstractEntityView {
 
     private static Image simpleHeart;
     private static Image halfSimpleHeart;
@@ -25,7 +27,7 @@ public class HeartView extends AbstractEntityView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(HeartView.class.getResource("/gameImgs/pickup_001_heart.png"));
+            img = ImageIO.read(BlackHeartView.class.getResource("/gameImgs/pickup_001_heart.png"));
             final int delta = 30;
             simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
             halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, 0, delta, delta), null);
@@ -38,21 +40,20 @@ public class HeartView extends AbstractEntityView {
         }
     }
 
-    private final Image heart;
-    private final Image halfHeart;
+    private Image heart;
+    private Image halfHeart;
 
     /**
      * Base constructor, initilizes the indexes and sets the images to used based on the colour of the heart.
      * @param id 
      * @param colour the colour of this heart
      */
-    public HeartView(final UUID id, final HeartColour colour) {
+    AbstractHeartView(final UUID id, final HeartEnum colour) {
         super(id);
-
-        if (colour.equals(HeartColour.RED)) {
+        if (colour.equals(BasicHeartEnum.RED)) {
             this.heart = simpleHeart;
             this.halfHeart = halfSimpleHeart;
-        } else {
+        } else if (colour.equals(BasicHeartEnum.BLACK)) {
             this.heart = blackHeart;
             this.halfHeart = halfBlackHeart;
         }
@@ -86,4 +87,6 @@ public class HeartView extends AbstractEntityView {
     public void half(final MovementEnum move) {
         super.setStatus(BasicStatusEnum.HALF);
     }
+
+
 }

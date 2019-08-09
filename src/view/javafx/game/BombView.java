@@ -54,10 +54,9 @@ public class BombView extends AbstractEntityView {
     /**
      * Base constructor, initilizes the indexes.
      * @param id 
-     * @param gv The gameView to which this entityView is added
      */
-    public BombView(final UUID id, final GameViewImpl gv) {
-        super(id, gv);
+    public BombView(final UUID id) {
+        super(id);
         this.triggeredIndex = 0;
         this.explosionIndex = 0;
     }
@@ -74,7 +73,7 @@ public class BombView extends AbstractEntityView {
             gc.drawImage(explosionBombSprite.get(explosionIndex), super.getX(), super.getY(), super.getHeight(), super.getWidth());
             explosionIndex += 1;
             if (explosionIndex > explosionBombSprite.size() && super.getGameView().isPresent()) {
-                super.getGameView().get().removeEntity(this);
+                explosionIndex -= 4;
             }
         } else {
             gc.drawImage(bombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());

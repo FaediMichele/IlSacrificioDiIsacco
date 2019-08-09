@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Tears>
+    <BasicTears
+        path-tearEnum="model.enumeration.BasicTearEnum"
+        path-tearView="view.javafx.game">
+        <NORMAL>BlueTearView</NORMAL>
+        <BLOOD>RedTearView</BLOOD>
+    </BasicTears>
+</Tears>
+

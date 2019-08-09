@@ -1,6 +1,6 @@
 package model.component;
 
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.HeartEnum;
 
 /**
  * 
@@ -25,6 +25,11 @@ public interface Heart {
     double getDamaged(double damageValue);
 
     /**
+     * Method to call when this heart dies.
+     */
+    void died();
+
+    /**
      * 
      * @return actual value of the heart.
      */
@@ -34,6 +39,5 @@ public interface Heart {
      * . 
      * @return color for heart.
      */
-    ColorHeartEnum getColor();
-
+    HeartEnum getColor();
 }

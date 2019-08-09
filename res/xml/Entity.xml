@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Entity path-entityEnum="model.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
-    <FIRE>FireView</FIRE>
-    <GAPER>GaperView</GAPER>
-    <HEART_RED>HeartView</HEART_RED>
-    <DOOR>DoorView</DOOR>
-    <BOMB>BombView</BOMB>
-    <EVIL_TEAR>RedTearView</EVIL_TEAR>
-    <GOOD_TEAR>BlueTearView</GOOD_TEAR>
-    <KEY>KeyView</KEY>
-    <ROCK>RockView</ROCK>
-    <WALL>WallView</WALL>
-</Entity>
+<Entities>
+    <BasicEntities path-entityEnum="model.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
+        <FIRE>FireView</FIRE>
+        <GAPER>GaperView</GAPER>
+        <DOOR>DoorView</DOOR>
+        <BOMB>BombView</BOMB>
+        <KEY>KeyView</KEY>
+        <ROCK>RockView</ROCK>
+        <WALL>WallView</WALL>
+    </BasicEntities>
+</Entities>
+

@@ -5,9 +5,9 @@ package model.enumeration;
  *  .
  *
  */
-public enum BasicColorEnum implements ColorHeartEnum {
+public enum BasicHeartEnum implements HeartEnum {
     /**
      *  .
      */
-    BLACK, BLUE, RED
+    BLACK, RED
 }

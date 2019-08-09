@@ -12,8 +12,8 @@ import model.enumeration.EntityEnum;
  *
  */
 public class Bomb extends AbstractEntity {
-    private static final double WIDTH = 0.5;
-    private static final double HEIGHT = 0.5;
+    private static final double WIDTH = 20.0;
+    private static final double HEIGHT = 20.0;
     private static final int WEIGHT = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.BOMB;
 
@@ -26,6 +26,7 @@ public class Bomb extends AbstractEntity {
         this.attachComponent(new BombCollectableComponent(this))
             .attachComponent(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT))
             .attachComponent(new NeutralMentalityComponent(this));
+
     }
 
     /**

@@ -3,7 +3,7 @@ package model.component;
 import java.util.Objects;
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
-import model.entity.Heart;
+import model.entity.SimplePickupableHeart;
 import model.events.FireHittedEvent;
 import model.events.FireOutEvent;
 import util.EventListener;
@@ -48,7 +48,7 @@ public class FireAIComponent extends AbstractComponent<FireAIComponent> {
             public void listenEvent(final FireOutEvent event) {
                 final FireType type = event.getFireType();
                 if (type == FireType.BLUE) {
-                    final Heart h = new Heart();
+                    final SimplePickupableHeart h = new SimplePickupableHeart();
                     final BodyComponent fireBody = event.getSourceEntity().getComponent(BodyComponent.class).get();
                     final BodyComponent newBody = h.getComponent(BodyComponent.class).get();
                     newBody.setPosition(fireBody.getPosition());

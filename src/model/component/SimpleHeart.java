@@ -1,8 +1,8 @@
 package model.component;
 
-import model.enumeration.BasicColorEnum;
-import model.enumeration.ColorHeartEnum;
-
+import model.enumeration.BasicHeartEnum;
+import model.enumeration.HeartEnum;
+import model.entity.Entity;
 /**
  * 
  * The simplest kind of heart.
@@ -10,77 +10,36 @@ import model.enumeration.ColorHeartEnum;
  */
 public class SimpleHeart extends AbstractHeart {
 
-    private static final double DEFAULT_VALUE = 1;
-    private static final double MAX_VALUE = 1;
-    private double value;
-
     /**
-     * Simple heart constructor.
      * 
-     * @param value total value of the heart
+     * @param myEntity the entity to which it is attached
+     * @param value actual value of the heart
      */
-    public SimpleHeart(final double value) {
-        super();
-        if (value < 0.0 || value > 1.0) {
-            throw new IllegalArgumentException();
-        }
-        this.value = value;
-    }
-
-    /**
-     * Default SimpleHeart constructor.
-     */
-    public SimpleHeart() {
-        this(DEFAULT_VALUE);
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * If we want to extend this class we must prevent life from taking negative
-     * values.
-     */
-    @Override
-    public double getDamaged(final double damageValue) {
-        final double tempValue = this.value;
-        if (damageValue < this.value) {
-            this.value -= damageValue;
-            return 0;
-        } else {
-            this.value = 0;
-            return damageValue - tempValue;
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public double getValue() {
-        return this.value;
+    public SimpleHeart(final Entity myEntity, final double value) {
+        super(myEntity, value);
     }
 
     /**
      * 
-     * @param value new value of the heart
+     * @param myEntity the entity to which it is attached
      */
-    protected void setValue(final double value) {
-        this.value = value;
+    public SimpleHeart(final Entity myEntity) {
+        super(myEntity);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void died() {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public double getMaxValue() {
-        return MAX_VALUE;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ColorHeartEnum getColor() {
-        return BasicColorEnum.RED;
+    public HeartEnum getColor() {
+        return BasicHeartEnum.RED;
     }
 }

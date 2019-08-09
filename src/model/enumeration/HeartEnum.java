@@ -5,6 +5,6 @@ package model.enumeration;
  *
  * .
  */
-public interface ColorHeartEnum extends RootEnum {
+public interface HeartEnum extends EntityEnum {
 
 }

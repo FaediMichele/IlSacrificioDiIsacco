@@ -28,8 +28,6 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
 
     private Image face;
     private Image body;
-    private MovementEnum lastMove = BasicMovementEnum.STATIONARY;
-    private int countStationary;
 
     /**
      * Base constructor, initializes the indexes.

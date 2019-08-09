@@ -21,7 +21,7 @@ import model.entity.Bomb;
 import model.entity.Entity;
 import model.entity.Key;
 import model.entity.Player;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.HeartEnum;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
 import model.events.RoomChangedEvent;
@@ -186,8 +186,8 @@ public class GameWorldImpl implements GameWorld {
      */
     public StatisticsInformations getStatistics() {
         final List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
-        final List<Pair<ColorHeartEnum, Double>> hearts = this.getPlayer().getComponent(HealthComponent.class).get()
-                .getHearts().stream().map(h -> new Pair<ColorHeartEnum, Double>(h.getColor(), h.getValue()))
+        final List<Pair<HeartEnum, Double>> hearts = this.getPlayer().getComponent(HealthComponent.class).get()
+                .getHearts().stream().map(h -> new Pair<HeartEnum, Double>(h.getColor(), h.getValue()))
                 .collect(Collectors.toList());
         return new StatisticsInformations()
                 .setBombs(things.stream().filter(t -> t.getClass().isInstance(Bomb.class)).collect(Collectors.toList())
