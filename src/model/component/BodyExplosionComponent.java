@@ -14,7 +14,7 @@ public class BodyExplosionComponent extends BodyComponent {
     private final double explosionScale;
     private final double explosionTime;
     private double timePassed;
-    private boolean exploded;
+    private final boolean exploded;
 
     /**
      * 
