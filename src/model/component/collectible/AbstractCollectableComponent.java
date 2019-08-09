@@ -4,7 +4,9 @@ import java.util.Objects;
 import java.util.Optional;
 import model.component.Component;
 import model.component.InventoryComponent;
+import model.component.StatusComponent;
 import model.entity.Entity;
+import model.enumeration.BasicStatusEnum;
 
 /**
  * 
@@ -18,6 +20,7 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
 
     AbstractCollectableComponent(final Entity entity) {
         super(entity);
+        this.entityThatCollectedMe = Optional.empty();
     }
 
     /**
@@ -25,13 +28,16 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      */
     @Override
     public void init(final Entity entity) {
-        Objects.requireNonNull(entity);
-        final Optional<Component> optComponent = entity.getComponents().stream().filter(c -> c.getClass().equals(InventoryComponent.class)).findFirst();
-        if (optComponent.isPresent()) {
-            final InventoryComponent inventoryComponent = (InventoryComponent) optComponent.get();
-            if (inventoryComponent.addThing(getEntity())) {
-                this.entityThatCollectedMe = Optional.of(entity);
-                this.deleteThisEntity();
+        if (!entityThatCollectedMe.isPresent()) {
+            Objects.requireNonNull(entity);
+            final Optional<Component> optComponent = entity.getComponents().stream().filter(c -> c.getClass().equals(InventoryComponent.class)).findFirst();
+            if (optComponent.isPresent()) {
+                final InventoryComponent inventoryComponent = (InventoryComponent) optComponent.get();
+                if (inventoryComponent.addThing(getEntity())) {
+                    this.entityThatCollectedMe = Optional.of(entity);
+                    this.deleteThisEntity();
+                    getEntity().getComponent(StatusComponent.class).get().setStatus(BasicStatusEnum.DISAPPEAR);
+                }
             }
         }
     }

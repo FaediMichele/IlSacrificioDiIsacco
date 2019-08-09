@@ -16,13 +16,21 @@ public class BlackHeart extends SimpleHeart {
     private static final double ENEMY_DAMAGE = 0.5;
 
     /**
-     * 
-     * @param myEntity 
-     * @param value 
+     * @param myEntity the entity to which it is attached
+     * @param value actual value of the heart
      */
     public BlackHeart(final Entity myEntity, final double value) {
         super(myEntity, value);
     }
+
+    /**
+     * 
+     * @param myEntity the entity to which it is attached
+     */
+    public BlackHeart(final Entity myEntity) {
+        super(myEntity);
+    }
+
 
 
     /**

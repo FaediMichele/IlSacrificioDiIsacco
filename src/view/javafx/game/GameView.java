@@ -1,5 +1,10 @@
 package view.javafx.game;
 
+import java.util.List;
+
+import model.enumeration.HeartEnum;
+import util.Pair;
+
 /**
  * Main view of the game, the controller uses this to manage the entityViews
  * status and position.
@@ -49,6 +54,14 @@ public interface GameView {
      * @param itemNumber the number of items that needs to be set
      */
     void setNumberStatistic(StatisticView s, double itemNumber);
+
+    /**
+     * Sets the list of HeartViews in the statistics.
+     * 
+     * @param s 
+     * @param hearts 
+     */
+    void setHeartsStatistic(HeartStatisticView s, List<Pair<HeartEnum, Double>> hearts);
 
     /**
      * Return to the initial state.

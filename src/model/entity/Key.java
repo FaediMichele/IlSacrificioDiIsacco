@@ -15,8 +15,8 @@ import model.enumeration.EntityEnum;
  * Key entity that can be collected.
  */
 public class Key extends AbstractStaticEntity {
-    private static final double WIDTH = 0.5;
-    private static final double HEIGHT = 0.5;
+    private static final double WIDTH = 15;
+    private static final double HEIGHT = 15;
     private static final int WEIGHT = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.KEY;
 
@@ -44,16 +44,16 @@ public class Key extends AbstractStaticEntity {
      */
     public Key(final String args) {
         super();
-        final Map<String, String> holder = Splitter.on(" ").trimResults()
+        final Map<String, String> holder = Splitter.on(",").trimResults()
                 .withKeyValueSeparator("=").split(args);
         build(Double.parseDouble(holder.get("X").replace("\"", "")),
                 Double.parseDouble(holder.get("Y").replace("\"", "")));
     }
 
     private void build(final double x, final double y) {
-        this.attachComponent(new KeyCollectableComponent(this));
         this.setDefaultComponents(new BodyComponent(this, x, y, 0, HEIGHT, WIDTH, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
+        this.attachComponent(new KeyCollectableComponent(this));
     }
     /**
      * {@inheritDoc}

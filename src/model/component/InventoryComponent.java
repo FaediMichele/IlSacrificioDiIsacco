@@ -63,7 +63,7 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
                     final Optional<Entity> thingToRelease = things.stream()
                             .filter(i -> i.getClass().isInstance(event.getReleasedEntityClass())).findFirst();
                     if (thingToRelease.isPresent()) {
-                        thingToRelease.get().getComponent(AbstractCollectableComponent.class).get().use();
+                       releaseThing(thingToRelease.get());
                     }
                 }
             }
@@ -93,10 +93,11 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
      * @param thing to release
      */
     public void releaseThing(final Entity thing) {
-        (thing.getComponent(BodyComponent.class).get())
-                .setPosition((this.getEntity().getComponent(BodyComponent.class).get()).getPosition());
+        thing.getComponent(BodyComponent.class).get()
+                                               .setPosition(getEntity().getComponent(BodyComponent.class).get()
+                                                                       .getPosition());
         this.getEntity().getRoom().insertEntity(thing);
-//        this.getEntity().getStatusComponent().setStatus(new Pair<>(1, "appear"));
+        thing.getComponent(AbstractCollectableComponent.class).get().use();
         this.things.remove(thing);
     }
 

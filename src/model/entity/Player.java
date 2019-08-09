@@ -14,6 +14,7 @@ import model.enumeration.EntityEnum;
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
 import model.util.Position;
+import model.util.StatisticsInformations;
 
 /**
  * Implements Player.
@@ -76,5 +77,17 @@ public class Player extends AbstractMovableEntity {
     @Override
     public  EntityEnum getNameEntity() {
         return this.name;
+    }
+
+    /**
+     * 
+     * @return the {@link StatisticsInformations}
+     */
+    public StatisticsInformations getStatisticsInformations() {
+        final StatisticsInformations statistics = new StatisticsInformations();
+        statistics.setBombs(this.getComponent(InventoryComponent.class).get().thingsOfThisKind(Bomb.class));
+        statistics.setKeys(this.getComponent(InventoryComponent.class).get().thingsOfThisKind(Key.class));
+        statistics.setHearts(this.getComponent(HealthComponent.class).get().getHeartPairs());
+        return statistics;
     }
 }

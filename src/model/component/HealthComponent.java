@@ -1,6 +1,7 @@
 package model.component;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,9 +9,11 @@ import java.util.stream.Stream;
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.enumeration.BasicStatusEnum;
+import model.enumeration.HeartEnum;
 import model.events.DamageEvent;
 import model.events.DeadEvent;
 import util.EventListener;
+import util.Pair;
 
 /**
  * This component controls the health of the entity.
@@ -30,7 +33,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     public HealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
-        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity(), 1)).collect(Collectors.toList());
+        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity())).collect(Collectors.toList());
         if ((int) Math.ceil(defaultHearts) <= MAX_HEARTS && defaultHearts - (int) Math.floor(defaultHearts) != 0) {
             this.hearts.add(new SimpleHeart(this.getEntity(), defaultHearts - (int) Math.floor(defaultHearts)));
         }
@@ -68,6 +71,16 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
      */
     public boolean isAlive() {
         return !this.hearts.isEmpty();
+    }
+
+    /**
+     * 
+     * @return the list of hearts
+     */
+    public List<Pair<HeartEnum, Double>> getHeartPairs() {
+        final List<Pair<HeartEnum, Double>> list = new LinkedList<>();
+        hearts.forEach(h -> list.add(new Pair<HeartEnum, Double>(h.getColor(), h.getValue())));
+        return list;
     }
 
     /**

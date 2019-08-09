@@ -1,8 +1,7 @@
 package model.component.collectible;
 
 import model.component.BodyComponent;
-import model.component.DamageComponent;
-import model.component.mentality.PsychoMentalityComponent;
+import model.component.BodyExplosionComponent;
 import model.entity.Entity;
 
 /**
@@ -11,59 +10,36 @@ import model.entity.Entity;
  */
 public class BombCollectableComponent extends AbstractCollectableComponent {
 
-    private final double explosionScale;
-    private final int timeBeforeExplodes;
-    private final int explosionTime;
+    private static final  double EXPLOSION_SCALE = 5;
+    private static final  double TIME_BEFORE_EXPLODES = 5;
+    private static final  double EXPLOSION_TIME = 5;
 
     /**
      * 
-     * @param explosionScale     it is the extension of the bomb when it explodes.
-     * @param timeBeforeExplodes is time before it explodes in milliseconds.
-     * @param explosionTime      is duration of the explosion in milliseconds.
-     * 
-     *                           {@inheritDoc}. 
+     *@param entity 
      */
-    public BombCollectableComponent(final Entity entity, final double explosionScale, 
-            final int timeBeforeExplodes, final int explosionTime) {
+    public BombCollectableComponent(final Entity entity) {
         super(entity);
-        this.explosionScale = explosionScale;
-        this.timeBeforeExplodes = timeBeforeExplodes;
-        this.explosionTime = explosionTime;
     }
-
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public void init(final Entity entity) {
-//        super.init(entity);
-//        //getEntity().getStatusComponent().setStatus(new Pair<>(1, "collectible"));
-//    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void use() {
-        super.getInventoryComponent().releaseThing(this.getEntity());
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    //getEntity().getStatusComponent().setStatus(new Pair<>(1, "triggered"));
-                    Thread.sleep(timeBeforeExplodes);
-                    getEntity().getComponent(BodyComponent.class).get()
-                            .scaleDimension(explosionScale);
-                    //getEntity().getStatusComponent().setStatus(new Pair<>(1, "explode"));
-                    getEntity().attachComponent(new DamageComponent(getEntity(), 0.5))
-                            .attachComponent(new PsychoMentalityComponent(getEntity()));
-                    Thread.sleep(explosionTime);
-                    deleteThisEntity();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+        this.getEntity()
+            .attachComponent(new BodyExplosionComponent(this.getEntity(), 
+                                                        this.getEntity().getComponent(BodyComponent.class).get()
+                                                                        .getPosition(), 
+                                                        this.getEntity().getComponent(BodyComponent.class).get()
+                                                                        .getHeight(), 
+                                                        this.getEntity().getComponent(BodyComponent.class).get()
+                                                                        .getWidth(),
+                                                        0, 
+                                                        TIME_BEFORE_EXPLODES, 
+                                                        EXPLOSION_SCALE, 
+                                                        EXPLOSION_TIME));
+        this.getEntity().detachComponent(this);
     }
 
 }

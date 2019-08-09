@@ -15,8 +15,8 @@ import model.enumeration.EntityEnum;
  * Implements the Rock.
  */
 public class Rock extends AbstractStaticEntity {
-    private static final double WIDTH = 1;
-    private static final double HEIGHT = 1;
+    private static final double WIDTH = 20;
+    private static final double HEIGHT = 20;
     private static final int WEIGHT = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.ROCK;
 

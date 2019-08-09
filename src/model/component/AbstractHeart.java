@@ -11,6 +11,7 @@ import util.StaticMethodsUtils;
 public abstract class AbstractHeart implements Heart {
 
     private static final double MAX_VALUE = 1;
+    private static final double DEFAULT_VALUE = 1;
     private double value;
     private final Entity myEntity;
 
@@ -27,6 +28,10 @@ public abstract class AbstractHeart implements Heart {
         }
         this.value = value;
         this.myEntity = myEntity;
+    }
+
+    AbstractHeart(final Entity myEntity) {
+        this (myEntity, DEFAULT_VALUE);
     }
 
     /**
