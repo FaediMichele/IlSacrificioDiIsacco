@@ -6,13 +6,13 @@ import model.enumeration.BasicHeartEnum;
 /**
 * View of the hearts.
 */
-public class SimpleHeartView extends AbstractHeartView {
+public class RedHeartView extends AbstractHeartView {
 
     /**
      * 
      * @param id the id. 
      */
-    public SimpleHeartView(final UUID id) {
+    public RedHeartView(final UUID id) {
         super(id, BasicHeartEnum.RED);
     }
 }
