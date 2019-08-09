@@ -102,8 +102,6 @@ public class GameWorldImpl implements GameWorld {
             changedFloor = false;
             getActiveFloor().getActiveRoom().insertEntity(player);
             this.player.getComponent(BodyComponent.class).get().setPosition(new Position(this.player.getRoom().getWidth() / 2, this.player.getRoom().getHeight() / 2, 0.0));
-            System.out.println(this.player.getRoom().getWidth() / 2);
-            System.out.println(this.player.getRoom().getHeight() / 2);
         }
     }
 

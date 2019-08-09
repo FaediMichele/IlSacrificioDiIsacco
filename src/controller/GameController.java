@@ -162,6 +162,7 @@ public class GameController {
                     });
                     if (inputDisponible.tryAcquire()) {
                         inputCommand.forEach(c -> gameWord.input(c));
+                        inputCommand.clear();
                         inputDisponible.release();
                     }
                 }

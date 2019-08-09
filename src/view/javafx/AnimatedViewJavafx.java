@@ -75,7 +75,6 @@ public class AnimatedViewJavafx implements AnimatedView {
     @Override
     public void next() {
         index = ++index % frames.size();
-        //System.out.println(frames.get(index).isError() ? frames.get(index).getException().: " ");
         img.setImage(frames.get(index));
     }
 }

@@ -104,7 +104,6 @@
 //            try {
 //                for (long i = 0; i < this.time; i++) {
 //                    this.sleep(1);
-//                    System.out.println(i);
 //                }
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();

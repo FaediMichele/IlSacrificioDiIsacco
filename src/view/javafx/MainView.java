@@ -22,7 +22,6 @@ public class MainView extends Application implements EntryPoint {
     @Override
     public void start(final Stage stage) throws Exception {
         final Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        System.out.println(screenBounds);
         final double maxX = screenBounds.getMaxX() / 3;
         final double maxY = screenBounds.getMaxY() / 3;
         final FXMLLoader loader = new FXMLLoader();

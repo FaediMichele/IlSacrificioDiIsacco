@@ -57,8 +57,6 @@
 //       String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
 //       String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
 //       Node node = xml.getElementsByTagName(enumValue).item(0);
-//       System.out.println(pathEnumModel + " " + node.getTextContent());
-//       System.out.println(Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), "CAIN"));
 //       PlayerEnum plEnum = (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
 //   }
 //

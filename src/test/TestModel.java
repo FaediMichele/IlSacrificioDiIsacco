@@ -224,7 +224,6 @@
 //        }
 //        long endTime = System.nanoTime();
 //        long timeElapsed = (endTime - startTime) / (100 * 100 * 100); // to avoid checkstyle
-//        System.out.println(timeElapsed);
 //        assertTrue(timeElapsed < 3 * 10);
 //    }
 //

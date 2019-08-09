@@ -24,7 +24,6 @@ public class TestXML {
         Document xml = StaticMethodsUtils.getDocumentXML("/xml/Status_1.xml");
         List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(xml.getElementsByTagName("MoveComponent"));
         ls.forEach(n -> {
-            System.out.println(n.getNodeName());
             if (n.hasChildNodes()) {
                 NodeList tmp = n.getChildNodes();
                 for (int i = 0; i < tmp.getLength(); i++) {

@@ -31,7 +31,6 @@ public class InputComponent extends AbstractComponent<InputComponent> {
         }));
     }
     private void handleInput(final Command c) {
-        //System.out.println(c + "entity");
         final MoveComponent mc = getEntity().getComponent(MoveComponent.class).get();
         if (mc == null) {
             return;
@@ -51,14 +50,19 @@ public class InputComponent extends AbstractComponent<InputComponent> {
                 break;
             case ARROW_DOWN:
                 getEntity().postEvent(new TearShotEvent(getEntity(), 270));
+                System.out.println("TEAR DOWN");
             case ARROW_UP:
                 getEntity().postEvent(new TearShotEvent(getEntity(), 90));
+                System.out.println("TEAR UP");
             case ARROW_LEFT:
                 getEntity().postEvent(new TearShotEvent(getEntity(), 180));
+                System.out.println("TEAR LEFT");
             case ARROW_RIGHT:
                 getEntity().postEvent(new TearShotEvent(getEntity(), 0));
+                System.out.println("TEAR RIGHT");
             case BOMB:
                 getEntity().postEvent(new UseThingEvent(getEntity(), Bomb.class));
+                System.out.println("BOMB");
                 break;
         default:
             break;

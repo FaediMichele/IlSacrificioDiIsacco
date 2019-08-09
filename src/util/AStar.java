@@ -152,7 +152,6 @@ public class AStar {
         while (current.parent.parent != null) {
             current = current.parent;
         }
-        System.out.println("\n" + start.getX() + " " + start.getY() + "\t" + end.getX() + " " + end.getY());
         return new Pair<Integer, Integer>(current.i, current.j);
     }
     private void clearClosed() {
