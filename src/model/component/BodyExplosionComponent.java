@@ -1,5 +1,7 @@
 package model.component;
 
+import model.component.mentality.AbstractMentalityComponent;
+import model.component.mentality.PsychoMentalityComponent;
 import model.entity.Entity;
 import model.enumeration.BasicStatusEnum;
 import model.util.Position;
@@ -14,7 +16,7 @@ public class BodyExplosionComponent extends BodyComponent {
     private final double explosionScale;
     private final double explosionTime;
     private double timePassed;
-    private boolean exploded;
+    private final boolean exploded;
 
     /**
      * 
@@ -42,6 +44,7 @@ public class BodyExplosionComponent extends BodyComponent {
         this.timePassed = 0;
         this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.TRIGGERED);
         this.exploded = false;
+        setPosition(positions);
     }
 
     /**
@@ -53,7 +56,8 @@ public class BodyExplosionComponent extends BodyComponent {
         this.timePassed = this.timePassed + deltaTime;
         if (this.timePassed > this.timeBeforeExplodes && !this.exploded) {
             this.scaleDimension(explosionScale);
-            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
+            this.getEntity().attachComponent(new PsychoMentalityComponent(this.getEntity()))
+                            .getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
         }
         if (this.exploded && this.timePassed > this.explosionTime + this.timeBeforeExplodes) {
             this.getEntity().getRoom().deleteEntity(this.getEntity());
