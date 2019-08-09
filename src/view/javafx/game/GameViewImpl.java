@@ -97,9 +97,6 @@ public class GameViewImpl implements GameView {
 
     /**
      * {@inheritDoc}
-     * 
-     * @param s
-     * @param hearts
      */
     public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
         Objects.requireNonNull(s);
