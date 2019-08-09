@@ -54,15 +54,27 @@ public class Triplet<X, Y, Z> {
         return this.z;
     }
 
-    public void setX(X x) {
+    /**
+     * Sets the first value.
+     * @param x the value to set
+     */
+    public void setX(final X x) {
         this.x = x;
     }
 
-    public void setY(Y y) {
+    /**
+     * Sets the second value.
+     * @param y the value to set
+     */
+    public void setY(final Y y) {
         this.y = y;
     }
 
-    public void setZ(Z z) {
+    /**
+     * Sets the third value.
+     * @param z the value to set
+     */
+    public void setZ(final Z z) {
         this.z = z;
     }
 
