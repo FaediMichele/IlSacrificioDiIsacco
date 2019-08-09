@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Statuses>
-    <BaiscStatuses path-status-enum="model.enumeration.BasicStatusEnum">
+    <BasicStatuses path-status-enum="model.enumeration.BasicStatusEnum">
         <DEFAULT>def</DEFAULT>
         <DEAD>dead</DEAD>
         <DAMAGING>damaging</DAMAGING>
@@ -12,5 +12,5 @@
         <DISAPPEAR>disappear</DISAPPEAR>
         <FULL>full</FULL>
         <HALF>half</HALF>
-    </BaiscStatuses>
+    </BasicStatuses>
 </Statuses>
