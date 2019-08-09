@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javafx.scene.canvas.Canvas;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.HeartEnum;
 import util.Pair;
 
 /**
@@ -101,7 +101,7 @@ public class GameViewImpl implements GameView {
      * @param s
      * @param hearts
      */
-    public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<ColorHeartEnum, Double>> hearts) {
+    public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);

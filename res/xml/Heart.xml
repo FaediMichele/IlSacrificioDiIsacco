@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Hearts>
+    <BasicHearts
+        path-heartEnum="model.enumeration.BasicHeartEnum"
+        path-heartView="view.javafx.game">
+        <BLACK>BlackHeartView</BLACK>
+        <RED>RedHeartView</RED>
+    </BasicHearts>
+</Hearts>
+

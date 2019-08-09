@@ -1,7 +1,7 @@
 package model.util;
 
 import java.util.List;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.HeartEnum;
 import util.Pair;
 
 /**
@@ -13,7 +13,7 @@ public class StatisticsInformations {
 
     private int bombs;
     private int keys;
-    private List<Pair<ColorHeartEnum, Double>> hearts;
+    private List<Pair<HeartEnum, Double>> hearts;
 
     /**
      * 
@@ -55,7 +55,7 @@ public class StatisticsInformations {
      * 
      * @return hearts.
      */
-    public List<Pair<ColorHeartEnum, Double>> getHearts() {
+    public List<Pair<HeartEnum, Double>> getHearts() {
         return hearts;
     }
 
@@ -64,7 +64,7 @@ public class StatisticsInformations {
      * @param hearts .
      * @return this.
      */
-    public StatisticsInformations setHearts(final List<Pair<ColorHeartEnum, Double>> hearts) {
+    public StatisticsInformations setHearts(final List<Pair<HeartEnum, Double>> hearts) {
         this.hearts = hearts;
         return this;
     }

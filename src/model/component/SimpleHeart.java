@@ -1,7 +1,7 @@
 package model.component;
 
-import model.enumeration.BasicColorEnum;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.BasicHeartEnum;
+import model.enumeration.HeartEnum;
 
 /**
  * 
@@ -80,7 +80,7 @@ public class SimpleHeart extends AbstractHeart {
      * {@inheritDoc}
      */
     @Override
-    public ColorHeartEnum getColor() {
-        return BasicColorEnum.RED;
+    public HeartEnum getColor() {
+        return BasicHeartEnum.RED;
     }
 }
