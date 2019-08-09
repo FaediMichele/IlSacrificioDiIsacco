@@ -17,7 +17,7 @@ import util.SpritesExtractor;
 */
 public class RockView extends AbstractEntityView {
     private static List<Image> rockSprites;
-
+    private final int index;
     static {
         BufferedImage img = null;
         try {
@@ -35,6 +35,7 @@ public class RockView extends AbstractEntityView {
      */
     public RockView(final UUID id) {
         super(id);
+        this.index = (new Random().nextInt(rockSprites.size()));
     }
 
     /**
@@ -43,7 +44,6 @@ public class RockView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        final int index = (new Random().nextInt(rockSprites.size()));
         gc.drawImage(rockSprites.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
     }
 

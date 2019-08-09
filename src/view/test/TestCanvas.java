@@ -15,6 +15,7 @@ import view.javafx.game.DoorView;
 import view.javafx.game.GameViewImpl;
 import view.javafx.game.GaperView;
 import view.javafx.game.IsaacView;
+import view.javafx.game.RockView;
 import view.javafx.game.AbstractPlayerView;
 import view.javafx.game.RoomView;
 
@@ -43,6 +44,13 @@ public class TestCanvas extends Application {
         gaper.setWidth(85);
         gaper.setGameView(new GameViewImpl(canvas));
         gaper.def(BasicMovementEnum.DOWN);
+        final RockView rock = new RockView(UUID.randomUUID());
+        rock.setX(200.0);
+        rock.setY(200.0);
+        rock.setHeight(85);
+        rock.setWidth(85);
+        rock.setGameView(new GameViewImpl(canvas));
+        rock.def(BasicMovementEnum.DOWN);
         final DoorView door = new DoorView(UUID.randomUUID());
         Platform.runLater(new Runnable() {
             @Override
@@ -63,6 +71,7 @@ public class TestCanvas extends Application {
                 isaac.draw(canvas.getGraphicsContext2D());
                 gaper.draw(canvas.getGraphicsContext2D());
                 door.draw(canvas.getGraphicsContext2D());
+                rock.draw(canvas.getGraphicsContext2D());
             }
         });
         root.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
@@ -98,6 +107,7 @@ public class TestCanvas extends Application {
                         isaac.draw(canvas.getGraphicsContext2D());
                         gaper.draw(canvas.getGraphicsContext2D());
                         door.draw(canvas.getGraphicsContext2D());
+                        rock.draw(canvas.getGraphicsContext2D());
                     }
                 });
                 try {

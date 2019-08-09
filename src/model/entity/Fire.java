@@ -39,7 +39,7 @@ public class Fire extends AbstractStaticEntity {
      */
     public Fire(final String args) {
         super();
-        final Map<String, String> holder = Splitter.on(" ").trimResults()
+        final Map<String, String> holder = Splitter.on(",").trimResults()
                 .withKeyValueSeparator("=").split(args);
         build(Enum.valueOf(FireType.class, holder.get("FireType").replace("\"", "")), 
                 Double.parseDouble(holder.get("X").replace("\"", "")), 
