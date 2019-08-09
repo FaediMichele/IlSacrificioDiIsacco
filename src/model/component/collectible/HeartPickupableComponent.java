@@ -1,11 +1,15 @@
 package model.component.collectible;
 
 import java.util.Objects;
+import java.util.Random;
+
 import model.component.BlackHeart;
 import model.component.HealthComponent;
 import model.component.SimpleHeart;
 import model.entity.Entity;
 import model.enumeration.BasicHeartEnum;
+import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicStatusEnum;
 import model.enumeration.HeartEnum;
 
 /**
@@ -15,7 +19,6 @@ import model.enumeration.HeartEnum;
 public class HeartPickupableComponent extends AbstractPickupableComponent {
 
     private static final HeartEnum DEFAULT_HEART_COLOUR = BasicHeartEnum.RED;
-    private static final double DEFAULT_VALUE = 1;
     private final HeartEnum color;
     private final double actualValue;
 
@@ -24,7 +27,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
      * @param entity {@link Entity}
      */
     public HeartPickupableComponent(final Entity entity) {
-        this(entity, DEFAULT_HEART_COLOUR, DEFAULT_VALUE);
+        this(entity, DEFAULT_HEART_COLOUR, new Random().nextDouble());
     }
 
     /**
@@ -60,12 +63,11 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
             healthComponent.addHeart(new BlackHeart(entity, actualValue));
         }
 
-// la pesno che i get di di stato debbano essere fatti a livello di componente della vita
-//        if (actualValue > 0.5 && actualValue < 1) {
-//            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "full"));
-//        } else if (actualValue > 0.0 && actualValue <= 0.5) {
-//            this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "half"));
-//        }
+        if (actualValue > 0.5 && actualValue < 1) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.FULL);
+        } else if (actualValue > 0.0 && actualValue <= 0.5) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.HALF);
+        }
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
