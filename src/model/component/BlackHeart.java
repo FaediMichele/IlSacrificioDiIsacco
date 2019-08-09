@@ -3,8 +3,8 @@ package model.component;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.entity.Entity;
-import model.enumeration.BasicColorEnum;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.BasicHeartEnum;
+import model.enumeration.HeartEnum;
 import model.events.DamageEvent;
 
 /**
@@ -13,12 +13,26 @@ import model.events.DamageEvent;
  */
 
 public class BlackHeart extends SimpleHeart {
+    private static final double ENEMY_DAMAGE = 0.5;
 
+    /**
+     * @param myEntity the entity to which it is attached
+     * @param value actual value of the heart
+     */
     public BlackHeart(final Entity myEntity, final double value) {
         super(myEntity, value);
     }
 
-    private static final double ENEMY_DAMAGE = 0.5;
+    /**
+     * 
+     * @param myEntity the entity to which it is attached
+     */
+    public BlackHeart(final Entity myEntity) {
+        super(myEntity);
+    }
+
+
+
     /**
      * {@inheritDoc}
      */
@@ -34,7 +48,7 @@ public class BlackHeart extends SimpleHeart {
      * {@inheritDoc}
      */
     @Override
-    public ColorHeartEnum getColor() {
-        return BasicColorEnum.BLACK;
+    public HeartEnum getColor() {
+        return BasicHeartEnum.BLACK;
     }
 }

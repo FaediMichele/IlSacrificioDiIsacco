@@ -1,6 +1,6 @@
 package model.component;
 
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.HeartEnum;
 
 /**
  * 
@@ -39,5 +39,5 @@ public interface Heart {
      * . 
      * @return color for heart.
      */
-    ColorHeartEnum getColor();
+    HeartEnum getColor();
 }

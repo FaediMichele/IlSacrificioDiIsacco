@@ -5,8 +5,8 @@ import model.component.BlackHeart;
 import model.component.HealthComponent;
 import model.component.SimpleHeart;
 import model.entity.Entity;
-import model.enumeration.BasicColorEnum;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.BasicHeartEnum;
+import model.enumeration.HeartEnum;
 
 /**
  * Collectible Component of the heart entity: how the heart have to act when
@@ -14,9 +14,9 @@ import model.enumeration.ColorHeartEnum;
  */
 public class HeartPickupableComponent extends AbstractPickupableComponent {
 
-    private static final ColorHeartEnum DEFAULT_HEART_COLOUR = BasicColorEnum.RED;
+    private static final HeartEnum DEFAULT_HEART_COLOUR = BasicHeartEnum.RED;
     private static final double DEFAULT_VALUE = 1;
-    private final ColorHeartEnum color;
+    private final HeartEnum color;
     private final double actualValue;
 
     /**
@@ -33,7 +33,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
      * @param color of this heart
      * @param actualValue value of the heart
      */
-    public HeartPickupableComponent(final Entity entity, final ColorHeartEnum color, final double actualValue) {
+    public HeartPickupableComponent(final Entity entity, final HeartEnum color, final double actualValue) {
         super(entity);
         this.color = color;
         this.actualValue = actualValue;
@@ -42,7 +42,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
     /**
      * @return heartKind
      */
-    public ColorHeartEnum getHeartColor() {
+    public HeartEnum getHeartColor() {
         return this.color;
     }
 
@@ -54,9 +54,9 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
         Objects.requireNonNull(entity);
         final HealthComponent healthComponent = this.getHealthComponent(entity);
 
-        if (this.color.equals(BasicColorEnum.RED)) {
+        if (this.color.equals(BasicHeartEnum.RED)) {
             healthComponent.addHeart(new SimpleHeart(entity, actualValue));
-        } else if (this.color.equals(BasicColorEnum.BLACK)) {
+        } else if (this.color.equals(BasicHeartEnum.BLACK)) {
             healthComponent.addHeart(new BlackHeart(entity, actualValue));
         }
 

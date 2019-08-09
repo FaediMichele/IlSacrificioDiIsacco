@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import model.enumeration.BasicColorEnum;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.BasicHeartEnum;
+import model.enumeration.HeartEnum;
 import util.Pair;
 
 /**
@@ -27,7 +27,7 @@ public class HeartStatisticView extends AbstractStatisticView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(HeartView.class.getResource("/gameImgs/ui_hearts.png"));
+            img = ImageIO.read(RedHeartView.class.getResource("/gameImgs/ui_hearts.png"));
             final int delta = 16;
             simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
             halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta, 0, delta, delta), null);
@@ -55,9 +55,9 @@ public class HeartStatisticView extends AbstractStatisticView {
      * the hearts needs to know the color and the value of each item.
      * @param hearts list of colors and values of the hearts
      */
-    public void setHearts(final List<Pair<ColorHeartEnum, Double>> hearts) {
+    public void setHearts(final List<Pair<HeartEnum, Double>> hearts) {
         hearts.forEach(h -> {
-            if (h.getX().equals(BasicColorEnum.RED)) {
+            if (h.getX().equals(BasicHeartEnum.RED)) {
                 if (h.getY() <= 1.0 && h.getY() >= 0.5) {
                     heartsToDraw.add(simpleHeart);
                 } else if (h.getY() < 0.5 && h.getY() > 0.0) {
@@ -65,7 +65,7 @@ public class HeartStatisticView extends AbstractStatisticView {
                 } else {
                     throw new IllegalArgumentException();
                 }
-            } else if (h.getX().equals(BasicColorEnum.BLACK)) {
+            } else if (h.getX().equals(BasicHeartEnum.BLACK)) {
                 if (h.getY() <= 1.0 && h.getY() >= 0.5) {
                     heartsToDraw.add(blackHeart);
                 } else if (h.getY() < 0.5 && h.getY() > 0.0) {

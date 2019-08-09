@@ -1,7 +1,7 @@
 package model.component;
 
 import model.entity.Entity;
-import model.enumeration.ColorHeartEnum;
+import model.enumeration.HeartEnum;
 import util.StaticMethodsUtils;
 
 /**
@@ -11,6 +11,7 @@ import util.StaticMethodsUtils;
 public abstract class AbstractHeart implements Heart {
 
     private static final double MAX_VALUE = 1;
+    private static final double DEFAULT_VALUE = 1;
     private double value;
     private final Entity myEntity;
 
@@ -27,6 +28,10 @@ public abstract class AbstractHeart implements Heart {
         }
         this.value = value;
         this.myEntity = myEntity;
+    }
+
+    AbstractHeart(final Entity myEntity) {
+        this (myEntity, DEFAULT_VALUE);
     }
 
     /**
@@ -57,7 +62,7 @@ public abstract class AbstractHeart implements Heart {
      * {@inheritDoc}
      */
     @Override
-    public abstract ColorHeartEnum getColor();
+    public abstract HeartEnum getColor();
 
     /**
      * {@inheritDoc}

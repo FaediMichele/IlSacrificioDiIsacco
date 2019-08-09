@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Status path-status-enum="model.enumeration.BasicStatusEnum">
-    <DEFAULT>def</DEFAULT>
-    <DEAD>dead</DEAD>
-    <DAMAGING>damaging</DAMAGING>
-    <TRIGGERED>triggered</TRIGGERED>
-    <EXPLODED>exploded</EXPLODED>
-    <PICK_UP>pickUp</PICK_UP>
-    <APPEAR>appear</APPEAR>
-    <DISAPPEAR>disappear</DISAPPEAR>
-    <FULL>full</FULL>
-    <HALF>half</HALF>
-</Status>
+<Statuses>
+    <BasicStatuses path-status-enum="model.enumeration.BasicStatusEnum">
+        <DEFAULT>def</DEFAULT>
+        <DEAD>dead</DEAD>
+        <DAMAGING>damaging</DAMAGING>
+        <TRIGGERED>triggered</TRIGGERED>
+        <EXPLODED>exploded</EXPLODED>
+        <PICK_UP>pickUp</PICK_UP>
+        <APPEAR>appear</APPEAR>
+        <DISAPPEAR>disappear</DISAPPEAR>
+        <FULL>full</FULL>
+        <HALF>half</HALF>
+    </BasicStatuses>
+</Statuses>

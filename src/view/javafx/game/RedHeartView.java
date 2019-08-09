@@ -15,7 +15,7 @@ import model.enumeration.MovementEnum;
 /**
 * View of the hearts.
 */
-public class HeartView extends AbstractEntityView {
+public class RedHeartView extends AbstractEntityView {
 
     private static Image simpleHeart;
     private static Image halfSimpleHeart;
@@ -25,7 +25,7 @@ public class HeartView extends AbstractEntityView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(HeartView.class.getResource("/gameImgs/pickup_001_heart.png"));
+            img = ImageIO.read(RedHeartView.class.getResource("/gameImgs/pickup_001_heart.png"));
             final int delta = 30;
             simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
             halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, 0, delta, delta), null);
@@ -46,7 +46,7 @@ public class HeartView extends AbstractEntityView {
      * @param id 
      * @param colour the colour of this heart
      */
-    public HeartView(final UUID id, final HeartColour colour) {
+    public RedHeartView(final UUID id, final HeartColour colour) {
         super(id);
 
         if (colour.equals(HeartColour.RED)) {
