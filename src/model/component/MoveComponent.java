@@ -36,7 +36,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     public MoveComponent(final Entity entity, final double deltaSpeed) {
         super(entity);
         this.deltaSpeed = deltaSpeed;
-        this.initMove();
+        //this.initMove();
 
         this.registerListener(new EventListener<MoveEvent>() {
             @Override

@@ -60,14 +60,14 @@ public class MovableCollisionComponent extends CollisionComponent {
      */
     protected void handleMovement(final CollisionEvent event) {
         getBodyComponent(this.getEntity());
-        BodyComponent b1 = event.getSourceEntity().getComponent(BodyComponent.class).get();
-        BodyComponent b2 = this.getEntity().getComponent(BodyComponent.class).get();
+        final BodyComponent b1 = event.getSourceEntity().getComponent(BodyComponent.class).get();
+        final BodyComponent b2 = this.getEntity().getComponent(BodyComponent.class).get();
         if (event.getSourceEntity() instanceof AbstractStaticEntity) {
             reactToCollision(event.getSourceEntity());
             return;
         }
-        Pair<Double, Double> p1 = new Pair<>(b1.getPosition().getX() + b1.getWidth() / 2, b1.getPosition().getY() + b1.getHeight() / 2);
-        Pair<Double, Double> p2 = new Pair<>(b2.getPosition().getX(), b2.getPosition().getY());
+        final Pair<Double, Double> p1 = new Pair<>(b1.getPosition().getX() + b1.getWidth() / 2, b1.getPosition().getY() + b1.getHeight() / 2);
+        final Pair<Double, Double> p2 = new Pair<>(b2.getPosition().getX(), b2.getPosition().getY());
         getMoveComponent(this.getEntity()).move(StaticMethodsUtils.getAngle(p2, p1));
     }
 
