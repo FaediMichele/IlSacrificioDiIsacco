@@ -9,7 +9,6 @@ import controller.menu.GameSubMenuSelection;
 import controller.menu.MainMenuSelection;
 import controller.menu.MenuSelection;
 import controller.menu.SubMenuSelection;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

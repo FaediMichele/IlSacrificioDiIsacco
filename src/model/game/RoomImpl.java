@@ -3,6 +3,7 @@ package model.game;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -135,8 +136,8 @@ public class RoomImpl implements Room {
     @Override
     public void updateEntity(final Double deltaTime) {
         //this.entity.forEach(e -> e.update(deltaTime));
-        for (int i = 0; i < this.entity.size(); i++) {
-            this.entity.get(i).update(deltaTime);
+        for (final Iterator<Entity> iterator = this.entity.iterator(); iterator.hasNext();) {
+            iterator.next().update(deltaTime);
         }
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
