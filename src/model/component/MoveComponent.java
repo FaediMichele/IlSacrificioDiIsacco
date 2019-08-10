@@ -26,7 +26,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     public static final double DEFAULT_SPEED = 1.0;
 
     private double deltaSpeed;
-    private Position movement;
+    private Position movement = new Position(NOMOVE, NOMOVE, NOMOVE);
     private double lastMovementAngle;
     /**
      * 
