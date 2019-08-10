@@ -177,8 +177,8 @@ public class AStar {
             current = current.parent;
         }
         System.out.println();
-        //return end;
-        return new Pair<Integer, Integer>(current.i, current.j);
+        return end;
+        //return new Pair<Integer, Integer>(current.i, current.j);
     }
     /*private void debug(final Pair<Integer, Integer> start, final Pair<Integer, Integer> end) {
         final Pane p = (Pane) ViewGetterUtil.getScene().getRoot();

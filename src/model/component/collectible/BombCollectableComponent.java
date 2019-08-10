@@ -12,7 +12,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     private static final  double EXPLOSION_SCALE = 1;
     private static final  double TIME_BEFORE_EXPLODES = 1000;
-    private static final  double EXPLOSION_TIME = 2000;
+    private static final  double EXPLOSION_TIME = 1000;
 
     /**
      * 
