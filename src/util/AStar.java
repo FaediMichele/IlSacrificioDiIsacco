@@ -4,19 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import javafx.application.Platform;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import view.javafx.ViewGetterUtil;
 
 /**
  * Class for the AStar search algorithm.
  */
 public class AStar {
     // ONLY FOR DEBUG
-    private final Pane newP = new Pane(); 
-    private static final int PANEMULTIPLIER = 10;
+    /*private final Pane newP = new Pane(); 
+    private static final int PANEMULTIPLIER = 10;*/
 
     private static final int DIAGONAL_COST = 14;
     private static final int V_H_COST = 10;
@@ -185,7 +180,7 @@ public class AStar {
             }
         }
         open.clear();
-        debug(start, end, current);
+        //debug(start, end, current);
         clearClosed();
 
         if (current == null) {
@@ -199,6 +194,9 @@ public class AStar {
         //return end;
         return new Pair<Integer, Integer>(current.i, current.j);
     }
+
+    // DEBUG WINDOW
+    /*
     private void debug(final Pair<Integer, Integer> start, final Pair<Integer, Integer> end, final Cell path) {
         final Pane p = (Pane) ViewGetterUtil.getScene().getRoot();
         Cell c = path;
@@ -248,6 +246,7 @@ public class AStar {
             Platform.runLater(() -> p.getChildren().add(newP));
         }
     }
+    */
     private void clearClosed() {
         for (int i = 0; i < closed.length; i++) {
             for (int j = 0; j < closed[0].length; j++) {
