@@ -152,7 +152,7 @@ public class FloorImpl implements Floor {
      * @param activeRoomIndex the activeRoomIndex of the room
      * @param m               Matrix of adjacent room
      * @param pos             the position on the matrix of the room to initialize
-     * @param width           the witdh of the room
+     * @param width           the width of the room
      * @param height          the height of the room
      * @return the room
      */

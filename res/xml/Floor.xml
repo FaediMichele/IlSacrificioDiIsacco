@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Floors>
-    <Floor1 MaxRoom="16">
+    <Floor1 MaxRoom="6">
         <Rooms>
-            <Room1/>
-            <Room2/>
+            <Room3/>
+            <Room3/>
         </Rooms>
     </Floor1>
     <Floor2 MaxRoom="6">

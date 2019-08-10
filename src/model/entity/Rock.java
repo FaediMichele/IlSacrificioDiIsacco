@@ -28,7 +28,7 @@ public class Rock extends AbstractStaticEntity {
      */
     public Rock() {
         super();
-        build(0, 0);
+        build(0, 0, WIDTH, HEIGHT);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Rock extends AbstractStaticEntity {
      */
     public Rock(final double x, final double y) {
         super();
-        build(x, y);
+        build(x, y, WIDTH, HEIGHT);
     }
 
     /**
@@ -49,14 +49,22 @@ public class Rock extends AbstractStaticEntity {
         super();
         final Map<String, String> holder = Splitter.on(",").trimResults()
                 .withKeyValueSeparator("=").split(args);
-        build(Double.parseDouble(holder.get("X").replace("\"", "")),
-                Double.parseDouble(holder.get("Y").replace("\"", "")));
+        if (holder.containsKey("H") && holder.containsKey("W")) {
+            build(Double.parseDouble(holder.get("X").replace("\"", "")),
+                    Double.parseDouble(holder.get("Y").replace("\"", "")),
+                    Double.parseDouble(holder.get("W").replace("\"", "")),
+                    Double.parseDouble(holder.get("H").replace("\"", "")));
+        } else {
+            build(Double.parseDouble(holder.get("X").replace("\"", "")),
+                    Double.parseDouble(holder.get("Y").replace("\"", "")),
+                    WIDTH, HEIGHT);
+        }
     }
 
-    private void build(final double x, final double y) {
+    private void build(final double x, final double y, final double width, final double height) {
         this.attachComponent(new NeutralMentalityComponent(this))
             .attachComponent(new ObstacleComponent(this));
-        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT),
+        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), height, width, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
     }
     /**

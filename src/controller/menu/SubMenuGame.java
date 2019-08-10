@@ -84,7 +84,10 @@ public class SubMenuGame extends SubMenu {
      */
     @Override
     public void close() {
-        gameController.stop();
+        if (gameController != null) {
+            gameController.stop();
+            gameController = null;
+        }
     }
 
     /**

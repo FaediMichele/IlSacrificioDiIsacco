@@ -23,5 +23,14 @@
             <Bomb X="200" Y="150"/>
         </Entities>
     </Room2>
+    <Room3>
+        <Entities>
+            <Rock X="80" Y="3" W="15" H="115" />
+            <Rock X="130" Y="75" H="150" W="10" />
+            <Rock X="180" Y="3" W="15" H="115" />
+            <Rock X="230" Y="75" H="150" W="10" />
+            <GaperEnemy X="15" Y="100"/>
+        </Entities>
+    </Room3>
 </Rooms>
 

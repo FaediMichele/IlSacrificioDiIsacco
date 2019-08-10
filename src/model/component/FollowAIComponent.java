@@ -14,17 +14,15 @@ import java.util.Optional;
  * AI for the Gaper monster.
  */
 public class FollowAIComponent extends AbstractAIComponent {
-    private static final int SEARCHTICK = 10;
 
     private Pair<Double, Double> lastDest;
-    private int tick;
     /**
      * Each time the Gaper collides with something, re-calculates the angle to get to isaac.
      * @param entity for this component
      */
     public FollowAIComponent(final Entity entity) {
         super(entity);
-        tick = 0;
+        lastDest = null;
     }
 
     /**
@@ -33,7 +31,7 @@ public class FollowAIComponent extends AbstractAIComponent {
     @Override
     public void moveUpdate() {
         final BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
-        if (tick % SEARCHTICK == 0) {
+        if (lastDest == null || between(lastDest.getX(), body.getPosition().getX(), 4.0) || between(lastDest.getY(), body.getPosition().getY(), 4.0)) {
             final Room r = this.getEntity().getRoom();
             if (r == null) {
                 return;
@@ -44,12 +42,15 @@ public class FollowAIComponent extends AbstractAIComponent {
             }
             final Optional<? extends Entity> player = entitys.stream().filter(i -> i instanceof Player).findAny();
             if (!player.isPresent()) {
-                lastDest = new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY());
-                return;
+                throw new IllegalStateException();
+                //lastDest = new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY());
+                //return;
             }
             lastDest = r.getRoute(getEntity(), player.get());
         }
         super.getMoveComponent(getEntity()).move(StaticMethodsUtils.getAngle(lastDest, new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY())));
-        tick++;
+    }
+    private boolean between(final double d1, final double d2, final double range) {
+        return Math.abs(d1 - d2) < range;
     }
 }

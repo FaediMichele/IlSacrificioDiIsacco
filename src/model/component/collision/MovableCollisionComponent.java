@@ -62,7 +62,7 @@ public class MovableCollisionComponent extends CollisionComponent {
         getBodyComponent(this.getEntity());
         BodyComponent b1 = event.getSourceEntity().getComponent(BodyComponent.class).get();
         BodyComponent b2 = this.getEntity().getComponent(BodyComponent.class).get();
-        if (event.getSourceEntity() instanceof AbstractStaticEntity) {
+        if (event.getSourceEntity() instanceof AbstractStaticEntity) { 
             reactToCollision(event.getSourceEntity());
             return;
         }

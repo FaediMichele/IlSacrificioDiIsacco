@@ -1,21 +1,32 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import view.javafx.ViewGetterUtil;
 
 /**
  * Class for the AStar search algorithm.
  */
 public class AStar {
-    //private final Pane newP = new Pane(); // ONLY FOR DEBUG
+    // ONLY FOR DEBUG
+    private final Pane newP = new Pane(); 
+    private static final int PANEMULTIPLIER = 10;
+
     private static final int DIAGONAL_COST = 14;
     private static final int V_H_COST = 10;
-    private static final int MAXSTEPASTAR = 200;
+    private static final int MAXSTEPASTAR = 2000;
 
   //Blocked cells are just null Cell values in grid
     private final Cell[][] grid;
     private final boolean[][] closed;
     private final Pair<Integer, Integer> gridSize;
+    private final List<Pair<Integer, Integer>> walls = new ArrayList<>();
 
     private final PriorityQueue<Cell> open;
 
@@ -44,9 +55,10 @@ public class AStar {
      * @param walls the walls.
      */
     public AStar(final int width, final int height, final List<Pair<Integer, Integer>> walls) {
-        open = new PriorityQueue<>((Object o1, Object o2) -> ((Cell) o1).finalCost - ((Cell) o1).finalCost);
+        open = new PriorityQueue<>((Object o1, Object o2) -> ((Cell) o1).finalCost - ((Cell) o2).finalCost);
         grid = new Cell[width][height];
         closed = new boolean[width][height];
+        this.walls.addAll(walls);
         walls.forEach(p -> setBlocked(p.getX(), p.getY()));
         gridSize = new Pair<>(width, height);
         for (int i = 0; i < width; ++i) {
@@ -65,6 +77,7 @@ public class AStar {
         if (x < 0 || y < 0 || x >= gridSize.getX() || y >= gridSize.getY()) {
             return;
         }
+        walls.add(new Pair<Integer, Integer>(x, y));
         grid[x][y] = null;
     }
 
@@ -95,13 +108,22 @@ public class AStar {
                 if (grid[i][j] != null) {
                     grid[i][j].finalCost = 0;
                     grid[i][j].parent = null;
-                    grid[i][j].heuristicCost = Math.abs(i - end.getX()) + Math.abs(j - end.getY());
+                    grid[i][j].heuristicCost = (int) Math.round(Math.sqrt(Math.pow(i - end.getX(), 2) + Math.pow(j - end.getY(), 2)));
+                }
+            }
+         }
+        for (int i = 0; i < gridSize.getX(); ++i) {
+            for (int j = 0; j < gridSize.getY(); ++j) {
+                final Integer tmpI = i;
+                final Integer tmpJ = j;
+                if (walls.stream().anyMatch(p -> p.getX().equals(tmpI) && p.getY().equals(tmpJ))) {
+                    grid[i][j] = null;
                 }
             }
          }
         grid[start.getX()][start.getY()] = new Cell(start.getX(), start.getY());
         grid[start.getX()][start.getY()].finalCost = 0;
-
+        grid[start.getX()][start.getY()].heuristicCost = (int) Math.round(Math.sqrt(Math.pow(start.getX() - end.getX(), 2) + Math.pow(start.getY() - end.getY(), 2)));
 
         //add the start location to open list.
         Cell current = grid[start.getX()][start.getY()];
@@ -112,7 +134,7 @@ public class AStar {
             if (current == null) {
                 break;
             }
-            closed[current.i][current.j] = true; 
+            closed[current.i][current.j] = true;
 
             if (current.i == end.getX() && current.j == end.getY()) {
                 break; 
@@ -158,38 +180,36 @@ public class AStar {
                 }
             }
             step++;
+            if (step == MAXSTEPASTAR) {
+                throw new IllegalStateException();
+            }
         }
         open.clear();
-        //debug(start, end);
+        debug(start, end, current);
         clearClosed();
 
         if (current == null) {
-            throw new IllegalStateException();
+            return end;
         }
-        if (current.parent == null) {
-            return new Pair<Integer, Integer>(current.i, current.j);
+        if (current.parent != null && current.parent.parent != null) {
+            while (current.parent.parent.parent != null) {
+                current = current.parent;
+            }
         }
-        System.out.println(start.getX() + " " + start.getY());
-        System.out.println(end.getX() + " " + end.getY());
-        System.out.println("Path: ");
-        while (current.parent.parent.parent != null) {
-            System.out.print("[" + current.i + ", " + current.j + "] -> ");
-            current = current.parent;
-        }
-        System.out.println();
-        return end;
-        //return new Pair<Integer, Integer>(current.i, current.j);
+        //return end;
+        return new Pair<Integer, Integer>(current.i, current.j);
     }
-    /*private void debug(final Pair<Integer, Integer> start, final Pair<Integer, Integer> end) {
+    private void debug(final Pair<Integer, Integer> start, final Pair<Integer, Integer> end, final Cell path) {
         final Pane p = (Pane) ViewGetterUtil.getScene().getRoot();
+        Cell c = path;
         Platform.runLater(() -> newP.getChildren().clear());
         for (int i = 0; i < gridSize.getX(); ++i) {
             for (int j = 0; j < gridSize.getY(); ++j) {
                 final Rectangle r = new Rectangle();
-                r.setX(i * 5);
-                r.setY(j * 5);
-                r.setHeight(5.0);
-                r.setWidth(5.0);
+                r.setX(i * PANEMULTIPLIER);
+                r.setY(j * PANEMULTIPLIER);
+                r.setHeight(PANEMULTIPLIER);
+                r.setWidth(PANEMULTIPLIER);
                 if (i == start.getX() && j == start.getY()) {
                     r.setStroke(Color.YELLOW);
                     r.setFill(Color.YELLOW);
@@ -206,10 +226,28 @@ public class AStar {
                 Platform.runLater(() -> newP.getChildren().add(r));
             }
          }
+        System.out.println(start.getX() + " " + start.getY());
+        System.out.println(end.getX() + " " + end.getY());
+        System.out.println("Path: ");
+        if (c != null) {
+            while (c.parent != null) {
+                final Rectangle r = new Rectangle();
+                r.setX(c.i * PANEMULTIPLIER);
+                r.setY(c.j * PANEMULTIPLIER);
+                r.setHeight(PANEMULTIPLIER);
+                r.setWidth(PANEMULTIPLIER);
+                r.setStroke(Color.PURPLE);
+                r.setFill(Color.PURPLE);
+                c = c.parent;
+                Platform.runLater(() -> newP.getChildren().add(r));
+                System.out.print("[" + c.i + ", " + c.j + ", " + c.finalCost + ", " + c.heuristicCost + "] -> ");
+            }
+            System.out.println();
+        }
         if (!p.getChildren().contains(newP)) {
             Platform.runLater(() -> p.getChildren().add(newP));
         }
-    }*/
+    }
     private void clearClosed() {
         for (int i = 0; i < closed.length; i++) {
             for (int j = 0; j < closed[0].length; j++) {

@@ -8,12 +8,12 @@ import java.util.List;
  * This class is used to calculate the collision.
  */
 public class Space {
-    private static final int GRIDDEFINITION = 5;
+    private static final int GRIDDEFINITION = 20;
+    private static final int WEIGHT = 1 / GRIDDEFINITION;
 
     private final List<Rectangle> rs = new ArrayList<>();
     private final List<Rectangle> wall = new ArrayList<>();
     private final AStar algoritm;
-    private final Pair<Double, Double> cellDim;
 
     /**
      * Create a new space with dimensions.
@@ -22,7 +22,6 @@ public class Space {
      * @param height height of the space.
      */
     public Space(final int width, final int height) {
-        cellDim = new Pair<Double, Double>(Double.valueOf(((double) width) /  GRIDDEFINITION), Double.valueOf(((double) height) / GRIDDEFINITION));
         algoritm = new AStar(1 + (int) width / GRIDDEFINITION, 1 + (int) height / GRIDDEFINITION);
     }
 
@@ -34,9 +33,9 @@ public class Space {
     public void addRectangle(final Rectangle r, final boolean passable) {
         addRectangle(r);
         if (!passable) {
-            algoritm.setBlocked((int) r.x / GRIDDEFINITION, (int) r.y / GRIDDEFINITION);
-            for (int i = 0;  i < r.w / GRIDDEFINITION; i++) {
-                for (int k = 0;  k < r.h / GRIDDEFINITION; k++) {
+            // algoritm.setBlocked((int) r.x / GRIDDEFINITION, (int) r.y / GRIDDEFINITION);
+            for (int i = -WEIGHT;  i < WEIGHT +  r.w / GRIDDEFINITION; i++) {
+                for (int k = -WEIGHT;  k < WEIGHT + r.h / GRIDDEFINITION; k++) {
                     algoritm.setBlocked(i + (int) r.x / GRIDDEFINITION, k + (int) r.y / GRIDDEFINITION);
                 }
             }
