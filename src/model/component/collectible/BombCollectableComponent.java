@@ -39,7 +39,6 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                                                         TIME_BEFORE_EXPLODES, 
                                                         EXPLOSION_SCALE, 
                                                         EXPLOSION_TIME));
-        this.getEntity().detachComponent(this);
     }
 
 }

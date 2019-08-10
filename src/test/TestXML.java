@@ -2,11 +2,24 @@ package test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import model.component.Component;
+import model.component.StatusComponent;
+import model.entity.Bomb;
+import model.entity.Entity;
+import model.entity.GaperEnemy;
 import model.enumeration.EntityEnum;
+import model.events.Event;
+import model.events.UseThingEvent;
+import model.game.Room;
+import util.EventListener;
 import util.StaticMethodsUtils;
 import view.javafx.game.EntityView;
 
@@ -53,4 +66,19 @@ public class TestXML {
         }
     }
 
+
+    /**
+     * Test for istanceof to map.
+     */
+    @Test
+    public void testIstanceof() {
+        Entity bomb = new Bomb();
+        System.out.println(bomb instanceof  Entity);
+        System.out.println(bomb.getClass().isInstance(Entity.class));
+        System.out.println(Entity.class.isInstance(bomb));
+        UseThingEvent usTh = new UseThingEvent(new GaperEnemy(), Bomb.class);
+        System.out.println(usTh.getReleasedEntityClass().isInstance(bomb));
+        //System.out.println(Bomb.class.isInstance(event.getReleasedEntityClass()));
+        //System.out.println("uso oggetto " + thingToRelease);
+    }
 }
