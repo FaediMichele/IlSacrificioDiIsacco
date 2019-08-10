@@ -80,6 +80,14 @@ public class SubMenuGame extends SubMenu {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() {
+        gameController.stop();
+    }
+
+    /**
      * @return the gameView
      */
     public GameView getGameView() {

@@ -44,7 +44,7 @@ public class RockView extends AbstractEntityView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        gc.drawImage(rockSprites.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
+        gc.drawImage(rockSprites.get(index), super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 
 }

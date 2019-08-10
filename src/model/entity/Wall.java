@@ -17,7 +17,7 @@ import util.Pair;
  * Implements the walls.
  */
 public class Wall extends AbstractStaticEntity {
-
+    private static final double DEFAULTTHICKNESS = 30.0;
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
     private static final int WEIGHT = 1;
@@ -50,17 +50,17 @@ public class Wall extends AbstractStaticEntity {
     private Pair<Pair<Double, Double>, Pair<Double, Double>> setPosition(final BasicMovementEnum direction, final Pair<Double, Double> size) {
         switch (direction) {
         case UP:
-            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.2, 0.0),
-                    new Pair<Double, Double>(size.getX() - 0.4, 0.01));
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.2, -DEFAULTTHICKNESS),
+                    new Pair<Double, Double>(size.getX() - 0.4, DEFAULTTHICKNESS));
         case RIGHT:
             return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(size.getX() - 0.2, 0.3),
-                    new Pair<Double, Double>(0.1, size.getY() - 0.6));
+                    new Pair<Double, Double>(DEFAULTTHICKNESS, size.getY() - 0.6));
         case DOWN:
             return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.4, size.getY() - 0.2),
-                    new Pair<Double, Double>(size.getX() - 0.2, 0.1));
+                    new Pair<Double, Double>(size.getX() - 0.2, DEFAULTTHICKNESS));
         case LEFT:
-            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.0, 0.4),
-                    new Pair<Double, Double>(0.01, size.getY() - 0.2));
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(-DEFAULTTHICKNESS, 0.4),
+                    new Pair<Double, Double>(DEFAULTTHICKNESS, size.getY() - 0.2));
         default:
             throw new IllegalArgumentException();
         }

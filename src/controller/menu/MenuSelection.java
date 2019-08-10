@@ -92,6 +92,13 @@ public class MenuSelection {
         select(s, null);
     }
 
+    /**
+     * Operation to do in order to close the application.
+     */
+    public void onClose() {
+        menus.values().forEach(s -> s.close());
+    }
+
     private void goTo(final Class<? extends SubMenuSelection> start, final Class<? extends SubMenuSelection> end, final Object param) {
         Objects.requireNonNull(menus.get(start));
         Objects.requireNonNull(menus.get(end));

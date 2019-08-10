@@ -31,8 +31,8 @@ public class Door extends AbstractStaticEntity {
         super();
        this.attachComponent(new DoorAIComponent(this, location, destinationIndex))
                 .attachComponent(new NeutralMentalityComponent(this))
-                .attachComponent(new LockComponent(this))
-                .getStatusComponent().setMove(direction);
+                .attachComponent(new LockComponent(this));
+       this.getStatusComponent().setMove(direction);
        setPosition(direction, roomSize);
     }
 

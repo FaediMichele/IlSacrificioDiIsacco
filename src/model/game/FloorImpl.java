@@ -179,10 +179,10 @@ public class FloorImpl implements Floor {
         walls.add(new Wall(BasicMovementEnum.DOWN, roomSize));
         walls.add(new Wall(BasicMovementEnum.LEFT, roomSize));
         doors.forEach(d -> r.insertEntity(d));
-        doors.forEach(d -> d.changeRoom(r));
+        //doors.forEach(d -> d.changeRoom(r));
 
         walls.forEach(d -> r.insertEntity(d));
-        walls.forEach(d -> d.changeRoom(r));
+        //walls.forEach(d -> d.changeRoom(r));
         r.setFloor(this);
         return r;
     }

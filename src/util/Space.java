@@ -35,9 +35,9 @@ public class Space {
         addRectangle(r);
         if (!passable) {
             algoritm.setBlocked((int) r.x / GRIDDEFINITION, (int) r.y / GRIDDEFINITION);
-            for (int i = 1; cellDim.getX() * i < r.w / GRIDDEFINITION; i++) {
-                for (int k = 1; cellDim.getY() * k < r.h / GRIDDEFINITION; k++) {
-                    algoritm.setBlocked(i * (int) r.x / GRIDDEFINITION, k * (int) r.y / GRIDDEFINITION);
+            for (int i = 0;  i < r.w / GRIDDEFINITION; i++) {
+                for (int k = 0;  k < r.h / GRIDDEFINITION; k++) {
+                    algoritm.setBlocked(i + (int) r.x / GRIDDEFINITION, k + (int) r.y / GRIDDEFINITION);
                 }
             }
         }
@@ -108,10 +108,10 @@ public class Space {
      * @return the next 
      */
     public Pair<Double, Double> getNextNodePath(final Rectangle start, final Rectangle end) {
-        final Pair<Integer, Integer> ret = algoritm.calculate(new Pair<Integer, Integer>((int) (start.x / cellDim.getX()), (int) (start.y / cellDim.getY())),
-                new Pair<Integer, Integer>((int) (end.x / cellDim.getX()), (int) (end.y / cellDim.getY())));
+        final Pair<Integer, Integer> ret = algoritm.calculate(new Pair<Integer, Integer>((int) (start.x / GRIDDEFINITION), (int) (start.y / GRIDDEFINITION)),
+                new Pair<Integer, Integer>((int) (end.x / GRIDDEFINITION), (int) (end.y / GRIDDEFINITION)));
         //return new Pair<Double, Double>(end.x, end.y);
-        return new Pair<Double, Double>(Double.valueOf((int) ret.getX()) * cellDim.getX(), Double.valueOf((int) ret.getY()) * cellDim.getY());
+        return new Pair<Double, Double>(Double.valueOf((int) ret.getX()) * GRIDDEFINITION, Double.valueOf((int) ret.getY()) * GRIDDEFINITION);
     }
 
     /**

@@ -1,7 +1,6 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.enumeration.EntityEnum;
@@ -30,7 +29,6 @@ public abstract class AbstractStaticEntity extends AbstractEntity {
      */
     public AbstractStaticEntity() {
         super();
-        this.attachComponent(new ObstacleComponent(this));
     }
 
     /**

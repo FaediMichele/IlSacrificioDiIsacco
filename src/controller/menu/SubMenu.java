@@ -43,6 +43,12 @@ public abstract class SubMenu {
     }
 
     /**
+     * Operation to do to dispose all stuff.
+     */
+    public void close() {
+    }
+
+    /**
      * Go to the initial state.
      */
     public abstract void reset();

@@ -9,11 +9,13 @@ import controller.menu.GameSubMenuSelection;
 import controller.menu.MainMenuSelection;
 import controller.menu.MenuSelection;
 import controller.menu.SubMenuSelection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import view.javafx.menu.GameIntroJavafx;
 
 /**
@@ -32,12 +34,12 @@ public class MenuControllerJavafx {
     @FXML private Pane pnGame;
     @FXML private MediaView mvIntro;
 
-
     /**
      * Initialize the menu.
      * @param s the scene. It is used for the input.
+     * @param stage the stage. It is used for the event when the application is closed
      */
-    public void start(final Scene s) {
+    public void start(final Scene s, final Stage stage) {
         ViewGetterUtil.setScene(s);
         menu = new MenuSelection(manager);
         pnMainMenu.prefWidthProperty().bind(pnMain.widthProperty());
@@ -64,6 +66,7 @@ public class MenuControllerJavafx {
             keyPressed.remove(k.getCode());
             menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
+        stage.setOnCloseRequest(we -> menu.onClose());
         pnMain.requestFocus();
     }
 }
