@@ -16,17 +16,16 @@ import model.enumeration.HeartEnum;
  * it's collected.
  */
 public class HeartPickupableComponent extends AbstractPickupableComponent {
-
-    private static final HeartEnum DEFAULT_HEART_COLOUR = BasicHeartEnum.RED;
     private final HeartEnum color;
     private final double actualValue;
+    private static final Random RND = new Random();
 
     /**
-     * 
      * @param entity {@link Entity}
+     * @param color of this hear
      */
-    public HeartPickupableComponent(final Entity entity) {
-        this(entity, DEFAULT_HEART_COLOUR, new Random().nextDouble());
+    public HeartPickupableComponent(final Entity entity, final HeartEnum color) {
+        this(entity, color, RND.nextDouble());
     }
 
     /**

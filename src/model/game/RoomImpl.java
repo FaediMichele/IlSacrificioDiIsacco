@@ -102,6 +102,7 @@ public class RoomImpl implements Room {
     @Override
     public List<EntityInformation> getEntitiesStatus() {
         final List<EntityInformation> ret = toInformation(entity);
+        ret.addAll(toInformation(graveyard));
         ret.addAll(toInformation(doors));
         return ret;
     }
@@ -206,9 +207,6 @@ public class RoomImpl implements Room {
         } else {
             this.entity.add(e);
         }
-        if (e.hasComponent(ObstacleComponent.class)) {
-            System.out.println();
-        }
         final Space.Rectangle r = getShape(e);
         entityRectangleSpace.put(e, r);
         rectangleEntitySpace.put(r, e);
@@ -236,6 +234,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void deleteEntity(final Entity e) {
+        this.graveyard.add(e);
         this.entity.remove(e);
         sp.remove(entityRectangleSpace.get(e));
         rectangleEntitySpace.remove(entityRectangleSpace.get(e));
@@ -261,9 +260,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Pair<Double, Double> getRoute(final Entity start, final Entity dest) {
-        final Pair<Double, Double> ret = sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
-        System.out.println("PATH: " + ret.getX() + " " + ret.getY());
-        return ret;
+        return sp.getNextNodePath(entityRectangleSpace.get(start), entityRectangleSpace.get(dest));
     }
 
     @Override
@@ -329,7 +326,6 @@ public class RoomImpl implements Room {
                 }
             }
         }
-        this.entity.forEach(e -> System.out.println(e.getClass()));
     }
 
     @Override

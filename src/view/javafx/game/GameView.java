@@ -66,7 +66,7 @@ public interface GameView {
      * @param s 
      * @param hearts 
      */
-    void setHeartsStatistic(StatisticView s, List<Pair<HeartEnum, Double>> hearts);
+    void setHeartsStatistic(HeartStatisticView s, List<Pair<HeartEnum, Double>> hearts);
 
     /**
      * Return to the initial state.

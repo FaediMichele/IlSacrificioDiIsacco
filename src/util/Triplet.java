@@ -10,9 +10,9 @@ import java.util.Objects;
  * @param <Z> value 3 type
  */
 public class Triplet<X, Y, Z> {
-    private final X x;
-    private final Y y;
-    private final Z z;
+    private X x;
+    private Y y;
+    private Z z;
 
     /**
      * Create a tuple of three elements.
@@ -52,6 +52,30 @@ public class Triplet<X, Y, Z> {
      */
     public Z getZ() {
         return this.z;
+    }
+
+    /**
+     * Sets the first value.
+     * @param x the value to set
+     */
+    public void setX(final X x) {
+        this.x = x;
+    }
+
+    /**
+     * Sets the second value.
+     * @param y the value to set
+     */
+    public void setY(final Y y) {
+        this.y = y;
+    }
+
+    /**
+     * Sets the third value.
+     * @param z the value to set
+     */
+    public void setZ(final Z z) {
+        this.z = z;
     }
 
     @Override

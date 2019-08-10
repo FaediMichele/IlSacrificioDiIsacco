@@ -4,7 +4,9 @@ import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.enumeration.BasicMovementEnum;
 import model.events.MoveEvent;
+import model.util.Position;
 import util.EventListener;
+import util.Triplet;
 
 /**
  * Component that manages the movement of the entity and its speed.
@@ -16,17 +18,15 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     /**
      * Value of the entities that does not need to move.
      */
-    public static final int NOMOVE = 0;
+    public static final double NOMOVE = 0.0;
 
     /**
      * Default value for speed: 1.
      */
-    public static final double DEFAULT_SPEED = 1;
+    public static final double DEFAULT_SPEED = 1.0;
 
     private double deltaSpeed;
-    private double xMove;
-    private double yMove;
-    private double zMove;
+    private Position movement;
     private double lastMovementAngle;
     /**
      * 
@@ -86,57 +86,30 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param z move made on the z axis
      */
     private void move(final double x, final double y, final double z) {
-        this.xMove = this.xMove + x;
-        this.yMove = this.yMove + y;
-        this.zMove = this.zMove + z;
-        //System.out.println(this.getClass().getName() + " : " + this.xMove + " " + this.yMove + " " + this.zMove);
+        this.movement.add(new Position(x, y, z));
     }
 
     /**
      * Check if there has been a new movement.
      */
     private boolean checkMove() {
-        return xMove != 0 || yMove != 0 || zMove != 0;
+        return movement.getX() != 0 || movement.getY() != 0  || movement.getZ() != 0;
     }
 
-    /**
-     * Initialize the movement to 0 as the entity has just been created or has just been moved.
-     */
-    private void initMove() {
-        this.xMove = NOMOVE;
-        this.yMove = NOMOVE;
-        this.zMove = NOMOVE;
-    }
     /**
      * Getter for xMove.
      * @return xMove
      */
-    public double getxMove() {
-        return this.xMove;
-    }
-
-    /**
-     * Getter for yMove.
-     * @return yMove
-     */
-    public double getyMove() {
-        return this.yMove;
-    }
-
-    /**
-     * Getter for zMove.
-     * @return zMove
-     */
-    public double getzMove() {
-        return this.zMove;
+    public Triplet<Double, Double, Double> getMovement() {
+        return this.movement;
     }
 
     @Override
     public final void update(final Double deltaTime) {
         if (this.checkMove()) {
             final Double time = deltaTime / 100;
-            this.getBody().changePosition(xMove * this.deltaSpeed * time, yMove * this.deltaSpeed * time, zMove * this.deltaSpeed * time);
-            //System.out.println(this.getEntity().getComponent(BodyComponent.class).get().getPosition().toString());
+            this.movement.scale(this.deltaSpeed * time);
+            this.getBody().changePosition(this.movement);
             this.postLogs();
             this.initMove();
             this.setLastMovementAngle();
@@ -146,10 +119,8 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     /**
      * Set all speed to 0.
      */
-    public void stop() {
-        this.xMove = 0;
-        this.yMove = 0;
-        this.zMove = 0;
+    public void initMove() {
+        this.movement = new Position(NOMOVE, NOMOVE, NOMOVE);
     }
 
     private BodyComponent getBody() {
@@ -168,21 +139,21 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     }
 
     private void setLastMovementAngle() {
-        final double deltaX = this.getBody().getPosition().getX() - this.getBody().getPositionPrevious().getX();
-        final double deltaY = this.getBody().getPosition().getY() - this.getBody().getPositionPrevious().getY();
+        final double deltaX = this.getBody().getPosition().getX() - this.getBody().getPreviousPosition().getX();
+        final double deltaY = this.getBody().getPosition().getY() - this.getBody().getPreviousPosition().getY();
         this.lastMovementAngle = Math.atan2(deltaY, deltaX) * 180.0 / Math.PI;
     }
 
     private void postLogs() {
-        final double x = Math.abs(this.xMove);
-        final double y = Math.abs(this.yMove);
+        final double x = Math.abs(this.movement.getX());
+        final double y = Math.abs(this.movement.getY());
         if (y >= x) {
-            if (this.yMove <= 0) {
+            if (this.movement.getY() <= 0) {
                 this.getEntity().getStatusComponent().setMove(BasicMovementEnum.DOWN);
             } else {
                 this.getEntity().getStatusComponent().setMove(BasicMovementEnum.UP);
             }
-        } else if (this.xMove >= 0) {
+        } else if (this.movement.getX() >= 0) {
             this.getEntity().getStatusComponent().setMove(BasicMovementEnum.RIGHT);
         } else {
             this.getEntity().getStatusComponent().setMove(BasicMovementEnum.LEFT);

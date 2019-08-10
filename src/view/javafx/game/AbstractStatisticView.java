@@ -8,8 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public abstract class AbstractStatisticView implements StatisticView {
 
-    private static final int MARGIN = 2;
-    private static final int DEFAULT_DELTA = 30;
+    private static final int MARGIN = 10;
+    private static final int DEFAULT_DELTA = 20;
     private Optional<Double> itemsNumber = Optional.empty();
     private Optional<Integer> index = Optional.empty();
 

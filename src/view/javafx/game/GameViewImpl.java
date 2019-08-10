@@ -98,12 +98,12 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
-    public void setHeartsStatistic(final StatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
+    public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);
         }
-        HeartStatisticView.class.cast(s).setHearts(hearts);
+        s.setHearts(hearts);
     }
 
     /**

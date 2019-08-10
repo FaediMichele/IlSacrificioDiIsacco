@@ -10,15 +10,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.entity.SimplePickupableHeart;
 import model.enumeration.BasicMovementEnum;
 import view.javafx.game.DoorView;
 import view.javafx.game.GameViewImpl;
 import view.javafx.game.GaperView;
 import view.javafx.game.IsaacView;
 import view.javafx.game.KeyView;
-import view.javafx.game.RedHeartView;
-import view.javafx.game.RockView;
 import view.javafx.game.AbstractPlayerView;
 import view.javafx.game.RoomView;
 
@@ -100,7 +97,6 @@ public class TestCanvas extends Application {
                 } else {
                     isaac.dead(BasicMovementEnum.DOWN);
                 }
-                System.out.println(key);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {

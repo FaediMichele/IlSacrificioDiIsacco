@@ -2,11 +2,17 @@ package test;
 
 import java.util.List;
 import java.util.Map;
+
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import model.entity.Bomb;
+import model.entity.Entity;
+import model.entity.GaperEnemy;
 import model.enumeration.EntityEnum;
+import model.events.UseThingEvent;
 import util.StaticMethodsUtils;
 import view.javafx.game.EntityView;
 
@@ -24,7 +30,6 @@ public class TestXML {
         Document xml = StaticMethodsUtils.getDocumentXML("/xml/Status_1.xml");
         List<Node> ls = StaticMethodsUtils.getNodesFromNodelList(xml.getElementsByTagName("MoveComponent"));
         ls.forEach(n -> {
-            System.out.println(n.getNodeName());
             if (n.hasChildNodes()) {
                 NodeList tmp = n.getChildNodes();
                 for (int i = 0; i < tmp.getLength(); i++) {
@@ -54,4 +59,19 @@ public class TestXML {
         }
     }
 
+
+    /**
+     * Test for istanceof to map.
+     */
+    @Test
+    public void testIstanceof() {
+        Entity bomb = new Bomb();
+        System.out.println(bomb instanceof Bomb);
+        System.out.println(bomb.getClass().isInstance(Entity.class));
+        System.out.println(Entity.class.isInstance(bomb));
+        UseThingEvent usTh = new UseThingEvent(new GaperEnemy(), Bomb.class);
+        System.out.println(usTh.getReleasedEntityClass().isInstance(bomb));
+        //System.out.println(Bomb.class.isInstance(event.getReleasedEntityClass()));
+        //System.out.println("uso oggetto " + thingToRelease);
+    }
 }

@@ -10,9 +10,9 @@ import model.entity.Entity;
  */
 public class BombCollectableComponent extends AbstractCollectableComponent {
 
-    private static final  double EXPLOSION_SCALE = 5;
-    private static final  double TIME_BEFORE_EXPLODES = 5;
-    private static final  double EXPLOSION_TIME = 5;
+    private static final  double EXPLOSION_SCALE = 1;
+    private static final  double TIME_BEFORE_EXPLODES = 1000;
+    private static final  double EXPLOSION_TIME = 2000;
 
     /**
      * 
@@ -39,7 +39,6 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                                                         TIME_BEFORE_EXPLODES, 
                                                         EXPLOSION_SCALE, 
                                                         EXPLOSION_TIME));
-        this.getEntity().detachComponent(this);
     }
 
 }

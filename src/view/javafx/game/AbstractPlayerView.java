@@ -37,7 +37,6 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      */
     AbstractPlayerView(final UUID id, final String path) {
         super(id);
-        System.out.println("ISAAC");
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);

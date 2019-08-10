@@ -8,6 +8,7 @@ import model.component.collectible.AbstractPickupableComponent;
 import model.entity.AbstractStaticEntity;
 import model.entity.Entity;
 import model.events.CollisionEvent;
+import model.util.Position;
 import util.EventListener;
 import util.Pair;
 import util.StaticMethodsUtils;
@@ -77,8 +78,8 @@ public class MovableCollisionComponent extends CollisionComponent {
         final MoveComponent mySpeed = getEntity().getComponent(MoveComponent.class).get();
             Double newX = mine.getPosition().getX();
             Double newY = mine.getPosition().getY();
-            final Double initVelX = mySpeed.getxMove();
-            final Double initVelY = mySpeed.getyMove();
+            final Double initVelX = mySpeed.getMovement().getX();
+            final Double initVelY = mySpeed.getMovement().getY();
             if (touchDown(mine, otherBody) && touchRight(mine, otherBody)) {
                     if (mine.getPosition().getX() + mine.getWidth() - otherBody.getPosition().getX() - initVelX
                             < mine.getPosition().getY() + mine.getHeight() - otherBody.getPosition().getY() - initVelY) {
@@ -116,7 +117,7 @@ public class MovableCollisionComponent extends CollisionComponent {
             } else if (touchUp(mine, otherBody)) {
                     newY = rectifyUp(mine, otherBody);
             }
-    mine.setPosition(newX, newY, mine.getPosition().getZ());
+    mine.setPosition(new Position(newX, newY, mine.getPosition().getZ()));
     }
 
     private double rectifyRight(final BodyComponent me, final BodyComponent other) {
