@@ -102,8 +102,11 @@ public class RoomImpl implements Room {
     @Override
     public List<EntityInformation> getEntitiesStatus() {
         final List<EntityInformation> ret = toInformation(entity);
-        ret.addAll(toInformation(graveyard));
+        //ret.addAll(toInformation(graveyard));
         ret.addAll(toInformation(doors));
+        this.entity.removeAll(this.graveyard);
+        this.graveyard.clear();
+        this.cleanGraveyard = true;
         return ret;
     }
     private List<EntityInformation> toInformation(final List<? extends Entity> par) {
@@ -131,7 +134,10 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
-        this.entity.forEach(e -> e.update(deltaTime));
+        //this.entity.forEach(e -> e.update(deltaTime));
+        for (int i = 0; i < this.entity.size(); i++) {
+            this.entity.get(i).update(deltaTime);
+        }
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
             this.isComplete = true;
@@ -235,7 +241,7 @@ public class RoomImpl implements Room {
     @Override
     public void deleteEntity(final Entity e) {
         this.graveyard.add(e);
-        this.entity.remove(e);
+        //this.entity.remove(e);
         sp.remove(entityRectangleSpace.get(e));
         rectangleEntitySpace.remove(entityRectangleSpace.get(e));
         entityRectangleSpace.remove(e);
