@@ -18,6 +18,9 @@ import util.StaticMethodsUtils;
  *
  */
 public class MovableCollisionComponent extends CollisionComponent {
+
+    private static final double COLLISION_ERROR = -1; /* this is very important, so touching Entity sees the contact */
+
     /**
      * Default CollisionComponent constructor.
      * 
@@ -58,52 +61,91 @@ public class MovableCollisionComponent extends CollisionComponent {
         getBodyComponent(this.getEntity());
         BodyComponent b1 = event.getSourceEntity().getComponent(BodyComponent.class).get();
         BodyComponent b2 = this.getEntity().getComponent(BodyComponent.class).get();
-        if (event.getSourceEntity() instanceof AbstractStaticEntity
-                && !(touchUp(b1, b2) && touchLeft(b1, b2) || touchUp(b1, b2) && touchRight(b1, b2) || touchDown(b1, b2) && touchLeft(b1, b2) || touchDown(b1, b2) && touchRight(b1, b2))) {
-            System.out.println("Collision with static entity");
-            if (touchUp(b1, b2)) {
-                getMoveComponent(this.getEntity()).move(270);
-                return;
-            } else if (touchDown(b1, b2)) {
-                getMoveComponent(this.getEntity()).move(90);
-                return;
-            } else if (touchLeft(b1, b2)) {
-                getMoveComponent(this.getEntity()).move(0);
-                return;
-            } else if (touchRight(b1, b2)) {
-                getMoveComponent(this.getEntity()).move(180);
-                return;
-                // l = new Line(new Pair<Double, Double>(b1.getPosition().getX() + b1.getWidth(), b1.getPosition().getY()), new Pair<Double, Double>(b1.getPosition().getX() + b1.getWidth(), b1.getPosition().getY() + b1.getHeight()));
-            }
-            /*l.perpendicular(new Pair<Double, Double>(b2.getPosition().getX() + b2.getWidth() / 2, b2.getPosition().getY() + b2.getHeight() / 2));
-            System.out.println(l.getAngle());
-            getMoveComponent(this.getEntity()).move(l.getAngle());
-            return;*/
+        if (event.getSourceEntity() instanceof AbstractStaticEntity) {
+            System.out.println("touching static entity");
+            reactToCollision(event.getSourceEntity());
+            return;
         }
         Pair<Double, Double> p1 = new Pair<>(b1.getPosition().getX() + b1.getWidth() / 2, b1.getPosition().getY() + b1.getHeight() / 2);
         Pair<Double, Double> p2 = new Pair<>(b2.getPosition().getX(), b2.getPosition().getY());
         getMoveComponent(this.getEntity()).move(StaticMethodsUtils.getAngle(p2, p1));
     }
-    private boolean touchUp(final BodyComponent b1, final BodyComponent b2) {
-        return (b1.getPosition().getX() < b2.getPosition().getX()
-                && b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() + b2.getWidth() && b1.getPosition().getY() > b2.getPosition().getY()
-                && b1.getPosition().getY() < b2.getPosition().getY() + b2.getHeight()); 
+
+    private void reactToCollision(final Entity other) {
+        final BodyComponent mine = getBodyComponent(getEntity());
+        final BodyComponent otherBody = getBodyComponent(other);
+        final MoveComponent mySpeed = getEntity().getComponent(MoveComponent.class).get();
+            Double newX = mine.getPosition().getX();
+            Double newY = mine.getPosition().getY();
+            final Double initVelX = mySpeed.getxMove();
+            final Double initVelY = mySpeed.getyMove();
+            if (touchDown(mine, otherBody) && touchRight(mine, otherBody)) {
+                    if (mine.getPosition().getX() + mine.getWidth() - otherBody.getPosition().getX() - initVelX
+                            < mine.getPosition().getY() + mine.getHeight() - otherBody.getPosition().getY() - initVelY) {
+                            newX = rectifyRight(mine, otherBody);
+                    } else {
+                            newY = rectifyDown(mine, otherBody);
+                    }
+            } else if (touchDown(mine, otherBody) && touchLeft(mine, otherBody)) {
+                    if (mine.getPosition().getY() + mine.getHeight() - otherBody.getPosition().getY() - initVelY
+                            > otherBody.getPosition().getX() + otherBody.getWidth() - mine.getPosition().getX() - initVelX) {
+                            newX = rectifyLeft(mine, otherBody);
+                    } else {
+                            newY = rectifyDown(mine, otherBody);
+                    }
+            } else if (touchUp(mine, otherBody) && touchRight(mine, otherBody)) {
+                    if (mine.getPosition().getX() + mine.getWidth() - otherBody.getPosition().getX() + initVelX
+                            < otherBody.getPosition().getY() + otherBody.getHeight() - mine.getPosition().getY() + initVelY) {
+                            newX = rectifyRight(mine, otherBody);
+                    } else {
+                            newY = rectifyUp(mine, otherBody);
+                    }
+            } else if (touchUp(mine, otherBody) && touchLeft(mine, otherBody)) {
+                    if (otherBody.getPosition().getY() + otherBody.getHeight() - mine.getPosition().getY() + initVelY
+                            > otherBody.getPosition().getX() + otherBody.getWidth() - mine.getPosition().getX() + initVelX) {
+                            newX = rectifyLeft(mine, otherBody);
+                    } else {
+                            newY = rectifyUp(mine, otherBody);
+                    }
+            } else if (touchDown(mine, otherBody)) {
+                    newY = rectifyDown(mine, otherBody);
+            } else if (touchLeft(mine, otherBody)) {
+                    newX = rectifyLeft(mine, otherBody);
+            } else if (touchRight(mine, otherBody)) {
+                    newX = rectifyRight(mine, otherBody);
+            } else if (touchUp(mine, otherBody)) {
+                    newY = rectifyUp(mine, otherBody);
+            }
+    mine.setPosition(newX, newY, mine.getPosition().getZ());
     }
-    private boolean touchRight(final BodyComponent b1, final BodyComponent b2) {
-        return b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX()
-                && b1.getPosition().getX() + b1.getWidth() < b2.getPosition().getX() + b2.getWidth() && (b1.getPosition().getY() < b2.getPosition().getY()
-                        && b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY());
+
+    private double rectifyRight(final BodyComponent me, final BodyComponent other) {
+            return other.getPosition().getX() - me.getWidth() + COLLISION_ERROR;
     }
-    private boolean touchDown(final BodyComponent b1, final BodyComponent b2) {
-        return (b1.getPosition().getX() < b2.getPosition().getX()
-                && b1.getPosition().getX() + b1.getWidth() > b2.getPosition().getX() + b2.getWidth()
-                && b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY() && b1.getPosition().getY() + b1.getHeight() < b2.getPosition().getY() + b2.getHeight());
+    private double rectifyLeft(final BodyComponent me, final BodyComponent other) {
+            return other.getPosition().getX() + other.getWidth() - COLLISION_ERROR;
     }
-    private boolean touchLeft(final BodyComponent b1, final BodyComponent b2) {
-        return b1.getPosition().getX() > b2.getPosition().getX() 
-                && b1.getPosition().getX() < b2.getPosition().getX() + b2.getWeight() 
-                && (b1.getPosition().getY() < b2.getPosition().getY()
-                        && b1.getPosition().getY() + b1.getHeight() > b2.getPosition().getY() + b2.getHeight());
+    private double rectifyDown(final BodyComponent me, final BodyComponent other) {
+            return other.getPosition().getY() + COLLISION_ERROR - me.getHeight();
+    }
+    private double rectifyUp(final BodyComponent me, final BodyComponent other) {
+            return other.getPosition().getY() + other.getHeight() - COLLISION_ERROR;
+    }
+    private boolean touchDown(final BodyComponent me, final BodyComponent other) {
+            return me.getPosition().getY() < other.getPosition().getY()
+                    && me.getPosition().getY() + me.getHeight() > other.getPosition().getX();
+    }
+    private boolean touchLeft(final BodyComponent me, final BodyComponent other) {
+            return me.getPosition().getX() < other.getPosition().getX() + other.getWidth()
+            && me.getPosition().getX() + me.getWidth() > other.getPosition().getX() + other.getWidth();
+    }
+    private boolean touchRight(final BodyComponent me, final BodyComponent other) {
+            return me.getPosition().getX() < other.getPosition().getX()
+                    && me.getPosition().getX() + me.getWidth() > other.getPosition().getX();
+    }
+    private boolean touchUp(final BodyComponent me, final BodyComponent other) {
+            return me.getPosition().getY() < other.getPosition().getY() + other.getHeight()
+            && me.getPosition().getY() + me.getHeight() > other.getPosition().getY() + other.getHeight();
     }
 
     private MoveComponent getMoveComponent(final Entity e) {
