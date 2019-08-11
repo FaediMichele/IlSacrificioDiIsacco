@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import model.component.BodyComponent;
 import model.component.Component;
 import model.component.StatusComponent;
@@ -21,6 +22,8 @@ import util.NotHashCode;
 import util.StaticMethodsUtils;
 
 import com.google.common.eventbus.EventBus;
+
+import javafx.util.Pair;
 
 /**
  * The base class for all the entities. See also {@link Entity}
@@ -95,7 +98,11 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final void update(final Double deltaTime) {
-        this.componentsMap.forEach((k, v) -> v.update(deltaTime));
+          List<Pair<Class<? extends Component>, Component>> listUpdate = 
+                  this.componentsMap.keySet().stream()
+                                             .map(x -> new Pair<Class<? extends Component>, Component>(x, this.componentsMap.get(x)))
+                                             .collect(Collectors.toList());
+          listUpdate.stream().forEach(x -> x.getValue().update(deltaTime));
     }
 
     @Override

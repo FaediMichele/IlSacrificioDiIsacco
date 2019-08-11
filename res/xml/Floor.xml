@@ -3,15 +3,9 @@
 <Floors>
     <Floor1 MaxRoom="6">
         <Rooms>
-            <Room3/>
-            <Room3/>
-        </Rooms>
-    </Floor1>
-    <Floor2 MaxRoom="6">
-        <Rooms>
             <Room1/>
             <Room2/>
         </Rooms>
-    </Floor2>
+    </Floor1>
 </Floors>
 
