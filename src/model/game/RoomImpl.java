@@ -48,12 +48,12 @@ public class RoomImpl implements Room {
     private final Space sp;
     @NotEquals
     @NotHashCode
-    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>(
-            (a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = 
+                new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
     @NotEquals
     @NotHashCode
-    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new TreeMap<>(
-            (a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = 
+                    new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
     @NotEquals
     @NotHashCode
     private Floor floor;
@@ -103,7 +103,7 @@ public class RoomImpl implements Room {
     @Override
     public List<EntityInformation> getEntitiesStatus() {
         final List<EntityInformation> ret = toInformation(entity);
-        //ret.addAll(toInformation(graveyard));
+        ret.addAll(toInformation(graveyard));
         ret.addAll(toInformation(doors));
         this.entity.removeAll(this.graveyard);
         this.graveyard.clear();
@@ -135,10 +135,9 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
-        //this.entity.forEach(e -> e.update(deltaTime));
-        for (final Iterator<Entity> iterator = this.entity.iterator(); iterator.hasNext();) {
-            iterator.next().update(deltaTime);
-        }
+        List<Entity> aux = new ArrayList<Entity>();
+        aux.addAll(this.entity);
+        aux.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
                 .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
             this.isComplete = true;
@@ -242,7 +241,7 @@ public class RoomImpl implements Room {
     @Override
     public void deleteEntity(final Entity e) {
         this.graveyard.add(e);
-        //this.entity.remove(e);
+        this.entity.remove(e);
         sp.remove(entityRectangleSpace.get(e));
         rectangleEntitySpace.remove(entityRectangleSpace.get(e));
         entityRectangleSpace.remove(e);

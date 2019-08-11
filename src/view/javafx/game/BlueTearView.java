@@ -38,10 +38,9 @@ public class BlueTearView extends AbstractEntityView {
     /**
      * 
      * @param id 
-     * @param gv The gameView to which this entityView is added
      */
-    public BlueTearView(final UUID id, final GameViewImpl gv) {
-        super(id, gv);
+    public BlueTearView(final UUID id) {
+        super(id);
         tears = BlueTearView.playerTear;
     }
 

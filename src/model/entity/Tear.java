@@ -4,6 +4,7 @@ import model.component.BodyComponent;
 import model.component.DamageComponent;
 import model.component.MoveComponent;
 import model.component.TearAIComponent;
+import model.component.collectible.TearCollectibleComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.enumeration.EntityEnum;
 import model.util.Position;
@@ -38,10 +39,11 @@ public class Tear extends AbstractMovableEntity {
                 final AbstractMentalityComponent mentality) {
         super();
         this.attachComponent(mentality);
-        this.attachComponent(new TearAIComponent(this, angle));
-        this.attachComponent(new DamageComponent(this, damage));
-        this.attachComponent(new MoveComponent(this, speed));
-        this.attachComponent(new BodyComponent(this, positions,
+        this.attachComponent(new TearAIComponent(this, angle))
+            .attachComponent(new TearCollectibleComponent(this))
+            .attachComponent(new DamageComponent(this, damage))
+            .attachComponent(new MoveComponent(this, speed))
+            .attachComponent(new BodyComponent(this, positions,
                                                         HEIGHT,
                                                         WIDTH,
                                                         0));

@@ -6,10 +6,13 @@ import model.component.InputComponent;
 import model.component.InventoryComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
+import model.component.TearWeaponComponent;
 import model.component.collision.CollisionComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
+import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicTearEnum;
 import model.enumeration.EntityEnum;
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
@@ -50,7 +53,7 @@ public class Player extends AbstractMovableEntity {
         this.attachComponent(new HealthComponent(this, data.getLife()))
             .attachComponent(new InventoryComponent(this))
             .attachComponent(new PlayerMentalityComponent(this))
-            //.attachComponent(new TearWeaponComponent(this, data.getDamage(), BasicEntityEnum.GOOD_TEAR))
+            .attachComponent(new TearWeaponComponent(this, data.getDamage(), BasicTearEnum.NORMAL))
             .attachComponent(new PlayerCollisionComponent(this))
             .attachComponent(new BodyComponent(this, new Position(100.0, 100.0, 0.0), WIDTH, HEIGHT, 5))
             .attachComponent(new StatusComponent(this))

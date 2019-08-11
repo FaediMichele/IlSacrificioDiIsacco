@@ -58,14 +58,14 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
      * 
      * @param entityThatCollectedMe memorizes the entity that collected the object.
      */
-    protected void setEntityThatCollectedMe(final Entity entityThatCollectedMe) {
+    public void setEntityThatCollectedMe(final Entity entityThatCollectedMe) {
         this.entityThatCollectedMe = Optional.of(entityThatCollectedMe);
     }
 
     /**
      * @return the InventoryComponent ot the Entity that collected this entity.
      */
-    protected InventoryComponent getInventoryComponent() {
+    public InventoryComponent getInventoryComponent() {
         if (this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).isPresent()) {
             return (this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).get());
         } else {

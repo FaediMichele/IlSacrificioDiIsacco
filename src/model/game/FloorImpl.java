@@ -275,11 +275,11 @@ public class FloorImpl implements Floor {
      */
     @Override
     public void update(final Double deltaTime) {
-        Optional<Integer> nextRoom;
         this.rooms.get(activeRoomIndex).updateEntity(deltaTime);
-        nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
+        Optional<Integer> nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
                 .filter(e -> (e.getComponent(DoorAIComponent.class).get()).playerPassed())
-                .map(e -> (e.getComponent(DoorAIComponent.class).get()).getDestination()).findFirst();
+                .map(e -> (e.getComponent(DoorAIComponent.class).get()).getDestination())
+                .findFirst();
 
         if (nextRoom.isPresent()) {
             activeRoomIndex = nextRoom.get();
