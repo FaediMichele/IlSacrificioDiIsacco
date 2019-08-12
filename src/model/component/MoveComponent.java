@@ -36,13 +36,12 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     public MoveComponent(final Entity entity, final double deltaSpeed) {
         super(entity);
         this.deltaSpeed = deltaSpeed;
-        //this.initMove();
 
         this.registerListener(new EventListener<MoveEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final MoveEvent event) {
-                move(event.getxMove(), event.getyMove(), event.getzMove());
+                move(event.getMovement());
             }
         });
     }
@@ -78,15 +77,14 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @param angle the angle of the direction.
      */
     public final void move(final double angle) {
-        move(Math.cos(Math.toRadians(angle)), Math.sin(Math.toRadians(angle)), 0);
+        move(new Position(Math.cos(Math.toRadians(angle)), Math.sin(Math.toRadians(angle)), 0.0));
     }
+
     /**
-     * @param x move made on the x axis
-     * @param y move made on the y axis
-     * @param z move made on the z axis
+     * @param move the move that must me done
      */
-    private void move(final double x, final double y, final double z) {
-        this.movement.add(new Position(x, y, z));
+    private void move(final Position move) {
+        this.movement.add(move);
     }
 
     /**

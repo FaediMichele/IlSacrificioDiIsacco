@@ -70,11 +70,9 @@ public class BombView extends AbstractEntityView {
     public void draw(final GraphicsContext gc) {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.TRIGGERED)) {
             gc.drawImage(triggeredBombSprite.get(triggeredIndex), super.getX(), super.getY(), super.getHeight(), super.getWidth());
-            System.out.println(super.getY());
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
         } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
             gc.drawImage(explosionBombSprite.get(explosionIndex), super.getX() - super.getWidth(), super.getY() - super.getHeight() * 2, super.getHeight() * 3, super.getWidth() * 3);
-            System.out.println(super.getY());
             if (explosionIndex < explosionBombSprite.size() - 1) {
                 explosionIndex += 1;
             }
