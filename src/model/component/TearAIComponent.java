@@ -87,7 +87,7 @@ public class TearAIComponent extends AbstractAIComponent {
             getEntity().getRoom().deleteEntity(this.getEntity());
             getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
         } else {
-            super.update(deltaTime);
+            this.moveUpdate();
         }
     }
 }

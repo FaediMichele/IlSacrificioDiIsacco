@@ -17,7 +17,7 @@ import util.EventListener;
 
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
     private static final double DEFAULT_LIFE_TIME = 10000;
-    private static final double DEFAULT_SPEED = 10;
+    private static final double DEFAULT_SPEED = 30;
     private static final double TEARRATE = 1000;
     private double damage;
     private double lifeTime;
