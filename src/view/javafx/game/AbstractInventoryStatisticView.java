@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -18,22 +17,21 @@ import javafx.scene.image.Image;
  * Class to draw all the StatisticView that needs the icon of the item and the number of items 
  * of that kind in the inventory.
  */
-public class InventoryStatisticView extends AbstractStatisticView {
+public abstract class AbstractInventoryStatisticView extends AbstractStatisticView {
     private static final Map<Integer, Image> NUMBER_SPRITES = new HashMap<>();
     private static final int INNER_SPACE = 2;
-    private final Class<? extends EntityView> entityClass;
 
     static {
         BufferedImage img;
         try {
             img = ImageIO.read(MonstroView.class.getResource("/gameImgs/font.png"));
-            InventoryStatisticView.initNumbers(img);
+            AbstractInventoryStatisticView.initNumbers(img);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Optional<Image> img = Optional.empty();
+    private final Image itemImage;
     private final Map<Integer, Image> numbers = new HashMap<>();
 
    private static void initNumbers(final BufferedImage img) {
@@ -56,7 +54,7 @@ public class InventoryStatisticView extends AbstractStatisticView {
     /**
      * @param entityClass the entityView class of the statistic we want to represent
      */
-    public InventoryStatisticView(final Class<? extends EntityView> entityClass) {
+    /*public InventoryStatisticView(final Class<? extends EntityView> entityClass) {
         super();
         this.entityClass = entityClass;
         NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), e.getValue()));
@@ -65,7 +63,16 @@ public class InventoryStatisticView extends AbstractStatisticView {
         } else if (entityClass.equals(KeyView.class)) {
             img = Optional.of(KeyView.getKeySprite());
         }
-    }
+    }*/
+
+   /**
+    * @param itemImage the image of the item to graphic
+    */
+   public AbstractInventoryStatisticView(final Image itemImage) {
+       super();
+       this.itemImage = itemImage;
+       NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), e.getValue()));
+   }
 
     /**
      * @return the numbers of times as a list of digits
@@ -89,26 +96,16 @@ public class InventoryStatisticView extends AbstractStatisticView {
      */
     @Override
     public void draw(final GraphicsContext gc) {
-        if (!img.isPresent()) {
-            throw new IllegalStateException();
-        }
         final double numbersDelta = super.getDelta() * 2 / 3;
         final double numbersShift = super.getDelta() * 1 / 4;
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
 
-        gc.drawImage(img.get(), super.getMargin(), y, super.getDelta(), super.getDelta());
+        gc.drawImage(itemImage, super.getMargin(), y, super.getDelta(), super.getDelta());
         final List<Image> numbersToDraw = new LinkedList<>();
         this.getDigitList().stream().forEach(d -> numbersToDraw.add(this.numbers.get(d)));
         for (int i = 0; i < numbersToDraw.size(); i++) {
             gc.drawImage(numbersToDraw.get(i), super.getMargin() + (super.getDelta() * (i + 1)) + INNER_SPACE, 
                             y + numbersShift, numbersDelta, numbersDelta);
         }
-    }
-
-    /**
-     * @return the entityClass
-     */
-    public Class<? extends EntityView> getEntityClass() {
-        return entityClass;
     }
 }
