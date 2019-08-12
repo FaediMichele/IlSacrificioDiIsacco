@@ -135,7 +135,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
-        List<Entity> aux = new ArrayList<Entity>();
+        final List<Entity> aux = new ArrayList<Entity>();
         aux.addAll(this.entity);
         aux.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))

@@ -98,7 +98,7 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final void update(final Double deltaTime) {
-          List<Pair<Class<? extends Component>, Component>> listUpdate = 
+          final List<Pair<Class<? extends Component>, Component>> listUpdate = 
                   this.componentsMap.keySet().stream()
                                              .map(x -> new Pair<Class<? extends Component>, Component>(x, this.componentsMap.get(x)))
                                              .collect(Collectors.toList());

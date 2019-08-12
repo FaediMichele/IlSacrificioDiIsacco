@@ -51,20 +51,6 @@ public abstract class AbstractInventoryStatisticView extends AbstractStatisticVi
         NUMBER_SPRITES.put(i++, SwingFXUtils.toFXImage(img.getSubimage(147, 58, width, height), null));
     }
 
-    /**
-     * @param entityClass the entityView class of the statistic we want to represent
-     */
-    /*public InventoryStatisticView(final Class<? extends EntityView> entityClass) {
-        super();
-        this.entityClass = entityClass;
-        NUMBER_SPRITES.entrySet().stream().forEach(e -> numbers.put(e.getKey(), e.getValue()));
-        if (entityClass.equals(BombView.class)) {
-            img = Optional.of(BombView.getBombSprite());
-        } else if (entityClass.equals(KeyView.class)) {
-            img = Optional.of(KeyView.getKeySprite());
-        }
-    }*/
-
    /**
     * @param itemImage the image of the item to graphic
     */
