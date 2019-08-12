@@ -286,7 +286,6 @@ public class FloorImpl implements Floor {
         }
         changedRoom = false;
         getActiveRoom().calculateCollision();
-        getActiveRoom().updateEntity();
     }
 
     @Override

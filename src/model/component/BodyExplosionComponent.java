@@ -19,15 +19,15 @@ public class BodyExplosionComponent extends BodyComponent {
     private boolean exploded;
 
     /**
-     * 
+     *  .
      * @param entity 
+     * @param positions 
      * @param height 
      * @param width 
      * @param weight 
      * @param timeBeforeExplodes 
      * @param explosionScale 
      * @param explosionTime 
-     * @param positions 
      */
     public BodyExplosionComponent(final Entity entity,
                                   final Position positions,

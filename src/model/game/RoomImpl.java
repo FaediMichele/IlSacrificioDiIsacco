@@ -3,6 +3,7 @@ package model.game;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.ObstacleComponent;
 import model.component.StatusComponent;
+import model.entity.Bomb;
 import model.entity.Door;
 import model.entity.Entity;
 import model.enumeration.BasicMovementEnum;
@@ -50,12 +52,10 @@ public class RoomImpl implements Room {
     private final Space sp;
     @NotEquals
     @NotHashCode
-    private final Map<Entity, Space.Rectangle> entityRectangleSpace = 
-                new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new HashMap<>();
     @NotEquals
     @NotHashCode
-    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = 
-                    new TreeMap<>((a, b) -> a.hashCode() - b.hashCode());
+    private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new HashMap<>();
     @NotEquals
     @NotHashCode
     private Floor floor;
@@ -220,6 +220,9 @@ public class RoomImpl implements Room {
                 this.entity.add(e);
             }
             final Space.Rectangle r = getShape(e);
+            if (e instanceof Bomb) {
+                System.out.println("bomba inserita");
+            }
             entityRectangleSpace.put(e, r);
             rectangleEntitySpace.put(r, e);
             sp.addRectangle(r, !e.hasComponent(ObstacleComponent.class));
@@ -348,6 +351,7 @@ public class RoomImpl implements Room {
                 }
             }
         }
+        updateEntityList();
     }
 
     @Override
@@ -360,8 +364,11 @@ public class RoomImpl implements Room {
         return height;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateEntity() {
+    public void updateEntityList() {
         computeAddEntity();
         computeDeleteEntity();
     }

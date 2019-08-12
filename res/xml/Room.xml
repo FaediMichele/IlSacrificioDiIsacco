@@ -3,7 +3,7 @@
 <Rooms>
     <Room1 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
-            <Rock X="150" Y="150"/>
+            <Rock X="190" Y="100"/>
             <SimplePickupableHeart X="200" Y="200"/>
             <BlackPickupableHeart X="100" Y="200"/>
             <Key X="200" Y="150"/>
@@ -13,7 +13,7 @@
     </Room1>
     <Room2 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
-            <Rock X="150" Y="150"/>
+            <Rock X="190" Y="190"/>
             <SimplePickupableHeart X="200" Y="200"/>
             <BlackPickupableHeart X="100" Y="200"/>
             <Key X="200" Y="150"/>

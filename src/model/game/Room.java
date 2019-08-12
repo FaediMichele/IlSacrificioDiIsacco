@@ -44,7 +44,7 @@ public interface Room {
     /**
      * Insert or delete the entity to the room that needs to be added or removed.
      */
-    void updateEntity();
+    void updateEntityList();
 
     /**
      * React to the collision that is found at this time.

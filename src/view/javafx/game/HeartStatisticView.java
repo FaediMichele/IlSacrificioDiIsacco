@@ -59,7 +59,6 @@ public class HeartStatisticView extends AbstractStatisticView {
      */
     public void setHearts(final List<Pair<HeartEnum, Double>> hearts) {
         if (hearts.stream().filter(h -> h.getX().equals(BasicHeartEnum.BLACK)).findAny().isPresent()) {
-            System.out.println("black");
         }
         hearts.forEach(h -> {
             if (h.getX().equals(BasicHeartEnum.RED)) {
