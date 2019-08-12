@@ -88,8 +88,10 @@ public class EntityController {
      * @param info is the status for the status component of entity.
      */
     public void update(final EntityInformation info) {
-        this.entityView.setX(info.getPosition().getX()).setY(info.getPosition().getY()).setHeight(info.getHeight())
-                .setWidth(info.getWidth());
+        if (info.getPosition() != null) {
+            this.entityView.setX(info.getPosition().getX()).setY(info.getPosition().getY()).setHeight(info.getHeight())
+                    .setWidth(info.getWidth());
+        }
         try {
             final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()),
                     MovementEnum.class);

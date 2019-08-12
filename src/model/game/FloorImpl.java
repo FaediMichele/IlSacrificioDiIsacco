@@ -208,7 +208,7 @@ public class FloorImpl implements Floor {
         final int nRoom = rnd.nextInt(maxRoom) + 1;
 
         for (int index = 0; index < nRoom; index++) {
-            int direction = rnd.nextInt(OVEST);
+            int direction = rnd.nextInt(OVEST + 1);
             int directionCounted = 0;
             while (!canGoDirection(m, pos, direction) && directionCounted < OVEST) {
                 direction = (direction + 1) % OVEST;
@@ -356,14 +356,17 @@ public class FloorImpl implements Floor {
             r.setFill(Color.BLUE);
             Platform.runLater(() -> pn.getChildren().add(r));
         });
-        final BodyComponent b = getActiveRoom().getEntities().stream().filter(e -> e instanceof Player).findFirst().get().getComponent(BodyComponent.class).get();
-        final Rectangle r = new Rectangle();
-        r.setX(b.getPosition().getX());
-        r.setY(b.getPosition().getY());
-        r.setWidth(b.getWidth());
-        r.setHeight(b.getHeight());
-        r.setStroke(Color.BLUE);
-        r.setFill(Color.BLUE);
-        Platform.runLater(() -> pn.getChildren().add(r));
+        final Optional<? extends Entity> p = getActiveRoom().getEntities().stream().filter(e -> e instanceof Player).findFirst();
+        if (p.isPresent()) {
+            final BodyComponent b = p.get().getComponent(BodyComponent.class).get();
+            final Rectangle r = new Rectangle();
+            r.setX(b.getPosition().getX());
+            r.setY(b.getPosition().getY());
+            r.setWidth(b.getWidth());
+            r.setHeight(b.getHeight());
+            r.setStroke(Color.BLUE);
+            r.setFill(Color.BLUE);
+            Platform.runLater(() -> pn.getChildren().add(r));
+        }
     }
 }

@@ -114,8 +114,8 @@ public class GameController {
                         final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {
                                                          x.update(disappear);
-                                                         entityControllers.remove(x.getId());
                                                       });
+                        entityControllers.clear();
                     }
                     gameWord.getEntityInformation()
                             .stream()
