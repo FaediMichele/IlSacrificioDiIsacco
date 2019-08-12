@@ -52,7 +52,7 @@ public class RoomImpl implements Room {
     private final Space sp;
     @NotEquals
     @NotHashCode
-    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new HashMap<>();
+    private final Map<Entity, Space.Rectangle> entityRectangleSpace = new TreeMap<>((a, b) -> a.getId().compareTo(b.getId()));
     @NotEquals
     @NotHashCode
     private final Map<Space.Rectangle, Entity> rectangleEntitySpace = new HashMap<>();
