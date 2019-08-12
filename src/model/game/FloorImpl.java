@@ -150,7 +150,6 @@ public class FloorImpl implements Floor {
         for (int index = 0; index < roomIndexs.size(); index++) {
             this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index), widthRoom, heightRoom));
         }
-        
     }
 
     /**
@@ -205,12 +204,12 @@ public class FloorImpl implements Floor {
     private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
         final Pair<Integer, Integer> pos = new Pair<>(maxRoom / 2, maxRoom / 2);
         final Random rnd = new Random();
-        final int nRoom = rnd.nextInt(maxRoom) + 1;
+        final int nRoom = rnd.nextInt(maxRoom / 2) + maxRoom / 2;
 
         for (int index = 0; index < nRoom; index++) {
             int direction = rnd.nextInt(OVEST + 1);
             int directionCounted = 0;
-            while (!canGoDirection(m, pos, direction) && directionCounted < OVEST) {
+            while (!canGoDirection(m, pos, direction) && directionCounted <= OVEST) {
                 direction = (direction + 1) % OVEST;
                 directionCounted++;
             }
@@ -218,7 +217,7 @@ public class FloorImpl implements Floor {
                 index = nRoom;
             } else {
                 this.updatePosition(pos, direction);
-                m.set(pos.getX(), pos.getY(), index + 1);
+                m.set(pos.getX(), pos.getY(), index);
                 roomIndexs.add(new Pair<Integer, Integer>(pos.getX(), pos.getY()));
             }
         }
@@ -240,7 +239,7 @@ public class FloorImpl implements Floor {
         case EAST:
             return pos.getX() < m.getWidth() - 1 && m.get(pos.getX() + 1, pos.getY()) == null;
         case SUD:
-            return pos.getY() < m.getWidth() - 1 && m.get(pos.getX(), pos.getY() + 1) == null;
+            return pos.getY() < m.getHeight() - 1 && m.get(pos.getX(), pos.getY() + 1) == null;
         case OVEST:
             return pos.getX() > 0 && m.get(pos.getX() - 1, pos.getY()) == null;
         default:
@@ -299,8 +298,11 @@ public class FloorImpl implements Floor {
             changedRoom = true;
             activeRoomIndex = destination;
         }
-        this.rooms.get(destination).insertEntity(e);
         this.rooms.get(location).deleteEntity(e);
+        this.rooms.get(location).updateEntityList();
+        this.rooms.get(destination).insertEntity(e);
+        this.rooms.get(destination).updateEntityList();
+        
     }
 
     @Override

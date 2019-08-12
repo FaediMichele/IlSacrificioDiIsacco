@@ -42,9 +42,7 @@ public class FollowAIComponent extends AbstractAIComponent {
             }
             final Optional<? extends Entity> player = entitys.stream().filter(i -> i instanceof Player).findAny();
             if (!player.isPresent()) {
-                throw new IllegalStateException();
-                //lastDest = new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY());
-                //return;
+                return;
             }
             lastDest = r.getRoute(getEntity(), player.get());
         }

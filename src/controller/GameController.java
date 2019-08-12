@@ -190,13 +190,10 @@ public class GameController {
      * @param cm .
      */
     public void input(final Set<Command> cm) {
-        try {
-            inputDisponible.acquire();
+        if (inputDisponible.tryAcquire()) {
             inputCommand.clear();
             inputCommand.addAll(cm);
             inputDisponible.release();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
