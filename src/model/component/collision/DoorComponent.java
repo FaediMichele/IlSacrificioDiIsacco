@@ -19,7 +19,7 @@ public class DoorComponent extends LockCollisionComponent {
      * @param entity Entity that possess the component
      */
     public DoorComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex) {
-        super(entity);
+        super(entity, false);
         this.hasPlayerPassed = false;
         this.location = locationIndex;
         this.destination = destinationIndex;
@@ -68,10 +68,5 @@ public class DoorComponent extends LockCollisionComponent {
      */
     protected Integer getLocation() {
         return this.location;
-    }
-
-    @Override
-    public final String toString() {
-        return this.destination + " " + this.location + " " + this.hasPlayerPassed;
     }
 }

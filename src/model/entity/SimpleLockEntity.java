@@ -14,7 +14,7 @@ public class SimpleLockEntity extends AbstractStaticEntity {
 
     SimpleLockEntity() {
         super();
-        this.attachComponent(new LockCollisionComponent(this));
+        this.attachComponent(new LockCollisionComponent(this, true));
     }
 
     /**

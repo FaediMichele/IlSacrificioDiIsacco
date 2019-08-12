@@ -122,6 +122,16 @@ public class BodyComponent extends AbstractComponent<BodyComponent> {
     }
 
     /**
+     * Set the dimension of the entity.
+     * @param width the height
+     * @param height the width
+     */
+    public void setDimension(final double height, final double width) {
+        this.height = height;
+        this.width = width;
+    }
+
+    /**
      * Scale the dimension of the entity (ex. doubles it).
      * 
      * @param heightFactor multiply factor of the height

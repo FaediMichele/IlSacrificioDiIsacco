@@ -13,7 +13,12 @@ import org.w3c.dom.NodeList;
 
 import com.google.common.eventbus.EventBus;
 
-import model.component.DoorAIComponent;
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import model.component.BodyComponent;
+import model.component.collision.DoorComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -26,6 +31,7 @@ import util.NotEquals;
 import util.NotHashCode;
 import util.Pair;
 import util.StaticMethodsUtils;
+import view.javafx.ViewGetterUtil;
 
 /**
  * Implementation of Floor.
@@ -35,6 +41,7 @@ import util.StaticMethodsUtils;
  *
  */
 public class FloorImpl implements Floor {
+    private Pane pn;
     private static final int NORD = 0;
     private static final int EAST = 1;
     private static final int SUD = 2;
@@ -143,7 +150,7 @@ public class FloorImpl implements Floor {
         for (int index = 0; index < roomIndexs.size(); index++) {
             this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index), widthRoom, heightRoom));
         }
-
+        
     }
 
     /**
@@ -275,24 +282,22 @@ public class FloorImpl implements Floor {
      */
     @Override
     public void update(final Double deltaTime) {
-        this.rooms.get(activeRoomIndex).updateEntity(deltaTime);
-        Optional<Integer> nextRoom = rooms.get(activeRoomIndex).getDoor().stream()
-                .filter(e -> (e.getComponent(DoorAIComponent.class).get()).playerPassed())
-                .map(e -> (e.getComponent(DoorAIComponent.class).get()).getDestination())
-                .findFirst();
-
-        if (nextRoom.isPresent()) {
-            activeRoomIndex = nextRoom.get();
-        }
+        getActiveRoom().updateEntity(deltaTime);
         changedRoom = false;
         getActiveRoom().calculateCollision();
         getActiveRoom().updateEntityList();
+        debug();
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
-    public final void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
+    public void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
         if (e.getClass().equals(Player.class)) {
             eventBus.post(new RoomChangedEvent(rooms.get(location), rooms.get(destination)));
+            changedRoom = true;
+            activeRoomIndex = destination;
         }
         this.rooms.get(destination).insertEntity(e);
         this.rooms.get(location).deleteEntity(e);
@@ -324,5 +329,41 @@ public class FloorImpl implements Floor {
     @Override
     public final int hashCode() {
         return StaticMethodsUtils.hashCode(this);
+    }
+    private void debug() {
+        if (pn == null) {
+            pn = new Pane();
+            Platform.runLater(() -> ((Pane) ViewGetterUtil.getScene().getRoot()).getChildren().add(pn));
+        }
+        Platform.runLater(() -> pn.getChildren().clear());
+
+        final Rectangle back = new Rectangle();
+        back.setX(0.0);
+        back.setY(0.0);
+        back.setWidth(getActiveRoom().getWidth());
+        back.setHeight(getActiveRoom().getHeight());
+        back.setFill(Color.TRANSPARENT);
+        back.setStroke(Color.WHITE);
+        Platform.runLater(() -> pn.getChildren().add(back));
+        getActiveRoom().getDoor().forEach(e -> {
+            final BodyComponent b = e.getComponent(BodyComponent.class).get();
+            final Rectangle r = new Rectangle();
+            r.setX(b.getPosition().getX());
+            r.setY(b.getPosition().getY());
+            r.setWidth(b.getWidth());
+            r.setHeight(b.getHeight());
+            r.setStroke(Color.BLUE);
+            r.setFill(Color.BLUE);
+            Platform.runLater(() -> pn.getChildren().add(r));
+        });
+        final BodyComponent b = getActiveRoom().getEntities().stream().filter(e -> e instanceof Player).findFirst().get().getComponent(BodyComponent.class).get();
+        final Rectangle r = new Rectangle();
+        r.setX(b.getPosition().getX());
+        r.setY(b.getPosition().getY());
+        r.setWidth(b.getWidth());
+        r.setHeight(b.getHeight());
+        r.setStroke(Color.BLUE);
+        r.setFill(Color.BLUE);
+        Platform.runLater(() -> pn.getChildren().add(r));
     }
 }

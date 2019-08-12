@@ -20,16 +20,17 @@ public class LockCollisionComponent extends CollisionComponent {
     /**
      * 
      * @param entity is {@link Entity} to which the component belongs.
+     * @param status if the lock is open or closed.
      */
-    public LockCollisionComponent(final Entity entity) {
+    public LockCollisionComponent(final Entity entity, final boolean status) {
         super(entity);
-        this.isLock = true;
+        this.isLock = status;
         this.registerListener(new EventListener<CollisionEvent>() {
 
             @Subscribe
             @Override
             public void listenEvent(final CollisionEvent event) {
-                if (event.getSourceEntity().getClass().isInstance(Player.class)) {
+                if (event.getSourceEntity() instanceof Player) {
                     final InventoryComponent invcmp = event.getSourceEntity().getComponent(InventoryComponent.class)
                             .get();
 

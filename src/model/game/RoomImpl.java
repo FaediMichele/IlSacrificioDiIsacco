@@ -220,9 +220,6 @@ public class RoomImpl implements Room {
                 this.entity.add(e);
             }
             final Space.Rectangle r = getShape(e);
-            if (e instanceof Bomb) {
-                System.out.println("bomba inserita");
-            }
             entityRectangleSpace.put(e, r);
             rectangleEntitySpace.put(r, e);
             sp.addRectangle(r, !e.hasComponent(ObstacleComponent.class));
