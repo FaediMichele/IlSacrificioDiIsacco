@@ -10,7 +10,6 @@ import model.entity.Tear;
 import model.enumeration.EntityEnum;
 import model.events.TearShotEvent;
 import util.EventListener;
-import util.Triplet;
 
 /**
  * 
