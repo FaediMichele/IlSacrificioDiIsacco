@@ -79,7 +79,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
-    public void setNumberStatistic(final StatisticView s, final double itemNumber) {
+    public void setInventoryStatistic(final StatisticView s, final double itemNumber) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);
