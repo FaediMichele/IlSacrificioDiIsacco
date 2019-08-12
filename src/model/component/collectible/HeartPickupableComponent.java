@@ -67,6 +67,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
             healthComponent.addHeart(new BlackHeart(entity, actualValue));
         }
 
+        this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         this.getEntity().getRoom().deleteEntity(this.getEntity());
     }
 

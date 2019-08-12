@@ -89,8 +89,10 @@ public class EntityController {
      */
     public void update(final EntityInformation info) {
         if (info.getPosition() != null) {
-            this.entityView.setX(info.getPosition().getX()).setY(info.getPosition().getY()).setHeight(info.getHeight())
-                    .setWidth(info.getWidth());
+            this.entityView.setX(info.getPosition().getX())
+                           .setY(info.getPosition().getY())
+                           .setHeight(info.getHeight())
+                           .setWidth(info.getWidth());
         }
         try {
             final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()),

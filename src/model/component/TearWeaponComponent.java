@@ -103,13 +103,4 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
     public void setLifeTime(final double lifeTime) {
         this.lifeTime = lifeTime;
     }
-
-
-//    /**
-//     * Basic constructor that generates a tear when requested.
-//     * @param entity to which this component is attached
-//     */
-//    public TearWeaponComponent(final Entity entity) {
-//        this(entity, DEFAULT_DAMAGE);
-//    }
 }
