@@ -56,7 +56,10 @@ public class GaperView extends IsaacView {
      */
     @Override
     public void def(final MovementEnum move) {
-        super.setSprites(move, gaperFaceSprites, gaperFaceIndex);
-        this.gaperFaceIndex.compute(move, (k, v) -> (v + 1) % gaperFaceSprites.get(move).size());
+        if (super.setSprites(move, gaperFaceSprites, gaperFaceIndex) && !move.equals(BasicMovementEnum.STATIONARY)) {
+            this.gaperFaceIndex.put(move, 1);
+        } else {
+            this.gaperFaceIndex.put(move, 0);
+        }
     }
 }

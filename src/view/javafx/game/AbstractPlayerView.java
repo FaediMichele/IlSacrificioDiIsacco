@@ -15,6 +15,7 @@ import util.PlayerSpritesExtractor;
  */
 
 public abstract class AbstractPlayerView extends AbstractEntityView {
+    private static final int STATIC_FACES_SPRITES = 7;
 
     private final Map<MovementEnum, List<Image>> bodySprites;
     private final Map<MovementEnum, List<Image>> faceSprites;
@@ -27,6 +28,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
 
     private Image face;
     private Image body;
+    private int notBlinkCount = 0;
 
     /**
      * Base constructor, initializes the indexes.
@@ -81,8 +83,11 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      */
     @Override
     public void def(final MovementEnum move) {
-        this.setSprites(move, faceSprites, faceIndex);
-        this.faceIndex.compute(move, (k, v) -> (v + 1) % faceSprites.get(move).size());
+        if (this.setSprites(move, faceSprites, faceIndex) && !move.equals(BasicMovementEnum.STATIONARY)) {
+            this.faceIndex.put(move, 1);
+        } else {
+            this.faceIndex.put(move, 0);
+        }
     }
 
     /**
@@ -90,11 +95,19 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      * @param move the movement fo the entity
      * @param actualFaceSprites the sprites it needs to use for the face
      * @param actualFaceIndex 
+     * @return wheter to put the blink sprite or not
      */
-    protected void setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites, final Map<MovementEnum, Integer> actualFaceIndex) {
+    protected boolean setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites, final Map<MovementEnum, Integer> actualFaceIndex) {
         this.face = actualFaceSprites.get(move).get(actualFaceIndex.get(move));
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
-        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
+
+        if (notBlinkCount > AbstractPlayerView.STATIC_FACES_SPRITES) {
+            this.notBlinkCount = 0;
+            return true;
+        } else {
+            this.notBlinkCount++;
+            return false;
+        }
     }
 
     /**
