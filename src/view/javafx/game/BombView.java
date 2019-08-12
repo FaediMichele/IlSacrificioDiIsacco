@@ -38,7 +38,7 @@ public class BombView extends AbstractEntityView {
 
             final BufferedImage img = ImageIO.read(BombView.class.getResource("/gameImgs/effect_029_explosion.png"));
             final int deltaExplosions = 96;
-            final int explosions = 16;
+            final int explosions = 15;
             final int cols = 4;
             explosionBombSprite = (new SpritesExtractor(img, explosions, cols, cols, deltaExplosions, deltaExplosions)).extract();
         } catch (IOException e) {
@@ -73,8 +73,9 @@ public class BombView extends AbstractEntityView {
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
         } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
             gc.drawImage(explosionBombSprite.get(explosionIndex), super.getX() - super.getWidth(), super.getY() - super.getHeight() * 2, super.getHeight() * 3, super.getWidth() * 3);
-            if (explosionIndex < explosionBombSprite.size() - 1) {
-                explosionIndex += 1;
+            explosionIndex += 1;
+            if (explosionIndex >= explosionBombSprite.size()) {
+                explosionIndex -= 4;
             }
         } else {
             gc.drawImage(bombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());

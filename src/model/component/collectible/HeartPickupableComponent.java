@@ -66,6 +66,8 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
         } else if (this.color.equals(BasicHeartEnum.BLACK)) {
             healthComponent.addHeart(new BlackHeart(entity, actualValue));
         }
+
+        this.getEntity().getRoom().deleteEntity(this.getEntity());
     }
 
     private HealthComponent getHealthComponent(final Entity e) {
