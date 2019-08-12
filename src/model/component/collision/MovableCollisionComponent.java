@@ -121,7 +121,11 @@ public class MovableCollisionComponent extends CollisionComponent {
             } else if (touchUp(mine, otherBody)) {
                     newY = rectifyUp(otherBody);
             }
-    mine.setPosition(new Position(newX, newY, mine.getPosition().getZ()));
+            final Optional<MoveComponent> speed = getEntity().getComponent(MoveComponent.class);
+            if (speed.isPresent()) {
+                speed.get().stop();
+            }
+            mine.setPosition(new Position(newX, newY, mine.getPosition().getZ()));
     }
 
     private double rectifyRight(final BodyComponent me, final BodyComponent other) {

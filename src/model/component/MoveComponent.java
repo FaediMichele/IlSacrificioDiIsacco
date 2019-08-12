@@ -14,33 +14,42 @@ import util.Triplet;
  */
 
 public class MoveComponent extends AbstractComponent<MoveComponent> {
+    private static final double NOMOVE = 0.0;
+    private static final double DEFAULT_SPEED = 1.0;
+    private static final double DEFAULT_FRICTION = 60;
+    private static final double SPEEDAPROX = 0.00001;
 
-    /**
-     * Value of the entities that does not need to move.
-     */
-    public static final double NOMOVE = 0.0;
-
-    /**
-     * Default value for speed: 1.
-     */
-    public static final double DEFAULT_SPEED = 1.0;
-
+    private final double friction;
     private double deltaSpeed;
+
     private Position movement = new Position(NOMOVE, NOMOVE, NOMOVE);
     private double lastMovementAngle;
+    private boolean hasMoved;
+
     /**
-     * 
-     * @param deltaSpeed is the actual speed
-     * @param entity     {@link Entity} for this component
+     * Create a move component with default friction.
+     * @param entity the entity
+     * @param deltaSpeed the acceleration.
      */
     public MoveComponent(final Entity entity, final double deltaSpeed) {
+        this(entity, deltaSpeed, DEFAULT_FRICTION);
+    }
+    /**
+     * Create a move component with friction.
+     * @param deltaSpeed is the actual speed
+     * @param entity {@link Entity} for this component
+     * @param friction the friction of the entity in the space.
+     */
+    public MoveComponent(final Entity entity, final double deltaSpeed, final double friction) {
         super(entity);
+        hasMoved = false;
         this.deltaSpeed = deltaSpeed;
-
+        this.friction = friction;
         this.registerListener(new EventListener<MoveEvent>() {
             @Override
             @Subscribe
             public void listenEvent(final MoveEvent event) {
+                hasMoved = true;
                 move(event.getMovement());
             }
         });
@@ -53,6 +62,13 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     public MoveComponent(final Entity entity) {
         this(entity, DEFAULT_SPEED);
+    }
+
+    /**
+     * Stop the speed.
+     */
+    public void stop() {
+        initMove();
     }
 
     /**
@@ -78,6 +94,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     public final void move(final double angle) {
         move(new Position(Math.cos(Math.toRadians(angle)), Math.sin(Math.toRadians(angle)), 0.0));
+        hasMoved = true;
     }
 
     /**
@@ -85,6 +102,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      */
     private void move(final Position move) {
         this.movement.add(move);
+        hasMoved = true;
     }
 
     /**
@@ -99,7 +117,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * @return xMove
      */
     public Triplet<Double, Double, Double> getMovement() {
-        return this.movement;
+        return new Position(this.movement.getX(), this.movement.getY(), this.movement.getZ());
     }
 
     @Override
@@ -107,10 +125,19 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
         if (this.checkMove()) {
             final Double time = deltaTime / 100;
             this.movement.scale(this.deltaSpeed * time);
+            if (!hasMoved) {
+                this.movement.scale(deltaTime / friction);
+            } else {
+                hasMoved = false;
+            }
             this.getBody().changePosition(this.movement);
             this.postLogs();
-            this.initMove();
             this.setLastMovementAngle();
+            if (Math.abs(this.movement.getX()) < SPEEDAPROX
+                    && Math.abs(this.movement.getX()) < SPEEDAPROX
+                    && Math.abs(this.movement.getZ()) < SPEEDAPROX) {
+                initMove();
+            }
         }
     }
 

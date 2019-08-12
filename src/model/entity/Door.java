@@ -53,7 +53,7 @@ public class Door extends AbstractStaticEntity {
             break;
         case RIGHT:
             b.setDimension(DEFAULTSIZE, DEFAULTSTROKE);
-            b.setPosition(new Position(size.getX() - DEFAULTSTROKE, size.getY() / 2 - b.getHeight(), DEFAULTZ));
+            b.setPosition(new Position(size.getX() - DEFAULTSTROKE, size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
             break;
         case DOWN:
             b.setDimension(DEFAULTSTROKE, DEFAULTSIZE);
@@ -61,7 +61,7 @@ public class Door extends AbstractStaticEntity {
             break;
         case LEFT:
             b.setDimension(DEFAULTSIZE, DEFAULTSTROKE);
-            b.setPosition(new Position(DEFAULTSTROKE, size.getY() / 2 - b.getHeight(), DEFAULTZ));
+            b.setPosition(new Position(DEFAULTSTROKE, size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
             break;
         default:
             throw new IllegalArgumentException();
