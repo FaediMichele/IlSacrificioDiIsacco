@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * AI for the Gaper monster.
  */
-public class FlyAIComponent extends AbstractAIComponent {
+public class FlyAIComponent extends AbstractComponent<FlyAIComponent> {
 
     private double angle;
     /**
@@ -64,7 +64,8 @@ public class FlyAIComponent extends AbstractAIComponent {
      * Update of the MoveComponent done by this AI.
      */
     @Override
-    protected void moveUpdate() {
-        super.getMoveComponent(getEntity()).move(angle);
+    public void update(final Double deltaTime) {
+        super.getEntity().getComponent(MoveComponent.class).get().move(angle);
+        super.update(deltaTime);
     }
 }

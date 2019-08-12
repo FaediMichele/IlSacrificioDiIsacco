@@ -10,7 +10,7 @@ import util.EventListener;
  * This component manages all the movements and actions that the tear must do
  * independently once generated.
  */
-public class TearAIComponent extends AbstractAIComponent {
+public class TearAIComponent extends AbstractComponent<TearAIComponent> {
 
     private static final double DEFAULT_TEAR_LIFETIME = 200;
     private final double lifetime;
@@ -70,13 +70,6 @@ public class TearAIComponent extends AbstractAIComponent {
     }
 
     /**
-     * Update of the MoveComponent done by this AI.
-     */
-    protected void moveUpdate() {
-        this.getMoveComponent(this.getEntity()).move(angle);
-    }
-
-    /**
      * {@inheritDoc}
      * Checks if the lifetime of the tear is expired. If so, makes it disappear.
      */
@@ -87,7 +80,7 @@ public class TearAIComponent extends AbstractAIComponent {
             getEntity().getRoom().deleteEntity(this.getEntity());
             getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         } else {
-            this.moveUpdate();
+            super.getEntity().getComponent(MoveComponent.class).get().move(angle);
         }
     }
 }
