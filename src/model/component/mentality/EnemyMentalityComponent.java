@@ -23,6 +23,6 @@ public class EnemyMentalityComponent extends AbstractMentalityComponent {
      * @param entity the {@link Entity}
      */
     public EnemyMentalityComponent(final Entity entity) {
-        super(entity, CANNOT_DAMAGE, CANNOT_HURT_ME);
+        super(entity, CANNOT_DAMAGE, CANNOT_HURT_ME, new HashSet<>());
     }
 }

@@ -59,11 +59,11 @@ public class MenuControllerJavafx {
         });
         s.setOnKeyPressed(k -> {
             keyPressed.add(k.getCode());
-            menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).filter(c -> c != null).collect(Collectors.toSet()));
+            menu.get().get().input(keyPressed.stream().filter(key -> manager.getKeyMap().containsKey(key)).map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
         s.setOnKeyReleased(k -> {
             keyPressed.remove(k.getCode());
-            menu.get().get().input(keyPressed.stream().map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
+            menu.get().get().input(keyPressed.stream().filter(key -> manager.getKeyMap().containsKey(key)).map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
         stage.setOnCloseRequest(we -> menu.onClose());
         pnMain.requestFocus();

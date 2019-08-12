@@ -3,7 +3,9 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.component.mentality.AbstractMentalityComponent;
+import model.component.mentality.PlayerTearsMentalityComponent;
 import model.entity.Entity;
+import model.entity.Player;
 import model.entity.Tear;
 import model.enumeration.EntityEnum;
 import model.events.TearShotEvent;
@@ -64,7 +66,9 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
                          this.lifeTime, 
                          DEFAULT_SPEED, 
                          this.nameTear, 
-                         event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get())
+                         event.getSourceEntity() instanceof Player
+                                 ? new PlayerTearsMentalityComponent(this.getEntity())
+                                 : event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get())
                 );
     }
 
