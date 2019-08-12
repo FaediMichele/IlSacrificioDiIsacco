@@ -1,10 +1,12 @@
 package model.component.collision;
 
 import java.util.List;
+import java.util.Optional;
 
 import model.component.BodyComponent;
 import model.component.MoveComponent;
 import model.component.collectible.AbstractPickupableComponent;
+import model.component.mentality.AbstractMentalityComponent;
 import model.entity.AbstractStaticEntity;
 import model.entity.Entity;
 import model.events.CollisionEvent;
@@ -50,7 +52,11 @@ public class MovableCollisionComponent extends CollisionComponent {
         if (event.getSourceEntity().hasComponent(AbstractPickupableComponent.class)) {
             return;
         }
-        this.handleMovement(event);
+        final Optional<AbstractMentalityComponent> me = this.getEntity().getComponent(AbstractMentalityComponent.class);
+        final Optional<AbstractMentalityComponent> other = event.getSourceEntity().getComponent(AbstractMentalityComponent.class);
+        if ((!me.isPresent() && !other.isPresent()) || (me.isPresent() && other.isPresent() && (me.get().canCollide(other.get().getClass()) && other.get().canCollide(me.get().getClass())))) {
+            this.handleMovement(event);
+        }
     }
 
     /**
