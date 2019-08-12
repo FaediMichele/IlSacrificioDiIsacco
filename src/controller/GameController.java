@@ -159,6 +159,7 @@ public class GameController {
                             .map(s -> HeartStatisticView.class.cast(s))
                             .findAny().get(), stats.getHearts());
                     gameView.draw();
+                    gameView.updateEntity();
                     gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
                         e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);
                         e.getStatusComponent().setStatus(BasicStatusEnum.DEFAULT);

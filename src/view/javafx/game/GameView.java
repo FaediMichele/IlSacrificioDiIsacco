@@ -26,6 +26,11 @@ public interface GameView {
     void removeEntity(EntityView entity);
 
     /**
+     * Add or remove all pending entity.
+     */
+    void updateEntity();
+
+    /**
      * Set the current {@link RoomView}.
      * 
      * @param room {@link RoomView}

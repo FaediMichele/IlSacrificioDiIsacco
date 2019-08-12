@@ -40,8 +40,10 @@ import util.StaticMethodsUtils;
  */
 public class RoomImpl implements Room {
     private final List<Entity> entity;
-    private final List<Entity> graveyard = new ArrayList<Entity>();
+    private final List<Entity> graveyard = new ArrayList<>();
     private final List<Door> doors;
+    private final List<Entity> toDelete = new ArrayList<>();
+    private final List<Entity> toAdd = new ArrayList<>();
     private final int index;
     @NotEquals
     @NotHashCode
@@ -208,17 +210,34 @@ public class RoomImpl implements Room {
      */
     @Override
     public void insertEntity(final Entity e) {
-        if (e instanceof Door) {
-            this.doors.add((Door) e);
-        } else {
-            this.entity.add(e);
-        }
-        final Space.Rectangle r = getShape(e);
-        entityRectangleSpace.put(e, r);
-        rectangleEntitySpace.put(r, e);
-        sp.addRectangle(r, !e.hasComponent(ObstacleComponent.class));
-        e.changeRoom(this);
-        addEventEntity(e);
+        toAdd.add(e);
+    }
+    private void computeAddEntity() {
+        toAdd.forEach(e -> {
+            if (e instanceof Door) {
+                this.doors.add((Door) e);
+            } else {
+                this.entity.add(e);
+            }
+            final Space.Rectangle r = getShape(e);
+            entityRectangleSpace.put(e, r);
+            rectangleEntitySpace.put(r, e);
+            sp.addRectangle(r, !e.hasComponent(ObstacleComponent.class));
+            e.changeRoom(this);
+            addEventEntity(e);
+        });
+        toAdd.clear();
+    }
+    private void computeDeleteEntity() {
+        toDelete.forEach(e -> {
+            this.graveyard.add(e);
+            this.entity.remove(e);
+            sp.remove(entityRectangleSpace.get(e));
+            rectangleEntitySpace.remove(entityRectangleSpace.get(e));
+            entityRectangleSpace.remove(e);
+            e.changeRoom(null);
+        });
+        toDelete.clear();
     }
 
     private void addEventEntity(final Entity e) {
@@ -240,12 +259,9 @@ public class RoomImpl implements Room {
      */
     @Override
     public void deleteEntity(final Entity e) {
-        this.graveyard.add(e);
-        this.entity.remove(e);
-        sp.remove(entityRectangleSpace.get(e));
-        rectangleEntitySpace.remove(entityRectangleSpace.get(e));
-        entityRectangleSpace.remove(e);
-        e.changeRoom(null);
+        if (!toDelete.contains(e)) {
+            toDelete.add(e);
+        }
     }
 
     @Override
@@ -342,6 +358,12 @@ public class RoomImpl implements Room {
     @Override
     public final double getHeight() {
         return height;
+    }
+
+    @Override
+    public void updateEntity() {
+        computeAddEntity();
+        computeDeleteEntity();
     }
 
 }

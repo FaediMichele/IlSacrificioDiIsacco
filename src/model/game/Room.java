@@ -42,6 +42,11 @@ public interface Room {
     void updateEntity(Double deltaTime);
 
     /**
+     * Insert or delete the entity to the room that needs to be added or removed.
+     */
+    void updateEntity();
+
+    /**
      * React to the collision that is found at this time.
      */
     void calculateCollision();

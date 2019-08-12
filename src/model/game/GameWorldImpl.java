@@ -101,6 +101,7 @@ public class GameWorldImpl implements GameWorld {
             }
             changedFloor = false;
             getActiveFloor().getActiveRoom().insertEntity(player);
+            getActiveFloor().update(0.0);
             this.player.getComponent(BodyComponent.class).get().setPosition(new Position(this.player.getRoom().getWidth() / 2, this.player.getRoom().getHeight() / 2, 0.0));
         }
     }
@@ -129,7 +130,6 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public final void update(final double deltaTime) {
         getActiveFloor().update(deltaTime);
-        getActiveFloor().calculateCollision();
         changedFloor = false;
     }
 

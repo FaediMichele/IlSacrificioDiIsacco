@@ -18,8 +18,10 @@ import util.EventListener;
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
     private static final double DEFAULT_LIFE_TIME = 10000;
     private static final double DEFAULT_SPEED = 10;
+    private static final double TEARRATE = 1000;
     private double damage;
     private double lifeTime;
+    private double time = TEARRATE;
     private final EntityEnum nameTear;
     /**
      * Basic constructor that generates a tear when requested.
@@ -37,9 +39,21 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
             @Override
             @Subscribe
             public void listenEvent(final TearShotEvent event) {
-                tearShotEvent(event);
+                if (time >= TEARRATE) {
+                    tearShotEvent(event);
+                    time = 0;
+                }
             }
         });
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void update(final Double deltaTime) {
+        super.update(deltaTime);
+        time += deltaTime;
     }
 
     private void tearShotEvent(final TearShotEvent event) {

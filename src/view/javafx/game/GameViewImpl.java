@@ -15,6 +15,8 @@ import util.Pair;
  */
 public class GameViewImpl implements GameView {
     private final List<EntityView> entities = new ArrayList<>();
+    private final List<EntityView> toAdd = new ArrayList<>();
+    private final List<EntityView> toRemove = new ArrayList<>();
     private final List<StatisticView> statistics = new ArrayList<>();
     private RoomView room;
     private final Canvas cnv;
@@ -32,14 +34,14 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     public void addEntity(final EntityView entity) {
-        this.entities.add(entity);
+        this.toAdd.add(entity);
     }
 
     /**
      * {@inheritDoc}
      */
     public void removeEntity(final EntityView entity) {
-        this.entities.remove(entity);
+        this.toRemove.add(entity);
     }
 
     /**
@@ -124,5 +126,16 @@ public class GameViewImpl implements GameView {
     @Override
     public final double getWidth() {
         return cnv.getWidth();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateEntity() {
+        entities.addAll(toAdd);
+        entities.removeAll(toRemove);
+        toAdd.clear();
+        toRemove.clear();
     }
 }

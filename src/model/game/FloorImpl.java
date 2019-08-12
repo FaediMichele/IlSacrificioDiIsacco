@@ -285,11 +285,8 @@ public class FloorImpl implements Floor {
             activeRoomIndex = nextRoom.get();
         }
         changedRoom = false;
-    }
-
-    @Override
-    public final void calculateCollision() {
         getActiveRoom().calculateCollision();
+        getActiveRoom().updateEntity();
     }
 
     @Override

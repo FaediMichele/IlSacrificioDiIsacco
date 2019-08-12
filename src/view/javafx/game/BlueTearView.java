@@ -51,7 +51,7 @@ public class BlueTearView extends AbstractEntityView {
     public void draw(final GraphicsContext gc) {
         gc.drawImage(this.tears.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
         index += 1;
-        if (index > this.tears.size() && super.getGameView().isPresent()) {
+        if (index >= this.tears.size() && super.getGameView().isPresent()) {
             super.getGameView().get().removeEntity(this);
         }
     }
