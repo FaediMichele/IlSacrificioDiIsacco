@@ -112,6 +112,6 @@ public class AbstractMentalityComponent extends AbstractComponent<AbstractMental
      * @return if I can collide with.
      */
     public boolean canCollide(final Class<? extends AbstractMentalityComponent> entityMentality) {
-        return !this.cannotCollide.contains(entityMentality);
+        return entityMentality != null && !this.cannotCollide.contains(entityMentality);
     }
 }

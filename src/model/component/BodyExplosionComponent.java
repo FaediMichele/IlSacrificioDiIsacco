@@ -55,7 +55,6 @@ public class BodyExplosionComponent extends BodyComponent {
     public void update(final Double deltaTime) {
         this.timePassed = this.timePassed + deltaTime;
         if (this.timePassed > this.timeBeforeExplodes && !this.exploded) {
-            System.out.println("exploded");
             this.scaleDimension(explosionScale);
             this.getEntity().detachComponent(this.getEntity().getComponent(AbstractMentalityComponent.class).get());
             this.getEntity().attachComponent(new PsychoMentalityComponent(this.getEntity()))

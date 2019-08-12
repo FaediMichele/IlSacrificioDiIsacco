@@ -13,6 +13,7 @@ public class DataPlayer {
     private double life;
     private double speed;
     private double damage;
+    private double tearRate;
 
     /**
      * 
@@ -30,6 +31,24 @@ public class DataPlayer {
     public DataPlayer setName(final PlayerEnum name) {
         this.name = name;
         return this;
+    }
+
+    /**
+     * Set the rate of fire.
+     * @param rate the rate.
+     * @return the entity.
+     */
+    public DataPlayer setRate(final double rate) {
+        tearRate = rate;
+        return this;
+    }
+
+    /**
+     * Get the rate of fire.
+     * @return the rate of fire.
+     */
+    public double getRate() {
+        return tearRate;
     }
 
     /**

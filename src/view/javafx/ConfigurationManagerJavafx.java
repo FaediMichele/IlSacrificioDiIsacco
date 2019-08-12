@@ -93,16 +93,17 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
             final Node n = nList.item(0);
             final NodeList charList = n.getChildNodes();
             for (int i = 1; i < charList.getLength() - 1; i += 2) {
-                if (!charList.item(i).getNodeName().equals(CHARACTERTAG)) {
-                    throw new IllegalStateException("The name for the tag is " + CHARACTERTAG
-                            + ". Name used:" + charList.item(i).getNodeName());
+                if (!charList.item(i).getNodeName().equals("#comment")) {
+                    if (!charList.item(i).getNodeName().equals(CHARACTERTAG)) {
+                        throw new IllegalStateException("The name for the tag is " + CHARACTERTAG
+                                + ". Name used:" + charList.item(i).getNodeName());
+                    }
+                    final NamedNodeMap attr = charList.item(i).getAttributes();
+                    characters.add(new CharacterInfo(new Image(attr.getNamedItem("Name").getNodeValue()),
+                            new ImageView(new Image(attr.getNamedItem("ImagePath").getNodeValue())),
+                            loadPlayerEnum(attr.getNamedItem("package").getNodeValue(),
+                                    (attr.getNamedItem("Type").getNodeValue()))));
                 }
-                final NamedNodeMap attr = charList.item(i).getAttributes();
-
-                characters.add(new CharacterInfo(new Image(attr.getNamedItem("Name").getNodeValue()),
-                        new ImageView(new Image(attr.getNamedItem("ImagePath").getNodeValue())),
-                        loadPlayerEnum(attr.getNamedItem("package").getNodeValue(),
-                                (attr.getNamedItem("Type").getNodeValue()))));
             }
             return new LinkedHashSet<CharacterInfo>(characters);
         } catch (Exception e) {

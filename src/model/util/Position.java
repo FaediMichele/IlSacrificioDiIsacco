@@ -3,17 +3,15 @@ package model.util;
 import util.Triplet;
 
 /**
- * 
- * Is positions for entity.
- *
+ * Tuple of Double.
  */
 public class Position extends Triplet<Double, Double, Double> {
 
     /**
-     * 
-     * @param x 
-     * @param y 
-     * @param z 
+     * Create a new Triplet.
+     * @param x the X
+     * @param y the Y
+     * @param z the Z
      */
     public Position(final Double x, final Double y, final  Double z) {
         super(x, y, z);
@@ -37,5 +35,35 @@ public class Position extends Triplet<Double, Double, Double> {
         this.setX(this.getX() * scale);
         this.setY(this.getY() * scale);
         this.setZ(this.getZ() * scale);
+    }
+
+    /**
+     * Get the length of the vector defined by the x, y, z.
+     * @return the length of the vector.
+     */
+    public double getVectorValue() {
+        return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ());
+    }
+
+    /**
+     * Set the length of the vector without changing it's direction.
+     * @param newLength the length of the vector.
+     * @return the Position.
+     */
+    public Position clipToLength(final double newLength) {
+        final double originalLength = getVectorValue();
+        this.setX(this.getX() * newLength / originalLength);
+        this.setY(this.getY() * newLength / originalLength);
+        this.setZ(this.getZ() * newLength / originalLength);
+        return this;
+    }
+
+
+    /**
+     * Get a new position with previous data.
+     * @return a new position.
+     */
+    public Position clone() {
+        return new Position(getX(), getY(), getZ());
     }
 }

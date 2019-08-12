@@ -102,7 +102,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
     protected boolean setSprites(final MovementEnum move, final Map<MovementEnum, List<Image>> actualFaceSprites, final Map<MovementEnum, Integer> actualFaceIndex) {
         this.face = actualFaceSprites.get(move).get(actualFaceIndex.get(move));
         this.body = bodySprites.get(move).get(bodyIndex.get(move));
-
+        this.bodyIndex.compute(move, (k, v) -> (v + 1) % bodySprites.get(move).size());
         if (notBlinkCount > AbstractPlayerView.STATIC_FACES_SPRITES) {
             this.notBlinkCount = 0;
             return true;

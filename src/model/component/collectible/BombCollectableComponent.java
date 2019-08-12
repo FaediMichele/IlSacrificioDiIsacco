@@ -28,7 +28,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
     @Override
     public void use() {
         this.getEntity()
-            .attachComponent(new BodyExplosionComponent(this.getEntity(), 
+            .attachComponent(new BodyExplosionComponent(this.getEntity(),
                                                         this.getEntity().getComponent(BodyComponent.class).get()
                                                                         .getPosition(), 
                                                         this.getEntity().getComponent(BodyComponent.class).get()

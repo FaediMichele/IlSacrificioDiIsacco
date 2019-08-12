@@ -17,10 +17,12 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     private static final double NOMOVE = 0.0;
     private static final double DEFAULT_SPEED = 1.0;
     private static final double DEFAULT_FRICTION = 60;
-    private static final double SPEEDAPROX = 0.00001;
+    private static final double SPEEDAPROX = 0.1;
+    private static final double MAXSPEEDMULTIPLIER = 10; 
 
     private final double friction;
     private double deltaSpeed;
+    private double maxSpeed;
 
     private Position movement = new Position(NOMOVE, NOMOVE, NOMOVE);
     private double lastMovementAngle;
@@ -43,6 +45,29 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     public MoveComponent(final Entity entity, final double deltaSpeed, final double friction) {
         super(entity);
         hasMoved = false;
+        this.deltaSpeed = deltaSpeed / 100;
+        this.friction = friction;
+        this.registerListener(new EventListener<MoveEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final MoveEvent event) {
+                hasMoved = true;
+                move(event.getMovement());
+            }
+        });
+        maxSpeed = deltaSpeed * MAXSPEEDMULTIPLIER;
+    }
+
+    /**
+     * Create a move component with friction and max speed.
+     * @param deltaSpeed is the actual speed
+     * @param entity {@link Entity} for this component
+     * @param friction the friction of the entity in the space.
+     * @param maxSpeed the max Speed for the entity.
+     */
+    public MoveComponent(final Entity entity, final double deltaSpeed, final double friction, final double maxSpeed) {
+        super(entity);
+        hasMoved = false;
         this.deltaSpeed = deltaSpeed;
         this.friction = friction;
         this.registerListener(new EventListener<MoveEvent>() {
@@ -53,6 +78,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
                 move(event.getMovement());
             }
         });
+        this.maxSpeed = maxSpeed;
     }
 
     /**
@@ -100,7 +126,7 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     /**
      * @param move the move that must me done
      */
-    private void move(final Position move) {
+    public void move(final Position move) {
         this.movement.add(move);
         hasMoved = true;
     }
@@ -123,18 +149,20 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
     @Override
     public final void update(final Double deltaTime) {
         if (this.checkMove()) {
-            final Double time = deltaTime / 100;
-            this.movement.scale(this.deltaSpeed * time);
             if (!hasMoved) {
                 this.movement.scale(deltaTime / friction);
             } else {
+                this.movement.scale(this.deltaSpeed * deltaTime);
                 hasMoved = false;
+            }
+            if (this.movement.getVectorValue() > maxSpeed) {
+                this.movement.clipToLength(maxSpeed);
             }
             this.getBody().changePosition(this.movement);
             this.postLogs();
             this.setLastMovementAngle();
             if (Math.abs(this.movement.getX()) < SPEEDAPROX
-                    && Math.abs(this.movement.getX()) < SPEEDAPROX
+                    && Math.abs(this.movement.getY()) < SPEEDAPROX
                     && Math.abs(this.movement.getZ()) < SPEEDAPROX) {
                 initMove();
             }
@@ -145,7 +173,8 @@ public class MoveComponent extends AbstractComponent<MoveComponent> {
      * Set all speed to 0.
      */
     public void initMove() {
-        this.movement = new Position(NOMOVE, NOMOVE, NOMOVE);
+        this.movement.scale(0.0);
+        hasMoved = true;
     }
 
     private BodyComponent getBody() {

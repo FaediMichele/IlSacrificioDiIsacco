@@ -319,7 +319,8 @@ public final class StaticMethodsUtils {
         final Node node = xml.getElementsByTagName(tagEntity).item(0);
         return new DataPlayer().setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
                                .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
-                               .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()));
+                               .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
+                               .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
 
     }
 

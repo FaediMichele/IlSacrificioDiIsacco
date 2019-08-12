@@ -22,6 +22,7 @@ import model.component.ObstacleComponent;
 import model.component.StatusComponent;
 import model.entity.Door;
 import model.entity.Entity;
+import model.entity.Player;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.events.CollisionEvent;
@@ -105,6 +106,7 @@ public class RoomImpl implements Room {
         final List<EntityInformation> ret = toInformation(entity);
         ret.addAll(toInformation(graveyard));
         ret.addAll(toInformation(doors));
+        entity.removeAll(graveyard);
         this.graveyard.clear();
         this.cleanGraveyard = true;
         return ret;
@@ -227,7 +229,13 @@ public class RoomImpl implements Room {
     }
     private void computeDeleteEntity() {
         toDelete.forEach(e -> {
-            this.graveyard.add(e);
+            if (cleanGraveyard) {
+                graveyard.clear();
+                cleanGraveyard = false;
+            }
+            if (!(e instanceof Player)) {
+                this.graveyard.add(e);
+            }
             this.entity.remove(e);
             sp.remove(entityRectangleSpace.get(e));
             rectangleEntitySpace.remove(entityRectangleSpace.get(e));
@@ -240,12 +248,7 @@ public class RoomImpl implements Room {
         e.registerListener(new EventListener<DeadEvent>() {
             @Override
             public void listenEvent(final DeadEvent event) {
-                entity.remove(e);
-                if (cleanGraveyard) {
-                    graveyard.clear();
-                    cleanGraveyard = false;
-                }
-                graveyard.add(e);
+                deleteEntity(e);
             }
         });
     }

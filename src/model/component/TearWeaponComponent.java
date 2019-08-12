@@ -10,6 +10,7 @@ import model.entity.Tear;
 import model.enumeration.EntityEnum;
 import model.events.TearShotEvent;
 import util.EventListener;
+import util.Triplet;
 
 /**
  * 
@@ -18,21 +19,21 @@ import util.EventListener;
  */
 
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
-    private static final double DEFAULT_LIFE_TIME = 10000;
-    private static final double DEFAULT_SPEED = 30;
-    private static final double TEARRATE = 1000;
+    private static final double DEFAULT_LIFE_TIME = 1000;
+    private static final double DEFAULT_SPEED = 10.0;
+    private final double tearRate = 100;
     private double damage;
     private double lifeTime;
-    private double time = TEARRATE;
+    private double time = tearRate;
     private final EntityEnum nameTear;
     /**
      * Basic constructor that generates a tear when requested.
      * @param entity to which this component is attached
-     * @param nameTear .
-     * @param damage .
-     * 
+     * @param nameTear enum used to display it.
+     * @param damage the damage caused.
+     * @param tearRate the rate of fire.
      */
-    public TearWeaponComponent(final Entity entity, final double damage, final EntityEnum nameTear) {
+    public TearWeaponComponent(final Entity entity, final double damage, final EntityEnum nameTear, final double tearRate) {
         super(entity);
         this.damage = damage;
         this.lifeTime = DEFAULT_LIFE_TIME;
@@ -41,7 +42,7 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
             @Override
             @Subscribe
             public void listenEvent(final TearShotEvent event) {
-                if (time >= TEARRATE) {
+                if (time >= tearRate) {
                     tearShotEvent(event);
                     time = 0;
                 }
@@ -62,10 +63,8 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
         getEntity().getRoom().insertEntity(
                 new Tear(event.getAngle(),
                          event.getSourceEntity().getComponent(BodyComponent.class).get().getPosition(), 
-                         this.damage, 
-                         this.lifeTime, 
-                         DEFAULT_SPEED, 
-                         this.nameTear, 
+                         event.getSourceEntity().getComponent(MoveComponent.class).get().getMovement(),
+                         this.damage, this.lifeTime, DEFAULT_SPEED, this.nameTear, 
                          event.getSourceEntity() instanceof Player
                                  ? new PlayerTearsMentalityComponent(this.getEntity())
                                  : event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get())

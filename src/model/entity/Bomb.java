@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
+import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.collectible.BombCollectableComponent;
 import model.component.collision.CollisionComponent;
@@ -30,6 +31,7 @@ public class Bomb extends AbstractEntity {
     public Bomb() {
         super();
         this.attachComponent(new BombCollectableComponent(this))
+                .attachComponent(new MoveComponent(this))
                 .attachComponent(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT))
                 .attachComponent(new NeutralMentalityComponent(this));
 
