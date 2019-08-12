@@ -273,7 +273,6 @@ public class FloorImpl implements Floor {
         getActiveRoom().calculateCollision();
         getActiveRoom().updateEntityList();
         debug();
-        System.out.println("updating");
     }
 
     /**
