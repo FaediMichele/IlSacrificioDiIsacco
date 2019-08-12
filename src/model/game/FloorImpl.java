@@ -18,7 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.component.BodyComponent;
-import model.component.collision.DoorComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -150,7 +149,6 @@ public class FloorImpl implements Floor {
         for (int index = 0; index < roomIndexs.size(); index++) {
             this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index), widthRoom, heightRoom));
         }
-        
     }
 
     /**
