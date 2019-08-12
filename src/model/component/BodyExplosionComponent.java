@@ -60,6 +60,8 @@ public class BodyExplosionComponent extends BodyComponent {
             this.getEntity().detachComponent(this.getEntity().getComponent(AbstractMentalityComponent.class).get());
             this.getEntity().attachComponent(new PsychoMentalityComponent(this.getEntity()))
             .getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
+            super.changePosition(new Position(-this.getWidth(), -this.getHeight() * 2, 0.0));
+            super.scaleDimension(3);
             this.exploded = true;
         }
         if (this.exploded && this.timePassed > this.explosionTime + this.timeBeforeExplodes) {

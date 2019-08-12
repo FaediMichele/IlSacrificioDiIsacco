@@ -1,6 +1,5 @@
 package view.test;
 
-import java.util.UUID;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -30,27 +29,27 @@ public class TestCanvas extends Application {
         final RoomView room = new RoomView("/gameImgs/basement_background1_640x344.png");
         final Canvas canvas = new Canvas();
         final Pane root = new Pane(canvas);
-        final AbstractPlayerView isaac = new IsaacView(UUID.randomUUID());
+        final AbstractPlayerView isaac = new IsaacView();
         isaac.setX(300.0);
         isaac.setY(300.0);
         isaac.setHeight(85);
         isaac.setWidth(85);
         isaac.setGameView(new GameViewImpl(canvas));
         isaac.def(BasicMovementEnum.DOWN);
-        final GaperView gaper = new GaperView(UUID.randomUUID());
+        final GaperView gaper = new GaperView();
         gaper.setX(400.0);
         gaper.setY(400.0);
         gaper.setHeight(85);
         gaper.setWidth(85);
         gaper.setGameView(new GameViewImpl(canvas));
         gaper.def(BasicMovementEnum.DOWN);
-        final KeyView rock = new KeyView(UUID.randomUUID());
+        final KeyView rock = new KeyView();
         rock.setX(200.0);
         rock.setY(200.0);
         rock.setHeight(30);
         rock.setWidth(30);
         rock.setGameView(new GameViewImpl(canvas));
-        final DoorView door = new DoorView(UUID.randomUUID());
+        final DoorView door = new DoorView();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

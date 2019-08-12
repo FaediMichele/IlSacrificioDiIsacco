@@ -20,11 +20,10 @@ import model.util.Position;
 import model.util.StatisticsInformations;
 import util.Command;
 import util.NotEquals;
-import view.javafx.game.BombView;
 import view.javafx.game.GameView;
 import view.javafx.game.HeartStatisticView;
-import view.javafx.game.InventoryStatisticView;
-import view.javafx.game.KeyView;
+import view.javafx.game.KeyStatisticView;
+import view.javafx.game.BombStatisticView;
 import view.javafx.game.RoomView;
 
 /**
@@ -68,8 +67,8 @@ public class GameController {
 
     private void initStatistics() {
         gameView.addStatistic(new HeartStatisticView());
-        gameView.addStatistic(new InventoryStatisticView(BombView.class));
-        gameView.addStatistic(new InventoryStatisticView(KeyView.class));
+        gameView.addStatistic(new BombStatisticView());
+        gameView.addStatistic(new KeyStatisticView());
     }
 
     /**
@@ -144,15 +143,11 @@ public class GameController {
                                     }
                                 });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
-                    gameView.setNumberStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(InventoryStatisticView.class))
-                            .map(s -> InventoryStatisticView.class.cast(s))
-                            .filter(s -> s.getEntityClass().equals(BombView.class))
+                    gameView.setInventoryStatistic(gameView.getStatistics().stream()
+                            .filter(s -> s.getClass().equals(BombStatisticView.class))
                             .findAny().get(), stats.getBombs());
-                    gameView.setNumberStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(InventoryStatisticView.class))
-                            .map(s -> InventoryStatisticView.class.cast(s))
-                            .filter(s -> s.getEntityClass().equals(KeyView.class))
+                    gameView.setInventoryStatistic(gameView.getStatistics().stream()
+                            .filter(s -> s.getClass().equals(KeyStatisticView.class))
                             .findAny().get(), stats.getKeys());
                     gameView.setHeartsStatistic(gameView.getStatistics().stream()
                             .filter(s -> s.getClass().equals(HeartStatisticView.class))

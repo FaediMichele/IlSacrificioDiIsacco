@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -76,12 +75,10 @@ public class FireView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes and sets the list to use based on the fire colour.
-     * @param id 
      * @param colour the colour of this FireView
-     * @param gv The gameView to which this entityView is added
      */
-    public FireView(final UUID id, final GameViewImpl gv, final FireColour colour) {
-        super(id, gv);
+    public FireView(final FireColour colour) {
+        super();
         this.fireSprite.addAll(fireSprites.get(colour));
         this.dyingFireSprite.addAll(dyingFireSprites.get(colour));
         this.fireGridSprite.addAll(fireGridSprites.get(colour));

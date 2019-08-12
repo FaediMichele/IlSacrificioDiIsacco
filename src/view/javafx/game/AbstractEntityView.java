@@ -1,9 +1,6 @@
 package view.javafx.game;
 
-import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
-
 import javafx.scene.canvas.GraphicsContext;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.MovementEnum;
@@ -15,25 +12,11 @@ import model.enumeration.MovementEnum;
  */
 public abstract class AbstractEntityView implements EntityView {
     private Optional<GameView> gameView;
-    private final UUID id;
     private Optional<Double> x = Optional.empty();
     private Optional<Double> y = Optional.empty();
     private Optional<Double> height = Optional.empty();
     private Optional<Double> width = Optional.empty();
     private Optional<BasicStatusEnum> status = Optional.empty();
-
-    AbstractEntityView(final UUID id, final GameViewImpl gv) {
-        Objects.requireNonNull(gv);
-        this.id = id;
-        this.gameView = Optional.of(gv);
-    }
-
-    AbstractEntityView(final UUID id) {
-        this.id = id;
-        this.gameView = Optional.empty();
-    }
-
-
 
     /**
      * @return the GameView to which the entityView is attached (if there is one);
@@ -191,14 +174,5 @@ public abstract class AbstractEntityView implements EntityView {
 
     @Override
     public void half(final MovementEnum move) {
-    }
-
-    /**
-     * Get the UUID.
-     * 
-     * @return id
-     */
-    public UUID getId() {
-        return this.id;
     }
 }

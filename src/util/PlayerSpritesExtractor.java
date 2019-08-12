@@ -22,7 +22,7 @@ import model.enumeration.MovementEnum;
 public class PlayerSpritesExtractor {
     private static final int DELTABODY = 32;
     private static final int DELTAFACE = 32;
-    private static final int SRITEFACES = 2;
+    private static final int SPRITEFACES = 2;
     private static final int FACES = 6;
 
     private final BufferedImage img;
@@ -100,9 +100,9 @@ public class PlayerSpritesExtractor {
         List<Image> movingLeftFaceSprite;
 
         final List<Image> isaacFace = (new SpritesExtractor(img, FACES, 1, FACES, DELTAFACE, DELTAFACE)).extract();
-        movingDownFaceSprite = isaacFace.subList(0, SRITEFACES - 1);
-        movingRightFaceSprite = isaacFace.subList(SRITEFACES, SRITEFACES * 2 - 1);
-        movingUpFaceSprite = isaacFace.subList(SRITEFACES * 2, SRITEFACES * 3 - 1);
+        movingDownFaceSprite = isaacFace.subList(0, SPRITEFACES);
+        movingRightFaceSprite = isaacFace.subList(SPRITEFACES, SPRITEFACES * 2);
+        movingUpFaceSprite = isaacFace.subList(SPRITEFACES * 2, SPRITEFACES * 3);
         movingLeftFaceSprite = new ArrayList<Image>();
         movingRightFaceSprite.forEach(l -> {
             final BufferedImage tmp1 = SwingFXUtils.fromFXImage(l, null);

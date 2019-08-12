@@ -2,7 +2,6 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -30,13 +29,6 @@ public class KeyView extends AbstractEntityView {
         }
     }
 
-    /**
-     * 
-     * @param id 
-     */
-    public KeyView(final UUID id) {
-        super(id);
-    }
     /**
      * @return the sprite of the key.
      */

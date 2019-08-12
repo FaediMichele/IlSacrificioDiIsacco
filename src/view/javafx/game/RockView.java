@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -30,17 +29,15 @@ public class RockView extends AbstractEntityView {
     }
 
     /**
-     * Base constructor.
-     * @param id 
+     * Rock constructor, chooses the random rock to draw.
      */
-    public RockView(final UUID id) {
-        super(id);
+    public RockView() {
+        super();
         this.index = (new Random().nextInt(rockSprites.size()));
     }
 
     /**
      * {@inheritDoc}
-     *  This method also chooses the random rock to draw.
      */
     @Override
     public void draw(final GraphicsContext gc) {

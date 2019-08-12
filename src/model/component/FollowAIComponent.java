@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * AI for the Gaper monster.
  */
-public class FollowAIComponent extends AbstractAIComponent {
+public class FollowAIComponent extends AbstractComponent<FollowAIComponent> {
 
     private Pair<Double, Double> lastDest;
     /**
@@ -29,7 +29,7 @@ public class FollowAIComponent extends AbstractAIComponent {
      * Update of the MoveComponent done by this AI.
      */
     @Override
-    public void moveUpdate() {
+    public void update(final Double deltaTime) {
         final BodyComponent body = getEntity().getComponent(BodyComponent.class).get();
         if (lastDest == null || between(lastDest.getX(), body.getPosition().getX(), 4.0) || between(lastDest.getY(), body.getPosition().getY(), 4.0)) {
             final Room r = this.getEntity().getRoom();
@@ -46,7 +46,8 @@ public class FollowAIComponent extends AbstractAIComponent {
             }
             lastDest = r.getRoute(getEntity(), player.get());
         }
-        super.getMoveComponent(getEntity()).move(StaticMethodsUtils.getAngle(lastDest, new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY())));
+        super.getEntity().getComponent(MoveComponent.class).get().move(StaticMethodsUtils.getAngle(lastDest, new Pair<Double, Double>(body.getPosition().getX(), body.getPosition().getY())));
+        super.update(deltaTime);
     }
     private boolean between(final double d1, final double d2, final double range) {
         return Math.abs(d1 - d2) < range;

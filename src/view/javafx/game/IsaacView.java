@@ -1,7 +1,5 @@
 package view.javafx.game;
 
-import java.util.UUID;
-
 /**
  * View and animations of a Isaac.
  *
@@ -9,10 +7,10 @@ import java.util.UUID;
 public class IsaacView extends AbstractPlayerView {
 
     /**
-     * 
-     * @param id Isaac ID
+     * Sets the Cain images to be used for the player.
      */
-    public IsaacView(final UUID id) {
-        super(id, "/gameImgs/character_001_isaac.png");
+
+    public IsaacView() {
+        super("/gameImgs/character_001_isaac.png");
     }
 }
