@@ -9,7 +9,7 @@ import model.entity.Entity;
 /**
  * Mentality for the tears of the player.
  */
-public class PlayerTearsMentalityComponent extends AbstractMentalityComponent{
+public class PlayerTearsMentalityComponent extends AbstractMentalityComponent {
     private static final Set<Class<? extends AbstractMentalityComponent>> CANNOT_HURT_ME = new HashSet<>(
             Arrays.asList(PlayerMentalityComponent.class));
 

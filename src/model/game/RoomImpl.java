@@ -105,7 +105,6 @@ public class RoomImpl implements Room {
         final List<EntityInformation> ret = toInformation(entity);
         ret.addAll(toInformation(graveyard));
         ret.addAll(toInformation(doors));
-        this.entity.removeAll(this.graveyard);
         this.graveyard.clear();
         this.cleanGraveyard = true;
         return ret;
@@ -135,7 +134,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void updateEntity(final Double deltaTime) {
-        List<Entity> aux = new ArrayList<Entity>();
+        final List<Entity> aux = new ArrayList<Entity>();
         aux.addAll(this.entity);
         aux.forEach(e -> e.update(deltaTime));
         if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
@@ -233,7 +232,6 @@ public class RoomImpl implements Room {
             sp.remove(entityRectangleSpace.get(e));
             rectangleEntitySpace.remove(entityRectangleSpace.get(e));
             entityRectangleSpace.remove(e);
-            e.changeRoom(null);
         });
         toDelete.clear();
     }

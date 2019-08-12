@@ -21,13 +21,6 @@ public interface Floor {
     Room getActiveRoom();
 
     /**
-     * Change the position to the room.
-     * 
-     * @param index the index of the room to go
-     */
-    void changeRoom(Integer index);
-
-    /**
      * Get all the room that the floor have.
      * 
      * @return Set of all the room

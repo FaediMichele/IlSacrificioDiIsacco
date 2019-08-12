@@ -11,7 +11,6 @@ import model.component.collision.CollisionComponent;
 import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
-import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicTearEnum;
 import model.enumeration.EntityEnum;
 import model.enumeration.PlayerEnum;

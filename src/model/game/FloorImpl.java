@@ -121,18 +121,6 @@ public class FloorImpl implements Floor {
      * {@inheritDoc}
      */
     @Override
-    public void changeRoom(final Integer index) {
-        if (this.rooms.stream().filter(r -> r.getIndex() == index).count() != 1) {
-            throw new IllegalArgumentException("Room not found");
-        }
-        this.activeRoomIndex = index;
-        changedRoom = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Set<Room> getRooms() {
         return new LinkedHashSet<>(this.rooms);
     }
@@ -285,6 +273,7 @@ public class FloorImpl implements Floor {
         getActiveRoom().calculateCollision();
         getActiveRoom().updateEntityList();
         debug();
+        System.out.println("updating");
     }
 
     /**
@@ -301,7 +290,6 @@ public class FloorImpl implements Floor {
         this.rooms.get(location).updateEntityList();
         this.rooms.get(destination).insertEntity(e);
         this.rooms.get(destination).updateEntityList();
-        
     }
 
     @Override
