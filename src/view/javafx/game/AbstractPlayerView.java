@@ -3,7 +3,6 @@ package view.javafx.game;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.enumeration.BasicMovementEnum;
@@ -35,8 +34,7 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      * @param id the {@link UUID}
      * @param path the path of the sheet of the player
      */
-    AbstractPlayerView(final UUID id, final String path) {
-        super(id);
+    AbstractPlayerView(final String path) {
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);
         bodyIndex.put(BasicMovementEnum.RIGHT, 0);

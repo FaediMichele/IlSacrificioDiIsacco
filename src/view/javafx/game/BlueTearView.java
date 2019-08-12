@@ -4,18 +4,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
-
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import util.SpritesExtractor;
 
 /**
  * View of the tears shot by the player.
  */
-public class BlueTearView extends AbstractEntityView {
+public class BlueTearView extends AbstractTearView {
     private static List<Image> playerTear;
 
     static {
@@ -32,27 +29,12 @@ public class BlueTearView extends AbstractEntityView {
         playerTear = (new SpritesExtractor(img, tears, 2, cols, delta, delta)).extract();
         Collections.reverse(playerTear);
     }
-    private final List<Image> tears;
-    private int index;
 
     /**
-     * 
-     * @param id 
+     * Sets the tears to be blue.
      */
-    public BlueTearView(final UUID id) {
-        super(id);
-        tears = BlueTearView.playerTear;
+    public BlueTearView() {
+        super(playerTear);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void draw(final GraphicsContext gc) {
-        gc.drawImage(this.tears.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
-        index += 1;
-        if (index >= this.tears.size() && super.getGameView().isPresent()) {
-            super.getGameView().get().removeEntity(this);
-        }
-    }
 }

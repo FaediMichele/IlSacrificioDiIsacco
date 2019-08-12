@@ -1,6 +1,5 @@
 package controller;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
@@ -77,8 +76,8 @@ public class EntityController {
         this.id = info.getId();
         this.entityName = info.getEntityName();
         final Class<? extends EntityView> classEntity = ENTITY_MAP.get(this.entityName);
-        final Constructor<? extends EntityView> constructor = classEntity.getConstructor(UUID.class);
-        this.entityView = (EntityView) constructor.newInstance(id);
+        //final Constructor<? extends EntityView> constructor = classEntity.getConstructor();
+        this.entityView = (EntityView) classEntity.newInstance();
         this.entityView.setGameView(gameView);
         this.entityView.appear(null);
     }

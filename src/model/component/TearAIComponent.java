@@ -12,7 +12,7 @@ import util.EventListener;
  */
 public class TearAIComponent extends AbstractAIComponent {
 
-    private static final double DEFAULT_TEAR_LIFETIME = 2000000;
+    private static final double DEFAULT_TEAR_LIFETIME = 200;
     private final double lifetime;
     private final int angle;
     private double time;
@@ -85,7 +85,7 @@ public class TearAIComponent extends AbstractAIComponent {
         time += deltaTime;
         if (time > lifetime) {
             getEntity().getRoom().deleteEntity(this.getEntity());
-            getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
+            getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         } else {
             this.moveUpdate();
         }

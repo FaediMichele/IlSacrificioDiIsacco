@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javafx.scene.image.Image;
@@ -36,11 +35,9 @@ public class GaperView extends IsaacView {
 
     /**
      * Base constructor, initilizes the indexes.
-     * 
-     * @param id the {@link UUID}
      */
-    public GaperView(final UUID id) {
-        super(id);
+    public GaperView() {
+        super();
         gaperFaceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprites);
         gaperFaceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprites);
         gaperFaceSprites.put(BasicMovementEnum.UP, super.getFaceSprites().get(BasicMovementEnum.UP));

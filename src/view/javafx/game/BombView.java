@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -55,10 +54,8 @@ public class BombView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes.
-     * @param id 
      */
-    public BombView(final UUID id) {
-        super(id);
+    public BombView() {
         this.triggeredIndex = 0;
         this.explosionIndex = 0;
     }
@@ -71,9 +68,7 @@ public class BombView extends AbstractEntityView {
         if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.TRIGGERED)) {
             gc.drawImage(triggeredBombSprite.get(triggeredIndex), super.getX(), super.getY(), super.getHeight(), super.getWidth());
             triggeredIndex = (triggeredIndex + 1) % triggeredBombSprite.size();
-            System.out.println(super.getHeight());
         } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
-            System.out.println(super.getHeight());
             gc.drawImage(explosionBombSprite.get(explosionIndex), super.getX() /*-this.getWidth()*/, super.getY() /*-this.getHeight() * 2*/, super.getHeight() /* *3 */, super.getWidth() /* *3 */);
             explosionIndex += 1;
             if (explosionIndex >= explosionBombSprite.size()) {

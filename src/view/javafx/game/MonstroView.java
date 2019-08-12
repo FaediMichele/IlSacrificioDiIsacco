@@ -3,7 +3,6 @@ package view.javafx.game;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +15,7 @@ import util.SpritesExtractor;
 */
 public class MonstroView extends AbstractEntityView {
     private static List<Image> monstroSprite;
-    private int index;
+    private int index = 0;
 
     static {
         BufferedImage img = null;
@@ -30,15 +29,6 @@ public class MonstroView extends AbstractEntityView {
         final int monstros = 9;
         final int cols = 5;
         monstroSprite = (new SpritesExtractor(img, monstros, 2, cols, width, height)).extract();
-    }
-
-    /**
-     * Base constructor, initilizes the index.
-     * @param id 
-     */
-    public MonstroView(final UUID id) {
-        super(id);
-        index = 0;
     }
 
     /**

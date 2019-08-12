@@ -2,7 +2,6 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -34,23 +33,6 @@ public class DoorView extends AbstractEntityView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 
-     * @param id the {@link UUID}
-     * @param gv {@link GameView}
-     */
-    public DoorView(final UUID id, final GameViewImpl gv) {
-        super(id, gv);
-    }
-
-    /**
-     * 
-     * @param id the {@link UUID}
-     */
-    public DoorView(final UUID id) {
-        super(id);
     }
 
     /**
