@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
 
-import model.component.BodyComponent;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
@@ -56,7 +55,7 @@ public class GameController {
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
-     * @throws IOException
+     * @throws IOException 
      */
     public GameController(final GameView gameView, final PlayerEnum player, final String game)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
@@ -198,7 +197,7 @@ public class GameController {
      * 
      * @param plEnumMenu .
      * @return .
-     * @throws ClassNotFoundException
+     * @throws ClassNotFoundException 
      */
     public static DataPlayer getDataPlayer(final PlayerEnum plEnumMenu) throws ClassNotFoundException {
         return FactoryPlayersUtil.getDataPlayer(plEnumMenu);
