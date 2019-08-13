@@ -60,13 +60,18 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                 //set body component
                 BodyComponent body = this.getEntity().getComponent(BodyComponent.class).get();
 //                Position positionBefore = body.getPosition();
+                System.out.println(body.getPosition());
                 body.scaleDimension(explosionScale);
-//                Position positionScale = body.getPosition();
-//                positionScale.setX(positionScale.getX() - ((body.getWidth() / 2) 
-//                                                            - body.getWidth() / (this.explosionScale * 2)));
-//                positionScale.setY(positionScale.getX() - ((body.getHeight() / 2) 
-//                        - body.getHeight() / (this.explosionScale * 2)));
-//                body.setPosition(positionScale);
+                Position positionScale = body.getPosition();
+                final double width1 = body.getWidth() / (this.explosionScale * 2);
+                final double width2 = body.getWidth() / 2;
+                final double height1 = body.getHeight() / (this.explosionScale * 2);
+                final double height2 = body.getHeight() / 2;
+                //System.out.println(height1 + " " + height2 + " " + width1 + " " + width2);
+                positionScale.setX(positionScale.getX() - width2 + width1);
+                positionScale.setY(positionScale.getY() - height2 + height1);
+                body.setPosition(positionScale);
+                System.out.println(body.getPosition());
 
 //                body.setPosition(new Position(body.getPosition().getX() - 40, 
 //                                              body.getPosition().getY() - 40, 0.0));
