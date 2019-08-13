@@ -20,10 +20,10 @@ import util.EventListener;
 public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
     private static final double DEFAULT_LIFE_TIME = 1000;
     private static final double DEFAULT_SPEED = 10.0;
-    private final double tearRate = 100;
+    private static final double TEAR_RATE = 100;
     private double damage;
     private double lifeTime;
-    private double time = tearRate;
+    private double time = TEAR_RATE;
     private final EntityEnum nameTear;
     /**
      * Basic constructor that generates a tear when requested.

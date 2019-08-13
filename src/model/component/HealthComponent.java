@@ -1,8 +1,10 @@
 package model.component;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +35,7 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     public HealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
-        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity())).collect(Collectors.toList());
+        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity(), 1)).collect(Collectors.toList());
         if ((int) Math.ceil(defaultHearts) <= MAX_HEARTS && defaultHearts - (int) Math.floor(defaultHearts) != 0) {
             this.hearts.add(new SimpleHeart(this.getEntity(), defaultHearts - (int) Math.floor(defaultHearts)));
         }
@@ -105,13 +107,37 @@ public class HealthComponent extends AbstractComponent<HealthComponent> {
     /**
      * Adds an heart to the list (probably the entity captured it).
      * 
-     * @param h the heart
+     * @param heart the heart
      * @return true if the operation was successful false otherwise.
      */
-    public boolean addHeart(final Heart h) {
+    public boolean addHeart(final Heart heart) {
         if (this.hearts.size() < MAX_HEARTS) {
-            this.hearts.add(h);
-            return true;
+            final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColor().equals(h.getColor())).collect(Collectors.toList());
+            if (heartsOfSameKind.isEmpty()) {
+                this.hearts.add(heart);
+                return true;
+            }
+            final boolean checkMaxHearts = ((heart.getMaxHearts().isPresent() && heartsOfSameKind.size() < heart.getMaxHearts().get()) 
+                    || !heart.getMaxHearts().isPresent());
+                final Optional<Heart> lastHeart = heartsOfSameKind.stream().filter(h -> h.getValue() != h.getMaxValue()).findAny();
+                if (lastHeart.isPresent()) {
+                    final double remainingValue = lastHeart.get().addValue(heart.getValue());
+                    if (remainingValue != 0 && checkMaxHearts) {
+                        final Class<? extends Heart> heartClass = heart.getClass();
+                        try {
+                            this.hearts.add(heartClass.getConstructor(Entity.class, double.class)
+                                                      .newInstance(this.getEntity(), remainingValue));
+                        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else if (checkMaxHearts) {
+                    this.hearts.add(heart);
+                } else {
+                    return false;
+                }
+                return true;
         }
         return false;
     }

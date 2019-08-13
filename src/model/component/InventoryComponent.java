@@ -81,7 +81,6 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public boolean addThing(final Entity thing) {
         if (this.thingsOfThisKind(thing.getClass()) < MAX_NUMBER_FOR_EACH_ITEM) {
             this.things.add(thing);
-           // this.getEntity().getStatusComponent().setStatus(new Pair<Integer, String>(1, "pick up"));
             return true;
         }
         return false;

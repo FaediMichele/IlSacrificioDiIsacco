@@ -46,18 +46,20 @@ public class FlyAIComponent extends AbstractComponent<FlyAIComponent> {
         if (entitys == null) {
             return;
         }
-        final Optional<? extends Entity> isaac = entitys.stream().filter(i -> i.getClass().equals(Player.class)).findAny();
-        if (!isaac.isPresent()) {
+        final Optional<? extends Entity> player = entitys.stream().filter(i -> i.getClass().equals(Player.class)).findAny();
+        if (!player.isPresent()) {
             return;
         }
-        final BodyComponent isaacBody = isaac.get().getComponent(BodyComponent.class).get();
-        if (isaacBody == null) {
+        final BodyComponent playerBody = player.get().getComponent(BodyComponent.class).get();
+        if (playerBody == null) {
             return;
         }
         final BodyComponent myBody = this.getEntity().getComponent(BodyComponent.class).get();
-        final Double diffX = isaacBody.getPosition().getZ() - myBody.getPosition().getZ();
-        final Double diffY = isaacBody.getPosition().getY() - myBody.getPosition().getY();
-        this.angle = Math.atan2(diffX, diffY);
+
+        final Double diffX = playerBody.getPosition().getX() - myBody.getPosition().getX();
+        final Double diffY = playerBody.getPosition().getY() - myBody.getPosition().getY();
+
+        this.angle = Math.atan2(diffY, diffX) * 180.0 / Math.PI;
     }
 
     /**
