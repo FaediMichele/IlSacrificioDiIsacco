@@ -110,6 +110,7 @@ public class GameController {
                     final double heightMolti = gameView.getHeight()
                             / gameWord.getActiveFloor().getActiveRoom().getHeight();
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
+                        System.out.println(gameWord.getActiveFloor().getRooms().indexOf(gameWord.getActiveFloor().getActiveRoom()));
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {

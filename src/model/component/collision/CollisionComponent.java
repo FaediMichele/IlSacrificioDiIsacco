@@ -6,7 +6,6 @@ import model.component.AbstractComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.entity.Entity;
-import model.enumeration.BasicStatusEnum;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import util.EventListener;
@@ -18,9 +17,6 @@ import util.EventListener;
  */
 
 public class CollisionComponent extends AbstractComponent {
-
-    private static final double WAIT_TIME = 500;
-    private double time;
     /**
      * Default CollisionComponent constructor.
      * 
@@ -28,7 +24,6 @@ public class CollisionComponent extends AbstractComponent {
      */
     public CollisionComponent(final Entity entity) {
         super(entity);
-        time = 0;
         this.registerListener(new EventListener<CollisionEvent>() {
             @Override
             @Subscribe
@@ -46,7 +41,6 @@ public class CollisionComponent extends AbstractComponent {
      */
     public CollisionComponent(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
         super(entity);
-        time = 0;
         eventListeners.forEach(e -> this.registerListener(e));
     }
 
@@ -80,20 +74,15 @@ public class CollisionComponent extends AbstractComponent {
         }
 
         if (sourceMentaliy.isDamageableByMe(myMentality.getClass()) && myMentality.canHurtMe(sourceMentaliy.getClass())) {
-                if (time >= WAIT_TIME) {
-                    getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
-                    time = 0;
-                } else {
-                    this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
-                }
+                this.damage(event);
             }
         }
 
     /**
-     * {@inheritDoc}
+     * Posts the DamageEvent.
+     * @param event the CollisionEvent
      */
-    @Override
-    public void update(final Double deltaTime) {
-        this.time += deltaTime;
+    protected void damage(final CollisionEvent event) {
+        getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
     }
 }
