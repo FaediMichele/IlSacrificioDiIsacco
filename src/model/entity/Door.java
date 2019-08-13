@@ -17,7 +17,7 @@ import util.Pair;
 public class Door extends AbstractStaticEntity {
     private static final Double DEFAULTZ = 0.0;
     private static final Double DEFAULTSIZE = 40.0;
-    private static final Double DEFAULTSTROKE = 30.0;
+    private static final Double DEFAULTSTROKE = 10.0;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.DOOR;
 
 

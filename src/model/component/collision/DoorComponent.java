@@ -46,19 +46,21 @@ public class DoorComponent extends LockCollisionComponent {
         switch ((BasicMovementEnum) otherDoor.getStatusComponent().getMove()) {
             case DOWN:
                 eBody.setPosition(new Position(otherBody.getPosition().getX() + otherBody.getWidth() / 2 - eBody.getWidth() / 2,
-                        otherBody.getPosition().getY() - eBody.getHeight() - DISTANCE, eBody.getPosition().getZ()));
+                        otherBody.getPosition().getY() + otherBody.getHeight() + DISTANCE, eBody.getPosition().getZ()));
+                System.out.println("SOTTO");
                 break;
             case LEFT:
-                eBody.setPosition(new Position(otherBody.getPosition().getX() + eBody.getWidth() + DISTANCE,
+                eBody.setPosition(new Position(otherBody.getPosition().getX() + otherBody.getWidth() + DISTANCE,
                         otherBody.getPosition().getY() - otherBody.getHeight() / 2 + eBody.getHeight(), eBody.getPosition().getZ()));
                 break;
             case RIGHT:
                 eBody.setPosition(new Position(otherBody.getPosition().getX() - eBody.getWidth() - DISTANCE,
-                        otherBody.getPosition().getY() - otherBody.getHeight() / 2 + eBody.getHeight() / 2, eBody.getPosition().getZ()));
+                        otherBody.getPosition().getY() + otherBody.getHeight() / 2 - eBody.getHeight() / 2, eBody.getPosition().getZ()));
                 break;
             case UP:
                 eBody.setPosition(new Position(otherBody.getPosition().getX() + otherBody.getWidth() / 2 - eBody.getWidth() / 2,
-                        otherBody.getPosition().getY() + otherBody.getHeight() + DISTANCE, eBody.getPosition().getZ()));
+                        otherBody.getPosition().getY() - eBody.getHeight() - DISTANCE, eBody.getPosition().getZ()));
+                System.out.println("SOPRA");
                 break;
             default:
                 throw new IllegalStateException();
