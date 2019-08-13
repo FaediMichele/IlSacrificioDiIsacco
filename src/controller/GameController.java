@@ -107,14 +107,12 @@ public class GameController {
                 while (!stoped) {
                     sleep(TIMETOSLEEP);
                     gameWord.update(TIMETOSLEEP);
-                    gameWord.getEntityInformation().stream().filter(i -> i.getEntityName() == BasicEntityEnum.WALL).collect(Collectors.toList()).forEach(w -> System.out.println(w.getPosition()));
                     // Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth()
                             / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight()
                             / gameWord.getActiveFloor().getActiveRoom().getHeight();
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
-                        System.out.println(gameWord.getActiveFloor().getRooms().indexOf(gameWord.getActiveFloor().getActiveRoom()));
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {

@@ -59,7 +59,6 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
             if (this.timePassed > this.timeBeforeExplodes && !this.exploded) {
                 //set body component
                 final BodyComponent body = this.getEntity().getComponent(BodyComponent.class).get();
-                System.out.println(body.getPosition());
                 body.scaleDimension(explosionScale);
                 final Position positionScale = body.getPosition();
                 final double width1 = body.getWidth() / (this.explosionScale * 2);
