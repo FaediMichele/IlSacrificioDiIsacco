@@ -72,5 +72,10 @@ public enum Command {
     /**
      * The command to make the options menu appear.
      */
-    OPTIONS 
+    OPTIONS,
+
+    /**
+     * The command for the full screen.
+     */
+    FULLSCREEN
 }

@@ -1,8 +1,10 @@
 package controller.menu;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import util.Command;
 import util.Lambda;
 import view.interfaces.GameSelectionView;
 import view.javafx.menu.GameSelectionViewImpl;
@@ -30,6 +32,17 @@ public class GameSubMenuSelection extends SubMenuSelection {
         add(game);
         add(new SubMenuOption(this));
         gmv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void input(final Set<Command> comms) {
+        super.input(comms);
+        if (comms.contains(Command.FULLSCREEN)) {
+            gmv.changeFullScreen();
+        }
     }
 
     @Override

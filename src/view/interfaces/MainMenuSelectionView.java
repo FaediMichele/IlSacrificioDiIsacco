@@ -41,4 +41,9 @@ public interface MainMenuSelectionView {
      * @param paneOfSubMenu the sub menu panes.
      */
     void setBind(List<Object> paneOfSubMenu);
+
+    /**
+     * Set the window at full screen or windowed.
+     */
+    void changeFullScreen();
 }
