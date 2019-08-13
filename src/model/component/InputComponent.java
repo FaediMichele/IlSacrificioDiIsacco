@@ -55,12 +55,16 @@ public class InputComponent extends AbstractComponent {
                     break;
                 case ARROW_DOWN:
                     getEntity().postEvent(new TearShotEvent(getEntity(), 270));
+                    break;
                 case ARROW_UP:
                     getEntity().postEvent(new TearShotEvent(getEntity(), 90));
+                    break;
                 case ARROW_LEFT:
                     getEntity().postEvent(new TearShotEvent(getEntity(), 180));
+                    break;
                 case ARROW_RIGHT:
                     getEntity().postEvent(new TearShotEvent(getEntity(), 0));
+                    break;
                 case BOMB:
                     if (!this.bombUsed) {
                         getEntity().postEvent(new UseThingEvent(getEntity(), Bomb.class));
