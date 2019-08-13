@@ -6,10 +6,9 @@
             <Rock X="190" Y="100"/>
             <SimplePickupableHeart X="200" Y="200"/>
             <BlackPickupableHeart X="100" Y="200"/>
-            <Key X="200" Y="150"/>
+            <Key X="200" Y="200"/>
             <Bomb X="120" Y="150"/>
             <Bomb X="200" Y="150"/>
-            <FlyEnemy X="10" Y="10"/>
         </Entities>
     </Room1>
     <Room2 background="/gameimgs/basement_background1_640x344.png">
@@ -21,7 +20,6 @@
             <Rock X="330" Y="100"/>
             <Bomb X="120" Y="150"/>
             <Bomb X="200" Y="150"/>
-            <FlyEnemy X="300" Y="150"/>
         </Entities>
     </Room2>
      <Room3 background="/gameimgs/basement_background1_640x344.png">
