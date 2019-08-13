@@ -5,6 +5,7 @@ import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.PsychoMentalityComponent;
 import model.entity.Entity;
 import model.enumeration.BasicStatusEnum;
+import model.util.Position;
 
 /**
  * Collectible Component of the bomb: how the bomb have to act when it's
