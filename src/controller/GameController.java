@@ -8,10 +8,12 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicPlayerEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
@@ -34,8 +36,8 @@ import view.javafx.game.RoomView;
  *
  */
 public class GameController {
-    private static final double PADDING_X_MAP = 69;
-    private static final double PADDING_Y_MAP = 90;
+    private static final double PADDING_X_MAP = 0;
+    private static final double PADDING_Y_MAP = 0;
     private static final long TIMETOSLEEP = 50;
 
     @NotEquals
@@ -52,10 +54,10 @@ public class GameController {
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player   .
      * @param game     .
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     * @throws IOException 
+     * @throws ClassNotFoundException .
+     * @throws IllegalAccessException .
+     * @throws InstantiationException .
+     * @throws IOException .
      */
     public GameController(final GameView gameView, final PlayerEnum player, final String game)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
@@ -106,16 +108,14 @@ public class GameController {
             try {
                 while (!stoped) {
                     sleep(TIMETOSLEEP);
-                    if (!gameWord.update(TIMETOSLEEP)) {
-                        System.out.println("Game should over"); // TODO
-                    } 
                     gameWord.update(TIMETOSLEEP);
+                    gameWord.getEntityInformation().stream().filter(i -> i.getEntityName() == BasicEntityEnum.WALL).collect(Collectors.toList()).forEach(w -> System.out.println(w.getPosition()));
                     // Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth()
                             / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight()
                             / gameWord.getActiveFloor().getActiveRoom().getHeight();
-                    final double heightAdd = gameView.getHeight() - PADDING_Y_MAP;
+                    final double heightAdd = 0 - PADDING_Y_MAP;
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
@@ -129,28 +129,38 @@ public class GameController {
                             if (i.getMove() == BasicMovementEnum.UP) {
                                 final double minusY = 10;
                                 final double addX = 0;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX,
+                                        heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.RIGHT) {
                                 final double minusY = 20;
                                 final double addX = 5;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX,
+                                        heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.DOWN) {
                                 final double addY = 25;
                                 final double addX = 0;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() + addY, i.getPosition().getZ()));
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX,
+                                        heightAdd - i.getPosition().getY() + addY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.LEFT) {
                                 final double minusX = 30;
                                 final double minusY = 20;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() - minusX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() - minusX,
+                                        heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else {
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(),
+                                        heightAdd + i.getPosition().getY(), i.getPosition().getZ()));
                             }
                             final double add = 20;
-                            i.setWidth((i.getWidth() + add) * widthMolti).setHeight((i.getHeight() + add) * heightMolti);
+                            i.setWidth((i.getWidth() + add) * widthMolti)
+                                    .setHeight((i.getHeight() + add) * heightMolti);
                         } else {
                             i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
-                                    .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(),
-                                            heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                                    .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY(), i.getPosition().getZ()));
+                            if (i.getEntityName() == BasicPlayerEnum.ISAAC) {
+                                System.out.println("Y model " + i.getPosition().getY());
+                                System.out.println("Y view " + (gameView.getHeight() - i.getPosition().getY()));
+                                System.out.println("Canvas height " + gameView.getHeight());
+                            }
                         }
 
                     }).peek(st -> {
@@ -172,8 +182,7 @@ public class GameController {
                     });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s instanceof BombStatisticView).findAny().get(),
-                            stats.getBombs());
+                            .filter(s -> s instanceof BombStatisticView).findAny().get(), stats.getBombs());
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
                             .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
                     gameView.setHeartsStatistic(
@@ -201,7 +210,7 @@ public class GameController {
      * 
      * @param plEnumMenu .
      * @return .
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException .
      */
     public static DataPlayer getDataPlayer(final PlayerEnum plEnumMenu) throws ClassNotFoundException {
         return FactoryPlayersUtil.getDataPlayer(plEnumMenu);
