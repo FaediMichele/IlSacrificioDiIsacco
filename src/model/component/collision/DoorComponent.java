@@ -3,6 +3,7 @@ package model.component.collision;
 import model.component.BodyComponent;
 import model.entity.Entity;
 import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicStatusEnum;
 import model.events.DoorChangeEvent;
 import model.util.Position;
 /**
@@ -21,12 +22,15 @@ public class DoorComponent extends LockCollisionComponent {
      * @param locationIndex The {@link Room} where the player is
      * @param destinationIndex index of the room
      * @param entity Entity that possess the component
+     * @param status the status of the door.
      */
-    public DoorComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex) {
+    public DoorComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex,
+            final BasicStatusEnum status) {
         super(entity, false);
         this.hasPlayerPassed = false;
         this.location = locationIndex;
         this.destination = destinationIndex;
+        getEntity().getStatusComponent().setStatus(status);
     }
 
     /**

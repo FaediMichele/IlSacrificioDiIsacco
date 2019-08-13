@@ -42,7 +42,7 @@ public class Tear extends AbstractMovableEntity {
             .attachComponent(new BodyComponent(this, positions, HEIGHT, WIDTH, 0))
             .attachComponent(new LifeTimeComponent(this, lifetime));
         moveC.move(angle);
-        moveC.move(((Position) movementPlayer).clone());
+        moveC.move(((Position) movementPlayer).getClone());
         this.name = name;
     }
 

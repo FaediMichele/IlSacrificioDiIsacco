@@ -63,7 +63,7 @@ public class Position extends Triplet<Double, Double, Double> {
      * Get a new position with previous data.
      * @return a new position.
      */
-    public Position clone() {
+    public Position getClone() {
         return new Position(getX(), getY(), getZ());
     }
 }
