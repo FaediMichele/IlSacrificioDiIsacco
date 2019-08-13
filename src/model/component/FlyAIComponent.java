@@ -28,6 +28,9 @@ public class FlyAIComponent extends AbstractComponent {
             @Override
             @Subscribe
             public void listenEvent(final CollisionEvent event) {
+                /*if (event.getSourceEntity().getClass().equals(Player.class)) {
+                    getEntity().getRoom().deleteEntity(getEntity());
+                }*/
                 calculateAngle();
             }
         });
