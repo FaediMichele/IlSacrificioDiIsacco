@@ -8,7 +8,10 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
+
+import model.component.BodyComponent;
 import model.entity.FactoryPlayersUtil;
+import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -48,14 +51,15 @@ public class GameController {
 
     /**
      * @param gameView is the {@link GameView} in which the Game Controller operates
-     * @param player .
-     * @param game .
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     * @throws IOException 
+     * @param player   .
+     * @param game     .
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws IOException
      */
-    public GameController(final GameView gameView, final PlayerEnum player, final String game) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
+    public GameController(final GameView gameView, final PlayerEnum player, final String game)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         this.gameView = gameView;
         this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
         this.stoped = false;
@@ -75,7 +79,7 @@ public class GameController {
      * {@inheritDoc}
      */
     public void start() {
-       // super.run();
+        // super.run();
         this.stoped = false;
         this.gameloop.start();
     }
@@ -84,9 +88,10 @@ public class GameController {
      * {@inheritDoc}
      */
     public void stop() {
-      // super.stop();
-       this.stoped = true;
+        // super.stop();
+        this.stoped = true;
     }
+
     /**
      * 
      * Is thread for game loop for game.
@@ -103,56 +108,65 @@ public class GameController {
                 while (!stoped) {
                     sleep(TIMETOSLEEP);
                     gameWord.update(TIMETOSLEEP);
-                    //Se il Player è morto -> gameView.gameOver()
-                    final double widthMolti = gameView.getWidth() 
-                                               / gameWord.getActiveFloor().getActiveRoom().getWidth();
-                    final double heightMolti = gameView.getHeight() 
-                                               / gameWord.getActiveFloor().getActiveRoom().getHeight();
+                    // Se il Player è morto -> gameView.gameOver()
+                    final double widthMolti = gameView.getWidth()
+                            / gameWord.getActiveFloor().getActiveRoom().getWidth();
+                    final double heightMolti = gameView.getHeight()
+                            / gameWord.getActiveFloor().getActiveRoom().getHeight();
                     final double heightAdd = gameView.getHeight() - PADDING_Y_MAP;
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
-                        final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
+                        final EntityInformation disappear = new EntityInformation()
+                                .setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {
-                                                         x.update(disappear);
-                                                      });
+                            x.update(disappear);
+                        });
                         entityControllers.clear();
                     }
-                    gameWord.getEntityInformation()
-                            .stream()
-                            .peek(i -> 
-                                i.setWidth(i.getWidth() * widthMolti)
-                                 .setHeight(i.getHeight() * heightMolti)
-                                 .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), 
-                                         heightAdd - i.getPosition().getY(), 
-                                                           i.getPosition().getZ()))
-                                 )
-                            .peek(st -> {
-                                    if (!entityControllers.containsKey(st.getId())) {
-                                        try {
-                                            entityControllers.put(st.getId(), new EntityController(st, gameView));
-                                        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
-                                                | InstantiationException | IllegalAccessException
-                                                | IllegalArgumentException | InvocationTargetException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                })
-                            .forEach(st -> {
-                                    entityControllers.get(st.getId()).update(st);
-                                    if (st.getStatus().equals(BasicStatusEnum.DISAPPEAR) || st.getStatus().equals(BasicStatusEnum.DEAD)) {
-                                        entityControllers.remove(st.getId());
-                                    }
-                                });
+                    gameWord.getEntityInformation().stream().peek(i -> {
+                        if (i.getEntityName() == BasicEntityEnum.DOOR) {
+                            if (i.getMove() == BasicMovementEnum.UP) {
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                            } else if (i.getMove() == BasicMovementEnum.RIGHT) {
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                            } else if (i.getMove() == BasicMovementEnum.DOWN) {
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                            } else {
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                            }
+                            i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti);
+                        } else {
+                            i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
+                                    .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(),
+                                            heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                        }
+
+                    }).peek(st -> {
+                        if (!entityControllers.containsKey(st.getId())) {
+                            try {
+                                entityControllers.put(st.getId(), new EntityController(st, gameView));
+                            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
+                                    | InstantiationException | IllegalAccessException | IllegalArgumentException
+                                    | InvocationTargetException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).forEach(st -> {
+                        entityControllers.get(st.getId()).update(st);
+                        if (st.getStatus().equals(BasicStatusEnum.DISAPPEAR)
+                                || st.getStatus().equals(BasicStatusEnum.DEAD)) {
+                            entityControllers.remove(st.getId());
+                        }
+                    });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(BombStatisticView.class))
-                            .findAny().get(), stats.getBombs());
+                            .filter(s -> s.getClass().equals(BombStatisticView.class)).findAny().get(),
+                            stats.getBombs());
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(KeyStatisticView.class))
-                            .findAny().get(), stats.getKeys());
-                    gameView.setHeartsStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(HeartStatisticView.class))
-                            .map(s -> HeartStatisticView.class.cast(s))
-                            .findAny().get(), stats.getHearts());
+                            .filter(s -> s.getClass().equals(KeyStatisticView.class)).findAny().get(), stats.getKeys());
+                    gameView.setHeartsStatistic(
+                            gameView.getStatistics().stream().filter(s -> s.getClass().equals(HeartStatisticView.class))
+                                    .map(s -> HeartStatisticView.class.cast(s)).findAny().get(),
+                            stats.getHearts());
                     gameView.draw();
                     gameView.updateEntity();
                     gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
@@ -174,7 +188,7 @@ public class GameController {
      * 
      * @param plEnumMenu .
      * @return .
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public static DataPlayer getDataPlayer(final PlayerEnum plEnumMenu) throws ClassNotFoundException {
         return FactoryPlayersUtil.getDataPlayer(plEnumMenu);
