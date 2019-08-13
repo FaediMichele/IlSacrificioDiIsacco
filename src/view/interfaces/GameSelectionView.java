@@ -39,4 +39,9 @@ public interface GameSelectionView {
      * @param previous if the previous selector is this or not.
      */
     void changeSelector(boolean previous);
+
+    /**
+     * Set the window at full screen or windowed.
+     */
+    void changeFullScreen();
 }

@@ -136,4 +136,12 @@ public class GameSelectionViewImpl implements GameSelectionView {
             p.scaleXProperty().bind(s.widthProperty().multiply(SCALEMULTIPLIER).divide(DIMENSIONSCREENTESTX));
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void changeFullScreen() {
+        ViewGetterUtil.switchFullScreen();
+    }
 }
