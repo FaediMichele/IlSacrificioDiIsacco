@@ -169,10 +169,10 @@ public class GameController {
                     });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(BombStatisticView.class)).findAny().get(),
+                            .filter(s -> s instanceof BombStatisticView).findAny().get(),
                             stats.getBombs());
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(KeyStatisticView.class)).findAny().get(), stats.getKeys());
+                            .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
                     gameView.setHeartsStatistic(
                             gameView.getStatistics().stream().filter(s -> s.getClass().equals(HeartStatisticView.class))
                                     .map(s -> HeartStatisticView.class.cast(s)).findAny().get(),

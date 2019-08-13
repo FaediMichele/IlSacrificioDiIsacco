@@ -75,6 +75,7 @@ public class BombView extends AbstractEntityView {
             explosionIndex += 1;
             if (explosionIndex >= explosionBombSprite.size()) {
                 explosionIndex -= 4;
+                System.out.println("sto riesplodendo");
             }
         } else {
             gc.drawImage(bombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
