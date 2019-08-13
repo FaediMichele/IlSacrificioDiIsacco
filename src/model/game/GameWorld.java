@@ -64,7 +64,7 @@ public interface GameWorld {
      * 
      * @param deltaTime the time that has passed from the last call.
      */
-    void update(double deltaTime);
+    boolean update(double deltaTime);
 
     /**
      * Sets the active {@link Floor}.

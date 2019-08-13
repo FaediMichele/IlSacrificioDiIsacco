@@ -22,4 +22,10 @@ public interface SubMenuGameView extends SubMenuView {
      * Show a end game picture.
      */
     void gameOver();
+
+    /**
+     * Create a new Game View.
+     * @return the new Game View.
+     */
+    GameView createGameView();
 }
