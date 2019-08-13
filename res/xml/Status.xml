@@ -11,5 +11,8 @@
         <DISAPPEAR>disappear</DISAPPEAR>
         <FULL>full</FULL>
         <HALF>half</HALF>
+        <LOCKED>locked</LOCKED>
+        <OPEN>open</OPEN>
+        <CLOSED>closed</CLOSED>
     </BasicStatuses>
 </Statuses>

@@ -1,5 +1,7 @@
 package util;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -223,7 +225,9 @@ public final class StaticMethodsUtils {
      * @param attr .
      * @return .
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
     public static <X, Y> Map<X, Y> xmlToMapClass(final String path, final String tag, final String... attr) {
         final Map<X, Y> map = new HashMap<>();
         final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
@@ -258,7 +262,9 @@ public final class StaticMethodsUtils {
      * @param attr .
      * @return .
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
     public static <X, Y> Map<X, Y> xmlToMapMethods(final String path, final String tag, final String... attr) {
         final Map<X, Y> map = new HashMap<>();
         final NodeList nl = StaticMethodsUtils.getDocumentXML(path).getElementsByTagName(tag);
@@ -285,6 +291,7 @@ public final class StaticMethodsUtils {
 
     /**
      * Get the angle between two point in 2 dimensional space.
+     * 
      * @param p1 the first point.
      * @param p2 the second point
      * @return the angle.
@@ -317,10 +324,11 @@ public final class StaticMethodsUtils {
         final String pathEnum = nodeRoot.getAttributes().getNamedItem("path-enum").getTextContent();
         final String tagEntity = plEnu.getValue().substring(pathEnum.length() + 1);
         final Node node = xml.getElementsByTagName(tagEntity).item(0);
-        return new DataPlayer().setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
-                               .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
-                               .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
-                               .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
+        return new DataPlayer()
+                .setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
+                .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
+                .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
+                .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
 
     }
 
@@ -331,8 +339,11 @@ public final class StaticMethodsUtils {
      * @return .
      * @throws ClassNotFoundException 
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static PlayerEnum enumFromViewToModel(final PlayerEnum plEnumMenu, final String pathXml) throws ClassNotFoundException {
+    @SuppressWarnings({
+            "unchecked", "rawtypes"
+    })
+    public static PlayerEnum enumFromViewToModel(final PlayerEnum plEnumMenu, final String pathXml)
+            throws ClassNotFoundException {
         final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
         final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
         final String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();
@@ -340,5 +351,25 @@ public final class StaticMethodsUtils {
         final String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
         final Node node = xml.getElementsByTagName(enumValue).item(0);
         return (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
+    }
+
+    /**
+     * 
+     * @param img the image
+     * @return the new rotated {@link BufferedImage}
+     */
+    public static BufferedImage rotateImageBy90Degrees(final BufferedImage img) {
+
+        final int width = img.getWidth();
+        final int height = img.getHeight();
+
+        final BufferedImage dest = new BufferedImage(height, width, img.getType());
+
+        final Graphics2D graphics2D = dest.createGraphics();
+        graphics2D.translate((height - width) / 2, (height - width) / 2);
+        graphics2D.rotate(Math.PI / 2, height / 2, width / 2);
+        graphics2D.drawRenderedImage(img, null);
+
+        return dest;
     }
 }

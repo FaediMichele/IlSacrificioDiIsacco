@@ -10,5 +10,5 @@ public enum BasicStatusEnum implements StatusEnum {
     /**
      * Basic status for status component.
      */
-    DEFAULT, DEAD, DAMAGING, APPEAR, DISAPPEAR, TRIGGERED, EXPLODED, FULL, HALF, LOCKED
+    DEFAULT, DEAD, DAMAGING, APPEAR, DISAPPEAR, TRIGGERED, EXPLODED, FULL, HALF, LOCKED, OPEN, CLOSED
 }
