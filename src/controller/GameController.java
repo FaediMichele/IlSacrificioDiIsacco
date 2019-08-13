@@ -155,7 +155,7 @@ public class GameController {
                                     .setHeight((i.getHeight() + add) * heightMolti);
                         } else {
                             i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
-                                    .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY(), i.getPosition().getZ()));
+                                    .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
                             if (i.getEntityName() == BasicPlayerEnum.ISAAC) {
                                 System.out.println("Y model " + i.getPosition().getY());
                                 System.out.println("Y view " + (gameView.getHeight() - i.getPosition().getY()));
