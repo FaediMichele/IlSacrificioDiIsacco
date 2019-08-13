@@ -17,12 +17,12 @@ import util.Pair;
  * Implements the walls.
  */
 public class Wall extends AbstractStaticEntity {
-    private static final double DEFAULTTHICKNESS = 30.0;
-    private static final double WIDTH = 1;
-    private static final double HEIGHT = 1;
+    private static final double DEFAULT_WIDTH = 72;
+    private static final double DEFAULT_HEIGHT = 58;
+    private static final double WIDTH = 0;
+    private static final double HEIGHT = 0;
     private static final int WEIGHT = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.WALL;
-
 
     /**
      * Default constructor.
@@ -47,20 +47,26 @@ public class Wall extends AbstractStaticEntity {
     }
 
 
+    /**
+     * 
+     * @param direction 
+     * @param size 
+     * @return first Pair x,y second Pair width, height
+     */
     private Pair<Pair<Double, Double>, Pair<Double, Double>> setPosition(final BasicMovementEnum direction, final Pair<Double, Double> size) {
         switch (direction) {
         case UP:
-            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.2, -DEFAULTTHICKNESS),
-                    new Pair<Double, Double>(size.getX() - 0.4, DEFAULTTHICKNESS));
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.0, 0.0),
+                    new Pair<Double, Double>(size.getX(), DEFAULT_HEIGHT));
         case RIGHT:
-            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(size.getX() - 0.2, 0.3),
-                    new Pair<Double, Double>(DEFAULTTHICKNESS, size.getY() - 0.6));
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(size.getX() - DEFAULT_WIDTH, 0.0),
+                    new Pair<Double, Double>(DEFAULT_WIDTH, size.getY()));
         case DOWN:
-            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.4, size.getY() - 0.2),
-                    new Pair<Double, Double>(size.getX() - 0.2, DEFAULTTHICKNESS));
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.0, size.getY() - DEFAULT_HEIGHT),
+                    new Pair<Double, Double>(size.getX(), DEFAULT_HEIGHT));
         case LEFT:
-            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(-DEFAULTTHICKNESS, 0.4),
-                    new Pair<Double, Double>(DEFAULTTHICKNESS, size.getY() - 0.2));
+            return new Pair<Pair<Double, Double>, Pair<Double, Double>>(new Pair<Double, Double>(0.0, 0.0),
+                    new Pair<Double, Double>(DEFAULT_WIDTH, size.getY()));
         default:
             throw new IllegalArgumentException();
         }
@@ -112,4 +118,17 @@ public class Wall extends AbstractStaticEntity {
         return ENTITY_NAME;
     }
 
+    /**
+     * @return the defaultWidth
+     */
+    public static double getDefaultWidth() {
+        return DEFAULT_WIDTH;
+    }
+
+    /**
+     * @return the defaultHeight
+     */
+    public static double getDefaultHeight() {
+        return DEFAULT_HEIGHT;
+    }
 }
