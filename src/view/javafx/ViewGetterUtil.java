@@ -8,7 +8,7 @@ import javafx.stage.Stage;
  * Class used to get all the JavaFx object in the scene.
  */
 public final class ViewGetterUtil {
-    private static boolean fullScreen = false;
+    private static boolean fullScreen;
     private static Stage stage;
     private static Scene scene;
     private ViewGetterUtil() {

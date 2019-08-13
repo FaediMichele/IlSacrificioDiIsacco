@@ -26,7 +26,7 @@ public class DoorComponent extends LockCollisionComponent {
      */
     public DoorComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex,
             final BasicStatusEnum status) {
-        super(entity, false);
+        super(entity, !status.equals(BasicStatusEnum.OPEN));
         this.location = locationIndex;
         this.destination = destinationIndex;
         getEntity().getStatusComponent().setStatus(status);
@@ -36,7 +36,7 @@ public class DoorComponent extends LockCollisionComponent {
      * {@inheritDoc}.
      */
     @Override
-    protected void afterUnlocks(final Entity entity) {
+    public void afterUnlocks(final Entity entity) {
         final BodyComponent eBody = entity.getComponent(BodyComponent.class).get();
         final Entity otherDoor = getEntity().
                 getRoom().getFloor().getRooms()

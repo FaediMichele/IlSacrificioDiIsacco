@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.Optional;
+
 import model.enumeration.HeartEnum;
 
 /**
@@ -34,6 +36,18 @@ public interface Heart {
      * @return actual value of the heart.
      */
     double getValue();
+
+    /**
+     * adds a value to the actual one.
+     * @param addValue the value
+     * @return the value that still needs to be added.
+     */
+    double addValue(double addValue);
+
+    /**
+     * @return the maximum number of hearts of this kind that can be collected
+     */
+    Optional<Double> getMaxHearts();
 
     /**
      * . 

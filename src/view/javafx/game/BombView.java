@@ -29,8 +29,9 @@ public class BombView extends AbstractEntityView {
     static {
         try {
             final int delta = 20;
+            final int deltaY = 22;
             final int x = 6;
-            bombSprite = (new SpritesExtractor(ImageIO.read(BombView.class.getResource("/gameImgs/bomba1.png")), 1, 1, 1, delta, delta, x, 4)).extract().get(0);
+            bombSprite = (new SpritesExtractor(ImageIO.read(BombView.class.getResource("/gameImgs/bomba1.png")), 1, 1, 1, delta, deltaY, x, 4)).extract().get(0);
             triggeredBombSprite = new ArrayList<>();
             triggeredBombSprite.add(bombSprite);
             triggeredBombSprite.add(SwingFXUtils.toFXImage(ImageIO.read(BombView.class.getResource("/gameImgs/bomba2.png")), null));
