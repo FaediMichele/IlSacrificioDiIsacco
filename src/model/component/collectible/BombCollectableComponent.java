@@ -59,7 +59,6 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
             if (this.timePassed > this.timeBeforeExplodes && !this.exploded) {
                 //set body component
                 BodyComponent body = this.getEntity().getComponent(BodyComponent.class).get();
-//                Position positionBefore = body.getPosition();
                 System.out.println(body.getPosition());
                 body.scaleDimension(explosionScale);
                 Position positionScale = body.getPosition();
@@ -67,14 +66,9 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                 final double width2 = body.getWidth() / 2;
                 final double height1 = body.getHeight() / (this.explosionScale * 2);
                 final double height2 = body.getHeight() / 2;
-                //System.out.println(height1 + " " + height2 + " " + width1 + " " + width2);
                 positionScale.setX(positionScale.getX() - width2 + width1);
                 positionScale.setY(positionScale.getY() - height2 + height1);
                 body.setPosition(positionScale);
-                System.out.println(body.getPosition());
-
-//                body.setPosition(new Position(body.getPosition().getX() - 40, 
-//                                              body.getPosition().getY() - 40, 0.0));
                 //change of mentality
                 this.getEntity().detachComponent(this.getEntity().getComponent(AbstractMentalityComponent.class).get());
                 this.getEntity().attachComponent(new PsychoMentalityComponent(this.getEntity()));
@@ -82,10 +76,10 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                 this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
                 this.exploded = true;
             }
-//            if (this.exploded && this.timePassed > this.explosionTime + this.timeBeforeExplodes) {
-//               this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
-//               this.getEntity().getRoom().deleteEntity(this.getEntity());
-//            }
+            if (this.exploded && this.timePassed > this.explosionTime + this.timeBeforeExplodes) {
+               this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
+               this.getEntity().getRoom().deleteEntity(this.getEntity());
+            }
 
         }
     }
