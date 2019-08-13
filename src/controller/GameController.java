@@ -8,13 +8,10 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
-import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import model.entity.FactoryPlayersUtil;
-import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
-import model.enumeration.BasicPlayerEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
@@ -56,6 +53,7 @@ public class GameController {
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player   .
      * @param game     .
+     * @param l lambda when the application ends.
      * @throws ClassNotFoundException .
      * @throws IllegalAccessException .
      * @throws InstantiationException .
@@ -120,6 +118,7 @@ public class GameController {
                     final double heightMolti = gameView.getHeight()
                             / gameWorld.getActiveFloor().getActiveRoom().getHeight();
                     if (gameWorld.isChangeFloor() || gameWorld.getActiveFloor().isChangeRoom()) {
+                        System.out.println(gameWorld.getActiveFloor().getRooms().indexOf(gameWorld.getActiveFloor().getActiveRoom()));
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {

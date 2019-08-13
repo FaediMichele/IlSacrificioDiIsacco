@@ -22,8 +22,7 @@ import util.SpritesExtractor;
 public class BombView extends AbstractEntityView {
     private static Image bombSprite;
     private static List<Image> triggeredBombSprite;
-    private static List<Image> explosionBombSprites;
-    private static Image explodedBombSprite;
+    private static List<Image> explosionBombSprites; 
 
     private int triggeredIndex;
     private int explosionIndex;
@@ -44,7 +43,6 @@ public class BombView extends AbstractEntityView {
             final int cols = 4;
             final LinkedList<Image> explosionSprites = new LinkedList<>((new SpritesExtractor(img, explosions, cols, cols, deltaExplosions, deltaExplosions)).extract());
             explosionBombSprites = explosionSprites.subList(0, explosions - 2);
-            explodedBombSprite = explosionSprites.getLast();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,9 +78,6 @@ public class BombView extends AbstractEntityView {
             if (explosionIndex >= explosionBombSprites.size()) {
                 explosionIndex -= 10;
              }
-        } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DISAPPEAR)) {
-            gc.drawImage(explodedBombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
-            this.disappear(null);
         } else {
             gc.drawImage(bombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
         }
@@ -102,17 +97,5 @@ public class BombView extends AbstractEntityView {
     @Override
     public void triggered(final MovementEnum move) {
         super.setStatus(BasicStatusEnum.TRIGGERED);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void disappear(final MovementEnum move) {
-        if (this.getStatus().isPresent() && this.getStatus().get().equals(BasicStatusEnum.EXPLODED)) {
-            super.setStatus(BasicStatusEnum.DISAPPEAR);
-        } else {
-            super.disappear(move);
-        }
     }
 }

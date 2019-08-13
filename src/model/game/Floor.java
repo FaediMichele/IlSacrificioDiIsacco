@@ -1,7 +1,6 @@
 package model.game;
 
 import java.util.List;
-import java.util.Set;
 
 import model.entity.Entity;
 import util.EventListener;
