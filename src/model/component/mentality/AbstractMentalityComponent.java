@@ -36,6 +36,18 @@ public class AbstractMentalityComponent extends AbstractComponent {
     }
 
     /**
+     * Add the exception of the other mentality to this.
+     * @param other the mentality to get the exception.
+     * @return the mentality
+     */
+    public AbstractMentalityComponent mergeWith(final AbstractMentalityComponent other) {
+        cannotDamage.addAll(other.cannotDamage);
+        cannotHurtMe.addAll(other.cannotHurtMe);
+        cannotCollide.addAll(other.cannotCollide);
+        return this;
+    }
+
+    /**
      * 
      * @param entityMentalities the AbstractMentalityComponent that can no longer
      *                          hurt me

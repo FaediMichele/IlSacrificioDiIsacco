@@ -5,7 +5,7 @@ import java.util.Map;
 import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
-import model.component.ObstacleComponent;
+import model.component.ObstacleMentalityComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
@@ -62,8 +62,8 @@ public class Rock extends AbstractStaticEntity {
     }
 
     private void build(final double x, final double y, final double width, final double height) {
-        this.attachComponent(new NeutralMentalityComponent(this))
-            .attachComponent(new ObstacleComponent(this));
+        this.attachComponent(new ObstacleMentalityComponent(this)
+                .mergeWith(new NeutralMentalityComponent(this)));
         this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), height, width, WEIGHT),
                 new CollisionComponent(this), new StatusComponent(this));
     }

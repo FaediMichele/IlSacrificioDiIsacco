@@ -3,6 +3,7 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collision.MovableCollisionComponent;
+import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 
 /**
@@ -29,6 +30,13 @@ public abstract class AbstractEnemyMovable extends AbstractMovableEntity {
     public AbstractEnemyMovable() {
         super();
         this.attachComponent(new EnemyMentalityComponent(this));
-
+    }
+    /**
+     * Create an enemy with mentality.
+     * @param mentality the mentality to set.
+     */
+    public AbstractEnemyMovable(final AbstractMentalityComponent mentality) {
+        super();
+        this.attachComponent(mentality);
     }
 }
