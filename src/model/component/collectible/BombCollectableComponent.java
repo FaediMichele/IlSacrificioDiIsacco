@@ -75,6 +75,9 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                 this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
                 this.exploded = true;
             }
+            if (this.exploded && this.timePassed <= this.explosionTime + this.timeBeforeExplodes) {
+                this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
+             }
             if (this.exploded && this.timePassed > this.explosionTime + this.timeBeforeExplodes) {
                this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
                this.getEntity().getRoom().deleteEntity(this.getEntity());
