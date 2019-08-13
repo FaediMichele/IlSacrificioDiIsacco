@@ -6,6 +6,7 @@ import model.component.AbstractComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.entity.Entity;
+import model.enumeration.BasicStatusEnum;
 import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import util.EventListener;
@@ -78,10 +79,13 @@ public class CollisionComponent extends AbstractComponent {
             myMentality = new NeutralMentalityComponent(event.getSourceEntity());
         }
 
-        if (time >= WAIT_TIME && sourceMentaliy.isDamageableByMe(myMentality.getClass())
-                    && myMentality.canHurtMe(sourceMentaliy.getClass())) {
-                getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
-                time = 0;
+        if (sourceMentaliy.isDamageableByMe(myMentality.getClass()) && myMentality.canHurtMe(sourceMentaliy.getClass())) {
+                if (time >= WAIT_TIME) {
+                    getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
+                    time = 0;
+                } else {
+                    this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
+                }
             }
         }
 

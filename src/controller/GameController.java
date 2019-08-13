@@ -8,12 +8,9 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
-import java.util.stream.Collectors;
 
 import model.entity.FactoryPlayersUtil;
-import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
-import model.enumeration.BasicPlayerEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
