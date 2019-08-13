@@ -8,7 +8,7 @@ import model.entity.Entity;
 /**
  * This component manages the entity from who can receive damage.
  */
-public class AbstractMentalityComponent extends AbstractComponent<AbstractMentalityComponent> {
+public class AbstractMentalityComponent extends AbstractComponent {
 
     private final Set<Class<? extends AbstractMentalityComponent>> cannotDamage = new HashSet<>();
     private final Set<Class<? extends AbstractMentalityComponent>> cannotHurtMe = new HashSet<>();

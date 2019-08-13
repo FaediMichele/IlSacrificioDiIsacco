@@ -12,7 +12,7 @@ import util.EventListener;
  * This component manages all the movements and actions that the tear must do
  * independently once generated.
  */
-public class TearAIComponent extends AbstractComponent<TearAIComponent> {
+public class TearAIComponent extends AbstractComponent {
 
     /**
      * the listener of this component handles the disappearance of the entity when

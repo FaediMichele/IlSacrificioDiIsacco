@@ -13,7 +13,7 @@ import util.EventListener;
  * Component used for the input.
  *
  */
-public class InputComponent extends AbstractComponent<InputComponent> {
+public class InputComponent extends AbstractComponent {
 
     /**
      * Create a new inputComponent which control the entity.

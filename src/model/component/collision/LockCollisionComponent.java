@@ -26,7 +26,6 @@ public class LockCollisionComponent extends CollisionComponent {
         super(entity);
         this.isLock = status;
         this.registerListener(new EventListener<CollisionEvent>() {
-
             @Subscribe
             @Override
             public void listenEvent(final CollisionEvent event) {
@@ -58,7 +57,7 @@ public class LockCollisionComponent extends CollisionComponent {
      * 
      * @param entity is {@link Entity} who had a collision with the door.
      */
-    protected void unlocks(final Entity entity) {
+    public void unlocks(final Entity entity) {
         this.isLock = false;
     }
 

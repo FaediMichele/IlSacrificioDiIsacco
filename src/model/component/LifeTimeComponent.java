@@ -6,7 +6,7 @@ import model.enumeration.BasicStatusEnum;
 /**
  * Component for entity that have a time to live.
  */
-public class LifeTimeComponent extends AbstractComponent<LifeTimeComponent> {
+public class LifeTimeComponent extends AbstractComponent {
     private double liveTime;
 
     /**

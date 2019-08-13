@@ -7,7 +7,7 @@ import model.entity.Entity;
  * Component of damage that the entity inflicts on other enemy entities.
  *
  */
-public class DamageComponent extends AbstractComponent<DamageComponent> {
+public class DamageComponent extends AbstractComponent {
 
     private final double damage;
 

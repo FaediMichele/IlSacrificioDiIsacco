@@ -16,7 +16,7 @@ import util.EventListener;
  *
  */
 
-public class CollisionComponent extends AbstractComponent<CollisionComponent> {
+public class CollisionComponent extends AbstractComponent {
 
     /**
      * Default CollisionComponent constructor.

@@ -67,6 +67,7 @@ public abstract class AbstractEntity implements Entity {
             detachComponent(getComponent(c.getClass()).get());
         }
         this.componentsMap.put(c.getClass(), c);
+        c.registerAllListener();
         return this;
     }
 

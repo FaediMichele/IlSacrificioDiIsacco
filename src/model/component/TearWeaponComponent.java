@@ -17,13 +17,12 @@ import util.EventListener;
  *
  */
 
-public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> {
+public class TearWeaponComponent extends AbstractComponent {
     private static final double DEFAULT_LIFE_TIME = 1000;
     private static final double DEFAULT_SPEED = 10.0;
-    private final double tearRate = 100;
     private double damage;
     private double lifeTime;
-    private double time = tearRate;
+    private double time;
     private final EntityEnum nameTear;
     /**
      * Basic constructor that generates a tear when requested.
@@ -37,6 +36,7 @@ public class TearWeaponComponent extends AbstractComponent<TearWeaponComponent> 
         this.damage = damage;
         this.lifeTime = DEFAULT_LIFE_TIME;
         this.nameTear = nameTear;
+        time = tearRate;
         this.registerListener(new EventListener<TearShotEvent>() {
             @Override
             @Subscribe

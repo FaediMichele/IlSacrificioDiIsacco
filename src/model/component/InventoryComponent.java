@@ -17,7 +17,7 @@ import util.EventListener;
  * owns.
  */
 
-public class InventoryComponent extends AbstractComponent<InventoryComponent> {
+public class InventoryComponent extends AbstractComponent {
 
     private static final int MAX_NUMBER_FOR_EACH_ITEM = 99;
     private final List<Entity> things;
@@ -30,17 +30,6 @@ public class InventoryComponent extends AbstractComponent<InventoryComponent> {
     public InventoryComponent(final Entity entity) {
         super(entity);
         this.things = new ArrayList<Entity>();
-        this.registerListeners();
-    }
-
-    /**
-     * 
-     * @param entity    to which the component belongs
-     * @param component to be replaced with the new one that is being generated
-     */
-    public InventoryComponent(final Entity entity, final InventoryComponent component) {
-        super(entity, component);
-        this.things = component.getThings();
         this.registerListeners();
     }
 

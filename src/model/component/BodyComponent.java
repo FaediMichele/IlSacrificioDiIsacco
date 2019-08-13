@@ -10,7 +10,7 @@ import util.Triplet;
  * is its dimension and the position.
  */
 
-public class BodyComponent extends AbstractComponent<BodyComponent> {
+public class BodyComponent extends AbstractComponent {
 
     @NotEquals
     private static final Position DEFAULT_POSITION_VALUE = new Position(0.0, 0.0, 0.0);

@@ -1,7 +1,6 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.LockComponent;
 import model.component.collision.DoorComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.enumeration.BasicEntityEnum;
@@ -33,8 +32,7 @@ public class Door extends AbstractStaticEntity {
     public Door(final BasicMovementEnum direction, final Integer location, final Integer destinationIndex, final Pair<Double, Double> roomSize) {
         super();
        this.attachComponent(new DoorComponent(this, location, destinationIndex, BasicStatusEnum.CLOSED))
-                .attachComponent(new NeutralMentalityComponent(this))
-                .attachComponent(new LockComponent(this));
+                .attachComponent(new NeutralMentalityComponent(this));
        this.getStatusComponent().setMove(direction);
        setBody(direction, roomSize);
     }
