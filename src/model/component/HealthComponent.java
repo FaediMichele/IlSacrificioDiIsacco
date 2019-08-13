@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
+import model.enumeration.BasicHeartEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.HeartEnum;
 import model.events.DamageEvent;
@@ -40,6 +41,7 @@ public class HealthComponent extends AbstractComponent {
         if ((int) Math.ceil(defaultHearts) <= MAX_HEARTS && defaultHearts - (int) Math.floor(defaultHearts) != 0) {
             this.hearts.add(new SimpleHeart(this.getEntity(), defaultHearts - (int) Math.floor(defaultHearts)));
         }
+        this.sortHearts();
         this.registListener();
     }
 
@@ -139,9 +141,17 @@ public class HealthComponent extends AbstractComponent {
                 } else {
                     return false;
                 }
+                this.sortHearts();
                 return true;
         }
         return false;
+    }
+
+    private void sortHearts() {
+        LinkedList<Heart> sortedHearts = new LinkedList<>();
+        this.hearts.stream().filter(h -> h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
+        this.hearts.stream().filter(h -> !h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
+        this.hearts = sortedHearts;
     }
     /**
      * The health is damaged, it could loose part of an heart or multiple hearts
