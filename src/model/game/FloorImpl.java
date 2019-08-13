@@ -121,8 +121,8 @@ public class FloorImpl implements Floor {
      * {@inheritDoc}
      */
     @Override
-    public Set<Room> getRooms() {
-        return new LinkedHashSet<>(this.rooms);
+    public List<Room> getRooms() {
+        return this.rooms;
     }
 
     private void generateRooms() {

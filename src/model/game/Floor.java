@@ -1,5 +1,6 @@
 package model.game;
 
+import java.util.List;
 import java.util.Set;
 
 import model.entity.Entity;
@@ -25,7 +26,7 @@ public interface Floor {
      * 
      * @return Set of all the room
      */
-    Set<Room> getRooms();
+    List<Room> getRooms();
 
     /**
      * Update the floor (run a frame).

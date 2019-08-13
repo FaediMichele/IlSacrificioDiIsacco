@@ -78,7 +78,7 @@ public class EntityController {
         final Class<? extends EntityView> classEntity = ENTITY_MAP.get(this.entityName);
         this.entityView = (EntityView) classEntity.newInstance();
         this.entityView.setGameView(gameView);
-        this.entityView.appear(null);
+        gameView.addEntity(entityView);
     }
 
     /**

@@ -117,6 +117,7 @@ public class GameController {
                             / gameWord.getActiveFloor().getActiveRoom().getHeight();
                     final double heightAdd = gameView.getHeight() - PADDING_Y_MAP;
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
+                        System.out.println(gameWord.getActiveFloor().getRooms().indexOf(gameWord.getActiveFloor().getActiveRoom()));
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {

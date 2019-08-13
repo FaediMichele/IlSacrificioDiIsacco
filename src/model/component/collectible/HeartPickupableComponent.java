@@ -80,4 +80,15 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final Double deltaTime) {
+        if (actualValue > 0.5 && actualValue < 1) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.FULL);
+        } else if (actualValue > 0.0 && actualValue <= 0.5) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.HALF);
+        }
+    }
 }
