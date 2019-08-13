@@ -281,7 +281,6 @@ public class FloorImpl implements Floor {
     @Override
     public void changeEntityRoom(final Entity e, final Integer location, final Integer destination) {
         if (e.getClass().equals(Player.class)) {
-            removeDebug();
             eventBus.post(new RoomChangedEvent(rooms.get(location), rooms.get(destination)));
             changedRoom = true;
             activeRoomIndex = destination;
@@ -367,13 +366,6 @@ public class FloorImpl implements Floor {
             r.setStroke(Color.BLUE);
             r.setFill(Color.BLUE);
             Platform.runLater(() -> pn.getChildren().add(r));
-        }
-    }
-    private void removeDebug() {
-        if (pn != null) {
-            Platform.runLater(() -> ((Pane) ViewGetterUtil.getScene().getRoot()).getChildren().remove(pn));
-            //Platform.runLater(() -> pn.getChildren().clear());
-            pn = null;
         }
     }
 }
