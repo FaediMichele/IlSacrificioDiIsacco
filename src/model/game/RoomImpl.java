@@ -16,6 +16,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.component.BodyComponent;
 import model.component.HealthComponent;
 import model.component.StatusComponent;
@@ -246,6 +248,7 @@ public class RoomImpl implements Room {
 
     private void addEventEntity(final Entity e) {
         e.registerListener(new EventListener<DeadEvent>() {
+            @Subscribe
             @Override
             public void listenEvent(final DeadEvent event) {
                 deleteEntity(e);
