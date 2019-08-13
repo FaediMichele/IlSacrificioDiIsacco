@@ -10,6 +10,8 @@ import model.component.FlyAIComponent;
 import model.component.HealthComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
+import model.component.mentality.AbstractMentalityComponent;
+import model.component.mentality.FlyingMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;
@@ -21,8 +23,8 @@ public class FlyEnemy extends AbstractEnemyMovable {
     private static final double WIDTH = 30;
     private static final double HEIGHT = 30;
     private static final int WEIGHT = 5;
-    private static final double DSPEED = 2;
-    private static final double DAMAGE = 1;
+    private static final double DSPEED = 1.5;
+    private static final double DAMAGE = 1.0;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.FLY;
 
     /**
@@ -56,6 +58,8 @@ public class FlyEnemy extends AbstractEnemyMovable {
     }
 
     private void build(final double x, final double y) {
+        this.getComponent(AbstractMentalityComponent.class).get()
+            .mergeWith(new FlyingMentalityComponent(this));
         this.attachComponent(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT))
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))

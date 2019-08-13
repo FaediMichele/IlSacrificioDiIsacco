@@ -18,8 +18,8 @@ import org.w3c.dom.NodeList;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
-import model.component.ObstacleComponent;
 import model.component.StatusComponent;
+import model.component.mentality.ObstacleMentalityComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -221,7 +221,7 @@ public class RoomImpl implements Room {
             final Space.Rectangle r = getShape(e);
             entityRectangleSpace.put(e, r);
             rectangleEntitySpace.put(r, e);
-            sp.addRectangle(r, !e.hasComponent(ObstacleComponent.class));
+            sp.addRectangle(r, !e.hasComponent(ObstacleMentalityComponent.class));
             e.changeRoom(this);
             addEventEntity(e);
         });

@@ -1,11 +1,8 @@
 package model.component;
 
-import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
 import model.entity.Player;
-import model.events.CollisionEvent;
 import model.game.Room;
-import util.EventListener;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,17 +20,6 @@ public class FlyAIComponent extends AbstractComponent {
     public FlyAIComponent(final Entity entity) {
         super(entity);
         calculateAngle();
-
-        this.registerListener(new EventListener<CollisionEvent>() {
-            @Override
-            @Subscribe
-            public void listenEvent(final CollisionEvent event) {
-                /*if (event.getSourceEntity().getClass().equals(Player.class)) {
-                    getEntity().getRoom().deleteEntity(getEntity());
-                }*/
-                calculateAngle();
-            }
-        });
     }
 
     /**
@@ -70,6 +56,7 @@ public class FlyAIComponent extends AbstractComponent {
      */
     @Override
     public void update(final Double deltaTime) {
+        calculateAngle();
         super.getEntity().getComponent(MoveComponent.class).get().move(angle);
         super.update(deltaTime);
     }
