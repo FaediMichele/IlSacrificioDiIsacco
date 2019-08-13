@@ -15,7 +15,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     private static final  double EXPLOSION_SCALE = 3;
     private static final  double TIME_BEFORE_EXPLODES = 1000;
-    private static final  double EXPLOSION_TIME = 1000;
+    private static final  double EXPLOSION_TIME = 10000;
     private boolean triggered;
     private boolean exploded;
     private double explosionScale;

@@ -173,6 +173,7 @@ public class HealthComponent extends AbstractComponent {
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
             this.getEntity().postEvent(new DeadEvent(this.getEntity()));
         } else {
+            System.out.println("SUFFERING");
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
         }
     }
