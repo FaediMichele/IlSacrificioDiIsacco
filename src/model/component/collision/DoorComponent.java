@@ -47,7 +47,7 @@ public class DoorComponent extends LockCollisionComponent {
             case DOWN:
                 eBody.setPosition(new Position(otherBody.getPosition().getX() + otherBody.getWidth() / 2 - eBody.getWidth() / 2,
                         otherBody.getPosition().getY() + otherBody.getHeight() + DISTANCE, eBody.getPosition().getZ()));
-                System.out.println("SOTTO");
+                //System.out.println(otherBody.getPosition().getY() + " " + eBody.getHeight());
                 break;
             case LEFT:
                 eBody.setPosition(new Position(otherBody.getPosition().getX() + otherBody.getWidth() + DISTANCE,
