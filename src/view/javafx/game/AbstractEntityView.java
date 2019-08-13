@@ -71,7 +71,7 @@ public abstract class AbstractEntityView implements EntityView {
      * {@inheritDoc}
      */
     public EntityView setY(final double y) {
-        this.y = Optional.of(y + this.getHeight());
+        this.y = Optional.of(y);
         return this;
     }
 
