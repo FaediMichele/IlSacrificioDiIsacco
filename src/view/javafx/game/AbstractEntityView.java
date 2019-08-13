@@ -136,8 +136,12 @@ public abstract class AbstractEntityView implements EntityView {
     public void damaging(final MovementEnum move) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dead(final MovementEnum move) {
+        this.disappear(move);
     }
 
     /**
