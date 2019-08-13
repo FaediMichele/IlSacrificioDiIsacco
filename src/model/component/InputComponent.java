@@ -1,5 +1,7 @@
 package model.component;
 
+import java.util.PriorityQueue;
+
 import com.google.common.eventbus.Subscribe;
 import model.entity.Bomb;
 import model.entity.Entity;
@@ -14,7 +16,7 @@ import util.EventListener;
  *
  */
 public class InputComponent extends AbstractComponent {
-
+    private boolean bombUsed;
     /**
      * Create a new inputComponent which control the entity.
      * @param entity the entity.
@@ -25,42 +27,50 @@ public class InputComponent extends AbstractComponent {
             @Override
             @Subscribe
             public void listenEvent(final InputEvent event) {
-                handleInput(event.getCommand());
+                handleInput(event.getCommands());
             }
         }));
     }
-    private void handleInput(final Command c) {
+    private void handleInput(final PriorityQueue<Command> c) {
         final MoveComponent mc = getEntity().getComponent(MoveComponent.class).get();
         if (mc == null) {
             return;
         }
-        switch (c) {
-            case KEY_DOWN:
-                mc.move(270);
-                break;
-            case KEY_UP:
-                mc.move(90);
-                break;
-            case KEY_RIGHT:
-                mc.move(0);
-                break;
-            case KEY_LEFT:
-                mc.move(180);
-                break;
-            case ARROW_DOWN:
-                getEntity().postEvent(new TearShotEvent(getEntity(), 270));
-            case ARROW_UP:
-                getEntity().postEvent(new TearShotEvent(getEntity(), 90));
-            case ARROW_LEFT:
-                getEntity().postEvent(new TearShotEvent(getEntity(), 180));
-            case ARROW_RIGHT:
-                getEntity().postEvent(new TearShotEvent(getEntity(), 0));
-            case BOMB:
-                getEntity().postEvent(new UseThingEvent(getEntity(), Bomb.class));
-                break;
-        default:
-            break;
+        if (!c.contains(Command.BOMB)) {
+            this.bombUsed = false;
         }
+        c.forEach(tmpC -> {
+            switch (tmpC) {
+                case KEY_DOWN:
+                    mc.move(270);
+                    break;
+                case KEY_UP:
+                    mc.move(90);
+                    break;
+                case KEY_RIGHT:
+                    mc.move(0);
+                    break;
+                case KEY_LEFT:
+                    mc.move(180);
+                    break;
+                case ARROW_DOWN:
+                    getEntity().postEvent(new TearShotEvent(getEntity(), 270));
+                case ARROW_UP:
+                    getEntity().postEvent(new TearShotEvent(getEntity(), 90));
+                case ARROW_LEFT:
+                    getEntity().postEvent(new TearShotEvent(getEntity(), 180));
+                case ARROW_RIGHT:
+                    getEntity().postEvent(new TearShotEvent(getEntity(), 0));
+                case BOMB:
+                    if (!this.bombUsed) {
+                        getEntity().postEvent(new UseThingEvent(getEntity(), Bomb.class));
+                        this.bombUsed = true;
+                    }
+                    break;
+            default:
+                break;
+            }
+        });
     }
 
 }

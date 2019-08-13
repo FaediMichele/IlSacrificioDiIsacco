@@ -1,5 +1,7 @@
 package model.events;
 
+import java.util.PriorityQueue;
+
 import model.entity.Entity;
 import util.Command;
 
@@ -8,23 +10,23 @@ import util.Command;
  *
  */
 public class InputEvent extends AbstractEvent {
-    private final Command c;
+    private final PriorityQueue<Command> c;
 
     /**
      * TODO.
      * @param sourceEntity TODO.
-     * @param c TODO
+     * @param c2 TODO
      */
-    public InputEvent(final Entity sourceEntity, final Command c) {
+    public InputEvent(final Entity sourceEntity, final PriorityQueue<Command> c2) {
         super(sourceEntity);
-        this.c = c;
+        this.c = c2;
     }
 
     /**
      * Get the command.
-     * @return the command
+     * @return the commands
      */
-    public Command getCommand() {
+    public PriorityQueue<Command> getCommands() {
         return c;
     }
 

@@ -13,6 +13,11 @@ import org.w3c.dom.NodeList;
 
 import com.google.common.eventbus.EventBus;
 
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import model.component.BodyComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -25,6 +30,7 @@ import util.NotEquals;
 import util.NotHashCode;
 import util.Pair;
 import util.StaticMethodsUtils;
+import view.javafx.ViewGetterUtil;
 
 /**
  * Implementation of Floor.
@@ -34,7 +40,7 @@ import util.StaticMethodsUtils;
  *
  */
 public class FloorImpl implements Floor {
-    // private Pane pn; ONLY FOR DEBUG
+    private Pane pn; //ONLY FOR DEBUG
     private static final int NORD = 0;
     private static final int EAST = 1;
     private static final int SUD = 2;
@@ -266,7 +272,7 @@ public class FloorImpl implements Floor {
         changedRoom = false;
         getActiveRoom().calculateCollision();
         getActiveRoom().updateEntityList();
-        //debug();
+        debug();
     }
 
     /**
@@ -312,7 +318,7 @@ public class FloorImpl implements Floor {
     public final int hashCode() {
         return StaticMethodsUtils.hashCode(this);
     }
-    /*private void debug() {
+    private void debug() {
         if (pn == null) {
             pn = new Pane();
             Platform.runLater(() -> ((Pane) ViewGetterUtil.getScene().getRoot()).getChildren().add(pn));
@@ -350,5 +356,5 @@ public class FloorImpl implements Floor {
             r.setFill(Color.BLUE);
             Platform.runLater(() -> pn.getChildren().add(r));
         }
-    }*/
+    }
 }

@@ -1,6 +1,7 @@
 package model.game;
 
 import java.util.List;
+import java.util.PriorityQueue;
 
 import model.entity.Player;
 import model.util.EntityInformation;
@@ -88,9 +89,9 @@ public interface GameWorld {
 
     /**
      * Pass the input to the model.
-     * @param c the {@link Command}
+     * @param c the list of {@link Command}
      */
-    void input(Command c);
+    void input(PriorityQueue<Command> c);
 
     /**
      * 

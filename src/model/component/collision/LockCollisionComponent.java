@@ -66,6 +66,6 @@ public class LockCollisionComponent extends CollisionComponent {
      * 
      * @param entity is {@link Entity} who had a collision with the door.
      */
-    protected void afterUnlocks(final Entity entity) {
+    public void afterUnlocks(final Entity entity) {
     }
 }

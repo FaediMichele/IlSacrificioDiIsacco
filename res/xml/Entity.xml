@@ -10,6 +10,7 @@
         <ROCK>RockView</ROCK>
         <WALL>WallView</WALL>
         <FLY>FlyView</FLY>
+        <MONSTRO>MonstroView</MONSTRO>
     </BasicEntities>
 </Entities>
 

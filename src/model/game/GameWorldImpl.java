@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
@@ -173,7 +174,7 @@ public class GameWorldImpl implements GameWorld {
     }
 
     @Override
-    public final void input(final Command c) {
+    public final void input(final PriorityQueue<Command> c) {
         // da correggere
         player.postEvent(new InputEvent(player, c));
     }

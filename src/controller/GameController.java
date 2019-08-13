@@ -183,7 +183,7 @@ public class GameController {
                         e.getStatusComponent().setStatus(BasicStatusEnum.DEFAULT);
                     });
                     if (inputDisponible.tryAcquire()) {
-                        inputCommand.forEach(c -> gameWord.input(c));
+                        gameWord.input(inputCommand);
                         inputDisponible.release();
                     }
                 }
