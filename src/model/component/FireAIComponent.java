@@ -11,7 +11,7 @@ import util.EventListener;
 /**
  * Implements the data for the fires.
  */
-public class FireAIComponent extends AbstractComponent<FireAIComponent> {
+public class FireAIComponent extends AbstractComponent {
 
     private static final int MAX_LIFE = 4;
     private int lifeLeft;

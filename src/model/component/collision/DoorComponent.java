@@ -14,7 +14,7 @@ public class DoorComponent extends LockCollisionComponent {
     private static final int DISTANCE = 10;
     private final Integer destination;
     private final Integer location;
-    private boolean hasPlayerPassed;
+    private boolean lockForEnemy;
 
     /**
      * Create a door component with a destination room index.
@@ -27,7 +27,6 @@ public class DoorComponent extends LockCollisionComponent {
     public DoorComponent(final Entity entity, final Integer locationIndex, final Integer destinationIndex,
             final BasicStatusEnum status) {
         super(entity, false);
-        this.hasPlayerPassed = false;
         this.location = locationIndex;
         this.destination = destinationIndex;
         getEntity().getStatusComponent().setStatus(status);
@@ -68,14 +67,16 @@ public class DoorComponent extends LockCollisionComponent {
             .changeEntityRoom(entity, location, destination);
         postPlayerPassed();
     }
+
     /**
-     * Verify if the player touched the door and is ready to change the
-     * {@link Room}.
-     * 
-     * @return if the door is triggered
+     * {@inheritDoc}
      */
-    public boolean playerPassed() {
-        return this.hasPlayerPassed;
+    @Override
+    public void update(final Double deltaTime) {
+        super.update(deltaTime);
+        if (lockForEnemy && getEntity().getRoom().completed() && isLocked()) {
+            this.unlocks(getEntity());
+        }
     }
 
     /**
@@ -92,7 +93,6 @@ public class DoorComponent extends LockCollisionComponent {
      */
     private void postPlayerPassed() {
         this.getEntity().postEvent(new DoorChangeEvent(getEntity()));
-        this.hasPlayerPassed = true;
     }
 
     /**

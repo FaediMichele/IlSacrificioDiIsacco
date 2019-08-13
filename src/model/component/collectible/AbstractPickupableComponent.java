@@ -10,7 +10,7 @@ import model.enumeration.BasicStatusEnum;
  * collected.
  *
  */
-public abstract class AbstractPickupableComponent extends AbstractComponent<AbstractPickupableComponent> {
+public abstract class AbstractPickupableComponent extends AbstractComponent {
 
     AbstractPickupableComponent(final Entity entity) {
         super(entity);

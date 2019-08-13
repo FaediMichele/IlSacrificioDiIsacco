@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * AI for the Gaper monster.
  */
-public class FollowAIComponent extends AbstractComponent<FollowAIComponent> {
+public class FollowAIComponent extends AbstractComponent {
 
     private Pair<Double, Double> lastDest;
     /**

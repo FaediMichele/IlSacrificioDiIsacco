@@ -20,7 +20,7 @@ import util.Pair;
  *
  */
 
-public class HealthComponent extends AbstractComponent<HealthComponent> {
+public class HealthComponent extends AbstractComponent {
 
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;

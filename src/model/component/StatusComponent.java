@@ -13,7 +13,7 @@ import model.enumeration.UpgradeEnum;
 /**
  * The component for the status of all entities.
  */
-public class StatusComponent extends AbstractComponent<StatusComponent> {
+public class StatusComponent extends AbstractComponent {
 
     private StatusEnum status;
     private Map<UpgradeEnum, List<Object>> upgrade;
