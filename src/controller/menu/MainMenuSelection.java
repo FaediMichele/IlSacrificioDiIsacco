@@ -1,8 +1,10 @@
 package controller.menu;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import util.Command;
 import view.interfaces.MainMenuSelectionView;
 import view.javafx.menu.MainMenuSelectionViewImpl;
 
@@ -27,6 +29,17 @@ public class MainMenuSelection extends SubMenuSelection {
         add(new SubMenuGameMenu(this));
         add(new SubMenuRun(this));
         mmsv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toList()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void input(final Set<Command> comms) {
+        super.input(comms);
+        if (comms.contains(Command.FULLSCREEN)) {
+            mmsv.changeFullScreen();
+        }
     }
 
     /**

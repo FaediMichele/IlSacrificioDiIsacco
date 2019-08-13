@@ -1,11 +1,11 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.LockComponent;
 import model.component.collision.DoorComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
+import model.enumeration.BasicStatusEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;
 import util.Pair;
@@ -16,8 +16,8 @@ import util.Pair;
  */
 public class Door extends AbstractStaticEntity {
     private static final Double DEFAULTZ = 0.0;
-    private static final Double DEFAULTSIZE = 50.0;
-    private static final Double DEFAULTSTROKE = 5.0;
+    private static final Double DEFAULTSIZE = 40.0;
+    private static final Double DEFAULTSTROKE = 30.0;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.DOOR;
 
 
@@ -31,9 +31,8 @@ public class Door extends AbstractStaticEntity {
      */
     public Door(final BasicMovementEnum direction, final Integer location, final Integer destinationIndex, final Pair<Double, Double> roomSize) {
         super();
-       this.attachComponent(new DoorComponent(this, location, destinationIndex))
-                .attachComponent(new NeutralMentalityComponent(this))
-                .attachComponent(new LockComponent(this));
+       this.attachComponent(new DoorComponent(this, location, destinationIndex, BasicStatusEnum.CLOSED))
+                .attachComponent(new NeutralMentalityComponent(this));
        this.getStatusComponent().setMove(direction);
        setBody(direction, roomSize);
     }
@@ -49,19 +48,19 @@ public class Door extends AbstractStaticEntity {
         switch (direction) {
         case UP:
             b.setDimension(DEFAULTSTROKE, DEFAULTSIZE);
-            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), DEFAULTSTROKE, DEFAULTZ));
+            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), size.getY(), DEFAULTZ));
             break;
         case RIGHT:
             b.setDimension(DEFAULTSIZE, DEFAULTSTROKE);
-            b.setPosition(new Position(size.getX() - DEFAULTSTROKE, size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
+            b.setPosition(new Position(size.getX(), size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
             break;
         case DOWN:
             b.setDimension(DEFAULTSTROKE, DEFAULTSIZE);
-            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), size.getY() - DEFAULTSTROKE, DEFAULTZ));
+            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), 0.0, DEFAULTZ));
             break;
         case LEFT:
             b.setDimension(DEFAULTSIZE, DEFAULTSTROKE);
-            b.setPosition(new Position(DEFAULTSTROKE, size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
+            b.setPosition(new Position(0.0, size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
             break;
         default:
             throw new IllegalArgumentException();

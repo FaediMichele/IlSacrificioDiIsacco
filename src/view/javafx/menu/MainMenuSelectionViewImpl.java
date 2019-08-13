@@ -228,4 +228,12 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
         dest.layoutXProperty().bind(from.layoutXProperty());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void changeFullScreen() {
+        ViewGetterUtil.switchFullScreen();
+    }
+
 }

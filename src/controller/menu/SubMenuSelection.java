@@ -5,6 +5,8 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import util.Command;
+
 
 /**
  * Select the {@link SubMenu}.
@@ -91,6 +93,14 @@ public abstract class SubMenuSelection {
         } else {
             throw new IllegalArgumentException("SubMenu not found");
         }
+    }
+
+    /**
+     * Pass the input to the selected sub menu.
+     * @param comms the set of command pressed.
+     */
+    public void input(final Set<Command> comms) {
+        this.selected.input(comms);
     }
 
     /**

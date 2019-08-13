@@ -13,7 +13,7 @@ import util.Triplet;
  *
  */
 
-public class MoveComponent extends AbstractComponent<MoveComponent> {
+public class MoveComponent extends AbstractComponent {
     private static final double NOMOVE = 0.0;
     private static final double DEFAULT_SPEED = 1.0;
     private static final double DEFAULT_FRICTION = 60;

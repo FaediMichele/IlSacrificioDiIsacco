@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * AI for the Gaper monster.
  */
-public class FlyAIComponent extends AbstractComponent<FlyAIComponent> {
+public class FlyAIComponent extends AbstractComponent {
 
     private double angle;
     /**
