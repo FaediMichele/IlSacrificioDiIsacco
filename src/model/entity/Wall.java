@@ -17,14 +17,12 @@ import util.Pair;
  * Implements the walls.
  */
 public class Wall extends AbstractStaticEntity {
-    private static final double DEFAULTTHICKNESS = 30.0;
     private static final double DEFAULT_WIDTH = 72;
     private static final double DEFAULT_HEIGHT = 58;
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
     private static final int WEIGHT = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.WALL;
-
 
     /**
      * Default constructor.
@@ -120,4 +118,17 @@ public class Wall extends AbstractStaticEntity {
         return ENTITY_NAME;
     }
 
+    /**
+     * @return the defaultWidth
+     */
+    public static double getDefaultWidth() {
+        return DEFAULT_WIDTH;
+    }
+
+    /**
+     * @return the defaultHeight
+     */
+    public static double getDefaultHeight() {
+        return DEFAULT_HEIGHT;
+    }
 }

@@ -36,8 +36,6 @@ import view.javafx.game.RoomView;
  *
  */
 public class GameController {
-    private static final double PADDING_X_MAP = 0;
-    private static final double PADDING_Y_MAP = 0;
     private static final long TIMETOSLEEP = 50;
 
     @NotEquals
@@ -115,7 +113,6 @@ public class GameController {
                             / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight()
                             / gameWord.getActiveFloor().getActiveRoom().getHeight();
-                    final double heightAdd = 0 - PADDING_Y_MAP;
                     if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
@@ -125,43 +122,8 @@ public class GameController {
                         entityControllers.clear();
                     }
                     gameWord.getEntityInformation().stream().peek(i -> {
-                        if (i.getEntityName() == BasicEntityEnum.DOOR) {
-                            if (i.getMove() == BasicMovementEnum.UP) {
-                                final double minusY = 10;
-                                final double addX = 0;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX,
-                                        heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
-                            } else if (i.getMove() == BasicMovementEnum.RIGHT) {
-                                final double minusY = 20;
-                                final double addX = 5;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX,
-                                        heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
-                            } else if (i.getMove() == BasicMovementEnum.DOWN) {
-                                final double addY = 25;
-                                final double addX = 0;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX,
-                                        heightAdd - i.getPosition().getY() + addY, i.getPosition().getZ()));
-                            } else if (i.getMove() == BasicMovementEnum.LEFT) {
-                                final double minusX = 30;
-                                final double minusY = 20;
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() - minusX,
-                                        heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
-                            } else {
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(),
-                                        heightAdd + i.getPosition().getY(), i.getPosition().getZ()));
-                            }
-                            final double add = 20;
-                            i.setWidth((i.getWidth() + add) * widthMolti)
-                                    .setHeight((i.getHeight() + add) * heightMolti);
-                        } else {
-                            i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
-                                    .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
-                            if (i.getEntityName() == BasicPlayerEnum.ISAAC) {
-                                System.out.println("Y model " + i.getPosition().getY());
-                                System.out.println("Y view " + (gameView.getHeight() - i.getPosition().getY()));
-                                System.out.println("Canvas height " + gameView.getHeight());
-                            }
-                        }
+                        i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
+                                .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
 
                     }).peek(st -> {
                         if (!entityControllers.containsKey(st.getId())) {

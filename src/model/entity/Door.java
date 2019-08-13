@@ -16,8 +16,8 @@ import util.Pair;
  */
 public class Door extends AbstractStaticEntity {
     private static final Double DEFAULTZ = 0.0;
-    private static final Double DEFAULTSIZE = 40.0;
-    private static final Double DEFAULTSTROKE = 10.0;
+    private static final Double DEFAULT_DIM1 = 40.0;
+    private static final Double DEFAULT_DIM2 = 25.0;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.DOOR;
 
 
@@ -46,21 +46,21 @@ public class Door extends AbstractStaticEntity {
     private void setBody(final BasicMovementEnum direction, final Pair<Double, Double> size) {
         final BodyComponent b = (BodyComponent) this.getComponent(BodyComponent.class).get();
         switch (direction) {
-        case UP:
-            b.setDimension(DEFAULTSTROKE, DEFAULTSIZE);
-            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), size.getY(), DEFAULTZ));
+        case DOWN:
+            b.setDimension(DEFAULT_DIM2, DEFAULT_DIM1);
+            b.setPosition(new Position(size.getX() / 2 - b.getWidth() / 2, Wall.getDefaultHeight() - b.getHeight(), DEFAULTZ));
             break;
         case RIGHT:
-            b.setDimension(DEFAULTSIZE, DEFAULTSTROKE);
-            b.setPosition(new Position(size.getX(), size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
+            b.setDimension(DEFAULT_DIM1, DEFAULT_DIM2);
+            b.setPosition(new Position(size.getX() - Wall.getDefaultWidth(), size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
             break;
-        case DOWN:
-            b.setDimension(DEFAULTSTROKE, DEFAULTSIZE);
-            b.setPosition(new Position(size.getX() / 2 - b.getWidth(), 0.0, DEFAULTZ));
+        case UP:
+            b.setDimension(DEFAULT_DIM2, DEFAULT_DIM1);
+            b.setPosition(new Position(size.getX() / 2 - b.getWidth() / 2, size.getY() - Wall.getDefaultHeight(), DEFAULTZ));
             break;
         case LEFT:
-            b.setDimension(DEFAULTSIZE, DEFAULTSTROKE);
-            b.setPosition(new Position(0.0, size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
+            b.setDimension(DEFAULT_DIM1, DEFAULT_DIM2);
+            b.setPosition(new Position(Wall.getDefaultWidth() - b.getWidth(), size.getY() / 2 - b.getHeight() / 2, DEFAULTZ));
             break;
         default:
             throw new IllegalArgumentException();
