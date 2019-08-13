@@ -79,7 +79,7 @@ public class BombView extends AbstractEntityView {
             explosionIndex += 1;
             if (explosionIndex >= explosionBombSprites.size()) {
                 explosionIndex -= 10;
-            }
+             }
         } else if (super.getStatus().isPresent() && super.getStatus().get().equals(BasicStatusEnum.DISAPPEAR)) {
             gc.drawImage(explodedBombSprite, super.getX(), super.getY(), super.getHeight(), super.getWidth());
             this.disappear(null);
