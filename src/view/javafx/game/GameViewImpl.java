@@ -33,6 +33,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void addEntity(final EntityView entity) {
         this.toAdd.add(entity);
     }
@@ -40,6 +41,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void removeEntity(final EntityView entity) {
         this.toRemove.add(entity);
     }
@@ -47,6 +49,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setRoomView(final RoomView room) {
         this.room = room;
     }
@@ -54,6 +57,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<StatisticView> getStatistics() {
         return Collections.unmodifiableList(statistics);
     }
@@ -61,6 +65,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void addStatistic(final StatisticView s) {
         Objects.requireNonNull(s);
         this.statistics.add(s);
@@ -70,6 +75,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void removeStatistic(final StatisticView s) {
         Objects.requireNonNull(s);
         this.statistics.remove(s);
@@ -79,6 +85,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setInventoryStatistic(final StatisticView s, final double itemNumber) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
@@ -90,6 +97,7 @@ public class GameViewImpl implements GameView {
     /**
      * It draws all entities in the canvas.
      */
+    @Override
     public void draw() {
         room.draw(cnv.getGraphicsContext2D());
         entities.stream().filter(e -> e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
@@ -100,6 +108,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setHeartsStatistic(final HeartStatisticView s, final List<Pair<HeartEnum, Double>> hearts) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {

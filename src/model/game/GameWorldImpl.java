@@ -129,9 +129,10 @@ public class GameWorldImpl implements GameWorld {
     }
 
     @Override
-    public final void update(final double deltaTime) {
+    public final boolean update(final double deltaTime) {
         getActiveFloor().update(deltaTime);
         changedFloor = false;
+        return player.getComponent(HealthComponent.class).get().isAlive();
     }
 
     @Override
