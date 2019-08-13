@@ -333,6 +333,17 @@ public class FloorImpl implements Floor {
         back.setFill(Color.TRANSPARENT);
         back.setStroke(Color.WHITE);
         Platform.runLater(() -> pn.getChildren().add(back));
+        getActiveRoom().getEntities().forEach(e -> {
+            final BodyComponent b = e.getComponent(BodyComponent.class).get();
+            final Rectangle r = new Rectangle();
+            r.setX(b.getPosition().getX());
+            r.setY(b.getPosition().getY());
+            r.setWidth(b.getWidth());
+            r.setHeight(b.getHeight());
+            r.setStroke(Color.WHITE);
+            r.setFill(Color.WHITE);
+            Platform.runLater(() -> pn.getChildren().add(r));
+        });
         getActiveRoom().getDoor().forEach(e -> {
             final BodyComponent b = e.getComponent(BodyComponent.class).get();
             final Rectangle r = new Rectangle();

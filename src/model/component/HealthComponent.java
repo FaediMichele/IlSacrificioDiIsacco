@@ -26,7 +26,7 @@ public class HealthComponent extends AbstractComponent {
 
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
-    private List<Heart> hearts;
+    private LinkedList<Heart> hearts;
 
     /**
      * @param defaultHearts number of hearts of this kind
@@ -35,7 +35,8 @@ public class HealthComponent extends AbstractComponent {
     public HealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
-        this.hearts = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity(), 1)).collect(Collectors.toList());
+        List<Heart> heartList = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity(), 1)).collect(Collectors.toList());
+        this.hearts = new LinkedList<Heart>(heartList);
         if ((int) Math.ceil(defaultHearts) <= MAX_HEARTS && defaultHearts - (int) Math.floor(defaultHearts) != 0) {
             this.hearts.add(new SimpleHeart(this.getEntity(), defaultHearts - (int) Math.floor(defaultHearts)));
         }
@@ -99,7 +100,7 @@ public class HealthComponent extends AbstractComponent {
      */
     public double getLife() {
         if (this.isAlive()) {
-            return this.hearts.size() - 1 + this.getLastHeart().getValue();
+            return this.hearts.stream().map(h -> h.getValue()).reduce((x, y) -> x + y).get();
         }
         return 0;
     }
@@ -114,7 +115,7 @@ public class HealthComponent extends AbstractComponent {
         if (this.hearts.size() < MAX_HEARTS) {
             final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColor().equals(h.getColor())).collect(Collectors.toList());
             if (heartsOfSameKind.isEmpty()) {
-                this.hearts.add(heart);
+                this.hearts.addLast(heart);
                 return true;
             }
             final boolean checkMaxHearts = ((heart.getMaxHearts().isPresent() && heartsOfSameKind.size() < heart.getMaxHearts().get()) 
@@ -125,7 +126,7 @@ public class HealthComponent extends AbstractComponent {
                     if (remainingValue != 0 && checkMaxHearts) {
                         final Class<? extends Heart> heartClass = heart.getClass();
                         try {
-                            this.hearts.add(heartClass.getConstructor(Entity.class, double.class)
+                            this.hearts.addLast(heartClass.getConstructor(Entity.class, double.class)
                                                       .newInstance(this.getEntity(), remainingValue));
                         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -133,7 +134,7 @@ public class HealthComponent extends AbstractComponent {
                         }
                     }
                 } else if (checkMaxHearts) {
-                    this.hearts.add(heart);
+                    this.hearts.addLast(heart);
                 } else {
                     return false;
                 }
@@ -150,11 +151,12 @@ public class HealthComponent extends AbstractComponent {
     protected void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
         while (this.isAlive() && actualDamageValue != 0) {
-            actualDamageValue = this.getLastHeart().getDamaged(actualDamageValue);
-            if (this.getLastHeart().getValue() == 0) {
-                this.hearts.remove(this.getLastHeart());
+            actualDamageValue = this.hearts.getLast().getDamaged(actualDamageValue);
+            if (this.hearts.getLast().getValue() == 0.0) {
+                this.hearts.removeLast();
             }
         }
+
         if (!this.isAlive()) {
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
             this.getEntity().postEvent(new DeadEvent(this.getEntity()));
@@ -170,9 +172,5 @@ public class HealthComponent extends AbstractComponent {
 
     public int getNumberOfHearts() {
         return this.hearts.size();
-    }
-
-    private Heart getLastHeart() {
-        return this.hearts.get(this.hearts.size() - 1);
     }
 }
