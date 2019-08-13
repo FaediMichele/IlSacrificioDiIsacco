@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.google.common.eventbus.Subscribe;
 import model.entity.Entity;
+import model.enumeration.BasicHeartEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.HeartEnum;
 import model.events.DamageEvent;
@@ -26,7 +27,7 @@ public class HealthComponent extends AbstractComponent {
 
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
-    private LinkedList<Heart> hearts;
+    private List<Heart> hearts;
 
     /**
      * @param defaultHearts number of hearts of this kind
@@ -35,11 +36,14 @@ public class HealthComponent extends AbstractComponent {
     public HealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
-        List<Heart> heartList = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity(), 1)).collect(Collectors.toList());
-        this.hearts = new LinkedList<Heart>(heartList);
+        this.hearts = new LinkedList<Heart>(Stream.iterate(0, i -> i + 1)
+                .limit(realHeartNumber)
+                .map(i -> new SimpleHeart(this.getEntity(), 1))
+                .collect(Collectors.toList()));
         if ((int) Math.ceil(defaultHearts) <= MAX_HEARTS && defaultHearts - (int) Math.floor(defaultHearts) != 0) {
             this.hearts.add(new SimpleHeart(this.getEntity(), defaultHearts - (int) Math.floor(defaultHearts)));
         }
+        this.sortHearts();
         this.registListener();
     }
 
@@ -116,7 +120,7 @@ public class HealthComponent extends AbstractComponent {
         if (this.hearts.size() < MAX_HEARTS) {
             final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColor().equals(h.getColor())).collect(Collectors.toList());
             if (heartsOfSameKind.isEmpty()) {
-                this.hearts.addLast(heart);
+                ((LinkedList) this.hearts.addLast(heart);
                 return true;
             }
             final boolean checkMaxHearts = ((heart.getMaxHearts().isPresent() && heartsOfSameKind.size() < heart.getMaxHearts().get()) 
@@ -139,9 +143,17 @@ public class HealthComponent extends AbstractComponent {
                 } else {
                     return false;
                 }
+                this.sortHearts();
                 return true;
         }
         return false;
+    }
+
+    private void sortHearts() {
+        final LinkedList<Heart> sortedHearts = new LinkedList<>();
+        this.hearts.stream().filter(h -> h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
+        this.hearts.stream().filter(h -> !h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
+        this.hearts = sortedHearts;
     }
     /**
      * The health is damaged, it could loose part of an heart or multiple hearts

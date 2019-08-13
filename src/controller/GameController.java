@@ -106,9 +106,10 @@ public class GameController {
             try {
                 while (!stoped) {
                     sleep(TIMETOSLEEP);
-                    if (gameWord.update(TIMETOSLEEP)) {
-                        // TODO
+                    if (!gameWord.update(TIMETOSLEEP)) {
+                        System.out.println("Game should over"); // TODO
                     } 
+                    gameWord.update(TIMETOSLEEP);
                     final double widthMolti = gameView.getWidth()
                             / gameWord.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight()

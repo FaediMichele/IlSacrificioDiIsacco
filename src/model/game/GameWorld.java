@@ -63,6 +63,7 @@ public interface GameWorld {
      * Go to the next frame of the game.
      * 
      * @param deltaTime the time that has passed from the last call.
+     * @return if the model has finished to run (game over).
      */
     boolean update(double deltaTime);
 

@@ -3,19 +3,18 @@ package model.entity;
 import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collision.MovableCollisionComponent;
-import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
 
 /**
  *
  */
 public class MonstroBoss extends AbstractEnemyMovable {
-    private static final double WIDTH = 50;
+    /*private static final double WIDTH = 50;
     private static final double HEIGHT = 50;
     private static final int WEIGHT = 500;
     private static final double DSPEED = 2;
     private static final double DAMAGE = 1;
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.MONSTRO;
+    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.MONSTRO;*/
     /**
      * 
      * @param <C> 
@@ -33,6 +32,7 @@ public class MonstroBoss extends AbstractEnemyMovable {
      * 
      */
     public MonstroBoss() {
+        super();
         // TODO Auto-generated constructor stub
     }
 

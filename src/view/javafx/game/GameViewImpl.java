@@ -126,7 +126,6 @@ public class GameViewImpl implements GameView {
     public void clear() {
         cnv.getGraphicsContext2D().fill();
         entities.clear();
-        statistics.clear();
     }
 
     @Override

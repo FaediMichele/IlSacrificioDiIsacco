@@ -58,11 +58,11 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
             this.timePassed = this.timePassed + deltaTime;
             if (this.timePassed > this.timeBeforeExplodes && !this.exploded) {
                 //set body component
-                BodyComponent body = this.getEntity().getComponent(BodyComponent.class).get();
+                final BodyComponent body = this.getEntity().getComponent(BodyComponent.class).get();
 //                Position positionBefore = body.getPosition();
                 System.out.println(body.getPosition());
                 body.scaleDimension(explosionScale);
-                Position positionScale = body.getPosition();
+                final Position positionScale = body.getPosition();
                 final double width1 = body.getWidth() / (this.explosionScale * 2);
                 final double width2 = body.getWidth() / 2;
                 final double height1 = body.getHeight() / (this.explosionScale * 2);
