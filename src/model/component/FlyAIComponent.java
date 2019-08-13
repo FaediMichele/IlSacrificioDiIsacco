@@ -20,28 +20,29 @@ public class FlyAIComponent extends AbstractComponent {
     public FlyAIComponent(final Entity entity) {
         super(entity);
         calculateAngle();
+        angle = 0;
     }
 
     /**
      * returns the angle to get to Isaac.
      * @return 
      */
-    private void calculateAngle() {
+    private boolean calculateAngle() {
         final Room r = this.getEntity().getRoom();
         if (r == null) {
-            return;
+            return false;
         }
         final List<? extends Entity> entitys = r.getEntities();
         if (entitys == null) {
-            return;
+            return false;
         }
         final Optional<? extends Entity> player = entitys.stream().filter(i -> i.getClass().equals(Player.class)).findAny();
         if (!player.isPresent()) {
-            return;
+            return false;
         }
         final BodyComponent playerBody = player.get().getComponent(BodyComponent.class).get();
         if (playerBody == null) {
-            return;
+            return false;
         }
         final BodyComponent myBody = this.getEntity().getComponent(BodyComponent.class).get();
 
@@ -49,6 +50,7 @@ public class FlyAIComponent extends AbstractComponent {
         final Double diffY = playerBody.getPosition().getY() - myBody.getPosition().getY();
 
         this.angle = Math.atan2(diffY, diffX) * 180.0 / Math.PI;
+        return true;
     }
 
     /**
@@ -56,8 +58,11 @@ public class FlyAIComponent extends AbstractComponent {
      */
     @Override
     public void update(final Double deltaTime) {
-        calculateAngle();
-        super.getEntity().getComponent(MoveComponent.class).get().move(angle);
+        if (calculateAngle()) {
+            super.getEntity().getComponent(MoveComponent.class).get().move(angle);
+        } else {
+            super.getEntity().getComponent(MoveComponent.class).get().stop();
+        }
         super.update(deltaTime);
     }
 }

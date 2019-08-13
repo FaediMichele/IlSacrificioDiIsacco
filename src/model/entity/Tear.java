@@ -14,8 +14,8 @@ import util.Triplet;
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
-    private static final double HEIGHT = 20;
-    private static final double WIDTH = 20;
+    private static final double HEIGHT = 10;
+    private static final double WIDTH = 10;
     private final EntityEnum name;
 
 
@@ -41,8 +41,8 @@ public class Tear extends AbstractMovableEntity {
             .attachComponent(moveC)
             .attachComponent(new BodyComponent(this, positions, HEIGHT, WIDTH, 0))
             .attachComponent(new LifeTimeComponent(this, lifetime));
+        moveC.move(((Position) movementPlayer).getClone().clipToLength(speed * 0.01));
         moveC.move(angle);
-        moveC.move(((Position) movementPlayer).getClone());
         this.name = name;
     }
 

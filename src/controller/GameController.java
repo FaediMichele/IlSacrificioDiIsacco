@@ -10,6 +10,7 @@ import java.util.UUID;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicMovementEnum;
@@ -23,6 +24,7 @@ import model.util.EntityInformation;
 import model.util.Position;
 import model.util.StatisticsInformations;
 import util.Command;
+import util.Lambda;
 import util.NotEquals;
 import view.javafx.game.GameView;
 import view.javafx.game.HeartStatisticView;
@@ -39,14 +41,16 @@ public class GameController {
     private static final long TIMETOSLEEP = 50;
 
     @NotEquals
-    private volatile boolean stoped;
-    private final GameWorld gameWord;
+    private volatile boolean stopped;
+    private final GameWorld gameWorld;
     @NotEquals
     private final GameLoop gameloop;
     private final GameView gameView;
     private final Map<UUID, EntityController> entityControllers;
     private final Semaphore inputDisponible = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
+    @NotEquals
+    private final Lambda l;
 
     /**
      * @param gameView is the {@link GameView} in which the Game Controller operates
@@ -57,13 +61,14 @@ public class GameController {
      * @throws InstantiationException .
      * @throws IOException .
      */
-    public GameController(final GameView gameView, final PlayerEnum player, final String game)
+    public GameController(final GameView gameView, final PlayerEnum player, final String game, final Lambda l)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         this.gameView = gameView;
-        this.gameWord = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
-        this.stoped = false;
+        this.gameWorld = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
+        this.stopped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
+        this.l = l;
         this.initStatistics();
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png"));
     }
@@ -79,7 +84,7 @@ public class GameController {
      */
     public void start() {
         // super.run();
-        this.stoped = false;
+        this.stopped = false;
         this.gameloop.start();
     }
 
@@ -88,7 +93,7 @@ public class GameController {
      */
     public void stop() {
         // super.stop();
-        this.stoped = true;
+        this.stopped = true;
     }
 
     /**
@@ -104,15 +109,17 @@ public class GameController {
         @Override
         public void run() {
             try {
-                while (!stoped) {
+                while (!stopped) {
                     sleep(TIMETOSLEEP);
-                    gameWord.update(TIMETOSLEEP);
+                    if (!gameWorld.update(TIMETOSLEEP)) {
+                        stopped = true;
+                    }
                     // Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth()
-                            / gameWord.getActiveFloor().getActiveRoom().getWidth();
+                            / gameWorld.getActiveFloor().getActiveRoom().getWidth();
                     final double heightMolti = gameView.getHeight()
-                            / gameWord.getActiveFloor().getActiveRoom().getHeight();
-                    if (gameWord.isChangeFloor() || gameWord.getActiveFloor().isChangeRoom()) {
+                            / gameWorld.getActiveFloor().getActiveRoom().getHeight();
+                    if (gameWorld.isChangeFloor() || gameWorld.getActiveFloor().isChangeRoom()) {
                         final EntityInformation disappear = new EntityInformation()
                                 .setStatus(BasicStatusEnum.DISAPPEAR);
                         entityControllers.values().stream().forEach(x -> {
@@ -120,7 +127,7 @@ public class GameController {
                         });
                         entityControllers.clear();
                     }
-                    gameWord.getEntityInformation().stream().peek(i -> {
+                    gameWorld.getEntityInformation().stream().peek(i -> {
                         i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
                                 .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
 
@@ -141,7 +148,7 @@ public class GameController {
                             entityControllers.remove(st.getId());
                         }
                     });
-                    final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
+                    final StatisticsInformations stats = gameWorld.getPlayer().getStatisticsInformations();
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
                             .filter(s -> s instanceof BombStatisticView).findAny().get(), stats.getBombs());
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
@@ -152,18 +159,19 @@ public class GameController {
                             stats.getHearts());
                     gameView.draw();
                     gameView.updateEntity();
-                    gameWord.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
+                    gameWorld.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
                         e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);
                         e.getStatusComponent().setStatus(BasicStatusEnum.DEFAULT);
                     });
                     if (inputDisponible.tryAcquire()) {
-                        gameWord.input(inputCommand);
+                        gameWorld.input(inputCommand);
                         inputDisponible.release();
                     }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            Platform.runLater(() -> l.use());
         }
     }
 

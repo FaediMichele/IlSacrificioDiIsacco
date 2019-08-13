@@ -52,9 +52,11 @@ public class Position extends Triplet<Double, Double, Double> {
      */
     public Position clipToLength(final double newLength) {
         final double originalLength = getVectorValue();
-        this.setX(this.getX() * newLength / originalLength);
-        this.setY(this.getY() * newLength / originalLength);
-        this.setZ(this.getZ() * newLength / originalLength);
+        if (originalLength > 0) {
+            this.setX(this.getX() * newLength / originalLength);
+            this.setY(this.getY() * newLength / originalLength);
+            this.setZ(this.getZ() * newLength / originalLength);
+        }
         return this;
     }
 
