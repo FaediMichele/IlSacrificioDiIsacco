@@ -12,7 +12,7 @@ import model.events.DamageEvent;
  * Black heart uses the builder pattern to create itself.
  */
 
-public class BlackHeart extends SimpleHeart {
+public class BlackHeart extends AbstractHeart {
     private static final double ENEMY_DAMAGE = 0.5;
 
     /**

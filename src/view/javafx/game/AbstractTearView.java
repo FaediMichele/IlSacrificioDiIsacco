@@ -4,6 +4,8 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import model.enumeration.BasicStatusEnum;
+import model.enumeration.MovementEnum;
 
 /**
  * Class to draw all kinds of tears.
@@ -25,10 +27,20 @@ public class AbstractTearView extends AbstractEntityView {
     @Override
     public void draw(final GraphicsContext gc) {
         gc.drawImage(this.tears.get(index), super.getX(), super.getY(), super.getHeight(), super.getWidth());
-        index += 1;
-        if (index >= this.tears.size()) {
-            index -= 3;
+        if (this.getStatus().isPresent() && this.getStatus().get().equals(BasicStatusEnum.DISAPPEAR)) {
+            index += 1;
+            if (index >= this.tears.size()) {
+                super.disappear(null);
+            }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disappear(final MovementEnum move) {
+        this.setStatus(BasicStatusEnum.DISAPPEAR);
     }
 
 }
