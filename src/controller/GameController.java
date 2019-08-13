@@ -53,9 +53,9 @@ public class GameController {
      * @param gameView is the {@link GameView} in which the Game Controller operates
      * @param player   .
      * @param game     .
-     * @throws ClassNotFoundException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
+     * @throws ClassNotFoundException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
      * @throws IOException
      */
     public GameController(final GameView gameView, final PlayerEnum player, final String game)
@@ -125,11 +125,21 @@ public class GameController {
                     gameWord.getEntityInformation().stream().peek(i -> {
                         if (i.getEntityName() == BasicEntityEnum.DOOR) {
                             if (i.getMove() == BasicMovementEnum.UP) {
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                                final double minusY = 10;
+                                final double addX = 20;
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.RIGHT) {
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                                final double minusY = 20;
+                                final double addX = 5;
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.DOWN) {
-                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
+                                final double addY = 25;
+                                final double addX = 20;
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() + addY, i.getPosition().getZ()));
+                            } else if (i.getMove() == BasicMovementEnum.LEFT) {
+                                final double minusX = 30;
+                                final double minusY = 20;
+                                i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() - minusX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else {
                                 i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
                             }
