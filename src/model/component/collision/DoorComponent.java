@@ -68,7 +68,6 @@ public class DoorComponent extends LockCollisionComponent {
                 .changeEntityRoom(entity, location, destination);
             postPlayerPassed();
         }
-        
     }
 
     /**
