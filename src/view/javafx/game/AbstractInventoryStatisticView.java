@@ -87,8 +87,8 @@ public abstract class AbstractInventoryStatisticView extends AbstractStatisticVi
         final int y = super.getIndex() * super.getDelta() + super.getMargin();
 
         gc.drawImage(itemImage, super.getMargin(), y, super.getDelta(), super.getDelta());
-        final List<Image> numbersToDraw = new LinkedList<>();
-        this.getDigitList().stream().forEach(d -> numbersToDraw.add(this.numbers.get(d)));
+        final LinkedList<Image> numbersToDraw = new LinkedList<>();
+        this.getDigitList().stream().forEach(d -> numbersToDraw.addFirst(this.numbers.get(d)));
         for (int i = 0; i < numbersToDraw.size(); i++) {
             gc.drawImage(numbersToDraw.get(i), super.getMargin() + (super.getDelta() * (i + 1)) + INNER_SPACE, 
                             y + numbersShift, numbersDelta, numbersDelta);
