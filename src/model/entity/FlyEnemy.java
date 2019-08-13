@@ -21,7 +21,7 @@ public class FlyEnemy extends AbstractEnemyMovable {
     private static final double WIDTH = 30;
     private static final double HEIGHT = 30;
     private static final int WEIGHT = 5;
-    private static final double DSPEED = 2;
+    private static final double DSPEED = 1.5;
     private static final double DAMAGE = 1;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.FLY;
 
