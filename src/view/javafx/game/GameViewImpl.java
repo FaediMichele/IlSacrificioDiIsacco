@@ -101,14 +101,11 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void draw() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                room.draw(cnv.getGraphicsContext2D());
-                entities.stream().filter(e -> e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
-                entities.stream().filter(e -> !e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
-                statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
-            }
+        Platform.runLater(() -> {
+            room.draw(cnv.getGraphicsContext2D());
+            entities.stream().filter(e -> e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
+            entities.stream().filter(e -> !e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
+            statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
         });
     }
 

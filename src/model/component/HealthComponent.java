@@ -36,8 +36,10 @@ public class HealthComponent extends AbstractComponent {
     public HealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
-        List<Heart> heartList = Stream.iterate(0, i -> i + 1).limit(realHeartNumber).map(i -> new SimpleHeart(this.getEntity(), 1)).collect(Collectors.toList());
-        this.hearts = new LinkedList<Heart>(heartList);
+        this.hearts = new LinkedList<Heart>(Stream.iterate(0, i -> i + 1)
+                .limit(realHeartNumber)
+                .map(i -> new SimpleHeart(this.getEntity(), 1))
+                .collect(Collectors.toList()));
         if ((int) Math.ceil(defaultHearts) <= MAX_HEARTS && defaultHearts - (int) Math.floor(defaultHearts) != 0) {
             this.hearts.add(new SimpleHeart(this.getEntity(), defaultHearts - (int) Math.floor(defaultHearts)));
         }
@@ -148,7 +150,7 @@ public class HealthComponent extends AbstractComponent {
     }
 
     private void sortHearts() {
-        LinkedList<Heart> sortedHearts = new LinkedList<>();
+        final LinkedList<Heart> sortedHearts = new LinkedList<>();
         this.hearts.stream().filter(h -> h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
         this.hearts.stream().filter(h -> !h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
         this.hearts = sortedHearts;

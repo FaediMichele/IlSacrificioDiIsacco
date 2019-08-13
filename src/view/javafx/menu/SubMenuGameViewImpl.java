@@ -1,20 +1,12 @@
 package view.javafx.menu;
 
-import java.util.List;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import model.enumeration.HeartEnum;
-import util.Pair;
 import view.interfaces.SubMenuGameView;
 import view.javafx.ViewGetterUtil;
-import view.javafx.game.EntityView;
 import view.javafx.game.GameView;
 import view.javafx.game.GameViewImpl;
-import view.javafx.game.HeartStatisticView;
-import view.javafx.game.RoomView;
-import view.javafx.game.StatisticView;
 
 /**
  * The implementation view of the sub menu of the game. 

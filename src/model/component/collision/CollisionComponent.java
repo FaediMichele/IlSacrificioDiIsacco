@@ -19,7 +19,7 @@ import util.EventListener;
 public class CollisionComponent extends AbstractComponent {
 
     private static final double WAIT_TIME = 500;
-    private double time = 0;
+    private double time;
     /**
      * Default CollisionComponent constructor.
      * 
@@ -27,6 +27,7 @@ public class CollisionComponent extends AbstractComponent {
      */
     public CollisionComponent(final Entity entity) {
         super(entity);
+        time = 0;
         this.registerListener(new EventListener<CollisionEvent>() {
             @Override
             @Subscribe
@@ -44,6 +45,7 @@ public class CollisionComponent extends AbstractComponent {
      */
     public CollisionComponent(final Entity entity, final List<EventListener<CollisionEvent>> eventListeners) {
         super(entity);
+        time = 0;
         eventListeners.forEach(e -> this.registerListener(e));
     }
 
@@ -76,15 +78,12 @@ public class CollisionComponent extends AbstractComponent {
             myMentality = new NeutralMentalityComponent(event.getSourceEntity());
         }
 
-        if (time >= WAIT_TIME) {
-            if (sourceMentaliy.isDamageableByMe(myMentality.getClass())
+        if (time >= WAIT_TIME && sourceMentaliy.isDamageableByMe(myMentality.getClass())
                     && myMentality.canHurtMe(sourceMentaliy.getClass())) {
                 getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
                 time = 0;
             }
         }
-
-    }
 
     /**
      * {@inheritDoc}
