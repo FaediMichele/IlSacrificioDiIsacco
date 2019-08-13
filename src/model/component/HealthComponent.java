@@ -27,7 +27,7 @@ public class HealthComponent extends AbstractComponent {
 
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
-    private List<Heart> hearts;
+    private LinkedList<Heart> hearts;
 
     /**
      * @param defaultHearts number of hearts of this kind
@@ -120,7 +120,7 @@ public class HealthComponent extends AbstractComponent {
         if (this.hearts.size() < MAX_HEARTS) {
             final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColor().equals(h.getColor())).collect(Collectors.toList());
             if (heartsOfSameKind.isEmpty()) {
-                ((LinkedList) this.hearts.addLast(heart);
+                this.hearts.addLast(heart);
                 return true;
             }
             final boolean checkMaxHearts = ((heart.getMaxHearts().isPresent() && heartsOfSameKind.size() < heart.getMaxHearts().get()) 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import model.enumeration.HeartEnum;
 import util.Pair;
@@ -99,12 +101,12 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void draw() {
-        room.draw(cnv.getGraphicsContext2D());
-        entities.stream().filter(e -> DoorView.class.isInstance(e))
-            .forEach(e -> e.draw(cnv.getGraphicsContext2D()));
-        entities.stream().filter(e -> !DoorView.class.isInstance(e))
-            .forEach(e -> e.draw(cnv.getGraphicsContext2D()));
-        statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
+        Platform.runLater(() -> {
+            room.draw(cnv.getGraphicsContext2D());
+            entities.stream().filter(e -> e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
+            entities.stream().filter(e -> !e.getClass().isInstance(DoorView.class)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
+            statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
+        });
     }
 
     /**
