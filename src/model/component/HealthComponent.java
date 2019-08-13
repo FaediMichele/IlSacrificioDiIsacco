@@ -48,6 +48,7 @@ public class HealthComponent extends AbstractComponent {
             @Override
             @Subscribe
             public void listenEvent(final DamageEvent event) {
+                System.out.println("danno preso");
                 if (event.getDamageValue().isPresent()) {
                     getDamaged(event.getDamageValue().get());
                 } else {
