@@ -1,8 +1,7 @@
-package model.component;
+package model.component.mentality;
 
 import java.util.HashSet;
 
-import model.component.mentality.AbstractMentalityComponent;
 import model.entity.Entity;
 
 /**

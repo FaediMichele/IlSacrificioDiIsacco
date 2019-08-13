@@ -5,10 +5,10 @@ import java.util.Map;
 import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
-import model.component.ObstacleMentalityComponent;
 import model.component.StatusComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
+import model.component.mentality.ObstacleMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;

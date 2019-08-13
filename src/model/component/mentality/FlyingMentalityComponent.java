@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.component.ObstacleMentalityComponent;
 import model.entity.Entity;
 
 /**

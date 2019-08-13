@@ -18,8 +18,8 @@ import org.w3c.dom.NodeList;
 
 import model.component.BodyComponent;
 import model.component.HealthComponent;
-import model.component.ObstacleMentalityComponent;
 import model.component.StatusComponent;
+import model.component.mentality.ObstacleMentalityComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
