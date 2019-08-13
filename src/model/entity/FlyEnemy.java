@@ -11,7 +11,6 @@ import model.component.HealthComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.mentality.AbstractMentalityComponent;
-import model.component.mentality.EnemyMentalityComponent;
 import model.component.mentality.FlyingMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;

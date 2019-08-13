@@ -125,7 +125,7 @@ public class GameController {
                         if (i.getEntityName() == BasicEntityEnum.DOOR) {
                             if (i.getMove() == BasicMovementEnum.UP) {
                                 final double minusY = 10;
-                                final double addX = 20;
+                                final double addX = 0;
                                 i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.RIGHT) {
                                 final double minusY = 20;
@@ -133,7 +133,7 @@ public class GameController {
                                 i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() - minusY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.DOWN) {
                                 final double addY = 25;
-                                final double addX = 20;
+                                final double addX = 0;
                                 i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX() + addX, heightAdd - i.getPosition().getY() + addY, i.getPosition().getZ()));
                             } else if (i.getMove() == BasicMovementEnum.LEFT) {
                                 final double minusX = 30;
@@ -142,7 +142,8 @@ public class GameController {
                             } else {
                                 i.setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(), heightAdd - i.getPosition().getY(), i.getPosition().getZ()));
                             }
-                            i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti);
+                            final double add = 20;
+                            i.setWidth((i.getWidth() + add) * widthMolti).setHeight((i.getHeight() + add) * heightMolti);
                         } else {
                             i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
                                     .setPosition(new Position(PADDING_X_MAP + i.getPosition().getX(),
@@ -168,10 +169,10 @@ public class GameController {
                     });
                     final StatisticsInformations stats = gameWord.getPlayer().getStatisticsInformations();
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(BombStatisticView.class)).findAny().get(),
+                            .filter(s -> s instanceof BombStatisticView).findAny().get(),
                             stats.getBombs());
                     gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s.getClass().equals(KeyStatisticView.class)).findAny().get(), stats.getKeys());
+                            .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
                     gameView.setHeartsStatistic(
                             gameView.getStatistics().stream().filter(s -> s.getClass().equals(HeartStatisticView.class))
                                     .map(s -> HeartStatisticView.class.cast(s)).findAny().get(),

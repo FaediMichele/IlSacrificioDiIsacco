@@ -375,6 +375,5 @@ public class FloorImpl implements Floor {
             //Platform.runLater(() -> pn.getChildren().clear());
             pn = null;
         }
-        
     }
 }
