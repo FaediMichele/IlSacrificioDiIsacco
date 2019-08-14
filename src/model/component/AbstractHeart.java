@@ -97,7 +97,7 @@ public abstract class AbstractHeart implements Heart {
      * {@inheritDoc}
      */
     @Override
-    public abstract HeartEnum getColor();
+    public abstract HeartEnum getColour();
 
     /**
      * {@inheritDoc}

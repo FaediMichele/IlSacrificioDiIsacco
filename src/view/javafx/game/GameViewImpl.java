@@ -103,9 +103,9 @@ public class GameViewImpl implements GameView {
     public void draw() {
         Platform.runLater(() -> {
             room.draw(cnv.getGraphicsContext2D());
-            entities.stream().filter(e -> DoorView.class.isInstance(e)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
-            entities.stream().filter(e -> !DoorView.class.isInstance(e)).forEach(e -> e.draw(cnv.getGraphicsContext2D()));
             statistics.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
+            Collections.sort(entities, (e1, e2) -> DoorView.class.isInstance(e1) ? -1 : 1);
+            entities.stream().forEach(s -> s.draw(cnv.getGraphicsContext2D()));
         });
     }
 

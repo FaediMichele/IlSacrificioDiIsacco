@@ -48,7 +48,7 @@ public class BlackHeart extends AbstractHeart {
      * {@inheritDoc}
      */
     @Override
-    public HeartEnum getColor() {
+    public HeartEnum getColour() {
         return BasicHeartEnum.BLACK;
     }
 }

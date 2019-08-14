@@ -187,7 +187,7 @@ public class GameWorldImpl implements GameWorld {
     public StatisticsInformations getStatistics() {
         final List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
         final List<Pair<HeartEnum, Double>> hearts = this.getPlayer().getComponent(HealthComponent.class).get()
-                .getHearts().stream().map(h -> new Pair<HeartEnum, Double>(h.getColor(), h.getValue()))
+                .getHearts().stream().map(h -> new Pair<HeartEnum, Double>(h.getColour(), h.getValue()))
                 .collect(Collectors.toList());
         return new StatisticsInformations()
                 .setBombs(things.stream().filter(t -> t.getClass().isInstance(Bomb.class)).collect(Collectors.toList())

@@ -86,7 +86,7 @@ public class HealthComponent extends AbstractComponent {
      */
     public List<Pair<HeartEnum, Double>> getHeartPairs() {
         final List<Pair<HeartEnum, Double>> list = new LinkedList<>();
-        hearts.forEach(h -> list.add(new Pair<HeartEnum, Double>(h.getColor(), h.getValue())));
+        hearts.forEach(h -> list.add(new Pair<HeartEnum, Double>(h.getColour(), h.getValue())));
         return list;
     }
 
@@ -117,7 +117,7 @@ public class HealthComponent extends AbstractComponent {
      */
     public boolean addHeart(final Heart heart) {
         if (this.hearts.size() < MAX_HEARTS) {
-            final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColor().equals(h.getColor())).collect(Collectors.toList());
+            final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColour().equals(h.getColour())).collect(Collectors.toList());
             if (heartsOfSameKind.isEmpty()) {
                 this.hearts.addLast(heart);
                 return true;
@@ -149,11 +149,9 @@ public class HealthComponent extends AbstractComponent {
     }
 
     private void sortHearts() {
-        final LinkedList<Heart> sortedHearts = new LinkedList<>();
-        this.hearts.stream().filter(h -> h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
-        this.hearts.stream().filter(h -> !h.getColor().equals(BasicHeartEnum.RED)).forEach(h -> sortedHearts.add(h));
-        this.hearts = sortedHearts;
+        Collections.sort(hearts, (h1, h2) -> h1.getColour().equals(BasicHeartEnum.BLACK) ? 1 : -1);
     }
+
     /**
      * The health is damaged, it could loose part of an heart or multiple hearts
      * based on the damageValue.
