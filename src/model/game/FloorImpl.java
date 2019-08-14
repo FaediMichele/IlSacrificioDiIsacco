@@ -270,7 +270,7 @@ public class FloorImpl implements Floor {
         changedRoom = false;
         getActiveRoom().calculateCollision();
         getActiveRoom().updateEntityList();
-        debug();
+        //debug();
     }
 
     /**
