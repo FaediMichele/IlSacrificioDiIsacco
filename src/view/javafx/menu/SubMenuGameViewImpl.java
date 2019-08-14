@@ -1,8 +1,10 @@
 package view.javafx.menu;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import util.Lambda;
 import view.interfaces.SubMenuGameView;
 import view.javafx.ViewGetterUtil;
 import view.javafx.game.GameView;
@@ -64,6 +66,14 @@ public class SubMenuGameViewImpl implements SubMenuGameView {
     @Override
     public GameView createGameView() {
         return new GameViewImpl(ViewGetterUtil.getNodeByName("cnvGame", Canvas.class));
+    }
+
+    /**
+     * Run on javafx thread.
+     */
+    @Override
+    public void runOnApplicationThread(final Lambda l) {
+        Platform.runLater(() -> l.use());
     }
 
 }

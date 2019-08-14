@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
 
-import javafx.application.Platform;
 import model.entity.FactoryPlayersUtil;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
@@ -170,7 +169,7 @@ public class GameController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Platform.runLater(() -> l.use());
+             l.use();
         }
     }
 

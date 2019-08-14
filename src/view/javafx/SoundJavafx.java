@@ -52,7 +52,11 @@ public class SoundJavafx implements Sound {
     public void play() {
         verifyPlayer();
         a.stop();
-        a.play();
+        if (a.getStatus() != MediaPlayer.Status.READY) {
+            a.setOnReady(() -> a.play());
+        } else {
+            a.play();
+        }
         playing = true;
     }
 

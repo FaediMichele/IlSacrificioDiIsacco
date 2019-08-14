@@ -89,21 +89,23 @@ public class FloorImpl implements Floor {
                 docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("MaxRoom").getNodeValue());
         this.rooms = new ArrayList<>();
         generateRooms();
-        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
+        Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
+        if (!node.isPresent()) {
+            throw new IllegalStateException("tag Rooms not found");
+        }
         this.activeRoomIndex = 0;
         final Random rnd = new Random();
-        if (node.isPresent()) {
-            final NodeList nl = node.get().getChildNodes();
-            for (int i = 0; i < rooms.size(); i++) {
-                final int n = nl.getLength();
-                final int rndIndex = rnd.nextInt((n - 1) / 2);
-                final Node room = nl.item(rndIndex * 2 + 1);
-                if (room.getNodeType() == Node.ELEMENT_NODE) {
-                    final String roomName = room.getNodeName();
-                    rooms.get(i).fill(roomName);
-                }
-            }
+        final Pair<Integer, Integer> specialRooms = addGenericRooms(node.get(), rnd);
+        node = ls.stream().filter(n -> n.getNodeName().equals("Boss")).findFirst();
+        if (!node.isPresent()) {
+            throw new IllegalStateException("tag Boss not found");
         }
+        addSpecialRoom(node.get(), rnd, specialRooms.getX());
+        node = ls.stream().filter(n -> n.getNodeName().equals("Treasure")).findFirst();
+        if (!node.isPresent()) {
+            throw new IllegalStateException("tag Treasure not found");
+        }
+        addSpecialRoom(node.get(), rnd, specialRooms.getY());
         changedRoom = false;
     }
 
@@ -123,6 +125,44 @@ public class FloorImpl implements Floor {
         return this.rooms;
     }
 
+    private void addSpecialRoom(final Node node, final Random rnd, final int index) {
+        final NodeList nl = node.getChildNodes();
+        final int n = nl.getLength();
+        final int rndIndex = rnd.nextInt((n - 1) / 2);
+        final Node room = nl.item(rndIndex * 2 + 1);
+        if (room.getNodeType() == Node.ELEMENT_NODE) {
+            final String roomName = room.getNodeName();
+            rooms.get(index).fill(roomName);
+        }
+    }
+
+    /**
+     * Create all generic rooms.
+     * @param node the node to get the information.
+     * @param rnd a random initialized.
+     * @return the index for the boss and treasure rooms.
+     */
+    private Pair<Integer, Integer> addGenericRooms(final Node node, final Random rnd) {
+        final NodeList nl = node.getChildNodes();
+        final Integer b = rnd.nextInt(rooms.size() - 1) + 1;
+        Integer t;
+        do {
+            t = rnd.nextInt(rooms.size() - 1) + 1;
+        } while (t.equals(b));
+        for (int i = 1; i < rooms.size() - 2; i++) {
+            if (!b.equals(i) && !t.equals(b)) {
+                final int n = nl.getLength();
+                final int rndIndex = rnd.nextInt((n - 1) / 2);
+                final Node room = nl.item(rndIndex * 2 + 1);
+                if (room.getNodeType() == Node.ELEMENT_NODE) {
+                    final String roomName = room.getNodeName();
+                    rooms.get(i).fill(roomName);
+                }
+            }
+        }
+        return new Pair<>(b, t);
+    }
+
     private void generateRooms() {
         if (!this.rooms.isEmpty()) {
             throw new IllegalStateException("Floor already created");
@@ -138,9 +178,9 @@ public class FloorImpl implements Floor {
     }
 
     /**
-     * Generate an empty room based on activeRoomIndex and adjacent room.
+     * Generate an empty room based on the current room and adjacents.
      * 
-     * @param activeRoomIndex the activeRoomIndex of the room
+     * @param index the index of the room
      * @param m               Matrix of adjacent room
      * @param pos             the position on the matrix of the room to initialize
      * @param width           the width of the room
@@ -181,10 +221,8 @@ public class FloorImpl implements Floor {
     /**
      * Generate the map.
      * 
-     * @param m          {@link Matrix} where to save the room ( used for nearby
-     *                   rooms)
-     * @param roomIndexs {@link ArrayList} of positions of each room in increasing
-     *                   order
+     * @param m          {@link Matrix} where to save the room ( used for nearby rooms)
+     * @param roomIndexs {@link ArrayList} of positions of each room in increasing order
      */
     private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
         final Pair<Integer, Integer> pos = new Pair<>(maxRoom / 2, maxRoom / 2);

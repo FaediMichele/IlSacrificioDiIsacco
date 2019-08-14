@@ -5,6 +5,12 @@
         <Rooms>
             <Room1/>
         </Rooms>
+        <Boss>
+            <Room3/>
+        </Boss>
+        <Treasure>
+            <Room2/>
+        </Treasure>
     </Floor1>
 </Floors>
 
