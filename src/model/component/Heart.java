@@ -51,7 +51,7 @@ public interface Heart {
 
     /**
      * . 
-     * @return color for heart.
+     * @return colour for heart.
      */
-    HeartEnum getColor();
+    HeartEnum getColour();
 }
