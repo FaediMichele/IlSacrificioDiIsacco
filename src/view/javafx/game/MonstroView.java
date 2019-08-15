@@ -2,6 +2,7 @@ package view.javafx.game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -14,7 +15,7 @@ import util.SpritesExtractor;
 * View and animations of the Monstro enemy.
 */
 public class MonstroView extends AbstractEntityView {
-    private static List<Image> monstroSprite;
+    private static List<Image> monstroSprite = new ArrayList<Image>();
     private int index;
 
     static {
@@ -28,7 +29,11 @@ public class MonstroView extends AbstractEntityView {
         final int width = 79;
         final int monstros = 9;
         final int cols = 5;
-        monstroSprite = (new SpritesExtractor(img, monstros, 2, cols, width, height)).extract();
+        final List<Image> monstroSpriteTmp = (new SpritesExtractor(img, monstros, 2, cols, width, height)).extract();
+        monstroSpriteTmp.forEach(m -> {
+            monstroSprite.add(m);
+            monstroSprite.add(m);
+        });
     }
 
     /**
