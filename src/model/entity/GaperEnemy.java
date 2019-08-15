@@ -6,6 +6,7 @@ import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
 import model.component.FollowAIComponent;
+import model.component.HealthComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.enumeration.BasicEntityEnum;
@@ -19,7 +20,8 @@ public class GaperEnemy extends AbstractEnemyMovable {
     private static final double WIDTH = 20;
     private static final double HEIGHT = 20;
     private static final int WEIGHT = 5;
-    private static final double DSPEED = 7;
+    private static final double DSPEED = 1.2;
+    private static final int HEALTH = 20;
 //    private static final double MAXSPEED = 7;
 //    private static final double FRICTION = 7;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.GAPER;
@@ -59,7 +61,8 @@ public class GaperEnemy extends AbstractEnemyMovable {
         this.attachComponent(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT))
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
-            .attachComponent(new FollowAIComponent(this));
+            .attachComponent(new FollowAIComponent(this))
+            .attachComponent(new HealthComponent(this, HEALTH));
     }
 
 

@@ -1,5 +1,6 @@
 package view.interfaces;
 
+import util.Lambda;
 import view.SubMenuView;
 import view.javafx.game.GameView;
 
@@ -28,4 +29,10 @@ public interface SubMenuGameView extends SubMenuView {
      * @return the new Game View.
      */
     GameView createGameView();
+
+   /**
+    * Perform an operations that use the application within the thread application.
+    * @param l the operations.
+    */
+    void runOnApplicationThread(Lambda l);
 }

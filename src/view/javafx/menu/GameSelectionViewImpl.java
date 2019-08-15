@@ -50,6 +50,13 @@ public class GameSelectionViewImpl implements GameSelectionView {
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
         tp = new ContextPageJavafx(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), MSSUBMENU);
         tp.addPage(ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class));
+        characterSelected.setEndListener(() -> {
+            fd.setToValue(1);
+            fd.playFromStart();
+            if (onIntroEnded != null) {
+                onIntroEnded.use();
+            }
+        });
    }
 
     /**
@@ -89,13 +96,6 @@ public class GameSelectionViewImpl implements GameSelectionView {
             fd.playFromStart();
         } else {
             characterSelected.play();
-            characterSelected.setEndListener(() -> {
-                fd.setToValue(1);
-                fd.playFromStart();
-                if (onIntroEnded != null) {
-                    onIntroEnded.use();
-                }
-            });
         }
     }
 
