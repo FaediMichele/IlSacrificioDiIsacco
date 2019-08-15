@@ -15,7 +15,6 @@ import view.javafx.game.GameViewImpl;
 import view.javafx.game.GaperView;
 import view.javafx.game.IsaacView;
 import view.javafx.game.KeyView;
-import view.javafx.game.RedTearView;
 import view.javafx.game.AbstractPlayerView;
 import view.javafx.game.RoomView;
 
@@ -28,7 +27,6 @@ public class TestCanvas extends Application {
     @Override
     public final void start(final Stage stage) throws Exception {
         final RoomView room = new RoomView("/gameImgs/basement_background1_640x344.png");
-        final RedTearView rd = new RedTearView();
         final Canvas canvas = new Canvas();
         final Pane root = new Pane(canvas);
         final AbstractPlayerView isaac = new IsaacView();

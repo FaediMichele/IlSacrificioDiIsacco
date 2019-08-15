@@ -1,14 +1,12 @@
 package view.javafx.game;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import util.SpritesExtractor;
 
@@ -31,14 +29,6 @@ public class RedTearView extends AbstractTearView {
 
         enemyTear = (new SpritesExtractor(img, tears, 2, cols, delta, delta, 0, delta * 2)).extract();
         Collections.reverse(enemyTear);
-        enemyTear.forEach(t -> {
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(t, null), "png", new File(enemyTear.indexOf(t)+".png"));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
     }
 
     /**
