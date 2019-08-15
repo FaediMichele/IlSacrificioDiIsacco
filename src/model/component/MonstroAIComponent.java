@@ -2,19 +2,23 @@ package model.component;
 
 import model.entity.Entity;
 import model.entity.Player;
+import model.events.TearShotEvent;
 import model.game.Room;
 import java.util.List;
 import java.util.Optional;
-
 
 /**
  * AI for the Monstro monster.
  */
 public class MonstroAIComponent extends AbstractComponent {
-
+    private static final double TOLERANCE = 100;
     private double angle;
+    private boolean canShoot;
+
     /**
-     * Each time the Gaper collides with something, re-calculates the angle to get to isaac.
+     * Each time the Monstro collides with something, re-calculates the angle to get
+     * to isaac.
+     * 
      * @param entity for this component
      */
     public MonstroAIComponent(final Entity entity) {
@@ -25,7 +29,8 @@ public class MonstroAIComponent extends AbstractComponent {
 
     /**
      * returns the angle to get to Isaac.
-     * @return 
+     * 
+     * @return
      */
     private boolean calculateAngle() {
         final Room r = this.getEntity().getRoom();
@@ -36,7 +41,8 @@ public class MonstroAIComponent extends AbstractComponent {
         if (entitys == null) {
             return false;
         }
-        final Optional<? extends Entity> player = entitys.stream().filter(i -> i.getClass().equals(Player.class)).findAny();
+        final Optional<? extends Entity> player = entitys.stream().filter(i -> i.getClass().equals(Player.class))
+                .findAny();
         if (!player.isPresent()) {
             return false;
         }
@@ -49,6 +55,8 @@ public class MonstroAIComponent extends AbstractComponent {
         final Double diffX = playerBody.getPosition().getX() - myBody.getPosition().getX();
         final Double diffY = playerBody.getPosition().getY() - myBody.getPosition().getY();
 
+        this.canShoot = diffX < TOLERANCE || diffY < TOLERANCE;
+
         this.angle = Math.atan2(diffY, diffX) * 180.0 / Math.PI;
         return true;
     }
@@ -60,6 +68,9 @@ public class MonstroAIComponent extends AbstractComponent {
     public void update(final Double deltaTime) {
         if (calculateAngle()) {
             super.getEntity().getComponent(MoveComponent.class).get().move(angle);
+            if (this.canShoot) {
+                getEntity().postEvent(new TearShotEvent(getEntity(), (int) this.angle));
+            }
         } else {
             super.getEntity().getComponent(MoveComponent.class).get().stop();
         }
