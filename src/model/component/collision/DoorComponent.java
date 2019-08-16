@@ -43,16 +43,15 @@ public class DoorComponent extends LockCollisionComponent {
     @Override
     public void afterUnlocks(final Entity entity) {
         final BodyComponent eBody = entity.getComponent(BodyComponent.class).get();
-        System.out.println("destinazione = "  + this.destination + " size rooms = " + entity.getRoom().getFloor().getRooms().size());
+        System.out.println("destinazione = "  + this.destination + " dimensione piano = " + entity.getRoom().getFloor().getRooms().size());
         System.out.println("stanza di partenza " + getEntity().getRoom().getIndex() + " = " + this.location);
-        System.out.println("size porte destinazione = "  +  entity.getRoom().getFloor().getRooms().get(this.destination).getDoor().size());
+        System.out.println("porte stanza di destinazione: (n = "  +  entity.getRoom().getFloor().getRooms().get(this.destination).getDoor().size() + ")");
 
         getEntity().getRoom().getFloor().getRooms().get(this.destination).getDoor()
         .stream()
         .map(d -> d.getComponent(DoorComponent.class).get())
         .map(dc -> new Pair<Integer, Integer>(dc.getLocation(), dc.getDestination()))
         .forEach(p -> {
-            System.out.println("Location = " + p.getX());
             System.out.println("Destination = " + p.getY());
         });
 
