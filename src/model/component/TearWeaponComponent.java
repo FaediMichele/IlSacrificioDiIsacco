@@ -89,7 +89,7 @@ public class TearWeaponComponent extends AbstractComponent {
 
     /**
      * 
-     * @param damage
+     * @param damage 
      */
     public void setDamage(final double damage) {
         this.damage = damage;
