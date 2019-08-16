@@ -3,13 +3,22 @@
 <Floors>
     <Floor1 MaxRoom="14">
         <Rooms>
-            <Room1/>
+            <Room2/>
+            <Room3/>
+            <Room4/>
+            <Room5/>
+            <Room6/>
+            <Room6/>
+            <Room7/>
+            <Room8/>
+            <Room9/>
+            <Room10/>
         </Rooms>
         <Boss>
-            <Room4/>
+            <BossRoom/>
         </Boss>
         <Treasure>
-            <Room2/>
+            <Room1/>
         </Treasure>
     </Floor1>
 </Floors>

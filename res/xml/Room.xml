@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Rooms>
-    <Room1 background="/gameimgs/basement_background1_640x344.png">
+    <Room1>
         <Entities>
             <StickyBombs X="100" Y="100" />
             <Rock X="190" Y="100"/>
@@ -11,13 +11,13 @@
             <Bomb X="200" Y="150"/>
         </Entities>
     </Room1>
-    <Room2 background="/gameimgs/basement_background1_640x344.png">
+    <Room2>
         <Entities>
             <Rock X="250" Y="100"/>
             <Rock X="330" Y="100"/>
         </Entities>
     </Room2>
-     <Room3 background="/gameimgs/basement_background1_640x344.png">
+     <Room3>
         <Entities>
             <FlyEnemy X="100" Y="100"/>
             <FlyEnemy X="200" Y="100"/>
@@ -27,10 +27,86 @@
             <GaperEnemy X="300" Y="200" />
         </Entities>
     </Room3>
-    <Room4 background="/gameimgs/basement_background1_640x344.png">
+    <Room4>
+        <Entities>
+            <HostHat X="100" Y="100" />
+            <Rock X="190" Y="100"/>
+            <SimplePickupableHeart X="200" Y="200"/>
+            <BlackPickupableHeart X="300" Y="200"/>
+            <Key X="200" Y="200"/>
+            <Bomb X="200" Y="150"/>
+            <FlyEnemy X="100" Y="100"/>
+            <FlyEnemy X="200" Y="100"/>
+            <FlyEnemy X="300" Y="100"/>
+        </Entities>
+    </Room4>
+    <Room5>
+        <Entities>
+            <Rock X="250" Y="100"/>
+            <Rock X="330" Y="100"/>
+            <FlyEnemy X="100" Y="100"/>
+            <FlyEnemy X="200" Y="100"/>
+            <FlyEnemy X="300" Y="100"/>
+            <FlyEnemy X="100" Y="100"/>
+            <FlyEnemy X="200" Y="100"/>
+            <FlyEnemy X="300" Y="100"/>
+        </Entities>
+    </Room5>
+     <Room6>
+        <Entities>
+            <FlyEnemy X="100" Y="100"/>
+            <FlyEnemy X="200" Y="100"/>
+            <FlyEnemy X="300" Y="100"/>
+            <GaperEnemy X="100" Y="200" />
+            <GaperEnemy X="200" Y="200" />
+            <GaperEnemy X="300" Y="200" />
+            <GaperEnemy X="150" Y="250" />
+            <GaperEnemy X="250" Y="250" />
+            <GaperEnemy X="350" Y="250" />
+        </Entities>
+    </Room6>
+    <Room7>
+        <Entities>
+            <MawOfTheVoid X="100" Y="100" />
+            <Rock X="190" Y="100"/>
+            <BlackPickupableHeart X="300" Y="200"/>
+            <EightInchNails X="200" Y="200"/>
+            <Bomb X="200" Y="150"/>
+        </Entities>
+    </Room7>
+    <Room8>
+        <Entities>
+            <Rock X="250" Y="100"/>
+            <Rock X="330" Y="100"/>
+            <GaperEnemy X="100" Y="200" />
+            <GaperEnemy X="200" Y="200" />
+            <GaperEnemy X="300" Y="200" />
+        </Entities>
+    </Room8>
+     <Room9>
+        <Entities>
+            <GaperEnemy X="100" Y="200" />
+            <GaperEnemy X="200" Y="200" />
+            <GaperEnemy X="300" Y="200" />
+            <GaperEnemy X="120" Y="220" />
+            <GaperEnemy X="200" Y="220" />
+            <GaperEnemy X="300" Y="220" />
+        </Entities>
+    </Room9>
+    <Room10>
+        <Entities>
+            <Rock X="250" Y="100"/>
+            <Rock X="330" Y="100"/>
+            <GaperEnemy X="100" Y="200" />
+            <GaperEnemy X="200" Y="200" />
+            <GaperEnemy X="300" Y="200" />
+            <BlackPickupableHeart X="300" Y="200"/>
+        </Entities>
+    </Room10>
+    <BossRoom>
         <Entities>
             <MonstroBoss X="200" Y="200" />
         </Entities>
-    </Room4>
+    </BossRoom>
 </Rooms>
 
