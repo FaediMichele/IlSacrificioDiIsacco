@@ -13,6 +13,7 @@ import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.FlyingMentalityComponent;
+import model.component.mentality.MonstroBossMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicTearEnum;
 import model.enumeration.EntityEnum;
@@ -69,7 +70,8 @@ public class MonstroBoss extends AbstractEnemyMovable {
             .attachComponent(new MonstroAIComponent(this))
             .attachComponent(new HealthComponent(this, 3))
             .attachComponent(new DamageComponent(this, DAMAGE))
-            .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE));
+            .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE))
+            .attachComponent(new MonstroBossMentalityComponent(this));
     }
 
     /**
