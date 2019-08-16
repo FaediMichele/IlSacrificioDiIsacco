@@ -77,8 +77,8 @@ public class FireView extends AbstractEntityView {
      * Base constructor, initilizes the indexes and sets the list to use based on the fire colour.
      * @param colour the colour of this FireView
      */
-    public FireView(final FireColour colour) {
-        super();
+    public FireView(final FireColour colour, final GameView gameView) {
+        super(gameView);
         this.fireSprite.addAll(fireSprites.get(colour));
         this.dyingFireSprite.addAll(dyingFireSprites.get(colour));
         this.fireGridSprite.addAll(fireGridSprites.get(colour));

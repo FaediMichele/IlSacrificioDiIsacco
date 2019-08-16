@@ -36,8 +36,8 @@ public abstract class AbstractPlayerView extends AbstractEntityView {
      * @param id the {@link UUID}
      * @param path the path of the sheet of the player
      */
-    AbstractPlayerView(final String path) {
-        super();
+    AbstractPlayerView(final String path, final GameView gameView) {
+        super(gameView);
         notBlinkCount = 0;
         bodyIndex.put(BasicMovementEnum.UP, 0);
         bodyIndex.put(BasicMovementEnum.DOWN, 0);

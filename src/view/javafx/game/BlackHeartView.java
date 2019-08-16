@@ -33,7 +33,7 @@ public class BlackHeartView extends AbstractHeartView {
     /**
      * Sets the black hearts as the ones to draw.
      */
-    public BlackHeartView() {
-        super(blackHeart, halfBlackHeart);
+    public BlackHeartView(final GameView gameView) {
+        super(blackHeart, halfBlackHeart, gameView);
     }
 }

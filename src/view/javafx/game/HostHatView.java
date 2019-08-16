@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
  *
  */
 public class HostHatView extends AbstractEntityView {
+
     private static Image img;
 
     static {
@@ -26,6 +27,10 @@ public class HostHatView extends AbstractEntityView {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+    
+    public HostHatView(final GameView gameView) {
+        super(gameView);
     }
 
     /**

@@ -36,8 +36,8 @@ public class GaperView extends IsaacView {
     /**
      * Base constructor, initilizes the indexes.
      */
-    public GaperView() {
-        super();
+    public GaperView(final GameView gameView) {
+        super(gameView);
         gaperFaceSprites.put(BasicMovementEnum.DOWN, movingDownFaceSprites);
         gaperFaceSprites.put(BasicMovementEnum.STATIONARY, movingDownFaceSprites);
         gaperFaceSprites.put(BasicMovementEnum.UP, super.getFaceSprites().get(BasicMovementEnum.UP));

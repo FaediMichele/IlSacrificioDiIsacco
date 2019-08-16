@@ -20,8 +20,8 @@ public class DanksquirtView extends AbstractEntityView {
     /**
      * Create a new DanksquirtView.
      */
-    public DanksquirtView() {
-        super();
+    public DanksquirtView(final GameView gameView) {
+        super(gameView);
         index = 0;
     }
 

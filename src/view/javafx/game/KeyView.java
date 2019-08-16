@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 * View of the key.
 */
 public class KeyView extends AbstractEntityView {
+
     private static Image keySprite;
 
     static {
@@ -29,6 +30,10 @@ public class KeyView extends AbstractEntityView {
         }
     }
 
+    public KeyView(final GameView gameView) {
+        super(gameView);
+    }
+    
     /**
      * @return the sprite of the key.
      */

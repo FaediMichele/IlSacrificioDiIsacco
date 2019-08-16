@@ -1,5 +1,6 @@
 package controller;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
@@ -76,9 +77,17 @@ public class EntityController {
                                                                                             IllegalArgumentException, 
                                                                                             InvocationTargetException {
         final Class<? extends EntityView> classEntity = ENTITY_MAP.get(info.getEntityName());
-        this.entityView = (EntityView) classEntity.newInstance();
-        this.entityView.setGameView(gameView);
+        //this.entityView = (EntityView) classEntity.newInstance();
+        this.entityView = (EntityView) classEntity.getConstructor(GameView.class)
+                                                  .newInstance(gameView);
+//        this.entityView.setGameView(gameView);
         gameView.addEntity(entityView);
+//
+//
+//        Class<?> cl = Class.forName("javax.swing.JLabel");
+//        Constructor<?> cons = cl.getConstructor(String.class);
+//        Object o = cons.newInstance("JLabel");
+
     }
 
     /**

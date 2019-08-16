@@ -37,8 +37,8 @@ public class FlyView extends AbstractEntityView {
     /**
      * Create a new FlyView.
      */
-    public FlyView() {
-        super();
+    public FlyView(final GameView gameView) {
+        super(gameView);
         index = 0;
         explodingIndex = 0;
     }

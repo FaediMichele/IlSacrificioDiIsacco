@@ -34,7 +34,7 @@ public class RedTearView extends AbstractTearView {
     /**
      * 
      */
-    public RedTearView() {
-        super(enemyTear);
+    public RedTearView(final GameView gameView) {
+        super(enemyTear, gameView);
     }
 }

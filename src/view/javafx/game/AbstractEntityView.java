@@ -19,6 +19,13 @@ public abstract class AbstractEntityView implements EntityView {
     private Optional<BasicStatusEnum> status = Optional.empty();
 
     /**
+     * 
+     * @param gameView .
+     */
+    public AbstractEntityView(final GameView gameView) {
+        this.gameView = Optional.of(gameView);
+    }
+    /**
      * @return the GameView to which the entityView is attached (if there is one);
      */
     public Optional<GameView> getGameView() {

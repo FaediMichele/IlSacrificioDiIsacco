@@ -30,8 +30,8 @@ public class RedHeartView extends AbstractHeartView {
      /**
      * Sets the red hearts as the ones to draw.
      */
-    public RedHeartView() {
-        super(simpleHeart, halfSimpleHeart);
+    public RedHeartView(final GameView gameView) {
+        super(simpleHeart, halfSimpleHeart, gameView);
     }
 
 }

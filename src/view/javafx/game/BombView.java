@@ -58,8 +58,8 @@ public class BombView extends AbstractEntityView {
     /**
      * Base constructor, initilizes the indexes.
      */
-    public BombView() {
-        super();
+    public BombView(final GameView gameView) {
+        super(gameView);
         this.triggeredIndex = 0;
         this.explosionIndex = 0;
     }

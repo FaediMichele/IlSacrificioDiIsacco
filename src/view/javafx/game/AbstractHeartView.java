@@ -17,8 +17,8 @@ public class AbstractHeartView extends AbstractEntityView {
      * @param heart the image of the full heart
      * @param halfHeart the image of the half heart
      */
-    AbstractHeartView(final Image heart, final Image halfHeart) {
-        super();
+    AbstractHeartView(final Image heart, final Image halfHeart, final GameView gameView) {
+        super(gameView);
         this.halfHeart = halfHeart;
         this.heart = heart;
     }

@@ -45,7 +45,7 @@ public class TestGameView extends Application {
         stage.setTitle("Il sacrificio di Isacco");
         stage.setScene(scene);
         stage.show();*/
-        new IsaacView();
+      //  new IsaacView();
 
     }
 }

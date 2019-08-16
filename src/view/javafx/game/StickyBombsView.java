@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
  *
  */
 public class StickyBombsView extends AbstractEntityView {
+
     private static Image img;
 
     static {
@@ -28,6 +29,9 @@ public class StickyBombsView extends AbstractEntityView {
         }
     }
 
+    public StickyBombsView(final GameView gameView) {
+        super(gameView);
+    }
     /**
      * Draws the image.
      */

@@ -19,6 +19,7 @@ import util.StaticMethodsUtils;
  *
  */
 public class DoorView extends AbstractEntityView {
+
     private static final Map<MovementEnum, Image> DOOR_OPEN = new HashMap<>();
     private static final Map<MovementEnum, Image> DOOR_CLOSE = new HashMap<>();
     private static final Map<MovementEnum, Image> DOOR_LOCKED = new HashMap<>();
@@ -59,6 +60,10 @@ public class DoorView extends AbstractEntityView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public DoorView(final GameView gameView) {
+        super(gameView);
     }
 
     /**

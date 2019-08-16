@@ -16,6 +16,8 @@ import javafx.scene.image.Image;
  *
  */
 public class MawOfTheVoidView extends AbstractEntityView {
+
+
     private static Image img;
 
     static {
@@ -28,6 +30,9 @@ public class MawOfTheVoidView extends AbstractEntityView {
         }
     }
 
+    public MawOfTheVoidView(final GameView gameView) {
+        super(gameView);
+    }
     /**
      * Draws the image.
      */

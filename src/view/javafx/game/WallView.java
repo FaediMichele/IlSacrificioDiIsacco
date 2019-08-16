@@ -8,6 +8,10 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class WallView extends AbstractEntityView {
 
+    public WallView(GameView gameView) {
+        super(gameView);
+    }
+
     @Override
     public void draw(final GraphicsContext gc) {
     }

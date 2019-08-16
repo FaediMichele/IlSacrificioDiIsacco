@@ -33,8 +33,8 @@ public class BlueTearView extends AbstractTearView {
     /**
      * Sets the tears to be blue.
      */
-    public BlueTearView() {
-        super(playerTear);
+    public BlueTearView(final GameView gameView) {
+        super(playerTear, gameView);
     }
 
 }

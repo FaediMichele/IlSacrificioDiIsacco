@@ -31,8 +31,8 @@ public class RockView extends AbstractEntityView {
     /**
      * Rock constructor, chooses the random rock to draw.
      */
-    public RockView() {
-        super();
+    public RockView(final GameView gameView) {
+        super(gameView);
         this.index = (new Random().nextInt(rockSprites.size()));
     }
 

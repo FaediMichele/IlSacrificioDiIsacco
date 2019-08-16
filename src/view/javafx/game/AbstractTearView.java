@@ -15,8 +15,8 @@ public class AbstractTearView extends AbstractEntityView {
     private final List<Image> tears;
     private int index;
 
-    AbstractTearView(final List<Image> tears) {
-        super();
+    AbstractTearView(final List<Image> tears, final GameView gameView) {
+        super(gameView);
         this.tears = tears;
         this.index = 0;
     }
