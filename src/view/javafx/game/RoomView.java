@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
  * It generates the background of the room with the correct doors.
  */
 public class RoomView {
+    private static final String PATH_DEFOULT_ROOM = "/gameImgs/basement_background1_640x344.png";
     private final Image imageRoom;
     /**
      * @param path the path of the background of the room
@@ -23,6 +24,14 @@ public class RoomView {
         this.imageRoom = SwingFXUtils.toFXImage(img, null);
     }
 
+    /**
+     * Default constructor.
+     * @throws IOException 
+     */
+    public RoomView() throws IOException {
+        final BufferedImage img = ImageIO.read(RoomView.class.getResource(PATH_DEFOULT_ROOM));
+        this.imageRoom = SwingFXUtils.toFXImage(img, null);
+    }
     /**
      * 
      * @param graphic the {@link GraphicsContext}

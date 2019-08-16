@@ -16,7 +16,6 @@ import util.Pair;
  */
 public class GameViewImpl implements GameView {
 
-    private static final String PATH_DEFOULT_ROOM = "/gameImgs/basement_background1_640x344.png";
     private final List<EntityView> entities = new ArrayList<>();
     private final List<EntityView> toAdd = new ArrayList<>();
     private final List<EntityView> toRemove = new ArrayList<>();
@@ -90,12 +89,13 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     @Override
-    public void setInventoryStatistic(final StatisticView s, final double itemNumber) {
+    public GameView setInventoryStatistic(final StatisticView s, final double itemNumber) {
         Objects.requireNonNull(s);
         if (!this.statistics.contains(s)) {
             this.statistics.add(s);
         }
         s.setNumber(itemNumber);
+        return this;
     }
 
     /**

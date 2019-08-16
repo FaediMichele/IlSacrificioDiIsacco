@@ -62,8 +62,9 @@ public interface GameView {
      * 
      * @param s          the statisticView that needs to be update
      * @param itemNumber the number of items that needs to be set
+     * @return this.
      */
-    void setInventoryStatistic(StatisticView s, double itemNumber);
+    GameView setInventoryStatistic(StatisticView s, double itemNumber);
 
     /**
      * Sets the list of HeartViews in the statistics.
