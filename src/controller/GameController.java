@@ -69,9 +69,16 @@ public class GameController {
         this.gameView.addStatistic(new HeartStatisticView());
         this.gameView.addStatistic(new BombStatisticView());
         this.gameView.addStatistic(new KeyStatisticView());
-        gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png"));
+        gameView.setRoomView(new RoomView());
     }
 
+    /**
+     * 
+     * @param roomView the room view that you want to set in the current game view.
+     */
+    public void setRoomView(final RoomView roomView) {
+        this.gameView.setRoomView(roomView);
+    }
     /**
      * to start the game loop.
      */
@@ -107,25 +114,26 @@ public class GameController {
                         stopped = true;
                         // gameView.gameOver()
                     } else {
+                        //proportions between model and view
                         final double widthMolti = gameView.getWidth()
                                 / gameWorld.getActiveFloor().getActiveRoom().getWidth();
                         final double heightMolti = gameView.getHeight()
                                 / gameWorld.getActiveFloor().getActiveRoom().getHeight();
+                        //if we changed room or floor
                         if (gameWorld.isChangeFloor() || gameWorld.getActiveFloor().isChangeRoom()) {
-                            System.out.println(gameWorld.getActiveFloor().getRooms()
-                                    .indexOf(gameWorld.getActiveFloor().getActiveRoom()));
-                            final EntityInformation disappear = new EntityInformation()
-                                    .setStatus(BasicStatusEnum.DISAPPEAR);
+                            final EntityInformation disappear = new EntityInformation().setStatus(BasicStatusEnum.DISAPPEAR);
                             entityControllers.values().stream().forEach(x -> {
-                                x.update(disappear);
-                            });
+                                                                                x.update(disappear);
+                                                                            });
                             entityControllers.clear();
                         }
                         gameWorld.getEntityInformation().stream().peek(i -> {
-                            i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
-                                    .setPosition(new Position(i.getPosition().getX(),
-                                            gameView.getHeight() - i.getPosition().getY() - i.getHeight(),
-                                            i.getPosition().getZ()));
+                                                    i.setWidth(i.getWidth() * widthMolti)
+                                                     .setHeight(i.getHeight() * heightMolti)
+                                                     .setPosition(new Position(
+                                                                         i.getPosition().getX(),
+                                                                         gameView.getHeight() - i.getPosition().getY() - i.getHeight(),
+                                                                         i.getPosition().getZ()));
                         }).peek(st -> {
                             if (!entityControllers.containsKey(st.getId())) {
                                 try {
@@ -144,13 +152,21 @@ public class GameController {
                             }
                         });
                         final StatisticsInformations stats = gameWorld.getPlayer().getStatisticsInformations();
-                        gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                                .filter(s -> s instanceof BombStatisticView).findAny().get(), stats.getBombs());
-                        gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                                .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
-                        gameView.setHeartsStatistic(gameView.getStatistics().stream()
-                                .filter(s -> s.getClass().equals(HeartStatisticView.class))
-                                .map(s -> HeartStatisticView.class.cast(s)).findAny().get(), stats.getHearts());
+                        gameView.setInventoryStatistic(gameView.getStatistics()
+                                                        .stream()
+                                                        .filter(s -> BombStatisticView.class.isInstance(s))
+                                                        .findAny()
+                                                        .get(), stats.getBombs())
+                        .setInventoryStatistic(gameView.getStatistics()
+                                                        .stream()
+                                                        .filter(s -> KeyStatisticView.class.isInstance(s))
+                                                        .findAny()
+                                                        .get(), stats.getKeys())
+                        .setHeartsStatistic(gameView.getStatistics()
+                                                    .stream()
+                                                    .filter(s -> s.getClass().equals(HeartStatisticView.class))
+                                                    .map(s -> HeartStatisticView.class.cast(s)).findAny().get(), 
+                                                        stats.getHearts());
                         gameView.draw();
                         gameView.updateEntity();
                         gameWorld.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
