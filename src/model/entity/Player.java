@@ -59,8 +59,6 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new MoveComponent(this, data.getSpeed()))
             .attachComponent(new InputComponent(this));
         this.name = data.getName();
-        this.detachComponent(CollisionComponent.class);
-        this.detachComponent(MovableCollisionComponent.class);
         }
 
 //    /**

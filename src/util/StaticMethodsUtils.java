@@ -372,4 +372,25 @@ public final class StaticMethodsUtils {
 
         return dest;
     }
+
+    /**
+     * Checks if a class is a subclass of another class.
+     * @param myClass the sub class
+     * @param superClass the super class
+     * @return true if a class is a subclass of another class
+     */
+    public static boolean isTypeOf(final Class<?> myClass, final Class<?> superClass) {
+        if (myClass.equals(Object.class)) {
+            return false;
+        }
+        boolean isSubclassOf = false;
+        Class<?> clazz = myClass;
+        if (!clazz.equals(superClass)) {
+            clazz = clazz.getSuperclass();
+            isSubclassOf = isTypeOf(clazz, superClass);
+        } else {
+            isSubclassOf = true;
+        }
+        return isSubclassOf;
+    }
 }

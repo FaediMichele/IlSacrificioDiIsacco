@@ -11,7 +11,7 @@ import java.util.Optional;
  * AI for the Monstro monster.
  */
 public class MonstroAIComponent extends AbstractComponent {
-    private static final double TOLERANCE = 100;
+    private static final double TOLERANCE = 30;
     private double angle;
     private boolean canShoot;
 
@@ -55,8 +55,7 @@ public class MonstroAIComponent extends AbstractComponent {
         final Double diffX = playerBody.getPosition().getX() - myBody.getPosition().getX();
         final Double diffY = playerBody.getPosition().getY() - myBody.getPosition().getY();
 
-        this.canShoot = diffX < TOLERANCE || diffY < TOLERANCE;
-
+        this.canShoot = (Math.abs(diffX) < TOLERANCE || Math.abs(diffY) < TOLERANCE);
         this.angle = Math.atan2(diffY, diffX) * 180.0 / Math.PI;
         return true;
     }

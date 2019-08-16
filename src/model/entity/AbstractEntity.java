@@ -64,7 +64,7 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public final Entity attachComponent(final Component c) {
         if (this.hasComponent(c.getClass())) {
-            detachComponent(getComponent(c.getClass()).get());
+            detachComponent(c.getClass());
         }
         this.componentsMap.put(c.getClass(), c);
         c.registerAllListener();
@@ -79,7 +79,10 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final void detachComponent(final Class<? extends Component> c) {
-        this.detachComponent(this.componentsMap.get(c));
+        final Optional<? extends Component> comp = this.getComponent(c);
+        if (comp.isPresent()) {
+            this.detachComponent(comp.get());
+        }
     }
 
     @Override
@@ -108,7 +111,8 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final boolean hasComponent(final Class<? extends Component> c) {
-        return this.getComponent(c).isPresent();
+        final Optional<? extends Component> comp = this.getComponent(c);
+        return comp.isPresent();
     }
 
     @SuppressWarnings("unchecked")
@@ -117,7 +121,7 @@ public abstract class AbstractEntity implements Entity {
         if (this.componentsMap.containsKey(c)) {
             return Optional.of(c.cast(this.componentsMap.get(c)));
         } else {
-            return (Optional<X>) this.getComponents().stream().filter(cmp -> c.isInstance(cmp)).findFirst();
+            return (Optional<X>) this.getComponents().stream().filter(cmp -> StaticMethodsUtils.isTypeOf(c, cmp.getClass()) || StaticMethodsUtils.isTypeOf(cmp.getClass(), c)).findFirst();
         }
     }
 
