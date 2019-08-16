@@ -19,6 +19,7 @@ public class DanksquirtView extends AbstractEntityView {
 
     /**
      * Create a new DanksquirtView.
+     * @param gameView is to which the entity belongs.
      */
     public DanksquirtView(final GameView gameView) {
         super(gameView);

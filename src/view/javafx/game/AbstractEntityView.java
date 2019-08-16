@@ -20,7 +20,7 @@ public abstract class AbstractEntityView implements EntityView {
 
     /**
      * 
-     * @param gameView .
+     * @param gameView is to which the entity belongs.
      */
     public AbstractEntityView(final GameView gameView) {
         this.gameView = Optional.of(gameView);

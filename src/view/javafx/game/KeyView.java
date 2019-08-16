@@ -30,10 +30,14 @@ public class KeyView extends AbstractEntityView {
         }
     }
 
+    /**
+     * 
+     * @param gameView is to which the entity belongs.
+     */
     public KeyView(final GameView gameView) {
         super(gameView);
     }
-    
+
     /**
      * @return the sprite of the key.
      */

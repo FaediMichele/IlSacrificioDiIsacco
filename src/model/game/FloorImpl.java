@@ -206,7 +206,7 @@ public class FloorImpl implements Floor {
         if (!canGoDirection(map, position, 3)) {
             doors.add(new Door(BasicMovementEnum.LEFT, index, map.get(position.getX() - 1, position.getY()), ROOMSIZE));
         }
-        if (doors.size() == 0) {
+        if (doors.isEmpty()) {
             throw new IllegalStateException();
         }
         doors.forEach(d -> ret.insertEntity(d));

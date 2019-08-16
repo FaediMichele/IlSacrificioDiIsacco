@@ -28,7 +28,10 @@ public class HostHatView extends AbstractEntityView {
             e.printStackTrace();
         }
     }
-    
+    /**
+     * 
+     * @param gameView is to which the entity belongs.
+     */
     public HostHatView(final GameView gameView) {
         super(gameView);
     }

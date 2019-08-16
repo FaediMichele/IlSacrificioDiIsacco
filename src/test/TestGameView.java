@@ -1,11 +1,8 @@
 package test;
 
 import java.io.IOException;
-
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.javafx.game.IsaacView;
 
 /**
  * 

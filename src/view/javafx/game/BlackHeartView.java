@@ -32,6 +32,7 @@ public class BlackHeartView extends AbstractHeartView {
     }
     /**
      * Sets the black hearts as the ones to draw.
+     * @param gameView is to which the entity belongs.
      */
     public BlackHeartView(final GameView gameView) {
         super(blackHeart, halfBlackHeart, gameView);

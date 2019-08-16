@@ -29,6 +29,7 @@ public class RedHeartView extends AbstractHeartView {
 
      /**
      * Sets the red hearts as the ones to draw.
+     * @param gameView is to which the entity belongs.
      */
     public RedHeartView(final GameView gameView) {
         super(simpleHeart, halfSimpleHeart, gameView);

@@ -1,13 +1,10 @@
 package controller;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
-
 import model.enumeration.EntityEnum;
 import model.enumeration.MovementEnum;
 import model.enumeration.RootEnum;

@@ -62,6 +62,10 @@ public class DoorView extends AbstractEntityView {
         }
     }
 
+    /**
+     * 
+     * @param gameView is to which the entity belongs.
+     */
     public DoorView(final GameView gameView) {
         super(gameView);
     }

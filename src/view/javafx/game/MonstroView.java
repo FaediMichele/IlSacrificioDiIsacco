@@ -40,6 +40,7 @@ public class MonstroView extends AbstractEntityView {
 
     /**
      * Create a new MontroView.
+     * @param gameView is to which the entity belongs.
      */
     public MonstroView(final GameView gameView) {
         super(gameView);

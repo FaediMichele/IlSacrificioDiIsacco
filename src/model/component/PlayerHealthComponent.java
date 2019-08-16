@@ -29,13 +29,14 @@ public class PlayerHealthComponent extends AbstractComponent {
     private static final int MAX_HEARTS = 12;
     private static final int TIMENODAMAGE = 1000;
     private LinkedList<Heart> hearts;
-    private double time = 0;
+    private double time;
     /**
      * @param defaultHearts number of hearts of this kind
      * @param entity    entity for this component
      */
     public PlayerHealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
+        this.time = 0;
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
         this.hearts = new LinkedList<Heart>(Stream.iterate(0, i -> i + 1)
                 .limit(realHeartNumber)

@@ -6,7 +6,6 @@ import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.events.DoorChangeEvent;
 import model.util.Position;
-import util.Pair;
 
 /**
  * 

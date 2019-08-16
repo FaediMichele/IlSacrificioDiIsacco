@@ -36,6 +36,7 @@ public class FlyView extends AbstractEntityView {
 
     /**
      * Create a new FlyView.
+     * @param gameView is to which the entity belongs.
      */
     public FlyView(final GameView gameView) {
         super(gameView);

@@ -32,7 +32,7 @@ public class RedTearView extends AbstractTearView {
     }
 
     /**
-     * 
+     * @param gameView is to which the entity belongs.
      */
     public RedTearView(final GameView gameView) {
         super(enemyTear, gameView);

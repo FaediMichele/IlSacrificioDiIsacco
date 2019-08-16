@@ -8,7 +8,11 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class WallView extends AbstractEntityView {
 
-    public WallView(GameView gameView) {
+    /**
+     * 
+     * @param gameView is to which the entity belongs.
+     */
+    public WallView(final GameView gameView) {
         super(gameView);
     }
 

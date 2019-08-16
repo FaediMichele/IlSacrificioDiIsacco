@@ -35,6 +35,7 @@ public class GaperView extends IsaacView {
 
     /**
      * Base constructor, initilizes the indexes.
+     * @param gameView is to which the entity belongs.
      */
     public GaperView(final GameView gameView) {
         super(gameView);

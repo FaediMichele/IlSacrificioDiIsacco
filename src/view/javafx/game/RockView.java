@@ -30,6 +30,7 @@ public class RockView extends AbstractEntityView {
 
     /**
      * Rock constructor, chooses the random rock to draw.
+     * @param gameView is to which the entity belongs.
      */
     public RockView(final GameView gameView) {
         super(gameView);

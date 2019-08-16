@@ -32,6 +32,7 @@ public class BlueTearView extends AbstractTearView {
 
     /**
      * Sets the tears to be blue.
+     * @param gameView is to which the entity belongs.
      */
     public BlueTearView(final GameView gameView) {
         super(playerTear, gameView);

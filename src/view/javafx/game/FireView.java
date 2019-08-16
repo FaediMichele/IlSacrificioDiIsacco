@@ -76,6 +76,7 @@ public class FireView extends AbstractEntityView {
     /**
      * Base constructor, initilizes the indexes and sets the list to use based on the fire colour.
      * @param colour the colour of this FireView
+     * @param gameView is to which the entity belongs.
      */
     public FireView(final FireColour colour, final GameView gameView) {
         super(gameView);

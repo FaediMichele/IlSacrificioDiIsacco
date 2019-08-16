@@ -29,6 +29,10 @@ public class StickyBombsView extends AbstractEntityView {
         }
     }
 
+    /**
+     * 
+     * @param gameView is to which the entity belongs.
+     */
     public StickyBombsView(final GameView gameView) {
         super(gameView);
     }

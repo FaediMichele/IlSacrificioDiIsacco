@@ -57,6 +57,7 @@ public class BombView extends AbstractEntityView {
 
     /**
      * Base constructor, initilizes the indexes.
+     * @param gameView is to which the entity belongs.
      */
     public BombView(final GameView gameView) {
         super(gameView);

@@ -1,14 +1,11 @@
 package model.component;
 
 import com.google.common.eventbus.Subscribe;
-
-import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyTearsMentalityComponent;
 import model.component.mentality.PlayerTearsMentalityComponent;
 import model.entity.Entity;
 import model.entity.Player;
 import model.entity.Tear;
-import model.enumeration.EntityEnum;
 import model.enumeration.TearEnum;
 import model.events.TearShotEvent;
 import model.util.Position;

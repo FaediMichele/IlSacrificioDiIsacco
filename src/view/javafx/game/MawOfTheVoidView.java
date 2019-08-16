@@ -30,6 +30,10 @@ public class MawOfTheVoidView extends AbstractEntityView {
         }
     }
 
+    /**
+     * 
+     * @param gameView is to which the entity belongs.
+     */
     public MawOfTheVoidView(final GameView gameView) {
         super(gameView);
     }
