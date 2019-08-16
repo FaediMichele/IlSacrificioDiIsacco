@@ -11,7 +11,7 @@ import model.entity.Entity;
  */
 public class MonstroBossMentalityComponent extends AbstractMentalityComponent {
     private static final Set<Class<? extends AbstractMentalityComponent>> CANNOT_COLLIDE = new HashSet<>(
-            Arrays.asList(MonstroBossMentalityComponent.class));
+            Arrays.asList(MonstroBossMentalityComponent.class, EnemyMentalityComponent.class));
     private static final Set<Class<? extends AbstractMentalityComponent>> CANNOT_DAMAGE = new HashSet<>(
             Arrays.asList(MonstroBossMentalityComponent.class, EnemyMentalityComponent.class));
     private static final Set<Class<? extends AbstractMentalityComponent>> CANNOT_HURTME = new HashSet<>(

@@ -9,6 +9,7 @@ import model.entity.Player;
 import model.entity.Tear;
 import model.enumeration.EntityEnum;
 import model.events.TearShotEvent;
+import model.util.Position;
 import util.EventListener;
 
 /**
@@ -59,14 +60,16 @@ public class TearWeaponComponent extends AbstractComponent {
     }
 
     private void tearShotEvent(final TearShotEvent event) {
+        final Position pos = event.getSourceEntity().getComponent(BodyComponent.class).get().getPosition();
+        final double width = event.getSourceEntity().getComponent(BodyComponent.class).get().getWidth();
+        System.out.println(event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get().getClass());
+        final double height = event.getSourceEntity().getComponent(BodyComponent.class).get().getHeight();
         getEntity().getRoom().insertEntity(
                 new Tear(event.getAngle(),
-                         event.getSourceEntity().getComponent(BodyComponent.class).get().getPosition(), 
+                         new Position(pos.getX() + width / 2, pos.getY() + height / 2, pos.getZ()), 
                          event.getSourceEntity().getComponent(MoveComponent.class).get().getMovement(),
                          this.damage, this.lifeTime, DEFAULT_SPEED, this.nameTear, 
-                         event.getSourceEntity() instanceof Player
-                                 ? new PlayerTearsMentalityComponent(this.getEntity())
-                                 : event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get())
+                         event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get())
                 );
     }
 

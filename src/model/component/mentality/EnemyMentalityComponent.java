@@ -17,6 +17,7 @@ public class EnemyMentalityComponent extends AbstractMentalityComponent {
 
     private static final Set<Class<? extends AbstractMentalityComponent>> CANNOT_DAMAGE = new HashSet<>(
             Arrays.asList(NeutralMentalityComponent.class));
+
  
     /**
      * 
