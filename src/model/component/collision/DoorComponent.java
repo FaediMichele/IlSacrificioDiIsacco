@@ -43,25 +43,30 @@ public class DoorComponent extends LockCollisionComponent {
     @Override
     public void afterUnlocks(final Entity entity) {
         final BodyComponent eBody = entity.getComponent(BodyComponent.class).get();
-        System.out.println("destinazione = "  + this.destination + " dimensione piano = " + entity.getRoom().getFloor().getRooms().size());
-        System.out.println("stanza di partenza " + getEntity().getRoom().getIndex() + " = " + this.location);
-        System.out.println("porte stanza di destinazione: (n = "  +  entity.getRoom().getFloor().getRooms().get(this.destination).getDoor().size() + ")");
-
-        getEntity().getRoom().getFloor().getRooms().get(this.destination).getDoor()
+        this.getEntity().getRoom().getFloor().getRooms()
         .stream()
-        .map(d -> d.getComponent(DoorComponent.class).get())
-        .map(dc -> new Pair<Integer, Integer>(dc.getLocation(), dc.getDestination()))
-        .forEach(p -> {
-            System.out.println("Destination = " + p.getY());
+        .forEach(r -> {
+            System.out.println("Indece stanza = " + r.getIndex());
+            r.getDoor()
+            .stream()
+            .map(d -> d.getComponent(DoorComponent.class).get())
+            .map(dc -> new Pair<Integer, Integer>(dc.getLocation(), dc.getDestination()))
+            .forEach(p -> {
+                System.out.println("Location = " + p.getX() + " Destination = " + p.getY());
+            });
+            if (r.getDoor().isEmpty()) {
+                System.out.println("in questa stanza ci sono zero porte error!!!");
+            }
         });
 
-        final Optional<? extends Door> optOtherDoor = getEntity().getRoom().getFloor()
+
+        final Entity otherDoor = getEntity().getRoom().getFloor()
                 .getRooms().get(this.destination)
                 .getDoor().stream()
                 .filter(d -> d.getComponent(DoorComponent.class).get().getDestination().equals(this.location))
-                .findFirst();
-        System.out.println(optOtherDoor.isPresent());
-        final Entity otherDoor = optOtherDoor.get();
+                .findFirst()
+                .get();
+
         final BodyComponent otherBody = otherDoor.getComponent(BodyComponent.class).get();
         switch ((BasicMovementEnum) otherDoor.getStatusComponent().getMove()) {
         case DOWN:
