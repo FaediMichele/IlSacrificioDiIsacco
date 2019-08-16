@@ -14,8 +14,8 @@ import util.Triplet;
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
-    private static final double HEIGHT = 10;
-    private static final double WIDTH = 10;
+    private static final double HEIGHT = 20;
+    private static final double WIDTH = 20;
     private final EntityEnum name;
 
 

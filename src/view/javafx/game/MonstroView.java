@@ -33,6 +33,8 @@ public class MonstroView extends AbstractEntityView {
         monstroSpriteTmp.forEach(m -> {
             monstroSprite.add(m);
             monstroSprite.add(m);
+            monstroSprite.add(m);
+            monstroSprite.add(m);
         });
     }
 
