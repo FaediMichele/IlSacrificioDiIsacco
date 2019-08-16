@@ -7,6 +7,7 @@ import model.component.MoveComponent;
 import model.component.TearAIComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.enumeration.EntityEnum;
+import model.enumeration.TearEnum;
 import model.util.Position;
 import util.Triplet;
 
@@ -14,9 +15,9 @@ import util.Triplet;
  * The entity for the tears, they are the main damage dealing entity.
  */
 public class Tear extends AbstractMovableEntity {
-    private static final double HEIGHT = 20;
-    private static final double WIDTH = 20;
-    private final EntityEnum name;
+    private static final double HEIGHT = 10;
+    private static final double WIDTH = 10;
+    private final TearEnum name;
 
 
     /**
@@ -32,7 +33,7 @@ public class Tear extends AbstractMovableEntity {
      * @param mentality .
      */
     public Tear(final int angle, final Position positions, final Triplet<Double, Double, Double> movementPlayer, final double damage, final double lifetime, 
-                final double speed, final EntityEnum name, final AbstractMentalityComponent mentality) {
+                final double speed, final TearEnum name, final AbstractMentalityComponent mentality) {
         super();
         final MoveComponent moveC = new MoveComponent(this, speed, 1, speed);
         this.attachComponent(mentality);

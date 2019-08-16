@@ -9,6 +9,7 @@ import model.entity.Entity;
 import model.entity.Player;
 import model.entity.Tear;
 import model.enumeration.EntityEnum;
+import model.enumeration.TearEnum;
 import model.events.TearShotEvent;
 import model.util.Position;
 import util.EventListener;
@@ -25,7 +26,7 @@ public class TearWeaponComponent extends AbstractComponent {
     private double damage;
     private double lifeTime;
     private double time;
-    private final EntityEnum nameTear;
+    private final TearEnum nameTear;
 
     /**
      * Basic constructor that generates a tear when requested.
@@ -35,7 +36,7 @@ public class TearWeaponComponent extends AbstractComponent {
      * @param damage   the damage caused.
      * @param tearRate the rate of fire.
      */
-    public TearWeaponComponent(final Entity entity, final double damage, final EntityEnum nameTear,
+    public TearWeaponComponent(final Entity entity, final double damage, final TearEnum nameTear,
             final double tearRate) {
         super(entity);
         this.damage = damage;
@@ -66,7 +67,6 @@ public class TearWeaponComponent extends AbstractComponent {
     private void tearShotEvent(final TearShotEvent event) {
         final Position pos = event.getSourceEntity().getComponent(BodyComponent.class).get().getPosition();
         final double width = event.getSourceEntity().getComponent(BodyComponent.class).get().getWidth();
-        //System.out.println(event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get().getClass());
         final double height = event.getSourceEntity().getComponent(BodyComponent.class).get().getHeight();
         getEntity().getRoom()
                 .insertEntity(new Tear(event.getAngle(),
