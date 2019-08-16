@@ -32,6 +32,7 @@ public class HostHatPickupableComponent extends AbstractPickupableComponent {
 
         this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         this.getEntity().getRoom().deleteEntity(this.getEntity());
+        entity.detachComponent(this.getClass());
     }
 }
 
