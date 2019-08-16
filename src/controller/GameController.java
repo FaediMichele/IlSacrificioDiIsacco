@@ -110,6 +110,7 @@ public class GameController {
                     sleep(TIMETOSLEEP);
                     if (!gameWorld.update(TIMETOSLEEP)) {
                         stopped = true;
+                        //gameView.gameOver()
                     }
                     // Se il Player è morto -> gameView.gameOver()
                     final double widthMolti = gameView.getWidth()
