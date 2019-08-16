@@ -24,22 +24,6 @@ public class Player extends AbstractMovableEntity {
     private static final Double WIDTH = 25.0;
 
     private final PlayerEnum name;
-    /**
-     * Empty constructor.
-     */
-//    public Player() {
-//        super();
-//        this.attachComponent(new PlayerHealthComponent(this))
-//            .attachComponent(new InventoryComponent(this))
-//            .attachComponent(new PlayerMentalityComponent(this))
-//            .attachComponent(new TearWeaponComponent(this))
-//            .attachComponent(new PlayerCollisionComponent(this))
-//            .attachComponent(new BodyComponent(this))
-//            .attachComponent(new StatusComponent(this));
-//        this.detachComponent(CollisionComponent.class);
-//        this.detachComponent(MovableCollisionComponent.class);
-//        this.name = BasicPlayerEnum.ISAAC;
-//        }
 
     /**
      * Empty constructor.

@@ -29,12 +29,14 @@ public class TearWeaponComponent extends AbstractComponent {
      * Basic constructor that generates a tear when requested.
      * 
      * @param entity   to which this component is attached
-     * @param nameTear enum used to display it.
+     * @param nameTear enumeration used to display it.
      * @param damage   the damage caused.
      * @param tearRate the rate of fire.
      */
-    public TearWeaponComponent(final Entity entity, final double damage, final TearEnum nameTear,
-            final double tearRate) {
+    public TearWeaponComponent(final Entity entity, 
+                                final double damage, 
+                                final TearEnum nameTear,
+                                final double tearRate) {
         super(entity);
         this.damage = damage;
         this.lifeTime = DEFAULT_LIFE_TIME;
@@ -66,18 +68,24 @@ public class TearWeaponComponent extends AbstractComponent {
         final double width = event.getSourceEntity().getComponent(BodyComponent.class).get().getWidth();
         final double height = event.getSourceEntity().getComponent(BodyComponent.class).get().getHeight();
         getEntity().getRoom()
-                .insertEntity(new Tear(event.getAngle(),
-                        new Position(pos.getX() + width / 2, pos.getY() + height / 2, pos.getZ()),
-                        event.getSourceEntity().getComponent(MoveComponent.class).get().getMovement(), this.damage,
-                        this.lifeTime, DEFAULT_SPEED, this.nameTear,
-                        (event.getSourceEntity() instanceof Player)
-                                ? new PlayerTearsMentalityComponent(event.getSourceEntity())
-                                : new EnemyTearsMentalityComponent(event.getSourceEntity())));
+                .insertEntity(
+                        new Tear(event.getAngle(),
+                            new Position(pos.getX() + width / 2, 
+                                            pos.getY() + height / 2, 
+                                            pos.getZ()),
+                            event.getSourceEntity().getComponent(MoveComponent.class).get().getMovement(), 
+                            this.damage,
+                            this.lifeTime, 
+                            DEFAULT_SPEED, 
+                            this.nameTear,
+                            (event.getSourceEntity() instanceof Player)
+                                    ? new PlayerTearsMentalityComponent(event.getSourceEntity())
+                                    : new EnemyTearsMentalityComponent(event.getSourceEntity())));
     }
 
     /**
      * 
-     * @return .
+     * @return damage of tear.
      */
     public double getDamage() {
         return damage;
@@ -85,7 +93,7 @@ public class TearWeaponComponent extends AbstractComponent {
 
     /**
      * 
-     * @param damage 
+     * @param damage of tear.
      */
     public void setDamage(final double damage) {
         this.damage = damage;
@@ -93,7 +101,7 @@ public class TearWeaponComponent extends AbstractComponent {
 
     /**
      * 
-     * @return .
+     * @return life time of tear.
      */
     public double getLifeTime() {
         return lifeTime;
@@ -101,7 +109,7 @@ public class TearWeaponComponent extends AbstractComponent {
 
     /**
      * 
-     * @param lifeTime .
+     * @param lifeTime time of tear.
      */
     public void setLifeTime(final double lifeTime) {
         this.lifeTime = lifeTime;

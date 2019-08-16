@@ -39,23 +39,6 @@ public class DoorComponent extends LockCollisionComponent {
     @Override
     public void afterUnlocks(final Entity entity) {
         final BodyComponent eBody = entity.getComponent(BodyComponent.class).get();
-        /*this.getEntity().getRoom().getFloor().getRooms()
-        .stream()
-        .forEach(r -> {
-            System.out.println("Indice stanza = " + r.getIndex());
-            r.getDoor()
-            .stream()
-            .map(d -> d.getComponent(DoorComponent.class).get())
-            .map(dc -> new Pair<Integer, Integer>(dc.getLocation(), dc.getDestination()))
-            .forEach(p -> {
-                System.out.println("Location = " + p.getX() + " Destination = " + p.getY());
-            });
-            if (r.getDoor().isEmpty()) {
-                System.out.println("in questa stanza ci sono zero porte error!!!");
-            }
-        });*/
-
-
         final Entity otherDoor = getEntity().getRoom().getFloor()
                 .getRooms().get(this.destination)
                 .getDoor().stream()

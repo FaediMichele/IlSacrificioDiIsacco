@@ -19,11 +19,9 @@ public class MoveComponent extends AbstractComponent {
     private static final double DEFAULT_FRICTION = 60;
     private static final double SPEEDAPROX = 0.1;
     private static final double MAXSPEEDMULTIPLIER = 10; 
-
     private final double friction;
     private double deltaSpeed;
     private double maxSpeed;
-
     private final Position movement = new Position(NOMOVE, NOMOVE, NOMOVE);
     private double lastMovementAngle;
     private boolean hasMoved;

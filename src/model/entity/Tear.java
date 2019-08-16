@@ -23,17 +23,23 @@ public class Tear extends AbstractMovableEntity {
     /**
      * Default constructor.
      * 
-     * @param angle               the angle of the tear when it's shot
-     * @param positions 
+     * @param angle          the angle of the tear when it's shot.
+     * @param positions      the position from which the tear should be thrown.
      * @param movementPlayer the velocity of the player.
-     * @param damage              the tear damage
-     * @param lifetime .
-     * @param speed .
-     * @param name .
-     * @param mentality .
+     * @param damage         the tear damage.
+     * @param lifetime       life time of the tear.
+     * @param speed          tear speed.
+     * @param name           name of tear.
+     * @param mentality      mentality of tear.
      */
-    public Tear(final int angle, final Position positions, final Triplet<Double, Double, Double> movementPlayer, final double damage, final double lifetime, 
-                final double speed, final TearEnum name, final AbstractMentalityComponent mentality) {
+    public Tear(final int angle, 
+                final Position positions, 
+                final Triplet<Double, Double, Double> movementPlayer, 
+                final double damage, 
+                final double lifetime, 
+                final double speed, 
+                final TearEnum name, 
+                final AbstractMentalityComponent mentality) {
         super();
         final MoveComponent moveC = new MoveComponent(this, speed, 1, speed);
         this.attachComponent(mentality);
@@ -46,24 +52,6 @@ public class Tear extends AbstractMovableEntity {
         moveC.move(angle);
         this.name = name;
     }
-
-//    /**
-//     * @param entityBody          the {@link BodyComponent}
-//     * @param entityCollision     the {@link CollisionComponent}
-//     * @param entityStatus        the {@link StatusComponent}
-//     * @param angle               the angle of the tear when it's shot
-//     * @param entityThatShootedMe shooter entity
-//     * @param damage              the damage of the Tear
-//     */
-//    public Tear(final BodyComponent entityBody, 
-//                final CollisionComponent entityCollision,
-//                final StatusComponent entityStatus, 
-//                final int angle, 
-//                final Entity entityThatShootedMe,
-//                final double damage) {
-//        this(angle, entityThatShootedMe, damage);
-//        this.setDefaultComponents(entityBody, entityCollision, entityStatus);
-//    }
 
     /**
      * {@inheritDoc}

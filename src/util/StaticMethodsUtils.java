@@ -314,9 +314,9 @@ public final class StaticMethodsUtils {
 
     /**
      * 
-     * @param plEnu 
-     * @param pathXml 
-     * @return .
+     * @param plEnu is enumeration which corresponds to a specific player.
+     * @param pathXml path of file XML where the player data is.
+     * @return {@link DataPlayer} of player.
      */
     public static DataPlayer enumFromXmlToDataPlayer(final PlayerEnum plEnu, final String pathXml) {
         final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
@@ -330,27 +330,6 @@ public final class StaticMethodsUtils {
                 .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
                 .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
 
-    }
-
-    /**
-     * 
-     * @param plEnumMenu 
-     * @param pathXml 
-     * @return .
-     * @throws ClassNotFoundException 
-     */
-    @SuppressWarnings({
-            "unchecked", "rawtypes"
-    })
-    public static PlayerEnum enumFromViewToModel(final PlayerEnum plEnumMenu, final String pathXml)
-            throws ClassNotFoundException {
-        final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
-        final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
-        final String pathEnumModel = nodeRoot.getAttributes().getNamedItem("path-enum-model").getTextContent();
-        final String pathEnumView = nodeRoot.getAttributes().getNamedItem("path-enum-view").getTextContent();
-        final String enumValue = plEnumMenu.getValue().substring(pathEnumView.length() + 1);
-        final Node node = xml.getElementsByTagName(enumValue).item(0);
-        return (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnumModel), node.getNodeValue());
     }
 
     /**

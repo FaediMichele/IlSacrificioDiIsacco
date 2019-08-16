@@ -38,7 +38,7 @@ public abstract class AbstractEntity implements Entity {
     private Room room;
 
     /**
-     * .Basic constructor.
+     * Basic constructor.
      */
     public AbstractEntity() {
         this.componentsMap = new LinkedHashMap<>();
@@ -48,9 +48,9 @@ public abstract class AbstractEntity implements Entity {
     /**
      * 
      * @param <C>             is extends CollisionComponent
-     * @param entityBody      a
-     * @param entityCollision s
-     * @param entityStatus    s
+     * @param entityBody      is {@link BodyComponent} of entity
+     * @param entityCollision is {@link CollisionComponent} of entity
+     * @param entityStatus    is {@link StatusComponent} of entity
      */
     public <C extends CollisionComponent> AbstractEntity(final BodyComponent entityBody, final C entityCollision,
             final StatusComponent entityStatus) {
@@ -191,7 +191,7 @@ public abstract class AbstractEntity implements Entity {
         this.attachComponent(statusComponent);
     }
     /**
-     * 
+     * Is the name of entity.
      * @return entity name.
      */
     public abstract EntityEnum getNameEntity();

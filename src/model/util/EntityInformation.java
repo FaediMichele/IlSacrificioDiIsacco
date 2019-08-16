@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.EntityEnum;

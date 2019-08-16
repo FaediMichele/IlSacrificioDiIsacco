@@ -89,7 +89,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
-     * @return explosionScale
+     * @return explosionScale how much the bomb is enlarged during the explosion.
      */
     public double getExplosionScale() {
         return explosionScale;
@@ -97,7 +97,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
-     * @param explosionScale .
+     * @param explosionScale how much the bomb is enlarged during the explosion.
      * @return this
      */
     public BombCollectableComponent setExplosionScale(final double explosionScale) {
@@ -107,7 +107,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
-     * @return timeBeforeExplodes
+     * @return timeBeforeExplodes how long wait for the bomb before it explodes.
      */
     public double getTimeBeforeExplodes() {
         return timeBeforeExplodes;
@@ -115,7 +115,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
-     * @param timeBeforeExplodes .
+     * @param timeBeforeExplodes how long wait for the bomb before it explodes.
      * @return this
      */
     public BombCollectableComponent setTimeBeforeExplodes(final double timeBeforeExplodes) {
@@ -125,7 +125,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
-     * @return explosionTime;
+     * @return explosionTime how long the explosion lasts.
      */
     public double getExplosionTime() {
         return explosionTime;
@@ -133,7 +133,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
 
     /**
      * 
-     * @param explosionTime .
+     * @param explosionTime how long the explosion lasts. .
      * @return this
      */
     public BombCollectableComponent setExplosionTime(final double explosionTime) {

@@ -17,7 +17,7 @@ public class DataPlayer {
 
     /**
      * 
-     * @return .
+     * @return name of player.
      */
     public PlayerEnum getName() {
         return name;
@@ -25,8 +25,8 @@ public class DataPlayer {
 
     /**
      * 
-     * @param name .
-     * @return .
+     * @param name of player.
+     * @return this.
      */
     public DataPlayer setName(final PlayerEnum name) {
         this.name = name;
@@ -53,7 +53,7 @@ public class DataPlayer {
 
     /**
      * 
-     * @return .
+     * @return life of player.
      */
     public double getLife() {
         return life;
@@ -61,8 +61,8 @@ public class DataPlayer {
 
     /**
      * 
-     * @param life .
-     * @return .
+     * @param life of player.
+     * @return this.
      */
     public DataPlayer setLife(final double life) {
         this.life = life;
@@ -71,7 +71,7 @@ public class DataPlayer {
 
     /**
      * 
-     * @return .
+     * @return speed of player.
      */
     public double getSpeed() {
         return speed;
@@ -79,8 +79,8 @@ public class DataPlayer {
 
     /**
      * 
-     * @param speed .
-     * @return .
+     * @param speed of player.
+     * @return this.
      */
     public DataPlayer setSpeed(final double speed) {
         this.speed = speed;
@@ -89,7 +89,7 @@ public class DataPlayer {
 
     /**
      * 
-     * @return .
+     * @return damage of player.
      */
     public double getDamage() {
         return damage;
@@ -97,8 +97,8 @@ public class DataPlayer {
 
     /**
      * 
-     * @param damage .
-     * @return .
+     * @param damage of player.
+     * @return this.
      */
     public DataPlayer setDamage(final double damage) {
         this.damage = damage;
