@@ -46,7 +46,7 @@ public class DoorComponent extends LockCollisionComponent {
         this.getEntity().getRoom().getFloor().getRooms()
         .stream()
         .forEach(r -> {
-            System.out.println("Indece stanza = " + r.getIndex());
+            System.out.println("Indice stanza = " + r.getIndex());
             r.getDoor()
             .stream()
             .map(d -> d.getComponent(DoorComponent.class).get())

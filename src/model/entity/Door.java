@@ -35,6 +35,9 @@ public class Door extends AbstractStaticEntity {
                 .attachComponent(new NeutralMentalityComponent(this));
        this.getStatusComponent().setMove(direction);
        setBody(direction, roomSize);
+       if (destinationIndex == null) {
+           System.out.println("ERRORE");
+       }
     }
 
     /**

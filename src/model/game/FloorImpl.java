@@ -11,11 +11,6 @@ import org.w3c.dom.NodeList;
 
 import com.google.common.eventbus.EventBus;
 
-import javafx.application.Platform;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import model.component.BodyComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -28,7 +23,6 @@ import util.NotEquals;
 import util.NotHashCode;
 import util.Pair;
 import util.StaticMethodsUtils;
-import view.javafx.ViewGetterUtil;
 
 /**
  * Implementation of Floor.
@@ -38,11 +32,8 @@ import view.javafx.ViewGetterUtil;
  *
  */
 public class FloorImpl implements Floor {
-    private Pane pn; //ONLY FOR DEBUG
-    private static final int NORD = 0;
-    private static final int EAST = 1;
-    private static final int SUD = 2;
-    private static final int OVEST = 3;
+    //private Pane pn; //ONLY FOR DEBUG
+    private static final Pair<Double, Double> ROOMSIZE = new Pair<>(600.0, 300.0);
 
     private final List<Room> rooms;
     @NotEquals
@@ -164,143 +155,105 @@ public class FloorImpl implements Floor {
     }
 
     private void generateRooms() {
-        if (!this.rooms.isEmpty()) {
-            throw new IllegalStateException("Floor already created");
-        }
-        final Matrix<Integer> m = new Matrix<>(maxRoom, maxRoom);
-        final List<Pair<Integer, Integer>> roomIndexs = new ArrayList<>();
-        generateMap(m, roomIndexs);
-        final double widthRoom = 640;
-        final double heightRoom = 344;
-        for (int index = 0; index < roomIndexs.size(); index++) {
-            this.rooms.add(createEmptyRoom(index, m, roomIndexs.get(index), widthRoom, heightRoom));
-        }
-    }
-
-    /**
-     * Generate an empty room based on the current room and adjacents.
-     * 
-     * @param index the index of the room
-     * @param m               Matrix of adjacent room
-     * @param pos             the position on the matrix of the room to initialize
-     * @param width           the width of the room
-     * @param height          the height of the room
-     * @return the room
-     */
-    private Room createEmptyRoom(final int index, final Matrix<Integer> m, final Pair<Integer, Integer> pos,
-            final double width, final double height) {
-        final Room r = new RoomImpl(index, width, height);
-        final List<Door> doors = new ArrayList<>();
-        final List<Wall> walls = new ArrayList<>();
-        final Pair<Double, Double> roomSize = new Pair<Double, Double>(r.getWidth(), r.getHeight());
-        if (this.roomExist(m, pos.getX(), pos.getY() - 1)) { // NORD
-            doors.add(new Door(BasicMovementEnum.UP, index, m.get(pos.getX(), pos.getY() - 1), roomSize));
-        }
-        if (this.roomExist(m, pos.getX() + 1, pos.getY())) { // EAST
-            doors.add(new Door(BasicMovementEnum.RIGHT, index, m.get(pos.getX() + 1, pos.getY()), roomSize));
-        }
-        if (this.roomExist(m, pos.getX(), pos.getY() + 1)) { // SUD
-            doors.add(new Door(BasicMovementEnum.DOWN, index, m.get(pos.getX(), pos.getY() + 1), roomSize));
-        }
-        if (this.roomExist(m, pos.getX() - 1, pos.getY())) { // OVEST
-            doors.add(new Door(BasicMovementEnum.LEFT, index, m.get(pos.getX() - 1, pos.getY()), roomSize));
-        }
-        walls.add(new Wall(BasicMovementEnum.UP, roomSize));
-        walls.add(new Wall(BasicMovementEnum.RIGHT, roomSize));
-        walls.add(new Wall(BasicMovementEnum.DOWN, roomSize));
-        walls.add(new Wall(BasicMovementEnum.LEFT, roomSize));
-        doors.forEach(d -> r.insertEntity(d));
-        //doors.forEach(d -> d.changeRoom(r));
-
-        walls.forEach(d -> r.insertEntity(d));
-        //walls.forEach(d -> d.changeRoom(r));
-        r.setFloor(this);
-        return r;
-    }
-
-    /**
-     * Generate the map.
-     * 
-     * @param m          {@link Matrix} where to save the room ( used for nearby rooms)
-     * @param roomIndexs {@link ArrayList} of positions of each room in increasing order
-     */
-    private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
-        final Pair<Integer, Integer> pos = new Pair<>(m.getWidth() / 2, m.getHeight() / 2);
         final Random rnd = new Random();
-        final int nRoom = rnd.nextInt(maxRoom / 2) + maxRoom / 2;
+        final int nRooms = rnd.nextInt(maxRoom / 2) + maxRoom / 2;
+        final Matrix<Integer> map = new Matrix<>(maxRoom, maxRoom);
+        final List<Pair<Integer, Integer>> roomsPosition = populateMap(map, rnd, nRooms);
+        for (int i = 0; i < roomsPosition.size(); i++) {
+            rooms.add(generateEmptyRoom(map, roomsPosition.get(i), i));
+        }
+    }
 
-        for (int index = 0; index < nRoom; index++) {
-            int direction = rnd.nextInt(OVEST + 1);
-            int directionCounted = 0;
-            while (!canGoDirection(m, pos, direction) && directionCounted < OVEST) {
-                direction = (direction + 1) % OVEST;
+    private List<Pair<Integer, Integer>> populateMap(final Matrix<Integer> m, final Random rnd, final int nRooms) {
+        final Pair<Integer, Integer> position = new Pair<>(maxRoom / 2, maxRoom / 2);
+        final List<Pair<Integer, Integer>> ret = new ArrayList<>();
+        int n = 0;
+        int directionCounted;
+        m.set(position.getX(), position.getY(), n);
+        ret.add(new Pair<>(position.getX(), position.getY()));
+        n++;
+        int direction;
+        while (n < nRooms) {
+            direction = rnd.nextInt(4); // 0, 1, 2, 3
+            directionCounted = 0;
+            while (!canGoDirection(m, position, direction) && directionCounted < 3) {
+                direction = (direction + 1) % 4;
                 directionCounted++;
             }
-            if (directionCounted == OVEST) { // No other direction is possible
-                index = nRoom;
-            } else {
-                this.updatePosition(pos, direction);
-                m.set(pos.getX(), pos.getY(), index);
-                roomIndexs.add(new Pair<Integer, Integer>(pos.getX(), pos.getY()));
+            if (directionCounted >= 3) {
+                break;
             }
+            updatePosition(position, direction);
+            m.set(position.getX(), position.getY(), n);
+            ret.add(new Pair<>(position.getX(), position.getY()));
+            n++;
         }
         m.test();
+        return ret;
     }
 
-    /**
-     * Says if the next room can be in the direction.
-     * 
-     * @param m         the matrix
-     * @param posX      the actual X
-     * @param posY      the actual Y
-     * @param direction the direction to verify (0= Nord; 1= East; 2= Sud; 3= Ovest)
-     * @return if the next room can be in the direction
-     */
-    private boolean canGoDirection(final Matrix<?> m, final Pair<Integer, Integer> pos, final int direction) {
-        switch (direction) {
-        case NORD:
-            return pos.getY() > 0 && m.get(pos.getX(), pos.getY() - 1) == null;
-        case EAST:
-            return pos.getX() < m.getWidth() - 1 && m.get(pos.getX() + 1, pos.getY()) == null;
-        case SUD:
-            return pos.getY() < m.getHeight() - 1 && m.get(pos.getX(), pos.getY() + 1) == null;
-        case OVEST:
-            return pos.getX() > 0 && m.get(pos.getX() - 1, pos.getY()) == null;
-        default:
-            throw new IllegalArgumentException();
+    private Room generateEmptyRoom(final Matrix<Integer> map, final Pair<Integer, Integer> position, final int index) {
+        final Room ret = new RoomImpl(index, ROOMSIZE.getX(), ROOMSIZE.getY());
+        final List<Door> doors = new ArrayList<>();
+        if (!canGoDirection(map, position, 0)) {
+            doors.add(new Door(BasicMovementEnum.UP, index, map.get(position.getX(), position.getY() + 1), ROOMSIZE));
+        }
+        if (!canGoDirection(map, position, 1)) {
+            doors.add(new Door(BasicMovementEnum.RIGHT, index, map.get(position.getX() + 1, position.getY()), ROOMSIZE));
+        }
+        if (!canGoDirection(map, position, 2)) {
+            doors.add(new Door(BasicMovementEnum.DOWN, index, map.get(position.getX(), position.getY() - 1), ROOMSIZE));
+        }
+        if (!canGoDirection(map, position, 3)) {
+            doors.add(new Door(BasicMovementEnum.LEFT, index, map.get(position.getX() - 1, position.getY()), ROOMSIZE));
+        }
+        if (doors.size() == 0) {
+            throw new IllegalStateException();
+        }
+        doors.forEach(d -> ret.insertEntity(d));
+        ret.insertEntity(new Wall(BasicMovementEnum.UP, ROOMSIZE));
+        ret.insertEntity(new Wall(BasicMovementEnum.RIGHT, ROOMSIZE));
+        ret.insertEntity(new Wall(BasicMovementEnum.DOWN, ROOMSIZE));
+        ret.insertEntity(new Wall(BasicMovementEnum.LEFT, ROOMSIZE));
+        ret.setFloor(this);
+        ret.updateEntityList();
+        return ret;
+    }
+
+    private boolean canGoDirection(final Matrix<Integer> m, final Pair<Integer, Integer> position, final int direction) {
+        if (direction == 0) { // NORD.
+            return position.getY() > -1
+                    && position.getY() + 1 < m.getHeight()
+                    && m.get(position.getX(), position.getY() + 1) == null;
+        } else if (direction == 1) { // EAST.
+            return position.getX() + 1 > 0
+                    && position.getX() + 1 < m.getWidth()
+                    && m.get(position.getX() + 1, position.getY()) == null;
+        } else if (direction == 2) { // SOUTH.
+            return position.getY() > 1
+                    && position.getY() - 1 < m.getHeight()
+                    && m.get(position.getX(), position.getY() - 1) == null;
+        } else if (direction == 3) { // WEST.
+            return position.getX() - 1 > 0
+                    && position.getX() - 1 < m.getWidth()
+                    && m.get(position.getX() - 1, position.getY()) == null;
+        } else {
+            throw new IllegalStateException();
         }
     }
 
-    private boolean roomExist(final Matrix<Integer> m, final int posX, final int posY) {
-        return posX >= 0
-                && posX < m.getWidth()
-                && posY >= 0
-                && posY < m.getHeight()
-                && m.get(posX, posY) != null;
-    }
-
-    /**
-     * Update the position based on the direction.
-     * 
-     * @param pos       the current position
-     * @param direction the direction (0= Nord; 1= Est; 2= Sud; 3= Ovest)
-     */
-    private void updatePosition(final Pair<Integer, Integer> pos, final int direction) {
-        switch (direction) {
-        case NORD:
-            pos.setY(pos.getY() - 1);
-            break;
-        case EAST:
-            pos.setX(pos.getX() + 1);
-            break;
-        case SUD:
-            pos.setY(pos.getY() + 1);
-            break;
-        case OVEST:
-            pos.setX(pos.getX() - 1);
-            break;
-        default:
-            throw new IllegalArgumentException();
+    private void updatePosition(final Pair<Integer, Integer> position, final int direction) {
+        if (direction == 0) { // NORD.
+            position.setY(position.getY() + 1);
+        }
+        if (direction == 1) { // EAST.
+            position.setX(position.getX() + 1);
+        }
+        if (direction == 2) { // SOUTH.
+            position.setY(position.getY() - 1);
+        }
+        if (direction == 3) { // WEST.
+            position.setX(position.getX() - 1);
         }
     }
 
@@ -359,7 +312,7 @@ public class FloorImpl implements Floor {
     public final int hashCode() {
         return StaticMethodsUtils.hashCode(this);
     }
-    private void debug() {
+    /*private void debug() {
         if (pn == null) {
             pn = new Pane();
             Platform.runLater(() -> ((Pane) ViewGetterUtil.getScene().getRoot()).getChildren().add(pn));
@@ -408,5 +361,5 @@ public class FloorImpl implements Floor {
             r.setFill(Color.BLUE);
             Platform.runLater(() -> pn.getChildren().add(r));
         }
-    }
+    }*/
 }
