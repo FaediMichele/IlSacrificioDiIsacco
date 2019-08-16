@@ -38,8 +38,15 @@ public class DamageComponent extends AbstractComponent {
      * 
      * @return the value of the damage that the entity inflicts at this time
      */
-    protected double getDamage() {
+    public double getDamage() {
         return this.damage;
+    }
+
+    /**
+     * @param damage set damage of entity.
+     */
+    public void setDamage(final double damage) {
+        this.damage += damage;
     }
 
     /**

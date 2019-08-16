@@ -22,6 +22,6 @@ public class KeyCollectableComponent extends AbstractCollectableComponent {
      */
     @Override
     public void use() {
-        super.getInventoryComponent().consumeThing(this.getEntity());
+        getEntityThatCollectedMe().getRoom().deleteEntity(getEntity());
     }
 }

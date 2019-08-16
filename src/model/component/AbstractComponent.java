@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import model.entity.Entity;
 import model.events.Event;
-import util.EqualsForGetters;
 import util.EventListener;
 import util.StaticMethodsUtils;
 
@@ -14,7 +13,6 @@ import util.StaticMethodsUtils;
  * 
  */
 public abstract class AbstractComponent implements Component {
-    private boolean active;
     private Entity entity;
     private final List<EventListener<? extends Event>> eventListeners;
 
@@ -27,7 +25,6 @@ public abstract class AbstractComponent implements Component {
         Objects.requireNonNull(entity);
         this.entity = entity;
         this.eventListeners = new LinkedList<EventListener<? extends Event>>();
-        this.active = true;
     }
 
     /**
@@ -47,44 +44,10 @@ public abstract class AbstractComponent implements Component {
     }
 
     /**
-     * disability this component.
-     */
-    public void disableComponent() {
-        this.active = false;
-    }
-
-    /**
-     * Re-enable a component.
-     */
-    public void rehabilitateComponent() {
-        this.active = true;
-    }
-
-    /**
      * Unregister all event listener of this component.
      */
     public void unregisterAllListener() {
         this.eventListeners.forEach(eLis -> this.getEntity().unregisterListener(eLis));
-    }
-
-    /**
-     * Check if the component is active, this has to be done before each update
-     * call.
-     * 
-     * @return {@link Boolean}.
-     */
-    @EqualsForGetters
-    public final boolean isActive() {
-        return this.active;
-    }
-
-    /**
-     * Enable or disable a component by setting a variable.
-     * 
-     * @param state {@link Boolean}.
-     */
-    public final void setState(final boolean state) {
-        this.active = state;
     }
 
     /**

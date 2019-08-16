@@ -89,14 +89,6 @@ public class InventoryComponent extends AbstractComponent {
         this.things.remove(thing);
     }
 
-    /**
-     * The thing that has to be consumed (removed from the list).
-     * 
-     * @param thing to remove
-     */
-    public void consumeThing(final Entity thing) {
-        this.things.remove(thing);
-    }
 
     /**
      * 

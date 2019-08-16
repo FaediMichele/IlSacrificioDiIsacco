@@ -3,7 +3,6 @@ package model.component;
 import model.entity.Entity;
 import model.util.Position;
 import util.NotEquals;
-import util.Triplet;
 
 /**
  * Component that contains the informations about the body of the entity, that
@@ -125,6 +124,14 @@ public class BodyComponent extends AbstractComponent {
     }
 
     /**
+     *  Weigh getter.
+     * @return weight
+     */
+    public int getWeight() {
+        return this.weight;
+    }
+
+    /**
      * Set the dimension of the entity.
      * @param width the height
      * @param height the width
@@ -155,14 +162,6 @@ public class BodyComponent extends AbstractComponent {
     }
 
     /**
-     *  Weigh getter.
-     * @return weight
-     */
-    public int getWeight() {
-        return this.weight;
-    }
-
-    /**
      * 
      * @param deltaWeight increase or decrease of the weight
      */
@@ -174,8 +173,9 @@ public class BodyComponent extends AbstractComponent {
      * 
      * @return the position to the previous frame.
      */
-    public Triplet<Double, Double, Double> getPreviousPosition() {
-        return new Position(this.previousPosition.getX(), this.previousPosition.getY(),
-                this.previousPosition.getZ());
+    public Position getPreviousPosition() {
+        return new Position(this.previousPosition.getX(), 
+                            this.previousPosition.getY(),
+                            this.previousPosition.getZ());
     }
 }
