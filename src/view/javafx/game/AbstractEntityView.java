@@ -24,6 +24,7 @@ public abstract class AbstractEntityView implements EntityView {
      */
     public AbstractEntityView(final GameView gameView) {
         this.gameView = Optional.of(gameView);
+        this.gameView.get().addEntity(this);
     }
     /**
      * @return the GameView to which the entityView is attached (if there is one);

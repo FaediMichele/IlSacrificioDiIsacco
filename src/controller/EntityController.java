@@ -17,7 +17,7 @@ import view.javafx.game.GameView;
 
 /**
  * 
- * loads the information from the various entities of the model and calls the
+ * Loads the information from the various entities of the model and calls the
  * various functions of the view.
  *
  */
@@ -56,8 +56,8 @@ public class EntityController {
 
     /**
      * 
-     * @param info 
-     * @param gameView the GameView to which this entityView belongs to
+     * @param info is a {@link EntityInformation} and are of state data of a certain entity.
+     * @param gameView is a {@link GameView} the GameView to which this entityView belongs to
      * @throws ClassNotFoundException 
      * @throws NoSuchMethodException 
      * @throws SecurityException 
@@ -74,17 +74,8 @@ public class EntityController {
                                                                                             IllegalArgumentException, 
                                                                                             InvocationTargetException {
         final Class<? extends EntityView> classEntity = ENTITY_MAP.get(info.getEntityName());
-        //this.entityView = (EntityView) classEntity.newInstance();
         this.entityView = (EntityView) classEntity.getConstructor(GameView.class)
                                                   .newInstance(gameView);
-//        this.entityView.setGameView(gameView);
-        gameView.addEntity(entityView);
-//
-//
-//        Class<?> cl = Class.forName("javax.swing.JLabel");
-//        Constructor<?> cons = cl.getConstructor(String.class);
-//        Object o = cons.newInstance("JLabel");
-
     }
 
     /**
@@ -100,12 +91,14 @@ public class EntityController {
         }
         try {
             final Method status = this.entityView.getClass().getMethod(STATUS_MAP.get(info.getStatus()),
-                    MovementEnum.class);
+                                                                        MovementEnum.class);
             status.invoke(this.entityView, info.getMove());
             for (final UpgradeEnum upgrade : info.getUpgrade().keySet()) {
                 Class<?>[] classArg = new Class<?>[info.getUpgrade().get(upgrade).size()];
-                classArg = info.getUpgrade().get(upgrade).stream().map(x -> x.getClass()).collect(Collectors.toList())
-                        .toArray(classArg);
+                classArg = info.getUpgrade().get(upgrade).stream()
+                                                            .map(x -> x.getClass())
+                                                            .collect(Collectors.toList())
+                                                            .toArray(classArg);
                 final Method method = this.entityView.getClass().getMethod(UPGADE_MAP.get(upgrade), classArg);
                 method.invoke(this.entityView, info.getUpgrade().get(upgrade).toArray());
             }
@@ -115,12 +108,6 @@ public class EntityController {
         }
     }
 
-    /**
-     * 
-     * @param <K>
-     * @param <V>
-     * @return
-     */
     private static <K, V> Map<K, V> initializeMap() {
         final Map<K, V> map = new LinkedHashMap<K, V>();
         map.putAll(StaticMethodsUtils.xmlToMapClass(PATH_PLAYER, TAG_PLAYER, ATTR1_PLAYER, ATTR2_PLAYER));
@@ -134,9 +121,9 @@ public class EntityController {
      * 
      * @param chosenInterface the chosen interface that corresponds with the
      *                        relative map
-     * @param path            the xml path
-     * @param tag             the xml tag
-     * @param attr            the attributes needed for the xml tag
+     * @param path            the XML path
+     * @param tag             the XML tag
+     * @param attr            the attributes needed for the XML tag
      */
     public static void addElementsInMap(final Class<? extends RootEnum> chosenInterface, final String path,
             final String tag, final String... attr) {

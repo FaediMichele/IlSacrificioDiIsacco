@@ -127,6 +127,7 @@ public class GameController {
                                                                             });
                             entityControllers.clear();
                         }
+                        //update view
                         gameWorld.getEntityInformation().stream().peek(i -> {
                                                     i.setWidth(i.getWidth() * widthMolti)
                                                      .setHeight(i.getHeight() * heightMolti)
@@ -151,6 +152,7 @@ public class GameController {
                                 entityControllers.remove(st.getId());
                             }
                         });
+                        //update statistic of player
                         final StatisticsInformations stats = gameWorld.getPlayer().getStatisticsInformations();
                         gameView.setInventoryStatistic(gameView.getStatistics()
                                                         .stream()
