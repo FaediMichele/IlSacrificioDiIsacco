@@ -3,6 +3,7 @@
 <Rooms>
     <Room1 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
+            <HostHat X="100" Y="100" />
             <FlyEnemy X="100" Y="100"/>
             <FlyEnemy X="200" Y="100"/>
             <FlyEnemy X="300" Y="100"/>

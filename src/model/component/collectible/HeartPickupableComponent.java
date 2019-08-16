@@ -59,6 +59,7 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
     @Override
     public void init(final Entity entity) {
         Objects.requireNonNull(entity);
+        System.out.println(entity.getClass());
         final PlayerHealthComponent playerHealthComponent = this.getHealthComponent(entity);
         final double realValue = actualValue > 0.5 && actualValue < 1 ? 1 : 0.5;
 
