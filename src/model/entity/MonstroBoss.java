@@ -23,12 +23,13 @@ import model.util.Position;
  * Implements the fly enemy.
  */
 public class MonstroBoss extends AbstractEnemyMovable {
-    private static final double WIDTH = 70;
-    private static final double HEIGHT = 70;
+    private static final double WIDTH = 79;
+    private static final double HEIGHT = 112;
     private static final int WEIGHT = 5;
     private static final double DSPEED = 0.5;
     private static final double DAMAGE = 1.0;
-    private static final double TEAR_RATE = 2.0;
+    private static final double TEAR_RATE = 1000.0;
+    private static final double TEAR_LIFE_TIME = 10000.0;
     private static final EntityEnum ENTITY_NAME = BasicEntityEnum.MONSTRO;
 
     /**
@@ -63,15 +64,15 @@ public class MonstroBoss extends AbstractEnemyMovable {
 
     private void build(final double x, final double y) {
         this.getComponent(AbstractMentalityComponent.class).get()
-            .mergeWith(new FlyingMentalityComponent(this));
+            .mergeWith(new MonstroBossMentalityComponent(this));
         this.attachComponent(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT))
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new MonstroAIComponent(this))
             .attachComponent(new HealthComponent(this, 3))
             .attachComponent(new DamageComponent(this, DAMAGE))
-            .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE))
-            .attachComponent(new MonstroBossMentalityComponent(this));
+            .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE));
+        this.getComponent(TearWeaponComponent.class).get().setLifeTime(TEAR_LIFE_TIME);
     }
 
     /**
