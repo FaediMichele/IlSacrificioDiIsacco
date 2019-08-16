@@ -18,7 +18,7 @@ public class TestModel {
 //     */
 //    @Test
 //    public void testGameWorld() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-//        final GameWorld gw = new GameWorldImpl("game1", StasticFactoryPlayers.getPlayer(BasicPlayerEnum.ISAAC));
+//        final GameWorld gw = new GameWorldImpl("game1", StasticFactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC));
 //    }
 //
 //    /**

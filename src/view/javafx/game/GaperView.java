@@ -63,4 +63,13 @@ public class GaperView extends IsaacView {
             this.gaperFaceIndex.put(move, 0);
         }
     }
+
+    /**
+     * When the entity dies.
+     * @param move the last movement
+     */
+    @Override
+    public void dead(final MovementEnum move) {
+        super.disappear(move);
+    }
 }
