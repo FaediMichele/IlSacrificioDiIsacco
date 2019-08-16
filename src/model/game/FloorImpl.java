@@ -33,7 +33,7 @@ import util.StaticMethodsUtils;
  */
 public class FloorImpl implements Floor {
     //private Pane pn; //ONLY FOR DEBUG
-    private static final Pair<Double, Double> ROOMSIZE = new Pair<>(600.0, 300.0);
+    private static final Pair<Double, Double> ROOMSIZE = new Pair<>(640.0, 344.0);
 
     private final List<Room> rooms;
     @NotEquals
@@ -188,7 +188,6 @@ public class FloorImpl implements Floor {
             ret.add(new Pair<>(position.getX(), position.getY()));
             n++;
         }
-        m.test();
         return ret;
     }
 

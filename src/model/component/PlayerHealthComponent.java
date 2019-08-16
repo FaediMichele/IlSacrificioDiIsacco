@@ -163,6 +163,7 @@ public class PlayerHealthComponent extends AbstractComponent {
     }
 
     private void sortHearts() {
+        Collections.sort(hearts, (h1, h2) -> h1.getValue() > h2.getValue() ? 1 : -1);
         Collections.sort(hearts, (h1, h2) -> h1.getColour().equals(BasicHeartEnum.BLACK) ? 1 : -1);
     }
 
@@ -185,7 +186,7 @@ public class PlayerHealthComponent extends AbstractComponent {
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
             this.getEntity().postEvent(new DeadEvent(this.getEntity()));
         } else {
-            System.out.println("SUFFERING");
+            //System.out.println("SUFFERING");
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
         }
     }

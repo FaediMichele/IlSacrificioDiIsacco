@@ -3,7 +3,6 @@ package model.component;
 import com.google.common.eventbus.Subscribe;
 
 import model.component.mentality.AbstractMentalityComponent;
-import model.component.mentality.EnemyMentalityComponent;
 import model.component.mentality.EnemyTearsMentalityComponent;
 import model.component.mentality.PlayerTearsMentalityComponent;
 import model.entity.Entity;
@@ -67,7 +66,7 @@ public class TearWeaponComponent extends AbstractComponent {
     private void tearShotEvent(final TearShotEvent event) {
         final Position pos = event.getSourceEntity().getComponent(BodyComponent.class).get().getPosition();
         final double width = event.getSourceEntity().getComponent(BodyComponent.class).get().getWidth();
-        System.out.println(event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get().getClass());
+        //System.out.println(event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get().getClass());
         final double height = event.getSourceEntity().getComponent(BodyComponent.class).get().getHeight();
         getEntity().getRoom()
                 .insertEntity(new Tear(event.getAngle(),

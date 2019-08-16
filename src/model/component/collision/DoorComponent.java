@@ -1,9 +1,6 @@
 package model.component.collision;
 
-import java.util.Optional;
-
 import model.component.BodyComponent;
-import model.entity.Door;
 import model.entity.Entity;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
@@ -43,7 +40,7 @@ public class DoorComponent extends LockCollisionComponent {
     @Override
     public void afterUnlocks(final Entity entity) {
         final BodyComponent eBody = entity.getComponent(BodyComponent.class).get();
-        this.getEntity().getRoom().getFloor().getRooms()
+        /*this.getEntity().getRoom().getFloor().getRooms()
         .stream()
         .forEach(r -> {
             System.out.println("Indice stanza = " + r.getIndex());
@@ -57,7 +54,7 @@ public class DoorComponent extends LockCollisionComponent {
             if (r.getDoor().isEmpty()) {
                 System.out.println("in questa stanza ci sono zero porte error!!!");
             }
-        });
+        });*/
 
 
         final Entity otherDoor = getEntity().getRoom().getFloor()
