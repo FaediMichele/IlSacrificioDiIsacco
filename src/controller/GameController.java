@@ -80,7 +80,6 @@ public class GameController {
      * {@inheritDoc}
      */
     public void start() {
-        // super.run();
         this.stopped = false;
         this.gameloop.start();
     }
@@ -89,7 +88,6 @@ public class GameController {
      * {@inheritDoc}
      */
     public void stop() {
-        // super.stop();
         this.stopped = true;
     }
 
@@ -108,63 +106,63 @@ public class GameController {
             try {
                 while (!stopped) {
                     sleep(TIMETOSLEEP);
+                    //verifico se il player è ancora vivo
                     if (!gameWorld.update(TIMETOSLEEP)) {
                         stopped = true;
                         //gameView.gameOver()
-                    }
-                    // Se il Player è morto -> gameView.gameOver()
-                    final double widthMolti = gameView.getWidth()
-                            / gameWorld.getActiveFloor().getActiveRoom().getWidth();
-                    final double heightMolti = gameView.getHeight()
-                            / gameWorld.getActiveFloor().getActiveRoom().getHeight();
-                    if (gameWorld.isChangeFloor() || gameWorld.getActiveFloor().isChangeRoom()) {
-                        System.out.println(gameWorld.getActiveFloor().getRooms().indexOf(gameWorld.getActiveFloor().getActiveRoom()));
-                        final EntityInformation disappear = new EntityInformation()
-                                .setStatus(BasicStatusEnum.DISAPPEAR);
-                        entityControllers.values().stream().forEach(x -> {
-                            x.update(disappear);
-                        });
-                        entityControllers.clear();
-                    }
-                    gameWorld.getEntityInformation().stream().peek(i -> {
-                        i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
-                                .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
-
-                    }).peek(st -> {
-                        if (!entityControllers.containsKey(st.getId())) {
-                            try {
-                                entityControllers.put(st.getId(), new EntityController(st, gameView));
-                            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
-                                    | InstantiationException | IllegalAccessException | IllegalArgumentException
-                                    | InvocationTargetException e) {
-                                e.printStackTrace();
+                    } else {
+                        final double widthMolti = gameView.getWidth()
+                                / gameWorld.getActiveFloor().getActiveRoom().getWidth();
+                        final double heightMolti = gameView.getHeight()
+                                / gameWorld.getActiveFloor().getActiveRoom().getHeight();
+                        if (gameWorld.isChangeFloor() || gameWorld.getActiveFloor().isChangeRoom()) {
+                            System.out.println(gameWorld.getActiveFloor().getRooms().indexOf(gameWorld.getActiveFloor().getActiveRoom()));
+                            final EntityInformation disappear = new EntityInformation()
+                                    .setStatus(BasicStatusEnum.DISAPPEAR);
+                            entityControllers.values().stream().forEach(x -> {
+                                x.update(disappear);
+                            });
+                            entityControllers.clear();
+                        }
+                        gameWorld.getEntityInformation().stream().peek(i -> {
+                            i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
+                                    .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
+                        }).peek(st -> {
+                            if (!entityControllers.containsKey(st.getId())) {
+                                try {
+                                    entityControllers.put(st.getId(), new EntityController(st, gameView));
+                                } catch (ClassNotFoundException | NoSuchMethodException | SecurityException
+                                        | InstantiationException | IllegalAccessException | IllegalArgumentException
+                                        | InvocationTargetException e) {
+                                    e.printStackTrace();
+                                }
                             }
+                        }).forEach(st -> {
+                            entityControllers.get(st.getId()).update(st);
+                            if (st.getStatus().equals(BasicStatusEnum.DISAPPEAR)
+                                    || st.getStatus().equals(BasicStatusEnum.DEAD)) {
+                                entityControllers.remove(st.getId());
+                            }
+                        });
+                        final StatisticsInformations stats = gameWorld.getPlayer().getStatisticsInformations();
+                        gameView.setInventoryStatistic(gameView.getStatistics().stream()
+                                .filter(s -> s instanceof BombStatisticView).findAny().get(), stats.getBombs());
+                        gameView.setInventoryStatistic(gameView.getStatistics().stream()
+                                .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
+                        gameView.setHeartsStatistic(
+                                gameView.getStatistics().stream().filter(s -> s.getClass().equals(HeartStatisticView.class))
+                                        .map(s -> HeartStatisticView.class.cast(s)).findAny().get(),
+                                stats.getHearts());
+                        gameView.draw();
+                        gameView.updateEntity();
+                        gameWorld.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
+                            e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);
+                            e.getStatusComponent().setStatus(BasicStatusEnum.DEFAULT);
+                        });
+                        if (inputDisponible.tryAcquire()) {
+                            gameWorld.input(inputCommand);
+                            inputDisponible.release();
                         }
-                    }).forEach(st -> {
-                        entityControllers.get(st.getId()).update(st);
-                        if (st.getStatus().equals(BasicStatusEnum.DISAPPEAR)
-                                || st.getStatus().equals(BasicStatusEnum.DEAD)) {
-                            entityControllers.remove(st.getId());
-                        }
-                    });
-                    final StatisticsInformations stats = gameWorld.getPlayer().getStatisticsInformations();
-                    gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s instanceof BombStatisticView).findAny().get(), stats.getBombs());
-                    gameView.setInventoryStatistic(gameView.getStatistics().stream()
-                            .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
-                    gameView.setHeartsStatistic(
-                            gameView.getStatistics().stream().filter(s -> s.getClass().equals(HeartStatisticView.class))
-                                    .map(s -> HeartStatisticView.class.cast(s)).findAny().get(),
-                            stats.getHearts());
-                    gameView.draw();
-                    gameView.updateEntity();
-                    gameWorld.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
-                        e.getStatusComponent().setMove(BasicMovementEnum.STATIONARY);
-                        e.getStatusComponent().setStatus(BasicStatusEnum.DEFAULT);
-                    });
-                    if (inputDisponible.tryAcquire()) {
-                        gameWorld.input(inputCommand);
-                        inputDisponible.release();
                     }
                 }
             } catch (InterruptedException e) {
