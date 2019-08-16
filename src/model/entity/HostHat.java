@@ -14,7 +14,7 @@ import model.enumeration.EntityEnum;
 import model.util.Position;
 
 /**
- * Implements a generic heart.
+ * Implements the host hat.
  */
 public class HostHat extends AbstractStaticEntity {
     private static final double WIDTH = 20;
@@ -46,8 +46,7 @@ public class HostHat extends AbstractStaticEntity {
      */
     public HostHat(final String args) {
         super();
-        final Map<String, String> holder = Splitter.on(",").trimResults()
-                .withKeyValueSeparator("=").split(args);
+        final Map<String, String> holder = Splitter.on(",").trimResults().withKeyValueSeparator("=").split(args);
         build(Double.parseDouble(holder.get("X").replace("\"", "")),
                 Double.parseDouble(holder.get("Y").replace("\"", "")));
     }

@@ -10,8 +10,7 @@ import model.entity.Entity;
 import model.enumeration.BasicStatusEnum;
 
 /**
- * Collectible Component of the heart entity: how the heart have to act when
- * it's collected.
+ * Collectible Component for the host hat entity.
  */
 public class HostHatPickupableComponent extends AbstractPickupableComponent {
     /**
