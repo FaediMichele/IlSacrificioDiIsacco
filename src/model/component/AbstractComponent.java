@@ -54,7 +54,7 @@ public abstract class AbstractComponent implements Component {
     }
 
     /**
-     * Rehabilitate this component.
+     * Re-enable a component.
      */
     public void rehabilitateComponent() {
         this.active = true;
@@ -106,15 +106,6 @@ public abstract class AbstractComponent implements Component {
             throw new IllegalStateException();
         }
         this.entity = e;
-    }
-
-    /**
-     * Release all resources used by this component.
-     */
-    protected final void dispose() {
-        // active = false;
-        // (new LinkedList<>(this.eventListeners)).forEach(el ->
-        // unregisterListener(el));
     }
 
     /**

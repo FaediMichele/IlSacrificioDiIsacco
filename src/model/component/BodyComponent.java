@@ -23,6 +23,33 @@ public class BodyComponent extends AbstractComponent {
     private int weight;
 
     /**
+     * Default BodyComponent constructor.
+     * 
+     * @param entity entity for this component
+     */
+    public BodyComponent(final Entity entity) {
+        this(entity, 
+                DEFAULT_POSITION_VALUE, 
+                DEFAULT_SCALABLE_VALUE, 
+                DEFAULT_SCALABLE_VALUE, 
+                DEFAULT_WEIGHT_VALUE);
+    }
+
+    /**
+     * 
+     * @param entity 
+     * @param height 
+     * @param width 
+     * @param weight 
+     */
+    public BodyComponent(final Entity entity, final double height, final double width, final int weight) {
+        this(entity,
+                DEFAULT_POSITION_VALUE,
+                height,
+                width,
+                weight);
+    }
+    /**
      * Initialize the parameters.
      * 
      * @param position of the entity
@@ -42,30 +69,6 @@ public class BodyComponent extends AbstractComponent {
         this.height = height;
         this.width = width;
         this.weight = weight;
-    }
-
-    /**
-     * 
-     * @param entity 
-     * @param height 
-     * @param width 
-     * @param weight 
-     */
-    public BodyComponent(final Entity entity, final double height, final double width, final int weight) {
-        super(entity);
-        this.height = height;
-        this.width = width;
-        this.weight = weight;
-        this.position = new Position(0.0, 0.0, 0.0);
-    }
-
-    /**
-     * Default BodyComponent constructor.
-     * 
-     * @param entity entity for this component
-     */
-    public BodyComponent(final Entity entity) {
-        this(entity, DEFAULT_POSITION_VALUE, DEFAULT_SCALABLE_VALUE, DEFAULT_SCALABLE_VALUE, DEFAULT_WEIGHT_VALUE);
     }
 
     /**
@@ -152,7 +155,7 @@ public class BodyComponent extends AbstractComponent {
     }
 
     /**
-     * 
+     *  Weigh getter.
      * @return weight
      */
     public int getWeight() {
