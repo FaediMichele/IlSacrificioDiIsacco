@@ -1,6 +1,10 @@
 package model.component;
 
+import com.google.common.eventbus.Subscribe;
+
 import model.entity.Entity;
+import model.events.ChangeDamageValueEvent;
+import util.EventListener;
 
 /**
  * 
@@ -9,7 +13,7 @@ import model.entity.Entity;
  */
 public class DamageComponent extends AbstractComponent {
 
-    private final double damage;
+    private double damage;
 
     /**
      * 
@@ -19,13 +23,29 @@ public class DamageComponent extends AbstractComponent {
     public DamageComponent(final Entity entity, final double damage) {
         super(entity);
         this.damage = damage;
+        registerListener(new EventListener<ChangeDamageValueEvent>() {
+            @Override
+            @Subscribe
+            public void listenEvent(final ChangeDamageValueEvent event) {
+                if (event.getDamageValue().isPresent()) {
+                    addDamage(event.getDamageValue().get());
+                }
+            }
+        });
     }
-/**
- * 
- * @return the value of the damage that the entity inflicts at this time
- */
+
+    /**
+     * 
+     * @return the value of the damage that the entity inflicts at this time
+     */
     protected double getDamage() {
         return this.damage;
     }
 
+    /**
+     * @param damage the damage output to add to the current damage
+     */
+    protected void addDamage(final double damage) {
+        this.damage += damage;
+    }
 }
