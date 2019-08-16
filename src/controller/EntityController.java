@@ -54,9 +54,7 @@ public class EntityController {
     private static final Map<UpgradeEnum, String> UPGADE_MAP = StaticMethodsUtils.xmlToMapMethods(PATH_UPGRADE,
             TAG_UPGRADE, ATTR1_UPGRADE);
 
-    private final UUID id;
     private final EntityView entityView;
-    private final EntityEnum entityName;
 
     /**
      * 
@@ -70,12 +68,14 @@ public class EntityController {
      * @throws IllegalArgumentException 
      * @throws InvocationTargetException 
      */
-    public EntityController(final EntityInformation info, final GameView gameView)
-            throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException,
-            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        this.id = info.getId();
-        this.entityName = info.getEntityName();
-        final Class<? extends EntityView> classEntity = ENTITY_MAP.get(this.entityName);
+    public EntityController(final EntityInformation info, final GameView gameView) throws ClassNotFoundException, 
+                                                                                            NoSuchMethodException, 
+                                                                                            SecurityException, 
+                                                                                            InstantiationException,
+                                                                                            IllegalAccessException, 
+                                                                                            IllegalArgumentException, 
+                                                                                            InvocationTargetException {
+        final Class<? extends EntityView> classEntity = ENTITY_MAP.get(info.getEntityName());
         this.entityView = (EntityView) classEntity.newInstance();
         this.entityView.setGameView(gameView);
         gameView.addEntity(entityView);
@@ -107,30 +107,6 @@ public class EntityController {
                 | InvocationTargetException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 
-     * @return id entity
-     */
-    public UUID getId() {
-        return this.id;
-    }
-
-    /**
-     * 
-     * @return entity name
-     */
-    public EntityEnum getEntityName() {
-        return this.entityName;
-    }
-
-    /**
-     * 
-     * @return entity view
-     */
-    public EntityView getEntityView() {
-        return this.entityView;
     }
 
     /**
