@@ -20,7 +20,7 @@
 //import model.component.DoorAIComponent;
 //import model.component.FireAIComponent;
 //import model.component.FireType;
-//import model.component.HealthComponent;
+//import model.component.PlayerHealthComponent;
 //import model.component.InventoryComponent;
 //import model.component.MoveComponent;
 //import model.component.SimpleHeart;
@@ -85,7 +85,7 @@
 //        p2.attachComponent(new BodyComponent(p2, 1, 1, 0, 1, 1, 2));
 //        p.attachComponent(new BodyComponent(p, 1, 1, 0, 1, 1, 2));
 //        assertTrue(p.hasComponent(BodyComponent.class));
-//        assertTrue(p.hasComponent(HealthComponent.class));
+//        assertTrue(p.hasComponent(PlayerHealthComponent.class));
 //        assertFalse(p.hasComponent(DoorAIComponent.class));
 //        assertEquals(p, p2);
 //        assertTrue(p.equals(p2));
@@ -267,13 +267,13 @@
 //    }
 //
 //    /**
-//     * Test for {@link HealthComponent}.
+//     * Test for {@link PlayerHealthComponent}.
 //     */
 //    @Test
 //    public void testHealthComponent() {
 //        final double defaultHearts = 3;
 //        final Entity goodEntity = new Player();
-//        goodEntity.attachComponent(new HealthComponent(goodEntity));
+//        goodEntity.attachComponent(new PlayerHealthComponent(goodEntity));
 //        assertTrue(this.getHealthComponent(goodEntity).isAlive());
 //        assertEquals(this.getHealthComponent(goodEntity).getLife(), defaultHearts);
 //
@@ -316,7 +316,7 @@
 //        final int defaultHearts = 3;
 //        final int newHearts = 2;
 //        final Entity goodEntity = new Player();
-//        goodEntity.attachComponent(new HealthComponent(goodEntity, defaultHearts));
+//        goodEntity.attachComponent(new PlayerHealthComponent(goodEntity, defaultHearts));
 //        this.getHealthComponent(goodEntity).addHeart(new SimpleHeart());
 //        this.getHealthComponent(goodEntity).addHeart(new BlackHeart.Builder(goodEntity).build());
 //        assertTrue(this.getHealthComponent(goodEntity).isAlive());
@@ -326,7 +326,7 @@
 //        final double damage = 0.7;
 //        final double finalEnemyLife = 2.7;
 //        enemy.attachComponent(new DamageComponent(enemy, damage));
-//        enemy.attachComponent(new HealthComponent(enemy));
+//        enemy.attachComponent(new PlayerHealthComponent(enemy));
 //        enemy.attachComponent(new EnemyMentalityComponent(enemy));
 //        goodEntity.postEvent(new DamageEvent(enemy));
 //        assertEquals(this.getHealthComponent(enemy).getNumberOfHearts(), 3);
@@ -485,8 +485,8 @@
 //        assertEquals("due", map.get(1));
 //    }
 //
-//    private HealthComponent getHealthComponent(final Entity e) {
-//        return e.getComponent(HealthComponent.class).get();
+//    private PlayerHealthComponent getHealthComponent(final Entity e) {
+//        return e.getComponent(PlayerHealthComponent.class).get();
 //    }
 //
 //    private MoveComponent getMoveComponent(final Entity e) {

@@ -3,7 +3,9 @@
 <Floors>
     <Floor1 MaxRoom="14">
         <Rooms>
-            <Room4/>
+            <Room1/>
+            <Room2/>
+            <Room2/>
         </Rooms>
         <Boss>
             <Room4/>

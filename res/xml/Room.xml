@@ -6,26 +6,20 @@
             <FlyEnemy X="100" Y="100"/>
             <FlyEnemy X="200" Y="100"/>
             <FlyEnemy X="300" Y="100"/>
+            <GaperEnemy X="100" Y="200" />
+            <GaperEnemy X="200" Y="200" />
+            <GaperEnemy X="300" Y="200" />
             <Rock X="190" Y="100"/>
             <SimplePickupableHeart X="200" Y="200"/>
-            <BlackPickupableHeart X="100" Y="200"/>
-            <SimplePickupableHeart X="300" Y="200"/>
             <BlackPickupableHeart X="300" Y="200"/>
             <Key X="200" Y="200"/>
-            <Bomb X="120" Y="150"/>
             <Bomb X="200" Y="150"/>
         </Entities>
     </Room1>
     <Room2 background="/gameimgs/basement_background1_640x344.png">
         <Entities>
-            <SimplePickupableHeart X="300" Y="200"/>
-            <BlackPickupableHeart X="300" Y="200"/>
-            <SimplePickupableHeart X="200" Y="200"/>
-            <BlackPickupableHeart X="100" Y="200"/>
             <Rock X="250" Y="100"/>
             <Rock X="330" Y="100"/>
-            <Bomb X="120" Y="150"/>
-            <Bomb X="200" Y="150"/>
         </Entities>
     </Room2>
      <Room3 background="/gameimgs/basement_background1_640x344.png">

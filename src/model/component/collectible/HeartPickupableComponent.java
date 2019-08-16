@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Random;
 
 import model.component.BlackHeart;
-import model.component.HealthComponent;
+import model.component.PlayerHealthComponent;
 import model.component.SimpleHeart;
 import model.entity.Entity;
 import model.enumeration.BasicHeartEnum;
@@ -59,22 +59,22 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
     @Override
     public void init(final Entity entity) {
         Objects.requireNonNull(entity);
-        final HealthComponent healthComponent = this.getHealthComponent(entity);
+        final PlayerHealthComponent playerHealthComponent = this.getHealthComponent(entity);
         final double realValue = actualValue > 0.5 && actualValue < 1 ? 1 : 0.5;
 
         if (this.color.equals(BasicHeartEnum.RED)) {
-            healthComponent.addHeart(new SimpleHeart(entity, realValue));
+            playerHealthComponent.addHeart(new SimpleHeart(entity, realValue));
         } else if (this.color.equals(BasicHeartEnum.BLACK)) {
-            healthComponent.addHeart(new BlackHeart(entity, realValue));
+            playerHealthComponent.addHeart(new BlackHeart(entity, realValue));
         }
 
         this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         this.getEntity().getRoom().deleteEntity(this.getEntity());
     }
 
-    private HealthComponent getHealthComponent(final Entity e) {
-        if (e.getComponent(HealthComponent.class).isPresent()) {
-            return e.getComponent(HealthComponent.class).get();
+    private PlayerHealthComponent getHealthComponent(final Entity e) {
+        if (e.getComponent(PlayerHealthComponent.class).isPresent()) {
+            return e.getComponent(PlayerHealthComponent.class).get();
         } else {
             throw new IllegalStateException();
         }

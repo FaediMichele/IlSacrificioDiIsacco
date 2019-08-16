@@ -16,7 +16,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
 import model.component.BodyComponent;
-import model.component.HealthComponent;
+import model.component.PlayerHealthComponent;
 import model.component.InventoryComponent;
 import model.entity.Bomb;
 import model.entity.Entity;
@@ -132,7 +132,7 @@ public class GameWorldImpl implements GameWorld {
     public final boolean update(final double deltaTime) {
         getActiveFloor().update(deltaTime);
         changedFloor = false;
-        return player.getComponent(HealthComponent.class).get().isAlive();
+        return player.getComponent(PlayerHealthComponent.class).get().isAlive();
     }
 
     @Override
@@ -186,7 +186,7 @@ public class GameWorldImpl implements GameWorld {
      */
     public StatisticsInformations getStatistics() {
         final List<Entity> things = this.getPlayer().getComponent(InventoryComponent.class).get().getThings();
-        final List<Pair<HeartEnum, Double>> hearts = this.getPlayer().getComponent(HealthComponent.class).get()
+        final List<Pair<HeartEnum, Double>> hearts = this.getPlayer().getComponent(PlayerHealthComponent.class).get()
                 .getHearts().stream().map(h -> new Pair<HeartEnum, Double>(h.getColour(), h.getValue()))
                 .collect(Collectors.toList());
         return new StatisticsInformations()

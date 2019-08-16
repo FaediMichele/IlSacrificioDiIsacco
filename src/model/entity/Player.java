@@ -1,14 +1,12 @@
 package model.entity;
 
 import model.component.BodyComponent;
-import model.component.HealthComponent;
+import model.component.PlayerHealthComponent;
 import model.component.InputComponent;
 import model.component.InventoryComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
-import model.component.collision.CollisionComponent;
-import model.component.collision.MovableCollisionComponent;
 import model.component.collision.PlayerCollisionComponent;
 import model.component.mentality.PlayerMentalityComponent;
 import model.enumeration.BasicTearEnum;
@@ -31,7 +29,7 @@ public class Player extends AbstractMovableEntity {
      */
 //    public Player() {
 //        super();
-//        this.attachComponent(new HealthComponent(this))
+//        this.attachComponent(new PlayerHealthComponent(this))
 //            .attachComponent(new InventoryComponent(this))
 //            .attachComponent(new PlayerMentalityComponent(this))
 //            .attachComponent(new TearWeaponComponent(this))
@@ -49,7 +47,7 @@ public class Player extends AbstractMovableEntity {
      */
     public Player(final DataPlayer data) {
         super();
-        this.attachComponent(new HealthComponent(this, data.getLife()))
+        this.attachComponent(new PlayerHealthComponent(this, data.getLife()))
             .attachComponent(new InventoryComponent(this))
             .attachComponent(new PlayerMentalityComponent(this))
             .attachComponent(new TearWeaponComponent(this, data.getDamage(), BasicTearEnum.NORMAL, data.getRate()))
@@ -87,7 +85,7 @@ public class Player extends AbstractMovableEntity {
         final StatisticsInformations statistics = new StatisticsInformations();
         statistics.setBombs(this.getComponent(InventoryComponent.class).get().thingsOfThisKind(Bomb.class));
         statistics.setKeys(this.getComponent(InventoryComponent.class).get().thingsOfThisKind(Key.class));
-        statistics.setHearts(this.getComponent(HealthComponent.class).get().getHeartPairs());
+        statistics.setHearts(this.getComponent(PlayerHealthComponent.class).get().getHeartPairs());
         return statistics;
     }
 }

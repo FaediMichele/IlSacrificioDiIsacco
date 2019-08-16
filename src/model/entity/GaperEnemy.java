@@ -5,8 +5,8 @@ import java.util.Map;
 import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
+import model.component.EnemyHealthComponent;
 import model.component.FollowAIComponent;
-import model.component.HealthComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.enumeration.BasicEntityEnum;
@@ -62,7 +62,7 @@ public class GaperEnemy extends AbstractEnemyMovable {
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new FollowAIComponent(this))
-            .attachComponent(new HealthComponent(this, HEALTH));
+            .attachComponent(new EnemyHealthComponent(this, HEALTH));
     }
 
 
