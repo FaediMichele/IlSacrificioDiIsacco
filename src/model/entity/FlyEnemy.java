@@ -6,8 +6,8 @@ import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
 import model.component.DamageComponent;
+import model.component.EnemyHealthComponent;
 import model.component.FlyAIComponent;
-import model.component.HealthComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.mentality.AbstractMentalityComponent;
@@ -64,7 +64,7 @@ public class FlyEnemy extends AbstractEnemyMovable {
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new FlyAIComponent(this))
-            .attachComponent(new HealthComponent(this, 3))
+            .attachComponent(new EnemyHealthComponent(this, 3))
             .attachComponent(new DamageComponent(this, DAMAGE));
     }
 

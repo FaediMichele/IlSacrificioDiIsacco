@@ -123,4 +123,16 @@ public class Matrix<T> {
     public int getHeight() {
         return dimY;
     }
+
+    /**
+     * Print the matrix in the default out.
+     */
+    public void test() {
+        for (int i = 0; i < dimX; i++) {
+            for (int j = 0; j < dimY; j++) {
+                System.out.print((get(i, j) != null ? get(i, j) + " " : "[]") + " ");
+            }
+            System.out.println();
+        }
+    }
 }

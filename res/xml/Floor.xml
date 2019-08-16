@@ -4,6 +4,7 @@
     <Floor1 MaxRoom="14">
         <Rooms>
             <Room1/>
+            <Room2/>
         </Rooms>
         <Boss>
             <Room4/>

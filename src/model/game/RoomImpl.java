@@ -19,7 +19,7 @@ import org.w3c.dom.NodeList;
 import com.google.common.eventbus.Subscribe;
 
 import model.component.BodyComponent;
-import model.component.HealthComponent;
+import model.component.PlayerHealthComponent;
 import model.component.StatusComponent;
 import model.component.mentality.ObstacleMentalityComponent;
 import model.entity.Door;
@@ -141,8 +141,8 @@ public class RoomImpl implements Room {
         final List<Entity> aux = new ArrayList<Entity>();
         aux.addAll(this.entity);
         aux.forEach(e -> e.update(deltaTime));
-        if (this.entity.stream().filter(e -> e.hasComponent(HealthComponent.class))
-                .filter(e -> (e.getComponent(HealthComponent.class).get()).isAlive()).count() == 1) {
+        if (this.entity.stream().filter(e -> e.hasComponent(PlayerHealthComponent.class))
+                .filter(e -> (e.getComponent(PlayerHealthComponent.class).get()).isAlive()).count() == 1) {
             this.isComplete = true;
         }
     }

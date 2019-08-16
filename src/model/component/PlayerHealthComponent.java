@@ -23,17 +23,18 @@ import util.Pair;
  *
  */
 
-public class HealthComponent extends AbstractComponent {
+public class PlayerHealthComponent extends AbstractComponent {
 
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
+    private static final int TIMENODAMAGE = 1000;
     private LinkedList<Heart> hearts;
-
+    private double time = 0;
     /**
      * @param defaultHearts number of hearts of this kind
      * @param entity    entity for this component
      */
-    public HealthComponent(final Entity entity, final double defaultHearts) {
+    public PlayerHealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
         this.hearts = new LinkedList<Heart>(Stream.iterate(0, i -> i + 1)
@@ -52,6 +53,11 @@ public class HealthComponent extends AbstractComponent {
             @Override
             @Subscribe
             public void listenEvent(final DamageEvent event) {
+                if (time < TIMENODAMAGE) {
+                    return;
+                } else {
+                    time = 0;
+                }
                 if (event.getDamageValue().isPresent()) {
                     getDamaged(event.getDamageValue().get());
                 } else {
@@ -64,11 +70,19 @@ public class HealthComponent extends AbstractComponent {
     }
 
     /**
-     * Default HealthComponent constructor.
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final Double deltaTime) {
+        super.update(deltaTime);
+        this.time += deltaTime;
+    }
+    /**
+     * Default PlayerHealthComponent constructor.
      * 
      * @param entity entity for this component
      */
-    public HealthComponent(final Entity entity) {
+    public PlayerHealthComponent(final Entity entity) {
         this(entity, DEFAULT_HEART_NUMBER);
     }
 

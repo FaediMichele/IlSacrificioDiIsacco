@@ -6,7 +6,7 @@ import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
 import model.component.DamageComponent;
-import model.component.HealthComponent;
+import model.component.EnemyHealthComponent;
 import model.component.MonstroAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
@@ -68,7 +68,7 @@ public class MonstroBoss extends AbstractEnemyMovable {
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new MonstroAIComponent(this))
-            .attachComponent(new HealthComponent(this, 3))
+            .attachComponent(new EnemyHealthComponent(this, 3))
             .attachComponent(new DamageComponent(this, DAMAGE))
             .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE));
         this.getComponent(TearWeaponComponent.class).get().setLifeTime(TEAR_LIFE_TIME);

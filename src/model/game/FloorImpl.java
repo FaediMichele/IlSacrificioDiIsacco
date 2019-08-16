@@ -150,7 +150,7 @@ public class FloorImpl implements Floor {
             t = rnd.nextInt(rooms.size() - 1) + 1;
         } while (t.equals(b));
         for (int i = 1; i < rooms.size() - 2; i++) {
-            if (!b.equals(i) && !t.equals(b)) {
+            if (!b.equals(i) && !t.equals(i)) {
                 final int n = nl.getLength();
                 final int rndIndex = rnd.nextInt((n - 1) / 2);
                 final Node room = nl.item(rndIndex * 2 + 1);
@@ -225,14 +225,14 @@ public class FloorImpl implements Floor {
      * @param roomIndexs {@link ArrayList} of positions of each room in increasing order
      */
     private void generateMap(final Matrix<Integer> m, final List<Pair<Integer, Integer>> roomIndexs) {
-        final Pair<Integer, Integer> pos = new Pair<>(maxRoom / 2, maxRoom / 2);
+        final Pair<Integer, Integer> pos = new Pair<>(m.getWidth() / 2, m.getHeight() / 2);
         final Random rnd = new Random();
         final int nRoom = rnd.nextInt(maxRoom / 2) + maxRoom / 2;
 
         for (int index = 0; index < nRoom; index++) {
             int direction = rnd.nextInt(OVEST + 1);
             int directionCounted = 0;
-            while (!canGoDirection(m, pos, direction) && directionCounted <= OVEST) {
+            while (!canGoDirection(m, pos, direction) && directionCounted < OVEST) {
                 direction = (direction + 1) % OVEST;
                 directionCounted++;
             }
@@ -244,6 +244,7 @@ public class FloorImpl implements Floor {
                 roomIndexs.add(new Pair<Integer, Integer>(pos.getX(), pos.getY()));
             }
         }
+        m.test();
     }
 
     /**
@@ -271,7 +272,11 @@ public class FloorImpl implements Floor {
     }
 
     private boolean roomExist(final Matrix<Integer> m, final int posX, final int posY) {
-        return posX >= 0 && posX < m.getWidth() && posY >= 0 && posY < m.getHeight() && m.get(posX, posY) != null;
+        return posX >= 0
+                && posX < m.getWidth()
+                && posY >= 0
+                && posY < m.getHeight()
+                && m.get(posX, posY) != null;
     }
 
     /**
