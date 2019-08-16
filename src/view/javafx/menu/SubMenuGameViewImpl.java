@@ -20,7 +20,7 @@ public class SubMenuGameViewImpl implements SubMenuGameView {
 
 
     /**
-     * Create a new SubMenuGameViewImpl.
+     * Create a new SubMenuGameViewImpl. 
      */
     public SubMenuGameViewImpl() {
         this.cnv = ViewGetterUtil.getNodeByName("cnvGame", Canvas.class);

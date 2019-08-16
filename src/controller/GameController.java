@@ -8,8 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
-
-import model.entity.FactoryPlayersUtil;
+import model.entity.StasticFactoryPlayers;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -29,8 +28,8 @@ import view.javafx.game.BombStatisticView;
 import view.javafx.game.RoomView;
 
 /**
- * The {@link Controller} for the game which includes the game loop and it
- * communicates with the View and checks the Model.
+ * is the part of the controller that communicates model view and contains and
+ * starts the game loop of the game.
  *
  */
 public class GameController {
@@ -46,38 +45,35 @@ public class GameController {
     private final Semaphore inputDisponible = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
     @NotEquals
-    private final Lambda l;
+    private final Lambda endFunctions;
 
     /**
-     * @param gameView is the {@link GameView} in which the Game Controller operates
-     * @param player   .
-     * @param game     .
-     * @param l lambda when the application ends.
-     * @throws ClassNotFoundException .
-     * @throws IllegalAccessException .
-     * @throws InstantiationException .
-     * @throws IOException .
+     * @param gameView  is the {@link GameView} in which the Game Controller operates
+     * @param player    is the selected player to play the game
+     * @param game      is the game selected to start in this game
+     * @param endFunctions            function used when the application is closed.
+     * @throws ClassNotFoundException if the class of the entity is not found.
+     * @throws IllegalAccessException if the game word you want to launch does not exist.
+     * @throws InstantiationException if the game word you want to launch does not exist.
+     * @throws IOException            if the game word you want to launch does not exist.
      */
-    public GameController(final GameView gameView, final PlayerEnum player, final String game, final Lambda l)
+    public GameController(final GameView gameView, final PlayerEnum player, final String game, final Lambda endFunctions)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-        this.gameView = gameView;
-        this.gameWorld = new GameWorldImpl(game, FactoryPlayersUtil.getPlayer(player));
+        this.gameWorld = new GameWorldImpl(game, StasticFactoryPlayers.getPlayer(player));
         this.stopped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
-        this.l = l;
-        this.initStatistics();
+        this.endFunctions = endFunctions;
+        //set game view
+        this.gameView = gameView;
+        this.gameView.addStatistic(new HeartStatisticView());
+        this.gameView.addStatistic(new BombStatisticView());
+        this.gameView.addStatistic(new KeyStatisticView());
         gameView.setRoomView(new RoomView("/gameImgs/basement_background1_640x344.png"));
     }
 
-    private void initStatistics() {
-        gameView.addStatistic(new HeartStatisticView());
-        gameView.addStatistic(new BombStatisticView());
-        gameView.addStatistic(new KeyStatisticView());
-    }
-
     /**
-     * {@inheritDoc}
+     * to start the game loop.
      */
     public void start() {
         this.stopped = false;
@@ -85,7 +81,7 @@ public class GameController {
     }
 
     /**
-     * {@inheritDoc}
+     * to stop the game loop.
      */
     public void stop() {
         this.stopped = true;
@@ -106,17 +102,18 @@ public class GameController {
             try {
                 while (!stopped) {
                     sleep(TIMETOSLEEP);
-                    //verifico se il player è ancora vivo
+                    // I check if the player is still alive
                     if (!gameWorld.update(TIMETOSLEEP)) {
                         stopped = true;
-                        //gameView.gameOver()
+                        // gameView.gameOver()
                     } else {
                         final double widthMolti = gameView.getWidth()
                                 / gameWorld.getActiveFloor().getActiveRoom().getWidth();
                         final double heightMolti = gameView.getHeight()
                                 / gameWorld.getActiveFloor().getActiveRoom().getHeight();
                         if (gameWorld.isChangeFloor() || gameWorld.getActiveFloor().isChangeRoom()) {
-                            System.out.println(gameWorld.getActiveFloor().getRooms().indexOf(gameWorld.getActiveFloor().getActiveRoom()));
+                            System.out.println(gameWorld.getActiveFloor().getRooms()
+                                    .indexOf(gameWorld.getActiveFloor().getActiveRoom()));
                             final EntityInformation disappear = new EntityInformation()
                                     .setStatus(BasicStatusEnum.DISAPPEAR);
                             entityControllers.values().stream().forEach(x -> {
@@ -126,7 +123,9 @@ public class GameController {
                         }
                         gameWorld.getEntityInformation().stream().peek(i -> {
                             i.setWidth(i.getWidth() * widthMolti).setHeight(i.getHeight() * heightMolti)
-                                    .setPosition(new Position(i.getPosition().getX(), gameView.getHeight() - i.getPosition().getY() - i.getHeight(), i.getPosition().getZ()));
+                                    .setPosition(new Position(i.getPosition().getX(),
+                                            gameView.getHeight() - i.getPosition().getY() - i.getHeight(),
+                                            i.getPosition().getZ()));
                         }).peek(st -> {
                             if (!entityControllers.containsKey(st.getId())) {
                                 try {
@@ -149,10 +148,9 @@ public class GameController {
                                 .filter(s -> s instanceof BombStatisticView).findAny().get(), stats.getBombs());
                         gameView.setInventoryStatistic(gameView.getStatistics().stream()
                                 .filter(s -> s instanceof KeyStatisticView).findAny().get(), stats.getKeys());
-                        gameView.setHeartsStatistic(
-                                gameView.getStatistics().stream().filter(s -> s.getClass().equals(HeartStatisticView.class))
-                                        .map(s -> HeartStatisticView.class.cast(s)).findAny().get(),
-                                stats.getHearts());
+                        gameView.setHeartsStatistic(gameView.getStatistics().stream()
+                                .filter(s -> s.getClass().equals(HeartStatisticView.class))
+                                .map(s -> HeartStatisticView.class.cast(s)).findAny().get(), stats.getHearts());
                         gameView.draw();
                         gameView.updateEntity();
                         gameWorld.getActiveFloor().getActiveRoom().getEntities().forEach(e -> {
@@ -168,23 +166,23 @@ public class GameController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-             l.use();
+            endFunctions.use();
         }
     }
 
     /**
      * 
-     * @param plEnumMenu .
-     * @return .
-     * @throws ClassNotFoundException .
+     * @param plEnumMenu is the enumeration that matches you have data of a specific player.
+     * @return a {@link DataPlayer} that contains all the data of a relative player
+     * @throws ClassNotFoundException if there is no player that corresponds to the enumeration entered.
      */
     public static DataPlayer getDataPlayer(final PlayerEnum plEnumMenu) throws ClassNotFoundException {
-        return FactoryPlayersUtil.getDataPlayer(plEnumMenu);
+        return StasticFactoryPlayers.getDataPlayer(plEnumMenu);
     }
 
     /**
-     * 
-     * @param cm .
+     * Through this method the view sends the commands to the model.
+     * @param cm list of commands to send to the model.
      */
     public void input(final Set<Command> cm) {
         if (inputDisponible.tryAcquire()) {

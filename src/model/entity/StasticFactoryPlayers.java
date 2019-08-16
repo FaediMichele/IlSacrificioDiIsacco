@@ -9,11 +9,11 @@ import util.StaticMethodsUtils;
  * This class make players.
  *
  */
-public final class FactoryPlayersUtil {
+public final class StasticFactoryPlayers {
 
     private static final String PATH_XML = "/xml/model/dataPlayer.xml";
 
-    private FactoryPlayersUtil() { }
+    private StasticFactoryPlayers() { }
 
     /**
      * 

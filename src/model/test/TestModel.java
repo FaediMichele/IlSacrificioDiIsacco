@@ -1,76 +1,25 @@
 package model.test;
-//
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertNotNull;
-//import static org.junit.Assert.assertTrue;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.HashMap;
-//import java.util.LinkedList;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Set;
-//import org.junit.Test;
-//import model.component.AbstractAIComponent;
-//import model.component.BlackHeart;
-//import model.component.BodyComponent;
-//import model.component.DamageComponent;
-//import model.component.DoorAIComponent;
-//import model.component.FireAIComponent;
-//import model.component.FireType;
-//import model.component.PlayerHealthComponent;
-//import model.component.InventoryComponent;
-//import model.component.MoveComponent;
-//import model.component.SimpleHeart;
-//import model.component.StatusComponent;
-//import model.component.collectible.AbstractPickupableComponent;
-//import model.component.collectible.BombCollectableComponent;
-//import model.component.collision.CollisionComponent;
-//import model.component.mentality.AbstractMentalityComponent;
-//import model.component.mentality.EnemyMentalityComponent;
-//import model.component.mentality.PlayerMentalityComponent;
-//import model.entity.Door;
-//import model.entity.Entity;
-//import model.entity.Fire;
-//import model.entity.GaperEnemy;
-//import model.entity.Player;
-//import model.entity.Rock;
-//import model.entity.SimpleEnemyMovable;
-//import model.entity.Tear;
-//import model.events.CollisionEvent;
-//import model.events.DamageEvent;
-//import model.events.FireHittedEvent;
-//import model.events.MoveEvent;
-//import model.events.TearShotEvent;
-//import model.game.Floor;
-//import model.game.FloorImpl;
-//import model.game.Room;
-//import model.game.RoomImpl;
-//import util.Pair;
-//import util.Triplet;
-//
-///**
-// * Test in JUnit for the package model.game.
-// * 
-// */
-//@SuppressWarnings("all")
-//public class TestModel {
+
+
+/**
+ * Test in JUnit for the package model.game.
+ * 
+ */
+@SuppressWarnings("all")
+public class TestModel {
 //
 //    private Room buildedRoom;
 //
-////    /**
-////     * Test for {@link GameWorld}.
-////     * @throws ClassNotFoundException 
-////     * @throws IllegalAccessException 
-////     * @throws InstantiationException 
-////     */
-////    @Test
-////    public void testGameWorld() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-////        final GameWorld gw = new GameWorldImpl("Game1");
-////        assertEquals(gw, new GameWorldImpl("Game1"));
-////    }
+//    /**
+//     * Test for {@link GameWorld}.
+//     * @throws ClassNotFoundException 
+//     * @throws IllegalAccessException 
+//     * @throws InstantiationException 
+//     */
+//    @Test
+//    public void testGameWorld() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+//        final GameWorld gw = new GameWorldImpl("game1", StasticFactoryPlayers.getPlayer(BasicPlayerEnum.ISAAC));
+//    }
 //
 //    /**
 //     * Test for {@link Entity}.
@@ -500,4 +449,4 @@ package model.test;
 //    private InventoryComponent getInventoryComponent(final Entity e) {
 //        return e.getComponent(InventoryComponent.class).get();
 //    }
-//}
+}

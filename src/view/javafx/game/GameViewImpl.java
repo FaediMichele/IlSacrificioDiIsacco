@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import model.enumeration.HeartEnum;
@@ -16,6 +15,8 @@ import util.Pair;
  *
  */
 public class GameViewImpl implements GameView {
+
+    private static final String PATH_DEFOULT_ROOM = "/gameImgs/basement_background1_640x344.png";
     private final List<EntityView> entities = new ArrayList<>();
     private final List<EntityView> toAdd = new ArrayList<>();
     private final List<EntityView> toRemove = new ArrayList<>();
@@ -27,8 +28,9 @@ public class GameViewImpl implements GameView {
      * Create a new Game view with a canvas.
      * 
      * @param cnv the canvas to use
+     * 
      */
-    public GameViewImpl(final Canvas cnv) {
+    public GameViewImpl(final Canvas cnv)  {
         this.cnv = cnv;
     }
 
