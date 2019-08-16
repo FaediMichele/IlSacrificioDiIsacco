@@ -28,7 +28,7 @@ public class PlayerHealthComponent extends AbstractComponent {
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
     private static final int TIMENODAMAGE = 1000;
-    private LinkedList<Heart> hearts;
+    private List<Heart> hearts;
     private double time;
     /**
      * @param defaultHearts number of hearts of this kind
@@ -134,7 +134,7 @@ public class PlayerHealthComponent extends AbstractComponent {
         if (this.hearts.size() < MAX_HEARTS) {
             final List<Heart> heartsOfSameKind = this.hearts.stream().filter(h -> heart.getColour().equals(h.getColour())).collect(Collectors.toList());
             if (heartsOfSameKind.isEmpty()) {
-                this.hearts.addLast(heart);
+                this.hearts.add(heart);
                 return true;
             }
             final boolean checkMaxHearts = ((heart.getMaxHearts().isPresent() && heartsOfSameKind.size() < heart.getMaxHearts().get()) 
@@ -145,7 +145,7 @@ public class PlayerHealthComponent extends AbstractComponent {
                     if (remainingValue != 0 && checkMaxHearts) {
                         final Class<? extends Heart> heartClass = heart.getClass();
                         try {
-                            this.hearts.addLast(heartClass.getConstructor(Entity.class, double.class)
+                            this.hearts.add(heartClass.getConstructor(Entity.class, double.class)
                                                       .newInstance(this.getEntity(), remainingValue));
                         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -153,7 +153,7 @@ public class PlayerHealthComponent extends AbstractComponent {
                         }
                     }
                 } else if (checkMaxHearts) {
-                    this.hearts.addLast(heart);
+                    this.hearts.add(heart);
                 } else {
                     return false;
                 }
@@ -177,9 +177,9 @@ public class PlayerHealthComponent extends AbstractComponent {
     protected void getDamaged(final double totalDamageValue) {
         double actualDamageValue = totalDamageValue;
         while (this.isAlive() && actualDamageValue != 0) {
-            actualDamageValue = this.hearts.getLast().getDamaged(actualDamageValue);
-            if (this.hearts.getLast().getValue() == 0.0) {
-                this.hearts.removeLast();
+            actualDamageValue = this.hearts.get(this.hearts.size() - 1).getDamaged(actualDamageValue);
+            if (this.hearts.get(this.hearts.size() - 1).getValue() == 0.0) {
+                this.hearts.remove(this.hearts.size() - 1);
             }
         }
 
@@ -187,7 +187,6 @@ public class PlayerHealthComponent extends AbstractComponent {
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
             this.getEntity().postEvent(new DeadEvent(this.getEntity()));
         } else {
-            //System.out.println("SUFFERING");
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
         }
     }
