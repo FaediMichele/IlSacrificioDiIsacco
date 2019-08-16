@@ -43,7 +43,6 @@ public class DoorComponent extends LockCollisionComponent {
     @Override
     public void afterUnlocks(final Entity entity) {
         final BodyComponent eBody = entity.getComponent(BodyComponent.class).get();
-
         this.getEntity().getRoom().getFloor().getRooms()
         .stream()
         .forEach(r -> {

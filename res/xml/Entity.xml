@@ -11,6 +11,10 @@
         <WALL>WallView</WALL>
         <FLY>FlyView</FLY>
         <MONSTRO>MonstroView</MONSTRO>
+        <HOST_HAT>HostHatView</HOST_HAT>
+        <EIGHT_INCH_NAILS>EightInchNailsView</EIGHT_INCH_NAILS>
+        <STICKY_BOMBS>StickyBombsView</STICKY_BOMBS>
+        <MAW_OF_THE_VOID>MawOfTheVoidView</MAW_OF_THE_VOID>
     </BasicEntities>
 </Entities>
 
