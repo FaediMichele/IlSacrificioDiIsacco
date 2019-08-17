@@ -44,13 +44,13 @@ public class BodyComponent extends AbstractComponent {
      * @param weight 
      * @param physics 
      */
-    public BodyComponent(final Entity entity, final double height, final double width, final int weight, final boolean isPhysics) {
+    public BodyComponent(final Entity entity, final double height, final double width, final int weight, final boolean physics) {
         this(entity,
                 DEFAULT_POSITION_VALUE,
                 height,
                 width,
                 weight,
-                isPhysics);
+                physics);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BodyComponent extends AbstractComponent {
 
     /**
      * 
-     * @param physics sets the physicality of this entity, 
+     * @param isPhysics sets the physicality of this entity, 
      *        true if it has to collide false if the other 
      *        entities can pass through it, for example 
      *        as in the case of collectible objects
