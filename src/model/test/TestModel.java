@@ -18,6 +18,7 @@ import model.entity.Player;
 import model.entity.SimplePsychopathEntity;
 import model.enumeration.BasicPlayerEnum;
 import model.events.CollisionEvent;
+import model.events.DamageEvent;
 import model.game.Room;
 import model.game.RoomImpl;
 
@@ -68,6 +69,7 @@ public class TestModel {
       @Test
       public void testPickupableCollectable() {
           Room room = new RoomImpl(0, 100, 100);
+          SimplePsychopathEntity enemy = new SimplePsychopathEntity();
           Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
           Bomb bomb = new Bomb();
           Key key = new Key();
@@ -75,9 +77,10 @@ public class TestModel {
           room.insertEntity(key)
               .insertEntity(bomb)
               .insertEntity(player)
-              .insertEntity(blHeart);
+              .insertEntity(blHeart)
+              .insertEntity(enemy);
           room.updateEntityList();
-          assertEquals(4, room.getEntities().size(), "I verify that all the entities have been added");
+          assertEquals(5, room.getEntities().size(), "I verify that all the entities have been added");
           assertTrue(room.getEntities().contains(key));
           assertTrue(room.getEntities().contains(bomb));
           assertTrue(room.getEntities().contains(player));
@@ -90,7 +93,10 @@ public class TestModel {
           assertEquals(inventoryComponent.getThings().size(), 2, "Check that all entities have been collected");
           double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
           player.postEvent(new CollisionEvent(blHeart));
+          room.updateEntityList();
+          assertEquals(2, room.getEntities().size(), "I verify that all the entities have been remove");
           assertTrue(life < player.getComponent(PlayerHealthComponent.class).get().getLife());
+          player.postEvent(new DamageEvent(enemy, 3));
       }
 //
 //    private Room buildedRoom;
