@@ -15,7 +15,7 @@ import model.util.Position;
 /**
  * Implements a generic heart.
  */
-public class AbstractPickupableHeart extends AbstractStaticEntity {
+public class AbstractPickupableHeart extends AbstractPickupableEntity {
     private static final double WIDTH = 20;
     private static final double HEIGHT = 20;
     private static final int WEIGHT = 1;

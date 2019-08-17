@@ -15,7 +15,7 @@ import model.util.Position;
 /**
  * Key entity that can be collected.
  */
-public class Key extends AbstractStaticEntity {
+public class Key extends AbstractPickupableEntity {
     private static final double WIDTH = 15;
     private static final double HEIGHT = 15;
     private static final int WEIGHT = 1;

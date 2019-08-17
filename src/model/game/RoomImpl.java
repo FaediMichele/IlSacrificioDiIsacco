@@ -21,6 +21,7 @@ import com.google.common.eventbus.Subscribe;
 import model.component.BodyComponent;
 import model.component.PlayerHealthComponent;
 import model.component.StatusComponent;
+import model.entity.AbstractStaticEntity;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -222,7 +223,7 @@ public class RoomImpl implements Room {
             final Space.Rectangle r = getShape(e);
             entityRectangleSpace.put(e, r);
             rectangleEntitySpace.put(r, e);
-            sp.addRectangle(r, !e.hasComponent(ObstacleMentalityComponent.class));
+            sp.addRectangle(r, !StaticMethodsUtils.isTypeOf(e.getClass(), AbstractStaticEntity.class));
             e.changeRoom(this);
             addEventEntity(e);
         });

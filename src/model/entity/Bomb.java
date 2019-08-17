@@ -19,7 +19,7 @@ import model.util.Position;
  * Entity of the bomb positioned and primed.
  *
  */
-public class Bomb extends AbstractEntity {
+public class Bomb extends AbstractPickupableEntity {
     private static final double WIDTH = 20.0;
     private static final double HEIGHT = 20.0;
     private static final int WEIGHT = 1;

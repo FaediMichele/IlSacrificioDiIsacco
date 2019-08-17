@@ -16,7 +16,7 @@ import model.util.Position;
 /**
  * Implements the host hat.
  */
-public class StickyBombs extends AbstractStaticEntity {
+public class StickyBombs extends AbstractPickupableEntity {
     private static final double WIDTH = 20;
     private static final double HEIGHT = 20;
     private static final int WEIGHT = 1;
