@@ -20,6 +20,7 @@ public class BodyComponent extends AbstractComponent {
     private double height;
     private double width;
     private int weight;
+    private boolean isPhysics;
 
     /**
      * Default BodyComponent constructor.
@@ -31,7 +32,8 @@ public class BodyComponent extends AbstractComponent {
                 DEFAULT_POSITION_VALUE, 
                 DEFAULT_SCALABLE_VALUE, 
                 DEFAULT_SCALABLE_VALUE, 
-                DEFAULT_WEIGHT_VALUE);
+                DEFAULT_WEIGHT_VALUE,
+                true);
     }
 
     /**
@@ -46,7 +48,8 @@ public class BodyComponent extends AbstractComponent {
                 DEFAULT_POSITION_VALUE,
                 height,
                 width,
-                weight);
+                weight,
+                true);
     }
     /**
      * Initialize the parameters.
@@ -62,12 +65,61 @@ public class BodyComponent extends AbstractComponent {
                         final double height,
                         final double width, 
                         final int weight) {
+        this(entity,
+                position,
+                height,
+                width,
+                weight,
+                true);
+    }
+    /**
+     * Initialize the parameters.
+     * 
+     * @param position of the entity
+     * @param height   of the entity
+     * @param width    of the entity
+     * @param weight   of the entity
+     * @param entity   entity for this component
+     * @param physics  it is true if the entity collides physically with other 
+     *                 entities while it is false if the entities pass through 
+     *                 it or if however it does not suffer from the collision
+     *                 with this entity
+     */
+    public BodyComponent(final Entity entity, 
+                        final Position position, 
+                        final double height,
+                        final double width, 
+                        final int weight,
+                        final boolean physics) {
         super(entity);
         this.position = position;
         this.previousPosition = position;
         this.height = height;
         this.width = width;
         this.weight = weight;
+        this.isPhysics = physics;
+    }
+
+    /**
+     * 
+     * @return it is true if the entity collides physically 
+     *         with other entities while it is false if the 
+     *         entities pass through it or if however it does 
+     *         not suffer from the collision with this entity
+     */
+    public boolean isPhysics() {
+        return isPhysics;
+    }
+
+    /**
+     * 
+     * @param isPhysics sets the physicality of this entity, 
+     *        true if it has to collide false if the other 
+     *        entities can pass through it, for example 
+     *        as in the case of collectible objects
+     */
+    public void setPhysics(final boolean isPhysics) {
+        this.isPhysics = isPhysics;
     }
 
     /**
