@@ -3,14 +3,11 @@
 <Entities>
     <BasicEntities path-entityEnum="model.enumeration.BasicEntityEnum" path-entityView="view.javafx.game">
         <FIRE>FireView</FIRE>
-        <GAPER>GaperView</GAPER>
         <DOOR>DoorView</DOOR>
         <BOMB>BombView</BOMB>
         <KEY>KeyView</KEY>
         <ROCK>RockView</ROCK>
         <WALL>WallView</WALL>
-        <FLY>FlyView</FLY>
-        <MONSTRO>MonstroView</MONSTRO>
         <HOST_HAT>HostHatView</HOST_HAT>
         <EIGHT_INCH_NAILS>EightInchNailsView</EIGHT_INCH_NAILS>
         <STICKY_BOMBS>StickyBombsView</STICKY_BOMBS>
