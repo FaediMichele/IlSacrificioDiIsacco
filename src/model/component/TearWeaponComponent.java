@@ -65,11 +65,19 @@ public class TearWeaponComponent extends AbstractComponent {
         final double width = event.getSourceEntity().getComponent(BodyComponent.class).get().getWidth();
         final double height = event.getSourceEntity().getComponent(BodyComponent.class).get().getHeight();
         getEntity().getRoom()
-                .insertEntity(new Tear(event.getAngle(),
-                        new Position(pos.getX() + width / 2, pos.getY() + height / 2, pos.getZ()),
-                        event.getSourceEntity().getComponent(MoveComponent.class).get().getMovement(), this.damage,
-                        this.lifeTime, DEFAULT_SPEED, this.nameTear,
-                        event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get()));
+                .insertEntity(
+                        new Tear(event.getAngle(),
+                                    new Position(pos.getX() + width / 2, 
+                                                    pos.getY() + height / 2, 
+                                                    pos.getZ()),
+                                    event.getSourceEntity().getComponent(MoveComponent.class).get()
+                                                            .getMovement(),
+                                    this.damage,
+                                    this.lifeTime, 
+                                    DEFAULT_SPEED, 
+                                    this.nameTear,
+                                    event.getSourceEntity().getComponent(AbstractMentalityComponent.class)
+                                                           .get()));
     }
 
     /**
