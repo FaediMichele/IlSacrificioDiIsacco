@@ -70,7 +70,7 @@ public class BombCollectableComponent extends AbstractCollectableComponent {
                 body.setPosition(positionScale);
                 //change of mentality
                 this.getEntity().detachComponent(this.getEntity().getComponent(AbstractMentalityComponent.class).get());
-                this.getEntity().attachComponent(new PsychoMentalityComponent(this.getEntity()));
+                this.getEntity().attachComponent(new PsychoMentalityComponent());
                 //set status component
                 this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.EXPLODED);
                 this.exploded = true;

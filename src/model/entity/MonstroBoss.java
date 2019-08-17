@@ -12,6 +12,7 @@ import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
 import model.component.mentality.AbstractMentalityComponent;
+import model.component.mentality.EnemyMentalityComponent;
 import model.enumeration.BasicEnemyEnum;
 import model.enumeration.BasicTearEnum;
 import model.enumeration.EntityEnum;
@@ -61,15 +62,14 @@ public class MonstroBoss extends AbstractEnemyMovable {
     }
 
     private void build(final double x, final double y) {
-        this.getComponent(AbstractMentalityComponent.class).get()
-            .mergeWith(new MonstroBossMentalityComponent(this));
         this.attachComponent(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT))
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new MonstroAIComponent(this))
             .attachComponent(new EnemyHealthComponent(this, 3))
             .attachComponent(new DamageComponent(this, DAMAGE))
-            .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE));
+            .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE))
+            .attachComponent(new EnemyMentalityComponent());
         this.getComponent(TearWeaponComponent.class).get().setLifeTime(TEAR_LIFE_TIME);
     }
 

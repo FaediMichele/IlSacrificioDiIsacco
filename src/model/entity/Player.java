@@ -33,7 +33,7 @@ public class Player extends AbstractMovableEntity {
         super();
         this.attachComponent(new PlayerHealthComponent(this, data.getLife()))
             .attachComponent(new InventoryComponent(this))
-            .attachComponent(new PlayerMentalityComponent(this))
+            .attachComponent(new PlayerMentalityComponent())
             .attachComponent(new TearWeaponComponent(this, data.getDamage(), BasicTearEnum.NORMAL, data.getRate()))
             .attachComponent(new PlayerCollisionComponent(this))
             .attachComponent(new BodyComponent(this, new Position(100.0, 100.0, 0.0), WIDTH, HEIGHT, 5))

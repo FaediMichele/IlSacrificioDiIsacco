@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import model.component.mentality.AbstractMentalityComponent;
-import model.component.mentality.PsychoMentalityComponent;
+import model.entity.Bomb;
 import model.entity.Entity;
 import model.enumeration.BasicStatusEnum;
 
@@ -26,9 +26,9 @@ public class HostHatPickupableComponent extends AbstractPickupableComponent {
     @Override
     public void init(final Entity entity) {
         Objects.requireNonNull(entity);
-        final Set<Class<? extends AbstractMentalityComponent>> mentalities = new HashSet<>();
-        mentalities.add(PsychoMentalityComponent.class);
-        entity.getComponent(AbstractMentalityComponent.class).get().addEntitiesCannotHurtMe(mentalities);
+        final Set<Class<? extends Entity>> entities = new HashSet<>();
+        entities.add(Bomb.class);
+        entity.getComponent(AbstractMentalityComponent.class).get().addEntitiesCannotHurtMe(entities);
 
         this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         this.getEntity().getRoom().deleteEntity(this.getEntity());
