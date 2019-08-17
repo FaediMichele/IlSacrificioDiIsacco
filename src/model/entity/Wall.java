@@ -103,7 +103,7 @@ public class Wall extends AbstractStaticEntity {
         build(x, y, WIDTH, HEIGHT);
     }
     private void build(final double x, final double y, final double width, final double height) {
-        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), height, width, WEIGHT), new CollisionComponent(this),
+        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), height, width, WEIGHT, true), new CollisionComponent(this),
                 new StatusComponent(this));
         this.attachComponent(new NeutralMentalityComponent());
     }

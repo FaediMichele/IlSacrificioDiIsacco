@@ -43,7 +43,7 @@ public class AbstractPickupableHeart extends AbstractPickupableEntity {
     }
 
     private void build(final double x, final double y) {
-        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT),
+        this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT, false),
                 new CollisionComponent(this), new StatusComponent(this));
         this.attachComponent(new HeartPickupableComponent(this, heartColour));
     }

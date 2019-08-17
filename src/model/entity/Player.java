@@ -36,7 +36,7 @@ public class Player extends AbstractMovableEntity {
             .attachComponent(new PlayerMentalityComponent())
             .attachComponent(new TearWeaponComponent(this, data.getDamage(), BasicTearEnum.NORMAL, data.getRate()))
             .attachComponent(new PlayerCollisionComponent(this))
-            .attachComponent(new BodyComponent(this, new Position(100.0, 100.0, 0.0), WIDTH, HEIGHT, 5))
+            .attachComponent(new BodyComponent(this, new Position(100.0, 100.0, 0.0), WIDTH, HEIGHT, 5, true))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new MoveComponent(this, data.getSpeed()))
             .attachComponent(new InputComponent(this));
