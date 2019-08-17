@@ -17,13 +17,11 @@ public class EnemyMentalityComponent extends AbstractMentalityComponent {
 
     private static final Set<Class<? extends AbstractMentalityComponent>> CANNOT_DAMAGE = new HashSet<>(
             Arrays.asList(NeutralMentalityComponent.class));
-
  
     /**
      * 
-     * @param entity the {@link Entity}
      */
-    public EnemyMentalityComponent(final Entity entity) {
-        super(entity, CANNOT_DAMAGE, CANNOT_HURT_ME, new HashSet<>());
+    public EnemyMentalityComponent() {
+        super(CANNOT_DAMAGE, CANNOT_HURT_ME);
     }
 }

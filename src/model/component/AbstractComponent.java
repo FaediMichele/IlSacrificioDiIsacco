@@ -16,15 +16,23 @@ public abstract class AbstractComponent implements Component {
     private Entity entity;
     private final List<EventListener<? extends Event>> eventListeners;
 
+    /**
+     * Basic builder for components that do not need to know 
+     * the entity they are associated with.
+     */
+    public AbstractComponent() {
+        this.eventListeners = new LinkedList<EventListener<? extends Event>>();
+    }
 
     /**
      * This is the father of all the components.
      * @param entity to which this component belongs
      */
-    protected AbstractComponent(final Entity entity) {
+    public AbstractComponent(final Entity entity) {
+        this();
         Objects.requireNonNull(entity);
         this.entity = entity;
-        this.eventListeners = new LinkedList<EventListener<? extends Event>>();
+
     }
 
     /**

@@ -17,10 +17,9 @@ public class NeutralMentalityComponent extends AbstractMentalityComponent {
                                                                         PsychoMentalityComponent.class));
     /**
      * 
-     * @param entity the {@link Entity}
      */
-    public NeutralMentalityComponent(final Entity entity) {
-        super(entity, CANNOT_DAMAGE_AND_HURT_ME, CANNOT_DAMAGE_AND_HURT_ME, new HashSet<>());
+    public NeutralMentalityComponent() {
+        super(CANNOT_DAMAGE_AND_HURT_ME, CANNOT_DAMAGE_AND_HURT_ME);
     }
 
 }

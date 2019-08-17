@@ -22,6 +22,6 @@ public class PlayerMentalityComponent extends AbstractMentalityComponent {
      * @param entity the {@link Entity}
      */
     public PlayerMentalityComponent(final Entity entity) {
-        super(entity, CANNOT_DAMAGE, CANNOT_HURT_ME, new HashSet<>());
+        super(CANNOT_DAMAGE, CANNOT_HURT_ME);
     }
 }
