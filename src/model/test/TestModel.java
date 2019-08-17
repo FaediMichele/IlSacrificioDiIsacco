@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 import model.component.DamageComponent;
+import model.component.EnemyHealthComponent;
 import model.component.InventoryComponent;
 import model.component.PlayerHealthComponent;
 import model.component.mentality.AbstractMentalityComponent;
@@ -94,9 +95,11 @@ public class TestModel {
           final double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
           player.postEvent(new CollisionEvent(blHeart));
           room.updateEntityList();
+          final double lifeEnemy  = enemy.getComponent(EnemyHealthComponent.class).get().getLife();
           assertEquals(2, room.getEntities().size(), "I verify that all the entities have been remove");
           assertTrue("Check if the life of the player has risen", life < player.getComponent(PlayerHealthComponent.class).get().getLife());
           player.postEvent(new DamageEvent(enemy, 3));
+          assertTrue(lifeEnemy < enemy.getComponent(EnemyHealthComponent.class).get().getLife());
       }
 //
 //    private Room buildedRoom;
