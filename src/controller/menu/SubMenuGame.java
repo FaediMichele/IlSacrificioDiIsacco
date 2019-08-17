@@ -73,8 +73,8 @@ public class SubMenuGame extends SubMenu {
         return this.gameController;
     }
     private void options() {
-        if (getSelector().contains(SubMenuOption.class)) {
-            getSelector().selectSubMenu(SubMenuOption.class);
+        if (getSelector().contains(SubMenuInGameOption.class)) {
+            getSelector().selectSubMenu(SubMenuInGameOption.class);
         }
     }
 

@@ -28,6 +28,7 @@ public class MainMenuSelection extends SubMenuSelection {
         add(new SubMenuEnter(this));
         add(new SubMenuGameMenu(this));
         add(new SubMenuRun(this));
+        add(new SubMenuOption(this));
         mmsv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toList()));
     } 
 

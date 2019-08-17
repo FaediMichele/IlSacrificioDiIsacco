@@ -31,7 +31,10 @@ public class SoundJavafx implements Sound {
     public SoundJavafx(final String path, final TypeOfAudio type) {
         if (path != null && !path.equals("")) {
             a = new MediaPlayer(new Media(getClass().getResource(path).toExternalForm()));
-            a.setOnEndOfMedia(() -> playing = false);
+            a.setOnEndOfMedia(() -> {
+                playing = false;
+                a.stop();
+            });
             VOLUME.addListener(type, () -> a.setVolume(VOLUME.getVolume(type)));
             VOLUME.verifyFirst(type);
         }

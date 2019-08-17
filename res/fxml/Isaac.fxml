@@ -92,6 +92,15 @@
 							pickOnBounds="true" preserveRatio="true" />
 					</children>
 				</Pane>
+				<Pane fx:id="pnOption" prefHeight="344.0" prefWidth="640.0">
+					<children>
+						<ImageView fx:id="imgOptionBackGround" fitHeight="314.0" fitWidth="300.0" layoutX="190.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+						<ImageView fx:id="imgFullScreen" fitHeight="41.0" fitWidth="63.0" layoutX="392.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
+						<ImageView fx:id="imgSelectorOption" fitHeight="20.0" fitWidth="20.0" layoutX="210.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+						<ProgressBar fx:id="prgVolumeEffect" layoutX="351.0" layoutY="162.0" prefHeight="20.0" prefWidth="106.0" progress="0.0" />
+						<ProgressBar fx:id="prgVolumeMusic" layoutX="351.0" layoutY="197.0" prefHeight="20.0" prefWidth="114.0" progress="0.0" />
+					</children>
+			    </Pane>
 				<Pane fx:id="pnMenuMain" layoutY="344" layoutX="0" prefHeight="344"
 					prefWidth="640">
 					<children>

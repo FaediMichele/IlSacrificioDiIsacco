@@ -3,28 +3,24 @@ package view.interfaces;
 import view.SubMenuView;
 
 /**
- * View of the sub menu for the in game context menu. 
+ * View of the sub menu for the option.
  */
 public interface SubMenuOptionView extends SubMenuView {
-
     /**
-     * Go to the next item.
-     */
-    void down();
-
-    /**
-     * Go to the previous item.
+     * Go up in the list.
      */
     void up();
+    /**
+     * Go down on the list.
+     */
+    void down();
+    /**
+     * Change to left the selected node. Ff full screen change it.
+     */
+    void left();
 
     /**
-     * Get an object representative the selected item.
-     * @return the object for the selected item.
+     * Change to right the selected node. Ff full screen change it.
      */
-    Object select();
-
-    /**
-     * Go to the first item.
-     */
-    void reset();
+    void right();
 }

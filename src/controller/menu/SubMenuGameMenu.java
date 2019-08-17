@@ -11,7 +11,7 @@ import view.javafx.menu.SubMenuSelectMenuViewImpl;
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).
  */
 public class SubMenuGameMenu extends SubMenu {
-    private static final Object[] ARGS = new Object[] { new Object(), new Object()};
+    private static final Object[] ARGS = new Object[] { new Object(), new Object(), new Object()};
     private final SubMenuSelectMenuView mgv;
 
     /**

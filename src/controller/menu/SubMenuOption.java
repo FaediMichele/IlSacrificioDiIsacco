@@ -3,63 +3,52 @@ package controller.menu;
 import java.util.Set;
 
 import util.Command;
-import util.Lambda;
 import view.SubMenuView;
 import view.interfaces.SubMenuOptionView;
 import view.javafx.menu.SubMenuOptionViewImpl;
 
 /**
- * The sub menu that manage the options of the game.
+ * SubMenuOption that manage the full screen and audio.
  */
 public class SubMenuOption extends SubMenu {
-    private final Lambda continuePlayingLambda = () -> backToGame();
-    private final Lambda backToMenuLambda = () -> backToMenu();
-    private final SubMenuOptionView smo;
-    private final SubMenuGame c;
+    private final SubMenuOptionView smv = new SubMenuOptionViewImpl();
 
     /**
-     * Create a new SubMenuOption.
-     * @param selector the Selector .
-     * @param c the Game controller
+     * Create a Sub menu option.
+     * @param selector the selector.
      */
-    public SubMenuOption(final SubMenuSelection selector, final SubMenuGame c) {
+    public SubMenuOption(final SubMenuSelection selector) {
         super(selector);
-        smo = new SubMenuOptionViewImpl(continuePlayingLambda, backToMenuLambda);
-        this.c = c;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final void input(final Set<Command> c) {
-        if (c.contains(Command.EXIT)) {
-            backToGame();
-        } else if (c.contains(Command.ARROW_DOWN)) {
-            smo.down();
-        } else if (c.contains(Command.ARROW_UP)) {
-            smo.up();
-        } else if (c.contains(Command.ENTER)) {
-            ((Lambda) smo.select()).use();
+    public void input(final Set<Command> c) {
+        super.input(c);
+        if (c.contains(Command.ARROW_DOWN)) {
+            smv.down();
+        }
+        if (c.contains(Command.ARROW_UP)) {
+            smv.up();
+        }
+        if (c.contains(Command.ARROW_LEFT)) {
+            smv.left();
+        }
+        if (c.contains(Command.ARROW_RIGHT)) {
+            smv.right();
+        }
+        if (c.contains(Command.EXIT) && getSelector().contains(SubMenuGameMenu.class)) {
+            getSelector().selectSubMenu(SubMenuGameMenu.class);
         }
     }
-
-    private void backToGame() {
-        c.getGameController().resume();
-        if (getSelector().contains(SubMenuGame.class)) {
-            getSelector().selectSubMenu(SubMenuGame.class);
-        }
-    }
-    private void backToMenu() {
-        if (getSelector().getParent().contains(MainMenuSelection.class)) {
-            getSelector().getParent().select(MainMenuSelection.class);
-        }
-    }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void reset() {
-        smo.reset();
     }
 
     /**
@@ -67,7 +56,7 @@ public class SubMenuOption extends SubMenu {
      */
     @Override
     public SubMenuView getSubMenuView() {
-        return smo;
+        return smv;
     }
 
 }

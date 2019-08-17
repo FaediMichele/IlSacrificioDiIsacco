@@ -31,6 +31,7 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
     private static final String SHADOWPANE = "pnShadow";
     private static final String RUNPANE = "pnRun";
     private static final String ENTER = "pnEnter";
+    private static final String OPTION = "pnOption";
     private static final String GAME = "pnMenuMain";
 
     private final int defaultX;
@@ -138,6 +139,10 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
                 ViewGetterUtil.getNodeByName(RUNPANE, Pane.class));
         this.bindRight(ViewGetterUtil.getNodeByName(GAME, Pane.class),
                 ViewGetterUtil.getNodeByName(RUNPANE, Pane.class));
+        this.bindDown(ViewGetterUtil.getNodeByName(RUNPANE, Pane.class),
+                ViewGetterUtil.getNodeByName(OPTION, Pane.class));
+        this.bindLeft(ViewGetterUtil.getNodeByName(RUNPANE, Pane.class),
+                ViewGetterUtil.getNodeByName(OPTION, Pane.class));
 
         // When the window change the size all pane must be resize as well.
         s.widthProperty().addListener((obs, oldVal, newVal) -> {
