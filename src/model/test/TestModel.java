@@ -81,12 +81,12 @@ public class TestModel {
               .insertEntity(enemy);
           room.updateEntityList();
           assertEquals(5, room.getEntities().size(), "I verify that all the entities have been added");
-          assertTrue(room.getEntities().contains(key));
-          assertTrue(room.getEntities().contains(bomb));
-          assertTrue(room.getEntities().contains(player));
-          assertTrue(room.getEntities().contains(blHeart));
+          assertTrue("Check if the room contains the key", room.getEntities().contains(key));
+          assertTrue("Check if the room contains the bomb", room.getEntities().contains(bomb));
+          assertTrue("Check if the room contains the player", room.getEntities().contains(player));
+          assertTrue("Check if the room contains the blHeart", room.getEntities().contains(blHeart));
           final InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class).get();
-          assertTrue(inventoryComponent.getThings().isEmpty());
+          assertTrue("Check if the inventory component has collected zero entities", inventoryComponent.getThings().isEmpty());
           player.postEvent(new CollisionEvent(key));
           assertEquals(inventoryComponent.getThings().size(), 1, "Check that all entities have been collected");
           player.postEvent(new CollisionEvent(bomb));
@@ -95,7 +95,7 @@ public class TestModel {
           player.postEvent(new CollisionEvent(blHeart));
           room.updateEntityList();
           assertEquals(2, room.getEntities().size(), "I verify that all the entities have been remove");
-          assertTrue(life < player.getComponent(PlayerHealthComponent.class).get().getLife());
+          assertTrue("Check if the life of the player has risen", life < player.getComponent(PlayerHealthComponent.class).get().getLife());
           player.postEvent(new DamageEvent(enemy, 3));
       }
 //
