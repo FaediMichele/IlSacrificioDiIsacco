@@ -29,7 +29,7 @@ public class MainMenuSelection extends SubMenuSelection {
         add(new SubMenuGameMenu(this));
         add(new SubMenuRun(this));
         mmsv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toList()));
-    }
+    } 
 
     /**
      * {@inheritDoc}
@@ -73,7 +73,7 @@ public class MainMenuSelection extends SubMenuSelection {
      */
     @Override
     public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
-        if (!previous.equals(this) && previous.getClass().equals(GameSubMenuSelection.class)) {
+        if (!previous.equals(this) && GameSubMenuSelection.class.isInstance(previous)) {
             this.selectSubMenu(SubMenuGameMenu.class);
         }
         mmsv.selectSelection(previous.equals(this));

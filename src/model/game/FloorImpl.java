@@ -85,12 +85,12 @@ public class FloorImpl implements Floor {
             throw new IllegalStateException("tag Rooms not found");
         }
         this.activeRoomIndex = 0;
-        final Random rnd = new Random();
-        final Pair<Integer, Integer> specialRooms = addGenericRooms(node.get(), rnd);
         node = ls.stream().filter(n -> n.getNodeName().equals("Boss")).findFirst();
         if (!node.isPresent()) {
             throw new IllegalStateException("tag Boss not found");
         }
+        final Random rnd = new Random();
+        final Pair<Integer, Integer> specialRooms = addGenericRooms(node.get(), rnd);
         addSpecialRoom(node.get(), rnd, specialRooms.getX());
         node = ls.stream().filter(n -> n.getNodeName().equals("Treasure")).findFirst();
         if (!node.isPresent()) {
@@ -192,7 +192,6 @@ public class FloorImpl implements Floor {
     }
 
     private Room generateEmptyRoom(final Matrix<Integer> map, final Pair<Integer, Integer> position, final int index) {
-        final Room ret = new RoomImpl(index, ROOMSIZE.getX(), ROOMSIZE.getY());
         final List<Door> doors = new ArrayList<>();
         if (!canGoDirection(map, position, 0)) {
             doors.add(new Door(BasicMovementEnum.UP, index, map.get(position.getX(), position.getY() + 1), ROOMSIZE));
@@ -209,6 +208,7 @@ public class FloorImpl implements Floor {
         if (doors.isEmpty()) {
             throw new IllegalStateException();
         }
+        final Room ret = new RoomImpl(index, ROOMSIZE.getX(), ROOMSIZE.getY());
         doors.forEach(d -> ret.insertEntity(d));
         ret.insertEntity(new Wall(BasicMovementEnum.UP, ROOMSIZE));
         ret.insertEntity(new Wall(BasicMovementEnum.RIGHT, ROOMSIZE));
@@ -222,18 +222,18 @@ public class FloorImpl implements Floor {
     private boolean canGoDirection(final Matrix<Integer> m, final Pair<Integer, Integer> position, final int direction) {
         if (direction == 0) { // NORD.
             return position.getY() > -1
-                    && position.getY() + 1 < m.getHeight()
+                    && position.getY() + 1 < m.getHeight() - 1
                     && m.get(position.getX(), position.getY() + 1) == null;
         } else if (direction == 1) { // EAST.
             return position.getX() + 1 > 0
-                    && position.getX() + 1 < m.getWidth()
+                    && position.getX() + 1 < m.getWidth() - 1
                     && m.get(position.getX() + 1, position.getY()) == null;
         } else if (direction == 2) { // SOUTH.
-            return position.getY() > 1
-                    && position.getY() - 1 < m.getHeight()
+            return position.getY() > 2
+                    && position.getY() - 1 < m.getHeight() 
                     && m.get(position.getX(), position.getY() - 1) == null;
         } else if (direction == 3) { // WEST.
-            return position.getX() - 1 > 0
+            return position.getX() > 2
                     && position.getX() - 1 < m.getWidth()
                     && m.get(position.getX() - 1, position.getY()) == null;
         } else {

@@ -51,12 +51,7 @@ public class SoundJavafx implements Sound {
     @Override
     public void play() {
         verifyPlayer();
-        a.stop();
-        if (a.getStatus() != MediaPlayer.Status.READY) {
-            a.setOnReady(() -> a.play());
-        } else {
-            a.play();
-        }
+        a.play();
         playing = true;
     }
 
@@ -97,6 +92,7 @@ public class SoundJavafx implements Sound {
         a.setOnEndOfMedia(() -> {
             playing = false;
             l.use();
+            a.stop();
         });
     }
 

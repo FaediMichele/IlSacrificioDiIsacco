@@ -156,6 +156,11 @@
 							preserveRatio="true" rotate="5.0" />
          			</children>
 				</Pane>
+				<Pane fx:id="pnGameLoose" layoutY="${screen.visualBounds.height}" prefHeight="250" prefWidth="200">
+					<children>
+			            <ImageView fx:id="imgLoose" fitHeight="250.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+			         </children>
+				</Pane>
 			</children>
 		</Pane>
 	</children>

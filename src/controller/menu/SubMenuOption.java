@@ -15,14 +15,17 @@ public class SubMenuOption extends SubMenu {
     private final Lambda continuePlayingLambda = () -> backToGame();
     private final Lambda backToMenuLambda = () -> backToMenu();
     private final SubMenuOptionView smo;
+    private final SubMenuGame c;
 
     /**
      * Create a new SubMenuOption.
      * @param selector the Selector .
+     * @param c the Game controller
      */
-    public SubMenuOption(final SubMenuSelection selector) {
+    public SubMenuOption(final SubMenuSelection selector, final SubMenuGame c) {
         super(selector);
         smo = new SubMenuOptionViewImpl(continuePlayingLambda, backToMenuLambda);
+        this.c = c;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class SubMenuOption extends SubMenu {
     }
 
     private void backToGame() {
+        c.getGameController().resume();
         if (getSelector().contains(SubMenuGame.class)) {
             getSelector().selectSubMenu(SubMenuGame.class);
         }

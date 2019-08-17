@@ -84,6 +84,10 @@ public class ContextPageJavafx implements TranslationPages {
             selectedTransition.setToY(0);
             selected = mainPane;
         } else {
+            if (selectedTransition != null) {
+                selectedTransition.setToY(0);
+                selectedTransition.play();
+            }
             selected = (Pane) page;
             selectedTransition = tts.stream().filter(t -> t.getNode().equals(selected))
                     .findFirst().get();

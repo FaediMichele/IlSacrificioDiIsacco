@@ -28,6 +28,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
 
     private static final String GAMEPANE = "pnGameRun";
     private static final String OPTIONSPANE = "pnInGameMenu";
+    private static final String LOOSEPANE = "pnGameLoose";
     private static final long MSSUBMENU = 250;
     private final Sound characterSelected = new SoundJavafx("/menuSound/characterSelected.wav", TypeOfAudio.EFFECT);
     private final int defaultX;
@@ -49,7 +50,8 @@ public class GameSelectionViewImpl implements GameSelectionView {
         pnMain.setOpacity(0);
         fd = new FadeTransition(Duration.millis(msMenu), pnMain);
         tp = new ContextPageJavafx(ViewGetterUtil.getNodeByName(GAMEPANE, Pane.class), MSSUBMENU);
-        tp.addPage(ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class));
+        tp.addPage(ViewGetterUtil.getNodeByName(OPTIONSPANE, Pane.class),
+                ViewGetterUtil.getNodeByName(LOOSEPANE, Pane.class));
         characterSelected.setEndListener(() -> {
             fd.setToValue(1);
             fd.playFromStart();
@@ -96,6 +98,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
             fd.playFromStart();
         } else {
             characterSelected.play();
+            System.out.println("PLAYING");
         }
     }
 
