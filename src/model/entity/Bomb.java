@@ -1,9 +1,7 @@
 package model.entity;
 
 import java.util.Map;
-
 import com.google.common.base.Splitter;
-
 import model.component.BodyComponent;
 import model.component.StatusComponent;
 import model.component.collectible.BombCollectableComponent;

@@ -23,7 +23,7 @@ public class TearCollisionComponent extends CollisionComponent {
      * If the tear collides with an entity from which it can receive damage it disappears.
      */
     @Override
-    protected void damage(final CollisionEvent event) {
+    public void damage(final CollisionEvent event) {
         getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         getEntity().getRoom().deleteEntity(getEntity());
     }

@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
+import model.component.DamageComponent;
 import model.component.EnemyHealthComponent;
 import model.component.FollowAIComponent;
 import model.component.MoveComponent;
@@ -22,8 +23,7 @@ public class GaperEnemy extends AbstractEnemyMovable {
     private static final int WEIGHT = 5;
     private static final double DSPEED = 1.2;
     private static final int HEALTH = 20;
-//    private static final double MAXSPEED = 7;
-//    private static final double FRICTION = 7;
+    private static final double DAMAGE = 1;
     private static final EntityEnum ENTITY_NAME = BasicEnemyEnum.GAPER;
 
 
@@ -62,7 +62,8 @@ public class GaperEnemy extends AbstractEnemyMovable {
             .attachComponent(new MoveComponent(this, DSPEED))
             .attachComponent(new StatusComponent(this))
             .attachComponent(new FollowAIComponent(this))
-            .attachComponent(new EnemyHealthComponent(this, HEALTH));
+            .attachComponent(new EnemyHealthComponent(this, HEALTH))
+            .attachComponent(new DamageComponent(this, DAMAGE));
     }
 
 

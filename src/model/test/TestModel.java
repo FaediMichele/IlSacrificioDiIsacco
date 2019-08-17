@@ -1,5 +1,19 @@
 package model.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.Test;
+
+import model.component.DamageComponent;
+import model.component.PlayerHealthComponent;
+import model.component.mentality.AbstractMentalityComponent;
+import model.component.mentality.EnemyMentalityComponent;
+import model.component.mentality.PlayerMentalityComponent;
+import model.entity.FactoryPlayersUtils;
+import model.entity.GaperEnemy;
+import model.entity.Player;
+import model.enumeration.BasicPlayerEnum;
+import model.events.CollisionEvent;
 
 /**
  * Test in JUnit for the package model.game.
@@ -7,6 +21,27 @@ package model.test;
  */
 @SuppressWarnings("all")
 public class TestModel {
+
+    /**
+     * test for mentality and damage.
+     */
+        @Test
+      public void testMentality() {
+          Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
+          GaperEnemy enemy = new GaperEnemy();
+          assertEquals(enemy.getComponent(AbstractMentalityComponent.class).get().getClass(), 
+                          EnemyMentalityComponent.class, 
+                          "Test mentality enemy is right");
+          assertEquals(player.getComponent(AbstractMentalityComponent.class).get().getClass(), 
+                  PlayerMentalityComponent.class, 
+                  "Test player enemy is right");
+          double damage = enemy.getComponent(DamageComponent.class).get().getDamage();
+          double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
+          player.postEvent(new CollisionEvent(enemy));
+          assertEquals(life - damage, 
+                          player.getComponent(PlayerHealthComponent.class).get().getLife(),
+                          "Test if player is damaging");
+      }
 //
 //    private Room buildedRoom;
 //

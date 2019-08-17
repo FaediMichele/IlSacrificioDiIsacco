@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
-import model.entity.StasticFactoryPlayersUtils;
+import model.entity.FactoryPlayersUtils;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.PlayerEnum;
@@ -59,7 +59,7 @@ public class GameController {
      */
     public GameController(final GameView gameView, final PlayerEnum player, final String game, final Lambda endFunctions)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-        this.gameWorld = new GameWorldImpl(game, StasticFactoryPlayersUtils.getPlayer(player));
+        this.gameWorld = new GameWorldImpl(game, FactoryPlayersUtils.getPlayer(player));
         this.stopped = false;
         this.gameloop = new GameLoop();
         this.entityControllers = new HashMap<UUID, EntityController>();
@@ -195,7 +195,7 @@ public class GameController {
      * @throws ClassNotFoundException if there is no player that corresponds to the enumeration entered.
      */
     public static DataPlayer getDataPlayer(final PlayerEnum plEnumMenu) throws ClassNotFoundException {
-        return StasticFactoryPlayersUtils.getDataPlayer(plEnumMenu);
+        return FactoryPlayersUtils.getDataPlayer(plEnumMenu);
     }
 
     /**

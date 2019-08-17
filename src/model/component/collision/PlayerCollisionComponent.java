@@ -34,18 +34,18 @@ public class PlayerCollisionComponent extends MovableCollisionComponent {
         this.collectibleManagement(event);
     }
 
-    /**
-     * {@inheritDoc}
-     * If the player as been damaged recently, sets the status as already damaging and does not damage his life again.
-     */
-    @Override
-    protected void damage(final CollisionEvent event) {
-        if (time >= WAIT_TIME) {
-            super.damage(event);
-        } else {
-            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
-        }
-    }
+//    /**
+//     * {@inheritDoc}
+//     * If the player as been damaged recently, sets the status as already damaging and does not damage his life again.
+//     */
+//    @Override
+//    public void damage(final CollisionEvent event) {
+//        if (time >= WAIT_TIME) {
+//            super.damage(event);
+//        } else {
+//            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
+//        }
+//    }
 
     /**
      * This method is called when the entity collides with entities and must manage

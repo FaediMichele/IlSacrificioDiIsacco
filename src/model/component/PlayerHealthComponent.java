@@ -27,7 +27,7 @@ public class PlayerHealthComponent extends AbstractComponent {
 
     private static final int DEFAULT_HEART_NUMBER = 3;
     private static final int MAX_HEARTS = 12;
-    private static final int TIMENODAMAGE = 1000;
+    private static final int TIME_NO_DAMAGE = 1000;
     private List<Heart> hearts;
     private double time;
     /**
@@ -36,7 +36,7 @@ public class PlayerHealthComponent extends AbstractComponent {
      */
     public PlayerHealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
-        this.time = 0;
+        this.time = 1000;
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
         this.hearts = new LinkedList<Heart>(Stream.iterate(0, i -> i + 1)
                 .limit(realHeartNumber)
@@ -54,7 +54,7 @@ public class PlayerHealthComponent extends AbstractComponent {
             @Override
             @Subscribe
             public void listenEvent(final DamageEvent event) {
-                if (time < TIMENODAMAGE) {
+                if (time < TIME_NO_DAMAGE) {
                     return;
                 } else {
                     time = 0;
