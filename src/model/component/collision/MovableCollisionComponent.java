@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import model.component.BodyComponent;
 import model.component.MoveComponent;
-import model.component.collectible.AbstractPickupableComponent;
-import model.component.mentality.AbstractMentalityComponent;
 import model.entity.AbstractStaticEntity;
 import model.entity.Entity;
 import model.events.CollisionEvent;
@@ -49,12 +47,7 @@ public class MovableCollisionComponent extends CollisionComponent {
     @Override
     protected void handleCollision(final CollisionEvent event) {
         super.handleCollision(event);
-        if (event.getSourceEntity().hasComponent(AbstractPickupableComponent.class)) {
-            return;
-        }
-        final Optional<AbstractMentalityComponent> me = this.getEntity().getComponent(AbstractMentalityComponent.class);
-        final Optional<AbstractMentalityComponent> other = event.getSourceEntity().getComponent(AbstractMentalityComponent.class);
-        if ((!me.isPresent() && !other.isPresent()) || (me.isPresent() && other.isPresent() && (me.get().canCollide(other.get().getClass()) && other.get().canCollide(me.get().getClass())))) {
+       if (event.getSourceEntity().getComponent(BodyComponent.class).get().isPhysics()) {
             this.handleMovement(event);
         }
     }

@@ -4,7 +4,7 @@ import model.component.BodyComponent;
 import model.component.DamageComponent;
 import model.component.LifeTimeComponent;
 import model.component.MoveComponent;
-import model.component.TearAIComponent;
+import model.component.collision.TearCollisionComponent;
 import model.component.mentality.AbstractMentalityComponent;
 import model.enumeration.EntityEnum;
 import model.enumeration.TearEnum;
@@ -43,7 +43,7 @@ public class Tear extends AbstractMovableEntity {
         super();
         final MoveComponent moveC = new MoveComponent(this, speed, 1, speed);
         this.attachComponent(mentality);
-        this.attachComponent(new TearAIComponent(this))
+        this.attachComponent(new TearCollisionComponent(this))
             .attachComponent(new DamageComponent(this, damage))
             .attachComponent(moveC)
             .attachComponent(new BodyComponent(this, positions, HEIGHT, WIDTH, 0))

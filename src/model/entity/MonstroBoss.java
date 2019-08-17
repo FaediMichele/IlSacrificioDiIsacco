@@ -11,7 +11,6 @@ import model.component.MonstroAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
-import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.enumeration.BasicEnemyEnum;
 import model.enumeration.BasicTearEnum;

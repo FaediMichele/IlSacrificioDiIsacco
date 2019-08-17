@@ -10,7 +10,6 @@ import model.component.EnemyHealthComponent;
 import model.component.FlyAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
-import model.component.mentality.AbstractMentalityComponent;
 import model.component.mentality.EnemyMentalityComponent;
 import model.enumeration.BasicEnemyEnum;
 import model.enumeration.EntityEnum;
