@@ -83,8 +83,9 @@ public interface Room {
      * Add an {@link Entity} to the room.
      * 
      * @param e the {@link Entity}
+     * @return this
      */
-    void insertEntity(Entity e);
+    Room insertEntity(Entity e);
 
     /**
      * Delete the {@link Entity} to the room.

@@ -210,8 +210,9 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public void insertEntity(final Entity e) {
+    public Room insertEntity(final Entity e) {
         toAdd.add(e);
+        return this;
     }
     private void computeAddEntity() {
         toAdd.forEach(e -> {
