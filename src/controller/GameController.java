@@ -11,6 +11,7 @@ import java.util.concurrent.Semaphore;
 import model.entity.FactoryPlayersUtils;
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
+import model.enumeration.GameEndStatus;
 import model.enumeration.PlayerEnum;
 import model.game.GameWorld;
 import model.game.GameWorldImpl;
@@ -19,7 +20,7 @@ import model.util.EntityInformation;
 import model.util.Position;
 import model.util.StatisticsInformations;
 import util.Command;
-import util.Lambda;
+import util.Lambdas;
 import util.NotEquals;
 import view.javafx.game.GameView;
 import view.javafx.game.HeartStatisticView;
@@ -46,7 +47,7 @@ public class GameController {
     private final Semaphore pauseSem = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
     @NotEquals
-    private final Lambda endFunctions;
+    private final Lambdas<GameEndStatus> endFunctions;
 
     /**
      * @param gameView  is the {@link GameView} in which the Game Controller operates
@@ -58,7 +59,7 @@ public class GameController {
      * @throws InstantiationException if the game word you want to launch does not exist.
      * @throws IOException            if the game word you want to launch does not exist.
      */
-    public GameController(final GameView gameView, final PlayerEnum player, final String game, final Lambda endFunctions)
+    public GameController(final GameView gameView, final PlayerEnum player, final String game, final Lambdas<GameEndStatus> endFunctions)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         this.gameWorld = new GameWorldImpl(game, FactoryPlayersUtils.getPlayer(player));
         this.stopped = false;
@@ -119,15 +120,16 @@ public class GameController {
          */
         @Override
         public void run() {
+            GameEndStatus gameStatus = GameEndStatus.WIN;
             try {
                 while (!stopped) {
                     sleep(TIMETOSLEEP);
                     pauseSem.acquire();
                     pauseSem.release();
                     // I check if the player is still alive
-                    if (!gameWorld.update(TIMETOSLEEP)) {
+                    gameStatus = gameWorld.update(TIMETOSLEEP);
+                    if (gameStatus != GameEndStatus.RUNNING) {
                         stopped = true;
-                        // gameView.gameOver()
                     } else {
                         //proportions between model and view
                         final double widthMolti = gameView.getWidth()
@@ -199,7 +201,7 @@ public class GameController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            endFunctions.use();
+            endFunctions.use(gameStatus);
         }
     }
 

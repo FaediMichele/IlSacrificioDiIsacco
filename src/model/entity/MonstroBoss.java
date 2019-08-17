@@ -9,6 +9,7 @@ import model.component.DamageComponent;
 import model.component.EnemyHealthComponent;
 import model.component.MonstroAIComponent;
 import model.component.MoveComponent;
+import model.component.ReleaseOnDeathComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
 import model.component.mentality.EnemyMentalityComponent;
@@ -68,7 +69,8 @@ public class MonstroBoss extends AbstractEnemyMovable {
             .attachComponent(new EnemyHealthComponent(this, 3))
             .attachComponent(new DamageComponent(this, DAMAGE))
             .attachComponent(new TearWeaponComponent(this, DAMAGE, BasicTearEnum.BLOOD, TEAR_RATE))
-            .attachComponent(new EnemyMentalityComponent());
+            .attachComponent(new EnemyMentalityComponent())
+            .attachComponent(new ReleaseOnDeathComponent(this, new Cup()));
         this.getComponent(TearWeaponComponent.class).get().setLifeTime(TEAR_LIFE_TIME);
     }
 

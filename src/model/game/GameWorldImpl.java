@@ -22,6 +22,7 @@ import model.entity.Bomb;
 import model.entity.Entity;
 import model.entity.Key;
 import model.entity.Player;
+import model.enumeration.GameEndStatus;
 import model.enumeration.HeartEnum;
 import model.events.FloorChangedEvent;
 import model.events.InputEvent;
@@ -54,6 +55,7 @@ public class GameWorldImpl implements GameWorld {
     @NotEquals
     @NotHashCode
     private final Player player;
+    private boolean win = false;
 
     /**
      * 
@@ -93,7 +95,7 @@ public class GameWorldImpl implements GameWorld {
                     final Node floor = nl.item(i);
                     if (floor.getNodeType() == Node.ELEMENT_NODE) {
                         final String floorName = floor.getNodeName();
-                        this.floors.add(new FloorImpl(floorName));
+                        this.floors.add(new FloorImpl(floorName, this));
                     }
                 }
             } else {
@@ -129,10 +131,14 @@ public class GameWorldImpl implements GameWorld {
     }
 
     @Override
-    public final boolean update(final double deltaTime) {
+    public final GameEndStatus update(final double deltaTime) {
         getActiveFloor().update(deltaTime);
         changedFloor = false;
-        return player.getComponent(PlayerHealthComponent.class).get().isAlive();
+        if (win) {
+            return GameEndStatus.WIN;
+        }
+        return player.getComponent(PlayerHealthComponent.class).get().isAlive()
+                ? GameEndStatus.RUNNING : GameEndStatus.LOOSE;
     }
 
     @Override
@@ -211,6 +217,17 @@ public class GameWorldImpl implements GameWorld {
     @Override
     public boolean isChangeRoom() {
         return getActiveFloor().isChangeRoom();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void nextFloor() {
+        activeFloor++;
+        if (activeFloor >= floors.size()) {
+            win = true;
+        }
     }
 
 }

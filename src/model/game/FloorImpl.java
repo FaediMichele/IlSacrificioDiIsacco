@@ -11,6 +11,11 @@ import org.w3c.dom.NodeList;
 
 import com.google.common.eventbus.EventBus;
 
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import model.component.BodyComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;
@@ -23,6 +28,7 @@ import util.NotEquals;
 import util.NotHashCode;
 import util.Pair;
 import util.StaticMethodsUtils;
+import view.javafx.ViewGetterUtil;
 
 /**
  * Implementation of Floor.
@@ -32,47 +38,55 @@ import util.StaticMethodsUtils;
  *
  */
 public class FloorImpl implements Floor {
-    //private Pane pn; //ONLY FOR DEBUG
+    private Pane pn; //ONLY FOR DEBUG
     private static final Pair<Double, Double> ROOMSIZE = new Pair<>(640.0, 344.0);
 
     private final List<Room> rooms;
     @NotEquals
     @NotHashCode
     private final EventBus eventBus = new EventBus();
+
+    private final GameWorld world;
     private int activeRoomIndex;
     private boolean changedRoom;
     private int maxRoom;
 
     /**
      * Generate a random floor with random room and random enemy.
+     * @param world the world where this floor is.
      */
-    public FloorImpl() {
+    public FloorImpl(final GameWorld world) {
         this.rooms = new ArrayList<>();
         this.activeRoomIndex = 0;
         changedRoom = false;
+        this.world = world;
     }
 
     /**
      * Create a floor with specific rooms.
      * 
-     * @param rooms rooms to use for this floor
+     * @param rooms rooms to use for this floor.
+     * @param world the world where this floor is.
      */
-    public FloorImpl(final List<Room> rooms) {
+    public FloorImpl(final List<Room> rooms, final GameWorld world) {
         this.rooms = new ArrayList<>(rooms);
         this.rooms.forEach(r -> r.setFloor(this));
         changedRoom = false;
+        this.world = world;
     }
 
     /**
      * Create the {@link Floor} via xml.
      * 
-     * @param floorName the floor name in xml
+     * @param floorName the floor name in xml.
+     * @param world the world where this floor is.
      * @throws ClassNotFoundException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public FloorImpl(final String floorName)
+    public FloorImpl(final String floorName, final GameWorld world)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        this.world = world;
         final Document docXML = StaticMethodsUtils.getDocumentXML("/xml/Floor.xml");
         final List<Node> ls = StaticMethodsUtils
                 .getNodesFromNodelList(docXML.getElementsByTagName(floorName).item(0).getChildNodes());
@@ -114,6 +128,14 @@ public class FloorImpl implements Floor {
     @Override
     public List<Room> getRooms() {
         return this.rooms;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameWorld getGameWorld() {
+        return world;
     }
 
     private void addSpecialRoom(final Node node, final Random rnd, final int index) {
@@ -265,7 +287,7 @@ public class FloorImpl implements Floor {
         changedRoom = false;
         getActiveRoom().calculateCollision();
         getActiveRoom().updateEntityList();
-        //debug();
+        debug();
     }
 
     /**
@@ -311,7 +333,7 @@ public class FloorImpl implements Floor {
     public final int hashCode() {
         return StaticMethodsUtils.hashCode(this);
     }
-    /*private void debug() {
+    private void debug() {
         if (pn == null) {
             pn = new Pane();
             Platform.runLater(() -> ((Pane) ViewGetterUtil.getScene().getRoot()).getChildren().add(pn));
@@ -360,5 +382,5 @@ public class FloorImpl implements Floor {
             r.setFill(Color.BLUE);
             Platform.runLater(() -> pn.getChildren().add(r));
         }
-    }*/
+    }
 }

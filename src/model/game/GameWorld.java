@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import model.entity.Player;
+import model.enumeration.GameEndStatus;
 import model.util.EntityInformation;
 import model.util.StatisticsInformations;
 import util.Command;
@@ -65,7 +66,7 @@ public interface GameWorld {
      * @param deltaTime the time that has passed from the last call.
      * @return if the model has finished to run (game over).
      */
-    boolean update(double deltaTime);
+    GameEndStatus update(double deltaTime);
 
     /**
      * Sets the active {@link Floor}.
@@ -93,6 +94,11 @@ public interface GameWorld {
      * @param c the list of {@link Command}
      */
     void input(PriorityQueue<Command> c);
+
+    /**
+     * Go to the next floor.
+     */
+    void nextFloor();
 
     /**
      * 

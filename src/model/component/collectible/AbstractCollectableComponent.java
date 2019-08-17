@@ -63,7 +63,7 @@ public abstract class AbstractCollectableComponent extends AbstractPickupableCom
     }
 
     /**
-     * @return the InventoryComponent ot the Entity that collected this entity.
+     * @return the InventoryComponent of the Entity that collected this entity.
      */
     public InventoryComponent getInventoryComponent() {
         if (this.getEntityThatCollectedMe().getComponent(InventoryComponent.class).isPresent()) {

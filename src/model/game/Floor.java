@@ -14,6 +14,12 @@ import util.EventListener;
 public interface Floor {
 
     /**
+     * Get the game world.
+     * @return the game world that contains this floor.
+     */
+    GameWorld getGameWorld();
+
+    /**
      * Get the room where the player is.
      * 
      * @return the room where the player is

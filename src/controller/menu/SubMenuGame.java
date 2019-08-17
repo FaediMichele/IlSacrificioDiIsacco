@@ -55,7 +55,8 @@ public class SubMenuGame extends SubMenu {
         final CharacterInfo character = sel.getCharacterInfo();
         try {
             this.gameController = new GameController(smgv.createGameView(), character.getInfo(), "Game1",
-                    () -> smgv.runOnApplicationThread(() -> {
+                    (s) -> smgv.runOnApplicationThread(() -> {
+                        System.out.println(s);
                         if (getSelector().contains(SubMenuGameLoose.class)) {
                             getSelector().selectSubMenu(SubMenuGameLoose.class);
                         }
