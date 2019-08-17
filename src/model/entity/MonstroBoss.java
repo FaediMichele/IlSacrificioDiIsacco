@@ -12,7 +12,7 @@ import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
 import model.component.mentality.AbstractMentalityComponent;
-import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicEnemyEnum;
 import model.enumeration.BasicTearEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;
@@ -28,7 +28,7 @@ public class MonstroBoss extends AbstractEnemyMovable {
     private static final double DAMAGE = 1.0;
     private static final double TEAR_RATE = 1000.0;
     private static final double TEAR_LIFE_TIME = 10000.0;
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.MONSTRO;
+    private static final EntityEnum ENTITY_NAME = BasicEnemyEnum.MONSTRO;
 
     /**
      * Create a fly enemy based on his position.

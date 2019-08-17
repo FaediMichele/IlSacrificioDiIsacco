@@ -30,6 +30,10 @@ public class EntityController {
     private static final String TAG_PLAYER = "BasicPlayers";
     private static final String ATTR1_PLAYER = "path-playerEnum";
     private static final String ATTR2_PLAYER = "path-playerView";
+    private static final String PATH_ENEMY = "/xml/Enemy.xml";
+    private static final String TAG_ENEMY = "BasicEnemies";
+    private static final String ATTR1_ENEMY = "path-enemyEnum";
+    private static final String ATTR2_ENEMY = "path-enemyView";
     private static final String PATH_HEART = "/xml/Heart.xml";
     private static final String TAG_HEART = "BasicHearts";
     private static final String ATTR1_HEART = "path-heartEnum";
@@ -114,6 +118,7 @@ public class EntityController {
         map.putAll(StaticMethodsUtils.xmlToMapClass(PATH_ENTITY, TAG_ENTITY, ATTR1_ENTITY, ATTR2_ENTITY));
         map.putAll(StaticMethodsUtils.xmlToMapClass(PATH_HEART, TAG_HEART, ATTR1_HEART, ATTR2_HEART));
         map.putAll(StaticMethodsUtils.xmlToMapClass(PATH_TEAR, TAG_TEAR, ATTR1_TEAR, ATTR2_TEAR));
+        map.putAll(StaticMethodsUtils.xmlToMapClass(PATH_ENEMY, TAG_ENEMY, ATTR1_ENEMY, ATTR2_ENEMY));
         return map;
     }
 

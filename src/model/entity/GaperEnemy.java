@@ -9,7 +9,7 @@ import model.component.EnemyHealthComponent;
 import model.component.FollowAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
-import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicEnemyEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;
 
@@ -24,7 +24,7 @@ public class GaperEnemy extends AbstractEnemyMovable {
     private static final int HEALTH = 20;
 //    private static final double MAXSPEED = 7;
 //    private static final double FRICTION = 7;
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.GAPER;
+    private static final EntityEnum ENTITY_NAME = BasicEnemyEnum.GAPER;
 
 
     /**

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Enemies>
+    <BasicEnemies path-enemyEnum="model.enumeration.BasicEnemyEnum" path-enemyView="view.javafx.game">
+        <GAPER>GaperView</GAPER>
+        <FLY>FlyView</FLY>
+        <MONSTRO>MonstroView</MONSTRO>
+    </BasicEnemies>
+</Enemies>
+

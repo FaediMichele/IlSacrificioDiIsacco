@@ -3,24 +3,27 @@ package model.component.mentality;
 import java.util.HashSet;
 import java.util.Set;
 import model.component.AbstractComponent;
+import model.entity.Entity;
+import util.StaticMethodsUtils;
 
 /**
  * This component manages the entity from who can receive damage.
  */
 public class AbstractMentalityComponent extends AbstractComponent {
 
-    private final Set<Class<? extends AbstractMentalityComponent>> cannotDamage = new HashSet<>();
-    private final Set<Class<? extends AbstractMentalityComponent>> cannotHurtMe = new HashSet<>();
+    private final Set<Class<? extends Entity>> cannotDamage = new HashSet<>();
+    private final Set<Class<? extends Entity>> cannotHurtMe = new HashSet<>();
 
     /**
      * Create a new {@link AbstractMentalityComponent} with mentality set.
      * 
-     * @param cannotDamage set of AbstractMentalityComponent who I can hurt
-     * @param cannotHurtMe set of AbstractMentalityComponent who can hurt me
+     * @param cannotDamage set of Entity who I can hurt
+     * @param cannotHurtMe set of Entity who can hurt me
      */
     public AbstractMentalityComponent(
-            final Set<Class<? extends AbstractMentalityComponent>> cannotDamage,
-            final Set<Class<? extends AbstractMentalityComponent>> cannotHurtMe) {
+            final Set<Class<? extends Entity>> cannotDamage,
+            final Set<Class<? extends Entity>> cannotHurtMe) {
+        super();
         this.cannotDamage.clear();
         this.cannotDamage.addAll(cannotDamage);
         this.cannotHurtMe.clear();
@@ -29,55 +32,55 @@ public class AbstractMentalityComponent extends AbstractComponent {
 
     /**
      * 
-     * @param entityMentalities the AbstractMentalityComponent that can no longer
+     * @param entities the Entity that can no longer
      *                          hurt me
      */
-    public void addEntitiesCannotHurtMe(final Set<Class<? extends AbstractMentalityComponent>> entityMentalities) {
-        this.cannotHurtMe.addAll(entityMentalities);
+    public void addEntitiesCannotHurtMe(final Set<Class<? extends Entity>> entities) {
+        this.cannotHurtMe.addAll(entities);
     }
 
     /**
      * 
-     * @param entityMentalities the AbstractMentalityComponent that I can no longer
+     * @param entities the Entity that I can no longer
      *                          damage
      */
-    public void addEntitiesCannotDamage(final Set<Class<? extends AbstractMentalityComponent>> entityMentalities) {
-        this.cannotDamage.addAll(entityMentalities);
+    public void addEntitiesCannotDamage(final Set<Class<? extends Entity>> entities) {
+        this.cannotDamage.addAll(entities);
     }
 
     /**
      * 
-     * @param entityMentalities the AbstractMentalityComponent that can hurt me
+     * @param entities the Entity that can hurt me
      */
-    public void removeEntitiesCannotHurtMe(final Set<Class<? extends AbstractMentalityComponent>> entityMentalities) {
-        this.cannotHurtMe.removeAll(entityMentalities);
+    public void removeEntitiesCannotHurtMe(final Set<Class<? extends Entity>> entities) {
+        this.cannotHurtMe.removeAll(entities);
     }
 
     /**
      * 
-     * @param entityMentalities the AbstractMentalityComponent that I can damage
+     * @param entities the Entity that I can damage
      */
-    public void removeEntitiesCannotDamage(final Set<Class<? extends AbstractMentalityComponent>> entityMentalities) {
-        this.cannotDamage.removeAll(entityMentalities);
+    public void removeEntitiesCannotDamage(final Set<Class<? extends Entity>> entities) {
+        this.cannotDamage.removeAll(entities);
     }
 
     /**
      * 
-     * @param entityMentality the {@link AbstractMentalityComponent}
+     * @param entity the {@link Entity}
      * @return if it can hurt me
      */
-    public boolean canHurtMe(final Class<? extends AbstractMentalityComponent> entityMentality) {
-        return !this.cannotHurtMe.contains(entityMentality)
-                && !this.cannotHurtMe.stream().anyMatch(chm -> entityMentality.isInstance(chm));
+    public boolean canHurtMe(final Class<? extends Entity> entity) {
+        return !this.cannotHurtMe.contains(entity)
+                && !this.cannotHurtMe.stream().anyMatch(chm -> StaticMethodsUtils.isTypeOf(entity, chm));
     }
 
     /**
      * 
-     * @param entityMentality the {@link AbstractMentalityComponent}
+     * @param entity the {@link Entity}
      * @return if I can damage
      */
-    public boolean isDamageableByMe(final Class<? extends AbstractMentalityComponent> entityMentality) {
-        return !this.cannotDamage.contains(entityMentality)
-                && !this.cannotDamage.stream().anyMatch(chm -> entityMentality.isInstance(chm));
+    public boolean isDamageableByMe(final Class<? extends Entity> entity) {
+        return !this.cannotDamage.contains(entity)
+                && !this.cannotDamage.stream().anyMatch(chm -> StaticMethodsUtils.isTypeOf(entity, chm));
     }
 }

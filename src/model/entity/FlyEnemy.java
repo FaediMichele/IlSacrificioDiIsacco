@@ -11,7 +11,7 @@ import model.component.FlyAIComponent;
 import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.mentality.AbstractMentalityComponent;
-import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicEnemyEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;
 
@@ -24,7 +24,7 @@ public class FlyEnemy extends AbstractEnemyMovable {
     private static final int WEIGHT = 5;
     private static final double DSPEED = 1.5;
     private static final double DAMAGE = 1.0;
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.FLY;
+    private static final EntityEnum ENTITY_NAME = BasicEnemyEnum.FLY;
 
     /**
      * Create a fly enemy based on his position.
