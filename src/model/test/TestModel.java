@@ -35,18 +35,18 @@ public class TestModel {
      */
         @Test
       public void testMentality() {
-          Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
-          Player player1 = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.CAIN);
-          GaperEnemy enemy = new GaperEnemy();
-          SimplePsychopathEntity psychoEntity = new SimplePsychopathEntity();
+          final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
+          final Player player1 = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.CAIN);
+          final GaperEnemy enemy = new GaperEnemy();
+          final SimplePsychopathEntity psychoEntity = new SimplePsychopathEntity();
           assertEquals(enemy.getComponent(AbstractMentalityComponent.class).get().getClass(), 
                           EnemyMentalityComponent.class, 
                           "Test mentality enemy is right");
           assertEquals(player.getComponent(AbstractMentalityComponent.class).get().getClass(), 
                   PlayerMentalityComponent.class, 
                   "Test player enemy is right");
-          double damage = enemy.getComponent(DamageComponent.class).get().getDamage();
-          double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
+          final double damage = enemy.getComponent(DamageComponent.class).get().getDamage();
+          final double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
           player.postEvent(new CollisionEvent(enemy));
           assertEquals(life - damage, 
                           player.getComponent(PlayerHealthComponent.class).get().getLife(),
@@ -55,7 +55,7 @@ public class TestModel {
           assertEquals(life - damage, 
                   player.getComponent(PlayerHealthComponent.class).get().getLife(),
                   "Test if player is not damaging");
-          double damage2 = psychoEntity.getComponent(DamageComponent.class).get().getDamage();
+          final double damage2 = psychoEntity.getComponent(DamageComponent.class).get().getDamage();
           player.update(RESET_DAMAGE_PLAYER);
           player.postEvent(new CollisionEvent(psychoEntity));
           assertEquals(life - damage - damage2, 
@@ -68,12 +68,12 @@ public class TestModel {
        */
       @Test
       public void testPickupableCollectable() {
-          Room room = new RoomImpl(0, 100, 100);
-          SimplePsychopathEntity enemy = new SimplePsychopathEntity();
-          Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
-          Bomb bomb = new Bomb();
-          Key key = new Key();
-          BlackPickupableHeart blHeart = new BlackPickupableHeart();
+          final Room room = new RoomImpl(0, 100, 100);
+          final SimplePsychopathEntity enemy = new SimplePsychopathEntity();
+          final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
+          final Bomb bomb = new Bomb();
+          final Key key = new Key();
+          final BlackPickupableHeart blHeart = new BlackPickupableHeart();
           room.insertEntity(key)
               .insertEntity(bomb)
               .insertEntity(player)
@@ -85,13 +85,13 @@ public class TestModel {
           assertTrue(room.getEntities().contains(bomb));
           assertTrue(room.getEntities().contains(player));
           assertTrue(room.getEntities().contains(blHeart));
-          InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class).get();
+          final InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class).get();
           assertTrue(inventoryComponent.getThings().isEmpty());
           player.postEvent(new CollisionEvent(key));
           assertEquals(inventoryComponent.getThings().size(), 1, "Check that all entities have been collected");
           player.postEvent(new CollisionEvent(bomb));
           assertEquals(inventoryComponent.getThings().size(), 2, "Check that all entities have been collected");
-          double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
+          final double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
           player.postEvent(new CollisionEvent(blHeart));
           room.updateEntityList();
           assertEquals(2, room.getEntities().size(), "I verify that all the entities have been remove");
