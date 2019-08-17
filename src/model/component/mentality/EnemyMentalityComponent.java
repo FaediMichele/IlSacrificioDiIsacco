@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.entity.Entity;
-
 /**
  * Mentality of the {@link Enemy}.
  */

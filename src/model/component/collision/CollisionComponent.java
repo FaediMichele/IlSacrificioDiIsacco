@@ -64,13 +64,13 @@ public class CollisionComponent extends AbstractComponent {
         if (event.getSourceEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
             sourceMentaliy = event.getSourceEntity().getComponent(AbstractMentalityComponent.class).get();
         } else {
-            sourceMentaliy = new NeutralMentalityComponent(event.getSourceEntity());
+            sourceMentaliy = new NeutralMentalityComponent();
         }
 
         if (getEntity().getComponent(AbstractMentalityComponent.class).isPresent()) {
             myMentality = getEntity().getComponent(AbstractMentalityComponent.class).get();
         } else {
-            myMentality = new NeutralMentalityComponent(event.getSourceEntity());
+            myMentality = new NeutralMentalityComponent();
         }
 
         if (sourceMentaliy.isDamageableByMe(myMentality.getClass()) && myMentality.canHurtMe(sourceMentaliy.getClass())) {

@@ -33,7 +33,7 @@ public class Bomb extends AbstractEntity {
         this.attachComponent(new BombCollectableComponent(this))
                 .attachComponent(new MoveComponent(this))
                 .attachComponent(new BodyComponent(this, HEIGHT, WIDTH, WEIGHT))
-                .attachComponent(new NeutralMentalityComponent(this));
+                .attachComponent(new NeutralMentalityComponent());
 
     }
 
@@ -52,7 +52,7 @@ public class Bomb extends AbstractEntity {
     private void build(final double x, final double y) {
         this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT), new CollisionComponent(this),
                 new StatusComponent(this));
-        this.attachComponent(new BombCollectableComponent(this)).attachComponent(new NeutralMentalityComponent(this));
+        this.attachComponent(new BombCollectableComponent(this)).attachComponent(new NeutralMentalityComponent());
     }
 
     /**

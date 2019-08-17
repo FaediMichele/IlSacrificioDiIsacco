@@ -3,7 +3,6 @@ package model.component.mentality;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import model.entity.Entity;
 
 /**
  * Mentality for a neutral entity.

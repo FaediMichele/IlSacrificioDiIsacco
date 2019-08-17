@@ -29,7 +29,7 @@ public abstract class AbstractEnemyMovable extends AbstractMovableEntity {
      */
     public AbstractEnemyMovable() {
         super();
-        this.attachComponent(new EnemyMentalityComponent(this));
+        this.attachComponent(new EnemyMentalityComponent());
     }
     /**
      * Create an enemy with mentality.

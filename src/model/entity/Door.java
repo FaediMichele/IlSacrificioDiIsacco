@@ -32,7 +32,7 @@ public class Door extends AbstractStaticEntity {
     public Door(final BasicMovementEnum direction, final Integer location, final Integer destinationIndex, final Pair<Double, Double> roomSize) {
         super();
        this.attachComponent(new DoorComponent(this, location, destinationIndex, BasicStatusEnum.OPEN))
-                .attachComponent(new NeutralMentalityComponent(this));
+                .attachComponent(new NeutralMentalityComponent());
        this.getStatusComponent().setMove(direction);
        setBody(direction, roomSize);
        if (destinationIndex == null) {

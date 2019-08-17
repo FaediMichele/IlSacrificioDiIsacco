@@ -1,8 +1,6 @@
 package model.component;
 
 import com.google.common.eventbus.Subscribe;
-import model.component.mentality.EnemyTearsMentalityComponent;
-import model.component.mentality.PlayerTearsMentalityComponent;
 import model.entity.Entity;
 import model.entity.Player;
 import model.entity.Tear;
@@ -79,8 +77,8 @@ public class TearWeaponComponent extends AbstractComponent {
                             DEFAULT_SPEED, 
                             this.nameTear,
                             (event.getSourceEntity() instanceof Player)
-                                    ? new PlayerTearsMentalityComponent(event.getSourceEntity())
-                                    : new EnemyTearsMentalityComponent(event.getSourceEntity())));
+                                    ? new PlayerTearsMentalityComponent()
+                                    : new EnemyTearsMentalityComponent()));
     }
 
     /**

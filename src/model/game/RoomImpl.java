@@ -21,7 +21,6 @@ import com.google.common.eventbus.Subscribe;
 import model.component.BodyComponent;
 import model.component.PlayerHealthComponent;
 import model.component.StatusComponent;
-import model.component.mentality.ObstacleMentalityComponent;
 import model.entity.Door;
 import model.entity.Entity;
 import model.entity.Player;

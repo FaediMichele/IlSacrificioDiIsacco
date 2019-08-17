@@ -12,7 +12,6 @@ import model.component.MoveComponent;
 import model.component.StatusComponent;
 import model.component.TearWeaponComponent;
 import model.component.mentality.AbstractMentalityComponent;
-import model.component.mentality.MonstroBossMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.BasicTearEnum;
 import model.enumeration.EntityEnum;
