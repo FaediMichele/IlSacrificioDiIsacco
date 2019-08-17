@@ -20,7 +20,7 @@ public class BodyComponent extends AbstractComponent {
     private double height;
     private double width;
     private int weight;
-    private boolean isPhysics;
+    private boolean physics;
 
     /**
      * Default BodyComponent constructor.
@@ -42,7 +42,7 @@ public class BodyComponent extends AbstractComponent {
      * @param height 
      * @param width 
      * @param weight 
-     * @param isPhysics 
+     * @param physics 
      */
     public BodyComponent(final Entity entity, final double height, final double width, final int weight, final boolean isPhysics) {
         this(entity,
@@ -78,7 +78,7 @@ public class BodyComponent extends AbstractComponent {
         this.height = height;
         this.width = width;
         this.weight = weight;
-        this.isPhysics = physics;
+        this.physics = physics;
     }
 
     /**
@@ -89,19 +89,19 @@ public class BodyComponent extends AbstractComponent {
      *         not suffer from the collision with this entity
      */
     public boolean isPhysics() {
-        return isPhysics;
+        return physics;
     }
 
     /**
      * 
-     * @param isPhysics sets the physicality of this entity, 
+     * @param physics sets the physicality of this entity, 
      *        true if it has to collide false if the other 
      *        entities can pass through it, for example 
      *        as in the case of collectible objects
      * @return this.
      */
     public BodyComponent setPhysics(final boolean isPhysics) {
-        this.isPhysics = isPhysics;
+        this.physics = isPhysics;
         return this;
     }
 
