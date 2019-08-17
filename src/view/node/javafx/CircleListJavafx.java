@@ -169,17 +169,7 @@ public class CircleListJavafx extends Group implements CircleList {
      */
     @Override
     public void reset() {
-        if (index > elements.size() / 2) {
-            while (index != 0) {
-                rotateRight();
-            }
-            rotateLeft();
-        } else {
-            while (index != 0) {
-                rotateLeft();
-            }
-            rotateRight();
-        }
+        // TODO
     }
 
     /**

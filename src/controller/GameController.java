@@ -43,6 +43,7 @@ public class GameController {
     private final GameView gameView;
     private final Map<UUID, EntityController> entityControllers;
     private final Semaphore inputDisponible = new Semaphore(1);
+    private final Semaphore pauseSem = new Semaphore(1);
     private final PriorityQueue<Command> inputCommand = new PriorityQueue<>();
     @NotEquals
     private final Lambda endFunctions;
@@ -93,6 +94,18 @@ public class GameController {
     public void stop() {
         this.stopped = true;
     }
+    /**
+     * Pause the game.
+     */
+    public void pause() {
+        pauseSem.drainPermits();
+    }
+    /**
+     * Resume the game.
+     */
+    public void resume() {
+        pauseSem.release();
+    }
 
     /**
      * 
@@ -109,6 +122,8 @@ public class GameController {
             try {
                 while (!stopped) {
                     sleep(TIMETOSLEEP);
+                    pauseSem.acquire();
+                    pauseSem.release();
                     // I check if the player is still alive
                     if (!gameWorld.update(TIMETOSLEEP)) {
                         stopped = true;

@@ -36,10 +36,10 @@ public class SubMenuGame extends SubMenu {
                 options();
             } else if (c.contains(Command.EXIT)) {
                 if (gameController != null) {
-                    gameController.stop();
+                    gameController.pause();
                 }
                 options();
-            } else { 
+            } else {
                 if (gameController != null) {
                     gameController.input(c);
                 }
@@ -56,8 +56,8 @@ public class SubMenuGame extends SubMenu {
         try {
             this.gameController = new GameController(smgv.createGameView(), character.getInfo(), "Game1",
                     () -> smgv.runOnApplicationThread(() -> {
-                        if (getSelector().getParent().contains(MainMenuSelection.class)) {
-                            getSelector().getParent().select(MainMenuSelection.class);
+                        if (getSelector().contains(SubMenuGameLoose.class)) {
+                            getSelector().selectSubMenu(SubMenuGameLoose.class);
                         }
                     }));
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
@@ -65,6 +65,13 @@ public class SubMenuGame extends SubMenu {
         }
     }
 
+    /**
+     * Get the game controller.
+     * @return the game controller.
+     */
+    public GameController getGameController() {
+        return this.gameController;
+    }
     private void options() {
         if (getSelector().contains(SubMenuOption.class)) {
             getSelector().selectSubMenu(SubMenuOption.class);
@@ -77,11 +84,6 @@ public class SubMenuGame extends SubMenu {
     @Override
     public void reset() {
         smgv.reset();
-        //((GameSubMenuSelection) getSelector()).setOnIntroEnded(null);
-        if (gameController != null) {
-            gameController.stop();
-            gameController = null;
-        }
     }
 
     /**
