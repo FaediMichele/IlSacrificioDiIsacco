@@ -16,6 +16,7 @@ public class SimplePsychopathEntity extends AbstractEntity {
      * Simple constructor. 
      */
     public SimplePsychopathEntity() {
+        super();
         this.attachComponent(new PsychoMentalityComponent())
             .attachComponent(new DamageComponent(this, 1));
     }
