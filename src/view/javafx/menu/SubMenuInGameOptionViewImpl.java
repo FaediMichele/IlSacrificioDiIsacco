@@ -17,8 +17,8 @@ import view.node.javafx.SelectListJavafx;
  * Implementation of the {@link SubMenuInGameOptionView}.
  */
 public class SubMenuInGameOptionViewImpl implements SubMenuInGameOptionView {
-    private static final String NEWRUN = "/menuImgs/newRun.png";
-    private static final String OPTION = "/menuImgs/options.png";
+    private static final String BACK = "/menuImgs/back.png";
+    private static final String EXIT = "/menuImgs/exit.png";
     private static final String ARROW = "/menuImgs/selector.png";
     private static final String BACKGROUND = "/menuImgs/popUpBackground.png";
     private final Map<ImageView, Object> operation = new LinkedHashMap<>();
@@ -32,20 +32,20 @@ public class SubMenuInGameOptionViewImpl implements SubMenuInGameOptionView {
      */
     public SubMenuInGameOptionViewImpl(final Object... args) {
         main = ViewGetterUtil.getNodeByName("pnInGameMenu", Pane.class);
-        final ImageView newRun = ViewGetterUtil.getNodeByName("imgContinuePlaying", ImageView.class);
-        final ImageView option = ViewGetterUtil.getNodeByName("imgBackToGame", ImageView.class);
+        final ImageView back = ViewGetterUtil.getNodeByName("imgContinuePlaying", ImageView.class);
+        final ImageView exit = ViewGetterUtil.getNodeByName("imgBackToGame", ImageView.class);
         final ImageView imgSelector = ViewGetterUtil.getNodeByName("imgSelectorInGameMenu", ImageView.class);
         final ImageView imgBackground = ViewGetterUtil.getNodeByName("imgPopUpBackground", ImageView.class);
-        operation.put(newRun, args[0]);
-        operation.put(option, args[1]);
-        sl.addItems(newRun, option);
+        operation.put(back, args[0]);
+        operation.put(exit, args[1]);
+        sl.addItems(back, exit);
         sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight() / 2));
         sl.setSelector(imgSelector);
         imgSelector.boundsInParentProperty().addListener(b -> {
             Platform.runLater(() -> sl.setDistance(new Pair<Double, Double>(-imgSelector.getBoundsInParent().getWidth(), imgSelector.getBoundsInParent().getHeight() / 2)));
         });
-        newRun.setImage(new Image(NEWRUN));
-        option.setImage(new Image(OPTION));
+        back.setImage(new Image(BACK));
+        exit.setImage(new Image(EXIT));
         imgSelector.setImage(new Image(ARROW));
         imgBackground.setImage(new Image(BACKGROUND));
     }
