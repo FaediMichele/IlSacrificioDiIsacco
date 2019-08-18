@@ -70,8 +70,8 @@ public final class ViewGetterUtil {
      * Switch full screen or windowed.
      */
     public static void switchFullScreen() {
-        ViewGetterUtil.stage.setFullScreen(fullScreen);
         ViewGetterUtil.fullScreen = !ViewGetterUtil.fullScreen;
+        ViewGetterUtil.stage.setFullScreen(fullScreen);
         FULLSCREENLISTENER.forEach(Lambda::use);
     }
 

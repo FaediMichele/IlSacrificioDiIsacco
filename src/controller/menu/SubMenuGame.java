@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Set;
 
 import controller.GameController;
+import model.enumeration.GameEndStatus;
 import util.Command;
 import view.SubMenuView;
 import view.interfaces.SubMenuGameView;
@@ -56,9 +57,11 @@ public class SubMenuGame extends SubMenu {
         try {
             this.gameController = new GameController(smgv.createGameView(), character.getInfo(), "Game1",
                     (s) -> smgv.runOnApplicationThread(() -> {
-                        System.out.println(s);
-                        if (getSelector().contains(SubMenuGameLoose.class)) {
+                        if (s.equals(GameEndStatus.LOOSE) && getSelector().contains(SubMenuGameLoose.class)) {
                             getSelector().selectSubMenu(SubMenuGameLoose.class);
+                        }
+                        if (s.equals(GameEndStatus.WIN) && getSelector().contains(SubMenuWin.class)) {
+                            getSelector().selectSubMenu(SubMenuWin.class);
                         }
                     }));
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {

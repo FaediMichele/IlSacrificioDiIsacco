@@ -55,7 +55,7 @@ public class GameWorldImpl implements GameWorld {
     @NotEquals
     @NotHashCode
     private final Player player;
-    private boolean win = false;
+    private boolean win;
 
     /**
      * 

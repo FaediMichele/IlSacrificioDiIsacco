@@ -17,6 +17,7 @@ import view.node.javafx.SelectListJavafx;
  * The implementation view of the sub menu where select new run or options.
  */
 public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
+    private static final String BACKGROUND = "/menuImgs/menuSelectorBackground.png";
     private static final String NEWRUN = "/menuImgs/newRun.png";
     private static final String OPTION = "/menuImgs/options.png";
     private static final String ARROW = "/menuImgs/selector.png";
@@ -32,6 +33,7 @@ public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
             throw new IllegalArgumentException("args must be grater or equal to the list of the item(" + sl.lenght() + ")");
         }
         mapSelected = new LinkedHashMap<>();
+        final ImageView background = ViewGetterUtil.getNodeByName("imgBackGroundSelectorMenu", ImageView.class);
         final ImageView newRun = ViewGetterUtil.getNodeByName("imgNewRun", ImageView.class);
         final ImageView option = ViewGetterUtil.getNodeByName("imgOptions", ImageView.class);
         final ImageView imgSelector = ViewGetterUtil.getNodeByName("imgSelector", ImageView.class);
@@ -47,6 +49,7 @@ public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
         newRun.setImage(new Image(NEWRUN));
         option.setImage(new Image(OPTION));
         imgSelector.setImage(new Image(ARROW));
+        background.setImage(new Image(BACKGROUND));
     }
 
     /**

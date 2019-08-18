@@ -21,6 +21,7 @@ public class Cup extends AbstractStaticEntity {
      * Initialize entity.
      */
     public Cup() {
+        super();
         this.setDefaultComponents(new BodyComponent(this, new Position(0.0, 0.0, 0.0), HEIGHT, WIDTH, WEIGHT, true),
                 new CollisionComponent(this), new StatusComponent(this));
         this.attachComponent(new NeutralMentalityComponent())
