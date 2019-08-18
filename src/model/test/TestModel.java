@@ -70,7 +70,7 @@ public class TestModel {
       @Test
       public void testPickupableCollectable() {
           final Room room = new RoomImpl(0, 100, 100);
-          final SimplePsychopathEntity enemy = new SimplePsychopathEntity();
+          final GaperEnemy enemy = new GaperEnemy();
           final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
           final Bomb bomb = new Bomb();
           final Key key = new Key();
@@ -99,7 +99,7 @@ public class TestModel {
           assertEquals(2, room.getEntities().size(), "I verify that all the entities have been remove");
           assertTrue("Check if the life of the player has risen", life < player.getComponent(PlayerHealthComponent.class).get().getLife());
           player.postEvent(new DamageEvent(enemy, 3));
-          assertTrue(lifeEnemy < enemy.getComponent(EnemyHealthComponent.class).get().getLife());
+          assertTrue("Check black heart damage enemies", lifeEnemy > enemy.getComponent(EnemyHealthComponent.class).get().getLife());
       }
 //
 //    private Room buildedRoom;

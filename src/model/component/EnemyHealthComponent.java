@@ -73,7 +73,6 @@ public class EnemyHealthComponent extends AbstractComponent {
      */
     protected void getDamaged(final double totalDamageValue) {
         life -= totalDamageValue;
-
         if (!this.isAlive()) {
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DEAD);
             this.getEntity().postEvent(new DeadEvent(this.getEntity()));
