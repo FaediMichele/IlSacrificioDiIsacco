@@ -59,16 +59,13 @@ public class HeartPickupableComponent extends AbstractPickupableComponent {
     @Override
     public void init(final Entity entity) {
         Objects.requireNonNull(entity);
-        //System.out.println(entity.getClass());
         final PlayerHealthComponent playerHealthComponent = this.getHealthComponent(entity);
         final double realValue = actualValue > 0.5 && actualValue < 1 ? 1 : 0.5;
-
         if (this.color.equals(BasicHeartEnum.RED)) {
             playerHealthComponent.addHeart(new SimpleHeart(entity, realValue));
         } else if (this.color.equals(BasicHeartEnum.BLACK)) {
             playerHealthComponent.addHeart(new BlackHeart(entity, realValue));
         }
-
         this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DISAPPEAR);
         this.getEntity().getRoom().deleteEntity(this.getEntity());
     }

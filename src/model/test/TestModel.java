@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 import model.component.DamageComponent;
+import model.component.EnemyHealthComponent;
 import model.component.InventoryComponent;
 import model.component.PlayerHealthComponent;
 import model.component.mentality.AbstractMentalityComponent;
@@ -35,18 +36,18 @@ public class TestModel {
      */
         @Test
       public void testMentality() {
-          Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
-          Player player1 = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.CAIN);
-          GaperEnemy enemy = new GaperEnemy();
-          SimplePsychopathEntity psychoEntity = new SimplePsychopathEntity();
+          final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
+          final Player player1 = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.CAIN);
+          final GaperEnemy enemy = new GaperEnemy();
+          final SimplePsychopathEntity psychoEntity = new SimplePsychopathEntity();
           assertEquals(enemy.getComponent(AbstractMentalityComponent.class).get().getClass(), 
                           EnemyMentalityComponent.class, 
                           "Test mentality enemy is right");
           assertEquals(player.getComponent(AbstractMentalityComponent.class).get().getClass(), 
                   PlayerMentalityComponent.class, 
                   "Test player enemy is right");
-          double damage = enemy.getComponent(DamageComponent.class).get().getDamage();
-          double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
+          final double damage = enemy.getComponent(DamageComponent.class).get().getDamage();
+          final double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
           player.postEvent(new CollisionEvent(enemy));
           assertEquals(life - damage, 
                           player.getComponent(PlayerHealthComponent.class).get().getLife(),
@@ -55,7 +56,7 @@ public class TestModel {
           assertEquals(life - damage, 
                   player.getComponent(PlayerHealthComponent.class).get().getLife(),
                   "Test if player is not damaging");
-          double damage2 = psychoEntity.getComponent(DamageComponent.class).get().getDamage();
+          final double damage2 = psychoEntity.getComponent(DamageComponent.class).get().getDamage();
           player.update(RESET_DAMAGE_PLAYER);
           player.postEvent(new CollisionEvent(psychoEntity));
           assertEquals(life - damage - damage2, 
@@ -68,12 +69,12 @@ public class TestModel {
        */
       @Test
       public void testPickupableCollectable() {
-          Room room = new RoomImpl(0, 100, 100);
-          SimplePsychopathEntity enemy = new SimplePsychopathEntity();
-          Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
-          Bomb bomb = new Bomb();
-          Key key = new Key();
-          BlackPickupableHeart blHeart = new BlackPickupableHeart();
+          final Room room = new RoomImpl(0, 100, 100);
+          final SimplePsychopathEntity enemy = new SimplePsychopathEntity();
+          final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
+          final Bomb bomb = new Bomb();
+          final Key key = new Key();
+          final BlackPickupableHeart blHeart = new BlackPickupableHeart();
           room.insertEntity(key)
               .insertEntity(bomb)
               .insertEntity(player)
@@ -81,22 +82,24 @@ public class TestModel {
               .insertEntity(enemy);
           room.updateEntityList();
           assertEquals(5, room.getEntities().size(), "I verify that all the entities have been added");
-          assertTrue(room.getEntities().contains(key));
-          assertTrue(room.getEntities().contains(bomb));
-          assertTrue(room.getEntities().contains(player));
-          assertTrue(room.getEntities().contains(blHeart));
-          InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class).get();
-          assertTrue(inventoryComponent.getThings().isEmpty());
+          assertTrue("Check if the room contains the key", room.getEntities().contains(key));
+          assertTrue("Check if the room contains the bomb", room.getEntities().contains(bomb));
+          assertTrue("Check if the room contains the player", room.getEntities().contains(player));
+          assertTrue("Check if the room contains the blHeart", room.getEntities().contains(blHeart));
+          final InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class).get();
+          assertTrue("Check if the inventory component has collected zero entities", inventoryComponent.getThings().isEmpty());
           player.postEvent(new CollisionEvent(key));
           assertEquals(inventoryComponent.getThings().size(), 1, "Check that all entities have been collected");
           player.postEvent(new CollisionEvent(bomb));
           assertEquals(inventoryComponent.getThings().size(), 2, "Check that all entities have been collected");
-          double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
+          final double life = player.getComponent(PlayerHealthComponent.class).get().getLife();
           player.postEvent(new CollisionEvent(blHeart));
           room.updateEntityList();
+          final double lifeEnemy  = enemy.getComponent(EnemyHealthComponent.class).get().getLife();
           assertEquals(2, room.getEntities().size(), "I verify that all the entities have been remove");
-          assertTrue(life < player.getComponent(PlayerHealthComponent.class).get().getLife());
+          assertTrue("Check if the life of the player has risen", life < player.getComponent(PlayerHealthComponent.class).get().getLife());
           player.postEvent(new DamageEvent(enemy, 3));
+          assertTrue(lifeEnemy < enemy.getComponent(EnemyHealthComponent.class).get().getLife());
       }
 //
 //    private Room buildedRoom;

@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.component.DamageComponent;
+import model.component.EnemyHealthComponent;
 import model.component.mentality.PsychoMentalityComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
@@ -18,7 +19,8 @@ public class SimplePsychopathEntity extends AbstractEntity {
     public SimplePsychopathEntity() {
         super();
         this.attachComponent(new PsychoMentalityComponent())
-            .attachComponent(new DamageComponent(this, 1));
+            .attachComponent(new DamageComponent(this, 1))
+            .attachComponent(new EnemyHealthComponent(this, 10));
     }
     /**
      * Example.
