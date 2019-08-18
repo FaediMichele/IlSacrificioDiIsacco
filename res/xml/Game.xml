@@ -6,10 +6,5 @@
             <Floor1 />
         </Floors>
     </Game1>
-    <Game2>
-        <Floors>
-            <Floor2 />
-        </Floors>
-    </Game2>
 </Games>
 
