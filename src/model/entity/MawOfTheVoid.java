@@ -6,8 +6,7 @@ import com.google.common.base.Splitter;
 
 import model.component.BodyComponent;
 import model.component.StatusComponent;
-
-import model.component.collectible.StickyBombsPickupableComponent;
+import model.component.collectible.MawOfTheVoidPickupableComponent;
 import model.component.collision.CollisionComponent;
 import model.enumeration.BasicEntityEnum;
 import model.enumeration.EntityEnum;
@@ -54,7 +53,7 @@ public class MawOfTheVoid extends AbstractPickupableEntity {
     private void build(final double x, final double y) {
         this.setDefaultComponents(new BodyComponent(this, new Position(x, y, 0.0), HEIGHT, WIDTH, WEIGHT, false),
                 new CollisionComponent(this), new StatusComponent(this));
-        this.attachComponent(new StickyBombsPickupableComponent(this));
+        this.attachComponent(new MawOfTheVoidPickupableComponent(this));
     }
 
     /**
