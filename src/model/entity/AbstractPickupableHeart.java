@@ -38,7 +38,7 @@ public class AbstractPickupableHeart extends AbstractPickupableEntity {
         this.heartColour = entityName;
         final Map<String, String> holder = Splitter.on(",").trimResults()
                 .withKeyValueSeparator("=").split(args);
-        build(Double.parseDouble(holder.get("X").replace("\"", "")),
+        this.build(Double.parseDouble(holder.get("X").replace("\"", "")),
                 Double.parseDouble(holder.get("Y").replace("\"", "")));
     }
 
