@@ -14,7 +14,7 @@ import util.EventListener;
  * Collision component for entity locked.
  *
  */
-public class LockCollisionComponent extends CollisionComponent {
+public abstract class LockCollisionComponent extends CollisionComponent {
     private boolean isLock;
 
     /**
@@ -66,6 +66,5 @@ public class LockCollisionComponent extends CollisionComponent {
      * 
      * @param entity is {@link Entity} who had a collision with the door.
      */
-    public void afterUnlocks(final Entity entity) {
-    }
+    public abstract void afterUnlocks(Entity entity);
 }
