@@ -104,4 +104,16 @@ public class DataPlayer {
         this.damage = damage;
         return this;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return  "name     = " + this.name     + "\n" 
+                + "life     = " + this.life     + "\n" 
+                + "speed    = " + this.speed    + "\n" 
+                + "damage   = " + this.damage   + "\n" 
+                + "tearRate = " + this.tearRate + "\n";
+    }
 }

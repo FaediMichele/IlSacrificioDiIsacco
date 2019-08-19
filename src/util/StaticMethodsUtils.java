@@ -23,6 +23,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import model.enumeration.BasicPlayerEnum;
 import model.enumeration.PlayerEnum;
 import model.util.DataPlayer;
 
@@ -314,22 +316,35 @@ public final class StaticMethodsUtils {
 
     /**
      * 
-     * @param plEnu is enumeration which corresponds to a specific player.
      * @param pathXml path of file XML where the player data is.
      * @return {@link DataPlayer} of player.
      */
-    public static DataPlayer enumFromXmlToDataPlayer(final PlayerEnum plEnu, final String pathXml) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static Map<PlayerEnum, DataPlayer> enumFromXmlToDataPlayer(final String pathXml) {
         final Document xml = StaticMethodsUtils.getDocumentXML(pathXml);
         final Node nodeRoot = xml.getElementsByTagName("Entity").item(0);
+        final NodeList playersNode = nodeRoot.getChildNodes();
         final String pathEnum = nodeRoot.getAttributes().getNamedItem("path-enum").getTextContent();
-        final String tagEntity = plEnu.getValue().substring(pathEnum.length() + 1);
-        final Node node = xml.getElementsByTagName(tagEntity).item(0);
-        return new DataPlayer()
-                .setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
-                .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
-                .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
-                .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
-
+        final Map<PlayerEnum, DataPlayer> mapReturn = new HashMap<PlayerEnum, DataPlayer>();
+        for (int i = 1; i < playersNode.getLength(); i = i + 2) {
+            Enum<? extends PlayerEnum> playerEnum = BasicPlayerEnum.ISAAC;
+            PlayerEnum playerName = BasicPlayerEnum.ISAAC;
+            try {
+                playerEnum = Enum.valueOf((Class<Enum>) Class.forName(pathEnum), playersNode.item(i).getNodeName());
+                playerName = (PlayerEnum) Enum.valueOf((Class<Enum>) Class.forName(pathEnum), playersNode.item(i).getNodeName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            final Node node = xml.getElementsByTagName(playerEnum.name()).item(0);
+            final DataPlayer dataPlayer = new DataPlayer()
+                                                .setName(playerName)
+                                                .setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
+                                                .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
+                                                .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
+                                                .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
+            mapReturn.put(playerName, dataPlayer);
+        }
+        return mapReturn;
     }
 
     /**

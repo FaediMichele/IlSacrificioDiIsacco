@@ -33,9 +33,10 @@ public class TestModel {
 
     /**
      * test for mentality and damage.
+     * @throws ClassNotFoundException 
      */
         @Test
-      public void testMentality() {
+      public void testMentality() throws ClassNotFoundException {
           final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
           final Player player1 = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.CAIN);
           final GaperEnemy enemy = new GaperEnemy();
@@ -66,9 +67,10 @@ public class TestModel {
 
       /**
        * Test for collectible entities.
+     * @throws ClassNotFoundException 
        */
       @Test
-      public void testPickupableCollectable() {
+      public void testPickupableCollectable() throws ClassNotFoundException {
           final Room room = new RoomImpl(0, 100, 100);
           final GaperEnemy enemy = new GaperEnemy();
           final Player player = FactoryPlayersUtils.getPlayer(BasicPlayerEnum.ISAAC);
@@ -100,6 +102,21 @@ public class TestModel {
           assertTrue("Check if the life of the player has risen", life < player.getComponent(PlayerHealthComponent.class).get().getLife());
           player.postEvent(new DamageEvent(enemy, 3));
           assertTrue("Check black heart damage enemies", lifeEnemy > enemy.getComponent(EnemyHealthComponent.class).get().getLife());
+      }
+
+      /**
+       * Testing for load data player from file XML with a {@link PlayerEnum}.
+     * @throws ClassNotFoundException 
+       */
+      @Test
+      public void testDataPlayerToXml() throws ClassNotFoundException {
+          final String dataPlayerIsac = "name     = " + "ISAAC"     + "\n" 
+                                  + "life     = " + "3.5" + "\n" 
+                                  + "speed    = " + "1.8" + "\n" 
+                                  + "damage   = " + "1.0" + "\n" 
+                                  + "tearRate = " + "200.0" + "\n";
+          assertEquals(dataPlayerIsac, FactoryPlayersUtils.getDataPlayer(BasicPlayerEnum.ISAAC).toString(), 
+                                      "Verify that the correct DataPlayer is returned");
       }
 //
 //    private Room buildedRoom;
