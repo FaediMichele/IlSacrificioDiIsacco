@@ -21,7 +21,7 @@ public class FlyView extends AbstractEntityView {
 
     static {
         try {
-            final BufferedImage img = ImageIO.read(FlyView.class.getResource("/gameImgs/monster_010_fly_hush_2.png"));
+            final BufferedImage img = ImageIO.read(FlyView.class.getResourceAsStream("/gameImgs/monster_010_fly_hush_2.png"));
             final int deltaFly = 32;
             final int explodingSpritesNumber = 11;
             flySprite = (new SpritesExtractor(img, 2, 1, 1, deltaFly, deltaFly)).extract();

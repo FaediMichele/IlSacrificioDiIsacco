@@ -19,7 +19,7 @@ public class KeyView extends AbstractEntityView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(KeyView.class.getResource("/gameImgs/pickup_003_key.png"));
+            img = ImageIO.read(KeyView.class.getResourceAsStream("/gameImgs/pickup_003_key.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

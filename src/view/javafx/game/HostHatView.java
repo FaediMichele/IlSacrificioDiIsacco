@@ -1,9 +1,7 @@
 package view.javafx.game;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -21,10 +19,9 @@ public class HostHatView extends AbstractEntityView {
 
     static {
         try {
-            final BufferedImage image = ImageIO.read(
-                    new File(HostHatView.class.getResource("/gameImgs/upgradesImgs/collectibles_375_hosthat.png").toURI()));
+            final BufferedImage image = ImageIO.read(HostHatView.class.getResourceAsStream("/gameImgs/upgradesImgs/collectibles_375_hosthat.png"));
             img = SwingFXUtils.toFXImage(image, null);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

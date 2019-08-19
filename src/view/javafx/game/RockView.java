@@ -20,7 +20,7 @@ public class RockView extends AbstractEntityView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(RockView.class.getResource("/gameImgs/rocks_basement.png"));
+            img = ImageIO.read(RockView.class.getResourceAsStream("/gameImgs/rocks_basement.png"));
             final int delta = 32;
             rockSprites = (new SpritesExtractor(img, 3, 1, 1, delta, delta)).extract();
         } catch (IOException e) {

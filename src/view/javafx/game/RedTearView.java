@@ -19,7 +19,7 @@ public class RedTearView extends AbstractTearView {
     static {
         BufferedImage img = null;
          try {
-            img = ImageIO.read(BlueTearView.class.getResource("/gameImgs/tears.png"));
+            img = ImageIO.read(BlueTearView.class.getResourceAsStream("/gameImgs/tears.png"));
         } catch (IOException e) {
            e.printStackTrace();
         }

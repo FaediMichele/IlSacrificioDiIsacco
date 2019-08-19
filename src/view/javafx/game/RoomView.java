@@ -20,7 +20,7 @@ public class RoomView {
      * @throws IOException 
      */
     public RoomView(final String path) throws IOException {
-        final BufferedImage img = ImageIO.read(RoomView.class.getResource(path));
+        final BufferedImage img = ImageIO.read(RoomView.class.getResourceAsStream(path));
         this.imageRoom = SwingFXUtils.toFXImage(img, null);
     }
 
@@ -29,7 +29,7 @@ public class RoomView {
      * @throws IOException 
      */
     public RoomView() throws IOException {
-        final BufferedImage img = ImageIO.read(RoomView.class.getResource(PATH_DEFOULT_ROOM));
+        final BufferedImage img = ImageIO.read(RoomView.class.getResourceAsStream(PATH_DEFOULT_ROOM));
         this.imageRoom = SwingFXUtils.toFXImage(img, null);
     }
     /**

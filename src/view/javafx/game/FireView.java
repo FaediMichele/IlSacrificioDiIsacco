@@ -53,21 +53,21 @@ public class FireView extends AbstractEntityView {
     private Image fire;
 
     private static List<Image> getFires(final String firePath) throws IOException {
-        final BufferedImage fireSheet = ImageIO.read(FireView.class.getResource(firePath));
+        final BufferedImage fireSheet = ImageIO.read(FireView.class.getResourceAsStream(firePath));
         final int delta = 48;
         final int fires = 6;
         return (new SpritesExtractor(fireSheet, fires, 1, fires, delta, delta)).extract();
     }
 
     private static List<Image> getDyingFires(final String firePath) throws IOException {
-        final BufferedImage fireSheet = ImageIO.read(FireView.class.getResource(firePath));
+        final BufferedImage fireSheet = ImageIO.read(FireView.class.getResourceAsStream(firePath));
         final int delta = 48;
         final int fires = 6;
         return (new SpritesExtractor(fireSheet, fires + 1, 1, fires + 1, delta, delta, 0, delta)).extract();
     }
 
     private static List<Image> getFireGrids(final String fireGridPath) throws IOException {
-        final BufferedImage fireGridSheet = ImageIO.read(FireView.class.getResource(fireGridPath));
+        final BufferedImage fireGridSheet = ImageIO.read(FireView.class.getResourceAsStream(fireGridPath));
         final int deltaGrid = 32;
         final int grids = 4;
         return new SpritesExtractor(fireGridSheet, grids, 2, 2, deltaGrid, deltaGrid).extract();

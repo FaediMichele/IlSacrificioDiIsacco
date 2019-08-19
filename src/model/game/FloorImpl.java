@@ -88,12 +88,12 @@ public class FloorImpl implements Floor {
                 docXML.getElementsByTagName(floorName).item(0).getAttributes().getNamedItem("MaxRoom").getNodeValue());
         this.rooms = new ArrayList<>();
         generateRooms();
-        Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
+        final Optional<Node> node = ls.stream().filter(n -> n.getNodeName().equals("Rooms")).findFirst();
         if (!node.isPresent()) {
             throw new IllegalStateException("tag Rooms not found");
         }
         this.activeRoomIndex = 0;
-        final Random rnd = new Random();
+
         final Optional<Node> nodeBoss = ls.stream().filter(n -> n.getNodeName().equals("Boss")).findFirst();
         if (!nodeBoss.isPresent()) {
             throw new IllegalStateException("tag Boss not found");
@@ -102,6 +102,7 @@ public class FloorImpl implements Floor {
         if (!nodeTreasure.isPresent()) {
             throw new IllegalStateException("tag Treasure not found");
         }
+        final Random rnd = new Random();
         final Pair<Integer, Integer> specialRooms = addGenericRooms(node.get(), rnd);
         addSpecialRoom(nodeBoss.get(), rnd, specialRooms.getX());
         addSpecialRoom(nodeTreasure.get(), rnd, specialRooms.getY());

@@ -21,7 +21,7 @@ public class MonstroView extends AbstractEntityView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(MonstroView.class.getResource("/gameImgs/boss_004_monstro.png"));
+            img = ImageIO.read(MonstroView.class.getResourceAsStream("/gameImgs/boss_004_monstro.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

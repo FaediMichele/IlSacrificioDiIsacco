@@ -1,9 +1,7 @@
 package view.javafx.game;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -22,10 +20,9 @@ public class MawOfTheVoidView extends AbstractEntityView {
 
     static {
         try {
-            final BufferedImage image = ImageIO.read(
-                    new File(MawOfTheVoidView.class.getResource("/gameImgs/upgradesImgs/collectibles_399_mawofthevoid.png").toURI()));
+            final BufferedImage image = ImageIO.read(MawOfTheVoidView.class.getResourceAsStream("/gameImgs/upgradesImgs/collectibles_399_mawofthevoid.png"));
             img = SwingFXUtils.toFXImage(image, null);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

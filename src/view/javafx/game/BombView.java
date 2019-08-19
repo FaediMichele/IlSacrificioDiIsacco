@@ -32,12 +32,12 @@ public class BombView extends AbstractEntityView {
             final int delta = 20;
             final int deltaY = 22;
             final int x = 6;
-            bombSprite = (new SpritesExtractor(ImageIO.read(BombView.class.getResource("/gameImgs/bomba1.png")), 1, 1, 1, delta, deltaY, x, 4)).extract().get(0);
+            bombSprite = (new SpritesExtractor(ImageIO.read(BombView.class.getResourceAsStream("/gameImgs/bomba1.png")), 1, 1, 1, delta, deltaY, x, 4)).extract().get(0);
             triggeredBombSprite = new ArrayList<>();
             triggeredBombSprite.add(bombSprite);
-            triggeredBombSprite.add(SwingFXUtils.toFXImage(ImageIO.read(BombView.class.getResource("/gameImgs/bomba2.png")), null));
+            triggeredBombSprite.add(SwingFXUtils.toFXImage(ImageIO.read(BombView.class.getResourceAsStream("/gameImgs/bomba2.png")), null));
 
-            final BufferedImage img = ImageIO.read(BombView.class.getResource("/gameImgs/effect_029_explosion.png"));
+            final BufferedImage img = ImageIO.read(BombView.class.getResourceAsStream("/gameImgs/effect_029_explosion.png"));
             final int deltaExplosions = 96;
             final int explosions = 16;
             final int cols = 4;

@@ -18,7 +18,7 @@ public class RedHeartView extends AbstractHeartView {
     static {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(BlackHeartView.class.getResource("/gameImgs/pickup_001_heart.png"));
+            img = ImageIO.read(BlackHeartView.class.getResourceAsStream("/gameImgs/pickup_001_heart.png"));
             final int delta = 30;
             simpleHeart = SwingFXUtils.toFXImage(img.getSubimage(0, 0, delta, delta), null);
             halfSimpleHeart = SwingFXUtils.toFXImage(img.getSubimage(delta + 2, 0, delta, delta), null);

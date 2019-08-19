@@ -34,7 +34,7 @@ public class PlayerSpritesExtractor {
     public PlayerSpritesExtractor(final String path) {
         BufferedImage imgTmp = null;
         try {
-            imgTmp = ImageIO.read(PlayerSpritesExtractor.class.getResource(path));
+            imgTmp = ImageIO.read(PlayerSpritesExtractor.class.getResourceAsStream(path));
         } catch (IOException e) {
             e.printStackTrace();
         }

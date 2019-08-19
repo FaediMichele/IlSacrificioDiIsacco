@@ -24,7 +24,7 @@ public abstract class AbstractInventoryStatisticView extends AbstractStatisticVi
     static {
         BufferedImage img;
         try {
-            img = ImageIO.read(MonstroView.class.getResource("/gameImgs/font.png"));
+            img = ImageIO.read(MonstroView.class.getResourceAsStream("/gameImgs/font.png"));
             AbstractInventoryStatisticView.initNumbers(img);
         } catch (IOException e) {
             e.printStackTrace();

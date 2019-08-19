@@ -1,9 +1,7 @@
 package view.javafx.game;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -21,10 +19,9 @@ public class StickyBombsView extends AbstractEntityView {
 
     static {
         try {
-            final BufferedImage image = ImageIO.read(
-                    new File(StickyBombsView.class.getResource("/gameImgs/upgradesImgs/collectibles_367_stickybombs.png").toURI()));
+            final BufferedImage image = ImageIO.read(StickyBombsView.class.getResourceAsStream("/gameImgs/upgradesImgs/collectibles_367_stickybombs.png"));
             img = SwingFXUtils.toFXImage(image, null);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

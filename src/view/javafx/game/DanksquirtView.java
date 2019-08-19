@@ -29,7 +29,7 @@ public class DanksquirtView extends AbstractEntityView {
     static {
         BufferedImage img;
         try {
-            img = ImageIO.read(DanksquirtView.class.getResource("/gameImgs/220.001_danksquirt.png"));
+            img = ImageIO.read(DanksquirtView.class.getResourceAsStream("/gameImgs/220.001_danksquirt.png"));
             final int delta = 64;
             final int danksquirts = 5;
             danksquirtSprite = (new SpritesExtractor(img, danksquirts, 2, 3, delta, delta)).extract();

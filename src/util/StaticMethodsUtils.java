@@ -2,12 +2,10 @@ package util;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -165,17 +163,15 @@ public final class StaticMethodsUtils {
      * @return {@link Document}
      */
     public static Document getDocumentXML(final String filePath) {
-        File file;
         final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder;
         Document document;
         try {
-            file = new File(Object.class.getResource(filePath).toURI());
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            document = documentBuilder.parse(file);
+            document = documentBuilder.parse(Object.class.getResourceAsStream(filePath));
             document.normalize();
             return document;
-        } catch (ParserConfigurationException | SAXException | IOException | URISyntaxException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return null;

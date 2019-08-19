@@ -28,7 +28,7 @@ public class DoorView extends AbstractEntityView {
 
     static {
         try {
-            final BufferedImage img = ImageIO.read(DoorView.class.getResource("/gameImgs/door.png"));
+            final BufferedImage img = ImageIO.read(DoorView.class.getResourceAsStream("/gameImgs/door.png"));
             BufferedImage imgRight = StaticMethodsUtils.rotateImageBy90Degrees(img);
             BufferedImage imgDown = StaticMethodsUtils.rotateImageBy90Degrees(imgRight);
             BufferedImage imgLeft = StaticMethodsUtils.rotateImageBy90Degrees(imgDown);
@@ -38,7 +38,7 @@ public class DoorView extends AbstractEntityView {
             DOOR_OPEN.put(BasicMovementEnum.DOWN, SwingFXUtils.toFXImage(imgDown, null));
             DOOR_OPEN.put(BasicMovementEnum.LEFT, SwingFXUtils.toFXImage(imgLeft, null));
 
-            final BufferedImage imgLocked = ImageIO.read(DoorView.class.getResource("/gameImgs/door_locked.png"));
+            final BufferedImage imgLocked = ImageIO.read(DoorView.class.getResourceAsStream("/gameImgs/door_locked.png"));
             imgRight = StaticMethodsUtils.rotateImageBy90Degrees(imgLocked);
             imgDown = StaticMethodsUtils.rotateImageBy90Degrees(imgRight);
             imgLeft = StaticMethodsUtils.rotateImageBy90Degrees(imgDown);
@@ -48,7 +48,7 @@ public class DoorView extends AbstractEntityView {
             DOOR_LOCKED.put(BasicMovementEnum.DOWN, SwingFXUtils.toFXImage(imgDown, null));
             DOOR_LOCKED.put(BasicMovementEnum.LEFT, SwingFXUtils.toFXImage(imgLeft, null));
 
-            final BufferedImage imgClosed = ImageIO.read(DoorView.class.getResource("/gameImgs/door_closed.png"));
+            final BufferedImage imgClosed = ImageIO.read(DoorView.class.getResourceAsStream("/gameImgs/door_closed.png"));
             imgRight = StaticMethodsUtils.rotateImageBy90Degrees(imgClosed);
             imgDown = StaticMethodsUtils.rotateImageBy90Degrees(imgRight);
             imgLeft = StaticMethodsUtils.rotateImageBy90Degrees(imgDown);
