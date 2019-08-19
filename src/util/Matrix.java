@@ -24,11 +24,11 @@ public class Matrix<T> {
     public Matrix(final int dimX, final int dimY, final T defaultValue) {
         this.dimX = dimX;
         this.dimY = dimY;
-        mat = new Object[dimX][dimY];
+        mat = new Object[dimY][dimX];
         if (defaultValue != null) {
             for (int i = 0; i < dimX; i++) {
                 for (int j = 0; j < dimY; j++) {
-                    mat[i][j] = defaultValue;
+                    mat[j][i] = defaultValue;
                 }
             }
         }
@@ -43,10 +43,10 @@ public class Matrix<T> {
     public Matrix(final int dimX, final int dimY) {
         this.dimX = dimX;
         this.dimY = dimY;
-        mat = new Object[dimX][dimY];
+        mat = new Object[dimY][dimX];
         for (int i = 0; i < dimX; i++) {
             for (int j = 0; j < dimY; j++) {
-                mat[i][j] = null;
+                mat[j][i] = null;
             }
         }
     }
@@ -54,28 +54,28 @@ public class Matrix<T> {
     /**
      * Get an element to a position.
      * 
-     * @param posX Row index
-     * @param posY Columns index
+     * @param posX Columns index
+     * @param posY Row index
      * @return <T> element
      */
     @SuppressWarnings("unchecked")
     public T get(final int posX, final int posY) {
         lastX = posX;
         lastY = posY;
-        return (T) mat[posX][posY];
+        return (T) mat[posY][posX];
     }
 
     /**
      * Set an element to a position.
      * 
-     * @param posX    Row index
-     * @param posY    Column index
+     * @param posX    Column index
+     * @param posY    Row index
      * @param element element to set
      */
     public void set(final int posX, final int posY, final T element) {
         lastX = posX;
         lastY = posY;
-        mat[posX][posY] = element;
+        mat[posY][posX] = element;
     }
 
     /**
@@ -88,7 +88,7 @@ public class Matrix<T> {
         for (int i = 0; i < dimX; i++) {
             for (int j = 0; j < dimY; j++) {
                 if (p.test((T) mat[i][j])) {
-                    mat[i][j] = element;
+                    mat[j][i] = element;
                 }
             }
         }
@@ -101,7 +101,7 @@ public class Matrix<T> {
     @SuppressWarnings("unchecked")
     public T getLast() {
         if (lastX >= 0 && lastY >= 0) {
-            return (T) mat[lastX][lastY];
+            return (T) mat[lastY][lastX];
         }
         return null;
     }
@@ -128,8 +128,8 @@ public class Matrix<T> {
      * Print the matrix in the default out.
      */
     public void test() {
-        for (int i = 0; i < dimX; i++) {
-            for (int j = 0; j < dimY; j++) {
+        for (int j = dimY - 1; j >= 0; j--) {
+            for (int i = 0; i < dimX; i++) {
                 System.out.print((get(i, j) != null ? get(i, j) + " " : "[]") + " ");
             }
             System.out.println();

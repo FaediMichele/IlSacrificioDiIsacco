@@ -100,7 +100,6 @@ public class GameSelectionViewImpl implements GameSelectionView {
             fd.playFromStart();
         } else {
             characterSelected.play();
-            System.out.println("PLAYING");
         }
     }
 

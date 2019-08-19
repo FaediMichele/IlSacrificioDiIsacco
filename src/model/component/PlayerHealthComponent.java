@@ -36,7 +36,7 @@ public class PlayerHealthComponent extends AbstractComponent {
      */
     public PlayerHealthComponent(final Entity entity, final double defaultHearts) {
         super(entity);
-        this.time = 1000;
+        this.time = TIME_NO_DAMAGE;
         final int realHeartNumber = Math.min((int) Math.floor(defaultHearts), MAX_HEARTS);
         this.hearts = new LinkedList<Heart>(Stream.iterate(0, i -> i + 1)
                 .limit(realHeartNumber)
@@ -77,6 +77,9 @@ public class PlayerHealthComponent extends AbstractComponent {
     public void update(final Double deltaTime) {
         super.update(deltaTime);
         this.time += deltaTime;
+        if (time < TIME_NO_DAMAGE) {
+            this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
+        }
     }
     /**
      * Default PlayerHealthComponent constructor.

@@ -110,7 +110,6 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
     @Override
     public void selectSelection(final boolean previous) {
         if (previous) {
-            System.out.println("previouse");
             fd.setToValue(0);
             fd.playFromStart();
             backgroundAudioIntro.stop();
@@ -119,7 +118,6 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
             fd.setToValue(1);
             fd.playFromStart();
             backgroundAudioIntro.play();
-            System.out.println("not previouse");
         }
     }
 

@@ -12,7 +12,10 @@ import util.EventListener;
  * The life for the enemy.
  */
 public class EnemyHealthComponent extends AbstractComponent {
+    private static final int TIMESUFFERING = 1000;
     private double life;
+    private boolean suffering;
+    private int time = 0;
 
     /**
      * Component for the life of the enemy.
@@ -23,6 +26,24 @@ public class EnemyHealthComponent extends AbstractComponent {
         super(entity);
         this.life = life;
         this.registListener();
+        suffering = false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final Double deltaTime) {
+        super.update(deltaTime);
+        time += deltaTime;
+        if (suffering) {
+            if (time < TIMESUFFERING) {
+                this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
+            } else {
+                time = 0;
+                suffering = false;
+            }
+        }
     }
 
     private void registListener() {
@@ -78,6 +99,7 @@ public class EnemyHealthComponent extends AbstractComponent {
             this.getEntity().postEvent(new DeadEvent(this.getEntity()));
         } else {
             this.getEntity().getStatusComponent().setStatus(BasicStatusEnum.DAMAGING);
+            suffering = true;
         }
     }
 }

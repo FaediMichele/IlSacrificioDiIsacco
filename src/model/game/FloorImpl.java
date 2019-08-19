@@ -192,7 +192,7 @@ public class FloorImpl implements Floor {
         while (n < nRooms) {
             direction = rnd.nextInt(4); // 0, 1, 2, 3
             directionCounted = 0;
-            while (!canGoDirection(m, position, direction) && directionCounted < 3) {
+            while (canGoDirection(m, position, direction) && directionCounted < 3) {
                 direction = (direction + 1) % 4;
                 directionCounted++;
             }
@@ -209,16 +209,16 @@ public class FloorImpl implements Floor {
 
     private Room generateEmptyRoom(final Matrix<Integer> map, final Pair<Integer, Integer> position, final int index) {
         final List<Door> doors = new ArrayList<>();
-        if (!canGoDirection(map, position, 0)) {
+        if (canGoDirection(map, position, 0)) {
             doors.add(new Door(BasicMovementEnum.UP, index, map.get(position.getX(), position.getY() + 1), ROOMSIZE));
         }
-        if (!canGoDirection(map, position, 1)) {
+        if (canGoDirection(map, position, 1)) {
             doors.add(new Door(BasicMovementEnum.RIGHT, index, map.get(position.getX() + 1, position.getY()), ROOMSIZE));
         }
-        if (!canGoDirection(map, position, 2)) {
+        if (canGoDirection(map, position, 2)) {
             doors.add(new Door(BasicMovementEnum.DOWN, index, map.get(position.getX(), position.getY() - 1), ROOMSIZE));
         }
-        if (!canGoDirection(map, position, 3)) {
+        if (canGoDirection(map, position, 3)) {
             doors.add(new Door(BasicMovementEnum.LEFT, index, map.get(position.getX() - 1, position.getY()), ROOMSIZE));
         }
         if (doors.isEmpty()) {
@@ -239,19 +239,19 @@ public class FloorImpl implements Floor {
         if (direction == 0) { // NORD.
             return position.getY() > -1
                     && position.getY() + 1 < m.getHeight() - 1
-                    && m.get(position.getX(), position.getY() + 1) == null;
+                    && m.get(position.getX(), position.getY() + 1) != null;
         } else if (direction == 1) { // EAST.
             return position.getX() + 1 > 0
                     && position.getX() + 1 < m.getWidth() - 1
-                    && m.get(position.getX() + 1, position.getY()) == null;
+                    && m.get(position.getX() + 1, position.getY()) != null;
         } else if (direction == 2) { // SOUTH.
             return position.getY() > 2
                     && position.getY() - 1 < m.getHeight() 
-                    && m.get(position.getX(), position.getY() - 1) == null;
+                    && m.get(position.getX(), position.getY() - 1) != null;
         } else if (direction == 3) { // WEST.
             return position.getX() > 2
                     && position.getX() - 1 < m.getWidth()
-                    && m.get(position.getX() - 1, position.getY()) == null;
+                    && m.get(position.getX() - 1, position.getY()) != null;
         } else {
             throw new IllegalStateException();
         }
