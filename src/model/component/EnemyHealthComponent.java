@@ -15,7 +15,7 @@ public class EnemyHealthComponent extends AbstractComponent {
     private static final int TIMESUFFERING = 1000;
     private double life;
     private boolean suffering;
-    private int time = 0;
+    private int time;
 
     /**
      * Component for the life of the enemy.
@@ -27,6 +27,7 @@ public class EnemyHealthComponent extends AbstractComponent {
         this.life = life;
         this.registListener();
         suffering = false;
+        time = 0;
     }
 
     /**

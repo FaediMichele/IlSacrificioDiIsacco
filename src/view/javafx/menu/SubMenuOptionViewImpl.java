@@ -22,7 +22,7 @@ import view.node.javafx.TwoStateNodeJavafx;
 public class SubMenuOptionViewImpl implements SubMenuOptionView {
     private static final double VOLUMEINCREASE = 0.1;
     private static final String PANE = "pnOption";
-    private static final String BACKGROUND = "/menuImgs/optionsMenuBackground.png";
+    private static final String BACKGROUND = "/menuImgs/optionsMenuBackGround.png";
     private static final String ARROW = "/menuImgs/selectorInverse.png";
     private static final String ON = "/menuImgs/on.png";
     private static final String OFF = "/menuImgs/off.png";
@@ -38,7 +38,8 @@ public class SubMenuOptionViewImpl implements SubMenuOptionView {
      * @param args
      */
     public SubMenuOptionViewImpl() {
-        ViewGetterUtil.getNodeByName("imgOptionBackGround", ImageView.class).setImage(new Image(BACKGROUND));
+        final ImageView imgBackGround = ViewGetterUtil.getNodeByName("imgOptionBackGround", ImageView.class);
+        imgBackGround.setImage(new Image(BACKGROUND));
         fullScreen = ViewGetterUtil.getNodeByName("imgFullScreen", ImageView.class);
         effect = ViewGetterUtil.getNodeByName("prgVolumeEffect", ProgressBar.class);
         music = ViewGetterUtil.getNodeByName("prgVolumeMusic", ProgressBar.class);

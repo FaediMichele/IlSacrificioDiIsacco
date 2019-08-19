@@ -1,5 +1,6 @@
 package model.util;
 
+import model.enumeration.BasicPlayerEnum;
 import model.enumeration.PlayerEnum;
 
 /**
@@ -8,12 +9,27 @@ import model.enumeration.PlayerEnum;
  *
  */
 public class DataPlayer {
+    private static final double DEFLIFE = 3.0;
+    private static final double DEFSPEED = 1.2;
+    private static final double DEFDAMAGE = 2.0;
+    private static final double DEFTEARRATE = 6;
 
     private PlayerEnum name;
     private double life;
     private double speed;
     private double damage;
     private double tearRate;
+
+    /**
+     * Create empty data player. it will create isaac.
+     */
+    public DataPlayer() {
+        name = BasicPlayerEnum.ISAAC;
+        life = DEFLIFE;
+        speed = DEFSPEED;
+        damage = DEFDAMAGE;
+        tearRate = DEFTEARRATE;
+    }
 
     /**
      * 

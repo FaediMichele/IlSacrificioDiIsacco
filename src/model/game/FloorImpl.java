@@ -94,17 +94,17 @@ public class FloorImpl implements Floor {
         }
         this.activeRoomIndex = 0;
         final Random rnd = new Random();
-        final Pair<Integer, Integer> specialRooms = addGenericRooms(node.get(), rnd);
-        node = ls.stream().filter(n -> n.getNodeName().equals("Boss")).findFirst();
-        if (!node.isPresent()) {
+        final Optional<Node> nodeBoss = ls.stream().filter(n -> n.getNodeName().equals("Boss")).findFirst();
+        if (!nodeBoss.isPresent()) {
             throw new IllegalStateException("tag Boss not found");
         }
-        addSpecialRoom(node.get(), rnd, specialRooms.getX());
-        node = ls.stream().filter(n -> n.getNodeName().equals("Treasure")).findFirst();
-        if (!node.isPresent()) {
+        final Optional<Node> nodeTreasure = ls.stream().filter(n -> n.getNodeName().equals("Treasure")).findFirst();
+        if (!nodeTreasure.isPresent()) {
             throw new IllegalStateException("tag Treasure not found");
         }
-        addSpecialRoom(node.get(), rnd, specialRooms.getY());
+        final Pair<Integer, Integer> specialRooms = addGenericRooms(node.get(), rnd);
+        addSpecialRoom(nodeBoss.get(), rnd, specialRooms.getX());
+        addSpecialRoom(nodeTreasure.get(), rnd, specialRooms.getY());
         changedRoom = false;
     }
 

@@ -1,5 +1,5 @@
-//package test;
-//
+package test;
+
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //
 //import java.lang.reflect.InvocationTargetException;
@@ -16,14 +16,14 @@
 //import org.w3c.dom.NodeList;
 //
 //import util.StaticMethodsUtils;
-//
-///**
-// * 
-// * Test class for the decoder that translates the component status into mediums
-// * to be called in entities of the view.
-// *
-// */
-//public class TestDecoder {
+
+/**
+ * 
+ * Test class for the decoder that translates the component status into mediums
+ * to be called in entities of the view.
+ *
+ */
+public class TestDecoder {
 //    /**
 //     * Test for decoder.
 //     * 
@@ -89,4 +89,4 @@
 //        });
 //        return map;
 //    }
-//}
+}

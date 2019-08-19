@@ -15,16 +15,18 @@ import model.enumeration.PlayerEnum;
 import util.Command;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import controller.menu.CharacterInfo;
 import controller.menu.ConfigurationManager;
 
 import org.w3c.dom.Node;
-import java.io.File;
+import java.io.IOException;
 
 /**
  * The configuration manager for javafx.
@@ -44,12 +46,15 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
      */
     public ConfigurationManagerJavafx(final String path) {
         try {
-            final File xmlFile = new File(this.getClass().getResource(path).getFile());
             final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            this.doc = dBuilder.parse(xmlFile);
+            this.doc = dBuilder.parse(this.getClass().getResourceAsStream(path));
             this.doc.getDocumentElement().normalize();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
     }

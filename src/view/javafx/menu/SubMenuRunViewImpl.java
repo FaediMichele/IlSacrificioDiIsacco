@@ -21,8 +21,8 @@ import view.node.javafx.CircleListRandomJavafx;
  * Implementation view of the SubMenu of the run part of the main menu.
  */
 public class SubMenuRunViewImpl implements SubMenuRunView {
-    private static final Image RANDOM_IMAGE = new Image("/menuImgs/randomSpritePreview.png");
     private static final String BACKGROUND = "/menuImgs/characterMenuBackground.png";
+    private final Image randomImage = new Image("/menuImgs/randomSpritePreview.png");
     private Set<CharacterInfo> infos;
     private final Map<ImageView, CharacterInfo> mapInfos = new LinkedHashMap<>();
     private final ProgressBar prgLife;
@@ -60,7 +60,7 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
         damage = ViewGetterUtil.getNodeByName("imgDamage", ImageView.class);
         ViewGetterUtil.getNodeByName("imgRunBackground", ImageView.class).setImage(new Image(BACKGROUND));
 
-        random.setImage(RANDOM_IMAGE);
+        random.setImage(randomImage);
         list.rotateRight();
     }
 
@@ -137,7 +137,7 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
             heart.setVisible(false);
             speed.setVisible(false);
             damage.setVisible(false);
-            imgName.setImage((Image) RANDOM_IMAGE);
+            imgName.setImage((Image) randomImage);
         }
     }
 
