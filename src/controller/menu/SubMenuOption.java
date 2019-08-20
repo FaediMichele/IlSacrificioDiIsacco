@@ -17,7 +17,7 @@ public class SubMenuOption extends SubMenu {
      * Create a Sub menu option.
      * @param selector the selector.
      */
-    public SubMenuOption(final SubMenuSelection selector) {
+    public SubMenuOption(final MenuSelection<SubMenu> selector) {
         super(selector);
     }
 
@@ -39,8 +39,8 @@ public class SubMenuOption extends SubMenu {
         if (c.contains(Command.ARROW_RIGHT)) {
             smv.right();
         }
-        if (c.contains(Command.EXIT) && getSelector().contains(SubMenuGameMenu.class)) {
-            getSelector().selectSubMenu(SubMenuGameMenu.class);
+        if (c.contains(Command.EXIT) && getFather().contains(SubMenuGameMenu.class)) {
+            getFather().select(SubMenuGameMenu.class);
         }
     }
 
@@ -48,7 +48,7 @@ public class SubMenuOption extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
+    public void disownedChild() {
     }
 
     /**

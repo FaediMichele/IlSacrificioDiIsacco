@@ -6,9 +6,10 @@ import java.util.stream.Collectors;
 
 import controller.menu.ConfigurationManager;
 import controller.menu.GameSubMenuSelection;
+import controller.menu.InputMenu;
 import controller.menu.MainMenuSelection;
-import controller.menu.MenuSelection;
-import controller.menu.SubMenuSelection;
+import controller.menu.Root;
+import controller.menu.SubMenu;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -23,7 +24,7 @@ import view.javafx.menu.GameIntroJavafx;
 public class MenuControllerJavafx {
     private static final long TIME_MENU = 500;
 
-    private MenuSelection menu;
+    private Root menu;
     private final ConfigurationManager manager = new ConfigurationManagerJavafx("/config.ini");
     private final Set<KeyCode> keyPressed = new LinkedHashSet<>();
 
@@ -41,17 +42,19 @@ public class MenuControllerJavafx {
     public void start(final Scene s, final Stage stage) {
         ViewGetterUtil.setScene(s);
         ViewGetterUtil.setStage(stage);
-        menu = new MenuSelection(manager);
+        menu = new Root(manager);
         pnMainMenu.prefWidthProperty().bind(pnMain.widthProperty());
         pnMainMenu.prefHeightProperty().bind(pnMain.heightProperty());
         pnIntro.prefWidthProperty().bind(pnMain.widthProperty());
         pnIntro.prefHeightProperty().bind(pnMain.heightProperty());
         pnGame.prefWidthProperty().bind(pnMain.widthProperty());
         pnGame.prefHeightProperty().bind(pnMain.heightProperty());
-        final SubMenuSelection mainMenu = new MainMenuSelection(menu, TIME_MENU);
-        final SubMenuSelection intro = new GameIntroJavafx(menu, TIME_MENU);
-        final SubMenuSelection game = new GameSubMenuSelection(menu, TIME_MENU);
-        menu.add(mainMenu, intro, game);
+        final InputMenu<SubMenu> mainMenu = new MainMenuSelection(TIME_MENU);
+        final InputMenu<SubMenu> intro = new GameIntroJavafx(TIME_MENU);
+        final InputMenu<SubMenu> game = new GameSubMenuSelection(TIME_MENU);
+        menu.add(mainMenu);
+        menu.add(intro);
+        menu.add(game);
         menu.select(GameIntroJavafx.class);
         pnMain.focusedProperty().addListener(b -> {
             if (pnMain.isFocusTraversable()) {
@@ -60,13 +63,13 @@ public class MenuControllerJavafx {
         });
         s.setOnKeyPressed(k -> {
             keyPressed.add(k.getCode());
-            menu.get().input(keyPressed.stream().filter(key -> manager.getKeyMap().containsKey(key)).map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
+            menu.getSelected().input(keyPressed.stream().filter(key -> manager.getKeyMap().containsKey(key)).map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
         s.setOnKeyReleased(k -> {
             keyPressed.remove(k.getCode());
-            menu.get().input(keyPressed.stream().filter(key -> manager.getKeyMap().containsKey(key)).map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
+            menu.getSelected().input(keyPressed.stream().filter(key -> manager.getKeyMap().containsKey(key)).map(key -> manager.getKeyMap().get(key)).collect(Collectors.toSet()));
         });
-        stage.setOnCloseRequest(we -> menu.onClose());
+        stage.setOnCloseRequest(we -> menu.close());
         pnMain.requestFocus();
     }
 }

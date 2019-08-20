@@ -18,7 +18,7 @@ public class SubMenuWin extends SubMenu {
      * Initialize.
      * @param selector the selector.
      */
-    public SubMenuWin(final SubMenuSelection selector) {
+    public SubMenuWin(final MenuSelection<SubMenu> selector) {
         super(selector);
         smv = new SubMenuWinViewImpl(() -> goToMenu());
     }
@@ -27,8 +27,8 @@ public class SubMenuWin extends SubMenu {
      * {@inheritDoc}.
      */
     @Override
-    public void select() {
-        super.select();
+    public void selectChild() {
+        super.selectChild();
         startTime = System.nanoTime();
         smv.start();
     }
@@ -47,8 +47,8 @@ public class SubMenuWin extends SubMenu {
     }
 
     private void goToMenu() {
-        if (getSelector().getParent().contains(MainMenuSelection.class)) {
-            getSelector().getParent().select(MainMenuSelection.class);
+        if (getFather().getFather().get().contains(MainMenuSelection.class)) {
+            getFather().getFather().get().select(MainMenuSelection.class);
         }
     }
 
@@ -56,7 +56,7 @@ public class SubMenuWin extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
+    public void disownedChild() {
         smv.stop();
     }
 

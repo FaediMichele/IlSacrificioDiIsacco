@@ -1,108 +1,86 @@
 package controller.menu;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
- * Select the {@link SubMenuSelection}.
+ * Selection of child.
+ * Add child and select one by his class.
+ * Child with the same class will be overrided.
+ *  <p>
+ * @param <T> The type of children.
  */
-public class MenuSelection {
-    private final Map<Class<? extends SubMenuSelection>, SubMenuSelection> menus =
-            new LinkedHashMap<Class<? extends SubMenuSelection>, SubMenuSelection>();
-    private final ConfigurationManager manager;
-    private SubMenuSelection selected;
+public interface MenuSelection<T> {
+    /**
+     * Get all children as stream.
+     * @return a stream of child.
+     */
+    Stream<T> asStream();
+    /**
+     * Get the MenuSelection that contains this.
+     * @return father.
+     */
+    Optional<MenuSelection<?>> getFather();
 
     /**
-     * Set the manager of the configuration.
-     * @param manager {@link ConfigurationManager}.
+     * Get the selected child.
+     * @return the selected child.
      */
-    public MenuSelection(final ConfigurationManager manager) {
-        this.manager = manager;
-    }
+    T getSelected();
 
     /**
-     * Get the {@link ConfigurationManager}.
-     * @return the {@link ConfigurationManager}.
+     * Add children. they should have different class.
+     * Otherwise they will be override.
+     * @param children the children to add.
      */
-    public ConfigurationManager getConfiguration() {
-        return manager;
-    }
+    void add(T children);
 
     /**
-     * Get the selected {@link SubMenuSelection}.
-     * @return the selected {@link SubMenuSelection}.
+     * Know if the menu contains a child.
+     * @param possibleChild the child to search.
+     * @return true if present.
      */
-    public SubMenuSelection get() {
-        return selected;
-    }
+    boolean contains(Class<?> possibleChild);
 
     /**
-     * Get a set representing the sub menu contained.
-     * @return a {@link LinkedHashSet}.
+     * Remove child.
+     * @param disowneds The child to remove.
      */
-    public Set<SubMenuSelection> asSet() {
-        return new LinkedHashSet<SubMenuSelection>(menus.values());
-    }
+    void remove(Class<? extends T> disowneds);
 
     /**
-     * Add as many {@link SubMenuSelection} as you want.
-     * @param menus the {@link SubMenuSelection} to add.
+     * Select a child.
+     * @param child the child to select.
      */
-    public void add(final SubMenuSelection... menus) {
-        for (int i = 0; i < menus.length; i++) {
-            this.menus.put(menus[i].getClass(), menus[i]);
-        }
-        if (selected == null && menus.length > 0) {
-            selected = menus[0];
-        }
+    default void select(Class<?> child) {
+        select(child, null);
     }
 
     /**
-     * Return true if the argument is present.
-     * @param s the {@link SubMenuSelection} to verify if is used.
-     * @return true or false.
+     * Select a child.
+     * @param child the child to select.
+     * @param param generic parameter.
      */
-    public boolean contains(final Class<? extends SubMenuSelection> s) {
-        return menus.containsKey(s);
-    }
+    void select(Class<?> child, Object param);
+    /**
+     * Perform the operation to release all data.
+     * When the application ends.
+     */
+    void close();
 
     /**
-     * Change the selected {@link SubMenuSelection}.
-     * @param s the {@link SubMenuSelection} to select.
-     * @param param object to pass to the sub menu selection.
+     * Operation made when the child is selected.
+     * @param previous the last child.
+     * @param next the next child.
+     * @param param generic parameter
      */
-    public void select(final Class<? extends SubMenuSelection> s, final Object param) {
-        if (menus.containsKey(s)) {
-            final SubMenuSelection sms = menus.get(s);
-            goTo(selected.getClass(), s, param);
-            selected = sms;
-        } else {
-            throw new IllegalArgumentException("SubMenuSelection not found");
-        }
-    }
+    void changedChild(T previous, T next, Object param);
 
     /**
-     * Change the selected {@link SubMenuSelection}.
-     * @param s the {@link SubMenuSelection} to select.
+     * Operation made when the grandfather change the selected.
+     * @param previous the previous father
+     * @param next the next father.
+     * @param param generic parameter.
      */
-    public void select(final Class<? extends SubMenuSelection> s) {
-        select(s, null);
-    }
-
-    /**
-     * Operation to do in order to close the application.
-     */
-    public void onClose() {
-        menus.values().forEach(s -> s.close());
-    }
-
-    private void goTo(final Class<? extends SubMenuSelection> start, final Class<? extends SubMenuSelection> end, final Object param) {
-        Objects.requireNonNull(menus.get(start));
-        Objects.requireNonNull(menus.get(end));
-        menus.get(start).selectMenu(menus.get(start), menus.get(end), param);
-        menus.get(end).selectMenu(menus.get(start), menus.get(end), param);
-    }
+    void fatherChanged(MenuSelection<?> previous, MenuSelection<?> next, Object param);
 }

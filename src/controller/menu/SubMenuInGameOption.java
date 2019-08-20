@@ -22,7 +22,7 @@ public class SubMenuInGameOption extends SubMenu {
      * @param selector the Selector .
      * @param c the Game controller
      */
-    public SubMenuInGameOption(final SubMenuSelection selector, final SubMenuGame c) {
+    public SubMenuInGameOption(final MenuSelection<SubMenu> selector, final SubMenuGame c) {
         super(selector);
         smo = new SubMenuInGameOptionViewImpl(continuePlayingLambda, backToMenuLambda);
         this.c = c;
@@ -43,13 +43,13 @@ public class SubMenuInGameOption extends SubMenu {
 
     private void backToGame() {
         c.getGameController().resume();
-        if (getSelector().contains(SubMenuGame.class)) {
-            getSelector().selectSubMenu(SubMenuGame.class);
+        if (getFather().contains(SubMenuGame.class)) {
+            getFather().select(SubMenuGame.class);
         }
     }
     private void backToMenu() {
-        if (getSelector().getParent().contains(MainMenuSelection.class)) {
-            getSelector().getParent().select(MainMenuSelection.class);
+        if (getFather().getFather().get().contains(MainMenuSelection.class)) {
+            getFather().getFather().get().select(MainMenuSelection.class);
         }
     }
 
@@ -58,7 +58,7 @@ public class SubMenuInGameOption extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
+    public void disownedChild() {
         smo.reset();
     }
 

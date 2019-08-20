@@ -18,7 +18,7 @@ public class SubMenuGameMenu extends SubMenu {
      * Create the menu to choose the options or new run.
      * @param selector the {@link SubMenuSelection}.
      */
-    public SubMenuGameMenu(final SubMenuSelection selector) {
+    public SubMenuGameMenu(final MenuSelection<SubMenu> selector) {
         super(selector); 
         mgv = new SubMenuSelectMenuViewImpl(ARGS);
     }
@@ -45,22 +45,22 @@ public class SubMenuGameMenu extends SubMenu {
     }
 
     private void enter() {
-        if (mgv.get().equals(ARGS[0]) && getSelector().contains(SubMenuRun.class)) {
-            getSelector().selectSubMenu(SubMenuRun.class);
+        if (mgv.get().equals(ARGS[0]) && getFather().contains(SubMenuRun.class)) {
+            getFather().select(SubMenuRun.class);
         }
-        if (mgv.get().equals(ARGS[1]) && getSelector().contains(SubMenuOption.class)) {
-            getSelector().selectSubMenu(SubMenuOption.class);
+        if (mgv.get().equals(ARGS[1]) && getFather().contains(SubMenuOption.class)) {
+            getFather().select(SubMenuOption.class);
         }
     }
 
     private void exit() {
-        if (getSelector().contains(SubMenuEnter.class)) {
-            getSelector().selectSubMenu(SubMenuEnter.class);
+        if (getFather().contains(SubMenuEnter.class)) {
+            getFather().select(SubMenuEnter.class);
         }
     }
 
     @Override
-    public final void reset() {
+    public final void disownedChild() {
         mgv.initial();
     }
 

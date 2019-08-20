@@ -20,26 +20,26 @@ public class SubMenuEnter extends SubMenu {
      * Create the entering menu.
      * @param selector the selector.
      */
-    public SubMenuEnter(final SubMenuSelection selector) {
+    public SubMenuEnter(final MenuSelection<SubMenu> selector) {
         super(selector);
         smv = new SubMenuEnterViewImpl(FRAMETIME_ISAAC, FRAMETIME_NAMEOFGAME, ANGLE_NAMEOFGAME);
     }
 
     @Override
-    public final void select() {
+    public final void selectChild() {
         smv.start();
     }
 
     @Override
     public final void input(final Set<Command> c) {
         super.input(c);
-        if (c.contains(Command.ENTER) && getSelector().contains(SubMenuGameMenu.class)) {
-            getSelector().selectSubMenu(SubMenuGameMenu.class);
+        if (c.contains(Command.ENTER) && getFather().contains(SubMenuGameMenu.class)) {
+            getFather().select(SubMenuGameMenu.class);
         }
     }
 
     @Override
-    public final void reset() {
+    public final void disownedChild() {
         smv.stop();
     }
 

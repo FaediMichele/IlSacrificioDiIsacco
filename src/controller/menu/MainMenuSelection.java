@@ -11,25 +11,24 @@ import view.javafx.menu.MainMenuSelectionViewImpl;
 /**
  * SubMenuSelection for the main menu of the game.
  */
-public class MainMenuSelection extends SubMenuSelection {
+public class MainMenuSelection extends InputMenu<SubMenu> {
     private static final long MSPAGE = 250;
     private final MainMenuSelectionView mmsv;
     private final long msMenu;
 
     /**
      * Create a new Main menu selection.
-     * @param parent the {@link MenuSelection}.
      * @param msMenu the time for the change of the menu selection.
      */
-    public MainMenuSelection(final MenuSelection parent, final long msMenu) {
-        super(parent);
+    public MainMenuSelection(final long msMenu) {
+        super();
         mmsv = new MainMenuSelectionViewImpl(MSPAGE, msMenu);
         this.msMenu = msMenu;
         add(new SubMenuEnter(this));
         add(new SubMenuGameMenu(this));
         add(new SubMenuRun(this));
         add(new SubMenuOption(this));
-        mmsv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toList()));
+        mmsv.setBind(asStream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toList()));
     } 
 
     /**
@@ -41,12 +40,12 @@ public class MainMenuSelection extends SubMenuSelection {
         if (comms.contains(Command.FULLSCREEN)) {
             mmsv.changeFullScreen();
         }
+        getSelected().input(comms);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public long getTimeAnimation() {
         return msMenu;
     }
@@ -55,7 +54,7 @@ public class MainMenuSelection extends SubMenuSelection {
      * {@inheritDoc}
      */
     @Override
-    public void selectSubMenu(final SubMenu start, final SubMenu end) {
+    public void changedChild(final SubMenu start, final SubMenu end, final Object param) {
         Objects.requireNonNull(end);
         mmsv.changeSubMenu(start.getSubMenuView(), end.getSubMenuView());
         mmsv.playChanged();
@@ -64,21 +63,19 @@ public class MainMenuSelection extends SubMenuSelection {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void jumpTo(final SubMenu dest) {
         mmsv.jumpTo(dest.getSubMenuView());
     }
 
     /**
-     * Play a fade animation.
+     * {@inheritDoc}
      */
     @Override
-    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
+    public void fatherChanged(final MenuSelection<?> previous, final MenuSelection<?> next, final Object param) {
+        super.fatherChanged(previous, next, param);
         if (!previous.equals(this) && GameSubMenuSelection.class.isInstance(previous)) {
-            this.selectSubMenu(SubMenuGameMenu.class);
+            this.select(SubMenuGameMenu.class);
         }
         mmsv.selectSelection(previous.equals(this));
-
     }
-
 }

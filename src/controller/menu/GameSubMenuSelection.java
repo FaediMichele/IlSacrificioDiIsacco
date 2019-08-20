@@ -12,28 +12,24 @@ import view.javafx.menu.GameSelectionViewImpl;
 /**
  *
  */
-public class GameSubMenuSelection extends SubMenuSelection {
+public class GameSubMenuSelection extends InputMenu<SubMenu> {
     private final GameSelectionView gmv;
-    private final long msMenu;
     private CharacterInfo characterSelected;
     private final SubMenuGame game;
 
     /**
-     * 
-     * Create the {@link MainMenuSelectionViewImpl}. 
-     * @param parent the {@link MenuSelection}.
+     * Create the {@link GameSubMenuSelection}. 
      * @param msMenu the time for the fade effect.
      */
-    public GameSubMenuSelection(final MenuSelection parent, final long msMenu) {
-        super(parent);
-        this.msMenu = msMenu;
+    public GameSubMenuSelection(final long msMenu) {
+        super();
         gmv = new GameSelectionViewImpl(msMenu);
         game = new SubMenuGame(this);
         add(game);
         add(new SubMenuInGameOption(this, game));
         add(new SubMenuGameLoose(this));
         add(new SubMenuWin(this));
-        gmv.setBind(asSet().stream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
+        gmv.setBind(asStream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
     }
 
     /**
@@ -45,47 +41,32 @@ public class GameSubMenuSelection extends SubMenuSelection {
         if (comms.contains(Command.FULLSCREEN)) {
             gmv.changeFullScreen();
         }
-    }
-
-    @Override
-    public final long getTimeAnimation() {
-        return msMenu;
+        getSelected().input(comms);
     }
 
     /**
      * 
      * {@inheritDoc}
      */
-    @Override
-    public void selectSubMenu(final SubMenu start, final SubMenu end) {
-        Objects.requireNonNull(end);
-        gmv.selectSubMenu(end);
-    }
-
-    /**
-     * 
-     * {@inheritDoc}
-     */
-    @Override
     public void jumpTo(final SubMenu dest) {
         Objects.requireNonNull(dest);
         gmv.selectSubMenu(dest);
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
-    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
+    public void fatherChanged(final MenuSelection<?> previous, final MenuSelection<?> next, final Object param) {
+        super.fatherChanged(previous, next, param);
         gmv.changeSelector(previous.equals(this));
         if (!previous.equals(this) && param instanceof CharacterInfo) {
             characterSelected = (CharacterInfo) param;
-            this.selectSubMenu(SubMenuGame.class);
+            this.select(SubMenuGame.class);
             game.loadGame();
         }
         if (previous.equals(this)) {
-            game.reset();
+            game.disownedChild();
         }
     }
 

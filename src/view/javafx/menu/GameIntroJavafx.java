@@ -2,10 +2,10 @@ package view.javafx.menu;
 
 import java.util.Set;
 
+import controller.menu.InputMenu;
 import controller.menu.MainMenuSelection;
 import controller.menu.MenuSelection;
 import controller.menu.SubMenu;
-import controller.menu.SubMenuSelection;
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -20,7 +20,7 @@ import view.javafx.ViewGetterUtil;
 /**
  * The menu for the introduction.
  */
-public final class GameIntroJavafx extends SubMenuSelection {
+public final class GameIntroJavafx extends InputMenu<SubMenu> {
     private static final int DIMENSIONSCREENTESTX = 1920;
     private static final int DIMENSIONSCREENTESTY = 1030;
     private static final int SCALEMULTIPLIER = 3;
@@ -35,11 +35,10 @@ public final class GameIntroJavafx extends SubMenuSelection {
 
     /**
      * Create the SubMenuSelection for the introduction.
-     * @param parent the {@link MenuSelection}.
      * @param msMenu the time for the fade effect.
      */
-    public GameIntroJavafx(final MenuSelection parent, final long msMenu) {
-        super(parent);
+    public GameIntroJavafx(final long msMenu) {
+        super();
         final Scene scene = ViewGetterUtil.getScene();
         s = new MySubMenu(this, ViewGetterUtil.getNodeByName("mvIntro", MediaView.class),
                 INTROFILEPATH);
@@ -56,6 +55,11 @@ public final class GameIntroJavafx extends SubMenuSelection {
             updateBind(ViewGetterUtil.getNodeByName(NAMEPANE, Pane.class), scene);
         });
     }
+    @Override
+    public void input(final Set<Command> commands) {
+        super.input(commands);
+        getFather().get().select(MainMenuSelection.class);
+    }
 
     private void setBind(final Pane p, final Scene s) {
         p.layoutXProperty().bind(s.widthProperty().divide(2).subtract(p.widthProperty().divide(2)));
@@ -70,41 +74,26 @@ public final class GameIntroJavafx extends SubMenuSelection {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public  long getTimeAnimation() {
-        return (long) fd.getDuration().toMillis();
-    }
-
-    @Override
-    public  void selectSubMenu(final SubMenu start, final SubMenu end) {
-        if (!start.equals(s) || !end.equals(s)) {
-            throw new IllegalArgumentException("there is only one sub menu");
-        }
-    }
-
-    @Override
-    public void jumpTo(final SubMenu dest) {
-        if (!dest.equals(s)) {
-            throw new IllegalArgumentException("there is only one sub menu");
-        }
-    }
-
-    @Override
-    public void selectMenu(final SubMenuSelection previous, final SubMenuSelection dest, final Object param) {
-        if (previous.equals(this)) {
+    public void fatherChanged(final MenuSelection<?> previous, final MenuSelection<?> next, final Object param) {
+        super.fatherChanged(previous, next, param);
+        if (next.equals(this)) {
+            s.selectChild();
+            fd.setToValue(1);
+            fd.playFromStart();
+        } else {
             fd.setToValue(0);
             fd.playFromStart();
             fd.setOnFinished(e -> s.release());
-        } else {
-            s.select();
-            fd.setToValue(1);
-            fd.playFromStart();
         }
     }
 
     private static final class MySubMenu extends SubMenu {
         private final MediaView mv;
-        MySubMenu(final SubMenuSelection selector, final MediaView mv, final String videoPath) {
+        MySubMenu(final MenuSelection<SubMenu> selector, final MediaView mv, final String videoPath) {
             super(selector);
             this.mv = mv;
             mv.setMediaPlayer(new MediaPlayer(new Media(getClass().getResource(videoPath).toExternalForm())));
@@ -112,17 +101,12 @@ public final class GameIntroJavafx extends SubMenuSelection {
         }
 
         @Override
-        public void input(final Set<Command> c) {
-            end();
-        }
-
-        @Override
-        public void select() {
+        public void selectChild() {
             mv.getMediaPlayer().play();
         }
 
         private void end() {
-            this.getSelector().getParent().select(MainMenuSelection.class);
+            this.getFather().getFather().get().select(MainMenuSelection.class);
         }
 
         public void release() {
@@ -131,7 +115,7 @@ public final class GameIntroJavafx extends SubMenuSelection {
         }
 
         @Override
-        public void reset() {
+        public void disownedChild() {
         }
 
         @Override

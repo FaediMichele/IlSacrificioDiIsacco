@@ -10,22 +10,22 @@ import view.SubMenuView;
  * Is used in the UI.
  * The behavior of the method may change a lot base on the implementation.
  */
-public abstract class SubMenu {
-    private final SubMenuSelection sms;
+public abstract class SubMenu implements Child {
+    private final MenuSelection<SubMenu> sms;
 
     /**
      * Set the selector that controls every sub menu.
      * @param selector the {@link SubMenuSelection}.
      */
-    public SubMenu(final SubMenuSelection selector) {
+    public SubMenu(final MenuSelection<SubMenu> selector) {
         sms = selector;
     }
 
     /**
-     * Get the {@link SubMenuSelection}.
-     * @return the {@link SubMenuSelection}.
+     * {@inheritDoc}
      */
-    public SubMenuSelection getSelector() {
+    @Override
+    public MenuSelection<SubMenu> getFather() {
         return sms;
     }
 
@@ -39,7 +39,7 @@ public abstract class SubMenu {
     /**
      * When the SubMenu is selected.
      */
-    public void select() {
+    public void selectChild() {
     }
 
     /**
@@ -51,7 +51,7 @@ public abstract class SubMenu {
     /**
      * Go to the initial state.
      */
-    public abstract void reset();
+    public abstract void disownedChild();
 
     /**
      * Get the {@link SubMenuView} that the sub menu use.

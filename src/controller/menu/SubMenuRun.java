@@ -25,15 +25,15 @@ public class SubMenuRun extends SubMenu {
      * Create the sub menu for the run. It contains the information for the implemented character.
      * @param selector the {@link SubMenuSelection}.
      */
-    public SubMenuRun(final SubMenuSelection selector) {
+    public SubMenuRun(final MenuSelection<SubMenu> selector) {
         super(selector);
         smrv = new SubMenuRunViewImpl(CL_WIDTH, CL_HEIGHT, CL_SCALE, CL_TIME, CL_X, CL_Y);
     }
 
     @Override
-    public final void select() {
-        super.select();
-        smrv.setInfo(getSelector().getParent().getConfiguration().getCharactes());
+    public final void selectChild() {
+        super.selectChild();
+        smrv.setInfo(((Root) getFather().getFather().get()).getManager().getCharactes());
     }
 
     @Override
@@ -61,12 +61,12 @@ public class SubMenuRun extends SubMenu {
 
     private void enter() {
         update(smrv.getSelected());
-        getSelector().getParent().select(GameSubMenuSelection.class, smrv.getSelected());
+        getFather().getFather().get().select(GameSubMenuSelection.class, smrv.getSelected());
     }
 
     private void exit() {
-        if (getSelector().contains(SubMenuGameMenu.class)) {
-            getSelector().selectSubMenu(SubMenuGameMenu.class);
+        if (getFather().contains(SubMenuGameMenu.class)) {
+            getFather().select(SubMenuGameMenu.class);
         }
     }
     private void update(final CharacterInfo c) {
@@ -74,7 +74,7 @@ public class SubMenuRun extends SubMenu {
     }
 
     @Override
-    public final void reset() {
+    public final void disownedChild() {
         smrv.reset();
         update(null);
     }

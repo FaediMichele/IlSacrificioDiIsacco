@@ -18,7 +18,7 @@ public class SubMenuGameLoose extends SubMenu {
      * Create a sub menu for the loose screen.
      * @param selector the selector.
      */
-    public SubMenuGameLoose(final SubMenuSelection selector) {
+    public SubMenuGameLoose(final MenuSelection<SubMenu> selector) {
         super(selector);
     }
 
@@ -28,8 +28,8 @@ public class SubMenuGameLoose extends SubMenu {
     @Override
     public void input(final Set<Command> c) {
         super.input(c);
-        if (c.contains(Command.ENTER) && getSelector().getParent().contains(MainMenuSelection.class)) {
-            getSelector().getParent().select(MainMenuSelection.class);
+        if (c.contains(Command.ENTER) && getFather().getFather().get().contains(MainMenuSelection.class)) {
+            getFather().getFather().get().select(MainMenuSelection.class);
         }
     }
 
@@ -37,12 +37,12 @@ public class SubMenuGameLoose extends SubMenu {
      * {@inheritDoc}.
      */
     @Override
-    public void select() {
-        super.select();
+    public void selectChild() {
+        super.selectChild();
         smv.startAudio();
     }
     @Override
-    public void reset() {
+    public void disownedChild() {
     }
 
     /**

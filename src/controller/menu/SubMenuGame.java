@@ -24,15 +24,15 @@ public class SubMenuGame extends SubMenu {
      * @param selector the {@link SubMenuSelection}.
      * @throws IOException 
      */
-    public SubMenuGame(final SubMenuSelection selector) {
+    public SubMenuGame(final MenuSelection<SubMenu> selector) {
         super(selector);
         smgv = new SubMenuGameViewImpl();
-        ((GameSubMenuSelection) getSelector()).setOnIntroEnded(() -> gameController.start());
+        ((GameSubMenuSelection) getFather()).setOnIntroEnded(() -> gameController.start());
     }
 
     @Override
     public final void input(final Set<Command> c) {
-        if (!((GameSubMenuSelection) getSelector()).isPlayingIntro()) {
+        if (!((GameSubMenuSelection) getFather()).isPlayingIntro()) {
             if (c.contains(Command.OPTIONS)) { 
                 options();
             } else if (c.contains(Command.EXIT)) {
@@ -52,16 +52,16 @@ public class SubMenuGame extends SubMenu {
      * Start the game controller.
      */
     public void loadGame() {
-        final GameSubMenuSelection sel = (GameSubMenuSelection) getSelector();
+        final GameSubMenuSelection sel = (GameSubMenuSelection) getFather();
         final CharacterInfo character = sel.getCharacterInfo();
         try {
             this.gameController = new GameController(smgv.createGameView(), character.getInfo(), "Game1",
                     (s) -> smgv.runOnApplicationThread(() -> {
-                        if (s.equals(GameEndStatus.LOOSE) && getSelector().contains(SubMenuGameLoose.class)) {
-                            getSelector().selectSubMenu(SubMenuGameLoose.class);
+                        if (s.equals(GameEndStatus.LOOSE) && getFather().contains(SubMenuGameLoose.class)) {
+                            getFather().select(SubMenuGameLoose.class);
                         }
-                        if (s.equals(GameEndStatus.WIN) && getSelector().contains(SubMenuWin.class)) {
-                            getSelector().selectSubMenu(SubMenuWin.class);
+                        if (s.equals(GameEndStatus.WIN) && getFather().contains(SubMenuWin.class)) {
+                            getFather().select(SubMenuWin.class);
                         }
                     }));
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
@@ -77,8 +77,8 @@ public class SubMenuGame extends SubMenu {
         return this.gameController;
     }
     private void options() {
-        if (getSelector().contains(SubMenuInGameOption.class)) {
-            getSelector().selectSubMenu(SubMenuInGameOption.class);
+        if (getFather().contains(SubMenuInGameOption.class)) {
+            getFather().select(SubMenuInGameOption.class);
         }
     }
 
@@ -86,7 +86,7 @@ public class SubMenuGame extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
+    public void disownedChild() {
         smgv.reset();
     }
 
