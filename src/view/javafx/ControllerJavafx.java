@@ -5,7 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import controller.menu.ConfigurationManager;
-import controller.menu.GameSubMenuSelection;
+import controller.menu.IntroSelection;
+import controller.menu.GameMenuSelection;
 import controller.menu.InputMenu;
 import controller.menu.MainMenuSelection;
 import controller.menu.Root;
@@ -16,12 +17,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import view.javafx.menu.GameIntroJavafx;
 
 /**
  * This is the class that handle the main menu of javafx.
  */
-public class MenuControllerJavafx {
+public class ControllerJavafx {
     private static final long TIME_MENU = 500;
 
     private Root menu;
@@ -50,12 +50,12 @@ public class MenuControllerJavafx {
         pnGame.prefWidthProperty().bind(pnMain.widthProperty());
         pnGame.prefHeightProperty().bind(pnMain.heightProperty());
         final InputMenu<SubMenu> mainMenu = new MainMenuSelection(TIME_MENU);
-        final InputMenu<SubMenu> intro = new GameIntroJavafx(TIME_MENU);
-        final InputMenu<SubMenu> game = new GameSubMenuSelection(TIME_MENU);
+        final InputMenu<SubMenu> intro = new IntroSelection(TIME_MENU);
+        final InputMenu<SubMenu> game = new GameMenuSelection(TIME_MENU);
         menu.add(mainMenu);
         menu.add(intro);
         menu.add(game);
-        menu.select(GameIntroJavafx.class);
+        menu.select(IntroSelection.class);
         pnMain.focusedProperty().addListener(b -> {
             if (pnMain.isFocusTraversable()) {
                 pnMain.requestFocus();

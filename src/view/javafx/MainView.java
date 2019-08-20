@@ -32,7 +32,7 @@ public class MainView extends Application implements EntryPoint {
         stage.setTitle(WINDOW_NAME);
         stage.setScene(scene);
         //stage.initStyle(StageStyle.UNDECORATED);
-        ((MenuControllerJavafx) loader.getController()).start(scene, stage);
+        ((ControllerJavafx) loader.getController()).start(scene, stage);
         stage.show();
     }
 

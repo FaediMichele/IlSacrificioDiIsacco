@@ -61,7 +61,7 @@ public class SubMenuRun extends SubMenu {
 
     private void enter() {
         update(smrv.getSelected());
-        getFather().getFather().get().select(GameSubMenuSelection.class, smrv.getSelected());
+        getFather().getFather().get().select(GameMenuSelection.class, smrv.getSelected());
     }
 
     private void exit() {

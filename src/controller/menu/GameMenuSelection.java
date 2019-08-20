@@ -11,16 +11,16 @@ import view.javafx.menu.GameSelectionViewImpl;
 /**
  *
  */
-public class GameSubMenuSelection extends InputMenu<SubMenu> {
+public class GameMenuSelection extends InputMenu<SubMenu> {
     private final GameSelectionView gmv;
     private CharacterInfo characterSelected;
     private final SubMenuGame game;
 
     /**
-     * Create the {@link GameSubMenuSelection}. 
+     * Create the {@link GameMenuSelection}. 
      * @param msMenu the time for the fade effect.
      */
-    public GameSubMenuSelection(final long msMenu) {
+    public GameMenuSelection(final long msMenu) {
         super();
         gmv = new GameSelectionViewImpl(msMenu);
         game = new SubMenuGame(this);
