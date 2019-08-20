@@ -5,7 +5,7 @@ import view.SubMenuView;
 /**
  * The view of the sub menu where select new run or options.
  */
-public interface SubMenuSelectMenuView extends SubMenuView {
+public interface SubMenuGameMenuView extends SubMenuView {
     /**
      * Next item.
      */
@@ -17,7 +17,7 @@ public interface SubMenuSelectMenuView extends SubMenuView {
     void previous();
 
     /**
-     * Get the valued passed in the {@link SubMenuSelectMenuViewImpl#SubMenuGameMenuView(Object...)}.
+     * Get the valued passed in the {@link SubMenuGameMenuViewImpl#SubMenuGameMenuView(Object...)}.
      * @return an object
      */
     Object get();

@@ -4,15 +4,15 @@ import java.util.Set;
 
 import util.Command;
 import view.SubMenuView;
-import view.interfaces.SubMenuSelectMenuView;
-import view.javafx.menu.SubMenuSelectMenuViewImpl;
+import view.interfaces.SubMenuGameMenuView;
+import view.javafx.menu.SubMenuGameMenuViewImpl;
 
 /**
  * This sub menu is used for the "save" menu. (new run, option, continue, ...).
  */
 public class SubMenuGameMenu extends SubMenu {
     private static final Object[] ARGS = new Object[] { new Object(), new Object(), new Object()};
-    private final SubMenuSelectMenuView mgv;
+    private final SubMenuGameMenuView mgv;
 
     /**
      * Create the menu to choose the options or new run.
@@ -20,7 +20,7 @@ public class SubMenuGameMenu extends SubMenu {
      */
     public SubMenuGameMenu(final MenuSelection<SubMenu> selector) {
         super(selector); 
-        mgv = new SubMenuSelectMenuViewImpl(ARGS);
+        mgv = new SubMenuGameMenuViewImpl(ARGS);
     }
 
     @Override

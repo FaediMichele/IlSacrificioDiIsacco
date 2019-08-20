@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import controller.menu.ConfigurationManager;
 import controller.menu.IntroSelection;
-import controller.menu.GameMenuSelection;
+import controller.menu.GameSelection;
 import controller.menu.InputMenu;
 import controller.menu.MainMenuSelection;
 import controller.menu.Root;
@@ -51,7 +51,7 @@ public class ControllerJavafx {
         pnGame.prefHeightProperty().bind(pnMain.heightProperty());
         final InputMenu<SubMenu> mainMenu = new MainMenuSelection(TIME_MENU);
         final InputMenu<SubMenu> intro = new IntroSelection(TIME_MENU);
-        final InputMenu<SubMenu> game = new GameMenuSelection(TIME_MENU);
+        final InputMenu<SubMenu> game = new GameSelection(TIME_MENU);
         menu.add(mainMenu);
         menu.add(intro);
         menu.add(game);

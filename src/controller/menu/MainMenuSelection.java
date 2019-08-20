@@ -66,7 +66,7 @@ public class MainMenuSelection extends InputMenu<SubMenu> {
     @Override
     public void fatherChanged(final MenuSelection<?> previous, final MenuSelection<?> next, final Object param) {
         super.fatherChanged(previous, next, param);
-        if (!previous.equals(this) && GameMenuSelection.class.isInstance(previous)) {
+        if (!previous.equals(this) && GameSelection.class.isInstance(previous)) {
             this.select(SubMenuGameMenu.class);
         }
         mmsv.selectSelection(previous.equals(this));

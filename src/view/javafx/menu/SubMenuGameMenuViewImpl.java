@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
-import view.interfaces.SubMenuSelectMenuView;
+import view.interfaces.SubMenuGameMenuView;
 import view.javafx.ViewGetterUtil;
 import view.node.SelectList;
 import view.node.javafx.SelectListJavafx;
@@ -16,7 +16,7 @@ import view.node.javafx.SelectListJavafx;
 /**
  * The implementation view of the sub menu where select new run or options.
  */
-public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
+public class SubMenuGameMenuViewImpl implements SubMenuGameMenuView {
     private static final String BACKGROUND = "/menuImgs/menuSelectorBackground.png";
     private static final String NEWRUN = "/menuImgs/newRun.png";
     private static final String OPTION = "/menuImgs/options.png";
@@ -25,10 +25,10 @@ public class SubMenuSelectMenuViewImpl implements SubMenuSelectMenuView {
     private final Map<ImageView, Object> mapSelected;
 
     /**
-     * Create a new {@link SubMenuSelectMenuViewImpl}.
-     * @param args argument to returned by the {@link SubMenuSelectMenuViewImpl#get()} in order by the selected item.
+     * Create a new {@link SubMenuGameMenuViewImpl}.
+     * @param args argument to returned by the {@link SubMenuGameMenuViewImpl#get()} in order by the selected item.
      */
-    public SubMenuSelectMenuViewImpl(final Object... args) {
+    public SubMenuGameMenuViewImpl(final Object... args) {
         if (args.length < sl.lenght()) {
             throw new IllegalArgumentException("args must be grater or equal to the list of the item(" + sl.lenght() + ")");
         }

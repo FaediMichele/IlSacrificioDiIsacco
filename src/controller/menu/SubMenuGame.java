@@ -27,12 +27,12 @@ public class SubMenuGame extends SubMenu {
     public SubMenuGame(final MenuSelection<SubMenu> selector) {
         super(selector);
         smgv = new SubMenuGameViewImpl();
-        ((GameMenuSelection) getFather()).setOnIntroEnded(() -> gameController.start());
+        ((GameSelection) getFather()).setOnIntroEnded(() -> gameController.start());
     }
 
     @Override
     public final void input(final Set<Command> c) {
-        if (!((GameMenuSelection) getFather()).isPlayingIntro()) {
+        if (!((GameSelection) getFather()).isPlayingIntro()) {
             if (c.contains(Command.OPTIONS)) { 
                 options();
             } else if (c.contains(Command.EXIT)) {
@@ -52,7 +52,7 @@ public class SubMenuGame extends SubMenu {
      * Start the game controller.
      */
     public void loadGame() {
-        final GameMenuSelection sel = (GameMenuSelection) getFather();
+        final GameSelection sel = (GameSelection) getFather();
         final CharacterInfo character = sel.getCharacterInfo();
         try {
             this.gameController = new GameController(smgv.createGameView(), character.getInfo(), "Game1",
