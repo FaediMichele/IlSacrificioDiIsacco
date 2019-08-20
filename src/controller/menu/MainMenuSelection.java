@@ -54,17 +54,10 @@ public class MainMenuSelection extends InputMenu<SubMenu> {
      * {@inheritDoc}
      */
     @Override
-    public void changedChild(final SubMenu start, final SubMenu end, final Object param) {
-        Objects.requireNonNull(end);
-        mmsv.changeSubMenu(start.getSubMenuView(), end.getSubMenuView());
+    public void changedChild(final SubMenu previous, final SubMenu next, final Object param) {
+        Objects.requireNonNull(next);
+        mmsv.changeSubMenu(previous.getSubMenuView(), next.getSubMenuView());
         mmsv.playChanged();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void jumpTo(final SubMenu dest) {
-        mmsv.jumpTo(dest.getSubMenuView());
     }
 
     /**

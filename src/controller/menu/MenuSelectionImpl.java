@@ -134,7 +134,7 @@ public class MenuSelectionImpl<T> implements MenuSelection<T> {
      * {@inheritDoc}
      */
     @Override
-    public void changedChild(final T next, final T previous, final Object param) {
+    public void changedChild(final T previous, final T next, final Object param) {
     }
     private void setFather(final MenuSelectionImpl<?> father) {
         this.father = Optional.of(father);

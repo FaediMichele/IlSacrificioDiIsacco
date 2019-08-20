@@ -29,6 +29,7 @@ public class GameSubMenuSelection extends InputMenu<SubMenu> {
         add(new SubMenuInGameOption(this, game));
         add(new SubMenuGameLoose(this));
         add(new SubMenuWin(this));
+        gmv.selectSubMenu(game);
         gmv.setBind(asStream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
     }
 
@@ -45,12 +46,12 @@ public class GameSubMenuSelection extends InputMenu<SubMenu> {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
-    public void jumpTo(final SubMenu dest) {
-        Objects.requireNonNull(dest);
-        gmv.selectSubMenu(dest);
+    @Override
+    public void changedChild(final SubMenu previous, final SubMenu next, final Object param) {
+        super.changedChild(previous, next, param);
+        gmv.selectSubMenu(next);
     }
 
     /**
