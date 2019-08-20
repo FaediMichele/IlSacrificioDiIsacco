@@ -48,7 +48,7 @@ public class SubMenuIntroViewImpl implements SubMenuIntroView {
          * {@inheritDoc}
          */
         @Override
-        public Object getMain() {
+        public Object getUIMaster() {
             return ViewGetterUtil.getNodeByName("pnIntro1", Pane.class);
         }
 }

@@ -51,7 +51,7 @@ public class SubMenuWinViewImpl implements SubMenuWinView {
      * {@inheritDoc}.
      */
     @Override
-    public Object getMain() {
+    public Object getUIMaster() {
         return ViewGetterUtil.getNodeByName(PANE, Pane.class);
     }
 }

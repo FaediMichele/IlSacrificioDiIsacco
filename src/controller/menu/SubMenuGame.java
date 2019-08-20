@@ -6,8 +6,8 @@ import java.util.Set;
 import controller.GameController;
 import model.enumeration.GameEndStatus;
 import util.Command;
-import view.SubMenuView;
 import view.interfaces.SubMenuGameView;
+import view.interfaces.SubMenuView;
 import view.javafx.game.GameView;
 import view.javafx.menu.SubMenuGameViewImpl;
 

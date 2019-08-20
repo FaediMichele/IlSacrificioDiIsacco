@@ -1,7 +1,5 @@
 package view.interfaces;
 
-import view.SubMenuView;
-
 /**
  * Interface for the game loose screen.
  * It should only load the image

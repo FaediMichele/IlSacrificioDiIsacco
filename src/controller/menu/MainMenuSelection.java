@@ -14,7 +14,6 @@ import view.javafx.menu.MainMenuSelectionViewImpl;
 public class MainMenuSelection extends InputMenu<SubMenu> {
     private static final long MSPAGE = 250;
     private final MainMenuSelectionView mmsv;
-    private final long msMenu;
 
     /**
      * Create a new Main menu selection.
@@ -23,12 +22,11 @@ public class MainMenuSelection extends InputMenu<SubMenu> {
     public MainMenuSelection(final long msMenu) {
         super();
         mmsv = new MainMenuSelectionViewImpl(MSPAGE, msMenu);
-        this.msMenu = msMenu;
         add(new SubMenuEnter(this));
         add(new SubMenuGameMenu(this));
         add(new SubMenuRun(this));
         add(new SubMenuOption(this));
-        mmsv.setBind(asStream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toList()));
+        mmsv.setBind(asStream().map(s -> s.getSubMenuView().getUIMaster()).collect(Collectors.toList()));
     } 
 
     /**
@@ -41,13 +39,6 @@ public class MainMenuSelection extends InputMenu<SubMenu> {
             mmsv.changeFullScreen();
         }
         getSelected().input(comms);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public long getTimeAnimation() {
-        return msMenu;
     }
 
     /**

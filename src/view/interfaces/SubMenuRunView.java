@@ -3,7 +3,6 @@ package view.interfaces;
 import java.util.Set;
 
 import controller.menu.CharacterInfo;
-import view.SubMenuView;
 
 /**
  * View of the SubMenu of the run part of the main menu.

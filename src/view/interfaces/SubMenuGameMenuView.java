@@ -1,7 +1,5 @@
 package view.interfaces;
 
-import view.SubMenuView;
-
 /**
  * The view of the sub menu where select new run or options.
  */

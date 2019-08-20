@@ -1,7 +1,5 @@
 package view.interfaces;
 
-import view.SubMenuView;
-
 /**
  * View of the sub menu for the option.
  */

@@ -1,4 +1,4 @@
-package view.javafx;
+package view.node.javafx;
 
 import java.util.ArrayList;
 import java.util.List;

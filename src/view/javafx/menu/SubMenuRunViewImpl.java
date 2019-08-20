@@ -149,7 +149,7 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
     }
 
     @Override
-    public final Object getMain() {
+    public final Object getUIMaster() {
         return ViewGetterUtil.getNodeByName("pnRun", Pane.class);
     }
 

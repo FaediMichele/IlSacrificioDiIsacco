@@ -13,10 +13,10 @@ import util.Lambda;
 import view.Sound;
 import view.TypeOfAudio;
 import view.interfaces.GameSelectionView;
-import view.javafx.ContextPageJavafx;
 import view.javafx.SoundJavafx;
 import view.javafx.ViewGetterUtil;
 import view.node.TranslationPages;
+import view.node.javafx.ContextPageJavafx;
 
 /**
  * The implementation of view of the Game sub menu selection.
@@ -87,7 +87,7 @@ public class GameSelectionViewImpl implements GameSelectionView {
      */
     @Override
     public void selectSubMenu(final SubMenu end) {
-        tp.goTo(end.getSubMenuView().getMain());
+        tp.goTo(end.getSubMenuView().getUIMaster());
     }
 
     /**

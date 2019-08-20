@@ -1,7 +1,7 @@
 package controller.menu;
 
-import view.SubMenuView;
 import view.interfaces.SubMenuIntroView;
+import view.interfaces.SubMenuView;
 import view.javafx.menu.SubMenuIntroViewImpl;
 
 /**

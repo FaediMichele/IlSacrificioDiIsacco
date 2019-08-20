@@ -1,7 +1,5 @@
 package view.interfaces;
 
-import view.SubMenuView;
-
 /**
  * Interface for the SubMenu for the intro.
  */

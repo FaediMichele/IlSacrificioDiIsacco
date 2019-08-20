@@ -1,7 +1,6 @@
 package view.interfaces;
 
 import util.Lambda;
-import view.SubMenuView;
 import view.javafx.game.GameView;
 
 /**

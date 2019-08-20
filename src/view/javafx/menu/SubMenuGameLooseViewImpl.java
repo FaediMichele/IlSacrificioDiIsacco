@@ -36,7 +36,7 @@ public class SubMenuGameLooseViewImpl implements SubMenuGameLooseView {
      * {@inheritDoc}
      */
     @Override
-    public Object getMain() {
+    public Object getUIMaster() {
         return ViewGetterUtil.getNodeByName("pnGameLoose", Pane.class);
     }
 }

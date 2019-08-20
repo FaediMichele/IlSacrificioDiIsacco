@@ -3,7 +3,7 @@ package controller.menu;
 import java.util.Set;
 
 import util.Command;
-import view.SubMenuView;
+import view.interfaces.SubMenuView;
 
 /**
  * The SubMenu have different behavior based on their implementation.

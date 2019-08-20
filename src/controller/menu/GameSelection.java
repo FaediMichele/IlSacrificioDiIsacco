@@ -29,7 +29,7 @@ public class GameSelection extends InputMenu<SubMenu> {
         add(new SubMenuGameLoose(this));
         add(new SubMenuWin(this));
         gmv.selectSubMenu(game);
-        gmv.setBind(asStream().map(s -> s.getSubMenuView().getMain()).collect(Collectors.toSet()));
+        gmv.setBind(asStream().map(s -> s.getSubMenuView().getUIMaster()).collect(Collectors.toSet()));
     }
 
     /**

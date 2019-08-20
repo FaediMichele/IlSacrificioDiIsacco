@@ -25,6 +25,7 @@ import model.entity.Player;
 import model.enumeration.GameEndStatus;
 import model.enumeration.HeartEnum;
 import model.events.FloorChangedEvent;
+import model.events.GameEnded;
 import model.events.InputEvent;
 import model.events.RoomChangedEvent;
 import model.util.EntityInformation;
@@ -135,10 +136,14 @@ public class GameWorldImpl implements GameWorld {
         getActiveFloor().update(deltaTime);
         changedFloor = false;
         if (win) {
+            eventBus.post(new GameEnded(GameEnded.Status.WIN));
             return GameEndStatus.WIN;
         }
-        return player.getComponent(PlayerHealthComponent.class).get().isAlive()
-                ? GameEndStatus.RUNNING : GameEndStatus.LOOSE;
+        if (player.getComponent(PlayerHealthComponent.class).get().isAlive()) {
+            return GameEndStatus.RUNNING;
+        }
+        eventBus.post(new GameEnded(GameEnded.Status.LOOSE));
+        return GameEndStatus.LOOSE;
     }
 
     @Override

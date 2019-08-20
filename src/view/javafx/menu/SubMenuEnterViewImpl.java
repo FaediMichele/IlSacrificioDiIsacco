@@ -6,11 +6,11 @@ import javafx.scene.layout.Pane;
 import view.AnimatedView;
 import view.TimedViews;
 import view.interfaces.SubMenuEnterView;
-import view.javafx.AnimatedViewJavafx;
-import view.javafx.TimedViewsJavafx;
 import view.javafx.ViewGetterUtil;
 import view.node.RotatingNode;
+import view.node.javafx.AnimatedViewJavafx;
 import view.node.javafx.RotatingNodeJavafx;
+import view.node.javafx.TimedViewsJavafx;
 
 /**
  * Implementation view of the sub menu for the initial page of the main menu.
@@ -75,7 +75,7 @@ public final class SubMenuEnterViewImpl implements SubMenuEnterView {
     }
 
     @Override
-    public Object getMain() {
+    public Object getUIMaster() {
         return ViewGetterUtil.getNodeByName("pnEnter", Pane.class);
     }
 }

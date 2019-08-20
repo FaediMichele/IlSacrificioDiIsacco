@@ -81,7 +81,7 @@ public class SubMenuInGameOptionViewImpl implements SubMenuInGameOptionView {
         sl.initial();
     }
     @Override
-    public final Object getMain() {
+    public final Object getUIMaster() {
         return main;
     }
 

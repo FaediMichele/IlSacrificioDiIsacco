@@ -107,7 +107,7 @@ public class SubMenuOptionViewImpl implements SubMenuOptionView {
      * {@inheritDoc}
      */
     @Override
-    public Object getMain() {
+    public Object getUIMaster() {
         return ViewGetterUtil.getNodeByName(PANE, Pane.class);
     }
 

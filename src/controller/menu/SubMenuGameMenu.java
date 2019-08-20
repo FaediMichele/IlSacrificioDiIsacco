@@ -3,8 +3,8 @@ package controller.menu;
 import java.util.Set;
 
 import util.Command;
-import view.SubMenuView;
 import view.interfaces.SubMenuGameMenuView;
+import view.interfaces.SubMenuView;
 import view.javafx.menu.SubMenuGameMenuViewImpl;
 
 /**

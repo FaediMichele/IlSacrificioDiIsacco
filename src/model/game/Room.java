@@ -110,10 +110,10 @@ public interface Room {
 
     /**
      * Get the shortest path. Be careful to not use this every frame because it
-     * cost.
+     * cost may time.
      * 
      * @param start the entity to start the route.
-     * @param dest  the entity of destination.
+     * @param dest the entity of destination.
      * @return a near point to the preferred path.
      */
     Pair<Double, Double> getRoute(Entity start, Entity dest);

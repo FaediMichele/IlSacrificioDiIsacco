@@ -4,8 +4,8 @@ import java.util.Set;
 
 import util.Command;
 import util.Lambda;
-import view.SubMenuView;
 import view.interfaces.SubMenuInGameOptionView;
+import view.interfaces.SubMenuView;
 import view.javafx.menu.SubMenuInGameOptionViewImpl;
 
 /**

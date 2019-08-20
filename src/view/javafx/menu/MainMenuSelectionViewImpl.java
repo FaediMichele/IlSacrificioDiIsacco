@@ -1,7 +1,6 @@
 package view.javafx.menu;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -12,13 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import view.Sound;
-import view.SubMenuView;
 import view.TypeOfAudio;
 import view.interfaces.MainMenuSelectionView;
+import view.interfaces.SubMenuView;
 import view.javafx.SoundJavafx;
-import view.javafx.SlidingPageJavafx;
 import view.javafx.ViewGetterUtil;
 import view.node.TranslationPages;
+import view.node.javafx.SlidingPageJavafx;
 
 /**
  * The selector for JavaFx. It manage the animation for change the sub menu.
@@ -81,27 +80,15 @@ public class MainMenuSelectionViewImpl implements MainMenuSelectionView {
      */
     @Override
     public void changeSubMenu(final SubMenuView start, final SubMenuView end) {
-        if (start != null && !tp.contains(start.getMain())) {
-            tp.addPage(start.getMain());
+        if (start != null && !tp.contains(start.getUIMaster())) {
+            tp.addPage(start.getUIMaster());
         }
         if (end != null) {
-            if (!tp.contains(end.getMain())) {
-                tp.addPage(end.getMain());
+            if (!tp.contains(end.getUIMaster())) {
+                tp.addPage(end.getUIMaster());
             }
-            tp.goTo(end.getMain());
+            tp.goTo(end.getUIMaster());
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void jumpTo(final SubMenuView dest) {
-        Objects.requireNonNull(dest);
-        if (!tp.contains(dest.getMain())) {
-            tp.addPage(dest.getMain());
-        }
-        tp.jumpTo(dest.getMain());
     }
 
     /**

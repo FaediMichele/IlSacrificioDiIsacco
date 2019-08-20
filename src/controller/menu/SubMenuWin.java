@@ -3,7 +3,7 @@ package controller.menu;
 import java.util.Set;
 
 import util.Command;
-import view.SubMenuView;
+import view.interfaces.SubMenuView;
 import view.interfaces.SubMenuWinView;
 import view.javafx.menu.SubMenuWinViewImpl;
 

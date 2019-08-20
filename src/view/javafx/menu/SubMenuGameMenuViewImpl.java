@@ -85,7 +85,7 @@ public class SubMenuGameMenuViewImpl implements SubMenuGameMenuView {
     }
 
     @Override
-    public final Object getMain() {
+    public final Object getUIMaster() {
         return ViewGetterUtil.getNodeByName("pnMenuMain", Pane.class);
     }
 
