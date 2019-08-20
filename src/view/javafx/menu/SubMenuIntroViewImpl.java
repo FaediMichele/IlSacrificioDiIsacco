@@ -39,9 +39,11 @@ public class SubMenuIntroViewImpl implements SubMenuIntroView {
          */
         @Override
         public void clean() {
-            mv.getMediaPlayer().stop();
-            mv.setMediaPlayer(null); // release the memory
-            l.use();
+            if (mv != null && mv.getMediaPlayer() != null) {
+                mv.getMediaPlayer().stop();
+                mv.setMediaPlayer(null); // release the memory
+                l.use();
+            }
         }
 
         /**

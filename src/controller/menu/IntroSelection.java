@@ -37,6 +37,8 @@ public final class IntroSelection extends InputMenu<SubMenu> {
         super.fatherChanged(previous, next, param);
         if (next.equals(this)) {
             s.selectChild();
+        } else {
+            s.unselectChild();
         }
         giv.changedFather(next.equals(this));
     }
