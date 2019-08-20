@@ -66,7 +66,7 @@ public class GameSubMenuSelection extends InputMenu<SubMenu> {
             game.loadGame();
         }
         if (previous.equals(this)) {
-            game.disownedChild();
+            game.unselectChild();
         }
     }
 

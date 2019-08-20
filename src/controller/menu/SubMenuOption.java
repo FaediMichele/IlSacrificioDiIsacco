@@ -48,7 +48,7 @@ public class SubMenuOption extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void disownedChild() {
+    public void unselectChild() {
     }
 
     /**

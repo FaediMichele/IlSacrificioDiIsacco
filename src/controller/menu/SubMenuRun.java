@@ -74,7 +74,7 @@ public class SubMenuRun extends SubMenu {
     }
 
     @Override
-    public final void disownedChild() {
+    public final void unselectChild() {
         smrv.reset();
         update(null);
     }

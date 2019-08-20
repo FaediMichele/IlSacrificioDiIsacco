@@ -58,7 +58,7 @@ public class SubMenuInGameOption extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void disownedChild() {
+    public void unselectChild() {
         smo.reset();
     }
 

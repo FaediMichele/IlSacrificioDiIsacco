@@ -42,7 +42,7 @@ public class SubMenuGameLoose extends SubMenu {
         smv.startAudio();
     }
     @Override
-    public void disownedChild() {
+    public void unselectChild() {
     }
 
     /**

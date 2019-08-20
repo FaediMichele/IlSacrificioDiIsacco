@@ -51,7 +51,7 @@ public abstract class SubMenu implements Child {
     /**
      * Go to the initial state.
      */
-    public abstract void disownedChild();
+    public abstract void unselectChild();
 
     /**
      * Get the {@link SubMenuView} that the sub menu use.

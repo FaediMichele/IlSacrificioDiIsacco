@@ -17,5 +17,5 @@ public interface Child {
     /**
      * Used when the child is not selected.
      */
-    void disownedChild();
+    void unselectChild();
 }

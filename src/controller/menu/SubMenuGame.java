@@ -86,7 +86,7 @@ public class SubMenuGame extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void disownedChild() {
+    public void unselectChild() {
         smgv.reset();
     }
 

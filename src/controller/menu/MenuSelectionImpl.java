@@ -85,7 +85,7 @@ public class MenuSelectionImpl<T> implements MenuSelection<T> {
         this.children.remove((Class<T>) disowneds.getClass());
         if (first.equals(disowneds)) {
             if (first instanceof Child) {
-                ((Child) first).disownedChild();
+                ((Child) first).unselectChild();
             }
             first = null;
         }
@@ -99,7 +99,7 @@ public class MenuSelectionImpl<T> implements MenuSelection<T> {
             return;
         }
         if (first instanceof Child) {
-            ((Child) first).disownedChild();
+            ((Child) first).unselectChild();
         }
 
         final T selected = children.get(child); 

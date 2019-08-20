@@ -39,7 +39,7 @@ public class SubMenuEnter extends SubMenu {
     }
 
     @Override
-    public final void disownedChild() {
+    public final void unselectChild() {
         smv.stop();
     }
 

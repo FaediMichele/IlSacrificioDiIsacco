@@ -115,7 +115,7 @@ public final class GameIntroJavafx extends InputMenu<SubMenu> {
         }
 
         @Override
-        public void disownedChild() {
+        public void unselectChild() {
         }
 
         @Override

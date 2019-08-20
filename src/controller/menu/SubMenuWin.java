@@ -56,7 +56,7 @@ public class SubMenuWin extends SubMenu {
      * {@inheritDoc}
      */
     @Override
-    public void disownedChild() {
+    public void unselectChild() {
         smv.stop();
     }
 
