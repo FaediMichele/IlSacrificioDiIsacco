@@ -32,7 +32,7 @@ public class ConfigurationManagerJavafx implements ConfigurationManager {
     private static final String KEYMAPTAG = "KeyMap";
     private static final String CHARACTERSTAG = "Characters";
     private static final String CHARACTERTAG = "Character";
-    private Document doc;
+    private final Document doc;
     private Map<Object, Command> keyMap;
     private final List<CharacterInfo> characters = new ArrayList<>();
 
