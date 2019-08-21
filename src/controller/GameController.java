@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
-import model.entity.FactoryPlayersUtils;
+
 import model.enumeration.BasicMovementEnum;
 import model.enumeration.BasicStatusEnum;
 import model.enumeration.GameEndStatus;
@@ -17,6 +17,7 @@ import model.game.GameWorld;
 import model.game.GameWorldImpl;
 import model.util.DataPlayer;
 import model.util.EntityInformation;
+import model.util.FactoryPlayersUtils;
 import model.util.Position;
 import model.util.StatisticsInformations;
 import util.Command;

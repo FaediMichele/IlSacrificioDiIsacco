@@ -286,7 +286,6 @@ public final class StaticMethodsUtils {
         });
         return (Map<X, Y>) map;
     }
-
     /**
      * Get the angle between two point in 2 dimensional space.
      * 

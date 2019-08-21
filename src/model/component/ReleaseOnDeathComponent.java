@@ -26,7 +26,6 @@ public class ReleaseOnDeathComponent extends AbstractComponent {
                 final Position pos = getBody().getPosition().getClone();
                 pos.add(new Position(getBody().getWidth() / 2, getBody().getHeight() / 2, -getBody().getPosition().getZ()));
                 pos.add(new Position(-getBody(e).getWidth() / 2, -getBody(e).getHeight() / 2, getBody(e).getPosition().getZ()));
-                System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
                 e.getComponent(BodyComponent.class).get().setPosition(pos);
                 addToRoom(e);
             }

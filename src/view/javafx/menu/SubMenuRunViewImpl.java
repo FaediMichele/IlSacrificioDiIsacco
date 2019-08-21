@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import model.util.DataPlayer;
 import view.interfaces.SubMenuRunView;
 import view.javafx.ViewGetterUtil;
 import view.node.CircleList;
@@ -21,6 +22,9 @@ import view.node.javafx.CircleListRandomJavafx;
  * Implementation view of the SubMenu of the run part of the main menu.
  */
 public class SubMenuRunViewImpl implements SubMenuRunView {
+    private static final double DEFAULTLIFE = 3.5;
+    private static final double DEFAULTSPEED = 1.8;
+    private static final double DEFAULTDAMAGE = 1;
     private static final String BACKGROUND = "/menuImgs/characterMenuBackground.png";
     private final Image randomImage = new Image("/menuImgs/randomSpritePreview.png");
     private Set<CharacterInfo> infos;
@@ -65,9 +69,9 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
     }
 
     /**
-     * Set the character to show.
-     * @param set the list of the character.
+     * {@inheritDoc}
      */
+    @Override
     public void setInfo(final Set<CharacterInfo> set) {
         this.infos = set;
         if (list.size() < 2) {
@@ -79,50 +83,49 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
 
 
     /**
-     * Swipe to left.
+     * {@inheritDoc}
      */
+    @Override
     public void left() {
         list.rotateLeft();
     }
 
     /**
-     * Swipe to right.
+     * {@inheritDoc}
      */
+    @Override
     public void right() {
         list.rotateRight();
     }
 
     /**
-     * Get the selected info (and random the list if necessary).
-     * @return the info of the selected character
+     * {@inheritDoc}
      */
+    @Override
     public CharacterInfo getSelected() {
         return mapInfos.get(list.getElement());
     }
 
     /**
-     * Get the selected info (don't random the list).
-     * @return the info of the selected character
+     * {@inheritDoc}
      */
+    @Override
     public CharacterInfo getInfoSelected() {
         return mapInfos.get(list.getElement(0));
     }
 
     /**
-     * Update the info.
-     * @param c the info.
+     * {@inheritDoc}
      */
-    public void update(final CharacterInfo c) {
-        if (c != null) {
+    @Override
+    public void update(final DataPlayer dp, final CharacterInfo c) {
+        if (dp != null && c != null) {
             if (infos.isEmpty()) {
                 throw new IllegalStateException("No character inserted");
             }
-            /*
-            final PlayerMenuInfo info = cf.getInfo();
-            prgLife.setProgress(info.getLife());
-            prgDamage.setProgress(info.getDamage());
-            prgSpeed.setProgress(info.getSpeed());
-            */
+            prgLife.setProgress(dp.getLife() / (DEFAULTLIFE * 2));
+            prgDamage.setProgress(dp.getDamage() / (DEFAULTDAMAGE * 2));
+            prgSpeed.setProgress(dp.getSpeed() / (DEFAULTSPEED * 2));
             imgName.setImage((Image) c.getNameImage());
             prgLife.setVisible(true);
             prgDamage.setVisible(true);
@@ -142,14 +145,18 @@ public class SubMenuRunViewImpl implements SubMenuRunView {
     }
 
     /**
-     * Reset the list.
+     * {@inheritDoc}
      */
+    @Override
     public void reset() {
         list.reset();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final Object getUIMaster() {
+    public Object getUIMaster() {
         return ViewGetterUtil.getNodeByName("pnRun", Pane.class);
     }
 
