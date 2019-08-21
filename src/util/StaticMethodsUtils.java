@@ -30,6 +30,12 @@ import model.util.DataPlayer;
  * Class for all static methods.
  */
 public final class StaticMethodsUtils {
+
+    private static final double LIFE_ISAAC = 3.5;
+    private static final double SPEED_ISAAC = 1.8;
+    private static final double DAMAGE_ISAAC = 1.0;
+    private static final double RATE_ISAAC = 1000;
+
     private StaticMethodsUtils() {
     }
 
@@ -331,12 +337,20 @@ public final class StaticMethodsUtils {
                 e.printStackTrace();
             }
             final Node node = xml.getElementsByTagName(playerEnum.name()).item(0);
-            final DataPlayer dataPlayer = new DataPlayer()
-                                                .setName(playerName)
-                                                .setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
-                                                .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
-                                                .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
-                                                .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent()));
+            final DataPlayer dataPlayer = new DataPlayer();
+            if (playerEnum.equals(BasicPlayerEnum.ISAAC)) {
+                dataPlayer.setName(playerName)
+                            .setDamage(DAMAGE_ISAAC)
+                            .setLife(LIFE_ISAAC)
+                            .setSpeed(SPEED_ISAAC)
+                            .setRate(RATE_ISAAC);
+            } else {
+                dataPlayer.setName(playerName)
+                            .setDamage(Double.parseDouble(node.getAttributes().getNamedItem("damage").getTextContent()))
+                            .setLife(Double.parseDouble(node.getAttributes().getNamedItem("life").getTextContent()))
+                            .setSpeed(Double.parseDouble(node.getAttributes().getNamedItem("speed").getTextContent()))
+                            .setRate(Double.parseDouble(node.getAttributes().getNamedItem("rate").getTextContent())); 
+            }
             mapReturn.put(playerName, dataPlayer);
         }
         return mapReturn;
