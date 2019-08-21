@@ -114,7 +114,7 @@ public class TestModel {
                                   + "life     = " + "3.5" + "\n" 
                                   + "speed    = " + "1.8" + "\n" 
                                   + "damage   = " + "1.0" + "\n" 
-                                  + "tearRate = " + "200.0" + "\n";
+                                  + "tearRate = " + "1000.0" + "\n";
           assertEquals(dataPlayerIsac, FactoryPlayersUtils.getDataPlayer(BasicPlayerEnum.ISAAC).toString(), 
                                       "Verify that the correct DataPlayer is returned");
       }
