@@ -3,6 +3,7 @@ package view.interfaces;
 import java.util.Set;
 
 import controller.menu.CharacterInfo;
+import model.util.DataPlayer;
 
 /**
  * View of the SubMenu of the run part of the main menu.
@@ -39,9 +40,10 @@ public interface SubMenuRunView extends SubMenuView {
 
     /**
      * Update the info.
+     * @param dp the data for the player
      * @param c the info.
      */
-    void update(CharacterInfo c);
+    void update(DataPlayer dp, CharacterInfo c);
 
     /**
      * Reset the list.

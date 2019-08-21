@@ -2,6 +2,8 @@ package controller.menu;
 
 import java.util.Set;
 
+import model.enumeration.BasicPlayerEnum;
+import model.util.FactoryPlayersUtils;
 import util.Command;
 import view.interfaces.SubMenuRunView;
 import view.interfaces.SubMenuView;
@@ -13,7 +15,7 @@ import view.javafx.menu.SubMenuRunViewImpl;
 public class SubMenuRun extends SubMenu {
 
     //CircleList. Height is calculated to have the same height and width even with the resize of the window.
-    private static final int CL_WIDTH = 150;
+    private static final int CL_WIDTH = 100;
     private static final int CL_HEIGHT = 25;
     private static final double CL_SCALE = 0.5;
     private static final long CL_TIME = 300;
@@ -70,7 +72,19 @@ public class SubMenuRun extends SubMenu {
         }
     }
     private void update(final CharacterInfo c) {
-        smrv.update(c);
+        try {
+            if (c != null) {
+                smrv.update(FactoryPlayersUtils.getDataPlayer(c.getInfo()), c);
+            } else {
+                smrv.update(null, null);
+            }
+        } catch (ClassNotFoundException e) {
+            try {
+                smrv.update(FactoryPlayersUtils.getDataPlayer(BasicPlayerEnum.ISAAC), c);
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
     @Override

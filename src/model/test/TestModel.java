@@ -12,7 +12,6 @@ import model.component.mentality.EnemyMentalityComponent;
 import model.component.mentality.PlayerMentalityComponent;
 import model.entity.BlackPickupableHeart;
 import model.entity.Bomb;
-import model.entity.FactoryPlayersUtils;
 import model.entity.GaperEnemy;
 import model.entity.Key;
 import model.entity.Player;
@@ -22,6 +21,7 @@ import model.events.CollisionEvent;
 import model.events.DamageEvent;
 import model.game.Room;
 import model.game.RoomImpl;
+import model.util.FactoryPlayersUtils;
 
 /**
  * Test in JUnit for the package model.game.

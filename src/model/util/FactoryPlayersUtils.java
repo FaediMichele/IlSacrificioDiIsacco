@@ -1,8 +1,9 @@
-package model.entity;
+package model.util;
 
 import java.util.Map;
+
+import model.entity.Player;
 import model.enumeration.PlayerEnum;
-import model.util.DataPlayer;
 import util.StaticMethodsUtils;
 
 /**
