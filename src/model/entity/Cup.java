@@ -6,6 +6,7 @@ import model.component.WinOnCollisionComponent;
 import model.component.collision.CollisionComponent;
 import model.component.mentality.NeutralMentalityComponent;
 import model.enumeration.BasicEntityEnum;
+import model.enumeration.BasicPlayerEnum;
 import model.enumeration.EntityEnum;
 import model.util.Position;
 /**
@@ -15,7 +16,7 @@ public class Cup extends AbstractStaticEntity {
     private static final double WIDTH = 20;
     private static final double HEIGHT = 20;
     private static final int WEIGHT = 1;
-    private static final EntityEnum ENTITY_NAME = BasicEntityEnum.ROCK;
+    private static final EntityEnum ENTITY_NAME = BasicPlayerEnum.ISAAC;
 
     /**
      * Initialize entity.

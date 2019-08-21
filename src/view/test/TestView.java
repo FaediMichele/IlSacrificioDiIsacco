@@ -26,7 +26,7 @@ public class TestView {
     })
     @Test
     public void testLoadEnumFromString() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        final String enumerationClass = "view.enumeration.BasicPlayerMenuEnum";
+        final String enumerationClass = "model.enumeration.BasicPlayerEnum";
         final String value = "ISAAC";
         final Enum<? extends PlayerEnum> enumObjet = Enum.valueOf((Class<Enum>) Class.forName(enumerationClass),
                 value);
