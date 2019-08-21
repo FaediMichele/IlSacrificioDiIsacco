@@ -81,7 +81,7 @@ public class CollisionComponent extends AbstractComponent {
      * Posts the DamageEvent.
      * @param event the CollisionEvent
      */
-    protected void damage(final CollisionEvent event) {
+    public void damage(final CollisionEvent event) {
         getEntity().postEvent(new DamageEvent(event.getSourceEntity()));
     }
 

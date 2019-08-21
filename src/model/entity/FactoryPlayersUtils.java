@@ -19,8 +19,8 @@ public final class FactoryPlayersUtils {
 
     /**
      * 
-     * @param player .
-     * @return .
+     * @param player is the player you want to create
+     * @return the {@link Player} created
      * @throws ClassNotFoundException 
      */
     public static DataPlayer getDataPlayer(final PlayerEnum player) throws ClassNotFoundException {
@@ -29,8 +29,8 @@ public final class FactoryPlayersUtils {
 
     /**
      * 
-     * @param player .
-     * @return .
+     * @param player the player whose information you want to receive.
+     * @return a {@link DataPlayer} with all the information of a player
      * @throws ClassNotFoundException 
      */
     public static Player getPlayer(final PlayerEnum player) throws ClassNotFoundException {
