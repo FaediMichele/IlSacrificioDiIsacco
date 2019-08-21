@@ -7,11 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import view.EntryPointView;
 
 /**
  * Launch the application by calling openEntryPoint.
  */
-public class MainView extends Application implements EntryPoint {
+public class MainView extends Application implements EntryPointView {
     private static final String WINDOW_NAME = "Il sacrificio di Isacco";
     private static final String FXML_PATH = "/fxml/Isaac.fxml";
 
