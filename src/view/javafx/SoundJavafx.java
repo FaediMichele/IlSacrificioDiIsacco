@@ -33,7 +33,7 @@ public class SoundJavafx implements Sound {
             a = new MediaPlayer(new Media(getClass().getResource(path).toExternalForm()));
             a.setOnEndOfMedia(() -> {
                 playing = false;
-                if (a.getCycleCount() == 0) {
+                if (a.getCycleCount() <= 1) {
                     a.stop();
                 }
             });
